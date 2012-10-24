@@ -113,6 +113,8 @@ namespace Xamarin.Auth
 		protected class WebViewDelegate : UIWebViewDelegate
 		{
 			protected WebAuthenticatorController controller;
+			Uri lastUrl;
+
 			public WebViewDelegate (WebAuthenticatorController controller)
 			{
 				this.controller = controller;
@@ -128,7 +130,10 @@ namespace Xamarin.Auth
 				controller.activity.StopAnimating ();
 
 				var url = new Uri (webView.Request.Url.AbsoluteString);
-				controller.authenticator.OnPageLoaded (url);
+				if (url != lastUrl) { // Prevent loading the same URL multiple times
+					controller.authenticator.OnPageLoaded (url);
+					lastUrl = url;
+				}
 			}
 		}
 	}

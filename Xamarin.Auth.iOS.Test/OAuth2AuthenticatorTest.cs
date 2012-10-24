@@ -30,15 +30,23 @@ namespace Xamarin.Auth.iOS.Test
 		public void Manual_CodeGithub ()
 		{
 			var a = new OAuth2Authenticator (
-				clientId: "",
-				scope: "",
+				clientId: "ba91626eac8abeccc336",
+				clientSecret: "",
+				scope: "user,gist",
 				authorizeUrl: new Uri ("https://github.com/login/oauth/authorize"),
-				redirectUrl: new Uri ("http://xamarin.com"));
+				redirectUrl: new Uri ("http://xamarin.com"),
+				accessTokenUrl: new Uri ("https://github.com/login/oauth/access_token"));
 
 			var vc = a.GetUI ();
 			AppDelegate.SharedViewController.PresentViewController (vc, true, null);
 			a.Completed += (sender, e) => {
-				Console.WriteLine (e);
+				AppDelegate.SharedViewController.DismissViewController (true, null);
+				if (e.IsAuthenticated) {
+					Console.WriteLine ("AUTHENTICATED: " + e.Account.Serialize ());
+				}
+				else {
+					Console.WriteLine ("NOT AUTHENTICATED");
+				}
 			};
 		}
 	}
