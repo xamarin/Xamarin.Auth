@@ -32,6 +32,14 @@ namespace Xamarin.Auth.iOS.Test
 		// class-level declarations
 		UIWindow window;
 		TouchRunner runner;
+		UIViewController runnerViewController;
+
+		public static UIViewController SharedViewController {
+			get {
+				var del = (AppDelegate)UIApplication.SharedApplication.Delegate;
+				return del.runnerViewController;
+			}
+		}
 
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this 
@@ -49,7 +57,8 @@ namespace Xamarin.Auth.iOS.Test
 			// register every tests included in the main application/assembly
 			runner.Add (System.Reflection.Assembly.GetExecutingAssembly ());
 
-			window.RootViewController = new UINavigationController (runner.GetViewController ());
+			runnerViewController = runner.GetViewController ();
+			window.RootViewController = new UINavigationController (runnerViewController);
 			
 			// make the window visible
 			window.MakeKeyAndVisible ();
