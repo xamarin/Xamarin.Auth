@@ -34,16 +34,42 @@ namespace Xamarin.Auth
 	/// </summary>
 	public abstract class WebAuthenticator : Authenticator
 	{
+		/// <summary>
+		/// Method that returns the initial URL to be displayed in the web browser.
+		/// </summary>
+		/// <returns>
+		/// A task that will return the initial URL.
+		/// </returns>
 		public abstract Task<Uri> GetInitialUrlAsync ();
 
+		/// <summary>
+		/// Event handler called when a new page has been loaded in the web browser.
+		/// Implementations should call <see cref="M:OnSucceeded(Xamarin.Auth.Account)"/> if this page
+		/// signifies a successful authentication.
+		/// </summary>
+		/// <param name='url'>
+		/// The URL of the page.
+		/// </param>
 		public abstract void OnPageLoaded (Uri url);
 
 #if PLATFORM_IOS
+		/// <summary>
+		/// Gets the UI for this authenticator.
+		/// </summary>
+		/// <returns>
+		/// The UI that needs to be presented.
+		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI ()
 		{
 			return new MonoTouch.UIKit.UINavigationController (new WebAuthenticatorController (this));
 		}
 #elif PLATFORM_ANDROID
+		/// <summary>
+		/// Gets the UI for this authenticator.
+		/// </summary>
+		/// <returns>
+		/// The UI that needs to be presented.
+		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI (UIContext context)
 		{
 			var i = new global::Android.Content.Intent (context, typeof (WebAuthenticatorActivity));
@@ -54,6 +80,12 @@ namespace Xamarin.Auth
 			return i;
 		}
 #else
+		/// <summary>
+		/// Gets the UI for this authenticator.
+		/// </summary>
+		/// <returns>
+		/// The UI that needs to be presented.
+		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI ()
 		{
 			throw new NotSupportedException ("WebAuthenticator not supported on this platform.");

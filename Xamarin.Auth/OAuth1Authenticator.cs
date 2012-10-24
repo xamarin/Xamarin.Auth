@@ -21,8 +21,15 @@ using Xamarin.Utilities;
 
 namespace Xamarin.Auth
 {
+	/// <summary>
+	/// OAuth 1.0 authenticator.
+	/// </summary>
 	public class OAuth1Authenticator : WebAuthenticator
 	{
+		/// <summary>
+		/// Type of method used to fetch the username of an account
+		/// after it has been successfully authenticated.
+		/// </summary>
 		public delegate Task<string> GetUsernameAsyncFunc (IDictionary<string, string> accountProperties);
 
 		string consumerKey;
@@ -40,6 +47,31 @@ namespace Xamarin.Auth
 
 		string verifier;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth1Authenticator"/> class.
+		/// </summary>
+		/// <param name='consumerKey'>
+		/// Consumer key.
+		/// </param>
+		/// <param name='consumerSecret'>
+		/// Consumer secret.
+		/// </param>
+		/// <param name='requestTokenUrl'>
+		/// Request token URL.
+		/// </param>
+		/// <param name='authorizeUrl'>
+		/// Authorize URL.
+		/// </param>
+		/// <param name='accessTokenUrl'>
+		/// Access token URL.
+		/// </param>
+		/// <param name='callbackUrl'>
+		/// Callback URL.
+		/// </param>
+		/// <param name='getUsernameAsync'>
+		/// Method used to fetch the username of an account
+		/// after it has been successfully authenticated.
+		/// </param>
 		public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, GetUsernameAsyncFunc getUsernameAsync)
 		{
 			if (string.IsNullOrEmpty (consumerKey)) {
@@ -78,6 +110,12 @@ namespace Xamarin.Auth
 			this.getUsernameAsync = getUsernameAsync;
 		}
 
+		/// <summary>
+		/// Method that returns the initial URL to be displayed in the web browser.
+		/// </summary>
+		/// <returns>
+		/// A task that will return the initial URL.
+		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync () {
 			var req = OAuth1.CreateRequest (
 				"GET",
@@ -104,6 +142,12 @@ namespace Xamarin.Auth
 			});
 		}
 
+		/// <summary>
+		/// Event handler that watches for the callback URL to be loaded.
+		/// </summary>
+		/// <param name='url'>
+		/// The URL of the loaded page.
+		/// </param>
 		public override void OnPageLoaded (Uri url)
 		{
 			if (url.Host == callbackUrl.Host && url.AbsolutePath == callbackUrl.AbsolutePath) {

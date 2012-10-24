@@ -24,11 +24,20 @@ using Xamarin.Utilities;
 
 namespace Xamarin.Auth
 {
+	/// <summary>
+	/// A collection of utility functions for signing OAuth 1.0 requests.
+	/// </summary>
 	public static class OAuth1
 	{
 		/// <summary>
-		/// Encodes the string accoring to: http://tools.ietf.org/html/rfc5849#section-3.6
+		/// Encodes a string according to: http://tools.ietf.org/html/rfc5849#section-3.6
 		/// </summary>
+		/// <returns>
+		/// The encoded string.
+		/// </returns>
+		/// <param name='unencoded'>
+		/// The string to encode.
+		/// </param>
 		public static string EncodeString (string unencoded)
 		{
 			var utf8 = Encoding.UTF8.GetBytes (unencoded);
@@ -48,6 +57,21 @@ namespace Xamarin.Auth
 			return sb.ToString ();
 		}
 
+		/// <summary>
+		/// Gets the signature base string according to: http://tools.ietf.org/html/rfc5849#section-3.4.1
+		/// </summary>
+		/// <returns>
+		/// The signature base string.
+		/// </returns>
+		/// <param name='method'>
+		/// HTTP request method.
+		/// </param>
+		/// <param name='uri'>
+		/// The request resource URI.
+		/// </param>
+		/// <param name='parameters'>
+		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+		/// </param>
 		public static string GetBaseString (string method, Uri uri, IDictionary<string, string> parameters)
 		{
 			var baseBuilder = new StringBuilder ();
@@ -64,6 +88,27 @@ namespace Xamarin.Auth
 			return baseBuilder.ToString ();
 		}
 
+		/// <summary>
+		/// Gets the signature of a request according to: http://tools.ietf.org/html/rfc5849#section-3.4
+		/// </summary>
+		/// <returns>
+		/// The signature.
+		/// </returns>
+		/// <param name='method'>
+		/// HTTP request method.
+		/// </param>
+		/// <param name='uri'>
+		/// The request resource URI.
+		/// </param>
+		/// <param name='parameters'>
+		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+		/// </param>
+		/// <param name='consumerSecret'>
+		/// Consumer secret.
+		/// </param>
+		/// <param name='tokenSecret'>
+		/// Token secret.
+		/// </param>
 		public static string GetSignature (string method, Uri uri, IDictionary<string, string> parameters, string consumerSecret, string tokenSecret)
 		{
 			var baseString = GetBaseString (method, uri, parameters);
@@ -93,22 +138,73 @@ namespace Xamarin.Auth
 			return ps;
 		}
 
-		public static WebRequest CreateRequest (string method, Uri url, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
+		/// <summary>
+		/// Creates an OAuth 1.0 signed request.
+		/// </summary>
+		/// <returns>
+		/// The request.
+		/// </returns>
+		/// <param name='method'>
+		/// HTTP request method.
+		/// </param>
+		/// <param name='uri'>
+		/// The request resource URI.
+		/// </param>
+		/// <param name='parameters'>
+		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+		/// </param>
+		/// <param name='consumerKey'>
+		/// Consumer key.
+		/// </param>
+		/// <param name='consumerSecret'>
+		/// Consumer secret.
+		/// </param>
+		/// <param name='tokenSecret'>
+		/// Token secret.
+		/// </param>
+		public static WebRequest CreateRequest (string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
 		{
-			var ps = MixInOAuthParameters (method, url, parameters, consumerKey, consumerSecret, tokenSecret);
+			var ps = MixInOAuthParameters (method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
 
-			var realUrl = url.AbsoluteUri + "?" + ps.FormEncode ();
+			var realUrl = uri.AbsoluteUri + "?" + ps.FormEncode ();
 
 			var req = (HttpWebRequest)WebRequest.Create (realUrl);
 			req.Method = method;
 			return req;
 		}
 
-		public static string GetAuthorizationHeader (string method, Uri url, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string token, string tokenSecret)
+		/// <summary>
+		/// Gets the authorization header for a signed request.
+		/// </summary>
+		/// <returns>
+		/// The authorization header.
+		/// </returns>
+		/// <param name='method'>
+		/// HTTP request method.
+		/// </param>
+		/// <param name='uri'>
+		/// The request resource URI.
+		/// </param>
+		/// <param name='parameters'>
+		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+		/// </param>
+		/// <param name='consumerKey'>
+		/// Consumer key.
+		/// </param>
+		/// <param name='consumerSecret'>
+		/// Consumer secret.
+		/// </param>
+		/// <param name='token'>
+		/// Token.
+		/// </param>
+		/// <param name='tokenSecret'>
+		/// Token secret.
+		/// </param>
+		public static string GetAuthorizationHeader (string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string token, string tokenSecret)
 		{
 			var ps = new Dictionary<string, string> (parameters);
 			ps["oauth_token"] = token;
-			ps = MixInOAuthParameters (method, url, ps, consumerKey, consumerSecret, tokenSecret);
+			ps = MixInOAuthParameters (method, uri, ps, consumerKey, consumerSecret, tokenSecret);
 
 			var sb = new StringBuilder ();
 			sb.Append ("OAuth ");

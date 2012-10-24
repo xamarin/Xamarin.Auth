@@ -35,29 +35,79 @@ namespace Xamarin.Auth
 	/// </summary>
 	public abstract class FormAuthenticator : Authenticator
 	{
-		public IList<FormAuthenticatorField> Fields { get; private set; }
+		/// <summary>
+		/// The fields that need to be filled in by the user in order to authenticate.
+		/// </summary>
+		/// <value>
+		/// The fields.
+		/// </value>
+		public IList<FormAuthenticatorField> Fields { get; set; }
 
+		/// <summary>
+		/// A link to a website or other resource that allows the user to create a new account.
+		/// </summary>
+		/// <value>
+		/// The create account link.
+		/// </value>
 		public Uri CreateAccountLink { get; set; }
 
-		public FormAuthenticator (Uri createAccountLink)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticator"/> class
+		/// with the given link to create accounts.
+		/// </summary>
+		/// <param name='createAccountLink'>
+		/// A link to a website or other resource that allows the user to create a new account.
+		/// </param>
+		public FormAuthenticator (Uri createAccountLink = null)
 		{
 			Fields = new List<FormAuthenticatorField> ();
 			CreateAccountLink = createAccountLink;
 		}
 
-		public string GetFieldValue (string key) {
+		/// <summary>
+		/// Gets the value of a field using its key.
+		/// </summary>
+		/// <returns>
+		/// The field value.
+		/// </returns>
+		/// <param name='key'>
+		/// The key of the field.
+		/// </param>
+		public string GetFieldValue (string key)
+		{
 			var f = Fields.FirstOrDefault (x => x.Key == key);
 			return (f != null) ? f.Value : null;
 		}
 
+		/// <summary>
+		/// Method called to authenticate the user using the values in the <see cref="Fields"/>.
+		/// </summary>
+		/// <returns>
+		/// A task to retrieve the <see cref="Account"/> for the authenticated user.
+		/// </returns>
+		/// <param name='cancellationToken'>
+		/// Cancellation token used to cancel the authentication.
+		/// </param>
 		public abstract Task<Account> SignInAsync (CancellationToken cancellationToken);
 
 #if PLATFORM_IOS
+		/// <summary>
+		/// Gets the UI to present this form.
+		/// </summary>
+		/// <returns>
+		/// The UI that needs to be presented.
+		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI ()
 		{
 			return new MonoTouch.UIKit.UINavigationController (new FormAuthenticatorController (this));
 		}
 #elif PLATFORM_ANDROID
+		/// <summary>
+		/// Gets the UI to present this form.
+		/// </summary>
+		/// <returns>
+		/// The UI that needs to be presented.
+		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI (UIContext context)
 		{
 			var i = new global::Android.Content.Intent (context, typeof (FormAuthenticatorActivity));
@@ -68,6 +118,12 @@ namespace Xamarin.Auth
 			return i;
 		}
 #else
+		/// <summary>
+		/// Gets the UI to present this form.
+		/// </summary>
+		/// <returns>
+		/// The UI that needs to be presented.
+		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI ()
 		{
 			throw new NotSupportedException ("FormAuthenticator not supported on this platform.");
@@ -80,12 +136,64 @@ namespace Xamarin.Auth
 	/// </summary>
 	public class FormAuthenticatorField
 	{
+		/// <summary>
+		/// A key used to identify this field.
+		/// </summary>
+		/// <value>
+		/// The key.
+		/// </value>
 		public string Key { get; set; }
+
+		/// <summary>
+		/// The title of this field when presented in a UI.
+		/// </summary>
+		/// <value>
+		/// The title.
+		/// </value>
 		public string Title { get; set; }
+
+		/// <summary>
+		/// Placeholder text shown when there is no input value for this field.
+		/// </summary>
+		/// <value>
+		/// The placeholder.
+		/// </value>
 		public string Placeholder { get; set; }
+
+		/// <summary>
+		/// The value of this field.
+		/// </summary>
+		/// <value>
+		/// The value.
+		/// </value>
 		public string Value { get; set; }
+
+		/// <summary>
+		/// The type of this field.
+		/// </summary>
+		/// <value>
+		/// The type.
+		/// </value>
 		public FormAuthenticatorFieldType FieldType { get; set; }
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField"/> class.
+		/// </summary>
+		/// <param name='key'>
+		/// A key used to identify the field.
+		/// </param>
+		/// <param name='title'>
+		/// The title of the field when presented in a UI.
+		/// </param>
+		/// <param name='fieldType'>
+		/// The type of the field.
+		/// </param>
+		/// <param name='placeholder'>
+		/// Placeholder text shown when there is no input value for the field.
+		/// </param>
+		/// <param name='defaultValue'>
+		/// The value of the field.
+		/// </param>
 		public FormAuthenticatorField (string key, string title, FormAuthenticatorFieldType fieldType, string placeholder = "", string defaultValue = "")
 		{
 			if (string.IsNullOrWhiteSpace (key)) {
@@ -103,6 +211,13 @@ namespace Xamarin.Auth
 			Value = defaultValue ?? "";
 
 			FieldType = fieldType;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField"/> class.
+		/// </summary>
+		public FormAuthenticatorField ()
+		{
 		}
 	}
 

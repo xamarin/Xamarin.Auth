@@ -25,8 +25,18 @@ namespace Xamarin.Auth
 	/// </summary>
 	public class OAuth2Authenticator : WebAuthenticator
 	{
+		/// <summary>
+		/// Type of method used to fetch the username of an account
+		/// after it has been successfully authenticated.
+		/// </summary>
 		public delegate Task<string> GetUsernameAsyncFunc (string accessToken);
 
+		/// <summary>
+		/// Gets or sets the type of the response: token or code.
+		/// </summary>
+		/// <value>
+		/// The type of the response.
+		/// </value>
 		public string ResponseType { get; set; }
 
 		string clientId;
@@ -35,6 +45,25 @@ namespace Xamarin.Auth
 		Uri redirectUrl;
 		GetUsernameAsyncFunc getUsernameAsync;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth2Authenticator"/> class.
+		/// </summary>
+		/// <param name='clientId'>
+		/// Client identifier.
+		/// </param>
+		/// <param name='scope'>
+		/// Authorization scope.
+		/// </param>
+		/// <param name='authorizeUrl'>
+		/// Authorize URL.
+		/// </param>
+		/// <param name='redirectUrl'>
+		/// Redirect URL.
+		/// </param>
+		/// <param name='getUsernameAsync'>
+		/// Method used to fetch the username of an account
+		/// after it has been successfully authenticated.
+		/// </param>
 		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync)
 		{
 			ResponseType = "token";
@@ -61,7 +90,13 @@ namespace Xamarin.Auth
 			}
 			this.getUsernameAsync = getUsernameAsync;
 		}
-		
+
+		/// <summary>
+		/// Method that returns the initial URL to be displayed in the web browser.
+		/// </summary>
+		/// <returns>
+		/// A task that will return the initial URL.
+		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync ()
 		{
 			var url = new Uri (string.Format (
@@ -76,7 +111,13 @@ namespace Xamarin.Auth
 				return url;
 			});
 		}
-		
+
+		/// <summary>
+		/// Event handler that watches for the redirect URL to be loaded.
+		/// </summary>
+		/// <param name='url'>
+		/// The URL of the loaded page.
+		/// </param>
 		public override void OnPageLoaded (Uri url)
 		{
 			if (url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath) {

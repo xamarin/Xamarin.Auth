@@ -43,7 +43,7 @@ namespace Xamarin.Auth
 		public virtual CookieContainer Cookies { get; private set; }
 
 		/// <summary>
-		/// Initializes a new blank <see cref="Xamarin.Social.Account"/>.
+		/// Initializes a new blank <see cref="Xamarin.Auth.Account"/>.
 		/// </summary>
 		public Account ()
 			: this ("", null, null)
@@ -51,7 +51,7 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Initializes an <see cref="Xamarin.Social.Account"/> with the given username.
+		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username.
 		/// </summary>
 		/// <param name='username'>
 		/// The username for the account.
@@ -62,7 +62,7 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Initializes an <see cref="Xamarin.Social.Account"/> with the given username and cookies.
+		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
 		/// </summary>
 		/// <param name='username'>
 		/// The username for the account.
@@ -76,7 +76,7 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Initializes an <see cref="Xamarin.Social.Account"/> with the given username and cookies.
+		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
 		/// </summary>
 		/// <param name='username'>
 		/// The username for the account.
@@ -90,7 +90,7 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Initializes an <see cref="Xamarin.Social.Account"/> with the given username and cookies.
+		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
 		/// </summary>
 		/// <param name='username'>
 		/// The username for the account.
@@ -185,10 +185,10 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Social.Account"/>.
+		/// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
 		/// </summary>
 		/// <returns>
-		/// A <see cref="System.String"/> that represents the current <see cref="Xamarin.Social.Account"/>.
+		/// A <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
 		/// </returns>
 		public override string ToString ()
 		{
