@@ -7,10 +7,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.iOS", "Xamarin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Android", "Xamarin.Auth.Android\Xamarin.Auth.Android.csproj", "{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.iOS.Test", "Xamarin.Auth.iOS.Test\Xamarin.Auth.iOS.Test.csproj", "{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+		Release|iPhone = Release|iPhone
+		Ad-Hoc|iPhone = Ad-Hoc|iPhone
+		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9309BCCC-AA7B-4195-A130-D4572FA9488D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -21,12 +29,28 @@ Global
 		{C9FF1919-78DD-4084-976D-BDABC0A7E80B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9FF1919-78DD-4084-976D-BDABC0A7E80B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9FF1919-78DD-4084-976D-BDABC0A7E80B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.AppStore|iPhone.Build.0 = AppStore|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Debug|Any CPU.ActiveCfg = Debug|iPhoneSimulator
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Debug|Any CPU.Build.0 = Debug|iPhoneSimulator
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Debug|iPhone.Build.0 = Debug|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Release|Any CPU.ActiveCfg = Release|iPhoneSimulator
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Release|Any CPU.Build.0 = Release|iPhoneSimulator
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Release|iPhone.ActiveCfg = Release|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Release|iPhone.Build.0 = Release|iPhone
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Xamarin.Auth\Xamarin.Auth.csproj
+		StartupItem = Xamarin.Auth.iOS.Test\Xamarin.Auth.iOS.Test.csproj
 	EndGlobalSection
 EndGlobal
