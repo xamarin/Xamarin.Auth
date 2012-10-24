@@ -23,7 +23,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// OAuth 2.0 response type.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal enum OAuth2ResponseType
+#else
 	public enum OAuth2ResponseType
+#endif
 	{
 		/// <summary>
 		/// Request an authorization code according to:
@@ -41,7 +45,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class OAuth2Authenticator : WebAuthenticator
+#else
 	public class OAuth2Authenticator : WebAuthenticator
+#endif
 	{
 		/// <summary>
 		/// Type of method used to fetch the username of an account
@@ -82,7 +90,7 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync)
+		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null)
 		{
 			ResponseType = OAuth2ResponseType.Token;
 
@@ -103,10 +111,22 @@ namespace Xamarin.Auth
 			}
 			this.redirectUrl = redirectUrl;
 
-			if (getUsernameAsync == null) {
-				throw new ArgumentNullException ("getUsernameAsync");
-			}
 			this.getUsernameAsync = getUsernameAsync;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth2Authenticator"/> class
+		/// for subclasses.
+		/// </summary>
+		/// <param name='redirectUrl'>
+		/// Redirect URL.
+		/// </param>
+		protected OAuth2Authenticator (Uri redirectUrl)
+		{
+			if (redirectUrl == null) {
+				throw new ArgumentNullException ("redirectUrl");
+			}
+			this.redirectUrl = redirectUrl;
 		}
 
 		/// <summary>
@@ -152,16 +172,23 @@ namespace Xamarin.Auth
 					//
 					// Now we just need a username for the account
 					//
-					getUsernameAsync (accessToken).ContinueWith (task => {
-						if (task.IsFaulted) {
-							OnError (task.Exception);
-						}
-						else {
-							OnSucceeded (task.Result, new Dictionary<string,string> {
-								{ "access_token", accessToken },
-							});
-						}
-					}, TaskScheduler.FromCurrentSynchronizationContext ());
+					if (getUsernameAsync != null) {
+						getUsernameAsync (accessToken).ContinueWith (task => {
+							if (task.IsFaulted) {
+								OnError (task.Exception);
+							}
+							else {
+								OnSucceeded (task.Result, new Dictionary<string,string> {
+									{ "access_token", accessToken },
+								});
+							}
+						}, TaskScheduler.FromCurrentSynchronizationContext ());
+					}
+					else {
+						OnSucceeded ("", new Dictionary<string,string> {
+							{ "access_token", accessToken },
+						});
+					}
 				}
 				else if (ResponseType == OAuth2ResponseType.Code) {
 					throw new NotSupportedException ("ResponseType=code is not supported.");

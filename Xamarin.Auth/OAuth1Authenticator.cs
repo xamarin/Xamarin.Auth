@@ -24,7 +24,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// OAuth 1.0 authenticator.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class OAuth1Authenticator : WebAuthenticator
+#else
 	public class OAuth1Authenticator : WebAuthenticator
+#endif
 	{
 		/// <summary>
 		/// Type of method used to fetch the username of an account
@@ -72,7 +76,7 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, GetUsernameAsyncFunc getUsernameAsync)
+		public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, GetUsernameAsyncFunc getUsernameAsync = null)
 		{
 			if (string.IsNullOrEmpty (consumerKey)) {
 				throw new ArgumentException ("consumerKey must be provided", "consumerKey");
@@ -104,9 +108,6 @@ namespace Xamarin.Auth
 			}
 			this.callbackUrl = callbackUrl;
 
-			if (getUsernameAsync == null) {
-				throw new ArgumentNullException ("getUsernameAsync");
-			}
 			this.getUsernameAsync = getUsernameAsync;
 		}
 
@@ -181,14 +182,19 @@ namespace Xamarin.Auth
 				accountProperties["oauth_consumer_key"] = consumerKey;
 				accountProperties["oauth_consumer_secret"] = consumerSecret;
 
-				getUsernameAsync (accountProperties).ContinueWith (uTask => {
-					if (uTask.IsFaulted) {
-						OnError (uTask.Exception);
-					}
-					else {
-						OnSucceeded (uTask.Result, accountProperties);
-					}
-				});
+				if (getUsernameAsync != null) {
+					getUsernameAsync (accountProperties).ContinueWith (uTask => {
+						if (uTask.IsFaulted) {
+							OnError (uTask.Exception);
+						}
+						else {
+							OnSucceeded (uTask.Result, accountProperties);
+						}
+					});
+				}
+				else {
+					OnSucceeded ("", accountProperties);
+				}
 			});
 		}
 	}
