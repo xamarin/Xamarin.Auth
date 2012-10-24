@@ -207,30 +207,53 @@ namespace Xamarin.Auth
 		/// </param>
 		public override void OnPageLoaded (Uri url)
 		{
-			Console.WriteLine ("LOADED " + url);
+			var query = WebEx.FormDecode (url.Query);
+			var fragment = WebEx.FormDecode (url.Fragment);
+
+			var all = new Dictionary<string, string> (query);
+			foreach (var kv in fragment) all[kv.Key] = kv.Value;
+
+			//
+			// Check for forgeries
+			//
+			if (all.ContainsKey ("state")) {
+				if (all ["state"] != requestState) {
+					OnError ("Invalid state from server. Possible forgery!");
+					return;
+				}
+			}
+
+			//
+			// Check for errors
+			//
+			if (all.ContainsKey ("error")) {
+				var description = all ["error"];
+				if (all.ContainsKey ("error_description")) {
+					description = all ["error_description"];
+				}
+				OnError (description);
+				return;
+			}
+
+			//
+			// Look for completion
+			//
 			if (url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath) {
 				//
 				// Look for the access_token
 				//
-				var fragmentParts = url.Fragment.Split ('#', '?', '&');
-				var accessTokenPart = fragmentParts.FirstOrDefault (p => p.StartsWith ("access_token="));
-
-				if (accessTokenPart != null) {
+				if (fragment.ContainsKey ("access_token")) {
 					//
 					// We found an access_token
 					//
-					var accessToken = accessTokenPart.Substring ("access_token=".Length);
-					OnRetrievedAccountProperties (new Dictionary<string, string> {
-						{ "access_token", accessToken },
-					});
+					OnRetrievedAccountProperties (fragment);
 				}
 				else if (!IsImplicit) {
 					//
 					// Look for the code
 					//
-					var qs = WebEx.FormDecode (url.Query);
-					if (qs.ContainsKey ("code")) {
-						var code = qs ["code"];
+					if (query.ContainsKey ("code")) {
+						var code = query ["code"];
 						RequestAccessTokenAsync (code).ContinueWith (task => {
 							if (task.IsFaulted) {
 								OnError (task.Exception);
@@ -241,11 +264,13 @@ namespace Xamarin.Auth
 						});
 					}
 					else {
-						throw new AuthException ("Expected code in response, but did not receive one.");
+						OnError ("Expected code in response, but did not receive one.");
+						return;
 					}
 				}
 				else {
-					throw new AuthException ("Expected access_token in response, but did not receive one.");
+					OnError ("Expected access_token in response, but did not receive one.");
+					return;
 				}
 			}
 		}

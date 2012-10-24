@@ -88,7 +88,7 @@ namespace Xamarin.Utilities
 		{
 			var inputs = new Dictionary<string, string> ();
 
-			if (encodedString.StartsWith ("?")) {
+			if (encodedString.StartsWith ("?") || encodedString.StartsWith ("#")) {
 				encodedString = encodedString.Substring (1);
 			}
 

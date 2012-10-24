@@ -26,8 +26,49 @@ namespace Xamarin.Auth.iOS.Test
 	[TestFixture]
 	public class OAuth2AuthenticatorTest
 	{
+		void HandleCompleted (object sender, AuthenticatorCompletedEventArgs e)
+		{
+			AppDelegate.SharedViewController.DismissViewController (true, null);
+			if (e.IsAuthenticated) {
+				Console.WriteLine ("AUTHENTICATED: " + e.Account.Serialize ());
+			}
+			else {
+				Console.WriteLine ("NOT AUTHENTICATED");
+			}
+		}
+
 		[Test]
-		public void Manual_CodeGithub ()
+		public void Manual_Token_Facebook ()
+		{
+			var a = new OAuth2Authenticator (
+				clientId: "346691492084618",
+				scope: "",
+				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
+				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
+
+			var vc = a.GetUI ();
+			AppDelegate.SharedViewController.PresentViewController (vc, true, null);
+			a.Completed += HandleCompleted;
+		}
+
+		[Test]
+		public void Manual_Code_Bitly ()
+		{
+			var a = new OAuth2Authenticator (
+				clientId: "a939c411b51233c12138c7394c970eb578365602",
+				clientSecret: "",
+				scope: "",
+				authorizeUrl: new Uri ("https://bitly.com/oauth/authorize"),
+				redirectUrl: new Uri ("http://xamarin.com/"),
+				accessTokenUrl: new Uri ("https://api-ssl.bitly.com/oauth/access_token"));
+
+			var vc = a.GetUI ();
+			AppDelegate.SharedViewController.PresentViewController (vc, true, null);
+			a.Completed += HandleCompleted;
+		}
+
+		[Test]
+		public void Manual_Code_Github ()
 		{
 			var a = new OAuth2Authenticator (
 				clientId: "ba91626eac8abeccc336",
@@ -39,15 +80,37 @@ namespace Xamarin.Auth.iOS.Test
 
 			var vc = a.GetUI ();
 			AppDelegate.SharedViewController.PresentViewController (vc, true, null);
-			a.Completed += (sender, e) => {
-				AppDelegate.SharedViewController.DismissViewController (true, null);
-				if (e.IsAuthenticated) {
-					Console.WriteLine ("AUTHENTICATED: " + e.Account.Serialize ());
-				}
-				else {
-					Console.WriteLine ("NOT AUTHENTICATED");
-				}
-			};
+			a.Completed += HandleCompleted;
+		}
+
+		[Test]
+		public void Manual_Code_LiveConnect ()
+		{
+			var a = new OAuth2Authenticator (
+				clientId: "00000000440DC040",
+				clientSecret: "",
+				scope: "wl.basic,wl.share,wl.skydrive",
+				authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
+				redirectUrl: new Uri ("https://xamarin.com"),
+				accessTokenUrl: new Uri ("https://login.live.com/oauth20_token.srf"));
+
+			var vc = a.GetUI ();
+			AppDelegate.SharedViewController.PresentViewController (vc, true, null);
+			a.Completed += HandleCompleted;
+		}
+
+		[Test]
+		public void Manual_Token_LiveConnect ()
+		{
+			var a = new OAuth2Authenticator (
+				clientId: "00000000440DC040",
+				scope: "wl.basic,wl.share,wl.skydrive",
+				authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
+				redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
+
+			var vc = a.GetUI ();
+			AppDelegate.SharedViewController.PresentViewController (vc, true, null);
+			a.Completed += HandleCompleted;
 		}
 	}
 }
