@@ -21,6 +21,24 @@ using System.Collections.Generic;
 namespace Xamarin.Auth
 {
 	/// <summary>
+	/// OAuth 2.0 response type.
+	/// </summary>
+	public enum OAuth2ResponseType
+	{
+		/// <summary>
+		/// Request an authorization code according to:
+		/// http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.1.1
+		/// </summary>
+		Code,
+
+		/// <summary>
+		/// Request an access token (implicit grant) according to:
+		/// http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2.1
+		/// </summary>
+		Token,
+	}
+
+	/// <summary>
 	/// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
 	/// </summary>
 	public class OAuth2Authenticator : WebAuthenticator
@@ -37,7 +55,7 @@ namespace Xamarin.Auth
 		/// <value>
 		/// The type of the response.
 		/// </value>
-		public string ResponseType { get; set; }
+		public OAuth2ResponseType ResponseType { get; set; }
 
 		string clientId;
 		string scope;
@@ -66,7 +84,7 @@ namespace Xamarin.Auth
 		/// </param>
 		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync)
 		{
-			ResponseType = "token";
+			ResponseType = OAuth2ResponseType.Token;
 
 			if (string.IsNullOrEmpty (clientId)) {
 				throw new ArgumentException ("clientId must be provided", "clientId");
@@ -104,7 +122,7 @@ namespace Xamarin.Auth
 				authorizeUrl.AbsoluteUri,
 				Uri.EscapeDataString (clientId),
 				Uri.EscapeDataString (redirectUrl.AbsoluteUri),
-				Uri.EscapeDataString (ResponseType),
+				ResponseType == OAuth2ResponseType.Token ? "token" : "code",
 				Uri.EscapeDataString (scope)));
 
 			return Task.Factory.StartNew (() => {
@@ -145,7 +163,7 @@ namespace Xamarin.Auth
 						}
 					}, TaskScheduler.FromCurrentSynchronizationContext ());
 				}
-				else if (ResponseType == "code") {
+				else if (ResponseType == OAuth2ResponseType.Code) {
 					throw new NotSupportedException ("ResponseType=code is not supported.");
 				}
 				else {
@@ -155,5 +173,4 @@ namespace Xamarin.Auth
 		}
 	}
 }
-
 
