@@ -23,7 +23,11 @@ using Xamarin.Utilities.Android;
 namespace Xamarin.Auth
 {
 	[Activity (Label = "Web Authenticator")]
+#if XAMARIN_AUTH_INTERNAL
+	internal class WebAuthenticatorActivity : Activity
+#else
 	public class WebAuthenticatorActivity : Activity
+#endif
 	{
 		WebView webView;
 

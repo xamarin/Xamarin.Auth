@@ -21,7 +21,7 @@ using MonoTouch.Foundation;
 
 namespace Xamarin.Auth
 {
-	class KeyChainAccountStore : AccountStore
+	internal class KeyChainAccountStore : AccountStore
 	{
 		public override IEnumerable<Account> FindAccountsForService (string serviceId)
 		{

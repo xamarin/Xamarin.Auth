@@ -18,7 +18,11 @@ using MonoTouch.Accounts;
 
 namespace Xamarin.Auth
 {
+#if XAMARIN_AUTH_INTERNAL
+	internal class ACAccountWrapper : Account
+#else
 	public class ACAccountWrapper : Account
+#endif
 	{
 		/// <summary>
 		/// The store that this account came from. We need to keep this reference to prevent the

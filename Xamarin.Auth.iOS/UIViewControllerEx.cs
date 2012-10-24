@@ -19,7 +19,7 @@ using MonoTouch.UIKit;
 
 namespace Xamarin.Utilities.iOS
 {
-	static class UIViewControllerEx
+	internal static class UIViewControllerEx
 	{
 		public static void ShowError (this UIViewController controller, string title, Exception error, Action continuation = null)
 		{

@@ -24,7 +24,7 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// The ViewController that the WebAuthenticator presents to the user.
 	/// </summary>
-	class WebAuthenticatorController : UIViewController
+	internal class WebAuthenticatorController : UIViewController
 	{
 		protected WebAuthenticator authenticator;
 

@@ -29,7 +29,7 @@ namespace Xamarin.Auth
 	/// AccountStore that uses a KeyStore of PrivateKeys protected by a fixed password
 	/// in a private region of internal storage.
 	/// </summary>
-	public class AndroidAccountStore : AccountStore
+	internal class AndroidAccountStore : AccountStore
 	{
 		Context context;
 		KeyStore ks;

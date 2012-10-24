@@ -26,7 +26,7 @@ using Xamarin.Utilities.iOS;
 
 namespace Xamarin.Auth
 {
-	class FormAuthenticatorController : UITableViewController
+	internal class FormAuthenticatorController : UITableViewController
 	{
 		FormAuthenticator authenticator;
 
