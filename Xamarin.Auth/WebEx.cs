@@ -24,7 +24,7 @@ using System.Globalization;
 
 namespace Xamarin.Utilities
 {
-	static class WebEx
+	internal static class WebEx
 	{
 		public static string GetCookie (this CookieContainer containers, Uri domain, string name)
 		{

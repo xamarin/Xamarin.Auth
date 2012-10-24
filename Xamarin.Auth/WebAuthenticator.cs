@@ -32,7 +32,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// An authenticator that displays a web page.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal abstract class WebAuthenticator : Authenticator
+#else
 	public abstract class WebAuthenticator : Authenticator
+#endif
 	{
 		/// <summary>
 		/// Method that returns the initial URL to be displayed in the web browser.

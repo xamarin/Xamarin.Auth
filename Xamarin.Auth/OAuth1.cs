@@ -27,7 +27,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// A collection of utility functions for signing OAuth 1.0 requests.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal static class OAuth1
+#else
 	public static class OAuth1
+#endif
 	{
 		/// <summary>
 		/// Encodes a string according to: http://tools.ietf.org/html/rfc5849#section-3.6

@@ -33,7 +33,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// A process and user interface to authenticate a user.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal abstract class Authenticator
+#else
 	public abstract class Authenticator
+#endif
 	{
 		/// <summary>
 		/// Title of any UI elements that need to be presented for this authenticator.
@@ -186,7 +190,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Authenticator completed event arguments.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class AuthenticatorCompletedEventArgs : EventArgs
+#else
 	public class AuthenticatorCompletedEventArgs : EventArgs
+#endif
 	{
 		/// <summary>
 		/// Whether the authentication succeeded and there is a valid <see cref="Account"/>.
@@ -219,7 +227,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Authenticator error event arguments.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class AuthenticatorErrorEventArgs : EventArgs
+#else
 	public class AuthenticatorErrorEventArgs : EventArgs
+#endif
 	{
 		/// <summary>
 		/// Gets a message describing the error.

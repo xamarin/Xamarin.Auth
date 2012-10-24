@@ -17,7 +17,7 @@ using System;
 
 namespace Xamarin.Utilities
 {
-	static class ExceptionEx
+	internal static class ExceptionEx
 	{
 		public static string GetUserMessage (this Exception error)
 		{

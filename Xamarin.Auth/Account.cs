@@ -25,7 +25,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// An Account that reprents and authenticated user of a social network.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class Account
+#else
 	public class Account
+#endif
 	{
 		/// <summary>
 		/// The username used as a key when storing this account.
