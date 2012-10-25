@@ -33,6 +33,15 @@ namespace Xamarin.Auth
 		Uri initialUrl;
 		Uri redirectUrl;
 
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.WebRedirectAuthenticator"/> class.
+		/// </summary>
+		/// <param name='initialUrl'>
+		/// The Initial URL loaded into the web browser.
+		/// </param>
+		/// <param name='redirectUrl'>
+		/// The URL watched for.
+		/// </param>
 		public WebRedirectAuthenticator (Uri initialUrl, Uri redirectUrl)
 		{
 			this.initialUrl = initialUrl;
@@ -50,6 +59,18 @@ namespace Xamarin.Auth
 			var fragment = WebEx.FormDecode (url.Fragment);
 
 			OnPageLoaded (url, query, fragment);
+		}
+
+		protected bool UrlMatchesRedirect (Uri url)
+		{
+			return url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath;
+		}
+
+		public override void OnPageLoading (Uri url)
+		{
+			if (UrlMatchesRedirect (url)) {
+				OnBrowsingCompleted ();
+			}
 		}
 
 		protected virtual void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
@@ -72,16 +93,14 @@ namespace Xamarin.Auth
 			//
 			// Watch for the redirect
 			//
-			if (url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath) {
+			if (UrlMatchesRedirect (url)) {
 				OnRedirectPageLoaded (url, query, fragment);
 			}
 		}
 
 		protected virtual void OnRedirectPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
-			OnSucceeded ("", new Dictionary<string, string> {
-				{ "fragment", url.Fragment },
-			});
+			OnSucceeded ("", fragment);
 		}
 	}
 }

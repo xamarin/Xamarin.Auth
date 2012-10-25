@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 using Xamarin.Utilities.iOS;
+using Xamarin.Controls;
 
 namespace Xamarin.Auth
 {
@@ -30,12 +31,18 @@ namespace Xamarin.Auth
 
 		UIWebView webView;
 		UIActivityIndicatorView activity;
+		UIView authenticatingView;
+		ProgressLabel progress;
+		bool webViewVisible = true;
+
+		const double TransitionTime = 0.25;
 
 		public WebAuthenticatorController (WebAuthenticator authenticator)
 		{
 			this.authenticator = authenticator;
 
 			authenticator.Error += HandleError;
+			authenticator.BrowsingCompleted += HandleBrowsingCompleted;
 
 			//
 			// Create the UI
@@ -51,10 +58,12 @@ namespace Xamarin.Auth
 			activity = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
 			NavigationItem.RightBarButtonItem = new UIBarButtonItem (activity);
 
-			webView = new UIWebView (View.Frame) {
+			webView = new UIWebView (View.Bounds) {
 				Delegate = new WebViewDelegate (this),
+				AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
 			};
-			View = webView;
+			View.AddSubview (webView);
+			View.BackgroundColor = UIColor.Black;
 
 			//
 			// Locate our initial URL
@@ -97,11 +106,55 @@ namespace Xamarin.Auth
 		
 		void LoadInitialUrl (Uri url)
 		{
+			if (!webViewVisible) {
+				progress.StopAnimating ();
+				webViewVisible = true;
+				UIView.Transition (
+					fromView: authenticatingView,
+					toView: webView,
+					duration: TransitionTime,
+					options: UIViewAnimationOptions.TransitionCrossDissolve,
+					completion: null);
+			}
+
 			if (url != null) {
 				var request = new NSUrlRequest (new NSUrl (url.AbsoluteUri));
 				NSUrlCache.SharedCache.RemoveCachedResponse (request); // Always try
 				webView.LoadRequest (request);
 			}
+		}
+
+		void HandleBrowsingCompleted (object sender, EventArgs e)
+		{
+			if (!webViewVisible) return;
+
+			if (authenticatingView == null) {
+				authenticatingView = new UIView (View.Bounds) {
+					AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+					BackgroundColor = UIColor.FromRGB (0x33, 0x33, 0x33),
+				};
+				progress = new ProgressLabel ("Authenticating...");
+				var f = progress.Frame;
+				var b = authenticatingView.Bounds;
+				f.X = (b.Width - f.Width) / 2;
+				f.Y = (b.Height - f.Height) / 2;
+				progress.Frame = f;
+				authenticatingView.Add (progress);
+			}
+			else {
+				authenticatingView.Frame = View.Bounds;
+			}
+
+			webViewVisible = false;
+
+			progress.StartAnimating ();
+
+			UIView.Transition (
+				fromView: webView,
+				toView: authenticatingView,
+				duration: TransitionTime,
+				options: UIViewAnimationOptions.TransitionCrossDissolve,
+				completion: null);
 		}
 
 		void HandleError (object sender, AuthenticatorErrorEventArgs e)
@@ -127,6 +180,11 @@ namespace Xamarin.Auth
 			public override void LoadStarted (UIWebView webView)
 			{
 				controller.activity.StartAnimating ();
+
+				Uri url;
+				if (Uri.TryCreate (webView.Request.Url.AbsoluteString, UriKind.Absolute, out url)) {
+					controller.authenticator.OnPageLoading (url);
+				}
 			}
 
 			public override void LoadingFinished (UIWebView webView)
@@ -135,8 +193,8 @@ namespace Xamarin.Auth
 
 				var url = new Uri (webView.Request.Url.AbsoluteString);
 				if (url != lastUrl) { // Prevent loading the same URL multiple times
-					controller.authenticator.OnPageLoaded (url);
 					lastUrl = url;
+					controller.authenticator.OnPageLoaded (url);
 				}
 			}
 		}

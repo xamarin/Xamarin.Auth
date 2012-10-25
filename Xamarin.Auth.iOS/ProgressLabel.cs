@@ -9,7 +9,7 @@ namespace Xamarin.Controls
 		UIActivityIndicatorView activity;
 		
 		public ProgressLabel (string text)
-			: base (new RectangleF (0, 0, 180, 44))
+			: base (new RectangleF (0, 0, 200, 44))
 		{
 			BackgroundColor = UIColor.Clear;
 			

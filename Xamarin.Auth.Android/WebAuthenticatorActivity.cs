@@ -133,6 +133,11 @@ namespace Xamarin.Auth
 				return false;
 			}
 
+			public override void OnPageStarted (WebView view, string url, Android.Graphics.Bitmap favicon)
+			{
+				activity.state.Authenticator.OnPageLoading (new Uri (url));
+			}
+
 			public override void OnPageFinished (WebView view, string url)
 			{
 				activity.state.Authenticator.OnPageLoaded (new Uri (url));

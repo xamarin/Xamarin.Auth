@@ -56,7 +56,7 @@ namespace Xamarin.Auth.iOS.Test
 		{
 			var a = new OAuth2Authenticator (
 				clientId: "a939c411b51233c12138c7394c970eb578365602",
-				clientSecret: "",
+				clientSecret: "0c0750bbb9f1df4d18fb9c74204b040cad2ea6b1",
 				scope: "",
 				authorizeUrl: new Uri ("https://bitly.com/oauth/authorize"),
 				redirectUrl: new Uri ("http://xamarin.com/"),

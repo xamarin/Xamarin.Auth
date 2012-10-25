@@ -47,6 +47,16 @@ namespace Xamarin.Auth
 		public abstract Task<Uri> GetInitialUrlAsync ();
 
 		/// <summary>
+		/// Event handler called when a new page is being loaded in the web browser.
+		/// </summary>
+		/// <param name='url'>
+		/// The URL of the page.
+		/// </param>
+		public virtual void OnPageLoading (Uri url)
+		{
+		}
+
+		/// <summary>
 		/// Event handler called when a new page has been loaded in the web browser.
 		/// Implementations should call <see cref="M:OnSucceeded(Xamarin.Auth.Account)"/> if this page
 		/// signifies a successful authentication.
@@ -55,6 +65,23 @@ namespace Xamarin.Auth
 		/// The URL of the page.
 		/// </param>
 		public abstract void OnPageLoaded (Uri url);
+
+		/// <summary>
+		/// Occurs when the visual, user-interactive, browsing has completed but there
+		/// is more authentication work to do.
+		/// </summary>
+		public event EventHandler BrowsingCompleted;
+
+		/// <summary>
+		/// Raises the browsing completed event.
+		/// </summary>
+		protected virtual void OnBrowsingCompleted ()
+		{
+			var ev = BrowsingCompleted;
+			if (ev != null) {
+				ev (this, EventArgs.Empty);
+			}
+		}
 
 #if PLATFORM_IOS
 		/// <summary>

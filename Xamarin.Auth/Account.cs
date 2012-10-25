@@ -196,7 +196,7 @@ namespace Xamarin.Auth
 		/// </returns>
 		public override string ToString ()
 		{
-			return Username;
+			return Serialize ();
 		}
 	}
 }
