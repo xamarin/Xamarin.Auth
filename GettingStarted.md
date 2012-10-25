@@ -52,7 +52,7 @@ All the information gathered from a successful authentication is stored in the `
 
 
 
-## 4. Use the Account data
+## 3. Use the Account data
 
 In the case of OAuth, we are most interested in the `access_token` that results from the authentication. It's available as:
 
@@ -67,7 +67,7 @@ You can now use that token to sign requests.
 
 
 
-## 5. Store the account
+## 4. Store the account
 
 Xamarin.Auth is able to persistently and securely store `Account` objects so that you don't have to bother the user very often. `AccountStore` objects are used for this storage. On iOS, they use the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html). On Android, a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) is used.
 
@@ -80,7 +80,7 @@ If an account already exists, called `Save` will overwrite it. This is convenien
 
 
 
-## 6. Retrieve stored accounts
+## 5. Retrieve stored accounts
 
 You can fetch all the `Account` objects stored for a given service:
 
@@ -91,7 +91,7 @@ It's that easy.
 
 
 
-## 7. Make your own authenticator
+## 6. Make your own authenticator
 
 Xamarin.Auth comes with OAuth 1.0 and OAuth 2.0 authenticators ready to go. For standard username/password scenarios, you can derive a new authenticator from `FormAuthenticator`.
 
