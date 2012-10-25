@@ -1,6 +1,6 @@
 # Getting Started
 
-Xamarin.Auth enables you to authenticate users and store their accounts. It's easy to authenticate against services that use standard authentication mechanisms such as OAuth, but is also easy to use for wilder services. The library is cross-platform so once you learn it for iOS, you already know it for Android.
+Xamarin.Auth enables you to authenticate users and store their accounts. It's easy to authenticate against services that use standard authentication mechanisms such as OAuth, but can also be used for wilder services. The library is cross-platform so once you learn it on iOS, you're all set on Android.
 
 
 
@@ -52,11 +52,11 @@ All the information gathered from a successful authentication is stored in the `
 
 
 
-## 4. Use the Account data
+## 3. Use the Account data
 
 In the case of OAuth, we are most interested in the `access_token` that results from the authentication. It's available as:
 
-	var accessToken = e.Account.Properties ["acess_token"]
+	var accessToken = e.Account.Properties ["acess_token"];
 
 You can now use that token to sign requests.
 
@@ -67,31 +67,31 @@ You can now use that token to sign requests.
 
 
 
-## 5. Store the account
+## 4. Store the account
 
 Xamarin.Auth is able to persistently and securely store `Account` objects so that you don't have to bother the user very often. `AccountStore` objects are used for this storage. On iOS, they use the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html). On Android, a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) is used.
 
-	AccountStore.Create ().Save (account, "Skydrive");
+	AccountStore.Create ().Save (e.Account, "Skydrive");
 
-Accounts are stored and uniquely identified using a key comprised of the account's `Username` and a "Service ID", both of which are strings.
+Accounts are stored and uniquely identified using a key comprised of the account's `Username` and a "Service ID", both of which are strings. The service ID is any string that is used when fetching accounts from the store.
 
-If an account already exists, called `Save` will overwrite it. This is convenient for services that expire the credentials store in the account object.
-
-
+If an account already exists, calling `Save` will overwrite it. This is convenient for services that expire the credentials store in the account object.
 
 
-## 6. Retrieve stored accounts
+
+
+## 5. Retrieve stored accounts
 
 You can fetch all the `Account` objects stored for a given service:
 
-	AccountStore.Create ().FindAccountsForService ("Skydrive");
+	IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Skydrive");
 
 It's that easy.
 
 
 
 
-## 7. Make your own authenticator
+## 6. Make your own authenticator
 
 Xamarin.Auth comes with OAuth 1.0 and OAuth 2.0 authenticators ready to go. For standard username/password scenarios, you can derive a new authenticator from `FormAuthenticator`.
 
