@@ -49,6 +49,7 @@
     <Compile Include="AuthException.cs" />
     <Compile Include="ExceptionEx.cs" />
     <Compile Include="WebEx.cs" />
+    <Compile Include="WebRedirectAuthenticator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

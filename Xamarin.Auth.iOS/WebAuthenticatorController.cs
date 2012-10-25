@@ -66,6 +66,7 @@ namespace Xamarin.Auth
 		{
 			authenticator.GetInitialUrlAsync ().ContinueWith (t => {
 				if (t.IsFaulted) {
+					// Don't want to call OnError as that will reload the page
 				}
 				else {
 					//
@@ -83,9 +84,12 @@ namespace Xamarin.Auth
 
 		void DeleteCookies (Uri url)
 		{
-			var cookiesUrl = url.Scheme + "://" + url.Host;
+			//
+			// Delete all cookies so that redirects have their cookies
+			// erased too.
+			//
 			var store = NSHttpCookieStorage.SharedStorage;
-			var cookies = store.CookiesForUrl (new NSUrl (cookiesUrl));
+			var cookies = store.Cookies;
 			foreach (var c in cookies) {
 				store.DeleteCookie (c);
 			}

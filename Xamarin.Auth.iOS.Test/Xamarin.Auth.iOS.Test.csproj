@@ -91,6 +91,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="OAuth1Test.cs" />
     <Compile Include="OAuth2AuthenticatorTest.cs" />
+    <Compile Include="WebRedirectAuthenticatorTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

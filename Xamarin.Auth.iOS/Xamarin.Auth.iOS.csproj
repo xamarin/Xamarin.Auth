@@ -75,7 +75,6 @@
     <Compile Include="ACAccountWrapper.cs" />
     <Compile Include="FormAuthenticatorController.cs" />
     <Compile Include="KeyChainAccountStore.cs" />
-    <Compile Include="WebAuthenticatorController.cs" />
     <Compile Include="..\Xamarin.Auth\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
     </Compile>
@@ -84,5 +83,9 @@
     </Compile>
     <Compile Include="ProgressLabel.cs" />
     <Compile Include="UIViewControllerEx.cs" />
+    <Compile Include="..\Xamarin.Auth\WebRedirectAuthenticator.cs">
+      <Link>WebRedirectAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="WebAuthenticatorController.cs" />
   </ItemGroup>
 </Project>

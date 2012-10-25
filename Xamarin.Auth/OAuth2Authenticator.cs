@@ -27,9 +27,9 @@ namespace Xamarin.Auth
 	/// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
 	/// </summary>
 #if XAMARIN_AUTH_INTERNAL
-	internal class OAuth2Authenticator : WebAuthenticator
+	internal class OAuth2Authenticator : WebRedirectAuthenticator
 #else
-	public class OAuth2Authenticator : WebAuthenticator
+	public class OAuth2Authenticator : WebRedirectAuthenticator
 #endif
 	{
 		string clientId;
@@ -41,6 +41,7 @@ namespace Xamarin.Auth
 		GetUsernameAsyncFunc getUsernameAsync;
 
 		string requestState;
+		bool reportedForgery = false;
 
 		/// <summary>
 		/// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
@@ -143,17 +144,8 @@ namespace Xamarin.Auth
 			this.getUsernameAsync = getUsernameAsync;
 		}
 
-		/// <summary>
-		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth2Authenticator"/> class
-		/// for subclasses.
-		/// </summary>
-		/// <param name='redirectUrl'>
-		/// Redirect URL.
-		/// </param>
-		/// <param name='accessTokenUrl'>
-		/// URL used to request access tokens after an authorization code was received.
-		/// </param>
-		protected OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
+		OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
+			: base (redirectUrl, redirectUrl)
 		{
 			if (redirectUrl == null) {
 				throw new ArgumentNullException ("redirectUrl");
@@ -199,17 +191,8 @@ namespace Xamarin.Auth
 			});
 		}
 
-		/// <summary>
-		/// Event handler that watches for the redirect URL to be loaded.
-		/// </summary>
-		/// <param name='url'>
-		/// The URL of the loaded page.
-		/// </param>
-		public override void OnPageLoaded (Uri url)
+		protected override void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
-			var query = WebEx.FormDecode (url.Query);
-			var fragment = WebEx.FormDecode (url.Fragment);
-
 			var all = new Dictionary<string, string> (query);
 			foreach (var kv in fragment) all[kv.Key] = kv.Value;
 
@@ -217,61 +200,53 @@ namespace Xamarin.Auth
 			// Check for forgeries
 			//
 			if (all.ContainsKey ("state")) {
-				if (all ["state"] != requestState) {
+				if (all ["state"] != requestState && !reportedForgery) {
+					reportedForgery = true;
 					OnError ("Invalid state from server. Possible forgery!");
 					return;
 				}
 			}
 
 			//
-			// Check for errors
+			// Continue processing
 			//
-			if (all.ContainsKey ("error")) {
-				var description = all ["error"];
-				if (all.ContainsKey ("error_description")) {
-					description = all ["error_description"];
-				}
-				OnError (description);
-				return;
-			}
+			base.OnPageLoaded (url, query, fragment);
+		}
 
+		protected override void OnRedirectPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
+		{
 			//
-			// Look for completion
+			// Look for the access_token
 			//
-			if (url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath) {
+			if (fragment.ContainsKey ("access_token")) {
 				//
-				// Look for the access_token
+				// We found an access_token
 				//
-				if (fragment.ContainsKey ("access_token")) {
-					//
-					// We found an access_token
-					//
-					OnRetrievedAccountProperties (fragment);
-				}
-				else if (!IsImplicit) {
-					//
-					// Look for the code
-					//
-					if (query.ContainsKey ("code")) {
-						var code = query ["code"];
-						RequestAccessTokenAsync (code).ContinueWith (task => {
-							if (task.IsFaulted) {
-								OnError (task.Exception);
-							}
-							else {
-								OnRetrievedAccountProperties (task.Result);
-							}
-						});
-					}
-					else {
-						OnError ("Expected code in response, but did not receive one.");
-						return;
-					}
+				OnRetrievedAccountProperties (fragment);
+			}
+			else if (!IsImplicit) {
+				//
+				// Look for the code
+				//
+				if (query.ContainsKey ("code")) {
+					var code = query ["code"];
+					RequestAccessTokenAsync (code).ContinueWith (task => {
+						if (task.IsFaulted) {
+							OnError (task.Exception);
+						}
+						else {
+							OnRetrievedAccountProperties (task.Result);
+						}
+					});
 				}
 				else {
-					OnError ("Expected access_token in response, but did not receive one.");
+					OnError ("Expected code in response, but did not receive one.");
 					return;
 				}
+			}
+			else {
+				OnError ("Expected access_token in response, but did not receive one.");
+				return;
 			}
 		}
 
@@ -326,7 +301,7 @@ namespace Xamarin.Auth
 		/// <param name='accessToken'>
 		/// Access token.
 		/// </param>
-		protected virtual void OnRetrievedAccountProperties (Dictionary<string, string> accountProperties)
+		protected virtual void OnRetrievedAccountProperties (IDictionary<string, string> accountProperties)
 		{
 			//
 			// Now we just need a username for the account

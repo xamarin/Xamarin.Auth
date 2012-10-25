@@ -84,5 +84,8 @@
     </Compile>
     <Compile Include="ActivityEx.cs" />
     <Compile Include="ActivityStateRepository.cs" />
+    <Compile Include="..\Xamarin.Auth\WebRedirectAuthenticator.cs">
+      <Link>WebRedirectAuthenticator.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

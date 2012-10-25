@@ -15,11 +15,11 @@
 //
 using System;
 using NUnit.Framework;
-using MonoTouch.UIKit;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Auth;
+using System.Threading.Tasks;
 
 namespace Xamarin.Auth.iOS.Test
 {
