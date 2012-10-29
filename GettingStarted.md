@@ -43,7 +43,7 @@ The `Completed` event fires when the user successfully authenticates or cancels.
 		if (e.IsAuthenticated) {
 			// Use e.Account to do wonderful things
 		} else {
-			// They decided not to authenticate
+			// The user cancelled
 		}
 	}
 
