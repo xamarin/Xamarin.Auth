@@ -17,16 +17,16 @@ Let's authenticate a user to access Skydrive:
 		authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
 		redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
 
-Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. Authenticators are responible for managing the user interface and communicating with authentication services.
+Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. `Authenticator`s are responible for managing the user interface and communicating with authentication services.
 
-Authenticators take a variety of parameters. In this case, the application's client ID, its authorization scope, and Skydrive's various service locations are required.
+`Authenticator`s take a variety of parameters; in this case, the application's client ID, its authorization scope, and Skydrive's various service locations are required.
 
 
 
 
 ## 2. Authenticate the user
 
-While authenticators manage their UIs, it's up to you to actually present them on the screen.
+While `Authenticator`s manage their UIs, it's up to you to actually present them on the screen.
 
 	PresentViewController (auth.GetUI (), true, null);
 
