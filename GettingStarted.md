@@ -17,20 +17,18 @@ Let's authenticate a user to access Skydrive:
 		authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
 		redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
 
-Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. `Authenticator`s are responible for managing the user interface and communicating with authentication services.
+Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. `Authenticators` are responsible for managing the user interface and communicating with authentication services.
 
-`Authenticator`s take a variety of parameters; in this case, the application's client ID, its authorization scope, and Skydrive's various service locations are required.
+`Authenticators` take a variety of parameters; in this case, the application's client ID, its authorization scope, and Skydrive's various service locations are required.
 
 
 
 
 ## 2. Authenticate the user
 
-While `Authenticator`s manage their own UI, it's up to you to initially present the `Authenticator`'s UI on the screen:
+While `Authenticators` manage their own UI, it's up to you to initially present the `Authenticator`'s UI on the screen. This lets you control how the authentication UI is displayed–modally, in navigation controllers, in popovers, etc.
 
 	PresentViewController (auth.GetUI (), true, null);
-
-This lets you control how the authentication UI is displayed–modally, in navigation controllers, in popovers, etc.
 
 The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. On Android, we would write the following code to present the UI:
 
