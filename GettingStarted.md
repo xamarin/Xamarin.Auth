@@ -39,6 +39,7 @@ The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on An
 The `Completed` event fires when the user successfully authenticates or cancels. You can find out if the authentication succeeded by testing the `IsAuthenticated` property of the event args:
 
 	auth.Completed += (s, e) => {
+		// We presented the UI, so it's up to us to dimiss it.
 		DismissViewController (true, null);
 		if (e.IsAuthenticated) {
 			// Use e.Account to do wonderful things
@@ -47,7 +48,6 @@ The `Completed` event fires when the user successfully authenticates or cancels.
 		}
 	}
 
-(Since we presented the UI, it's up to us to dimiss it too.)
 
 All the information gathered from a successful authentication is stored in the `Account` property of the `Completed` event args.
 
