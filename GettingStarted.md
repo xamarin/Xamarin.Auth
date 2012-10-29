@@ -17,16 +17,16 @@ Let's authenticate a user to access Skydrive:
 		authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
 		redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
 
-Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. `Authenticators` are responsible for managing the user interface and communicating with authentication services.
+Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. Authenticators are responsible for managing the user interface and communicating with authentication services.
 
-`Authenticators` take a variety of parameters; in this case, the application's client ID, its authorization scope, and Skydrive's various service locations are required.
+Authenticators take a variety of parameters; in this case, the application's client ID, its authorization scope, and Skydrive's various service locations are required.
 
 
 
 
 ## 2. Authenticate the user
 
-While `Authenticators` manage their own UI, it's up to you to initially present the `Authenticator`'s UI on the screen. This lets you control how the authentication UI is displayed–modally, in navigation controllers, in popovers, etc.
+While authenticators manage their own UI, it's up to you to initially present the authenticator's UI on the screen. This lets you control how the authentication UI is displayed–modally, in navigation controllers, in popovers, etc.
 
 	PresentViewController (auth.GetUI (), true, null);
 
@@ -93,7 +93,7 @@ It's that easy.
 
 ## 6. Make your own authenticator
 
-Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands of popular services. For services that use traditional username/password authentication, you can roll your own `Authenticator` by deriving from `FormAuthenticator`.
+Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands of popular services. For services that use traditional username/password authentication, you can roll your own authenticator by deriving from `FormAuthenticator`.
 
 If you want to authenticate against an ostensibly unsupported service, fear not–Xamarin.Auth extensible! It's very easy to create your own authenticators–see <a href="Details.md">Details</a> for information on creating custom authenticators.
 
