@@ -58,7 +58,7 @@ In the case of OAuth, we are most interested in the `access_token` that results 
 
 	var accessToken = eventArgs.Account.Properties ["acess_token"];
 
-You can now use that token to sign requests.
+You can now use that token to sign requests:
 
 	var request = WebRequest.Create (
 		"http://apis.live.net/v5.0/me/skydrive/shared?access_token=" +
