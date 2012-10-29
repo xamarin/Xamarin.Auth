@@ -77,7 +77,7 @@ Xamarin.Auth securely stores `Account` objects so that you don't always have to 
 
 Saved Accounts are uniquely identified using a key composed of the account's `Username` property and a "Service ID". The "Service ID" is any string that is used when fetching accounts from the store.
 
-If an `Account` was previously saved, calling `Save` again will overwrite it. This is convenient for services that expire the credentials store in the account object.
+If an `Account` was previously saved, calling `Save` again will overwrite it. This is convenient for services that expire the credentials stored in the account object.
 
 
 
