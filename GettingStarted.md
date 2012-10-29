@@ -26,7 +26,7 @@ Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. `
 
 ## 2. Authenticate the user
 
-While `Authenticator`s manage their UIs, it's up to you to actually present them on the screen.
+While `Authenticator`s manage their own UI, it's up to you to initially present the `Authenticator`'s UI on the screen.
 
 	PresentViewController (auth.GetUI (), true, null);
 
