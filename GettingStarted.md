@@ -7,7 +7,7 @@ Xamarin.Auth helps you authenticate users against standard authentication mechan
 
 ## 1. Create and configure an authenticator
 
-Let's authenticate our user to access Skydrive:
+Let's authenticate a user to access Skydrive:
 
     using Xamarin.Auth;
     ...
