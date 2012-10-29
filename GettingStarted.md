@@ -1,6 +1,6 @@
 # Getting Started
 
-Xamarin.Auth helps you authenticate users and store their account credentials. It's easy to authenticate against services that use standard authentication mechanisms such as OAuth, but can also be used for wilder services. The library is cross-platform so once you learn it on iOS, you're all set on Android.
+Xamarin.Auth helps you authenticate users against standard authentication mechanisms (e.g. OAuth), and store user credentials. It's also possible to authenticate against "wilder" services. The library is cross-platform, so once you learn it on iOS, you're all set on Android.
 
 
 
