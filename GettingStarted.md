@@ -84,7 +84,7 @@ If an `Account` was previously saved, calling `Save` again will overwrite it. Th
 
 ## 5. Retrieve stored accounts
 
-You can fetch all the `Account` objects stored for a given service:
+You can fetch all `Account` objects stored for a given service:
 
 	IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Skydrive");
 
