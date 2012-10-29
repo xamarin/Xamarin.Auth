@@ -30,7 +30,7 @@ While `Authenticator`s manage their own UI, it's up to you to initially present 
 
 	PresentViewController (auth.GetUI (), true, null);
 
-This is a manual step so that you can present the UI however you want: modally, in navigation controllers, in popovers, wherever.
+This lets you present the UI however you want–modally, in navigation controllers, in popovers, etc.
 
 The `GetUI` function will return `UINavigationControllers` on iOS and `Intents` on Android. If we were on Android, we would write the following code to present the UI:
 
