@@ -71,7 +71,7 @@ You can now use that token to sign requests.
 
 ## 4. Store the account
 
-Xamarin.Auth securely stores `Account` objects so that you don't always have to reauthenticate the user. `AccountStore` objects are used for this storage. On iOS, they use the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html). On Android, a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) is used.
+Xamarin.Auth securely stores `Account` objects so that you don't always have to reauthenticate the user. The `AccountStore` class is responsible for storing `Account` information, using the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) on iOS and a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) on Android.
 
 	AccountStore.Create ().Save (e.Account, "Skydrive");
 
