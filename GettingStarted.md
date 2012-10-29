@@ -32,7 +32,7 @@ While `Authenticator`s manage their own UI, it's up to you to initially present 
 
 This lets you control how the authentication UI is displayed–modally, in navigation controllers, in popovers, etc.
 
-The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. If we were on Android, we would write the following code to present the UI:
+The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. On Android, we would write the following code to present the UI:
 
 	StartActivity (auth.GetUI (this));
 
