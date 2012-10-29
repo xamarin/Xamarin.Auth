@@ -36,29 +36,29 @@ The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on An
 
 	StartActivity (auth.GetUI (this));
 
-The `Completed` event fires when the user successfully authenticates or cancels. You can find out if the authentication succeeded by testing the `IsAuthenticated` property of the event args:
+The `Completed` event fires when the user successfully authenticates or cancels. You can find out if the authentication succeeded by testing the `IsAuthenticated` property of `eventArgs`:
 
-	auth.Completed += (s, e) => {
+	auth.Completed += (sender, eventArgs) => {
 		// We presented the UI, so it's up to us to dimiss it.
 		DismissViewController (true, null);
-		if (e.IsAuthenticated) {
-			// Use e.Account to do wonderful things
+		if (eventArgs.IsAuthenticated) {
+			// Use eventArgs.Account to do wonderful things
 		} else {
 			// The user cancelled
 		}
 	}
 
 
-All the information gathered from a successful authentication is stored in the `Account` property of the `Completed` event args.
+All the information gathered from a successful authentication is available in `eventArgs.Account`.
 
 
 
 
 ## 3. Use the Account data
 
-In the case of OAuth, we are most interested in the `access_token` that results from the authentication. It's available as:
+In the case of OAuth, we are most interested in the `access_token` that results from the authentication. It's available within the `Completed` event handler via:
 
-	var accessToken = e.Account.Properties ["acess_token"];
+	var accessToken = eventArgs.Account.Properties ["acess_token"];
 
 You can now use that token to sign requests.
 
