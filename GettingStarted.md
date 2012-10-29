@@ -9,6 +9,8 @@ Xamarin.Auth helps you authenticate users against standard authentication mechan
 
 Let's authenticate our user to access Skydrive:
 
+    using Xamarin.Auth;
+    ...
 	var auth = new OAuth2Authenticator (
 		clientId: "Client ID from https://manage.dev.live.com/Applications/Index",
 		scope: "wl.basic,wl.skydrive",
