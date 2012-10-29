@@ -95,7 +95,7 @@ It's that easy.
 
 ## 6. Make your own authenticator
 
-Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands of popular services. For standard username/password scenarios, you can derive a new authenticator from `FormAuthenticator`.
+Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands of popular services. For services that use traditional username/password authentication, you can roll your own `Authenticator` by deriving from `FormAuthenticator`.
 
 If you want to authenticate against a service not covered by this API, fear not, it's extensible! It's very easy to create your own authenticators. Check out <a href="Details.md">Details</a> for details.
 
