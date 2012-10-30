@@ -95,6 +95,6 @@ It's that easy.
 
 Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands of popular services. For services that use traditional username/password authentication, you can roll your own authenticator by deriving from `FormAuthenticator`.
 
-If you want to authenticate against an ostensibly unsupported service, fear not–Xamarin.Auth extensible! It's very easy to create your own authenticators–see <a href="Details.md">Details</a> for information on creating custom authenticators.
+If you want to authenticate against an ostensibly unsupported service, fear not – Xamarin.Auth is extensible! It's very easy to create your own authenticators – see <a href="Details.md">Details</a> for information on creating custom authenticators.
 
 
