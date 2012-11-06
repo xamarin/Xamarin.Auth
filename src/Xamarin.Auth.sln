@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.iOS", "Xamarin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Android", "Xamarin.Auth.Android\Xamarin.Auth.Android.csproj", "{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.iOS.Test", "Xamarin.Auth.iOS.Test\Xamarin.Auth.iOS.Test.csproj", "{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C8D45038-9B94-4408-B4D9-3BDF2F0C0623}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
@@ -17,7 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		License.md = License.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Android.Test", "Xamarin.Auth.Android.Test\Xamarin.Auth.Android.Test.csproj", "{90E6A56F-0922-427D-B9DB-C6D1698972B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.iOS.Test", "..\tests\Xamarin.Auth.iOS.Test\Xamarin.Auth.iOS.Test.csproj", "{FB361F3C-66D3-4B16-9FBF-62C06F7815FD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Android.Test", "..\tests\Xamarin.Auth.Android.Test\Xamarin.Auth.Android.Test.csproj", "{90E6A56F-0922-427D-B9DB-C6D1698972B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,10 +31,10 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
-		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
-		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.AppStore|iPhone.ActiveCfg = Release|Any CPU
-		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.AppStore|iPhone.Build.0 = Debug|Any CPU
 		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90E6A56F-0922-427D-B9DB-C6D1698972B6}.Debug|iPhone.ActiveCfg = Debug|Any CPU
@@ -79,6 +79,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Xamarin.Auth.iOS.Test\Xamarin.Auth.iOS.Test.csproj
+		StartupItem = ..\tests\Xamarin.Auth.Android.Test\Xamarin.Auth.Android.Test.csproj
 	EndGlobalSection
 EndGlobal

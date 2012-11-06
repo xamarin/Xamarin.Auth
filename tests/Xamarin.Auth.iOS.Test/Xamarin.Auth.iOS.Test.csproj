@@ -95,7 +95,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.Auth.iOS\Xamarin.Auth.iOS.csproj">
+    <ProjectReference Include="..\..\src\Xamarin.Auth.iOS\Xamarin.Auth.iOS.csproj">
       <Project>{9309BCCC-AA7B-4195-A130-D4572FA9488D}</Project>
       <Name>Xamarin.Auth.iOS</Name>
     </ProjectReference>

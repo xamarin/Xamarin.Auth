@@ -95,6 +95,9 @@ namespace Xamarin.Auth
 		/// <param name='clientId'>
 		/// Client identifier.
 		/// </param>
+		/// <param name='clientSecret'>
+		/// Client secret.
+		/// </param>
 		/// <param name='scope'>
 		/// Authorization scope.
 		/// </param>
@@ -191,6 +194,18 @@ namespace Xamarin.Auth
 			});
 		}
 
+		/// <summary>
+		/// Raised when a new page has been loaded.
+		/// </summary>
+		/// <param name='url'>
+		/// URL of the page.
+		/// </param>
+		/// <param name='query'>
+		/// The parsed Query of the URL.
+		/// </param>
+		/// <param name='fragment'>
+		/// The parsed fragment of the URL.
+		/// </param>
 		protected override void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
@@ -213,6 +228,18 @@ namespace Xamarin.Auth
 			base.OnPageLoaded (url, query, fragment);
 		}
 
+		/// <summary>
+		/// Raised when a new page has been loaded.
+		/// </summary>
+		/// <param name='url'>
+		/// URL of the page.
+		/// </param>
+		/// <param name='query'>
+		/// The parsed query string of the URL.
+		/// </param>
+		/// <param name='fragment'>
+		/// The parsed fragment of the URL.
+		/// </param>
 		protected override void OnRedirectPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			//
@@ -298,8 +325,8 @@ namespace Xamarin.Auth
 		/// <summary>
 		/// Event handler that is fired when an access token has been retreived.
 		/// </summary>
-		/// <param name='accessToken'>
-		/// Access token.
+		/// <param name='accountProperties'>
+		/// The retrieved account properties
 		/// </param>
 		protected virtual void OnRetrievedAccountProperties (IDictionary<string, string> accountProperties)
 		{

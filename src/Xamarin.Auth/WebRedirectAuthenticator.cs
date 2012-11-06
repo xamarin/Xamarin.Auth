@@ -48,11 +48,23 @@ namespace Xamarin.Auth
 			this.redirectUrl = redirectUrl;
 		}
 
+		/// <summary>
+		/// Method that returns the initial URL to be displayed in the web browser.
+		/// </summary>
+		/// <returns>
+		/// A task that will return the initial URL.
+		/// </returns>
 		public override System.Threading.Tasks.Task<Uri> GetInitialUrlAsync ()
 		{
 			return Task.Factory.StartNew (() => initialUrl);
 		}
 
+		/// <summary>
+		/// Event handler called when a page has completed loading.
+		/// </summary>
+		/// <param name='url'>
+		/// The URL of the page.
+		/// </param>
 		public override void OnPageLoaded (Uri url)
 		{
 			var query = WebEx.FormDecode (url.Query);
@@ -61,11 +73,17 @@ namespace Xamarin.Auth
 			OnPageLoaded (url, query, fragment);
 		}
 
-		protected bool UrlMatchesRedirect (Uri url)
+		private bool UrlMatchesRedirect (Uri url)
 		{
 			return url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath;
 		}
 
+		/// <summary>
+		/// Event handler called when a new page is being loaded in the web browser.
+		/// </summary>
+		/// <param name='url'>
+		/// The URL of the page.
+		/// </param>
 		public override void OnPageLoading (Uri url)
 		{
 			if (UrlMatchesRedirect (url)) {
@@ -73,6 +91,18 @@ namespace Xamarin.Auth
 			}
 		}
 
+		/// <summary>
+		/// Raised when a new page has been loaded.
+		/// </summary>
+		/// <param name='url'>
+		/// URL of the page.
+		/// </param>
+		/// <param name='query'>
+		/// The parsed Query of the URL.
+		/// </param>
+		/// <param name='fragment'>
+		/// The parsed fragment of the URL.
+		/// </param>
 		protected virtual void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
@@ -98,6 +128,18 @@ namespace Xamarin.Auth
 			}
 		}
 
+		/// <summary>
+		/// Raised when the redirect page has been loaded.
+		/// </summary>
+		/// <param name='url'>
+		/// URL of the page.
+		/// </param>
+		/// <param name='query'>
+		/// The parsed Query of the URL.
+		/// </param>
+		/// <param name='fragment'>
+		/// The parsed fragment of the URL.
+		/// </param>
 		protected virtual void OnRedirectPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			OnSucceeded ("", fragment);

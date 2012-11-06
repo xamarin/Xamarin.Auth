@@ -65,7 +65,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.Auth.Android\Xamarin.Auth.Android.csproj">
+    <ProjectReference Include="..\..\src\Xamarin.Auth.Android\Xamarin.Auth.Android.csproj">
       <Project>{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}</Project>
       <Name>Xamarin.Auth.Android</Name>
     </ProjectReference>
