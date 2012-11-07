@@ -125,6 +125,26 @@ namespace Xamarin.Auth
 			webView.SaveState (outState);
 		}
 
+		ProgressDialog shownProgress = null;
+
+		void BeginLoading (Uri url)
+		{
+			// Build.VERSION.SdkInt >= BuildVersionCodes.Eclair
+
+			if (shownProgress != null) {
+				EndLoading ();
+			}
+			shownProgress = ProgressDialog.Show (this, "Loading...", url.Authority, true);
+		}
+
+		void EndLoading ()
+		{
+			if (shownProgress != null) {
+				shownProgress.Dismiss ();
+				shownProgress = null;
+			}
+		}
+
 		class Client : WebViewClient
 		{
 			WebAuthenticatorActivity activity;
@@ -142,11 +162,13 @@ namespace Xamarin.Auth
 			public override void OnPageStarted (WebView view, string url, Android.Graphics.Bitmap favicon)
 			{
 				activity.state.Authenticator.OnPageLoading (new Uri (url));
+				activity.BeginLoading (new Uri (url));
 			}
 
 			public override void OnPageFinished (WebView view, string url)
 			{
 				activity.state.Authenticator.OnPageLoaded (new Uri (url));
+				activity.EndLoading ();
 			}
 		}
 	}
