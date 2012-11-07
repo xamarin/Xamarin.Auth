@@ -81,6 +81,7 @@ namespace Xamarin.Auth
 			webView = new WebView (this) {
 				Id = 42,
 			};
+			webView.Settings.JavaScriptEnabled = true;
 			webView.SetWebViewClient (new Client (this));
 			SetContentView (webView);
 
@@ -106,6 +107,11 @@ namespace Xamarin.Auth
 					webView.LoadUrl (t.Result.AbsoluteUri);
 				}
 			}, TaskScheduler.FromCurrentSynchronizationContext ());
+		}
+
+		public override void OnBackPressed ()
+		{
+			state.Authenticator.OnCancelled ();
 		}
 
 		public override Java.Lang.Object OnRetainNonConfigurationInstance ()
