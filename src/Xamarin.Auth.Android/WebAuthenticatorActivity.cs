@@ -19,6 +19,7 @@ using Android.Webkit;
 using Android.OS;
 using System.Threading.Tasks;
 using Xamarin.Utilities.Android;
+using System.Timers;
 
 namespace Xamarin.Auth
 {
@@ -126,18 +127,38 @@ namespace Xamarin.Auth
 		}
 
 		ProgressDialog shownProgress = null;
+		Timer progressTimer = null;
+		string progressMessage = "";
 
-		void BeginLoading (Uri url)
+		void BeginProgress (string message)
 		{
-			// Build.VERSION.SdkInt >= BuildVersionCodes.Eclair
-
-			if (shownProgress != null) {
-				EndLoading ();
+			if (progressTimer == null) {
+				progressTimer = new Timer (333);
+				progressTimer.Elapsed += HandleProgressTimerElapsed;
+				progressTimer.Start ();
+			} else {
+				progressTimer.Start ();
 			}
-			shownProgress = ProgressDialog.Show (this, "Loading...", url.Authority, true);
+
+			progressMessage = message;
 		}
 
-		void EndLoading ()
+		void HandleProgressTimerElapsed (object sender, ElapsedEventArgs e)
+		{
+			if (progressTimer != null) {
+
+				progressTimer.Stop ();
+				progressTimer = null;
+
+				RunOnUiThread (delegate {
+					if (shownProgress == null) {
+						shownProgress = ProgressDialog.Show (this, "Loading...", progressMessage);
+					}
+				});
+			}
+		}
+
+		void EndProgress ()
 		{
 			if (shownProgress != null) {
 				shownProgress.Dismiss ();
@@ -161,14 +182,16 @@ namespace Xamarin.Auth
 
 			public override void OnPageStarted (WebView view, string url, Android.Graphics.Bitmap favicon)
 			{
-				activity.state.Authenticator.OnPageLoading (new Uri (url));
-				activity.BeginLoading (new Uri (url));
+				var uri = new Uri (url);
+				activity.state.Authenticator.OnPageLoading (uri);
+				activity.BeginProgress (uri.Authority);
 			}
 
 			public override void OnPageFinished (WebView view, string url)
 			{
-				activity.state.Authenticator.OnPageLoaded (new Uri (url));
-				activity.EndLoading ();
+				var uri = new Uri (url);
+				activity.state.Authenticator.OnPageLoaded (uri);
+				activity.EndProgress ();
 			}
 		}
 	}
