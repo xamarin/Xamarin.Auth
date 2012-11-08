@@ -1,10 +1,3 @@
-# Getting Started
-
-Xamarin.Auth helps you authenticate users via standard authentication mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward to add support for non-standard authentication schemes. The library is cross-platform, so once you learn it on iOS, you're all set on Android.
-
-
-
-
 ## 1. Create and configure an authenticator
 
 Let's authenticate a user to access Skydrive:
@@ -95,6 +88,6 @@ It's that easy.
 
 Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands of popular services. For services that use traditional username/password authentication, you can roll your own authenticator by deriving from `FormAuthenticator`.
 
-If you want to authenticate against an ostensibly unsupported service, fear not – Xamarin.Auth is extensible! It's very easy to create your own authenticators – see <a href="Details.md">Details</a> for information on creating custom authenticators.
+If you want to authenticate against an ostensibly unsupported service, fear not – Xamarin.Auth is extensible! It's very easy to create your own authenticators – just derive from any of the existing authenticators and start overriding methods.
 
 
