@@ -126,44 +126,14 @@ namespace Xamarin.Auth
 			webView.SaveState (outState);
 		}
 
-		ProgressDialog shownProgress = null;
-		Timer progressTimer = null;
-		string progressMessage = "";
-
 		void BeginProgress (string message)
 		{
-			if (progressTimer == null) {
-				progressTimer = new Timer (333);
-				progressTimer.Elapsed += HandleProgressTimerElapsed;
-				progressTimer.Start ();
-			} else {
-				progressTimer.Start ();
-			}
-
-			progressMessage = message;
-		}
-
-		void HandleProgressTimerElapsed (object sender, ElapsedEventArgs e)
-		{
-			if (progressTimer != null) {
-
-				progressTimer.Stop ();
-				progressTimer = null;
-
-				RunOnUiThread (delegate {
-					if (shownProgress == null) {
-						shownProgress = ProgressDialog.Show (this, "Loading...", progressMessage);
-					}
-				});
-			}
+			webView.Enabled = false;
 		}
 
 		void EndProgress ()
 		{
-			if (shownProgress != null) {
-				shownProgress.Dismiss ();
-				shownProgress = null;
-			}
+			webView.Enabled = true;
 		}
 
 		class Client : WebViewClient
