@@ -181,15 +181,26 @@ namespace Xamarin.Auth
 			{
 				controller.activity.StartAnimating ();
 
+				webView.UserInteractionEnabled = false;
+
 				Uri url;
 				if (Uri.TryCreate (webView.Request.Url.AbsoluteString, UriKind.Absolute, out url)) {
 					controller.authenticator.OnPageLoading (url);
 				}
 			}
 
+			public override void LoadFailed (UIWebView webView, NSError error)
+			{
+				controller.activity.StopAnimating ();
+
+				webView.UserInteractionEnabled = true;
+			}
+
 			public override void LoadingFinished (UIWebView webView)
 			{
 				controller.activity.StopAnimating ();
+
+				webView.UserInteractionEnabled = true;
 
 				var url = new Uri (webView.Request.Url.AbsoluteString);
 				if (url != lastUrl) { // Prevent loading the same URL multiple times
