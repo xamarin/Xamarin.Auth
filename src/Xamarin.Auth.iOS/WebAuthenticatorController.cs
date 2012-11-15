@@ -37,6 +37,8 @@ namespace Xamarin.Auth
 
 		const double TransitionTime = 0.25;
 
+		bool keepTryingAfterError = true;
+
 		public WebAuthenticatorController (WebAuthenticator authenticator)
 		{
 			this.authenticator = authenticator;
@@ -52,7 +54,7 @@ namespace Xamarin.Auth
 			NavigationItem.LeftBarButtonItem = new UIBarButtonItem (
 				UIBarButtonSystemItem.Cancel,
 				delegate {
-					authenticator.OnCancelled ();
+					Cancel ();
 				});
 
 			activity = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
@@ -71,11 +73,17 @@ namespace Xamarin.Auth
 			BeginLoadingInitialUrl ();
 		}
 
+		void Cancel ()
+		{
+			authenticator.OnCancelled ();
+		}
+
 		void BeginLoadingInitialUrl ()
 		{
 			authenticator.GetInitialUrlAsync ().ContinueWith (t => {
 				if (t.IsFaulted) {
-					// Don't want to call OnError as that will reload the page
+					keepTryingAfterError = false;
+					authenticator.OnError (t.Exception);
 				}
 				else {
 					//
@@ -159,11 +167,15 @@ namespace Xamarin.Auth
 
 		void HandleError (object sender, AuthenticatorErrorEventArgs e)
 		{
+			var after = keepTryingAfterError ?
+				(Action)BeginLoadingInitialUrl :
+				(Action)Cancel;
+
 			if (e.Exception != null) {
-				this.ShowError ("Authentication Error", e.Exception, BeginLoadingInitialUrl);
+				this.ShowError ("Authentication Error", e.Exception, after);
 			}
 			else {
-				this.ShowError ("Authentication Error", e.Message, BeginLoadingInitialUrl);
+				this.ShowError ("Authentication Error", e.Message, after);
 			}
 		}
 
@@ -183,9 +195,12 @@ namespace Xamarin.Auth
 
 				webView.UserInteractionEnabled = false;
 
-				Uri url;
-				if (Uri.TryCreate (webView.Request.Url.AbsoluteString, UriKind.Absolute, out url)) {
-					controller.authenticator.OnPageLoading (url);
+				var nsUrl = webView.Request.Url;
+				if (nsUrl != null) {
+					Uri url;
+					if (Uri.TryCreate (webView.Request.Url.AbsoluteString, UriKind.Absolute, out url)) {
+						controller.authenticator.OnPageLoading (url);
+					}
 				}
 			}
 
