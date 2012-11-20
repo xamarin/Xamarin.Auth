@@ -50,6 +50,10 @@
     <Compile Include="ExceptionEx.cs" />
     <Compile Include="WebEx.cs" />
     <Compile Include="WebRedirectAuthenticator.cs" />
+    <Compile Include="OAuth1Request.cs" />
+    <Compile Include="OAuth2Request.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Response.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

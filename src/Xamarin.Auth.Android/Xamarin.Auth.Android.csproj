@@ -87,5 +87,17 @@
     <Compile Include="..\Xamarin.Auth\WebRedirectAuthenticator.cs">
       <Link>WebRedirectAuthenticator.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth\OAuth1Request.cs">
+      <Link>OAuth1Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\OAuth2Request.cs">
+      <Link>OAuth2Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\Request.cs">
+      <Link>Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\Response.cs">
+      <Link>Response.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>
