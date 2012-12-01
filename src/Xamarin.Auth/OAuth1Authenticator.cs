@@ -159,22 +159,27 @@ namespace Xamarin.Auth
 				
 				var query = url.Query;
 				var r = WebEx.FormDecode (query);
-				
-				verifier = r["oauth_verifier"];
-				
+
+				r.TryGetValue("oauth_verifier", out verifier);
+
 				GetAccessTokenAsync ();
 			}
 		}
 
 		Task GetAccessTokenAsync ()
 		{
+			var requestparams = new Dictionary<string, string> {
+				{ "oauth_token", token },
+			};
+
+			if (verifier != null) {
+				requestparams["oauth_verifier"] = verifier;
+			}
+
 			var req = OAuth1.CreateRequest (
 				"GET",
 				accessTokenUrl,
-				new Dictionary<string, string> {
-					{ "oauth_verifier", verifier },
-					{ "oauth_token", token },
-				},
+				requestparams,
 				consumerKey,
 				consumerSecret,
 				tokenSecret);
