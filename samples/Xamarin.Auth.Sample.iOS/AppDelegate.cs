@@ -15,6 +15,7 @@ namespace Xamarin.Auth.Sample.iOS
 
 		Section facebook;
 		Section skydrive;
+		Section dropbox;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
@@ -24,9 +25,13 @@ namespace Xamarin.Auth.Sample.iOS
 			skydrive = new Section ("Skydrive");
 			skydrive.Add (new StyledStringElement ("Log in", LoginToSkydrive));
 
+			dropbox = new Section ("Dropbox");
+			dropbox.Add (new StyledStringElement ("Log in", LoginToDropbox));
+
 			dialog = new DialogViewController (new RootElement ("Xamarin.Auth Sample") {
 				facebook,
 				skydrive,
+				dropbox
 			});
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
@@ -65,6 +70,24 @@ namespace Xamarin.Auth.Sample.iOS
 			a.Completed += (s, e) => {
 				dialog.DismissViewController (true, null);
 				skydrive.Add (new StringElement (GetEventAsString (e)));
+			};
+		}
+
+		void LoginToDropbox ()
+		{
+			var a = new OAuth1Authenticator (
+				consumerKey: "<consumerkey>",
+				consumerSecret: "<consumersecret>",
+				requestTokenUrl : new Uri("https://api.dropbox.com/1/oauth/request_token"),
+				authorizeUrl: new Uri("https://www.dropbox.com/1/oauth/authorize"), 
+				accessTokenUrl: new Uri("https://api.dropbox.com/1/oauth/access_token"),
+				callbackUrl: new Uri("https://www.dropbox.com/1/oauth/authorize"));
+			
+			var vc = a.GetUI ();
+			dialog.PresentViewController (vc, true, null);
+			a.Completed += (s, e) => {
+				dialog.DismissViewController (true, null);
+				dropbox.Add (new StringElement (GetEventAsString (e)));
 			};
 		}
 
