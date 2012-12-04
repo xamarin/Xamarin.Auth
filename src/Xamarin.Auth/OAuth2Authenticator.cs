@@ -301,7 +301,8 @@ namespace Xamarin.Auth
 
 			var req = WebRequest.Create (accessTokenUrl);
 			req.Method = "POST";
-			var body = Encoding.UTF8.GetBytes (query);
+            req.Proxy = WebAuthenticator.Proxy;
+            var body = Encoding.UTF8.GetBytes (query);
 			req.ContentLength = body.Length;
 			req.ContentType = "application/x-www-form-urlencoded";
 			using (var s = req.GetRequestStream ()) {

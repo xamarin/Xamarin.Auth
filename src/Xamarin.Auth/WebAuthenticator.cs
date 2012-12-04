@@ -38,6 +38,8 @@ namespace Xamarin.Auth
 	public abstract class WebAuthenticator : Authenticator
 #endif
 	{
+        public static System.Net.IWebProxy Proxy { get; set; }
+
 		/// <summary>
 		/// Method that returns the initial URL to be displayed in the web browser.
 		/// </summary>
