@@ -80,7 +80,7 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+        public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, GetUsernameAsyncFunc getUsernameAsync = null)
 		{
 			if (string.IsNullOrEmpty (consumerKey)) {
 				throw new ArgumentException ("consumerKey must be provided", "consumerKey");
@@ -141,11 +141,14 @@ namespace Xamarin.Auth
 				token = r["oauth_token"];
 				tokenSecret = r["oauth_token_secret"];
 
-				var url = authorizeUrl.AbsoluteUri + "?oauth_token=" + Uri.EscapeDataString (token);
+                string paramType = authorizeUrl.AbsoluteUri.IndexOf("?") >= 0 ? "&" : "&";
 
-				return new Uri (url);
+                var url = authorizeUrl.AbsoluteUri + paramType + "oauth_token=" + Uri.EscapeDataString (token);                 
+                return new Uri (url);
 			});
 		}
+
+        public override void OnPageFailed (Uri url) { }
 
 		/// <summary>
 		/// Event handler that watches for the callback URL to be loaded.
