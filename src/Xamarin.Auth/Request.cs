@@ -30,7 +30,11 @@ namespace Xamarin.Auth
 	/// An HTTP web request that provides a convenient way to make authenticated
 	/// requests using account objects obtained from an authenticator.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class Request
+#else
 	public class Request
+#endif
 	{
 		HttpWebRequest request;
 
