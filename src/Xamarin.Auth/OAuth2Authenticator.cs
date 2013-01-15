@@ -165,7 +165,7 @@ namespace Xamarin.Auth
 			var chars = new char[16];
 			var rand = new Random ();
 			for (var i = 0; i < chars.Length; i++) {
-				chars[i] = (char)rand.Next ((int)'a', (int)'z' + 1);
+				chars [i] = (char)rand.Next ((int)'a', (int)'z' + 1);
 			}
 			this.requestState = new string (chars);
 		}
@@ -201,7 +201,7 @@ namespace Xamarin.Auth
 		/// URL of the page.
 		/// </param>
 		/// <param name='query'>
-		/// The parsed Query of the URL.
+		/// The parsed query of the URL.
 		/// </param>
 		/// <param name='fragment'>
 		/// The parsed fragment of the URL.
@@ -209,7 +209,8 @@ namespace Xamarin.Auth
 		protected override void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
-			foreach (var kv in fragment) all[kv.Key] = kv.Value;
+			foreach (var kv in fragment)
+				all [kv.Key] = kv.Value;
 
 			//
 			// Check for forgeries
@@ -250,8 +251,7 @@ namespace Xamarin.Auth
 				// We found an access_token
 				//
 				OnRetrievedAccountProperties (fragment);
-			}
-			else if (!IsImplicit) {
+			} else if (!IsImplicit) {
 				//
 				// Look for the code
 				//
@@ -260,18 +260,15 @@ namespace Xamarin.Auth
 					RequestAccessTokenAsync (code).ContinueWith (task => {
 						if (task.IsFaulted) {
 							OnError (task.Exception);
-						}
-						else {
+						} else {
 							OnRetrievedAccountProperties (task.Result);
 						}
 					});
-				}
-				else {
+				} else {
 					OnError ("Expected code in response, but did not receive one.");
 					return;
 				}
-			}
-			else {
+			} else {
 				OnError ("Expected access_token in response, but did not receive one.");
 				return;
 			}
@@ -295,7 +292,7 @@ namespace Xamarin.Auth
 				{ "client_id", clientId },
 			};
 			if (!string.IsNullOrEmpty (clientSecret)) {
-				queryValues["client_secret"] = clientSecret;
+				queryValues ["client_secret"] = clientSecret;
 			}
 			var query = queryValues.FormEncode ();
 
@@ -312,11 +309,9 @@ namespace Xamarin.Auth
 				var data = WebEx.FormDecode (text);
 				if (data.ContainsKey ("error")) {
 					throw new AuthException ("Error authenticating: " + data ["error"]);
-				}
-				else if (data.ContainsKey ("access_token")) {
+				} else if (data.ContainsKey ("access_token")) {
 					return data;
-				}
-				else {
+				} else {
 					throw new AuthException ("Expected access_token in access token response, but did not receive one.");
 				}
 			});
@@ -337,13 +332,11 @@ namespace Xamarin.Auth
 				getUsernameAsync (accountProperties).ContinueWith (task => {
 					if (task.IsFaulted) {
 						OnError (task.Exception);
-					}
-					else {
+					} else {
 						OnSucceeded (task.Result, accountProperties);
 					}
 				}, TaskScheduler.FromCurrentSynchronizationContext ());
-			}
-			else {
+			} else {
 				OnSucceeded ("", accountProperties);
 			}
 		}

@@ -23,7 +23,7 @@ using System.IO;
 namespace Xamarin.Auth
 {
 	/// <summary>
-	/// An Account that reprents and authenticated user of a social network.
+	/// An Account that represents an authenticated user of a social network.
 	/// </summary>
 #if XAMARIN_AUTH_INTERNAL
 	internal class Account
@@ -154,17 +154,15 @@ namespace Xamarin.Auth
 			foreach (var p in serializedString.Split ('&')) {
 				var kv = p.Split ('=');
 
-				var key = Uri.UnescapeDataString (kv[0]);
-				var val = kv.Length > 1 ? Uri.UnescapeDataString (kv[1]) : "";
+				var key = Uri.UnescapeDataString (kv [0]);
+				var val = kv.Length > 1 ? Uri.UnescapeDataString (kv [1]) : "";
 
 				if (key == "__cookies__") {
 					acct.Cookies = DeserializeCookies (val);
-				}
-				else if (key == "__username__") {
+				} else if (key == "__username__") {
 					acct.Username = val;
-				}
-				else {
-					acct.Properties[key] = val;
+				} else {
+					acct.Properties [key] = val;
 				}
 			}
 

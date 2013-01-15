@@ -202,18 +202,17 @@ namespace Xamarin.Auth
 						.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
 						.ContinueWith (reqStreamtask => {
 						
-							using (reqStreamtask.Result) {
-								WriteMultipartFormData (boundary, reqStreamtask.Result);
-							}
+					using (reqStreamtask.Result) {
+						WriteMultipartFormData (boundary, reqStreamtask.Result);
+					}
 						
-							return Task.Factory
+					return Task.Factory
 									.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
 									.ContinueWith (resTask => {
-										return new Response ((HttpWebResponse)resTask.Result);
-									}, cancellationToken).Result;
-						}, cancellationToken);
-			}
-			else if (Method == "POST" && Parameters.Count > 0) {
+						return new Response ((HttpWebResponse)resTask.Result);
+					}, cancellationToken).Result;
+				}, cancellationToken);
+			} else if (Method == "POST" && Parameters.Count > 0) {
 				var body = Parameters.FormEncode ();
 				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
 				request.ContentLength = bodyData.Length;
@@ -223,23 +222,22 @@ namespace Xamarin.Auth
 						.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
 						.ContinueWith (reqStreamTask => {
 
-							using (reqStreamTask.Result) {
-								reqStreamTask.Result.Write (bodyData, 0, bodyData.Length);
-							}
+					using (reqStreamTask.Result) {
+						reqStreamTask.Result.Write (bodyData, 0, bodyData.Length);
+					}
 							
-							return Task.Factory
+					return Task.Factory
 								.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
 									.ContinueWith (resTask => {
-										return new Response ((HttpWebResponse)resTask.Result);
-									}, cancellationToken).Result;
-						}, cancellationToken);
-			}
-			else {
+						return new Response ((HttpWebResponse)resTask.Result);
+					}, cancellationToken).Result;
+				}, cancellationToken);
+			} else {
 				return Task.Factory
 						.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
 						.ContinueWith (resTask => {
-							return new Response ((HttpWebResponse)resTask.Result);
-						}, cancellationToken);
+					return new Response ((HttpWebResponse)resTask.Result);
+				}, cancellationToken);
 			}
 		}
 
@@ -324,7 +322,7 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Returns the HttpWebRequest that will be used for this Request. All properties
+		/// Returns the <see cref="T:System.Net.HttpWebRequest"/> that will be used for this <see cref="T:Xamarin.Auth.Request"/>. All properties
 		/// should be set to their correct values before accessing this object.
 		/// </summary>
 		/// <remarks>

@@ -37,7 +37,7 @@ namespace Xamarin.Auth
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.WebRedirectAuthenticator"/> class.
 		/// </summary>
 		/// <param name='initialUrl'>
-		/// The Initial URL loaded into the web browser.
+		/// The initial URL loaded into the web browser.
 		/// </param>
 		/// <param name='redirectUrl'>
 		/// The URL watched for.
@@ -98,7 +98,7 @@ namespace Xamarin.Auth
 		/// URL of the page.
 		/// </param>
 		/// <param name='query'>
-		/// The parsed Query of the URL.
+		/// The parsed query of the URL.
 		/// </param>
 		/// <param name='fragment'>
 		/// The parsed fragment of the URL.
@@ -106,7 +106,8 @@ namespace Xamarin.Auth
 		protected virtual void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
-			foreach (var kv in fragment) all[kv.Key] = kv.Value;
+			foreach (var kv in fragment)
+				all [kv.Key] = kv.Value;
 
 			//
 			// Check for errors
@@ -135,7 +136,7 @@ namespace Xamarin.Auth
 		/// URL of the page.
 		/// </param>
 		/// <param name='query'>
-		/// The parsed Query of the URL.
+		/// The parsed query of the URL.
 		/// </param>
 		/// <param name='fragment'>
 		/// The parsed fragment of the URL.

@@ -34,7 +34,7 @@ namespace Xamarin.Auth
 		/// The URL.
 		/// </param>
 		/// <param name='parameters'>
-		/// Parameters that will pre-populate the <see cref="Parameters"/> property or null.
+		/// Parameters that will pre-populate the <see cref="Parameters"/> property or <see langword="null"/>.
 		/// </param>
 		/// <param name='account'>
 		/// The account used to authenticate this request.
@@ -82,10 +82,9 @@ namespace Xamarin.Auth
 			var url = unauthenticatedUrl.AbsoluteUri;
 			
 			if (url.Contains ("?")) {
-				url += "&access_token=" + account.Properties["access_token"];
-			}
-			else {
-				url += "?access_token=" + account.Properties["access_token"];
+				url += "&access_token=" + account.Properties ["access_token"];
+			} else {
+				url += "?access_token=" + account.Properties ["access_token"];
 			}
 			
 			return new Uri (url);
@@ -109,7 +108,7 @@ namespace Xamarin.Auth
 				throw new ArgumentException ("OAuth2 account is missing required access_token property.", "account");
 			}
 			
-			return "Bearer " + account.Properties["access_token"];
+			return "Bearer " + account.Properties ["access_token"];
 		}
 	}
 }
