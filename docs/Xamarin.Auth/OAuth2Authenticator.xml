@@ -1,0 +1,152 @@
+<Type Name="OAuth2Authenticator" FullName="Xamarin.Auth.OAuth2Authenticator">
+  <TypeSignature Language="C#" Value="public class OAuth2Authenticator : Xamarin.Auth.WebRedirectAuthenticator" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit OAuth2Authenticator extends Xamarin.Auth.WebRedirectAuthenticator" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Xamarin.Auth.WebRedirectAuthenticator</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <param name="getUsernameAsync">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string clientSecret, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class System.Uri accessTokenUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="clientSecret" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="clientSecret">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <param name="accessTokenUrl">To be added.</param>
+        <param name="getUsernameAsync">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetInitialUrlAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Uri&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageLoaded">
+      <MemberSignature Language="C#" Value="protected override void OnPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="url">To be added.</param>
+        <param name="query">To be added.</param>
+        <param name="fragment">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnRedirectPageLoaded">
+      <MemberSignature Language="C#" Value="protected override void OnRedirectPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnRedirectPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="url">To be added.</param>
+        <param name="query">To be added.</param>
+        <param name="fragment">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnRetrievedAccountProperties">
+      <MemberSignature Language="C#" Value="protected virtual void OnRetrievedAccountProperties (System.Collections.Generic.IDictionary&lt;string,string&gt; accountProperties);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnRetrievedAccountProperties(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; accountProperties) cil managed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="accountProperties" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="accountProperties">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

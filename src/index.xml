@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Overview>
+  <Assemblies>
+    <Assembly Name="Xamarin.Auth" Version="0.0.0.0">
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)</AttributeName>
+        </Attribute>
+      </Attributes>
+    </Assembly>
+   </Assemblies>
+  <Remarks>To be added.</Remarks>
+  <Copyright>To be added.</Copyright>
+  <Types>
+    <Namespace Name="Xamarin.Auth">
+     </Namespace>
+    
+    
+    
+    
+    
+  </Types>
+  <Title>AAA_Xamarin.Auth</Title>
+  
+</Overview>
