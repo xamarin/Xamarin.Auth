@@ -1,6 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Type Name="OAuth1Authenticator" FullName="Xamarin.Auth.OAuth1Authenticator">
-  <TypeSignature Language="C#" Value="public class OAuth1Authenticator : Xamarin.Auth.WebAuthenticator" />
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit OAuth1Authenticator extends Xamarin.Auth.WebAuthenticator" />
+  <TypeSignature Language="C#" Value="public class OAuth1Authenticator : Xamarin.Auth.WebAuthenticator"/>
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit OAuth1Authenticator extends Xamarin.Auth.WebAuthenticator"/>
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
@@ -8,43 +9,60 @@
   <Base>
     <BaseTypeName>Xamarin.Auth.WebAuthenticator</BaseTypeName>
   </Base>
-  <Interfaces />
+  <Interfaces/>
   <Docs>
-    <summary>To be added.</summary>
+    <summary>OAuth 1.0 authenticator.</summary>
     <remarks>To be added.</remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string consumerKey, string consumerSecret, class System.Uri requestTokenUrl, class System.Uri authorizeUrl, class System.Uri accessTokenUrl, class System.Uri callbackUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
+      <MemberSignature Language="C#" Value="public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync);"/>
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string consumerKey, string consumerSecret, class System.Uri requestTokenUrl, class System.Uri authorizeUrl, class System.Uri accessTokenUrl, class System.Uri callbackUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed"/>
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
-        <Parameter Name="consumerKey" Type="System.String" />
-        <Parameter Name="consumerSecret" Type="System.String" />
-        <Parameter Name="requestTokenUrl" Type="System.Uri" />
-        <Parameter Name="authorizeUrl" Type="System.Uri" />
-        <Parameter Name="accessTokenUrl" Type="System.Uri" />
-        <Parameter Name="callbackUrl" Type="System.Uri" />
-        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+        <Parameter Name="consumerKey" Type="System.String"/>
+        <Parameter Name="consumerSecret" Type="System.String"/>
+        <Parameter Name="requestTokenUrl" Type="System.Uri"/>
+        <Parameter Name="authorizeUrl" Type="System.Uri"/>
+        <Parameter Name="accessTokenUrl" Type="System.Uri"/>
+        <Parameter Name="callbackUrl" Type="System.Uri"/>
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc"/>
       </Parameters>
       <Docs>
-        <param name="consumerKey">To be added.</param>
-        <param name="consumerSecret">To be added.</param>
-        <param name="requestTokenUrl">To be added.</param>
-        <param name="authorizeUrl">To be added.</param>
-        <param name="accessTokenUrl">To be added.</param>
-        <param name="callbackUrl">To be added.</param>
-        <param name="getUsernameAsync">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>
+          Initializes a new instance of the <see cref="Xamarin.Auth.OAuth1Authenticator"/> class.
+        </summary>
+        <param name="consumerKey">
+          Consumer key.
+        </param>
+        <param name="consumerSecret">
+          Consumer secret.
+        </param>
+        <param name="requestTokenUrl">
+          Request token URL.
+        </param>
+        <param name="authorizeUrl">
+          Authorize URL.
+        </param>
+        <param name="accessTokenUrl">
+          Access token URL.
+        </param>
+        <param name="callbackUrl">
+          Callback URL.
+        </param>
+        <param name="getUsernameAsync">
+          Method used to fetch the username of an account
+          after it has been successfully authenticated.
+        </param>
+        <remarks/>
       </Docs>
     </Member>
     <Member MemberName="GetInitialUrlAsync">
-      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed" />
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync ();"/>
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed"/>
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
@@ -52,16 +70,16 @@
       <ReturnValue>
         <ReturnType>System.Threading.Tasks.Task&lt;System.Uri&gt;</ReturnType>
       </ReturnValue>
-      <Parameters />
+      <Parameters/>
       <Docs>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
+        <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
+        <returns> A task that will return the initial URL.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoaded">
-      <MemberSignature Language="C#" Value="public override void OnPageLoaded (Uri url);" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
+      <MemberSignature Language="C#" Value="public override void OnPageLoaded (Uri url);"/>
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed"/>
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
@@ -70,11 +88,11 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="url" Type="System.Uri"/>
       </Parameters>
       <Docs>
-        <param name="url">To be added.</param>
-        <summary>To be added.</summary>
+        <param name="url">The URL of the loaded page.</param>
+        <summary>Event handler that watches for the callback URL to be loaded.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

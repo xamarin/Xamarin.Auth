@@ -9,7 +9,7 @@
           <AttributeName>System.Reflection.AssemblyConfiguration("")</AttributeName>
         </Attribute>
         <Attribute>
-          <AttributeName>System.Reflection.AssemblyCopyright("2012 Xamarin Inc.")</AttributeName>
+          <AttributeName>System.Reflection.AssemblyCopyright("2013 Xamarin Inc.")</AttributeName>
         </Attribute>
         <Attribute>
           <AttributeName>System.Reflection.AssemblyDescription("Cross platform authentication library")</AttributeName>

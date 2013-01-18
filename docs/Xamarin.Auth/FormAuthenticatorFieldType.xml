@@ -9,7 +9,7 @@
     <BaseTypeName>System.Enum</BaseTypeName>
   </Base>
   <Docs>
-    <summary>To be added.</summary>
+    <summary>The display type of a credential field.</summary>
     <remarks>To be added.</remarks>
   </Docs>
   <Members>
@@ -24,7 +24,7 @@
         <ReturnType>Xamarin.Auth.FormAuthenticatorFieldType</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary> The field is an email address.</summary>
       </Docs>
     </Member>
     <Member MemberName="Password">
@@ -38,7 +38,7 @@
         <ReturnType>Xamarin.Auth.FormAuthenticatorFieldType</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary>The field is protected from onlookers.</summary>
       </Docs>
     </Member>
     <Member MemberName="PlainText">
@@ -52,7 +52,7 @@
         <ReturnType>Xamarin.Auth.FormAuthenticatorFieldType</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
+        <summary>The field is plain text.</summary>
       </Docs>
     </Member>
   </Members>

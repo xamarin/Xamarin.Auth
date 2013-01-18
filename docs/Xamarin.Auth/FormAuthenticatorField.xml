@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Type Name="FormAuthenticatorField" FullName="Xamarin.Auth.FormAuthenticatorField">
   <TypeSignature Language="C#" Value="public class FormAuthenticatorField" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit FormAuthenticatorField extends System.Object" />
@@ -10,7 +11,7 @@
   </Base>
   <Interfaces />
   <Docs>
-    <summary>To be added.</summary>
+    <summary>Account credential form field.</summary>
     <remarks>To be added.</remarks>
   </Docs>
   <Members>
@@ -23,7 +24,7 @@
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
+        <summary>Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField"/> class.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -42,12 +43,12 @@
         <Parameter Name="defaultValue" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="key">To be added.</param>
-        <param name="title">To be added.</param>
-        <param name="fieldType">To be added.</param>
-        <param name="placeholder">To be added.</param>
-        <param name="defaultValue">To be added.</param>
-        <summary>To be added.</summary>
+        <param name="key">A key used to identify the field.</param>
+        <param name="title"> The title of the field when presented in a UI.</param>
+        <param name="fieldType">The type of the field.</param>
+        <param name="placeholder">Placeholder text shown when there is no input value for the field.</param>
+        <param name="defaultValue"> The value of the field.</param>
+        <summary>Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField"/> class.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -62,8 +63,8 @@
         <ReturnType>Xamarin.Auth.FormAuthenticatorFieldType</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>The type of this field.</summary>
+        <value>The type.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -78,8 +79,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>A key used to identify this field.</summary>
+        <value>The key.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -94,8 +95,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>Placeholder text shown when there is no input value for this field.</summary>
+        <value> The placeholder.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -110,8 +111,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>The title of this field when presented in a UI.</summary>
+        <value>The title.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -126,8 +127,8 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
+        <summary>The value of this field.</summary>
+        <value>The value.</value>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
