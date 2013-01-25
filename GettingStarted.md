@@ -2,13 +2,15 @@
 
 Let's authenticate a user to access Skydrive:
 
-    using Xamarin.Auth;
-    ...
-	var auth = new OAuth2Authenticator (
-		clientId: "Client ID from https://manage.dev.live.com/Applications/Index",
-		scope: "wl.basic,wl.skydrive",
-		authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
-		redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
+```csharp
+using Xamarin.Auth;
+...
+var auth = new OAuth2Authenticator (
+	clientId: "Client ID from https://manage.dev.live.com/Applications/Index",
+	scope: "wl.basic,wl.skydrive",
+	authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
+	redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
+```
 
 Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. Authenticators are responsible for managing the user interface and communicating with authentication services.
 
@@ -21,27 +23,33 @@ Authenticators take a variety of parameters; in this case, the application's cli
 
 While authenticators manage their own UI, it's up to you to initially present the authenticator's UI on the screen. This lets you control how the authentication UI is displayed–modally, in navigation controllers, in popovers, etc.
 
-	PresentViewController (auth.GetUI (), true, null);
+Before we present the UI, we need to start listening to the `Completed` event which fires when the user successfully authenticates or cancels. You can find out if the authentication succeeded by testing the `IsAuthenticated` property of `eventArgs`:
 
-The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. On Android, we would write the following code to present the UI:
-
-	StartActivity (auth.GetUI (this));
-
-The `Completed` event fires when the user successfully authenticates or cancels. You can find out if the authentication succeeded by testing the `IsAuthenticated` property of `eventArgs`:
-
-	auth.Completed += (sender, eventArgs) => {
-		// We presented the UI, so it's up to us to dimiss it.
-		DismissViewController (true, null);
-		if (eventArgs.IsAuthenticated) {
-			// Use eventArgs.Account to do wonderful things
-		} else {
-			// The user cancelled
-		}
+```csharp
+auth.Completed += (sender, eventArgs) => {
+	// We presented the UI, so it's up to us to dimiss it.
+	DismissViewController (true, null);
+	if (eventArgs.IsAuthenticated) {
+		// Use eventArgs.Account to do wonderful things
+	} else {
+		// The user cancelled
 	}
-
+};
+```
 
 All the information gathered from a successful authentication is available in `eventArgs.Account`.
 
+Now we're ready to present the login UI:
+
+```csharp
+PresentViewController (auth.GetUI (), true, null);
+```
+
+The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. On Android, we would write the following code to present the UI:
+
+```csharp
+StartActivity (auth.GetUI (this));
+```
 
 
 
@@ -49,14 +57,17 @@ All the information gathered from a successful authentication is available in `e
 
 In the case of OAuth, we are most interested in the `access_token` that results from the authentication. It's available within the `Completed` event handler via:
 
-	var accessToken = eventArgs.Account.Properties ["acess_token"];
+```csharp
+var accessToken = eventArgs.Account.Properties ["acess_token"];
+```
 
 You can now use that token to sign requests:
 
-	var request = WebRequest.Create (
-		"http://apis.live.net/v5.0/me/skydrive/shared?access_token=" +
-		Uri.EscapeDataString (accessToken));
-
+```csharp
+var request = WebRequest.Create (
+	"http://apis.live.net/v5.0/me/skydrive/shared?access_token=" +
+	Uri.EscapeDataString (accessToken));
+```
 
 
 
@@ -64,7 +75,9 @@ You can now use that token to sign requests:
 
 Xamarin.Auth securely stores `Account` objects so that you don't always have to reauthenticate the user. The `AccountStore` class is responsible for storing `Account` information, backed by the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) on iOS and a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) on Android:
 
-	AccountStore.Create ().Save (e.Account, "Skydrive");
+```csharp
+AccountStore.Create ().Save (eventArgs.Account, "Skydrive");
+```
 
 Saved Accounts are uniquely identified using a key composed of the account's `Username` property and a "Service ID". The "Service ID" is any string that is used when fetching accounts from the store.
 
@@ -77,7 +90,9 @@ If an `Account` was previously saved, calling `Save` again will overwrite it. Th
 
 You can fetch all `Account` objects stored for a given service:
 
-	IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Skydrive");
+```csharp
+IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Skydrive");
+```
 
 It's that easy.
 
