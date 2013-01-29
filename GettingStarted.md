@@ -40,13 +40,13 @@ auth.Completed += (sender, eventArgs) => {
 
 All the information gathered from a successful authentication is available in `eventArgs.Account`.
 
-Now we're ready to present the login UI:
+Now we're ready to present the login UI from `ViewDidAppear` on iOS:
 
 ```csharp
 PresentViewController (auth.GetUI (), true, null);
 ```
 
-The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. On Android, we would write the following code to present the UI:
+The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. On Android, we would write the following code to present the UI from `OnCreate`:
 
 ```csharp
 StartActivity (auth.GetUI (this));
