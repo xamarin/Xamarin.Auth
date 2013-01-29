@@ -23,6 +23,7 @@ namespace Xamarin.Auth.Sample.iOS
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += (s, e) =>
 			{
+				// We presented the UI, so it's up to us to dismiss it.
 				dialog.DismissViewController (true, null);
 
 				if (!e.IsAuthenticated) {
