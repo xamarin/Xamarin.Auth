@@ -82,7 +82,7 @@
     <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Default%402x.png" />
+    <Content Include="Default%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -98,9 +98,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Default-568h%402x.png" />
+    <Content Include="Default-568h%402x.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Default.png" />
+    <Content Include="Default.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
 </Project>
