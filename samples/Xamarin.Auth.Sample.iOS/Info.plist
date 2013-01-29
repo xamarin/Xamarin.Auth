@@ -22,11 +22,5 @@
 	<string></string>
 	<key>NSMainNibFile</key>
 	<string></string>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>Resources/Default.png</string>
-		<string>Resources/Default@2x.png</string>
-		<string>Resources/Default-568h@2x.png</string>
-	</array>
 </dict>
 </plist>
