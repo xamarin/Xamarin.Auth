@@ -4,10 +4,10 @@ Xamarin.Auth helps you authenticate users via standard authentication mechanisms
 using Xamarin.Auth;
 
 var auth = new OAuth2Authenticator (
-	clientId: "Client ID from https://manage.dev.live.com/Applications/Index",
-	scope: "wl.basic,wl.skydrive",
-	authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
-	redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
+	clientId: "App ID from https://developers.facebook.com/apps",
+	scope: "",
+	authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
+	redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
 
 auth.Completed += (sender, eventArgs) => {
 	DismissViewController (true, null);

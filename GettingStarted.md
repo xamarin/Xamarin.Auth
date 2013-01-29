@@ -1,20 +1,20 @@
 ## 1. Create and configure an authenticator
 
-Let's authenticate a user to access Skydrive:
+Let's authenticate a user to access Facebook:
 
 ```csharp
 using Xamarin.Auth;
 ...
 var auth = new OAuth2Authenticator (
-	clientId: "Client ID from https://manage.dev.live.com/Applications/Index",
-	scope: "wl.basic,wl.skydrive",
-	authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
-	redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
+	clientId: "App ID from https://developers.facebook.com/apps",
+	scope: "",
+	authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
+	redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
 ```
 
-Skydrive uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. Authenticators are responsible for managing the user interface and communicating with authentication services.
+Facebook uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. Authenticators are responsible for managing the user interface and communicating with authentication services.
 
-Authenticators take a variety of parameters; in this case, the application's client ID, its authorization scope, and Skydrive's various service locations are required.
+Authenticators take a variety of parameters; in this case, the application's ID, its authorization scope, and Facebook's various service locations are required.
 
 
 
@@ -27,8 +27,9 @@ Before we present the UI, we need to start listening to the `Completed` event wh
 
 ```csharp
 auth.Completed += (sender, eventArgs) => {
-	// We presented the UI, so it's up to us to dimiss it.
+	// We presented the UI, so it's up to us to dimiss it on iOS.
 	DismissViewController (true, null);
+
 	if (eventArgs.IsAuthenticated) {
 		// Use eventArgs.Account to do wonderful things
 	} else {
@@ -53,22 +54,21 @@ StartActivity (auth.GetUI (this));
 
 
 
-## 3. Use the Account data
+## 3. Making requests
 
-In the case of OAuth, we are most interested in the `access_token` that results from the authentication. It's available within the `Completed` event handler via:
-
-```csharp
-var accessToken = eventArgs.Account.Properties ["acess_token"];
-```
-
-You can now use that token to sign requests:
+Since Facebook is an OAuth2 service, we'll make requests with `OAuth2Request` providing the account we retrieved from the `Completed` event. Assuming we're authenticated, we'll grab the user's info to demonstrate:
 
 ```csharp
-var request = WebRequest.Create (
-	"http://apis.live.net/v5.0/me/skydrive/shared?access_token=" +
-	Uri.EscapeDataString (accessToken));
+var request = new OAuth2Request ("GET", new Uri ("https://graph.facebook.com/me"), null, eventArgs.Account);
+request.GetResponseAsync().ContinueWith (t => {
+	if (t.IsFaulted)
+		Console.WriteLine ("Error: " + t.Exception.InnerException.Message);
+	else {
+		string json = t.Result.GetResponseText();
+		Console.WriteLine (json);
+	}
+});
 ```
-
 
 
 ## 4. Store the account
@@ -76,7 +76,7 @@ var request = WebRequest.Create (
 Xamarin.Auth securely stores `Account` objects so that you don't always have to reauthenticate the user. The `AccountStore` class is responsible for storing `Account` information, backed by the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) on iOS and a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) on Android:
 
 ```csharp
-AccountStore.Create ().Save (eventArgs.Account, "Skydrive");
+AccountStore.Create ().Save (eventArgs.Account, "Facebook");
 ```
 
 Saved Accounts are uniquely identified using a key composed of the account's `Username` property and a "Service ID". The "Service ID" is any string that is used when fetching accounts from the store.
@@ -91,7 +91,7 @@ If an `Account` was previously saved, calling `Save` again will overwrite it. Th
 You can fetch all `Account` objects stored for a given service:
 
 ```csharp
-IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Skydrive");
+IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Facebook");
 ```
 
 It's that easy.
