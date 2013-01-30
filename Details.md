@@ -20,3 +20,5 @@ PresentViewController (auth.GetUI (), true, null);
 ```
 
 It's that easy to authenticate users!
+
+*Some screenshots assembled with [PlaceIt](http://placeit.breezi.com/).*
