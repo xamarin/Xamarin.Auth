@@ -76,7 +76,11 @@ request.GetResponseAsync().ContinueWith (t => {
 Xamarin.Auth securely stores `Account` objects so that you don't always have to reauthenticate the user. The `AccountStore` class is responsible for storing `Account` information, backed by the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) on iOS and a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) on Android:
 
 ```csharp
+// On iOS:
 AccountStore.Create ().Save (eventArgs.Account, "Facebook");
+
+// On Android:
+AccountStore.Create (this).Save (eventArgs.Account, "Facebook");
 ```
 
 Saved Accounts are uniquely identified using a key composed of the account's `Username` property and a "Service ID". The "Service ID" is any string that is used when fetching accounts from the store.
@@ -91,7 +95,11 @@ If an `Account` was previously saved, calling `Save` again will overwrite it. Th
 You can fetch all `Account` objects stored for a given service:
 
 ```csharp
+// On iOS:
 IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Facebook");
+
+// On Android:
+IEnumerable<Account> accounts = AccountStore.Create (this).FindAccountsForService ("Facebook");
 ```
 
 It's that easy.
