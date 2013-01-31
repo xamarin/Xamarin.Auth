@@ -13,7 +13,7 @@ namespace Xamarin.Auth.Sample.Android
 		void LoginToFacebook (object sender, EventArgs e)
 		{
 			var auth = new OAuth2Authenticator (
-				clientId: "346691492084618",
+				clientId: "App ID from https://developers.facebook.com/apps",
 				scope: "",
 				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
