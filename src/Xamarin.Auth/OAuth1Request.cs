@@ -39,7 +39,7 @@ namespace Xamarin.Auth
 		/// The URL.
 		/// </param>
 		/// <param name='parameters'>
-		/// Parameters that will pre-populate the <see cref="Parameters"/> property or <see langword="null"/>.
+		/// Parameters that will pre-populate the <see cref="Xamarin.Auth.Request.Parameters"/> property or <see langword="null"/>.
 		/// </param>
 		/// <param name='account'>
 		/// The account used to authenticate this request.
