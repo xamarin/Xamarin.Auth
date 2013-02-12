@@ -22,7 +22,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Request that is authenticated using an account retrieved from an <see cref="OAuth2Authenticator"/>.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class OAuth2Request : Request
+#else
 	public class OAuth2Request : Request
+#endif
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth2Request"/> class.
