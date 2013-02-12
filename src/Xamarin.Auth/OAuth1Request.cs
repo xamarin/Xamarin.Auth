@@ -25,7 +25,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Request that is authenticated using an account retrieved from an <see cref="OAuth1Authenticator"/>.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class OAuth1Request : Request
+#else
 	public class OAuth1Request : Request
+#endif
 	{
 		bool includeMultipartsInSignature;
 
