@@ -25,7 +25,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Request that is authenticated using an account retrieved from an <see cref="OAuth1Authenticator"/>.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class OAuth1Request : Request
+#else
 	public class OAuth1Request : Request
+#endif
 	{
 		bool includeMultipartsInSignature;
 
@@ -39,13 +43,13 @@ namespace Xamarin.Auth
 		/// The URL.
 		/// </param>
 		/// <param name='parameters'>
-		/// Parameters that will pre-populate the <see cref="Parameters"/> property or null.
+		/// Parameters that will pre-populate the <see cref="Xamarin.Auth.Request.Parameters"/> property or <see langword="null"/>.
 		/// </param>
 		/// <param name='account'>
 		/// The account used to authenticate this request.
 		/// </param>
 		/// <param name='includeMultipartsInSignature'>
-		/// If set to <c>true</c> include multiparts when calculating the OAuth 1.0 signature.
+		/// If set to <see langword="true"/> include multiparts when calculating the OAuth 1.0 signature.
 		/// </param>
 		public OAuth1Request (string method, Uri url, IDictionary<string, string> parameters, Account account, bool includeMultipartsInSignature = false)
 			: base (method, url, parameters, account)
@@ -84,7 +88,7 @@ namespace Xamarin.Auth
 			if (includeMultipartsInSignature) {
 				foreach (var p in Multiparts) {
 					if (!string.IsNullOrEmpty (p.TextData)) {
-						ps[p.Name] = p.TextData;
+						ps [p.Name] = p.TextData;
 					}
 				}
 			}
@@ -96,12 +100,12 @@ namespace Xamarin.Auth
 				Method,
 				Url,
 				ps,
-				Account.Properties["oauth_consumer_key"],
-				Account.Properties["oauth_consumer_secret"],
-				Account.Properties["oauth_token"],
-				Account.Properties["oauth_token_secret"]);
+				Account.Properties ["oauth_consumer_key"],
+				Account.Properties ["oauth_consumer_secret"],
+				Account.Properties ["oauth_token"],
+				Account.Properties ["oauth_token_secret"]);
 			
-			req.Headers[HttpRequestHeader.Authorization] = authorization;
+			req.Headers [HttpRequestHeader.Authorization] = authorization;
 			
 			return base.GetResponseAsync (cancellationToken);
 		}

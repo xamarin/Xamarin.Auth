@@ -67,7 +67,7 @@ namespace Xamarin.Auth
 		public abstract IEnumerable<Account> FindAccountsForService (string serviceId);
 
 		/// <summary>
-		/// Save the specified account by combinging its username and the serviceId
+		/// Save the specified account by combining its username and the serviceId
 		/// to form its primary key.
 		/// </summary>
 		/// <param name='account'>

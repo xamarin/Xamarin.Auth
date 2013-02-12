@@ -172,7 +172,9 @@ namespace Xamarin.Auth
 		void BeginInvokeOnUIThread (Action action)
 		{
 #if PLATFORM_IOS
-			MonoTouch.UIKit.UIApplication.SharedApplication.BeginInvokeOnMainThread (delegate { action (); });
+			MonoTouch.UIKit.UIApplication.SharedApplication.BeginInvokeOnMainThread (delegate {
+				action ();
+			});
 #elif PLATFORM_ANDROID
 			var a = context as Android.App.Activity;
 			if (a != null) {
@@ -200,7 +202,7 @@ namespace Xamarin.Auth
 		/// Whether the authentication succeeded and there is a valid <see cref="Account"/>.
 		/// </summary>
 		/// <value>
-		/// <c>true</c> if the user is authenticated; otherwise, <c>false</c>.
+		/// <see langword="true"/> if the user is authenticated; otherwise, <see langword="false"/>.
 		/// </value>
 		public bool IsAuthenticated { get { return Account != null; } }
 
@@ -216,7 +218,7 @@ namespace Xamarin.Auth
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.AuthenticatorCompletedEventArgs"/> class.
 		/// </summary>
 		/// <param name='account'>
-		/// The account created or null if authentication failed or was canceled.
+		/// The account created or <see langword="null"/> if authentication failed or was canceled.
 		/// </param>
 		public AuthenticatorCompletedEventArgs (Account account)
 		{
@@ -245,7 +247,7 @@ namespace Xamarin.Auth
 		/// Gets the exception that signaled the error if there was one.
 		/// </summary>
 		/// <value>
-		/// The exception or null.
+		/// The exception or <see langword="null"/>.
 		/// </value>
 		public Exception Exception { get; private set; }
 
@@ -265,7 +267,7 @@ namespace Xamarin.Auth
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.AuthenticatorErrorEventArgs"/> class with an exception.
 		/// </summary>
 		/// <param name='exception'>
-		/// The exception signalling the error. The message of this object is retrieved from this exception or
+		/// The exception signaling the error. The message of this object is retrieved from this exception or
 		/// its inner exceptions.
 		/// </param>
 		public AuthenticatorErrorEventArgs (Exception exception)

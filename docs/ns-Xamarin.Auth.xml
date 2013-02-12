@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<Namespace Name="Xamarin.Auth">
+  <Docs>
+    <summary>Xamarin.Auth is a cross-platform API for authenticating users and storing their accounts.</summary>
+    <remarks>
+      <para>
+        Xamarin.Auth is a cross-platform API for authenticating users and storing their accounts.
+      </para>
+      <para>
+        <format type="text/html">
+          <h2>Getting Started</h2>
+        </format>
+      </para>
+      <para>
+        The following code shows how a user could be authenticated with Skydrive:
+      </para>
+      <example>
+        <code lang="C#">
+          using Xamarin.Auth;
+          ...
+          var auth = new OAuth2Authenticator (
+          clientId: "Client ID from https://manage.dev.live.com/Applications/Index",
+          scope: "wl.basic,wl.skydrive",
+          authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
+          redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
+        </code>
+      </example>
+      <para>          
+        Skydrive uses OAuth 2.0 authentication, so the code creates an <see cref="T:Xamarin.Auth.OAuth2Authenticator"/>. Authenticators are responsible for managing the user interface and communicating with authentication services.
+      </para>
+      <para>
+        Authenticators take a variety of parameters. In this case, the parameters are the application's client ID, its authorization scope, and Skydrive's various service locations.
+      </para>
+      <para>
+        While authenticators manage their own UI, it's up to the application developer to initially present the authenticator's UI on the screen. This lets the application control how the authentication UI is displayed: modally, in navigation controllers, in popovers, etc.
+      </para>
+      <para>
+        <c>PresentViewController (auth.GetUI (), true, null);</c>
+      </para>
+      <para>
+        The <see cref="M:Xamarin.Auth.GetAuthenticator.GetUI"/> method returns <see cref="T:MonoTouch.UIKit.UINavigationController"/>s on iOS, and <c>Intents</c> on Android. On Android, the following code could be used to present the UI: <c>StartActivity (auth.GetUI (this));</c>. The <c>Completed</c> event fires when the user successfully authenticates or cancels. The application developer can find out if the authentication succeeded by testing the <see cref="P:Xamarin.Auth.AuthenticatorCompletedEventArgs.IsAuthenticated"/> property of <c>eventArgs</c> as shown in the following example: 
+      </para>
+      <example>
+        <code lang="C#">
+          auth.Completed += (sender, eventArgs) =&gt; {
+          // We presented the UI, so it's up to us to dimiss it.
+          DismissViewController (true, n		if (eventArgs.IsAuthenticated) {
+          // Use eventArgs.Account to do wonderful things
+          } else {
+          // The user cancelled
+          }
+          }
+        </code>
+      </example>
+      <para>
+        All the information gathered from a successful authentication is available in <c>eventArgs.Account</c>.
+      </para>
+      <para>
+        In the case of OAuth, the most interesting data is generally the <c>access_token</c> that results from the authentication. It's available within the <see cref="E:Xamarin.Auth.Authenticator.Completed"/> event handler via <c>var accessToken = eventArgs.Account.Properties ["access_token"];</c>. After that, the application developer can then use that token to sign requests, as shown in the following example:
+      </para>
+      <example>
+        <code lang="C#">
+          var request = WebRequest.Create (
+          "http://apis.live.net/v5.0/me/skydrive/shared?access_token=" +
+          Uri.EscapeDataString (accessToken));
+        </code>
+      </example>
+      <para>
+        Xamarin.Auth securely stores <see cref="T:Xamarin.Auth.Account"/> objects so that the application does not always have to reauthenticate the user. The <see cref="T:Xamarin.Auth.AccountStore"/> class is responsible for storing <see cref="T:Xamarin.Auth.Account"/> information, backed by the Keychain (see <format type="text/html"><a href="https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html">https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html</a></format>) on iOS and a Keystore (see <format type="text/html"><a href="http://developer.android.com/reference/java/security/KeyStore.html">http://developer.android.com/reference/java/security/KeyStore.html</a>) on Android: <c>AccountStore.Create ().Save (e.Account, "Skydrive");</c>. 
+        </format>
+      </para>
+      <para>
+        Saved Accounts are uniquely identified using a key composed of the account's <see cref="P:Xamarin.Auth.Account.Username"/> property and a "Service ID". The "Service ID" is any string that is used when fetching accounts from the store.
+      </para>
+      <para>
+        If an <see cref="T:Xamarin.Auth.Account"/> was previously saved, calling <see cref="M:Xamarin.Auth.Account.Save"/> again will overwrite it. This is convenient for services that expire the credentials stored in the account object.
+      </para>
+      <para>
+        The application developer can fetch all <see cref="T:Xamarin.Auth.Account"/> objects stored for a given service easily: <c>IEnumerable accounts = AccountStore.Create ().FindAccountsForService ("Skydrive");</c>. 
+      </para>
+      <para>
+        Xamarin.Auth includes OAuth 1.0 and OAuth 2.0 authenticators, providing support for thousands of popular services. For services that use traditional username/password authentication, application developers can create their own authenticator by deriving from <see cref="T:Xamarin.Auth.FormAuthenticator"/>. 
+      </para>
+      <para>
+        If an application needs to authenticate against an unsupported service, an application developer can create a new authenticator by deriving from any of the existing authenticators.
+      </para>
+    </remarks>
+  </Docs>
+</Namespace>

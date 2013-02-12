@@ -22,7 +22,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Request that is authenticated using an account retrieved from an <see cref="OAuth2Authenticator"/>.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class OAuth2Request : Request
+#else
 	public class OAuth2Request : Request
+#endif
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth2Request"/> class.
@@ -34,7 +38,7 @@ namespace Xamarin.Auth
 		/// The URL.
 		/// </param>
 		/// <param name='parameters'>
-		/// Parameters that will pre-populate the <see cref="Parameters"/> property or null.
+		/// Parameters that will pre-populate the <see cref="Xamarin.Auth.Request.Parameters"/> property or <see langword="null"/>.
 		/// </param>
 		/// <param name='account'>
 		/// The account used to authenticate this request.
@@ -82,10 +86,9 @@ namespace Xamarin.Auth
 			var url = unauthenticatedUrl.AbsoluteUri;
 			
 			if (url.Contains ("?")) {
-				url += "&access_token=" + account.Properties["access_token"];
-			}
-			else {
-				url += "?access_token=" + account.Properties["access_token"];
+				url += "&access_token=" + account.Properties ["access_token"];
+			} else {
+				url += "?access_token=" + account.Properties ["access_token"];
 			}
 			
 			return new Uri (url);
@@ -109,7 +112,7 @@ namespace Xamarin.Auth
 				throw new ArgumentException ("OAuth2 account is missing required access_token property.", "account");
 			}
 			
-			return "Bearer " + account.Properties["access_token"];
+			return "Bearer " + account.Properties ["access_token"];
 		}
 	}
 }

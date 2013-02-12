@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Json;
 using System.Linq;
+using System.Threading.Tasks;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.Dialog;
@@ -10,28 +12,55 @@ namespace Xamarin.Auth.Sample.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		UIWindow window;
-		DialogViewController dialog;
+		void LoginToFacebook ()
+		{
+			var auth = new OAuth2Authenticator (
+				clientId: "App ID from https://developers.facebook.com/apps",
+				scope: "",
+				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
+				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
 
-		Section facebook;
-		Section skydrive;
-		Section dropbox;
+			// If authorization succeeds or is canceled, .Completed will be fired.
+			auth.Completed += (s, e) =>
+			{
+				// We presented the UI, so it's up to us to dismiss it.
+				dialog.DismissViewController (true, null);
+
+				if (!e.IsAuthenticated) {
+					facebookStatus.Caption = "Not authorized";
+					dialog.ReloadData();
+					return;
+				}
+
+				// Now that we're logged in, make a OAuth2 request to get the user's info.
+				var request = new OAuth2Request ("GET", new Uri ("https://graph.facebook.com/me"), null, e.Account);
+				request.GetResponseAsync().ContinueWith (t => {
+					if (t.IsFaulted)
+						facebookStatus.Caption = "Error: " + t.Exception.InnerException.Message;
+					else if (t.IsCanceled)
+						facebookStatus.Caption = "Canceled";
+					else
+					{
+						var obj = JsonValue.Parse (t.Result.GetResponseText());
+						facebookStatus.Caption = "Logged in as " + obj["name"];
+					}
+
+					dialog.ReloadData();
+				}, uiScheduler);
+			};
+
+			UIViewController vc = auth.GetUI ();
+			dialog.PresentViewController (vc, true, null);
+		}
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			facebook = new Section ("Facebook");
 			facebook.Add (new StyledStringElement ("Log in", LoginToFacebook));
-
-			skydrive = new Section ("Skydrive");
-			skydrive.Add (new StyledStringElement ("Log in", LoginToSkydrive));
-
-			dropbox = new Section ("Dropbox");
-			dropbox.Add (new StyledStringElement ("Log in", LoginToDropbox));
+			facebook.Add (facebookStatus = new StringElement (String.Empty));
 
 			dialog = new DialogViewController (new RootElement ("Xamarin.Auth Sample") {
 				facebook,
-				skydrive,
-				dropbox
 			});
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
@@ -41,64 +70,13 @@ namespace Xamarin.Auth.Sample.iOS
 			return true;
 		}
 
-		void LoginToFacebook ()
-		{
-			var a = new OAuth2Authenticator (
-				clientId: "346691492084618",
-				scope: "",
-				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
-				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
+		private readonly TaskScheduler uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-			var vc = a.GetUI ();
-			dialog.PresentViewController (vc, true, null);
-			a.Completed += (s, e) => {
-				dialog.DismissViewController (true, null);
-				facebook.Add (new StringElement (GetEventAsString (e)));
-			};
-		}
+		UIWindow window;
+		DialogViewController dialog;
 
-		void LoginToSkydrive ()
-		{
-			var a = new OAuth2Authenticator (
-				clientId: "00000000440DC040",
-				scope: "wl.basic,wl.share,wl.skydrive",
-				authorizeUrl: new Uri ("https://login.live.com/oauth20_authorize.srf"),
-				redirectUrl: new Uri ("https://login.live.com/oauth20_desktop.srf"));
-
-			var vc = a.GetUI ();
-			dialog.PresentViewController (vc, true, null);
-			a.Completed += (s, e) => {
-				dialog.DismissViewController (true, null);
-				skydrive.Add (new StringElement (GetEventAsString (e)));
-			};
-		}
-
-		void LoginToDropbox ()
-		{
-			var a = new OAuth1Authenticator (
-				consumerKey: "<consumerkey>",
-				consumerSecret: "<consumersecret>",
-				requestTokenUrl : new Uri("https://api.dropbox.com/1/oauth/request_token"),
-				authorizeUrl: new Uri("https://www.dropbox.com/1/oauth/authorize"), 
-				accessTokenUrl: new Uri("https://api.dropbox.com/1/oauth/access_token"),
-				callbackUrl: new Uri("https://www.dropbox.com/1/oauth/authorize"));
-			
-			var vc = a.GetUI ();
-			dialog.PresentViewController (vc, true, null);
-			a.Completed += (s, e) => {
-				dialog.DismissViewController (true, null);
-				dropbox.Add (new StringElement (GetEventAsString (e)));
-			};
-		}
-
-		string GetEventAsString (AuthenticatorCompletedEventArgs e)
-		{
-			if (e.IsAuthenticated) {
-				return e.Account.Serialize ();
-			} else {
-				return "Not Authenticated";
-			}
-		}
+		Section facebook;
+		StringElement facebookStatus;
 
 		// This is the main entry point of the application.
 		static void Main (string[] args)

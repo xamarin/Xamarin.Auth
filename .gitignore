@@ -1,4 +1,3 @@
-
 .DS_Store
 *.userprefs
 *.user
@@ -7,3 +6,4 @@
 bin
 obj
 test-results
+*.ide

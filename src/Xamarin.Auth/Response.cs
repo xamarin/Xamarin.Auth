@@ -45,10 +45,10 @@ namespace Xamarin.Auth
 		public virtual IDictionary<string, string> Headers { get; protected set; }
 
 		/// <summary>
-		/// Initializes a new <see cref="Xamarin.Auth.Response"/> that wraps a <see cref="System.Net.HttpWebResponse"/>.
+		/// Initializes a new <see cref="Xamarin.Auth.Response"/> that wraps a <see cref="T:System.Net.HttpWebResponse"/>.
 		/// </summary>
 		/// <param name='response'>
-		/// The System.Net response that this response will wrap.
+		/// The <see cref="T:System.Net.HttpWebResponse"/> that this response will wrap.
 		/// </param>
 		public Response (HttpWebResponse response)
 		{
@@ -63,7 +63,7 @@ namespace Xamarin.Auth
 
 			Headers = new Dictionary<string, string> ();
 			foreach (string h in response.Headers) {
-				Headers[h] = response.Headers[h];
+				Headers [h] = response.Headers [h];
 			}
 		}
 
@@ -144,7 +144,7 @@ namespace Xamarin.Auth
 		protected virtual void Dispose (bool disposing)
 		{
 			if (response != null) {
-				response.Dispose ();
+				response.Close ();
 				response = null;
 			}
 		}

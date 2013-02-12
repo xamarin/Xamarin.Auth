@@ -43,12 +43,6 @@ namespace Xamarin.Auth.Sample.Android
 			// aapt resource value: 0x7f050001
 			public const int FacebookTextView = 2131034113;
 			
-			// aapt resource value: 0x7f050002
-			public const int SkydriveButton = 2131034114;
-			
-			// aapt resource value: 0x7f050003
-			public const int SkydriveTextView = 2131034115;
-			
 			private Id()
 			{
 			}
@@ -70,9 +64,6 @@ namespace Xamarin.Auth.Sample.Android
 			
 			// aapt resource value: 0x7f040001
 			public const int Facebook = 2130968577;
-			
-			// aapt resource value: 0x7f040002
-			public const int Skydrive = 2130968578;
 			
 			// aapt resource value: 0x7f040000
 			public const int app_name = 2130968576;

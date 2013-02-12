@@ -13,15 +13,4 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/FacebookTextView" />
-    <Button
-        android:text="@string/Skydrive"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/SkydriveButton"
-        android:layout_marginTop="40sp" />
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/SkydriveTextView" />
 </LinearLayout>
