@@ -24,6 +24,8 @@ using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
 #elif PLATFORM_ANDROID
 using AuthenticateUIType = Android.Content.Intent;
 using UIContext = Android.Content.Context;
+#elif PLATFORM_WINPHONE
+using AuthenticateUIType = System.Uri;
 #else
 using AuthenticateUIType = System.Object;
 #endif

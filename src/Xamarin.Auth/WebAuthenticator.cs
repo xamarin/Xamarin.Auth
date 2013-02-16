@@ -23,6 +23,9 @@ using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
 #elif PLATFORM_ANDROID
 using AuthenticateUIType = Android.Content.Intent;
 using UIContext = Android.Content.Context;
+#elif PLATFORM_WINPHONE
+using Microsoft.Phone.Shell;
+using AuthenticateUIType = System.Uri;
 #else
 using AuthenticateUIType = System.Object;
 #endif
@@ -140,6 +143,18 @@ namespace Xamarin.Auth
 			};
 			i.PutExtra ("StateKey", WebAuthenticatorActivity.StateRepo.Add (state));
 			return i;
+		}
+#elif PLATFORM_WINPHONE
+		protected override AuthenticateUIType GetPlatformUI()
+		{
+			Random r = new Random();
+			string key;
+			do {
+				key = "xamarin_auth_" + r.Next();
+			} while (PhoneApplicationService.Current.State.ContainsKey (key));
+
+			PhoneApplicationService.Current.State[key] = this;
+			return new Uri ("/Xamarin.Auth.WindowsPhone;component/WebAuthenticatorPage.xaml?key=" + key, UriKind.Relative);
 		}
 #else
 		/// <summary>

@@ -45,6 +45,14 @@ namespace Xamarin.Auth
 		{
 			return new AndroidAccountStore (context);
 		}
+#elif PLATFORM_WINPHONE
+		/// <summary>
+		/// Create an account store.
+		/// </summary>
+		public static AccountStore Create()
+		{
+			return new WindowsPhone.WPAccountStore();
+		}
 #else
 		/// <summary>
 		/// Create an account store.
