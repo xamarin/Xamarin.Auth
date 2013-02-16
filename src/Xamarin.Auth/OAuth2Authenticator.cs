@@ -311,6 +311,7 @@ namespace Xamarin.Auth
 			var body = Encoding.UTF8.GetBytes (query);
 			req.ContentLength = body.Length;
 			req.ContentType = "application/x-www-form-urlencoded";
+
 			using (var s = req.GetRequestStream ()) {
 				s.Write (body, 0, body.Length);
 			}
