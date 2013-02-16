@@ -193,12 +193,12 @@ namespace Xamarin.Auth
 		{
 			var request = GetPreparedWebRequest ();
 
-			//
+#if !PLATFORM_WINPHONE
 			// Disable 100-Continue: http://blogs.msdn.com/b/shitals/archive/2008/12/27/9254245.aspx
-			//
 			if (Method == "POST") {
 				ServicePointManager.Expect100Continue = false;
 			}
+#endif
 
 			if (Multiparts.Count > 0) {
 				var boundary = "---------------------------" + new Random ().Next ();
