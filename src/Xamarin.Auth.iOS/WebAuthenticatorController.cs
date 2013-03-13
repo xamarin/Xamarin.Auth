@@ -209,6 +209,22 @@ namespace Xamarin.Auth
 				controller.activity.StopAnimating ();
 
 				webView.UserInteractionEnabled = true;
+
+                if (error != null)
+                {
+                    if (error.UserInfo != null)
+                    {
+                        var urlString = error.UserInfo["NSErrorFailingURLStringKey"] as NSString;
+                        if (urlString != null)
+                        {
+                            var url = new Uri (urlString.ToString());
+                            if (!url.Equals(lastUrl)) { // Prevent loading the same URL multiple times
+                                lastUrl = url;
+                                controller.authenticator.OnPageFailed (url);
+                            }
+                        }
+                    }
+                }
 			}
 
 			public override void LoadingFinished (UIWebView webView)

@@ -174,6 +174,7 @@ namespace Xamarin.Auth
 
 			var req = (HttpWebRequest)WebRequest.Create (realUrl);
 			req.Method = method;
+            req.Proxy = WebAuthenticator.Proxy;
 			return req;
 		}
 
