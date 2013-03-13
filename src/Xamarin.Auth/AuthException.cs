@@ -28,14 +28,14 @@ namespace Xamarin.Auth
 #endif
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:AuthException"/> class.
+		/// Initializes a new instance of the <see cref="AuthException"/> class.
 		/// </summary>
 		public AuthException ()
 		{
 		}
 		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:AuthException"/> class.
+		/// Initializes a new instance of the <see cref="AuthException"/> class.
 		/// </summary>
 		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
 		public AuthException (string message) : base (message)
@@ -43,7 +43,7 @@ namespace Xamarin.Auth
 		}
 		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:AuthException"/> class.
+		/// Initializes a new instance of the <see cref="AuthException"/> class.
 		/// </summary>
 		/// <param name="message">A <see cref="T:System.String"/> that describes the exception. </param>
 		/// <param name="inner">The exception that is the cause of the current exception. </param>
@@ -52,7 +52,7 @@ namespace Xamarin.Auth
 		}
 		
 		/// <summary>
-		/// Initializes a new instance of the <see cref="T:AuthException"/> class.
+		/// Initializes a new instance of the <see cref="AuthException"/> class.
 		/// </summary>
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <param name="info">The object that holds the serialized object data.</param>

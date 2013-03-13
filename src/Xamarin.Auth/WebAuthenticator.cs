@@ -58,7 +58,7 @@ namespace Xamarin.Auth
 
 		/// <summary>
 		/// Event handler called when a new page has been loaded in the web browser.
-		/// Implementations should call <see cref="M:OnSucceeded(Xamarin.Auth.Account)"/> if this page
+		/// Implementations should call <see cref="Authenticator.OnSucceeded(Xamarin.Auth.Account)"/> if this page
 		/// signifies a successful authentication.
 		/// </summary>
 		/// <param name='url'>
