@@ -141,7 +141,7 @@ namespace Xamarin.Auth
 				token = r["oauth_token"];
 				tokenSecret = r["oauth_token_secret"];
 				
-				string paramType = authorizeUrl.AbsoluteUri.IndexOf("?") >= 0 ? "&" : "&";
+				string paramType = authorizeUrl.AbsoluteUri.IndexOf("?") >= 0 ? "&" : "?";
 				
 				var url = authorizeUrl.AbsoluteUri + paramType + "oauth_token=" + Uri.EscapeDataString (token);                 
 				return new Uri (url);
