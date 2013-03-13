@@ -38,8 +38,6 @@ namespace Xamarin.Auth
 	public abstract class WebAuthenticator : Authenticator
 #endif
 	{
-        public static System.Net.IWebProxy Proxy { get; set; }
-
 		/// <summary>
 		/// Method that returns the initial URL to be displayed in the web browser.
 		/// </summary>
@@ -68,16 +66,6 @@ namespace Xamarin.Auth
 		/// </param>
 		public abstract void OnPageLoaded (Uri url);
 
-		/// <summary>
-		/// Event handler called when a new page has failed to be loaded in the web browser.
-		/// Implementations should call <see cref="M:OnSucceeded(Xamarin.Auth.Account)"/> if this page
-		/// signifies a successful authentication.
-		/// </summary>
-		/// <param name='url'>
-		/// The URL of the page.
-		/// </param>
-		public abstract void OnPageFailed (Uri url);
-		
 		/// <summary>
 		/// Occurs when the visual, user-interactive, browsing has completed but there
 		/// is more authentication work to do.
