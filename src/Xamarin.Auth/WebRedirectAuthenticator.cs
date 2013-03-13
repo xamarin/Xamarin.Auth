@@ -91,6 +91,8 @@ namespace Xamarin.Auth
 			}
 		}
 
+		public override void OnPageFailed (Uri url) {}
+
 		/// <summary>
 		/// Raised when a new page has been loaded.
 		/// </summary>

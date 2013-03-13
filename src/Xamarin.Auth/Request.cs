@@ -341,6 +341,7 @@ namespace Xamarin.Auth
 			if (request == null) {
 				request = (HttpWebRequest)WebRequest.Create (GetPreparedUrl ());
 				request.Method = Method;
+				request.Proxy = WebAuthenticator.Proxy;
 			}
 
 			if (request.CookieContainer == null && Account != null) {
