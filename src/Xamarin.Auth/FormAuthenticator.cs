@@ -138,7 +138,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Account credential form field.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal class FormAuthenticatorField
+#else
 	public class FormAuthenticatorField
+#endif
 	{
 		/// <summary>
 		/// A key used to identify this field.
