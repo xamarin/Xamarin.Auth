@@ -101,6 +101,13 @@ namespace Xamarin.Auth
 			}
 		}
 
+		public override void Delete (Account account, string serviceId)
+		{
+			var alias = MakeAlias (account, serviceId);
+
+			ks.DeleteEntry (alias);
+		}
+
 		static string MakeAlias (Account account, string serviceId)
 		{
 			return account.Username + "-" + serviceId;

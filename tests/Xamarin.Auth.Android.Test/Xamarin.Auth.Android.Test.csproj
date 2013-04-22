@@ -53,6 +53,7 @@
     </Compile>
     <Compile Include="OAuth2AuthenticatorTest.cs" />
     <Compile Include="WebRedirectAuthenticatorTest.cs" />
+    <Compile Include="AccountTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
