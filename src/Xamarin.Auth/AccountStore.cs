@@ -68,7 +68,7 @@ namespace Xamarin.Auth
 
 		/// <summary>
 		/// Save the specified account by combining its username and the serviceId
-		/// to form its primary key.
+		/// to form a primary key.
 		/// </summary>
 		/// <param name='account'>
 		/// Account to store.
@@ -77,6 +77,17 @@ namespace Xamarin.Auth
 		/// Service identifier.
 		/// </param>
 		public abstract void Save (Account account, string serviceId);
+
+		/// <summary>
+		/// Deletes the account for a given serviceId.
+		/// </summary>
+		/// <param name='account'>
+		/// Account to delete.
+		/// </param>
+		/// <param name='serviceId'>
+		/// Service identifier.
+		/// </param>
+		public abstract void Delete (Account account, string serviceId);
 	}
 }
 
