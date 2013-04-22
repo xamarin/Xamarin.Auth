@@ -45,6 +45,16 @@ namespace Xamarin.Auth
 		public string Title { get; set; }
 
 		/// <summary>
+		/// An existing account that this authenticator should use to prefill as much information as it can.
+		/// </summary>
+		public Account ExistingAccount { get; set; }
+
+		/// <summary>
+		/// Whether this authenticator has successfully completed authentication.
+		/// </summary>
+		public bool IsAuthenticated { get; private set; }
+
+		/// <summary>
 		/// Occurs when authentication has been successfully or unsuccessfully completed.
 		/// Consult the <see cref="AuthenticatorCompletedEventArgs.IsAuthenticated"/> event argument to determine if
 		/// authentication was successful.
@@ -52,7 +62,7 @@ namespace Xamarin.Auth
 		public event EventHandler<AuthenticatorCompletedEventArgs> Completed;
 
 		/// <summary>
-		/// Occurs when there an error is encountered when authenticating.
+		/// Occurs when an error is encountered during authentication.
 		/// </summary>
 		public event EventHandler<AuthenticatorErrorEventArgs> Error;
 
@@ -101,6 +111,7 @@ namespace Xamarin.Auth
 		/// </param>
 		public void OnSucceeded (Account account)
 		{
+			IsAuthenticated = true;
 			BeginInvokeOnUIThread (delegate {
 				var ev = Completed;
 				if (ev != null) {
