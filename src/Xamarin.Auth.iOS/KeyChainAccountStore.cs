@@ -51,9 +51,7 @@ namespace Xamarin.Auth
 			SecStatusCode result;
 			var record = SecKeyChain.QueryAsRecord (query, out result);
 
-			return record != null ?
-				GetAccountFromRecord (record) :
-				null;
+			return record != null ?	GetAccountFromRecord (record) : null;
 		}
 
 		public override void Save (Account account, string serviceId)
@@ -91,6 +89,19 @@ namespace Xamarin.Auth
 
 			if (statusCode != SecStatusCode.Success) {
 				throw new Exception ("Could not save account to KeyChain: " + statusCode);
+			}
+		}
+
+		public override void Delete (Account account, string serviceId)
+		{
+			var query = new SecRecord (SecKind.GenericPassword);
+			query.Service = serviceId;
+			query.Account = account.Username;
+			
+			var statusCode = SecKeyChain.Remove (query);
+
+			if (statusCode != SecStatusCode.Success) {
+				throw new Exception ("Could not delete account from KeyChain: " + statusCode);
 			}
 		}
 	}
