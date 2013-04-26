@@ -14,6 +14,7 @@
 //    limitations under the License.
 //
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
@@ -89,7 +90,7 @@ namespace Xamarin.Auth
 					//
 					// Delete cookies so we can work with multiple accounts
 					//
-					DeleteCookies (t.Result);
+					UpdateCookies (t.Result);
 					
 					//
 					// Begin displaying the page
@@ -99,15 +100,35 @@ namespace Xamarin.Auth
 			}, TaskScheduler.FromCurrentSynchronizationContext ());
 		}
 
-		void DeleteCookies (Uri url)
+		void UpdateCookies (Uri uri)
 		{
-			//
-			// Delete all cookies so that redirects have their cookies
-			// erased too.
-			//
+			if (authenticator.ExistingAccount != null) {
+				SetCookies (authenticator.ExistingAccount.Cookies, uri);
+			}
+			else {
+				ClearCookies (uri);
+			}
+		}
+
+		void SetCookies (System.Net.CookieContainer cookies, Uri uri)
+		{
 			var store = NSHttpCookieStorage.SharedStorage;
-			var cookies = store.Cookies;
-			foreach (var c in cookies) {
+			var nsurl = NSUrl.FromString(uri.AbsoluteUri);
+
+			var nscookies = from c in cookies.GetCookies (uri).OfType<System.Net.Cookie> ()
+				select new NSHttpCookie (c);
+
+			store.SetCookies (nscookies.ToArray (), nsurl, nsurl);
+		}
+
+		void ClearCookies (Uri uri)
+		{
+			var store = NSHttpCookieStorage.SharedStorage;
+			var nsurl = NSUrl.FromString(uri.AbsoluteUri);
+
+			var nscookies = store.CookiesForUrl (nsurl);
+
+			foreach (var c in nscookies) {
 				store.DeleteCookie (c);
 			}
 		}
@@ -189,19 +210,25 @@ namespace Xamarin.Auth
 				this.controller = controller;
 			}
 
+			public override bool ShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
+			{
+				var nsUrl = request.Url;
+
+				if (nsUrl != null) {
+					Uri url;
+					if (Uri.TryCreate (nsUrl.AbsoluteString, UriKind.Absolute, out url)) {
+						controller.authenticator.OnPageLoading (url);
+					}
+				}
+
+				return true;
+			}
+
 			public override void LoadStarted (UIWebView webView)
 			{
 				controller.activity.StartAnimating ();
 
 				webView.UserInteractionEnabled = false;
-
-				var nsUrl = webView.Request.Url;
-				if (nsUrl != null) {
-					Uri url;
-					if (Uri.TryCreate (webView.Request.Url.AbsoluteString, UriKind.Absolute, out url)) {
-						controller.authenticator.OnPageLoading (url);
-					}
-				}
 			}
 
 			public override void LoadFailed (UIWebView webView, NSError error)

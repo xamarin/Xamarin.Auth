@@ -206,7 +206,7 @@ namespace Xamarin.Auth
 		/// <param name='fragment'>
 		/// The parsed fragment of the URL.
 		/// </param>
-		protected override void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
+		protected override void OnPageEncountered (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
 			foreach (var kv in fragment)
@@ -226,7 +226,7 @@ namespace Xamarin.Auth
 			//
 			// Continue processing
 			//
-			base.OnPageLoaded (url, query, fragment);
+			base.OnPageEncountered (url, query, fragment);
 		}
 
 		/// <summary>
