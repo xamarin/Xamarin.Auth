@@ -70,7 +70,12 @@ namespace Xamarin.Auth
 			var query = WebEx.FormDecode (url.Query);
 			var fragment = WebEx.FormDecode (url.Fragment);
 
-			OnPageEncountered (url, query, fragment);
+			OnPageLoaded (url, query, fragment);
+		}
+
+		private bool UrlMatchesRedirect (Uri url)
+		{
+			return url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath;
 		}
 
 		/// <summary>
@@ -81,10 +86,9 @@ namespace Xamarin.Auth
 		/// </param>
 		public override void OnPageLoading (Uri url)
 		{
-			var query = WebEx.FormDecode (url.Query);
-			var fragment = WebEx.FormDecode (url.Fragment);
-
-			OnPageEncountered (url, query, fragment);
+			if (UrlMatchesRedirect (url)) {
+				OnBrowsingCompleted ();
+			}
 		}
 
 		/// <summary>
@@ -99,7 +103,7 @@ namespace Xamarin.Auth
 		/// <param name='fragment'>
 		/// The parsed fragment of the URL.
 		/// </param>
-		protected virtual void OnPageEncountered (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
+		protected virtual void OnPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
 			foreach (var kv in fragment)
@@ -120,14 +124,9 @@ namespace Xamarin.Auth
 			//
 			// Watch for the redirect
 			//
-			if (UrlMatchesRedirect (url) && !IsAuthenticated) {
+			if (UrlMatchesRedirect (url)) {
 				OnRedirectPageLoaded (url, query, fragment);
 			}
-		}
-
-		private bool UrlMatchesRedirect (Uri url)
-		{
-			return url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath;
 		}
 
 		/// <summary>

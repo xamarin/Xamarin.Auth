@@ -14,11 +14,10 @@
 //    limitations under the License.
 //
 using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Android.App;
 using Android.Webkit;
 using Android.OS;
+using System.Threading.Tasks;
 using Xamarin.Utilities.Android;
 using System.Timers;
 
@@ -94,6 +93,7 @@ namespace Xamarin.Auth
 				webView.RestoreState (savedInstanceState);
 			}
 			else {
+				Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
 				BeginLoadingInitialUrl ();
 			}
 		}
@@ -105,7 +105,6 @@ namespace Xamarin.Auth
 					this.ShowError ("Authentication Error", t.Exception);
 				}
 				else {
-					UpdateCookies (t.Result);
 					webView.LoadUrl (t.Result.AbsoluteUri);
 				}
 			}, TaskScheduler.FromCurrentSynchronizationContext ());
@@ -137,30 +136,6 @@ namespace Xamarin.Auth
 			webView.Enabled = true;
 		}
 
-		void UpdateCookies (Uri uri)
-		{
-			if (state.Authenticator.ExistingAccount != null) {
-				SetCookies (state.Authenticator.ExistingAccount.Cookies, uri);
-			}
-			else {
-				ClearSessionCookies ();
-			}
-		}
-
-		void SetCookies (System.Net.CookieContainer cookies, Uri uri)
-		{
-			var cm = CookieManager.Instance;
-			
-			cm.SetCookie (uri.AbsoluteUri, cookies.GetCookieHeader (uri));
-		}
-
-		void ClearSessionCookies ()
-		{
-			var cm = CookieManager.Instance;
-
-			cm.RemoveAllCookie ();
-		}
-
 		class Client : WebViewClient
 		{
 			WebAuthenticatorActivity activity;
@@ -184,9 +159,9 @@ namespace Xamarin.Auth
 
 			public override void OnPageFinished (WebView view, string url)
 			{
-				activity.EndProgress ();
 				var uri = new Uri (url);
 				activity.state.Authenticator.OnPageLoaded (uri);
+				activity.EndProgress ();
 			}
 		}
 	}
