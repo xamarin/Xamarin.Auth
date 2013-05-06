@@ -189,19 +189,25 @@ namespace Xamarin.Auth
 				this.controller = controller;
 			}
 
+			public override bool ShouldStartLoad (UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
+			{
+				var nsUrl = request.Url;
+
+				if (nsUrl != null) {
+					Uri url;
+					if (Uri.TryCreate (nsUrl.AbsoluteString, UriKind.Absolute, out url)) {
+						controller.authenticator.OnPageLoading (url);
+					}
+				}
+
+				return true;
+			}
+
 			public override void LoadStarted (UIWebView webView)
 			{
 				controller.activity.StartAnimating ();
 
 				webView.UserInteractionEnabled = false;
-
-				var nsUrl = webView.Request.Url;
-				if (nsUrl != null) {
-					Uri url;
-					if (Uri.TryCreate (webView.Request.Url.AbsoluteString, UriKind.Absolute, out url)) {
-						controller.authenticator.OnPageLoading (url);
-					}
-				}
 			}
 
 			public override void LoadFailed (UIWebView webView, NSError error)
