@@ -88,7 +88,7 @@ namespace Xamarin.Auth
 				else {
 					// Delete cookies so we can work with multiple accounts
 					if (this.authenticator.ClearCookiesBeforeLogin)
-						this.authenticator.ClearCookies();
+						WebAuthenticator.ClearCookies();
 					
 					//
 					// Begin displaying the page

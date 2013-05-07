@@ -94,7 +94,7 @@ namespace Xamarin.Auth
 			}
 			else {
 				if (Intent.GetBooleanExtra ("ClearCookies", true))
-					CookieManager.Instance.RemoveAllCookie ();
+					WebAuthenticator.ClearCookies();
 
 				BeginLoadingInitialUrl ();
 			}

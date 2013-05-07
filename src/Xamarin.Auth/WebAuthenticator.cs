@@ -80,7 +80,7 @@ namespace Xamarin.Auth
 		/// Clears all cookies.
 		/// </summary>
 		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public void ClearCookies()
+		public static void ClearCookies()
 		{
 #if PLATFORM_IOS
 			var store = MonoTouch.Foundation.NSHttpCookieStorage.SharedStorage;
