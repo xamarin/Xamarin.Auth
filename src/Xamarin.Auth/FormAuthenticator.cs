@@ -232,7 +232,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// The display type of a credential field.
 	/// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal enum FormAuthenticatorFieldType
+#else
 	public enum FormAuthenticatorFieldType
+#endif
 	{
 		/// <summary>
 		/// The field is plain text.
