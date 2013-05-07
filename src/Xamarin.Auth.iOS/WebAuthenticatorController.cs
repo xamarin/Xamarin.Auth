@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -86,10 +86,9 @@ namespace Xamarin.Auth
 					authenticator.OnError (t.Exception);
 				}
 				else {
-					//
 					// Delete cookies so we can work with multiple accounts
-					//
-					DeleteCookies (t.Result);
+					if (this.authenticator.ClearCookiesBeforeLogin)
+						this.authenticator.ClearCookies();
 					
 					//
 					// Begin displaying the page
@@ -97,19 +96,6 @@ namespace Xamarin.Auth
 					LoadInitialUrl (t.Result);
 				}
 			}, TaskScheduler.FromCurrentSynchronizationContext ());
-		}
-
-		void DeleteCookies (Uri url)
-		{
-			//
-			// Delete all cookies so that redirects have their cookies
-			// erased too.
-			//
-			var store = NSHttpCookieStorage.SharedStorage;
-			var cookies = store.Cookies;
-			foreach (var c in cookies) {
-				store.DeleteCookie (c);
-			}
 		}
 		
 		void LoadInitialUrl (Uri url)

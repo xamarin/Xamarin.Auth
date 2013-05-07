@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -39,6 +39,16 @@ namespace Xamarin.Auth
 #endif
 	{
 		/// <summary>
+		/// Gets or sets whether to automatically clear cookies before logging in.
+		/// </summary>
+		/// <seealso cref="ClearCookies"/>
+		public bool ClearCookiesBeforeLogin
+		{
+			get { return this.clearCookies; }
+			set { this.clearCookies = value; }
+		}
+
+		/// <summary>
 		/// Method that returns the initial URL to be displayed in the web browser.
 		/// </summary>
 		/// <returns>
@@ -67,10 +77,30 @@ namespace Xamarin.Auth
 		public abstract void OnPageLoaded (Uri url);
 
 		/// <summary>
+		/// Clears all cookies.
+		/// </summary>
+		/// <seealso cref="ClearCookiesBeforeLogin"/>
+		public void ClearCookies()
+		{
+#if PLATFORM_IOS
+			var store = MonoTouch.Foundation.NSHttpCookieStorage.SharedStorage;
+			var cookies = store.Cookies;
+			foreach (var c in cookies) {
+				store.DeleteCookie (c);
+			}
+#elif PLATFORM_ANDROID
+			Android.Webkit.CookieSyncManager.CreateInstance (Android.App.Application.Context);
+			Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
+#endif
+		}
+
+		/// <summary>
 		/// Occurs when the visual, user-interactive, browsing has completed but there
 		/// is more authentication work to do.
 		/// </summary>
 		public event EventHandler BrowsingCompleted;
+
+		private bool clearCookies = true;
 
 		/// <summary>
 		/// Raises the browsing completed event.
@@ -104,6 +134,7 @@ namespace Xamarin.Auth
 		protected override AuthenticateUIType GetPlatformUI (UIContext context)
 		{
 			var i = new global::Android.Content.Intent (context, typeof (WebAuthenticatorActivity));
+			i.PutExtra ("ClearCookies", ClearCookiesBeforeLogin);
 			var state = new WebAuthenticatorActivity.State {
 				Authenticator = this,
 			};

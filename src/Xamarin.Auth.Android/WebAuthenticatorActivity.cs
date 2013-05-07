@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -93,7 +93,9 @@ namespace Xamarin.Auth
 				webView.RestoreState (savedInstanceState);
 			}
 			else {
-				Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
+				if (Intent.GetBooleanExtra ("ClearCookies", true))
+					CookieManager.Instance.RemoveAllCookie ();
+
 				BeginLoadingInitialUrl ();
 			}
 		}
