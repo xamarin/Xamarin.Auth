@@ -201,6 +201,8 @@ namespace Xamarin.Auth
 				controller.activity.StopAnimating ();
 
 				webView.UserInteractionEnabled = true;
+
+				controller.authenticator.OnError (error.LocalizedDescription);
 			}
 
 			public override void LoadingFinished (UIWebView webView)
