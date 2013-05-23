@@ -184,7 +184,12 @@ namespace Xamarin.Auth
 				consumerSecret,
 				tokenSecret);
 			
-			return req.GetResponseAsync ().ContinueWith (respTask => {				
+			return req.GetResponseAsync ().ContinueWith (respTask => {
+				if (respTask.IsFaulted) {
+					OnError (respTask.Exception);
+					return;
+				}
+
 				var content = respTask.Result.GetResponseText ();
 
 				var accountProperties = WebEx.FormDecode (content);
