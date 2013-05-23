@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using System.Threading;
 
 #if PLATFORM_IOS
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
 #elif PLATFORM_ANDROID
 using AuthenticateUIType = Android.Content.Intent;
@@ -75,6 +77,8 @@ namespace Xamarin.Auth
 		/// The URL of the page.
 		/// </param>
 		public abstract void OnPageLoaded (Uri url);
+
+		protected abstract string HandleOpenUrlScheme { get; }
 
 		/// <summary>
 		/// Clears all cookies.
@@ -151,6 +155,21 @@ namespace Xamarin.Auth
 		protected override AuthenticateUIType GetPlatformUI ()
 		{
 			throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
+		}
+#endif
+
+#if PLATFORM_IOS
+		public void LaunchSafari (Action<string, Func<Uri, bool>> registerUrlHandler)
+		{
+			GetInitialUrlAsync ().ContinueWith (initUrlTask => {
+				registerUrlHandler (HandleOpenUrlScheme, (uri) => {
+					OnPageLoaded (uri);
+					return true;
+				});
+
+				var app = UIApplication.SharedApplication;
+				app.BeginInvokeOnMainThread (() => app.OpenUrl (new NSUrl (initUrlTask.Result.ToString ())));
+			});
 		}
 #endif
 	}
