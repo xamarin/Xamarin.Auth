@@ -306,7 +306,7 @@ namespace Xamarin.Auth
 			}
 			return req.GetResponseAsync ().ContinueWith (task => {
 				var text = task.Result.GetResponseText ();
-				var data = WebEx.FormDecode (text);
+				var data = ParseAccessTokenResponse (text);
 				if (data.ContainsKey ("error")) {
 					throw new AuthException ("Error authenticating: " + data ["error"]);
 				} else if (data.ContainsKey ("access_token")) {
@@ -339,6 +339,11 @@ namespace Xamarin.Auth
 			} else {
 				OnSucceeded ("", accountProperties);
 			}
+		}
+
+		protected virtual Dictionary<string, string> ParseAccessTokenResponse (string responseText)
+		{
+		    return WebEx.FormDecode (responseText);
 		}
 	}
 }
