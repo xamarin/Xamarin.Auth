@@ -168,6 +168,31 @@ namespace Xamarin.Utilities
 
 			return sb.ToString();
 		}
+
+		public static string GetValueFromJson (string json, string key)
+		{
+			int index;
+
+			int keyStart = json.IndexOf ("\"" + key + "\"");
+			if (keyStart < 0)
+				return string.Empty;
+
+			int keyEnd = json.IndexOf (":", keyStart);
+			if (keyEnd < 0)
+				return string.Empty;
+
+			int valQuote = json.IndexOf ("\"", keyEnd);
+			if (valQuote < 0)
+				return string.Empty;
+
+			int valStart = valQuote + 1;
+			int valEnd = valStart;
+
+			while (valEnd < json.Length && json [valEnd] != '"')
+				valEnd++;
+
+			return json.Substring (valStart, valEnd - valStart);
+		}
 	}
 }
 

@@ -36,6 +36,9 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
+    <Reference Include="Newtonsoft.Json.MonoTouch">
+      <HintPath>..\..\..\Newtonsoft.Json.MonoTouch.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -99,6 +102,7 @@
     <Compile Include="..\Xamarin.Auth\Response.cs">
       <Link>Response.cs</Link>
     </Compile>
+    <Compile Include="ResponseFormat.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
