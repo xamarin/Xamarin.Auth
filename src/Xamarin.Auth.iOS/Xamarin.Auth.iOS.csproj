@@ -40,9 +40,6 @@
       <HintPath>..\..\..\Newtonsoft.Json.MonoTouch.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Compile Include="..\Xamarin.Auth\Account.cs">
