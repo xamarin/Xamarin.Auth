@@ -33,12 +33,12 @@ namespace Xamarin.Auth
 	public class OAuth2Authenticator : WebRedirectAuthenticator
 #endif
 	{
-		string clientId;
-		string clientSecret;
-		string scope;
-		Uri authorizeUrl;
-		Uri redirectUrl;
-		Uri accessTokenUrl;
+		protected string clientId;
+		protected string clientSecret;
+		protected string scope;
+		protected Uri authorizeUrl;
+		protected Uri redirectUrl;
+		protected Uri accessTokenUrl;
 		GetUsernameAsyncFunc getUsernameAsync;
 		ResponseFormat tokenResponseFormat;
 
