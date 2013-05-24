@@ -2,10 +2,10 @@ using System;
 
 namespace Xamarin.Auth
 {
-    public enum ResponseFormat
-    {
+	public enum ResponseFormat
+	{
 		Form,
 		Json
-    }
+	}
 }
 
