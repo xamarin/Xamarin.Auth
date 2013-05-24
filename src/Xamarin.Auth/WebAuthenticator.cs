@@ -159,7 +159,11 @@ namespace Xamarin.Auth
 #endif
 
 #if PLATFORM_IOS
-		public void LaunchSafari (Action<string, Func<Uri, bool>> registerUrlHandler)
+		public delegate bool OpenUrlHandler (Uri url);
+
+		public delegate void RegisterOpenUrlHandler (string scheme, OpenUrlHandler handler);
+
+		public void LaunchSafari (RegisterOpenUrlHandler registerUrlHandler)
 		{
 			GetInitialUrlAsync ().ContinueWith (initUrlTask => {
 				registerUrlHandler (HandleOpenUrlScheme, (uri) => {
