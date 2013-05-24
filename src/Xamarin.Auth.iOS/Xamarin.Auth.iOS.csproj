@@ -36,9 +36,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\" />
+    <Reference Include="System.Json" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -99,5 +97,10 @@
     <Compile Include="..\Xamarin.Auth\Response.cs">
       <Link>Response.cs</Link>
     </Compile>
+    <Compile Include="ResponseFormat.cs" />
+    <Compile Include="..\Xamarin.Auth\IExternalUrlManager.cs">
+      <Link>IExternalUrlManager.cs</Link>
+    </Compile>
+    <Compile Include="HandleOpenUrlManager.cs" />
   </ItemGroup>
 </Project>
