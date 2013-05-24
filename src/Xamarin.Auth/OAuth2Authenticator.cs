@@ -39,6 +39,7 @@ namespace Xamarin.Auth
 		Uri redirectUrl;
 		Uri accessTokenUrl;
 		GetUsernameAsyncFunc getUsernameAsync;
+		ResponseFormat tokenResponseFormat;
 
 		string requestState;
 		bool reportedForgery = false;
@@ -63,7 +64,7 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null, ResponseFormat tokenResponseFormat = ResponseFormat.Form)
 			: this (redirectUrl)
 		{
 			if (string.IsNullOrEmpty (clientId)) {
@@ -86,6 +87,7 @@ namespace Xamarin.Auth
 			this.getUsernameAsync = getUsernameAsync;
 
 			this.accessTokenUrl = null;
+			this.tokenResponseFormat = tokenResponseFormat;
 		}
 
 		/// <summary>
@@ -114,7 +116,7 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+		public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, GetUsernameAsyncFunc getUsernameAsync = null, ResponseFormat tokenResponseFormat = ResponseFormat.Form)
 			: this (redirectUrl, clientSecret, accessTokenUrl)
 		{
 			if (string.IsNullOrEmpty (clientId)) {
@@ -145,9 +147,10 @@ namespace Xamarin.Auth
 			this.accessTokenUrl = accessTokenUrl;
 
 			this.getUsernameAsync = getUsernameAsync;
+			this.tokenResponseFormat = tokenResponseFormat;
 		}
 
-		OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
+		OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null, ResponseFormat tokenResponseFormat = ResponseFormat.Form)
 			: base (redirectUrl, redirectUrl)
 		{
 			if (redirectUrl == null) {
@@ -158,6 +161,7 @@ namespace Xamarin.Auth
 			this.clientSecret = clientSecret;
 
 			this.accessTokenUrl = accessTokenUrl;
+			this.tokenResponseFormat = tokenResponseFormat;
 
 			//
 			// Generate a unique state string to check for forgeries
@@ -306,7 +310,7 @@ namespace Xamarin.Auth
 			}
 			return req.GetResponseAsync ().ContinueWith (task => {
 				var text = task.Result.GetResponseText ();
-				var data = WebEx.FormDecode (text);
+				var data = WebEx.GetValuesFromResponse (text, tokenResponseFormat);
 				if (data.ContainsKey ("error")) {
 					throw new AuthException ("Error authenticating: " + data ["error"]);
 				} else if (data.ContainsKey ("access_token")) {

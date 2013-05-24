@@ -55,6 +55,10 @@ namespace Xamarin.Auth
 
 		string verifier;
 
+		protected override string ExternalUrlScheme {
+			get { return callbackUrl.Scheme; }
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth1Authenticator"/> class.
 		/// </summary>
@@ -184,7 +188,12 @@ namespace Xamarin.Auth
 				consumerSecret,
 				tokenSecret);
 			
-			return req.GetResponseAsync ().ContinueWith (respTask => {				
+			return req.GetResponseAsync ().ContinueWith (respTask => {
+				if (respTask.IsFaulted) {
+					OnError (respTask.Exception);
+					return;
+				}
+
 				var content = respTask.Result.GetResponseText ();
 
 				var accountProperties = WebEx.FormDecode (content);

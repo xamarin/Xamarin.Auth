@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using System.Threading;
 
 #if PLATFORM_IOS
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
 #elif PLATFORM_ANDROID
 using AuthenticateUIType = Android.Content.Intent;
@@ -75,6 +77,8 @@ namespace Xamarin.Auth
 		/// The URL of the page.
 		/// </param>
 		public abstract void OnPageLoaded (Uri url);
+
+		protected abstract string ExternalUrlScheme { get; }
 
 		/// <summary>
 		/// Clears all cookies.
@@ -153,6 +157,22 @@ namespace Xamarin.Auth
 			throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
 		}
 #endif
+
+		public void AuthenticateWithBrowser (IExternalUrlManager manager)
+		{
+			GetInitialUrlAsync ().ContinueWith (initUrlTask => {
+				var externalUrl = initUrlTask.Result;
+
+				manager.OpenUrl (externalUrl, ExternalUrlScheme).ContinueWith (callbackTask => {
+					if (callbackTask.IsFaulted)
+						OnError (callbackTask.Exception);
+					else if (callbackTask.IsCanceled)
+						OnCancelled ();
+					else
+						OnPageLoaded (callbackTask.Result);
+				});
+			});
+		}
 	}
 }
 
