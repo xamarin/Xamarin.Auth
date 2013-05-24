@@ -35,7 +35,9 @@ namespace Xamarin.Auth
 			if (url.Scheme != callbackScheme)
 				return false;
 
-			tcs.TrySetResult (url);
+			if (this.tcs != null)
+				this.tcs.TrySetResult (url);
+
 			return true;
 		}
 
