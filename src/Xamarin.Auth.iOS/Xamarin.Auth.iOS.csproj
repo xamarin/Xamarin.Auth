@@ -98,5 +98,9 @@
       <Link>Response.cs</Link>
     </Compile>
     <Compile Include="ResponseFormat.cs" />
+    <Compile Include="..\Xamarin.Auth\IExternalUrlManager.cs">
+      <Link>IExternalUrlManager.cs</Link>
+    </Compile>
+    <Compile Include="HandleOpenUrlManager.cs" />
   </ItemGroup>
 </Project>

@@ -55,7 +55,7 @@ namespace Xamarin.Auth
 
 		string verifier;
 
-		protected override string HandleOpenUrlScheme {
+		protected override string ExternalUrlScheme {
 			get { return callbackUrl.Scheme; }
 		}
 

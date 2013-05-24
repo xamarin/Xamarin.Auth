@@ -78,7 +78,7 @@ namespace Xamarin.Auth
 		/// </param>
 		public abstract void OnPageLoaded (Uri url);
 
-		protected abstract string HandleOpenUrlScheme { get; }
+		protected abstract string ExternalUrlScheme { get; }
 
 		/// <summary>
 		/// Clears all cookies.
@@ -158,24 +158,21 @@ namespace Xamarin.Auth
 		}
 #endif
 
-#if PLATFORM_IOS
-		public delegate bool OpenUrlHandler (Uri url);
-
-		public delegate void RegisterOpenUrlHandler (string scheme, OpenUrlHandler handler);
-
-		public void LaunchSafari (RegisterOpenUrlHandler registerUrlHandler)
+		public void AuthenticateWithBrowser (IExternalUrlManager manager)
 		{
 			GetInitialUrlAsync ().ContinueWith (initUrlTask => {
-				registerUrlHandler (HandleOpenUrlScheme, (uri) => {
-					OnPageLoaded (uri);
-					return true;
-				});
+				var externalUrl = initUrlTask.Result;
 
-				var app = UIApplication.SharedApplication;
-				app.BeginInvokeOnMainThread (() => app.OpenUrl (new NSUrl (initUrlTask.Result.ToString ())));
+				manager.OpenUrl (externalUrl, ExternalUrlScheme).ContinueWith (callbackTask => {
+					if (callbackTask.IsFaulted)
+						OnError (callbackTask.Exception);
+					else if (callbackTask.IsCanceled)
+						OnCancelled ();
+					else
+						OnPageLoaded (callbackTask.Result);
+				});
 			});
 		}
-#endif
 	}
 }
 
