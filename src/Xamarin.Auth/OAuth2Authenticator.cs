@@ -20,7 +20,6 @@ using System.Collections.Generic;
 using Xamarin.Utilities;
 using System.Net;
 using System.Text;
-using Newtonsoft.Json;
 
 namespace Xamarin.Auth
 {
@@ -311,7 +310,7 @@ namespace Xamarin.Auth
 			}
 			return req.GetResponseAsync ().ContinueWith (task => {
 				var text = task.Result.GetResponseText ();
-				var data = ParseAccessTokenResponse (text);
+				var data = WebEx.GetValuesFromResponse (text, tokenResponseFormat);
 				if (data.ContainsKey ("error")) {
 					throw new AuthException ("Error authenticating: " + data ["error"]);
 				} else if (data.ContainsKey ("access_token")) {
@@ -343,18 +342,6 @@ namespace Xamarin.Auth
 				}, TaskScheduler.FromCurrentSynchronizationContext ());
 			} else {
 				OnSucceeded ("", accountProperties);
-			}
-		}
-
-		protected virtual Dictionary<string, string> ParseAccessTokenResponse (string responseText)
-		{
-			switch (tokenResponseFormat) {
-			case ResponseFormat.Form:
-				return WebEx.FormDecode (responseText);
-			case ResponseFormat.Json:
-				return JsonConvert.DeserializeObject<Dictionary<string, string>> (responseText);
-			default:
-				throw new NotImplementedException ();
 			}
 		}
 	}

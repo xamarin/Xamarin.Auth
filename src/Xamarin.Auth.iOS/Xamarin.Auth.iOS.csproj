@@ -36,9 +36,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="monotouch" />
-    <Reference Include="Newtonsoft.Json.MonoTouch">
-      <HintPath>..\..\lib\Newtonsoft.Json.MonoTouch.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Json" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

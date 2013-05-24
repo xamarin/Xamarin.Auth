@@ -19,8 +19,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Json;
 using System.Linq;
 using System.Globalization;
+using Xamarin.Auth;
 
 namespace Xamarin.Utilities
 {
@@ -183,6 +185,38 @@ namespace Xamarin.Utilities
 			}
 			var r = json.Substring (b, e - b);
 			return r;
+		}
+
+		public static Dictionary<string, string> GetValuesFromResponse (string response, ResponseFormat format)
+		{
+			if (format == ResponseFormat.Form)
+				return WebEx.FormDecode (response);
+
+			if (format == ResponseFormat.Json) {
+				var json = (JsonObject) JsonValue.Parse (response);
+
+				return json.ToDictionary (
+					p => p.Key,
+					p => {
+						var val = p.Value;
+						switch (val.JsonType) {
+						case JsonType.Boolean:
+							return ((bool) val) ? "true" : "false";
+						case JsonType.Number:
+							return ((double) val).ToString ("F", CultureInfo.InvariantCulture);
+						case JsonType.String:
+							return (string) val;
+						case JsonType.Array:
+							return "[array]";
+						case JsonType.Object:
+							return "[object]";
+						default: throw new NotImplementedException ();
+						}
+					}
+				);
+			}
+
+			throw new NotImplementedException ();
 		}
 	}
 }
