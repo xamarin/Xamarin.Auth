@@ -189,9 +189,9 @@ namespace Xamarin.Auth
 				Uri.EscapeDataString (scope),
 				Uri.EscapeDataString (requestState)));
 
-			return Task.Factory.StartNew (() => {
-				return url;
-			});
+			var tcs = new TaskCompletionSource<Uri> ();
+			tcs.SetResult (url);
+			return tcs.Task;
 		}
 
 		/// <summary>
