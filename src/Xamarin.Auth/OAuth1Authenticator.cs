@@ -55,6 +55,10 @@ namespace Xamarin.Auth
 
 		string verifier;
 
+		protected override Uri CustomUrl {
+			get { return callbackUrl; }
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth1Authenticator"/> class.
 		/// </summary>
