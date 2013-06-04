@@ -216,8 +216,8 @@ namespace Xamarin.Auth
 						return new Response ((HttpWebResponse)resTask.Result);
 					}, cancellationToken).Result;
 				}, cancellationToken);
-			} else if (Method == "POST" && Parameters.Count > 0) {
-				var body = Parameters.FormEncode ();
+			} else if (Method == "POST" && HasBody) {
+				var body = GetBody ();
 				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
 				request.ContentLength = bodyData.Length;
 				request.ContentType = "application/x-www-form-urlencoded";
@@ -323,6 +323,22 @@ namespace Xamarin.Auth
 			}
 
 			return new Uri (url);
+		}
+
+		/// <summary>
+		/// Returns whether a body needs to be added to this <see cref="T:Xamarin.Auth.Request"/>.
+		/// If <c>true</c>, the result of <see cref="GetBody"/> will be added to this request on POST.
+		/// </summary>
+		protected virtual bool HasBody {
+			get { return Parameters.Count > 0; }
+		}
+
+		/// <summary>
+		/// Returns a body to be added to this <see cref="T:Xamarin.Auth.Request"/> on POST if <see cref="HasBody"/> is true.
+		/// </summary>
+		protected virtual string GetBody ()
+		{
+			return Parameters.FormEncode ();
 		}
 
 		/// <summary>
