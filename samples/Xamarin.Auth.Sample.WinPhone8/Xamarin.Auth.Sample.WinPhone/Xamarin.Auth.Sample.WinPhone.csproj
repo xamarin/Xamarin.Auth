@@ -147,7 +147,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Xamarin.Auth.WindowsPhone\Xamarin.Auth.WindowsPhone.csproj">
+    <ProjectReference Include="..\..\..\src\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone.csproj">
       <Project>{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}</Project>
       <Name>Xamarin.Auth.WindowsPhone</Name>
     </ProjectReference>

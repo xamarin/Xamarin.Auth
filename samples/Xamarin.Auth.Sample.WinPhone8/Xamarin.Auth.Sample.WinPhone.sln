@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Sample.WinPhone", "Xamarin.Auth.Sample.WinPhone\Xamarin.Auth.Sample.WinPhone.csproj", "{75211E06-B829-4DC3-B365-31BB47BA5105}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone", "..\..\src\Xamarin.Auth.WindowsPhone\Xamarin.Auth.WindowsPhone.csproj", "{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone", "..\..\src\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone.csproj", "{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
