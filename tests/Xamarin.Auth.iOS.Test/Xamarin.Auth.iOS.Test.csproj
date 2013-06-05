@@ -94,7 +94,7 @@
     <Compile Include="WebRedirectAuthenticatorTest.cs" />
     <Compile Include="AccountTest.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\..\src\Xamarin.Auth.iOS\Xamarin.Auth.iOS.csproj">
       <Project>{9309BCCC-AA7B-4195-A130-D4572FA9488D}</Project>
