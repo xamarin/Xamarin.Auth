@@ -43,18 +43,31 @@ namespace Xamarin.Auth.WindowsPhone
 			}
 		}
 
+		public override void Delete (Account account, string serviceId)
+		{
+			var path = GetAccountPath (account, serviceId);
+			using (var store = IsolatedStorageFile.GetUserStoreForApplication()) {
+				store.DeleteFile (path);
+			}
+		}
+
 		public override void Save (Account account, string serviceId)
 		{
 			byte[] data = Encoding.UTF8.GetBytes (account.Serialize());
 			byte[] prot = ProtectedData.Protect (data, null);
 
-			string path = String.Format ("xamarin.auth.{0}.{1}", account.Username, serviceId);
+			var path = GetAccountPath (account, serviceId);
 
 			using (var store = IsolatedStorageFile.GetUserStoreForApplication())
 			using (var stream = new IsolatedStorageFileStream (path, FileMode.Create, FileAccess.Write, FileShare.None, store)) {
 				stream.WriteAsync (BitConverter.GetBytes (prot.Length), 0, sizeof (int)).Wait();
 				stream.WriteAsync (prot, 0, prot.Length).Wait();
 			}
+		}
+
+		private static string GetAccountPath (Account account, string serviceId)
+		{
+			return String.Format ("xamarin.auth.{0}.{1}", account.Username, serviceId);
 		}
 	}
 }
