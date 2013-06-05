@@ -163,7 +163,13 @@ namespace Xamarin.Auth
 
 				r.TryGetValue ("oauth_verifier", out verifier);
 
-				GetAccessTokenAsync ();
+				GetAccessTokenAsync ().ContinueWith (getTokenTask => {
+					if (getTokenTask.IsCanceled) {
+						OnCancelled ();
+					} else if (getTokenTask.IsFaulted) {
+						OnError (getTokenTask.Exception);
+					}
+				}, TaskContinuationOptions.NotOnRanToCompletion);
 			}
 		}
 
