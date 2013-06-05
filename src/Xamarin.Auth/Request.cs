@@ -214,8 +214,8 @@ namespace Xamarin.Auth
 									.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
 									.ContinueWith (resTask => {
 						return new Response ((HttpWebResponse)resTask.Result);
-					}, cancellationToken).Result;
-				}, cancellationToken);
+					}, cancellationToken);
+				}, cancellationToken).Unwrap();
 			} else if (Method == "POST" && Parameters.Count > 0) {
 				var body = Parameters.FormEncode ();
 				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
@@ -234,8 +234,8 @@ namespace Xamarin.Auth
 								.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
 									.ContinueWith (resTask => {
 						return new Response ((HttpWebResponse)resTask.Result);
-					}, cancellationToken).Result;
-				}, cancellationToken);
+					}, cancellationToken);
+				}, cancellationToken).Unwrap();
 			} else {
 				return Task.Factory
 						.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
