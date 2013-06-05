@@ -263,7 +263,7 @@ namespace Xamarin.Auth
 						} else {
 							OnRetrievedAccountProperties (task.Result);
 						}
-					});
+					}, TaskScheduler.FromCurrentSynchronizationContext ());
 				} else {
 					OnError ("Expected code in response, but did not receive one.");
 					return;
