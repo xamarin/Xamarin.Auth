@@ -19,6 +19,7 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Json;
 using System.Linq;
 using System.Globalization;
 
@@ -167,6 +168,28 @@ namespace Xamarin.Utilities
 			}
 
 			return sb.ToString();
+		}
+
+		public static Dictionary<string, string> JsonDecode (string encoded)
+		{
+			var inputs = new Dictionary<string, string> ();
+			var json = JsonValue.Parse (encoded) as JsonObject;
+
+			foreach (var kv in json) {
+				var v = kv.Value as JsonValue;
+				if (v != null) {
+					switch (v.JsonType) {
+					case JsonType.String:
+						inputs [kv.Key] = (string) v;
+						break;
+					case JsonType.Number:
+						inputs [kv.Key] = ((int) v).ToString ();
+						break;
+					}
+				}
+			}
+
+			return inputs;
 		}
 	}
 }
