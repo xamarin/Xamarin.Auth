@@ -190,6 +190,7 @@ namespace Xamarin.Auth
 		public virtual Task<Response> GetResponseAsync (CancellationToken cancellationToken)
 		{
 			var request = GetPreparedWebRequest ();
+			var tcs = new TaskCompletionSource<Response> ();
 
 			//
 			// Disable 100-Continue: http://blogs.msdn.com/b/shitals/archive/2008/12/27/9254245.aspx
@@ -198,51 +199,96 @@ namespace Xamarin.Auth
 				ServicePointManager.Expect100Continue = false;
 			}
 
+			cancellationToken.Register (() => tcs.TrySetCanceled ());
+
 			if (Multiparts.Count > 0) {
 				var boundary = "---------------------------" + new Random ().Next ();
 				request.ContentType = "multipart/form-data; boundary=" + boundary;
 
-				return Task.Factory
-						.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
-						.ContinueWith (reqStreamtask => {
-						
-					using (reqStreamtask.Result) {
-						WriteMultipartFormData (boundary, reqStreamtask.Result);
+				Task.Factory
+					.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
+					.ContinueWith (reqStreamtask => {
+
+					try {
+						using (reqStreamtask.Result) {
+							WriteMultipartFormData (boundary, reqStreamtask.Result);
+						}
+					} catch (Exception ex) {
+						tcs.TrySetException (ex);
+						return;
 					}
+
+					Task.Factory
+						.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
+						.ContinueWith (resTask => {
 						
-					return Task.Factory
-									.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
-									.ContinueWith (resTask => {
-						return new Response ((HttpWebResponse)resTask.Result);
-					}, cancellationToken).Result;
+						Response result = null;
+						try {
+							result = new Response ((HttpWebResponse) resTask.Result);
+						} catch (Exception ex) {
+							tcs.TrySetException (ex);
+							return;
+						}
+
+						tcs.TrySetResult (result);
+
+					}, cancellationToken);
 				}, cancellationToken);
+
 			} else if (Method == "POST" && Parameters.Count > 0) {
 				var body = Parameters.FormEncode ();
 				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
 				request.ContentLength = bodyData.Length;
 				request.ContentType = "application/x-www-form-urlencoded";
 
-				return Task.Factory
-						.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
-						.ContinueWith (reqStreamTask => {
-
-					using (reqStreamTask.Result) {
-						reqStreamTask.Result.Write (bodyData, 0, bodyData.Length);
+				Task.Factory
+					.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
+					.ContinueWith (reqStreamTask => {
+					
+					try {
+						using (reqStreamTask.Result) {
+							reqStreamTask.Result.Write (bodyData, 0, bodyData.Length);
+						}
+					} catch (Exception ex) {
+						tcs.TrySetException (ex);
+						return;
 					}
-							
-					return Task.Factory
-								.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
-									.ContinueWith (resTask => {
-						return new Response ((HttpWebResponse)resTask.Result);
-					}, cancellationToken).Result;
-				}, cancellationToken);
-			} else {
-				return Task.Factory
+
+					Task.Factory
 						.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
 						.ContinueWith (resTask => {
-					return new Response ((HttpWebResponse)resTask.Result);
+
+						Response result = null;
+						try {
+							result = new Response ((HttpWebResponse) resTask.Result);
+						} catch (Exception ex) {
+							tcs.TrySetException (ex);
+							return;
+						}
+						
+						tcs.TrySetResult (result);
+						
+					}, cancellationToken);
+				}, cancellationToken);
+			} else {
+				Task.Factory
+					.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
+					.ContinueWith (resTask => {
+
+					Response result = null;
+					try {
+						result = new Response ((HttpWebResponse) resTask.Result);
+					} catch (Exception ex) {
+						tcs.TrySetException (ex);
+						return;
+					}
+
+					tcs.TrySetResult (result);
+
 				}, cancellationToken);
 			}
+
+			return tcs.Task;
 		}
 
 		void WriteMultipartFormData (string boundary, Stream s)
