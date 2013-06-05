@@ -283,7 +283,7 @@ namespace Xamarin.Auth
 		/// <param name='code'>
 		/// Code.
 		/// </param>
-		Task<Dictionary<string,string>> RequestAccessTokenAsync (string code)
+		Task<IDictionary<string,string>> RequestAccessTokenAsync (string code)
 		{
 			var queryValues = new Dictionary<string, string> {
 				{ "grant_type", "authorization_code" },
@@ -294,6 +294,12 @@ namespace Xamarin.Auth
 			if (!string.IsNullOrEmpty (clientSecret)) {
 				queryValues ["client_secret"] = clientSecret;
 			}
+
+			return RequestAccessTokenAsync (queryValues);
+		}
+
+		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
+		{
 			var query = queryValues.FormEncode ();
 
 			var req = WebRequest.Create (accessTokenUrl);
