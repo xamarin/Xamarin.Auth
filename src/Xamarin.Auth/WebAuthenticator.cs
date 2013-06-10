@@ -49,6 +49,13 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
+		/// Gets the application custom URL registered for this authenticator.
+		/// </summary>
+		protected abstract Uri CustomUrl {
+			get;
+		}
+
+		/// <summary>
 		/// Method that returns the initial URL to be displayed in the web browser.
 		/// </summary>
 		/// <returns>
@@ -153,6 +160,30 @@ namespace Xamarin.Auth
 			throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
 		}
 #endif
+
+		/// <summary>
+		/// Opens authentication page in system browser and waits for the app to go foreground with a custom URL.
+		/// </summary>
+		/// <param name="handler">Custom URL handler. Use <see cref="SafariUrlHandler.Instance"/> for iOS.</param>
+		public void AuthenticateWithBrowser (ICustomUrlHandler handler)
+		{
+			if (CustomUrl.AbsoluteUri.StartsWith ("http"))
+				throw new InvalidOperationException (string.Format (
+					"You need to replace '{0}' with application-specific custom URL to use browser authentication.", CustomUrl));
+
+			GetInitialUrlAsync ().ContinueWith (initUrlTask => {
+				var externalUrl = initUrlTask.Result;
+
+				handler.OpenUrl (externalUrl, CustomUrl.Scheme).ContinueWith (callbackTask => {
+					if (callbackTask.IsFaulted)
+						OnError (callbackTask.Exception);
+					else if (callbackTask.IsCanceled)
+						OnCancelled ();
+					else
+						OnPageLoaded (callbackTask.Result);
+				}, TaskScheduler.FromCurrentSynchronizationContext ());
+			}, TaskScheduler.FromCurrentSynchronizationContext ());
+		}
 	}
 }
 

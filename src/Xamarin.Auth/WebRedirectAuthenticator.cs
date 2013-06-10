@@ -33,6 +33,10 @@ namespace Xamarin.Auth
 		Uri initialUrl;
 		Uri redirectUrl;
 
+		protected override Uri CustomUrl {
+			get { return redirectUrl; }
+		}
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.WebRedirectAuthenticator"/> class.
 		/// </summary>
