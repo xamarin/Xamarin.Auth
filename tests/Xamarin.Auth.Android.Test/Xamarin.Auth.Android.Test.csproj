@@ -51,8 +51,6 @@
     <Compile Include="..\Xamarin.Auth.iOS.Test\OAuth1Test.cs">
       <Link>OAuth1Test.cs</Link>
     </Compile>
-    <Compile Include="OAuth2AuthenticatorTest.cs" />
-    <Compile Include="WebRedirectAuthenticatorTest.cs" />
     <Compile Include="AccountTest.cs" />
   </ItemGroup>
   <ItemGroup>
