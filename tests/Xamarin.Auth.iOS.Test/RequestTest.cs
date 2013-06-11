@@ -1,5 +1,5 @@
-//
-//  Copyright 2012-2013, Xamarin Inc.
+﻿//
+//  Copyright 2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -13,35 +13,34 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
+
 using System;
-using NUnit.Framework;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using NUnit.Framework;
 
 namespace Xamarin.Auth.Test
 {
 	[TestFixture]
-	public class AccountTest
+	public class RequestTest
 	{
 		[Test]
-		public void Delete ()
+		public void Ctor()
 		{
-			var store = AccountStore.Create ();
-			
-			// Store a test account
-			var account = new Account ("xamarin_delete");
-			store.Save (account, "test");
-			
-			// Make sure it was stored
-			var saccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_delete");
-			Assert.That (saccount, Is.Not.Null);
-			
-			// Delete it
-			store.Delete (saccount, "test");
-			
-			// Make sure it was deleted
-			var daccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_delete");
-			Assert.That (daccount, Is.Null);
+			const string method = "POST";
+			Uri uri = new Uri ("http://xamarin.com");
+
+			var ps = new Dictionary<string, string> { { "foo", "bar " } };
+
+			var account = new Account ("username");
+
+			var request = new Request (method, uri, ps, account);
+
+			Assert.That (request.Method, Is.EqualTo (method));
+			Assert.That (request.Url, Is.EqualTo (uri));
+
+			Assert.That (request.Account, Is.SameAs (account));
 		}
 	}
 }
-

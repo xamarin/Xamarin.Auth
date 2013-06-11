@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,12 +15,10 @@
 //
 using System;
 using NUnit.Framework;
-using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Auth;
 
-namespace Xamarin.Auth.iOS.Test
+namespace Xamarin.Auth.Test
 {
 	[TestFixture]
 	public class OAuth1Test
