@@ -67,47 +67,6 @@ namespace Xamarin.Utilities
 				.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null);
 		}
 
-		/// <summary>
-		/// Encodes a string according to: http://www.ietf.org/rfc/rfc3986.txt
-		/// </summary>
-		/// <returns>
-		/// The encoded string.
-		/// </returns>
-		/// <param name='unencoded'>
-		/// The string to encode.
-		/// </param>
-		public static string EncodeString (string unencoded)
-		{
-			var utf8 = Encoding.UTF8.GetBytes (unencoded);
-			var sb = new StringBuilder ();
-
-			for (var i = 0; i < utf8.Length; i++) {
-				var v = utf8[i];
-				if ((0x41 <= v && v <= 0x5A) || (0x61 <= v && v <= 0x7A) || (0x30 <= v && v <= 0x39) ||
-				    v == 0x2D || v == 0x2E || v == 0x5F || v == 0x7E) {
-					sb.Append ((char)v);
-				} else {
-					sb.AppendFormat (CultureInfo.InvariantCulture, "%{0:X2}", v);
-				}
-			}
-
-			return sb.ToString ();
-		}
-
-		public static string FormEncode (this IDictionary<string, string> inputs)
-		{
-			var sb = new StringBuilder ();
-			var head = "";
-			foreach (var p in inputs) {
-				sb.Append (head);
-				sb.Append (EncodeString (p.Key));
-				sb.Append ("=");
-				sb.Append (EncodeString (p.Value));
-				head = "&";
-			}
-			return sb.ToString ();
-		}
-
 		static char[] AmpersandChars = new char[] { '&' };
 		static char[] EqualsChars = new char[] { '=' };
 

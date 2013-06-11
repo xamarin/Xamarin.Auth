@@ -73,6 +73,9 @@
     <Compile Include="..\Xamarin.Auth\WebAuthenticator.cs">
       <Link>WebAuthenticator.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth\WebUtilities.cs">
+      <Link>WebUtilities.cs</Link>
+    </Compile>
     <Compile Include="AndroidAccountStore.cs" />
     <Compile Include="FormAuthenticatorActivity.cs" />
     <Compile Include="WebAuthenticatorActivity.cs" />
