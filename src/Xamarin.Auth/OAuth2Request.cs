@@ -46,6 +46,7 @@ namespace Xamarin.Auth
 		public OAuth2Request (string method, Uri url, IDictionary<string, string> parameters, Account account)
 			: base (method, url, parameters, account)
 		{
+			AccessTokenParameterName = "access_token";
 		}
 		
 		/// <summary>
@@ -56,8 +57,13 @@ namespace Xamarin.Auth
 		/// </returns>
 		protected override Uri GetPreparedUrl ()
 		{
-			return GetAuthenticatedUrl (Account, base.GetPreparedUrl ());
+			return GetAuthenticatedUrl (Account, base.GetPreparedUrl (), AccessTokenParameterName);
 		}
+
+		/// <summary>
+		/// The name of the access token parameter in URLs
+		/// </summary>
+		public string AccessTokenParameterName { get; set; }
 
 		/// <summary>
 		/// Transforms an unauthenticated URL to an authenticated one.
@@ -71,7 +77,7 @@ namespace Xamarin.Auth
 		/// <param name='unauthenticatedUrl'>
 		/// The unauthenticated URL.
 		/// </param>
-		public static Uri GetAuthenticatedUrl (Account account, Uri unauthenticatedUrl)
+		public static Uri GetAuthenticatedUrl (Account account, Uri unauthenticatedUrl, string accessTokenParameterName = "access_token")
 		{
 			if (account == null) {
 				throw new ArgumentNullException ("account");
@@ -86,9 +92,9 @@ namespace Xamarin.Auth
 			var url = unauthenticatedUrl.AbsoluteUri;
 			
 			if (url.Contains ("?")) {
-				url += "&access_token=" + account.Properties ["access_token"];
+				url += "&" + accessTokenParameterName + "=" + account.Properties ["access_token"];
 			} else {
-				url += "?access_token=" + account.Properties ["access_token"];
+				url += "?" + accessTokenParameterName + "=" + account.Properties ["access_token"];
 			}
 			
 			return new Uri (url);

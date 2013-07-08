@@ -312,7 +312,10 @@ namespace Xamarin.Auth
 			}
 			return req.GetResponseAsync ().ContinueWith (task => {
 				var text = task.Result.GetResponseText ();
-				var data = WebEx.FormDecode (text);
+
+				// Parse the response
+				var data = text.Contains ("{") ? WebEx.JsonDecode (text) : WebEx.FormDecode (text);
+
 				if (data.ContainsKey ("error")) {
 					throw new AuthException ("Error authenticating: " + data ["error"]);
 				} else if (data.ContainsKey ("access_token")) {
