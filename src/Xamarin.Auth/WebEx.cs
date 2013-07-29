@@ -21,6 +21,7 @@ using System.Text;
 using System.IO;
 using System.Linq;
 using System.Globalization;
+using System.Json;
 
 namespace Xamarin.Utilities
 {
@@ -84,6 +85,21 @@ namespace Xamarin.Utilities
 				var k = Uri.UnescapeDataString (kv[0]);
 				var v = kv.Length > 1 ? Uri.UnescapeDataString (kv[1]) : "";
 				inputs[k] = v;
+			}
+
+			return inputs;
+		}
+
+		public static Dictionary<string, string> JsonDecode (string encodedString)
+		{
+			var inputs = new Dictionary<string, string> ();
+			var json = JsonValue.Parse (encodedString) as JsonObject;
+
+			foreach (var kv in json) {
+				var v = kv.Value as JsonValue;
+				if (v != null) {
+					inputs [kv.Key] = (string)v;
+				}
 			}
 
 			return inputs;
