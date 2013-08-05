@@ -298,6 +298,15 @@ namespace Xamarin.Auth
 			return RequestAccessTokenAsync (queryValues);
 		}
 
+		/// <summary>
+		/// Implements: http://tools.ietf.org/html/rfc6749#section-4.1
+		/// </summary>
+		/// <returns>
+		/// The access token async.
+		/// </returns>
+		/// <param name='queryValues'>
+		/// Values needed to retrieve the access token
+		/// </param>
 		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
 		{
 			var query = queryValues.FormEncode ();

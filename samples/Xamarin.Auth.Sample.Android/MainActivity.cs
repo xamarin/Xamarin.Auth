@@ -10,13 +10,16 @@ namespace Xamarin.Auth.Sample.Android
 	[Activity (Label = "Xamarin.Auth Sample (Android)", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
-		void LoginToFacebook (object sender, EventArgs e)
+
+		void LoginToFacebook (bool allowCancel)
 		{
 			var auth = new OAuth2Authenticator (
 				clientId: "App ID from https://developers.facebook.com/apps",
 				scope: "",
 				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
+
+			auth.AllowCancel = allowCancel;
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += (s, ee) => {
@@ -53,8 +56,12 @@ namespace Xamarin.Auth.Sample.Android
 			SetContentView (Resource.Layout.Main);
 
 			this.facebookStatus = FindViewById<TextView> (Resource.Id.FacebookTextView);
+
 			var facebook = FindViewById<Button> (Resource.Id.FacebookButton);			
-			facebook.Click += LoginToFacebook;
+			facebook.Click += delegate { LoginToFacebook(true);};
+
+			var facebookNoCancel = FindViewById<Button> (Resource.Id.FacebookButtonNoCancel);
+			facebookNoCancel.Click += delegate { LoginToFacebook(false);};
 		}
 	}
 }
