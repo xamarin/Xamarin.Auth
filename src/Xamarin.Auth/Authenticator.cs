@@ -45,6 +45,11 @@ namespace Xamarin.Auth
 		public string Title { get; set; }
 
 		/// <summary>
+		/// Allow this authenticator to block the Cancel flow
+		/// </summary>
+		public bool AllowCancel { get; set; }
+
+		/// <summary>
 		/// Occurs when authentication has been successfully or unsuccessfully completed.
 		/// Consult the <see cref="AuthenticatorCompletedEventArgs.IsAuthenticated"/> event argument to determine if
 		/// authentication was successful.
@@ -62,6 +67,7 @@ namespace Xamarin.Auth
 		public Authenticator ()
 		{
 			Title = "Authenticate";
+			AllowCancel = true;
 		}
 
 #if PLATFORM_ANDROID

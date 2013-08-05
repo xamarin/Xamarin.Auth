@@ -22,8 +22,20 @@ using System.Text;
 
 namespace Xamarin.Auth
 {
+	/// <summary>
+	/// Helper Web Utilities
+	/// </summary>
 	public static class WebUtilities
 	{
+		/// <summary>
+		/// Form encodes a set of input name/value pairs
+		/// </summary>
+		/// <returns>
+		/// The encoded form values
+		/// </returns>
+		/// <param name='inputs'>
+		/// The values to form encode
+		/// </param>
 		public static string FormEncode (this IDictionary<string, string> inputs)
 		{
 			if (inputs == null)
