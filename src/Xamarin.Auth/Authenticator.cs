@@ -57,11 +57,17 @@ namespace Xamarin.Auth
 		public event EventHandler<AuthenticatorErrorEventArgs> Error;
 
 		/// <summary>
+		/// Whether this authenticator has completed its interaction with the user.
+		/// </summary>
+		public bool HasCompleted { get; private set; }
+
+		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.Authenticator"/> class.
 		/// </summary>
 		public Authenticator ()
 		{
 			Title = "Authenticate";
+			HasCompleted = false;
 		}
 
 #if PLATFORM_ANDROID
@@ -101,6 +107,11 @@ namespace Xamarin.Auth
 		/// </param>
 		public void OnSucceeded (Account account)
 		{
+			if (HasCompleted)
+				return;
+
+			HasCompleted = true;
+
 			BeginInvokeOnUIThread (delegate {
 				var ev = Completed;
 				if (ev != null) {
@@ -129,6 +140,11 @@ namespace Xamarin.Auth
 		/// </summary>
 		public void OnCancelled ()
 		{
+			if (HasCompleted)
+				return;
+
+			HasCompleted = true;
+
 			BeginInvokeOnUIThread (delegate {
 				var ev = Completed;
 				if (ev != null) {

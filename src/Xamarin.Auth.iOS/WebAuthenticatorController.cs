@@ -179,7 +179,7 @@ namespace Xamarin.Auth
 			{
 				var nsUrl = request.Url;
 
-				if (nsUrl != null) {
+				if (nsUrl != null && !controller.authenticator.HasCompleted) {
 					Uri url;
 					if (Uri.TryCreate (nsUrl.AbsoluteString, UriKind.Absolute, out url)) {
 						controller.authenticator.OnPageLoading (url);
@@ -212,7 +212,7 @@ namespace Xamarin.Auth
 				webView.UserInteractionEnabled = true;
 
 				var url = new Uri (webView.Request.Url.AbsoluteString);
-				if (url != lastUrl) { // Prevent loading the same URL multiple times
+				if (url != lastUrl && !controller.authenticator.HasCompleted) {
 					lastUrl = url;
 					controller.authenticator.OnPageLoaded (url);
 				}
