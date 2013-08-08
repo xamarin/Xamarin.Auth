@@ -12,13 +12,15 @@ namespace Xamarin.Auth.Sample.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		void LoginToFacebook ()
+		void LoginToFacebook (bool allowCancel)
 		{
 			var auth = new OAuth2Authenticator (
 				clientId: "App ID from https://developers.facebook.com/apps",
 				scope: "",
 				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
+
+			auth.AllowCancel = allowCancel;
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += (s, e) =>
@@ -56,7 +58,8 @@ namespace Xamarin.Auth.Sample.iOS
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			facebook = new Section ("Facebook");
-			facebook.Add (new StyledStringElement ("Log in", LoginToFacebook));
+			facebook.Add (new StyledStringElement ("Log in", delegate {LoginToFacebook(true); }));			
+			facebook.Add (new StyledStringElement ("Log in(no cancel)", delegate {LoginToFacebook(false); }));
 			facebook.Add (facebookStatus = new StringElement (String.Empty));
 
 			dialog = new DialogViewController (new RootElement ("Xamarin.Auth Sample") {

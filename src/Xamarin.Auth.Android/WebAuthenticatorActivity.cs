@@ -114,7 +114,10 @@ namespace Xamarin.Auth
 
 		public override void OnBackPressed ()
 		{
-			state.Authenticator.OnCancelled ();
+			if (state.Authenticator.AllowCancel)
+			{
+				state.Authenticator.OnCancelled ();
+			}
 		}
 
 		public override Java.Lang.Object OnRetainNonConfigurationInstance ()
