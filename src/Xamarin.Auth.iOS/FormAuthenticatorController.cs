@@ -44,12 +44,14 @@ namespace Xamarin.Auth
 			TableView.DataSource = new FormDataSource (this);
 			TableView.Delegate = new FormDelegate (this);
 
-			NavigationItem.LeftBarButtonItem = new UIBarButtonItem (
-				UIBarButtonSystemItem.Cancel,
-				delegate { 
-					StopProgress ();
-					authenticator.OnCancelled ();
-				});
+			if (authenticator.AllowCancel) {
+				NavigationItem.LeftBarButtonItem = new UIBarButtonItem (
+					UIBarButtonSystemItem.Cancel,
+					delegate {
+						StopProgress();
+						authenticator.OnCancelled();
+					});
+			}
 		}
 
 		void HandleSubmit ()

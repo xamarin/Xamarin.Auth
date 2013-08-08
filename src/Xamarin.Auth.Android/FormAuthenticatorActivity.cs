@@ -97,6 +97,12 @@ namespace Xamarin.Auth
 			}
 		}
 
+		public override void OnBackPressed()
+		{
+			if (state.Authenticator.AllowCancel)
+				base.OnBackPressed();
+		}
+
 		void BuildUI ()
 		{
 			var hmargin = 12;
