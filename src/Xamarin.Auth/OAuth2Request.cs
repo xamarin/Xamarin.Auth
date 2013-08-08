@@ -77,6 +77,9 @@ namespace Xamarin.Auth
 		/// <param name='unauthenticatedUrl'>
 		/// The unauthenticated URL.
 		/// </param>
+		/// <param name='accessTokenParameterName'>
+		/// The name of the access token parameter.
+		/// </param>
 		public static Uri GetAuthenticatedUrl (Account account, Uri unauthenticatedUrl, string accessTokenParameterName = "access_token")
 		{
 			if (account == null) {
