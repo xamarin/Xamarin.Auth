@@ -51,11 +51,14 @@ namespace Xamarin.Auth
 			//
 			Title = authenticator.Title;
 
-			NavigationItem.LeftBarButtonItem = new UIBarButtonItem (
-				UIBarButtonSystemItem.Cancel,
-				delegate {
+			if (authenticator.AllowCancel)
+			{
+				NavigationItem.LeftBarButtonItem = new UIBarButtonItem (
+					UIBarButtonSystemItem.Cancel,
+					delegate {
 					Cancel ();
-				});
+				});				
+			}
 
 			activity = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
 			NavigationItem.RightBarButtonItem = new UIBarButtonItem (activity);
