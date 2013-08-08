@@ -58,8 +58,8 @@ namespace Xamarin.Auth.Sample.iOS
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			facebook = new Section ("Facebook");
-			facebook.Add (new StyledStringElement ("Log in", delegate {LoginToFacebook(true); }));			
-			facebook.Add (new StyledStringElement ("Log in(no cancel)", delegate {LoginToFacebook(false); }));
+			facebook.Add (new StyledStringElement ("Log in", () => LoginToFacebook (true)));			
+			facebook.Add (new StyledStringElement ("Log in (no cancel)", () => LoginToFacebook (false)));
 			facebook.Add (facebookStatus = new StringElement (String.Empty));
 
 			dialog = new DialogViewController (new RootElement ("Xamarin.Auth Sample") {
