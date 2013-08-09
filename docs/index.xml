@@ -1,6 +1,6 @@
 <Overview>
   <Assemblies>
-    <Assembly Name="Xamarin.Auth" Version="1.0.4762.28561">
+    <Assembly Name="Xamarin.Auth" Version="1.2.0.0">
       <Attributes>
         <Attribute>
           <AttributeName>System.Reflection.AssemblyCompany("Xamarin Inc.")</AttributeName>
@@ -49,10 +49,35 @@
       <Type Name="OAuth2Authenticator" Kind="Class" />
       <Type Name="OAuth2Request" Kind="Class" />
       <Type Name="Request" Kind="Class" />
+      <Type Name="Request+Part" Kind="Class" />
       <Type Name="Response" Kind="Class" />
       <Type Name="WebAuthenticator" Kind="Class" />
       <Type Name="WebRedirectAuthenticator" Kind="Class" />
+      <Type Name="WebUtilities" Kind="Class" />
     </Namespace>
   </Types>
   <Title>Xamarin.Auth</Title>
+  <ExtensionMethods>
+    <ExtensionMethod>
+      <Targets>
+        <Target Type="T:System.Collections.Generic.IDictionary`2" />
+      </Targets>
+      <Member MemberName="FormEncode">
+        <MemberSignature Language="C#" Value="public static string FormEncode (this System.Collections.Generic.IDictionary&lt;string,string&gt; inputs);" />
+        <MemberSignature Language="ILAsm" Value=".method public static hidebysig string FormEncode(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; inputs) cil managed" />
+        <MemberType>ExtensionMethod</MemberType>
+        <ReturnValue>
+          <ReturnType>System.String</ReturnType>
+        </ReturnValue>
+        <Parameters>
+          <Parameter Name="inputs" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" RefType="this" />
+        </Parameters>
+        <Docs>
+          <param name="inputs">To be added.</param>
+          <summary>To be added.</summary>
+        </Docs>
+        <Link Type="Xamarin.Auth.WebUtilities" Member="M:Xamarin.Auth.WebUtilities.FormEncode(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      </Member>
+    </ExtensionMethod>
+  </ExtensionMethods>
 </Overview>

@@ -1,15 +1,16 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Type Name="WebRedirectAuthenticator" FullName="Xamarin.Auth.WebRedirectAuthenticator">
-  <TypeSignature Language="C#" Value="public class WebRedirectAuthenticator : Xamarin.Auth.WebAuthenticator"/>
-  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit WebRedirectAuthenticator extends Xamarin.Auth.WebAuthenticator"/>
+  <TypeSignature Language="C#" Value="public class WebRedirectAuthenticator : Xamarin.Auth.WebAuthenticator" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit WebRedirectAuthenticator extends Xamarin.Auth.WebAuthenticator" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>Xamarin.Auth.WebAuthenticator</BaseTypeName>
   </Base>
-  <Interfaces/>
+  <Interfaces />
   <Docs>
     <summary>
       An authenticator that displays web pages until a given "redirect" page is encountered. It then
@@ -19,58 +20,88 @@
   </Docs>
   <Members>
     <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public WebRedirectAuthenticator (Uri initialUrl, Uri redirectUrl);"/>
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Uri initialUrl, class System.Uri redirectUrl) cil managed"/>
+      <MemberSignature Language="C#" Value="public WebRedirectAuthenticator (Uri initialUrl, Uri redirectUrl);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Uri initialUrl, class System.Uri redirectUrl) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
-        <Parameter Name="initialUrl" Type="System.Uri"/>
-        <Parameter Name="redirectUrl" Type="System.Uri"/>
+        <Parameter Name="initialUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
       </Parameters>
       <Docs>
-        <summary>
-          Initializes a new instance of the <see cref="Xamarin.Auth.WebRedirectAuthenticator"/> class.
-        </summary>
         <param name="initialUrl">
           The initial URL loaded into the web browser.
         </param>
         <param name="redirectUrl">
           The URL watched for.
         </param>
+        <summary>
+          Initializes a new instance of the <see cref="Xamarin.Auth.WebRedirectAuthenticator" /> class.
+        </summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName="GetInitialUrlAsync">
-      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync ();"/>
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed"/>
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Threading.Tasks.Task&lt;System.Uri&gt;</ReturnType>
       </ReturnValue>
-      <Parameters/>
+      <Parameters />
       <Docs>
         <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
         <returns>A task that will return the initial URL.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
-    <Member MemberName="OnPageLoaded">
-      <MemberSignature Language="C#" Value="public override void OnPageLoaded (Uri url);"/>
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed"/>
+    <Member MemberName="OnPageEncountered">
+      <MemberSignature Language="C#" Value="protected virtual void OnPageEncountered (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnPageEncountered(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="url" Type="System.Uri"/>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="url">To be added.</param>
+        <param name="query">To be added.</param>
+        <param name="fragment">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageLoaded">
+      <MemberSignature Language="C#" Value="public override void OnPageLoaded (Uri url);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
       </Parameters>
       <Docs>
         <param name="url">The URL of the page.</param>
@@ -79,8 +110,8 @@
       </Docs>
     </Member>
     <Member MemberName="OnPageLoaded">
-      <MemberSignature Language="C#" Value="protected virtual void OnPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);"/>
-      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed"/>
+      <MemberSignature Language="C#" Value="protected virtual void OnPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
@@ -89,9 +120,9 @@
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="url" Type="System.Uri"/>
-        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;"/>
-        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;"/>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
       </Parameters>
       <Docs>
         <summary>
@@ -110,17 +141,19 @@
       </Docs>
     </Member>
     <Member MemberName="OnPageLoading">
-      <MemberSignature Language="C#" Value="public override void OnPageLoading (Uri url);"/>
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoading(class System.Uri url) cil managed"/>
+      <MemberSignature Language="C#" Value="public override void OnPageLoading (Uri url);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoading(class System.Uri url) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="url" Type="System.Uri"/>
+        <Parameter Name="url" Type="System.Uri" />
       </Parameters>
       <Docs>
         <param name="url">The URL of the page.</param>
@@ -129,24 +162,23 @@
       </Docs>
     </Member>
     <Member MemberName="OnRedirectPageLoaded">
-      <MemberSignature Language="C#" Value="protected virtual void OnRedirectPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);"/>
-      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnRedirectPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed"/>
+      <MemberSignature Language="C#" Value="protected virtual void OnRedirectPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnRedirectPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
       </ReturnValue>
       <Parameters>
-        <Parameter Name="url" Type="System.Uri"/>
-        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;"/>
-        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;"/>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
       </Parameters>
       <Docs>
-        <summary>
-          Raised when the redirect page has been loaded.
-        </summary>
         <param name="url">
           URL of the page.
         </param>
@@ -156,6 +188,9 @@
         <param name="fragment">
           The parsed fragment of the URL.
         </param>
+        <summary>
+          Raised when the redirect page has been loaded.
+        </summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>

@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Type Name="Account" FullName="Xamarin.Auth.Account">
   <TypeSignature Language="C#" Value="public class Account" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Account extends System.Object" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
@@ -21,10 +22,12 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>Initializes a new blank <see cref="Xamarin.Auth.Account"/>.</summary>
+        <summary>Initializes a new blank <see cref="Xamarin.Auth.Account" />.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -34,13 +37,15 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="username" Type="System.String" />
       </Parameters>
       <Docs>
         <param name="username">The username for the account.</param>
-        <summary>Initializes an <see cref="Xamarin.Auth.Account"/> with the given username.</summary>
+        <summary>Initializes an <see cref="Xamarin.Auth.Account" /> with the given username.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -50,6 +55,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="username" Type="System.String" />
@@ -58,7 +65,7 @@
       <Docs>
         <param name="username">The username for the account.</param>
         <param name="properties">Properties for the account.</param>
-        <summary>Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and properties.</summary>
+        <summary>Initializes an <see cref="Xamarin.Auth.Account" /> with the given username and properties.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -68,6 +75,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="username" Type="System.String" />
@@ -76,7 +85,7 @@
       <Docs>
         <param name="username">The username for the account.</param>
         <param name="cookies">The cookies to be stored with the account.</param>
-        <summary>Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.</summary>
+        <summary>Initializes an <see cref="Xamarin.Auth.Account" /> with the given username and cookies.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -86,6 +95,8 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="username" Type="System.String" />
@@ -96,7 +107,7 @@
         <param name="username">The username for the account.</param>
         <param name="properties">Properties for the account.</param>
         <param name="cookies">The cookies to be stored with the account.</param>
-        <summary>Initializes an <see cref="Xamarin.Auth.Account"/> with the given username, properties, and cookies.</summary>
+        <summary>Initializes an <see cref="Xamarin.Auth.Account" /> with the given username, properties, and cookies.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -106,6 +117,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Net.CookieContainer</ReturnType>
@@ -122,6 +135,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>Xamarin.Auth.Account</ReturnType>
@@ -130,7 +145,7 @@
         <Parameter Name="serializedString" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="serializedString">The serialized account generated by <see cref="M:Xamarin.Auth.Account.Serialize"/>. </param>
+        <param name="serializedString">The serialized account generated by <see cref="M:Xamarin.Auth.Account.Serialize" />. </param>
         <summary>Restores an account from its serialized string representation.</summary>
         <returns>To be added.</returns>
         <remarks>To be added.</remarks>
@@ -142,6 +157,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;</ReturnType>
@@ -158,6 +175,8 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -175,14 +194,16 @@
       <MemberType>Method</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.</summary>
-        <returns>A <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.</returns>
+        <summary>Returns a <see cref="System.String" /> that represents the current <see cref="Xamarin.Auth.Account" />.</summary>
+        <returns>A <see cref="System.String" /> that represents the current <see cref="Xamarin.Auth.Account" />.</returns>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -192,6 +213,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>

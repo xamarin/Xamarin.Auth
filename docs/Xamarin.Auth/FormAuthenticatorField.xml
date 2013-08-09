@@ -1,10 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Type Name="FormAuthenticatorField" FullName="Xamarin.Auth.FormAuthenticatorField">
   <TypeSignature Language="C#" Value="public class FormAuthenticatorField" />
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit FormAuthenticatorField extends System.Object" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
   <Base>
     <BaseTypeName>System.Object</BaseTypeName>
@@ -21,19 +22,23 @@
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField"/> class.</summary>
+        <summary>Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField" /> class.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
-      <MemberSignature Language="C#" Value="public FormAuthenticatorField (string key, string title, Xamarin.Auth.FormAuthenticatorFieldType fieldType, string placeholder, string defaultValue);" />
+      <MemberSignature Language="C#" Value="public FormAuthenticatorField (string key, string title, Xamarin.Auth.FormAuthenticatorFieldType fieldType, string placeholder = &quot;&quot;, string defaultValue = &quot;&quot;);" />
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string key, string title, valuetype Xamarin.Auth.FormAuthenticatorFieldType fieldType, string placeholder, string defaultValue) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters>
         <Parameter Name="key" Type="System.String" />
@@ -48,7 +53,7 @@
         <param name="fieldType">The type of the field.</param>
         <param name="placeholder">Placeholder text shown when there is no input value for the field.</param>
         <param name="defaultValue"> The value of the field.</param>
-        <summary>Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField"/> class.</summary>
+        <summary>Initializes a new instance of the <see cref="Xamarin.Auth.FormAuthenticatorField" /> class.</summary>
         <remarks>To be added.</remarks>
       </Docs>
     </Member>
@@ -58,6 +63,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>Xamarin.Auth.FormAuthenticatorFieldType</ReturnType>
@@ -74,6 +81,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -90,6 +99,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -106,6 +117,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
@@ -122,6 +135,8 @@
       <MemberType>Property</MemberType>
       <AssemblyInfo>
         <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.String</ReturnType>
