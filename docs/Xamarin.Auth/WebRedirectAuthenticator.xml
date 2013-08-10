@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit WebRedirectAuthenticator extends Xamarin.Auth.WebAuthenticator" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -16,7 +16,7 @@
       An authenticator that displays web pages until a given "redirect" page is encountered. It then
       returns an account with the fragment on that URL.
     </summary>
-    <remarks>To be added.</remarks>
+    <remarks></remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -24,7 +24,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Uri initialUrl, class System.Uri redirectUrl) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -42,7 +42,7 @@
         <summary>
           Initializes a new instance of the <see cref="Xamarin.Auth.WebRedirectAuthenticator" /> class.
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="GetInitialUrlAsync">
@@ -50,7 +50,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -61,7 +61,7 @@
       <Docs>
         <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
         <returns>A task that will return the initial URL.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageEncountered">
@@ -81,11 +81,18 @@
         <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
       </Parameters>
       <Docs>
-        <param name="url">To be added.</param>
-        <param name="query">To be added.</param>
-        <param name="fragment">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="url">URL of the page.</param>
+        <param name="query">The parsed query of the URL.</param>
+        <param name="fragment">The parsed fragment of the URL.</param>
+        <summary>Raised when a new page has been encountered.</summary>
+        <remarks>
+          <para>
+            This is invoked on any event that has a URL: <see cref="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoaded" />
+            and <see cref="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoading" />. Not all platforms may support triggering
+            <see cref="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoading" />, so this is provided as a blanket method to check redirect
+            URLs at the earliest possible time to avoid showing redirect pages if unnecessary.
+          </para>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoaded">
@@ -93,7 +100,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -106,7 +113,7 @@
       <Docs>
         <param name="url">The URL of the page.</param>
         <summary>Event handler called when a page has completed loading.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoaded">
@@ -114,7 +121,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -137,7 +144,7 @@
         <param name="fragment">
           The parsed fragment of the URL.
         </param>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoading">
@@ -145,7 +152,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoading(class System.Uri url) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -158,7 +165,7 @@
       <Docs>
         <param name="url">The URL of the page.</param>
         <summary>Event handler called when a new page is being loaded in the web browser.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnRedirectPageLoaded">
@@ -166,7 +173,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnRedirectPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -191,7 +198,7 @@
         <summary>
           Raised when the redirect page has been loaded.
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

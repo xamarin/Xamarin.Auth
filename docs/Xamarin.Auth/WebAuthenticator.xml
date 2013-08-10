@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit WebAuthenticator extends Xamarin.Auth.Authenticator" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -13,7 +13,7 @@
   <Interfaces />
   <Docs>
     <summary>An authenticator that displays a web page.</summary>
-    <remarks>To be added.</remarks>
+    <remarks></remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -21,14 +21,14 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary></summary>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="BrowsingCompleted">
@@ -36,7 +36,7 @@
       <MemberSignature Language="ILAsm" Value=".event class System.EventHandler BrowsingCompleted" />
       <MemberType>Event</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -48,7 +48,7 @@
           Occurs when the visual, user-interactive, browsing has completed but there
           is more authentication work to do.
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="ClearCookies">
@@ -64,8 +64,9 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Clears any cookies available to the app.</summary>
+        <remarks></remarks>
+        <altmember cref="P:Xamarin.Auth.WebAuthenticator.ClearCookiesBeforeLogin" />
       </Docs>
     </Member>
     <Member MemberName="ClearCookiesBeforeLogin">
@@ -80,9 +81,20 @@
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Gets or sets whether to automatically clear cookies before logging in.</summary>
+        <value></value>
+        <remarks>
+          <para>
+            <c>true</c> by default.
+          </para>
+          <para>
+            Disabling this is useful when they have previously logged into the page in question in your app
+            and you have not stored their account information. It's <c>true</c> by default under the assumption
+            that you would store any account information and the only reason for reauthenticating is for
+            switching or adding an additional account.
+          </para>
+        </remarks>
+        <altmember cref="M:Xamarin.Auth.WebAuthenticator.ClearCookies" />
       </Docs>
     </Member>
     <Member MemberName="GetInitialUrlAsync">
@@ -90,7 +102,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -101,7 +113,7 @@
       <Docs>
         <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
         <returns>A task that will return the initial URL.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="GetPlatformUI">
@@ -109,7 +121,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance object GetPlatformUI() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -120,7 +132,7 @@
       <Docs>
         <summary>Gets the UI for this authenticator.</summary>
         <returns>The UI that needs to be presented.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnBrowsingCompleted">
@@ -128,7 +140,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnBrowsingCompleted() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -138,7 +150,7 @@
       <Parameters />
       <Docs>
         <summary>Raises the browsing completed event.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoaded">
@@ -146,7 +158,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -163,7 +175,7 @@
           Implementations should call <see cref="M:OnSucceeded(Xamarin.Auth.Account)" /> if this page
           signifies a successful authentication.
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoading">
@@ -171,7 +183,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void OnPageLoading(class System.Uri url) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -184,7 +196,7 @@
       <Docs>
         <param name="url">The URL of the page.</param>
         <summary>Event handler called when a new page is being loaded in the web browser.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

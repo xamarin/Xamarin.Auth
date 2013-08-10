@@ -24,6 +24,12 @@ namespace Xamarin.Auth
 {
 	public static class WebUtilities
 	{
+		/// <summary>
+		/// Encodes the dictionary to a form representation.
+		/// </summary>
+		/// <param name="inputs">The dictionary to encode.</param>
+		/// <returns>A string in the form encoded format of the dictionary.</returns>
+		/// <exception cref="ArgumentNullException"><paramref name="inputs"/> is <c>null</c>.</exception>
 		public static string FormEncode (this IDictionary<string, string> inputs)
 		{
 			if (inputs == null)

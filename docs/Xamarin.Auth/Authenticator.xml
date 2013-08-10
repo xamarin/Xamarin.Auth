@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit Authenticator extends System.Object" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -21,7 +21,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -36,16 +36,17 @@
       <MemberSignature Language="ILAsm" Value=".property instance bool AllowCancel" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Gets or sets whether to allow user cancellation.</summary>
+        <value>
+          <c>true</c> by default.
+        </value>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Completed">
@@ -53,7 +54,7 @@
       <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class Xamarin.Auth.AuthenticatorCompletedEventArgs&gt; Completed" />
       <MemberType>Event</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -64,7 +65,7 @@
         <summary> Occurs when authentication has been successfully or unsuccessfully completed.
           Consult the <see cref="M:Xamarin.Auth.AuthenticatorCompletedEventArgs.IsAuthenticated" /> event argument to determine if
           authentication was successful.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Error">
@@ -72,7 +73,7 @@
       <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class Xamarin.Auth.AuthenticatorErrorEventArgs&gt; Error" />
       <MemberType>Event</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -81,7 +82,7 @@
       </ReturnValue>
       <Docs>
         <summary>Occurs when there an error is encountered when authenticating.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="GetPlatformUI">
@@ -89,26 +90,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance object GetPlatformUI() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
-        <AssemblyVersion>1.1.0.0</AssemblyVersion>
-        <AssemblyVersion>1.2.0.0</AssemblyVersion>
-      </AssemblyInfo>
-      <ReturnValue>
-        <ReturnType>System.Object</ReturnType>
-      </ReturnValue>
-      <Parameters />
-      <Docs>
-        <summary> Gets the UI for this authenticator.</summary>
-        <returns> The UI that needs to be presented.</returns>
-        <remarks>To be added.</remarks>
-      </Docs>
-    </Member>
-    <Member MemberName="GetUI">
-      <MemberSignature Language="C#" Value="public object GetUI ();" />
-      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object GetUI() cil managed" />
-      <MemberType>Method</MemberType>
-      <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -119,7 +101,26 @@
       <Docs>
         <summary>Gets the UI for this authenticator.</summary>
         <returns>The UI that needs to be presented.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetUI">
+      <MemberSignature Language="C#" Value="public object GetUI ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance object GetUI() cil managed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyVersion>1.1.0.0</AssemblyVersion>
+        <AssemblyVersion>1.2.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Object</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Gets the UI for this authenticator.</summary>
+        <returns>The UI that needs to be presented.</returns>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="HasCompleted">
@@ -127,16 +128,17 @@
       <MemberSignature Language="ILAsm" Value=".property instance bool HasCompleted" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Boolean</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>To be added.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Gets whether this authenticator has completed its interaction with the user.</summary>
+        <value>
+          <c>true</c> if authorization has been completed, <c>false</c> otherwise.
+        </value>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnCancelled">
@@ -144,7 +146,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void OnCancelled() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -154,7 +156,7 @@
       <Parameters />
       <Docs>
         <summary>Implementations must call this function when they have cancelled the operation.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnError">
@@ -162,7 +164,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void OnError(class System.Exception exception) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -175,7 +177,7 @@
       <Docs>
         <param name="exception">The reason that this authentication has failed.</param>
         <summary>Implementations must call this function when they have failed to authenticate.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnError">
@@ -183,7 +185,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void OnError(string message) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -196,7 +198,7 @@
       <Docs>
         <param name="message">The reason that this authentication has failed.</param>
         <summary>Implementations must call this function when they have failed to authenticate.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnSucceeded">
@@ -204,7 +206,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void OnSucceeded(class Xamarin.Auth.Account account) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -217,7 +219,7 @@
       <Docs>
         <param name="account"> The authenticated account.</param>
         <summary>Implementations must call this function when they have successfully authenticated.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnSucceeded">
@@ -225,7 +227,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void OnSucceeded(string username, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; accountProperties) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -241,7 +243,7 @@
         <param name="accountProperties">Additional data, such as access tokens, that need to be stored with the account. This
           information is secured.</param>
         <summary>Implementations must call this function when they have successfully authenticated.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Title">
@@ -249,7 +251,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance string Title" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -257,9 +259,11 @@
         <ReturnType>System.String</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary>Title of any UI elements that need to be presented for this authenticator.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Gets or sets the title of any UI elements that need to be presented for this authenticator.</summary>
+        <value>
+          <c>"Authenticate"</c> by default.
+        </value>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

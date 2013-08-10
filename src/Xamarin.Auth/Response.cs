@@ -32,16 +32,23 @@ namespace Xamarin.Auth
 		/// <summary>
 		/// Gets the response URI.
 		/// </summary>
+		/// <value>The actual Uri of the final request returned.</value>
+		/// <remarks>
+		/// Some requests may automatically redirecet before turning a final response. This
+		/// property will return the final <see cref="Uri"/> that this response is actually from.
+		/// </remarks>
 		public virtual Uri ResponseUri { get; protected set; }
 
 		/// <summary>
 		/// Gets the response status code.
 		/// </summary>
+		/// <value>The status of this response.</value>
 		public virtual HttpStatusCode StatusCode { get; protected set; }
 
 		/// <summary>
 		/// Gets the headers returned with this response.
 		/// </summary>
+		/// <value>A <see cref="Dictionary{TKey,TValue}"/> of header names to values.</value>
 		public virtual IDictionary<string, string> Headers { get; protected set; }
 
 		/// <summary>
@@ -50,6 +57,7 @@ namespace Xamarin.Auth
 		/// <param name='response'>
 		/// The <see cref="T:System.Net.HttpWebResponse"/> that this response will wrap.
 		/// </param>
+		/// <exception cref="ArgumentNullException"><paramref name="response"/> is <c>null</c>.</exception>
 		public Response (HttpWebResponse response)
 		{
 			if (response == null) {

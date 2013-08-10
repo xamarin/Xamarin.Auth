@@ -29,20 +29,14 @@ namespace Xamarin.Auth
 #endif
 	{
 		/// <summary>
-		/// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth2Request"/> class.
+		/// Initializes a new instance of the <see cref="OAuth2Request"/> class.
 		/// </summary>
-		/// <param name='method'>
-		/// The HTTP method.
-		/// </param>
-		/// <param name='url'>
-		/// The URL.
-		/// </param>
+		/// <param name='method'>The HTTP method.</param>
+		/// <param name='url'>The URL.</param>
 		/// <param name='parameters'>
-		/// Parameters that will pre-populate the <see cref="Xamarin.Auth.Request.Parameters"/> property or <see langword="null"/>.
+		/// Parameters that will pre-populate the <see cref="Request.Parameters"/> property or <c>null</c>.
 		/// </param>
-		/// <param name='account'>
-		/// The account used to authenticate this request.
-		/// </param>
+		/// <param name='account'>The account used to authenticate this request.</param>
 		public OAuth2Request (string method, Uri url, IDictionary<string, string> parameters, Account account)
 			: base (method, url, parameters, account)
 		{
@@ -50,19 +44,22 @@ namespace Xamarin.Auth
 		}
 		
 		/// <summary>
-		/// Gets the response.
+		/// Gets the OAuth2 prepared URL.
 		/// </summary>
-		/// <returns>
-		/// The response.
-		/// </returns>
+		/// <returns>The OAuth2 prepared URL.</returns>
 		protected override Uri GetPreparedUrl ()
 		{
 			return GetAuthenticatedUrl (Account, base.GetPreparedUrl (), AccessTokenParameterName);
 		}
 
 		/// <summary>
-		/// The name of the access token parameter in URLs
+		/// Gets or sets the access token parameter name.
 		/// </summary>
+		/// <value><c>"access_token"</c> by default.</value>
+		/// <remarks>
+		/// Some providers, such as FourSquare do not use the somewhat-standard
+		/// <c>"access_token"</c> name for their parameter.
+		/// </remarks>
 		public string AccessTokenParameterName { get; set; }
 
 		/// <summary>
@@ -71,15 +68,10 @@ namespace Xamarin.Auth
 		/// <returns>
 		/// The authenticated URL.
 		/// </returns>
-		/// <param name='account'>
-		/// The <see cref="Account"/> that's been authenticated.
-		/// </param>
-		/// <param name='unauthenticatedUrl'>
-		/// The unauthenticated URL.
-		/// </param>
-		/// <param name='accessTokenParameterName'>
-		/// The name of the access token parameter.
-		/// </param>
+		/// <param name='account'>The <see cref="Account"/> that's been authenticated.</param>
+		/// <param name='unauthenticatedUrl'>The unauthenticated URL.</param>
+		/// <param name='accessTokenParameterName'>The name of the access token parameter.</param>
+		/// <seealso cref="AccessTokenParameterName"/>
 		public static Uri GetAuthenticatedUrl (Account account, Uri unauthenticatedUrl, string accessTokenParameterName = "access_token")
 		{
 			if (account == null) {
@@ -109,9 +101,7 @@ namespace Xamarin.Auth
 		/// <returns>
 		/// The authorization header.
 		/// </returns>
-		/// <param name='account'>
-		/// The <see cref="Account"/> that's been authenticated.
-		/// </param>
+		/// <param name='account'>The <see cref="Account"/> that's been authenticated.</param>
 		public static string GetAuthorizationHeader (Account account)
 		{
 			if (account == null) {

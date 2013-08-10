@@ -41,6 +41,7 @@ namespace Xamarin.Auth
 		/// <summary>
 		/// The HTTP method.
 		/// </summary>
+		/// <value>A string representing the HTTP method to be used with this request.</value>
 		public string Method { get; protected set; }
 
 		/// <summary>
@@ -184,6 +185,7 @@ namespace Xamarin.Auth
 		/// Service implementors should override this method to modify the PreparedWebRequest
 		/// to authenticate it.
 		/// </remarks>
+		/// <param name="cancellationToken"></param>
 		/// <returns>
 		/// The response.
 		/// </returns>

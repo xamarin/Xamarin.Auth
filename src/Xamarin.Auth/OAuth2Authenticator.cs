@@ -275,14 +275,13 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Implements: http://tools.ietf.org/html/rfc6749#section-4.1
+		/// Asynchronously requests an access token with an authorization <paramref name="code"/>.
 		/// </summary>
 		/// <returns>
-		/// The access token async.
+		/// A dictionary of data returned from the authorization request.
 		/// </returns>
-		/// <param name='code'>
-		/// Code.
-		/// </param>
+		/// <param name='code'>The authorization code.</param>
+		/// <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
 		Task<IDictionary<string,string>> RequestAccessTokenAsync (string code)
 		{
 			var queryValues = new Dictionary<string, string> {
@@ -298,6 +297,11 @@ namespace Xamarin.Auth
 			return RequestAccessTokenAsync (queryValues);
 		}
 
+		/// <summary>
+		/// Asynchronously makes a request to the access token URL with the given parameters.
+		/// </summary>
+		/// <param name="queryValues">The parameters to make the request with.</param>
+		/// <returns>The data provided in the response to the access token request.</returns>
 		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
 		{
 			var query = queryValues.FormEncode ();

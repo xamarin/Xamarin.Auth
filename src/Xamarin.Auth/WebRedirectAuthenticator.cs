@@ -90,7 +90,7 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Raised when a new page has been loaded.
+		/// Raised when a new page has been encountered.
 		/// </summary>
 		/// <param name='url'>
 		/// URL of the page.
@@ -101,6 +101,13 @@ namespace Xamarin.Auth
 		/// <param name='fragment'>
 		/// The parsed fragment of the URL.
 		/// </param>
+		/// <remarks>
+		/// <para>
+		/// This is invoked on any event that has a URL: <see cref="OnPageLoaded" /> and <see cref="OnPageLoading" />.
+		/// Not all platforms may support triggering <see cref="OnPageLoading" />, so this is provided as a blanket
+		/// method to check redirect URLs at the earliest possible time to avoid showing redirect pages if unnecessary.
+		/// </para>
+		/// </remarks>
 		protected virtual void OnPageEncountered (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);

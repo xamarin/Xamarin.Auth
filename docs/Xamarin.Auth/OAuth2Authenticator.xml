@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit OAuth2Authenticator extends Xamarin.Auth.WebRedirectAuthenticator" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -13,7 +13,7 @@
   <Interfaces />
   <Docs>
     <summary>Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2</summary>
-    <remarks>To be added.</remarks>
+    <remarks></remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -21,7 +21,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -53,7 +53,7 @@
           Initializes a new instance <see cref="Xamarin.Auth.OAuth2Authenticator" />
           that authenticates using authorization codes (code).
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -61,7 +61,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string clientSecret, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class System.Uri accessTokenUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -78,7 +78,7 @@
         <param name="clientId">
           Client identifier.
         </param>
-        <param name="clientSecret">To be added.</param>
+        <param name="clientSecret">Client secret.</param>
         <param name="scope">
           Authorization scope.
         </param>
@@ -88,7 +88,7 @@
         <param name="redirectUrl">
           Redirect URL.
         </param>
-        <param name="accessTokenUrl">To be added.</param>
+        <param name="accessTokenUrl">URL used to request access tokens after an authorization code was received.</param>
         <param name="getUsernameAsync">
           Method used to fetch the username of an account
           after it has been successfully authenticated.
@@ -97,7 +97,7 @@
           Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator" />
           that authenticates using implicit granting (token).
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="GetInitialUrlAsync">
@@ -105,7 +105,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -116,7 +116,7 @@
       <Docs>
         <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
         <returns>A task that will return the initial URL.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageEncountered">
@@ -136,11 +136,18 @@
         <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
       </Parameters>
       <Docs>
-        <param name="url">To be added.</param>
-        <param name="query">To be added.</param>
-        <param name="fragment">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="url">URL of the page.</param>
+        <param name="query">The parsed query of the URL.</param>
+        <param name="fragment">The parsed fragment of the URL.</param>
+        <summary>Raised when a new page has been encountered.</summary>
+        <remarks>
+          <para>
+            This is invoked on any event that has a URL: <see cref="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoaded" />
+            and <see cref="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoading" />. Not all platforms may support triggering
+            <see cref="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoading" />, so this is provided as a blanket method to check redirect
+            URLs at the earliest possible time to avoid showing redirect pages if unnecessary.
+          </para>
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoaded">
@@ -148,7 +155,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
       </AssemblyInfo>
       <ReturnValue>
         <ReturnType>System.Void</ReturnType>
@@ -160,10 +167,10 @@
       </Parameters>
       <Docs>
         <param name="url">URL of the page.</param>
-        <param name="query"> The parsed query of the URL.</param>
+        <param name="query">The parsed query of the URL.</param>
         <param name="fragment">The parsed fragment of the URL.</param>
         <summary>Raised when a new page has been loaded.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnRedirectPageLoaded">
@@ -171,7 +178,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnRedirectPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -196,7 +203,7 @@
         <summary>
           Raised when a new page has been loaded.
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnRetrievedAccountProperties">
@@ -204,7 +211,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnRetrievedAccountProperties(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; accountProperties) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -217,7 +224,7 @@
       <Docs>
         <param name="accountProperties">The retrieved account properties</param>
         <summary>Event handler that is fired when an access token has been retreived.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="RequestAccessTokenAsync">
@@ -225,6 +232,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig instance class System.Threading.Tasks.Task`1&lt;class System.Collections.Generic.IDictionary`2&lt;string, string&gt;&gt; RequestAccessTokenAsync(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; queryValues) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -235,10 +243,10 @@
         <Parameter Name="queryValues" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
       </Parameters>
       <Docs>
-        <param name="queryValues">To be added.</param>
-        <summary>To be added.</summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <param name="queryValues">The parameters to make the request with.</param>
+        <summary>Asynchronously makes a request to the access token URL with the given parameters.</summary>
+        <returns>The data provided in the response to the access token request.</returns>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Response extends System.Object implements class System.IDisposable" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -25,14 +25,14 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>nitializes a new blank <see cref="T:Xamarin.Auth.Response" />.</summary>
-        <remarks>To be added.</remarks>
+        <summary>Initializes a new blank <see cref="T:Xamarin.Auth.Response" />.</summary>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName=".ctor">
@@ -40,7 +40,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Net.HttpWebResponse response) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -50,7 +50,7 @@
       <Docs>
         <param name="response">The <see cref="T:System.Net.HttpWebResponse" /> that this response will wrap.</param>
         <summary>Initializes a new <see cref="T:Xamarin.Auth.Response" /> that wraps a <see cref="T:System.Net.HttpWebResponse" />.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Dispose">
@@ -58,7 +58,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Dispose() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -68,7 +68,7 @@
       <Parameters />
       <Docs>
         <summary>Releases all resource used by the <see cref="T:Xamarin.Auth.Response" /> object.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Dispose">
@@ -76,7 +76,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void Dispose(bool disposing) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -89,7 +89,7 @@
       <Docs>
         <param name="disposing">Whether this function was called from the Dispose method.</param>
         <summary>Releases all resource used by the <see cref="Xamarin.Auth.Response" /> object.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Finalize">
@@ -97,7 +97,7 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void Finalize() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -110,7 +110,7 @@
           Releases unmanaged resources and performs other cleanup operations before the <see cref="Xamarin.Auth.Response" />
           is reclaimed by garbage collection.
         </summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="GetResponseStream">
@@ -118,7 +118,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.IO.Stream GetResponseStream() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -129,7 +129,7 @@
       <Docs>
         <summary>Gets the response stream.</summary>
         <returns>The response stream.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="GetResponseText">
@@ -137,7 +137,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance string GetResponseText() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -147,8 +147,8 @@
       <Parameters />
       <Docs>
         <summary>Reads all the response data and interprets it as a string.</summary>
-        <returns> The response text.</returns>
-        <remarks>To be added.</remarks>
+        <returns>The response text.</returns>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Headers">
@@ -156,7 +156,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.IDictionary`2&lt;string, string&gt; Headers" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -165,8 +165,8 @@
       </ReturnValue>
       <Docs>
         <summary>Gets the headers returned with this response.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <value>A dictionary containing the headers.</value>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="ResponseUri">
@@ -174,7 +174,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance class System.Uri ResponseUri" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -182,9 +182,12 @@
         <ReturnType>System.Uri</ReturnType>
       </ReturnValue>
       <Docs>
-        <summary> Gets the response URI.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <summary>Gets the response URI.</summary>
+        <value>The actual Uri of the final request returned.</value>
+        <remarks>
+          Some requests may automatically redirecet before turning a final response. This
+          property will return the final <see cref="Uri"/> that this response is actually from.
+        </remarks>
       </Docs>
     </Member>
     <Member MemberName="StatusCode">
@@ -192,7 +195,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance valuetype System.Net.HttpStatusCode StatusCode" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -201,8 +204,8 @@
       </ReturnValue>
       <Docs>
         <summary>Gets the response status code.</summary>
-        <value>To be added.</value>
-        <remarks>To be added.</remarks>
+        <value>The response status code.</value>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="ToString">
@@ -210,7 +213,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -221,7 +224,7 @@
       <Docs>
         <summary>Returns a <see cref="T:System.String" /> that represents the current <see cref="T:Xamarin.Auth.Response" />.</summary>
         <returns>A <see cref="T:System.String" /> that represents the current <see cref="T:Xamarin.Auth.Response" />.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

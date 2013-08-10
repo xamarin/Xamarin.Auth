@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit AuthenticatorCompletedEventArgs extends System.EventArgs" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -13,7 +13,7 @@
   <Interfaces />
   <Docs>
     <summary>Authenticator completed event arguments.</summary>
-    <remarks>To be added.</remarks>
+    <remarks></remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -21,7 +21,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class Xamarin.Auth.Account account) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -31,7 +31,7 @@
       <Docs>
         <param name="account">The account created or <see langword="null" /> if authentication failed or was canceled.</param>
         <summary>Initializes a new instance of the <see cref="T:Xamarin.Auth.AuthenticatorCompletedEventArgs" /> class.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Account">
@@ -39,7 +39,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance class Xamarin.Auth.Account Account" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -49,7 +49,7 @@
       <Docs>
         <summary>Gets the account created that represents this authentication.</summary>
         <value>The account.</value>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="IsAuthenticated">
@@ -57,7 +57,7 @@
       <MemberSignature Language="ILAsm" Value=".property instance bool IsAuthenticated" />
       <MemberType>Property</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -68,7 +68,7 @@
         <summary>Whether the authentication succeeded and there is a valid <see cref="T:Xamarin.Auth.Account" />.</summary>
         <value>
           <see langword="true" /> if the user is authenticated; otherwise, <see langword="false" />.</value>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

@@ -49,6 +49,7 @@ namespace Xamarin.Auth
 		/// <summary>
 		/// Create an account store.
 		/// </summary>
+		/// <returns>A new <see cref="AccountStore"/> instance.</returns>
 		public static AccountStore Create ()
 		{
 			throw new NotSupportedException ("Cannot save account on this platform");

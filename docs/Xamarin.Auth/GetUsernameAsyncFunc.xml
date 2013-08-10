@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed GetUsernameAsyncFunc extends System.MulticastDelegate" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -22,7 +22,7 @@
       Type of method used to fetch the username of an account
       after it has been successfully authenticated.  
     </summary>
-    <returns>To be added.</returns>
-    <remarks>To be added.</remarks>
+    <returns>The username.</returns>
+    <remarks></remarks>
   </Docs>
 </Type>

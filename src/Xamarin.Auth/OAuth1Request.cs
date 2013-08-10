@@ -58,11 +58,12 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
-		/// Gets the response.
+		/// Asynchronously gets the response.
 		/// </summary>
 		/// <returns>
 		/// The response.
 		/// </returns>
+		/// <exception cref="InvalidOperationException"><see cref="Account"/> is <c>null</c>.</exception>
 		public override Task<Response> GetResponseAsync (CancellationToken cancellationToken)
 		{
 			//
@@ -90,15 +91,18 @@ namespace Xamarin.Auth
 		/// <summary>
 		/// Gets OAuth authorization header.
 		/// </summary>
+		/// <remarks>
+		/// <para>
+		/// Make sure that the parameters array contains mulitpart keys if we're dealing with a buggy
+		/// OAuth implementation (such as Flickr).
+		/// </para>
+		/// <para>
+		/// These normally shouldn't be included: http://tools.ietf.org/html/rfc5849#section-3.4.1.3.1
+		/// </para>
+		/// </remarks>
 		protected virtual string GetAuthorizationHeader ()
 		{
-			//
-			// Make sure that the parameters array contains
-			// mulitpart keys if we're dealing with a buggy
-			// OAuth implementation (I'm looking at you Flickr).
-			//
-			// These normally shouldn't be included: http://tools.ietf.org/html/rfc5849#section-3.4.1.3.1
-			//
+			
 			var ps = new Dictionary<string, string> (Parameters);
 			if (includeMultipartsInSignature) {
 				foreach (var p in Multiparts) {

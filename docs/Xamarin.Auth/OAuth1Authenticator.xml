@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit OAuth1Authenticator extends Xamarin.Auth.WebAuthenticator" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -13,7 +13,7 @@
   <Interfaces />
   <Docs>
     <summary>OAuth 1.0 authenticator.</summary>
-    <remarks>To be added.</remarks>
+    <remarks></remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -21,7 +21,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string consumerKey, string consumerSecret, class System.Uri requestTokenUrl, class System.Uri authorizeUrl, class System.Uri accessTokenUrl, class System.Uri callbackUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -68,7 +68,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -78,8 +78,8 @@
       <Parameters />
       <Docs>
         <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
-        <returns> A task that will return the initial URL.</returns>
-        <remarks>To be added.</remarks>
+        <returns>A task that will return the initial URL.</returns>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="OnPageLoaded">
@@ -87,7 +87,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -100,7 +100,7 @@
       <Docs>
         <param name="url">The URL of the loaded page.</param>
         <summary>Event handler that watches for the callback URL to be loaded.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

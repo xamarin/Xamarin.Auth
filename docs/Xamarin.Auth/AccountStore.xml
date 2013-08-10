@@ -3,7 +3,7 @@
   <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit AccountStore extends System.Object" />
   <AssemblyInfo>
     <AssemblyName>Xamarin.Auth</AssemblyName>
-    <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
   </AssemblyInfo>
@@ -17,7 +17,7 @@
       Accounts are stored using a service ID and the username of the account
       as a primary key.
     </summary>
-    <remarks>To be added.</remarks>
+    <remarks></remarks>
   </Docs>
   <Members>
     <Member MemberName=".ctor">
@@ -25,14 +25,14 @@
       <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
       <MemberType>Constructor</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
       <Parameters />
       <Docs>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <summary></summary>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Create">
@@ -40,7 +40,7 @@
       <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Xamarin.Auth.AccountStore Create() cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -49,10 +49,9 @@
       </ReturnValue>
       <Parameters />
       <Docs>
-        <summary>		Create an account store.
-        </summary>
-        <returns>To be added.</returns>
-        <remarks>To be added.</remarks>
+        <summary>Create an account store.</summary>
+        <returns>A new <see cref="T:Xamarin.Auth.AccountStore" /> instance.</returns>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Delete">
@@ -71,10 +70,10 @@
         <Parameter Name="serviceId" Type="System.String" />
       </Parameters>
       <Docs>
-        <param name="account">To be added.</param>
-        <param name="serviceId">To be added.</param>
-        <summary>To be added.</summary>
-        <remarks>To be added.</remarks>
+        <param name="account">Account to delete.</param>
+        <param name="serviceId">Service identifier.</param>
+        <summary>Deletes the account for a given serviceId.</summary>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="FindAccountsForService">
@@ -82,7 +81,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.Generic.IEnumerable`1&lt;class Xamarin.Auth.Account&gt; FindAccountsForService(string serviceId) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -96,7 +95,7 @@
         <param name="serviceId">Service identifier.</param>
         <summary>Finds the accounts for a given service.</summary>
         <returns>The accounts for the service.</returns>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
     <Member MemberName="Save">
@@ -104,7 +103,7 @@
       <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Save(class Xamarin.Auth.Account account, string serviceId) cil managed" />
       <MemberType>Method</MemberType>
       <AssemblyInfo>
-        <AssemblyVersion>1.0.4762.28561</AssemblyVersion>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <AssemblyVersion>1.1.0.0</AssemblyVersion>
         <AssemblyVersion>1.2.0.0</AssemblyVersion>
       </AssemblyInfo>
@@ -120,7 +119,7 @@
         <param name="serviceId">Service identifier.</param>
         <summary> Save the specified account by combining its username and the serviceId
           to form its primary key.</summary>
-        <remarks>To be added.</remarks>
+        <remarks></remarks>
       </Docs>
     </Member>
   </Members>

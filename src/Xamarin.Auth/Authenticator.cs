@@ -40,13 +40,15 @@ namespace Xamarin.Auth
 #endif
 	{
 		/// <summary>
-		/// Title of any UI elements that need to be presented for this authenticator.
+		/// Gets or sets the title of any UI elements that need to be presented for this authenticator.
 		/// </summary>
+		/// <value><c>"Authenticate" by default.</c></value>
 		public string Title { get; set; }
 
 		/// <summary>
-		/// Indicates if the authenticator should be allowed to be cancelled.
+		/// Gets or sets whether to allow user cancellation.
 		/// </summary>
+		/// <value><c>true</c> by default.</value>
 		public bool AllowCancel { get; set; }
 
 		/// <summary>
@@ -62,8 +64,9 @@ namespace Xamarin.Auth
 		public event EventHandler<AuthenticatorErrorEventArgs> Error;
 
 		/// <summary>
-		/// Whether this authenticator has completed its interaction with the user.
+		/// Gets whether this authenticator has completed its interaction with the user.
 		/// </summary>
+		/// <value><c>true</c> if authorization has been completed, <c>false</c> otherwise.</value>
 		public bool HasCompleted { get; private set; }
 
 		/// <summary>

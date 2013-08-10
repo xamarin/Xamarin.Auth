@@ -29,8 +29,8 @@
       </Attributes>
     </Assembly>
   </Assemblies>
-  <Remarks>To be added.</Remarks>
-  <Copyright>To be added.</Copyright>
+  <Remarks />
+  <Copyright>Copyright 2013 Xamarin Inc.</Copyright>
   <Types>
     <Namespace Name="Xamarin.Auth">
       <Type Name="Account" Kind="Class" />
