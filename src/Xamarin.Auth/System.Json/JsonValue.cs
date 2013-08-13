@@ -1,5 +1,5 @@
 ﻿//
-// AssemblyInfo.cs
+// JsonValue.cs
 //
 // Authors:
 //	Marek Safar (marek.safar@gmail.com)

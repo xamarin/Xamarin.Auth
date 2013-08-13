@@ -1,5 +1,5 @@
 ﻿//
-// AssemblyInfo.cs
+// JsonPrimitive.cs
 //
 // Authors:
 //	Marek Safar (marek.safar@gmail.com)

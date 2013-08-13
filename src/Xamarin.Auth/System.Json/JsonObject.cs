@@ -1,5 +1,5 @@
 ﻿//
-// AssemblyInfo.cs
+// JsonObject.cs
 //
 // Authors:
 //	Marek Safar (marek.safar@gmail.com)
