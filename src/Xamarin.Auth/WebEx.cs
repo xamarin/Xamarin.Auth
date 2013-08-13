@@ -98,7 +98,10 @@ namespace Xamarin.Utilities
 			foreach (var kv in json) {
 				var v = kv.Value as JsonValue;
 				if (v != null) {
-					inputs [kv.Key] = (string)v;
+					if (v.JsonType != JsonType.String)
+						inputs[kv.Key] = v.ToString();
+					else
+						inputs[kv.Key] = (string)v;
 				}
 			}
 

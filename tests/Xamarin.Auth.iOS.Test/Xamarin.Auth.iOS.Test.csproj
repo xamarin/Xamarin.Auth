@@ -92,6 +92,7 @@
     <Compile Include="OAuth1Test.cs" />
     <Compile Include="AccountTest.cs" />
     <Compile Include="RequestTest.cs" />
+    <Compile Include="WebExTests.cs" />
     <Compile Include="WebUtilitiesTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
