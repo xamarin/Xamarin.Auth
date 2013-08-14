@@ -7,7 +7,7 @@ summary: A cross-platform API for authenticating users and storing their account
 details: Details.md
 license: License.md
 getting-started: GettingStarted.md
-monodoc: docs
+monodocs: docs
 no_build: true
 libraries:
   ios: src/Xamarin.Auth.iOS/bin/Release/Xamarin.Auth.iOS.dll
