@@ -201,6 +201,9 @@ namespace Xamarin.Auth
 
 			public override void LoadFailed (UIWebView webView, NSError error)
 			{
+				if (error.Domain == "NSURLErrorDomain" && error.Code == -999)
+					return;
+
 				controller.activity.StopAnimating ();
 
 				webView.UserInteractionEnabled = true;
