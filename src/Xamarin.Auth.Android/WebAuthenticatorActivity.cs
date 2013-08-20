@@ -14,12 +14,13 @@
 //    limitations under the License.
 //
 using System;
+using System.Collections.Generic;
 using Android.App;
+using Android.Net.Http;
 using Android.Webkit;
 using Android.OS;
 using System.Threading.Tasks;
 using Xamarin.Utilities.Android;
-using System.Timers;
 
 namespace Xamarin.Auth
 {
@@ -144,6 +145,8 @@ namespace Xamarin.Auth
 		class Client : WebViewClient
 		{
 			WebAuthenticatorActivity activity;
+			HashSet<SslCertificate> sslContinue;
+			Dictionary<SslCertificate, List<SslErrorHandler>> inProgress;
 
 			public Client (WebAuthenticatorActivity activity)
 			{
@@ -167,6 +170,92 @@ namespace Xamarin.Auth
 				var uri = new Uri (url);
 				activity.state.Authenticator.OnPageLoaded (uri);
 				activity.EndProgress ();
+			}
+
+			class SslCertificateEqualityComparer
+				: IEqualityComparer<SslCertificate>
+			{
+				public bool Equals (SslCertificate x, SslCertificate y)
+				{
+					return Equals (x.IssuedTo, y.IssuedTo) && Equals (x.IssuedBy, y.IssuedBy) && x.ValidNotBeforeDate.Equals (y.ValidNotBeforeDate) && x.ValidNotAfterDate.Equals (y.ValidNotAfterDate);
+				}
+
+				bool Equals (SslCertificate.DName x, SslCertificate.DName y)
+				{
+					if (ReferenceEquals (x, y))
+						return true;
+					if (ReferenceEquals (x, y) || ReferenceEquals (null, y))
+						return false;
+					return x.GetDName().Equals (y.GetDName());
+				}
+
+				public int GetHashCode (SslCertificate obj)
+				{
+					unchecked {
+						int hashCode = GetHashCode (obj.IssuedTo);
+						hashCode = (hashCode * 397) ^ GetHashCode (obj.IssuedBy);
+						hashCode = (hashCode * 397) ^ obj.ValidNotBeforeDate.GetHashCode();
+						hashCode = (hashCode * 397) ^ obj.ValidNotAfterDate.GetHashCode();
+						return hashCode;
+					}
+				}
+
+				int GetHashCode (SslCertificate.DName dname)
+				{
+					return dname.GetDName().GetHashCode();
+				}
+			}
+
+			public override void OnReceivedSslError (WebView view, SslErrorHandler handler, SslError error)
+			{
+				if (sslContinue == null) {
+					var certComparer = new SslCertificateEqualityComparer();
+					sslContinue = new HashSet<SslCertificate> (certComparer);
+					inProgress = new Dictionary<SslCertificate, List<SslErrorHandler>> (certComparer);
+				}
+
+				List<SslErrorHandler> handlers;
+				if (inProgress.TryGetValue (error.Certificate, out handlers)) {
+					handlers.Add (handler);
+					return;
+				}
+
+				if (sslContinue.Contains (error.Certificate)) {
+					handler.Proceed();
+					return;
+				}
+
+				inProgress[error.Certificate] = new List<SslErrorHandler>();
+
+				AlertDialog.Builder builder = new AlertDialog.Builder (this.activity);
+				builder.SetTitle ("Security warning");
+				builder.SetIcon (Android.Resource.Drawable.IcDialogAlert);
+				builder.SetMessage ("There are problems with the security certificate for this site.");
+				
+				builder.SetNegativeButton ("Go back", (sender, args) => {
+					UpdateInProgressHandlers (error.Certificate, h => h.Cancel());
+					handler.Cancel();
+				});
+
+				builder.SetPositiveButton ("Continue", (sender, args) => {
+					sslContinue.Add (error.Certificate);
+					UpdateInProgressHandlers (error.Certificate, h => h.Proceed());
+					handler.Proceed();
+				});
+				
+				builder.Create().Show();
+			}
+
+			void UpdateInProgressHandlers (SslCertificate certificate, Action<SslErrorHandler> update)
+			{
+				List<SslErrorHandler> inProgressHandlers;
+				if (!this.inProgress.TryGetValue (certificate, out inProgressHandlers))
+					return;
+
+				foreach (SslErrorHandler sslErrorHandler in inProgressHandlers)
+					update (sslErrorHandler);
+
+				inProgressHandlers.Clear();
 			}
 		}
 	}
