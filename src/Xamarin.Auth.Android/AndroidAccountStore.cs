@@ -94,11 +94,7 @@ namespace Xamarin.Auth
 			var entry = new KeyStore.SecretKeyEntry (secretKey);
 			ks.SetEntry (alias, entry, prot);
 
-			lock (fileLock) {
-				using (var s = context.OpenFileOutput (FileName, FileCreationMode.Private)) {
-					ks.Store (s, Password);
-				}
-			}
+			Save();
 		}
 
 		public override void Delete (Account account, string serviceId)
@@ -106,6 +102,16 @@ namespace Xamarin.Auth
 			var alias = MakeAlias (account, serviceId);
 
 			ks.DeleteEntry (alias);
+			Save();
+		}
+
+		void Save()
+		{
+			lock (fileLock) {
+				using (var s = context.OpenFileOutput (FileName, FileCreationMode.Private)) {
+					ks.Store (s, Password);
+				}
+			}
 		}
 
 		static string MakeAlias (Account account, string serviceId)
