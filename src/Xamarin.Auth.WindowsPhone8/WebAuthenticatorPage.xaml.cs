@@ -45,6 +45,9 @@ namespace Xamarin.Auth.WindowsPhone
 
 			PhoneApplicationService.Current.State.Remove (key);
 
+			if (this.auth.ClearCookiesBeforeLogin)
+				await this.browser.ClearCookiesAsync();
+
 			Uri uri = await this.auth.GetInitialUrlAsync();
 			this.browser.Source = uri;
 
