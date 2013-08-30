@@ -69,7 +69,10 @@ namespace Xamarin.Auth.WindowsPhone
 		private void OnBrowserNavigationFailed (object sender, NavigationFailedEventArgs e)
 		{
 			this.progress.IsVisible = false;
-			this.auth.OnError (e.Exception);
+			if (e.Exception == null)
+				this.auth.OnError ("Unknown"); // Shows up when not connected to the internet
+			else
+				this.auth.OnError (e.Exception);
 		}
 
 		private void OnBrowserNavigated (object sender, NavigationEventArgs e)
