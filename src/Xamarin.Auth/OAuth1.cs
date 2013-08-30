@@ -211,7 +211,6 @@ namespace Xamarin.Auth
 			ps = MixInOAuthParameters (method, uri, ps, consumerKey, consumerSecret, tokenSecret);
 
 			var sb = new StringBuilder ();
-			sb.Append ("OAuth ");
 
 			var head = "";
 			foreach (var p in ps) {

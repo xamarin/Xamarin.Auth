@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -16,8 +16,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Xamarin.Utilities;
 
 namespace Xamarin.Auth
@@ -27,7 +31,7 @@ namespace Xamarin.Auth
 	/// </summary>
 	public class Response : IDisposable
 	{
-		HttpWebResponse response;
+		private HttpResponseMessage response;
 
 		/// <summary>
 		/// Gets the response URI.
@@ -52,26 +56,25 @@ namespace Xamarin.Auth
 		public virtual IDictionary<string, string> Headers { get; protected set; }
 
 		/// <summary>
-		/// Initializes a new <see cref="Xamarin.Auth.Response"/> that wraps a <see cref="T:System.Net.HttpWebResponse"/>.
+		/// Initializes a new <see cref="Xamarin.Auth.Response"/> that wraps a <see cref="HttpResponseMessage"/>.
 		/// </summary>
-		/// <param name='response'>
-		/// The <see cref="T:System.Net.HttpWebResponse"/> that this response will wrap.
+		/// <param name="response">
+		/// The <see cref="HttpResponseMessage"/> that this response will wrap.
 		/// </param>
 		/// <exception cref="ArgumentNullException"><paramref name="response"/> is <c>null</c>.</exception>
-		public Response (HttpWebResponse response)
+		public Response (HttpResponseMessage response)
 		{
-			if (response == null) {
+			if (response == null)
 				throw new ArgumentNullException ("response");
-			}
 
 			this.response = response;
 
-			ResponseUri = response.ResponseUri;
+			ResponseUri = response.RequestMessage.RequestUri;
 			StatusCode = response.StatusCode;
 
-			Headers = new Dictionary<string, string> ();
-			foreach (string h in response.Headers) {
-				Headers [h] = response.Headers [h];
+			Headers = new Dictionary<string, string>();
+			foreach (var h in response.Headers) {
+				Headers[h.Key] = h.Value.First();
 			}
 		}
 
@@ -82,25 +85,9 @@ namespace Xamarin.Auth
 		{
 		}
 
-		/// <summary>
-		/// Reads all the response data and interprets it as a string.
-		/// </summary>
-		/// <returns>
-		/// The response text.
-		/// </returns>
-		public virtual string GetResponseText ()
+		public virtual Task<string> GetResponseTextAsync()
 		{
-			var encoding = Encoding.UTF8;
-
-			if (Headers.ContainsKey ("Content-Type")) {
-				encoding = WebEx.GetEncodingFromContentType (Headers ["Content-Type"]);
-			}
-
-			using (var s = GetResponseStream ()) {
-				using (var r = new StreamReader (s, encoding)) {
-					return r.ReadToEnd ();
-				}
-			}
+			return this.response.Content.ReadAsStringAsync();
 		}
 
 		/// <summary>
@@ -109,9 +96,9 @@ namespace Xamarin.Auth
 		/// <returns>
 		/// The response stream.
 		/// </returns>
-		public virtual Stream GetResponseStream ()
+		public virtual Task<Stream> GetResponseStreamAsync ()
 		{
-			return response.GetResponseStream ();
+			return this.response.Content.ReadAsStreamAsync();
 		}
 
 		/// <summary>
@@ -151,9 +138,11 @@ namespace Xamarin.Auth
 		/// </param>
 		protected virtual void Dispose (bool disposing)
 		{
-			if (response != null) {
-				response.Close ();
-				response = null;
+			if (disposing) {
+				if (response != null) {
+					response.Dispose();
+					response = null;
+				}
 			}
 		}
 	}

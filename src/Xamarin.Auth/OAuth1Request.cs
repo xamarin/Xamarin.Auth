@@ -14,6 +14,7 @@
 //    limitations under the License.
 //
 using System;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Net;
@@ -83,7 +84,7 @@ namespace Xamarin.Auth
 			//
 			var authorization = GetAuthorizationHeader ();
 
-			req.Headers [HttpRequestHeader.Authorization] = authorization;
+			req.Headers.Authorization = new AuthenticationHeaderValue("OAuth", authorization);
 
 			return base.GetResponseAsync (cancellationToken);
 		}

@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -17,11 +17,12 @@ using System;
 using System.Net;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using Xamarin.Auth;
 using Xamarin.Utilities;
 
 namespace Xamarin.Auth
@@ -36,7 +37,7 @@ namespace Xamarin.Auth
 	public class Request
 #endif
 	{
-		HttpWebRequest request;
+		HttpRequestMessage request;
 
 		/// <summary>
 		/// The HTTP method.
@@ -189,111 +190,34 @@ namespace Xamarin.Auth
 		/// <returns>
 		/// The response.
 		/// </returns>
-		public virtual Task<Response> GetResponseAsync (CancellationToken cancellationToken)
+		public virtual async Task<Response> GetResponseAsync (CancellationToken cancellationToken)
 		{
-			var request = GetPreparedWebRequest ();
+			HttpClient client = new HttpClient();
 
-#if !PLATFORM_WINPHONE
-			// Disable 100-Continue: http://blogs.msdn.com/b/shitals/archive/2008/12/27/9254245.aspx
-			if (Method == "POST") {
-				ServicePointManager.Expect100Continue = false;
-			}
-#endif
+			var httpRequest = GetPreparedWebRequest ();
+			httpRequest.Headers.ExpectContinue = false;
 
 			if (Multiparts.Count > 0) {
 				var boundary = "---------------------------" + new Random ().Next ();
-				request.ContentType = "multipart/form-data; boundary=" + boundary;
+				var content = new MultipartFormDataContent (boundary);
+				foreach (Part part in Multiparts) {
+					var partContent = new StreamContent (part.Data);
+					partContent.Headers.ContentDisposition = new ContentDispositionHeaderValue ("form-data");
+					partContent.Headers.ContentDisposition.FileName = part.Filename;
 
-				return Task.Factory
-						.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
-						.ContinueWith (reqStreamtask => {
-						
-					using (reqStreamtask.Result) {
-						WriteMultipartFormData (boundary, reqStreamtask.Result);
-					}
-						
-					return Task.Factory
-									.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
-									.ContinueWith (resTask => {
-						return new Response ((HttpWebResponse)resTask.Result);
-					}, cancellationToken);
-				}, cancellationToken).Unwrap();
+					partContent.Headers.ContentType = new MediaTypeHeaderValue (part.MimeType);
+
+					content.Add (partContent);
+				}
+
+				httpRequest.Content = content;
+
 			} else if (Method == "POST" && Parameters.Count > 0) {
-				var body = Parameters.FormEncode ();
-				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
-				request.ContentLength = bodyData.Length;
-				request.ContentType = "application/x-www-form-urlencoded";
-
-				return Task.Factory
-						.FromAsync<Stream> (request.BeginGetRequestStream, request.EndGetRequestStream, null)
-						.ContinueWith (reqStreamTask => {
-
-					using (reqStreamTask.Result) {
-						reqStreamTask.Result.Write (bodyData, 0, bodyData.Length);
-					}
-							
-					return Task.Factory
-								.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
-									.ContinueWith (resTask => {
-						return new Response ((HttpWebResponse)resTask.Result);
-					}, cancellationToken);
-				}, cancellationToken).Unwrap();
-			} else {
-				return Task.Factory
-						.FromAsync<WebResponse> (request.BeginGetResponse, request.EndGetResponse, null)
-						.ContinueWith (resTask => {
-					return new Response ((HttpWebResponse)resTask.Result);
-				}, cancellationToken);
+				httpRequest.Content = new FormUrlEncodedContent (Parameters);
 			}
-		}
 
-		void WriteMultipartFormData (string boundary, Stream s)
-		{
-			var boundaryBytes = Encoding.UTF8.GetBytes ("--" + boundary);
-
-			foreach (var p in Multiparts) {
-				s.Write (boundaryBytes, 0, boundaryBytes.Length);
-				s.Write (CrLf, 0, CrLf.Length);
-				
-				//
-				// Content-Disposition
-				//
-				var header = "Content-Disposition: form-data; name=\"" + p.Name + "\"";
-				if (!string.IsNullOrEmpty (p.Filename)) {
-					header += "; filename=\"" + p.Filename + "\"";
-				}
-				var headerBytes = Encoding.UTF8.GetBytes (header);
-				s.Write (headerBytes, 0, headerBytes.Length);
-				s.Write (CrLf, 0, CrLf.Length);
-				
-				//
-				// Content-Type
-				//
-				if (!string.IsNullOrEmpty (p.MimeType)) {
-					header = "Content-Type: " + p.MimeType;
-					headerBytes = Encoding.UTF8.GetBytes (header);
-					s.Write (headerBytes, 0, headerBytes.Length);
-					s.Write (CrLf, 0, CrLf.Length);
-				}
-				
-				//
-				// End Header
-				//
-				s.Write (CrLf, 0, CrLf.Length);
-				
-				//
-				// Data
-				//
-				p.Data.CopyTo (s);
-				s.Write (CrLf, 0, CrLf.Length);
-			}
-			
-			//
-			// End
-			//
-			s.Write (boundaryBytes, 0, boundaryBytes.Length);
-			s.Write (DashDash, 0, DashDash.Length);
-			s.Write (CrLf, 0, CrLf.Length);
+			HttpResponseMessage response = await client.SendAsync (httpRequest, cancellationToken).ConfigureAwait (false);
+			return new Response (response);
 		}
 
 		static readonly byte[] CrLf = new byte[] { (byte)'\r', (byte)'\n' };
@@ -338,18 +262,47 @@ namespace Xamarin.Auth
 		/// <returns>
 		/// The prepared HTTP web request.
 		/// </returns>
-		protected virtual HttpWebRequest GetPreparedWebRequest ()
+		protected virtual HttpRequestMessage GetPreparedWebRequest ()
 		{
+			Uri preparedUrl = null;
 			if (request == null) {
-				request = (HttpWebRequest)WebRequest.Create (GetPreparedUrl ());
-				request.Method = Method;
+				preparedUrl = GetPreparedUrl();
+				request = new HttpRequestMessage (GetMethod (Method), preparedUrl);
 			}
 
-			if (request.CookieContainer == null && Account != null) {
-				request.CookieContainer = Account.Cookies;
+			if (Account != null && !request.Headers.Contains ("Cookie")) {
+				if (preparedUrl == null)
+					preparedUrl = GetPreparedUrl();
+
+				CookieCollection cookies = Account.Cookies.GetCookies (preparedUrl);
+				if (cookies.Count > 0)
+					request.Headers.Add ("Cookie", Account.Cookies.GetCookieHeader (preparedUrl));
 			}
 
 			return request;
+		}
+
+		static HttpMethod GetMethod (string method)
+		{
+			method = method.ToUpper();
+			switch (method) {
+				case "GET":
+					return HttpMethod.Get;
+				case "POST":
+					return HttpMethod.Post;
+				case "PUT":
+					return HttpMethod.Put;
+				case "HEAD":
+					return HttpMethod.Head;
+				case "DELETE":
+					return HttpMethod.Delete;
+				case "TRACE":
+					return HttpMethod.Trace;
+				case "OPTIONS":
+					return HttpMethod.Options;
+				default:
+					throw new ArgumentException ("method");
+			}
 		}
 	}
 }

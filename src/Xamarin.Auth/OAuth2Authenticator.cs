@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,6 +15,7 @@
 //
 using System;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -303,33 +304,24 @@ namespace Xamarin.Auth
 		/// </summary>
 		/// <param name="queryValues">The parameters to make the request with.</param>
 		/// <returns>The data provided in the response to the access token request.</returns>
-		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
+		protected async Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
 		{
-			var query = queryValues.FormEncode ();
+			var content = new FormUrlEncodedContent (queryValues);
 
-			var req = WebRequest.Create (accessTokenUrl);
-			req.Method = "POST";
-			var body = Encoding.UTF8.GetBytes (query);
-			req.ContentLength = body.Length;
-			req.ContentType = "application/x-www-form-urlencoded";
+			HttpClient client = new HttpClient();
+			HttpResponseMessage response = await client.PostAsync (accessTokenUrl, content).ConfigureAwait (false);
+			string text = await response.Content.ReadAsStringAsync().ConfigureAwait (false);
 
-			using (var s = req.GetRequestStream ()) {
-				s.Write (body, 0, body.Length);
+			// Parse the response
+			var data = text.Contains ("{") ? WebEx.JsonDecode (text) : WebEx.FormDecode (text);
+
+			if (data.ContainsKey ("error")) {
+				throw new AuthException ("Error authenticating: " + data ["error"]);
+			} else if (data.ContainsKey ("access_token")) {
+				return data;
+			} else {
+				throw new AuthException ("Expected access_token in access token response, but did not receive one.");
 			}
-			return req.GetResponseAsync ().ContinueWith (task => {
-				var text = task.Result.GetResponseText ();
-
-				// Parse the response
-				var data = text.Contains ("{") ? WebEx.JsonDecode (text) : WebEx.FormDecode (text);
-
-				if (data.ContainsKey ("error")) {
-					throw new AuthException ("Error authenticating: " + data ["error"]);
-				} else if (data.ContainsKey ("access_token")) {
-					return data;
-				} else {
-					throw new AuthException ("Expected access_token in access token response, but did not receive one.");
-				}
-			});
 		}
 
 		/// <summary>
@@ -357,4 +349,3 @@ namespace Xamarin.Auth
 		}
 	}
 }
-

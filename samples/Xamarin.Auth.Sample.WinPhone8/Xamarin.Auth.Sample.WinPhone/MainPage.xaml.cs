@@ -15,6 +15,7 @@
 //
 
 using System;
+using System.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Phone.Controls;
@@ -37,7 +38,7 @@ namespace Xamarin.Auth.Sample.WinPhone
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
-			auth.Completed += (s, ee) => {
+			auth.Completed += async (s, ee) => {
 				if (!ee.IsAuthenticated) {
 					this.facebookStatus.Text = "Not Authenticated";
 					return;
@@ -45,22 +46,21 @@ namespace Xamarin.Auth.Sample.WinPhone
 
 				// Now that we're logged in, make a OAuth2 request to get the user's info.
 				var request = new OAuth2Request ("GET", new Uri ("https://graph.facebook.com/me"), null, ee.Account);
-				request.GetResponseAsync().ContinueWith (t => {
-					if (t.IsFaulted)
-						this.facebookStatus.Text = "Error: " + t.Exception.InnerException.Message;
-					else if (t.IsCanceled)
-						this.facebookStatus.Text = "Canceled";
-					else
-					{
-						this.facebookStatus.Text = t.Result.GetResponseText();
-					}
-				}, uiScheduler);
+				try {
+					Response response = await request.GetResponseAsync();
+					var obj = JsonValue.Parse (await response.GetResponseTextAsync());
+
+					this.facebookStatus.Text = "Name: " + obj["name"];
+
+				} catch (OperationCanceledException) {
+					this.facebookStatus.Text = "Canceled";
+				} catch (Exception ex) {
+					this.facebookStatus.Text = "Error: " + ex.Message;
+				}
 			};
 
 			Uri uri = auth.GetUI();
 			NavigationService.Navigate (uri);
 		}
-
-		private readonly TaskScheduler uiScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 	}
 }
