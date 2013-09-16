@@ -60,7 +60,11 @@ namespace Xamarin.Auth
 				});				
 			}
 
-			activity = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
+			var activityStyle = UIActivityIndicatorViewStyle.White;
+			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0))
+				activityStyle = UIActivityIndicatorViewStyle.Gray;
+
+			activity = new UIActivityIndicatorView (activityStyle);
 			NavigationItem.RightBarButtonItem = new UIBarButtonItem (activity);
 
 			webView = new UIWebView (View.Bounds) {
