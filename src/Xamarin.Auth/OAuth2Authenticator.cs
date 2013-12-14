@@ -43,6 +43,8 @@ namespace Xamarin.Auth
 		string requestState;
 		bool reportedForgery = false;
 
+		bool escapeScope = true;
+
 		/// <summary>
 		/// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
 		/// that authenticates using implicit granting (token).
@@ -63,7 +65,7 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+		public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, bool escapeScope = true, GetUsernameAsyncFunc getUsernameAsync = null)
 			: this (redirectUrl)
 		{
 			if (string.IsNullOrEmpty (clientId)) {
@@ -82,6 +84,8 @@ namespace Xamarin.Auth
 				throw new ArgumentNullException ("redirectUrl");
 			}
 			this.redirectUrl = redirectUrl;
+
+			this.escapeScope = escapeScope;
 
 			this.getUsernameAsync = getUsernameAsync;
 
@@ -114,7 +118,7 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+		public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, bool escapeScope = true, GetUsernameAsyncFunc getUsernameAsync = null)
 			: this (redirectUrl, clientSecret, accessTokenUrl)
 		{
 			if (string.IsNullOrEmpty (clientId)) {
@@ -138,6 +142,8 @@ namespace Xamarin.Auth
 				throw new ArgumentNullException ("redirectUrl");
 			}
 			this.redirectUrl = redirectUrl;
+
+			this.escapeScope = escapeScope;
 
 			if (accessTokenUrl == null) {
 				throw new ArgumentNullException ("accessTokenUrl");
@@ -186,7 +192,7 @@ namespace Xamarin.Auth
 				Uri.EscapeDataString (clientId),
 				Uri.EscapeDataString (redirectUrl.AbsoluteUri),
 				IsImplicit ? "token" : "code",
-				Uri.EscapeDataString (scope),
+				(escapeScope) ? Uri.EscapeDataString (scope) : scope,
 				Uri.EscapeDataString (requestState)));
 
 			var tcs = new TaskCompletionSource<Uri> ();
