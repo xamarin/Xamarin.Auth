@@ -190,6 +190,13 @@ namespace Xamarin.Auth
 					Uri url;
 					if (Uri.TryCreate (nsUrl.AbsoluteString, UriKind.Absolute, out url)) {
 						controller.authenticator.OnPageLoading (url);
+						if(String.Equals(url.Host, "localhost", StringComparison.OrdinalIgnoreCase))
+						{
+							// We should not let the WebView load a localhost redirect, because it is an application and 
+							// not a server, and thus the WebView would raise a -1002 error (Cannot connect to Host)
+							// that would be displayed to the user, even though the whole authentication process would work.
+							return false;
+						}
 					}
 				}
 
@@ -205,7 +212,14 @@ namespace Xamarin.Auth
 
 			public override void LoadFailed (UIWebView webView, NSError error)
 			{
+				//kCFURLErrorCancelled=-999
 				if (error.Domain == "NSURLErrorDomain" && error.Code == -999)
+					return;
+
+				// Frame Load Interrupted
+				if (error.Domain == "WebKitErrorDomain" && error.Code == 102) 
+					// ignore this error caused by ShouldStartLoad when it returned false in order to skip
+					// the redirect to the fake localhost endpoint.
 					return;
 
 				controller.activity.StopAnimating ();
