@@ -15,10 +15,10 @@
 //
 
 using System;
-using System.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Phone.Controls;
+using System.Json;
 
 namespace Xamarin.Auth.Sample.WinPhone
 {
@@ -32,7 +32,7 @@ namespace Xamarin.Auth.Sample.WinPhone
 		private void OnClickFacebook (object sender, RoutedEventArgs e)
 		{
 			var auth = new OAuth2Authenticator (
-				clientId: "App ID from https://developers.facebook.com/apps",
+                clientId: "App ID from https://developers.facebook.com/apps",
 				scope: "",
 				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
