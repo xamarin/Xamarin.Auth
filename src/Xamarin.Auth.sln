@@ -19,7 +19,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.iOS.Test", "..
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone", "Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone.csproj", "{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone.Test", "Xamarin.Auth.WindowsPhone8.Test\Xamarin.Auth.WindowsPhone.Test.csproj", "{EB2FE343-DCA0-45D2-B1C6-0E73207EA4D0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone.Test", "..\tests\Xamarin.Auth.WindowsPhone8.Test\Xamarin.Auth.WindowsPhone.Test.csproj", "{EB2FE343-DCA0-45D2-B1C6-0E73207EA4D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -112,8 +112,8 @@ Global
 		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|ARM.ActiveCfg = Debug|ARM
 		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|ARM.Build.0 = Debug|ARM
 		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|Mixed Platforms.ActiveCfg = Debug|ARM
+		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|Mixed Platforms.Build.0 = Debug|ARM
 		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|Win32.ActiveCfg = Debug|x86
 		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|Win32.Build.0 = Debug|x86
 		{21DFDEA9-71AD-492B-A4D2-5138CC5DEEAB}.Debug|x86.ActiveCfg = Debug|x86
