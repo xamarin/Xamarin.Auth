@@ -21,6 +21,9 @@ using System.IO;
 
 #if !PLATFORM_WINPHONE
 using System.Runtime.Serialization.Formatters.Binary;
+#else
+using System.Xml;
+using System.Runtime.Serialization;
 #endif
 
 namespace Xamarin.Auth
@@ -183,7 +186,16 @@ namespace Xamarin.Auth
 				return Convert.ToBase64String (s.GetBuffer (), 0, (int)s.Length);
 			}
 #else
-			return String.Empty;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (XmlDictionaryWriter writer = XmlDictionaryWriter.CreateBinaryWriter(ms))
+                {
+                    DataContractSerializer dcs = new DataContractSerializer(typeof(CookieContainer));
+                    dcs.WriteObject(writer, Cookies);
+                    writer.Flush();
+                    return Encoding.UTF8.GetString(ms.ToArray(), 0, (int)ms.Length);
+                }
+            }
 #endif
 		}
 
@@ -195,7 +207,15 @@ namespace Xamarin.Auth
 				return (CookieContainer)f.Deserialize (s);
 			}
 #else
-			return new CookieContainer();
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(cookiesString)))
+            {
+                using (XmlDictionaryReader reader = XmlDictionaryReader.CreateBinaryReader(
+                    memoryStream, XmlDictionaryReaderQuotas.Max))
+                {
+                    DataContractSerializer dcs = new DataContractSerializer(typeof(CookieContainer));
+                    return (CookieContainer)dcs.ReadObject(reader);
+                }
+            }
 #endif
 		}
 
