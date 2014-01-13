@@ -1,0 +1,348 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Portable.Runtime</name>
+    </assembly>
+    <members>
+        <member name="T:System.CloseExtensions">
+            <summary>
+                Provides extension methods for closing disposable objects.
+            </summary>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.IO.Stream)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.IO.Stream"/>.
+            </summary>
+            <param name="stream">
+                The <see cref="T:System.IO.Stream"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="stream"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.IO.TextReader)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.IO.TextReader"/>.
+            </summary>
+            <param name="reader">
+                The <see cref="T:System.IO.TextReader"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="reader"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.IO.TextWriter)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.IO.TextWriter"/>.
+            </summary>
+            <param name="writer">
+                The <see cref="T:System.IO.TextWriter"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="writer"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.IO.BinaryReader)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.IO.BinaryReader"/>.
+            </summary>
+            <param name="reader">
+                The <see cref="T:System.IO.BinaryReader"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="reader"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.IO.BinaryWriter)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.IO.BinaryWriter"/>.
+            </summary>
+            <param name="writer">
+                The <see cref="T:System.IO.BinaryWriter"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="writer"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.Xml.XmlReader)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Xml.XmlReader"/>.
+            </summary>
+            <param name="reader">
+                The <see cref="T:System.Xml.XmlReader"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="reader"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.Xml.XmlWriter)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Xml.XmlWriter"/>.
+            </summary>
+            <param name="writer">
+                The <see cref="T:System.Xml.XmlWriter"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="writer"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.Net.WebResponse)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Net.WebResponse"/>.
+            </summary>
+            <param name="response">
+                The <see cref="T:System.Net.WebResponse"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="response"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.CloseExtensions.Close(System.Threading.WaitHandle)">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Threading.WaitHandle"/>.
+            </summary>
+            <param name="handle">
+                The <see cref="T:System.Threading.WaitHandle"/> to dispose.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="handle"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="T:System.Diagnostics.Stopwatch">
+            <summary>
+                Provides a set of methods and properties that you can use to accurately measure elapsed time.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.Stopwatch.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Diagnostics.Stopwatch"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.Stopwatch.GetTimestamp">
+            <summary>
+                Gets the current number of ticks in the timer mechanism.
+            </summary>
+            <returns>
+                A long integer representing the tick counter value of the underlying timer mechanism.
+            </returns>
+        </member>
+        <member name="M:System.Diagnostics.Stopwatch.Reset">
+            <summary>
+                Stops time interval measurement and resets the elapsed time to zero. 
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.Stopwatch.Restart">
+            <summary>
+                Stops time interval measurement, resets the elapsed time to zero, and starts measuring elapsed time.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.Stopwatch.Start">
+            <summary>
+                Starts, or resumes, measuring elapsed time for an interval.
+            </summary>
+        </member>
+        <member name="M:System.Diagnostics.Stopwatch.StartNew">
+            <summary>
+                Initializes a new Stopwatch instance, sets the elapsed time property to zero, and starts measuring elapsed time.
+            </summary>
+            <returns>
+                A <see cref="T:System.Diagnostics.Stopwatch"/> that has just begun measuring elapsed time.
+            </returns>
+        </member>
+        <member name="M:System.Diagnostics.Stopwatch.Stop">
+            <summary>
+                Stops measuring elapsed time for an interval.
+            </summary>
+        </member>
+        <member name="P:System.Diagnostics.Stopwatch.Frequency">
+            <summary>
+                Gets the frequency of the timer as the number of ticks per second.
+            </summary>
+            <value>
+                A <see cref="T:System.Int64"/> containing the number of ticks per second.
+            </value>
+        </member>
+        <member name="P:System.Diagnostics.Stopwatch.IsHighResolution">
+            <summary>
+                Indicates whether the timer is based on a high-resolution performance counter.
+            </summary>
+            <value>
+                <see langword="true"/> if the timer is based on a high-resolution performance counter, otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:System.Diagnostics.Stopwatch.Elapsed">
+            <summary>
+                Gets the total elapsed time measured by the current instance.
+            </summary>
+            <value>
+                A read-only <see cref="T:System.TimeSpan"/> representing the total elapsed time measured by the current instance.
+            </value>
+        </member>
+        <member name="P:System.Diagnostics.Stopwatch.ElapsedMilliseconds">
+            <summary>
+                Gets the total elapsed time measured by the current instance, in milliseconds.
+            </summary>
+            <value>
+                A read-only long integer representing the total number of milliseconds measured by the current instance.    
+            </value>
+        </member>
+        <member name="P:System.Diagnostics.Stopwatch.ElapsedTicks">
+            <summary>
+                Gets the total elapsed time measured by the current instance, in timer ticks.
+            </summary>
+            <value>
+                A read-only long integer representing the total number of timer ticks measured by the current instance.
+            </value>
+        </member>
+        <member name="P:System.Diagnostics.Stopwatch.IsRunning">
+            <summary>
+                Gets a value indicating whether the <see cref="T:System.Diagnostics.Stopwatch"/> timer is running.
+            </summary>
+            <value>
+                <see langword="true"/> if the <see cref="T:System.Diagnostics.Stopwatch"/> instance is currently running and measuring elapsed time for an interval; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="T:System.GlobalizationExtensions">
+            <summary>
+                Provides extension methods for uppercasing and lowercasing strings.
+            </summary>
+        </member>
+        <member name="M:System.GlobalizationExtensions.ToUpper(System.String,System.Globalization.CultureInfo)">
+            <summary>
+                Returns a copy of this string converted to uppercase, using the casing rules of the specified culture.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to uppercase.</param>
+            <param name="culture">An object that supplies culture-specific casing rules.</param>
+            <returns>The uppercase equivalent of the current string.</returns>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="value"/> is <see langword="null"/>.
+                <para>
+                    -or-
+                </para>
+                <paramref name="culture"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.GlobalizationExtensions.ToLower(System.String,System.Globalization.CultureInfo)">
+            <summary>
+                Returns a copy of this string converted to lowercase, using the casing rules of the specified culture.
+            </summary>
+            <param name="value">The <see cref="T:System.String"/> to uppercase.</param>
+            <param name="culture">An object that supplies culture-specific casing rules.</param>
+            <returns>The lowercase equivalent of the current string.</returns>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="value"/> is <see langword="null"/>.
+                <para>
+                    -or-
+                </para>
+                <paramref name="culture"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="T:System.ICloneable">
+            <summary>
+                Supports cloning, which creates a new instance of a class with the same value as an existing instance.
+            </summary>
+        </member>
+        <member name="M:System.ICloneable.Clone">
+            <summary>
+                Creates a new object that is a copy of the current instance. 
+            </summary>
+        </member>
+        <member name="T:System.Net.WebUtility">
+            <summary>
+                Provides methods for encoding and decoding HTML when processing Web requests.
+            </summary>
+        </member>
+        <member name="M:System.Net.WebUtility.HtmlEncode(System.String)">
+            <summary>
+                Converts a string to an HTML-encoded string.
+            </summary>
+            <param name="value">
+                The string to encode.
+            </param>
+            <returns>
+                An encoded string.
+            </returns>
+        </member>
+        <member name="M:System.Net.WebUtility.HtmlEncode(System.String,System.IO.TextWriter)">
+            <summary>
+                Converts a string into an HTML-encoded string, and writes the output to a <see cref="T:System.IO.TextWriter"/> object.
+            </summary>
+            <param name="value">
+                The string to encode.
+            </param>
+            <param name="output">
+                A <see cref="T:System.IO.TextWriter"/> output stream.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="value"/> is not <see langword="null"/> and <paramref name="output"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.Net.WebUtility.HtmlDecode(System.String)">
+            <summary>
+                Converts a string that has been HTML-encoded into a decoded string.
+            </summary>
+            <param name="value">
+                The string to decode.
+            </param>
+            <returns>
+                The decoded string.
+            </returns>
+        </member>
+        <member name="M:System.Net.WebUtility.HtmlDecode(System.String,System.IO.TextWriter)">
+            <summary>
+                Converts a string that has been HTML-encoded into a decoded string, and writes the output to a <see cref="T:System.IO.TextWriter"/> object.
+            </summary>
+            <param name="value">
+                The string to decode.
+            </param>
+            <param name="output">
+                A <see cref="T:System.IO.TextWriter"/> output stream.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="value"/> is not <see langword="null"/> and <paramref name="output"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="T:System.Strings">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:System.Strings.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:System.Strings.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:System.Strings.AdapterNotSupported">
+            <summary>
+              Looks up a localized string similar to This API is not supported on this platform..
+            </summary>
+        </member>
+        <member name="P:System.Strings.AssemblyNotSupported">
+            <summary>
+              Looks up a localized string similar to To use this API, the platform-specific assembly must be present in the probing path. If running on Silverlight, Phone or Metro, verify that platform-specific projects have a reference to their appropriate platform-specific assembly (Portable.Silverlight, Portable.Phone, and Portable.Metro respectively) so that it ends up in the package. Otherwise, if running on .NET Framework verify that Portable.Desktop is alongside Portable.* on disk..
+            </summary>
+        </member>
+        <member name="T:System.Text.StringBuilderExtensions">
+            <summary>
+                Provides extension methods for <see cref="T:System.Text.StringBuilder"/> instances.
+            </summary>
+        </member>
+        <member name="M:System.Text.StringBuilderExtensions.Clear(System.Text.StringBuilder)">
+            <summary>
+                Removes all characters from the current StringBuilder instance.
+            </summary>
+            <param name="builder">
+                The <see cref="T:System.Text.StringBuilder"/> to clear.
+            </param>
+            <returns>
+                An object whose Length is 0 (zero).
+            </returns>
+        </member>
+    </members>
+</doc>

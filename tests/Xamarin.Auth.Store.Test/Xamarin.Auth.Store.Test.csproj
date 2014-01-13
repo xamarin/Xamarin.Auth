@@ -147,14 +147,16 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\xamarin-wishpop-game\Portable\Portable.Store\Portable.Store.csproj">
-      <Project>{3c43f2be-68ab-4488-ac6c-a74abb2bf481}</Project>
-      <Name>Portable.Store</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\src\Xamarin.Auth.Store\Xamarin.Auth.Store.csproj">
       <Project>{300c426f-2c19-4383-a976-43e0e3a486ff}</Project>
       <Name>Xamarin.Auth.Store</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Portable.Store, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\libs\Portable.Store.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

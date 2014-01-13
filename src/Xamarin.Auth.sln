@@ -25,16 +25,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Store", "Xamar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Store.Test", "..\tests\Xamarin.Auth.Store.Test\Xamarin.Auth.Store.Test.csproj", "{09EF8531-C7B5-4EC8-BF2D-AB983F960FC2}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Portable", "Portable", "{AE908878-6A8A-48A9-B4C3-03B466D22E43}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portable.Store", "..\..\xamarin-wishpop-game\Portable\Portable.Store\Portable.Store.csproj", "{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portable.Runtime", "..\..\xamarin-wishpop-game\Portable\Portable.Runtime\Portable.Runtime.csproj", "{3901C90B-51C5-47AC-9BC7-AF76A82F990E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portable.Security.Cryptography", "..\..\xamarin-wishpop-game\Portable\Portable.Security.Cryptography\Portable.Security.Cryptography.csproj", "{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Portable.Security.Cryptography.ProtectedData", "..\..\xamarin-wishpop-game\Portable\Portable.Security.Cryptography.ProtectedData\Portable.Security.Cryptography.ProtectedData.csproj", "{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -249,95 +239,9 @@ Global
 		{09EF8531-C7B5-4EC8-BF2D-AB983F960FC2}.Release|x86.ActiveCfg = Release|x86
 		{09EF8531-C7B5-4EC8-BF2D-AB983F960FC2}.Release|x86.Build.0 = Release|x86
 		{09EF8531-C7B5-4EC8-BF2D-AB983F960FC2}.Release|x86.Deploy.0 = Release|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|ARM.ActiveCfg = Debug|ARM
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|ARM.Build.0 = Debug|ARM
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|Win32.ActiveCfg = Debug|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|Win32.Build.0 = Debug|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|x64.ActiveCfg = Debug|x64
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|x64.Build.0 = Debug|x64
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|x86.ActiveCfg = Debug|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Debug|x86.Build.0 = Debug|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|ARM.ActiveCfg = Release|ARM
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|ARM.Build.0 = Release|ARM
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|Win32.ActiveCfg = Release|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|Win32.Build.0 = Release|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|x64.ActiveCfg = Release|x64
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|x64.Build.0 = Release|x64
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|x86.ActiveCfg = Release|x86
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481}.Release|x86.Build.0 = Release|x86
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|ARM.ActiveCfg = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|Win32.ActiveCfg = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|x64.ActiveCfg = Release|Any CPU
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E}.Release|x86.ActiveCfg = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|ARM.ActiveCfg = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|Win32.ActiveCfg = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|x64.ActiveCfg = Release|Any CPU
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2}.Release|x86.ActiveCfg = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|Win32.ActiveCfg = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|ARM.ActiveCfg = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|Win32.ActiveCfg = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|x64.ActiveCfg = Release|Any CPU
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(NestedProjects) = preSolution
-		{3C43F2BE-68AB-4488-AC6C-A74ABB2BF481} = {AE908878-6A8A-48A9-B4C3-03B466D22E43}
-		{3901C90B-51C5-47AC-9BC7-AF76A82F990E} = {AE908878-6A8A-48A9-B4C3-03B466D22E43}
-		{9186CC3D-DCE0-40CF-9762-EFABE6C342D2} = {AE908878-6A8A-48A9-B4C3-03B466D22E43}
-		{C30FA2EA-B2FC-4831-B7EC-5A6EF38EA24B} = {AE908878-6A8A-48A9-B4C3-03B466D22E43}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = ..\tests\Xamarin.Auth.Android.Test\Xamarin.Auth.Android.Test.csproj
