@@ -53,8 +53,16 @@ namespace Xamarin.Auth
 		{
 			return new WindowsPhone.WPAccountStore();
 		}
+#elif NETFX_CORE
+        /// <summary>
+		/// Create an account store.
+		/// </summary>
+		public static AccountStore Create()
+		{
+			return new WindowsStore.WindowsAccountStore();
+		}
 #else
-		/// <summary>
+        /// <summary>
 		/// Create an account store.
 		/// </summary>
 		/// <returns>A new <see cref="AccountStore"/> instance.</returns>
