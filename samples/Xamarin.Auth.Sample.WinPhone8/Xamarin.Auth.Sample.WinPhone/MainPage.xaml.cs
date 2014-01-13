@@ -32,13 +32,14 @@ namespace Xamarin.Auth.Sample.WinPhone
 		private void OnClickFacebook (object sender, RoutedEventArgs e)
 		{
 			var auth = new OAuth2Authenticator (
-                clientId: "App ID from https://developers.facebook.com/apps",
+                clientId: "438894422873149",
 				scope: "",
 				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
-			auth.Completed += async (s, ee) => {
+			auth.Completed += async (s, ee) => 
+            {
 				if (!ee.IsAuthenticated) {
 					this.facebookStatus.Text = "Not Authenticated";
 					return;

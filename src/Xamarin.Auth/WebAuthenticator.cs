@@ -26,8 +26,12 @@ using UIContext = Android.Content.Context;
 #elif PLATFORM_WINPHONE
 using Microsoft.Phone.Shell;
 using AuthenticateUIType = System.Uri;
+#elif NETFX_CORE
+using Xamarin.Auth.Store.Control;
+using AuthenticateUIType = System.Object;
 #else
 using AuthenticateUIType = System.Object;
+
 #endif
 
 namespace Xamarin.Auth
@@ -156,6 +160,13 @@ namespace Xamarin.Auth
 			PhoneApplicationService.Current.State[key] = this;
 			return new Uri ("/Xamarin.Auth.WindowsPhone;component/WebAuthenticatorPage.xaml?key=" + key, UriKind.Relative);
 		}
+#elif NETFX_CORE
+        protected override AuthenticateUIType GetPlatformUI()
+		{
+            var ui = new AuthUI();
+            ui.Authenticator = this;
+            return ui;
+		}
 #else
 		/// <summary>
 		/// Gets the UI for this authenticator.
@@ -168,6 +179,6 @@ namespace Xamarin.Auth
 			throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
 		}
 #endif
-	}
+    }
 }
 
