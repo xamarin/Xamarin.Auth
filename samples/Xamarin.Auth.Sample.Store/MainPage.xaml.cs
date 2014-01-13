@@ -72,6 +72,7 @@ namespace Xamarin.Auth.Sample.Store
                 {
                     this.facebookStatus.Text = "Error: " + ex.Message;
                 }
+                AuthPanel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             };
 
             AuthUI authUI = (AuthUI)auth.GetUI();

@@ -10,7 +10,12 @@
     d:DesignWidth="400">
     
     <Grid>
-        <WebView x:Name="browser"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <ProgressRing x:Name="progress"/>
+        <WebView Grid.Row="1" x:Name="browser"/>
 
     </Grid>
 </UserControl>

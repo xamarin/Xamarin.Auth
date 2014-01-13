@@ -33,17 +33,16 @@ namespace Xamarin.Auth.Store.Control
 
                 };
 			_auth.Error+=_auth_Error;
-                		
-
             }
         }
 
         public async void Navigate()
         {
-                        
             Uri uri = await _auth.GetInitialUrlAsync();
             browser.Source = uri;
             browser.Navigate(uri);
+            this.progress.IsActive = true;
+            _auth.OnPageLoading(uri);
         }
 
         void _auth_Error(object sender, AuthenticatorErrorEventArgs e)
@@ -61,12 +60,16 @@ namespace Xamarin.Auth.Store.Control
 
         void browser_LoadCompleted(object sender, NavigationEventArgs e)
         {
-            //throw new NotImplementedException();
+            this.progress.IsActive = false;
+            _auth.OnPageLoaded(e.Uri);
         }
 
         void browser_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
-            //throw new NotImplementedException();
+            this.progress.IsActive = false;
+            _auth.OnError(e.WebErrorStatus.ToString());
         }
+
+
     }
 }
