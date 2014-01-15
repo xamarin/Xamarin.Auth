@@ -10,7 +10,6 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel x:Name="TitlePanel" Grid.Row="0" Margin="12,17,0,28">
@@ -22,11 +21,9 @@
         <!--ContentPanel - place additional content here-->
         <StackPanel x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
             <Button Click="OnClickFacebook">Login to Facebook</Button>
-            <TextBlock Name="facebookStatus" />
+            <TextBlock Name="facebookStatus" Foreground="White" Text="test"/>
             
         </StackPanel>
-        <Grid Background="Aqua"
-            Grid.Row="2"
-            x:Name="AuthPanel" />
+        
     </Grid>
 </Page>

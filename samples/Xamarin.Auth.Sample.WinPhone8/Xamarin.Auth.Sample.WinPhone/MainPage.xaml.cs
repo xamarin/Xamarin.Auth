@@ -32,7 +32,7 @@ namespace Xamarin.Auth.Sample.WinPhone
 		private void OnClickFacebook (object sender, RoutedEventArgs e)
 		{
 			var auth = new OAuth2Authenticator (
-                clientId: "438894422873149",
+                clientId: "id",
 				scope: "",
 				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));

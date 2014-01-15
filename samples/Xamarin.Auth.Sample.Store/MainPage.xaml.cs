@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Xamarin.Auth.Store.Control;
+using Xamarin.Auth.Store;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -40,7 +40,7 @@ namespace Xamarin.Auth.Sample.Store
         private void OnClickFacebook(object sender, RoutedEventArgs e)
         {
             var auth = new OAuth2Authenticator(
-                clientId: "438894422873149",
+                clientId: "id",
                 scope: "",
                 authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
                 redirectUrl: new Uri("http://www.facebook.com/connect/login_success.html"));
@@ -60,8 +60,8 @@ namespace Xamarin.Auth.Sample.Store
                 {
                     Response response = await request.GetResponseAsync();
                     var obj = JsonValue.Parse(await response.GetResponseTextAsync());
-
-                    this.facebookStatus.Text = "Name: " + obj["name"];
+                    var name="Name: " + obj["name"];
+                    this.facebookStatus.Text = name;
 
                 }
                 catch (OperationCanceledException)
@@ -72,14 +72,10 @@ namespace Xamarin.Auth.Sample.Store
                 {
                     this.facebookStatus.Text = "Error: " + ex.Message;
                 }
-                AuthPanel.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                
             };
 
-            AuthUI authUI = (AuthUI)auth.GetUI();
-            AuthPanel.Children.Clear();
-            AuthPanel.Children.Add(authUI);
-            AuthPanel.Visibility = Windows.UI.Xaml.Visibility.Visible;
-            authUI.Navigate();
+            this.Frame.Navigate(typeof(AuthPage), auth);
             //NavigationService.Navigate(uri);
         }
     }

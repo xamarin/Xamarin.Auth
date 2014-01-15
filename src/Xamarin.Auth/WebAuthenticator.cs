@@ -26,9 +26,6 @@ using UIContext = Android.Content.Context;
 #elif PLATFORM_WINPHONE
 using Microsoft.Phone.Shell;
 using AuthenticateUIType = System.Uri;
-#elif NETFX_CORE
-using Xamarin.Auth.Store.Control;
-using AuthenticateUIType = System.Object;
 #else
 using AuthenticateUIType = System.Object;
 
@@ -163,9 +160,9 @@ namespace Xamarin.Auth
 #elif NETFX_CORE
         protected override AuthenticateUIType GetPlatformUI()
 		{
-            var ui = new AuthUI();
-            ui.Authenticator = this;
-            return ui;
+            //actually seems this is not needed for win8 project,
+            //but maybe i'm still missing something
+            throw new NotImplementedException("Just navigate to AuthPage");
 		}
 #else
 		/// <summary>
