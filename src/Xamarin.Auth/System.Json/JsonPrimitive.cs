@@ -143,7 +143,19 @@ namespace System.Json
 				// FIXME: what should we do for null? Handle it as null so far.
 				if (value == null)
 					return JsonType.String;
-
+#if NETFX_CORE
+                if (value is bool)
+                    return Json.JsonType.Boolean;
+                else if (value is char ||
+                            value is string ||
+                            value is DateTime ||
+                            value is DateTimeOffset ||
+                            value is Guid ||
+                            value is TimeSpan ||
+                            value is Uri)
+                    return Json.JsonType.String;
+                return Json.JsonType.Number;
+#else
 				switch (Type.GetTypeCode (value.GetType ())) {
 				case TypeCode.Boolean:
 					return JsonType.Boolean;
@@ -154,7 +166,9 @@ namespace System.Json
 					return JsonType.String;
 				default:
 					return JsonType.Number;
+
 				}
+#endif
 			}
 		}
 

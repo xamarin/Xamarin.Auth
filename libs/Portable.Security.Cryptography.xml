@@ -1,0 +1,473 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Portable.Security.Cryptography</name>
+    </assembly>
+    <members>
+        <member name="T:System.Runtime.InteropServices.InAttribute">
+            <summary>
+            Indicates that data should be marshaled from callee back to caller.
+            </summary>
+        </member>
+        <member name="M:System.Runtime.InteropServices.InAttribute.#ctor">
+            <summary>
+            Initializes a new instance of the System.Runtime.InteropServices.OutAttribute class.
+            </summary>
+        </member>
+        <member name="T:System.Security.Cryptography.Rfc2898DeriveBytes">
+            <summary>
+                Implements password-based key derivation functionality, PBKDF2, by using a pseudo-random number generator based on HMACSHA1.
+            </summary>
+        </member>
+        <member name="T:System.Security.Cryptography.DeriveBytes">
+            <summary>
+                Represents the abstract base class from which all classes that derive byte sequences of a specified length inherit.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.DeriveBytes.Dispose">
+            <summary>
+                Releases all resources used by the current instance of the <see cref="T:System.Security.Cryptography.DeriveBytes"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.DeriveBytes.GetBytes(System.Int32)">
+            <summary>
+                Returns the pseudo-random key for this object.
+            </summary>
+            <param name="byteCount">
+                The number of pseudo-random key bytes to generate. 
+            </param>
+            <returns>
+                A byte array filled with pseudo-random key bytes.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="byteCount"/> is less than 0.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.DeriveBytes.Reset">
+            <summary>
+                Resets the state of the operation.
+            </summary>
+        </member>
+        <member name="P:System.Security.Cryptography.DeriveBytes.IterationCount">
+            <summary>
+                Gets or sets the number of iterations for the operation.
+            </summary>
+            <value>
+                The number of iterations for the operation.
+            </value>
+            <exception cref="T:System.ArgumentException">
+                The number of iterations is less than 1. 
+            </exception>
+        </member>
+        <member name="P:System.Security.Cryptography.DeriveBytes.Salt">
+            <summary>
+                Gets or sets the key salt value for the operation.
+            </summary>
+            <value>
+                The key salt value for the operation.
+            </value>
+            <exception cref="T:System.ArgumentException">
+                The specified salt size is smaller than 8 bytes.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="value"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.Rfc2898DeriveBytes"/> class using a password and salt to derive the key.
+            </summary>
+            <param name="password">
+                The password used to derive the key. 
+            </param>
+            <param name="salt">
+                The key salt used to derive the key. 
+            </param>
+            <exception cref="T:System.ArgumentException">
+                The specified salt size is smaller than 8 bytes.
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="password"/> is <see langword="null"/>.
+                <para>
+                    -or-
+                </para>
+                <paramref name="salt"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[],System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.Rfc2898DeriveBytes"/> class using a password, a salt, and number of iterations to derive the key.
+            </summary>
+            <param name="password">
+                The password used to derive the key. 
+            </param>
+            <param name="salt">
+                The key salt used to derive the key. 
+            </param>
+            <param name="iterations">
+                The number of iterations for the operation. 
+            </param>
+            <exception cref="T:System.ArgumentException">
+                The specified salt size is smaller than 8 bytes or the iteration count is less than 1. 
+            </exception>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="password"/> is <see langword="null"/>.
+                <para>
+                    -or-
+                </para>
+                <paramref name="salt"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="T:System.Security.Cryptography.AesManaged">
+            <summary>
+                Provides a managed implementation of the Advanced Encryption Standard (AES) symmetric algorithm.
+            </summary>
+        </member>
+        <member name="T:System.Security.Cryptography.SymmetricAlgorithm">
+            <summary>
+                Represents the abstract base class from which all implementations of symmetric algorithms must inherit.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor">
+            <summary>
+                Creates a symmetric encryptor object with the current <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key"/> and initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV"/>).
+            </summary>
+            <returns>
+                A symmetric encryptor object.
+            </returns>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithm.CreateEncryptor(System.Byte[],System.Byte[])">
+            <summary>
+                Creates a symmetric encryptor object with the specified key and initialization vector (IV).
+            </summary>
+            <returns>
+                A symmetric encryptor object.
+            </returns>
+            <param name="iv">
+                The secret key to use for the symmetric algorithm. 
+            </param>
+            <param name="key">
+                The initialization vector to use for the symmetric algorithm. 
+            </param>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">
+                The length of <paramref name="iv"/> is not equal to the block size.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor">
+            <summary>
+                Creates a symmetric decryptor object with the current <see cref="P:System.Security.Cryptography.SymmetricAlgorithm.Key"/> and initialization vector (<see cref="P:System.Security.Cryptography.SymmetricAlgorithm.IV"/>).
+            </summary>
+            <returns>
+                A symmetric decryptor object.
+            </returns>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithm.CreateDecryptor(System.Byte[],System.Byte[])">
+            <summary>
+                Creates a symmetric decryptor object with the specified key and initialization vector (IV).
+            </summary>
+            <returns>
+                A symmetric decryptor object.
+            </returns>
+            <param name="iv">
+                The secret key to use for the symmetric algorithm. 
+            </param>
+            <param name="key">
+                The initialization vector to use for the symmetric algorithm. 
+            </param>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">
+                The length of <paramref name="iv"/> is not equal to the block size.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithm.Dispose">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.SymmetricAlgorithm.Clear">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Security.Cryptography.SymmetricAlgorithm"/> class.
+            </summary>
+        </member>
+        <member name="P:System.Security.Cryptography.SymmetricAlgorithm.IV">
+            <summary>
+                Gets or sets the initialization vector (IV) for the symmetric algorithm.
+            </summary>
+            <value>
+                The initialization vector (IV) for the symmetric algorithm.
+            </value>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="value"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">
+                The length of <paramref name="value"/> is not equal to the block size.
+            </exception>
+        </member>
+        <member name="P:System.Security.Cryptography.SymmetricAlgorithm.Key">
+            <summary>
+                Gets or sets the secret key for the symmetric algorithm.
+            </summary>
+            <value>
+                The secret key to use for the symmetric algorithm.
+            </value>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="value"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.Security.Cryptography.CryptographicException">
+                The length of <paramref name="value"/> is not of a valid size.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.AesManaged.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.AesManaged"/> class.
+            </summary>
+        </member>
+        <member name="T:System.Security.Cryptography.CryptographicException">
+            <summary>
+                The exception that is thrown when an error occurs during a cryptographic operation.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.CryptographicException.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.CryptographicException"/> class with default properties. 
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.CryptographicException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:System.Security.Cryptography.CryptographicException"/> class with a specified error message. 
+            </summary>
+            <param name="message">
+                The error message that explains the reason for the exception. 
+            </param>
+        </member>
+        <member name="M:System.Security.Cryptography.CryptographicException.#ctor(System.String,System.Exception)">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.CryptographicException"/> class with a specified error message and a reference to the inner exception that is the cause of this exception. 
+            </summary>
+            <param name="message">
+                The error message that explains the reason for the exception. 
+            </param>
+            <param name="inner">
+                The exception that is the cause of the current exception. If the inner parameter is not <see langword="null"/>, the current exception is raised in a catch block that handles the inner exception. 
+            </param>
+        </member>
+        <member name="T:System.Security.Cryptography.HashAlgorithm">
+            <summary>
+                Represents the base class from which all implementations of cryptographic hash algorithms must derive.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.HashAlgorithm.ComputeHash(System.Byte[])">
+            <summary>
+                Computes the hash value for the specified byte array.
+            </summary>
+            <param name="buffer">
+                The input to compute the hash code for.
+            </param>
+            <returns>
+                The computed hash code.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="buffer"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ObjectDisposedException">
+                The object has already been disposed.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.HashAlgorithm.ComputeHash(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+                Computes the hash value for the specified region of the specified byte array.
+            </summary>
+            <param name="buffer">
+                The input to compute the hash code for.
+            </param>
+            <param name="count">
+                The number of bytes in the array to use as data. 
+            </param>
+            <param name="offset">
+                The offset into the byte array from which to begin using data. 
+            </param>
+            <returns>
+                The computed hash code.
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="buffer"/> is <see langword="null"/>.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                <paramref name="count"/> is an invalid value.
+                <para>
+                -or-
+                </para>
+                <paramref name="buffer"/> length is invalid.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="offset"/> is out of range. This parameter requires a non-negative number.
+            </exception>
+            <exception cref="T:System.ObjectDisposedException">
+                The object has already been disposed.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.HashAlgorithm.ComputeHash(System.IO.Stream)">
+            <summary>
+                Computes the hash value for the specified <see cref="T:System.IO.Stream"/> object.
+            </summary>
+            <param name="inputStream">
+                The input to compute the hash code for. 
+            </param>
+            <returns>
+                The computed hash code.
+            </returns>
+            <exception cref="T:System.ObjectDisposedException">
+                The object has already been disposed.
+            </exception>
+        </member>
+        <member name="M:System.Security.Cryptography.HashAlgorithm.Dispose">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Security.Cryptography.HashAlgorithm"/> class.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.HashAlgorithm.Clear">
+            <summary>
+                Releases all resources used by the <see cref="T:System.Security.Cryptography.HashAlgorithm"/> class.
+            </summary>
+        </member>
+        <member name="T:System.Security.Cryptography.HMACSHA1">
+            <summary>
+                Computes a Hash-based Message Authentication Code (HMAC) using the SHA-1 hash function. 
+            </summary>
+        </member>
+        <member name="T:System.Security.Cryptography.KeyedHashAlgorithm">
+            <summary>
+                Represents the abstract class from which all implementations of keyed hash algorithms must derive.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.HMACSHA1.#ctor(System.Byte[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.HMACSHA1"/> class with the specified key data.
+            </summary>
+            <param name="key">
+                The secret key for HMACSHA1 encryption. The key can be any length, but if it is more than 64 bytes long it will be hashed (using SHA-1) to derive a 64-byte key. Therefore, the recommended size of the secret key is 64 bytes. 
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="key"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="T:System.Security.Cryptography.HMACSHA256">
+            <summary>
+                Computes a Hash-based Message Authentication Code (HMAC) using the SHA-256 hash function.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.HMACSHA256.#ctor(System.Byte[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.HMACSHA256"/> class with the specified key data.
+            </summary>
+            <param name="key">
+                The secret key for HMACSHA256 encryption. The key can be any length. However, the recommended size is 64 bytes. If the secret key is more than 64 bytes long, it will be hashed (using SHA-256) to derive a 64-byte key. If it is less than 64 bytes long, it will be padded to 64 bytes. 
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="key"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="T:System.Security.Cryptography.ICryptoTransform">
+            <summary>
+                Defines the basic operations of cryptographic transformations.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.ICryptoTransform.TransformBlock(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+                Transforms the specified region of the input byte array and copies the resulting transform to the specified region of the output byte array.
+            </summary>
+            <param name="inputBuffer">
+                The input for which to compute the transform. 
+            </param>
+            <param name="inputOffset">
+                The offset into the input byte array from which to begin using data. 
+            </param>
+            <param name="inputCount">
+                The number of bytes in the input byte array to use as data. 
+            </param>
+            <param name="outputBuffer">
+                The output to which to write the transform. 
+            </param>
+            <param name="outputOffset">
+                The offset into the output byte array from which to begin writing data. 
+            </param>
+            <returns>
+                The number of bytes written.
+            </returns>
+        </member>
+        <member name="M:System.Security.Cryptography.ICryptoTransform.TransformFinalBlock(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+                Transforms the specified region of the specified byte array.
+            </summary>
+            <param name="inputBuffer">
+                The input for which to compute the transform. 
+            </param>
+            <param name="inputOffset">
+                The offset into the input byte array from which to begin using data. 
+            </param>
+            <param name="inputCount">
+                The number of bytes in the input byte array to use as data. 
+            </param>
+            <returns>
+                The computed transform.
+            </returns>
+        </member>
+        <member name="P:System.Security.Cryptography.ICryptoTransform.CanReuseTransform">
+            <summary>
+                Gets a value indicating whether the current transform can be reused.
+            </summary>
+            <value>
+                <see langword="true"/> if the current transform can be reused; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:System.Security.Cryptography.ICryptoTransform.CanTransformMultipleBlocks">
+            <summary>
+                Gets a value indicating whether multiple blocks can be transformed
+            </summary>
+            <value>
+                <see langword="true"/> if multiple blocks can be transformed; otherwise, <see langword="false"/>.
+            </value>
+        </member>
+        <member name="P:System.Security.Cryptography.ICryptoTransform.InputBlockSize">
+            <summary>
+                Gets the size of the input block size.
+            </summary>
+            <value>
+                The size of the input data blocks in bytes.
+            </value>
+        </member>
+        <member name="P:System.Security.Cryptography.ICryptoTransform.OutputBlockSize">
+            <summary>
+                Gets the size of the output block size.
+            </summary>
+            <value>
+                The size of the output data blocks in bytes.
+            </value>
+        </member>
+        <member name="T:System.Security.Cryptography.SHA1Managed">
+            <summary>
+                Computes the SHA-1 hash for the input data using the managed library.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.SHA1Managed.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.SHA1Managed"/> class.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+                The Federal Information Processing Standards (FIPS) security setting is enabled. This implementation is not part of the Windows Platform FIPS-validated cryptographic algorithms.
+            </exception>
+        </member>
+        <member name="T:System.Security.Cryptography.SHA256Managed">
+            <summary>
+                Computes the SHA-256 hash for the input data using the managed library.
+            </summary>
+        </member>
+        <member name="M:System.Security.Cryptography.SHA256Managed.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:System.Security.Cryptography.SHA256Managed"/> class.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">
+                The Federal Information Processing Standards (FIPS) security setting is enabled. This implementation is not part of the Windows Platform FIPS-validated cryptographic algorithms.
+            </exception>
+        </member>
+    </members>
+</doc>

@@ -238,7 +238,13 @@ namespace Xamarin.Auth
 			var url = Url.AbsoluteUri;
 
 			if (Parameters.Count > 0 && Method != "POST") {
-				var head = Url.AbsoluteUri.Contains ('?') ? "&" : "?";
+				var head = Url.AbsoluteUri.Contains (
+#if NETFX_CORE
+                    "?"
+#else
+                    '?'
+#endif
+                    ) ? "&" : "?";
 				foreach (var p in Parameters) {
 					url += head;
 					url += Uri.EscapeDataString (p.Key);
