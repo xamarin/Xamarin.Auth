@@ -28,7 +28,11 @@
 
 namespace System.Json
 {
-	public enum JsonType
+#if XAMARIN_AUTH_INTERNAL
+    internal enum JsonType
+#else
+    public enum JsonType
+#endif 	
 	{
 		String,
 		Number,

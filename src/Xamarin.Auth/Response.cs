@@ -25,7 +25,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// An HTTP web response.
 	/// </summary>
-	public class Response : IDisposable
+#if XAMARIN_AUTH_INTERNAL
+    internal class Response : IDisposable
+#else
+    public class Response : IDisposable
+#endif 				
 	{
 		HttpWebResponse response;
 

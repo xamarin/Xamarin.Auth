@@ -35,7 +35,11 @@ using System.Text;
 
 namespace System.Json
 {
-	public class JsonPrimitive : JsonValue
+#if XAMARIN_AUTH_INTERNAL
+    internal class JsonPrimitive : JsonValue
+#else
+    public class JsonPrimitive : JsonValue
+#endif    	
 	{
 		object value;
 
