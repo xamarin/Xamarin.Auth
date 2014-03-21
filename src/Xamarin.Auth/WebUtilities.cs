@@ -22,7 +22,11 @@ using System.Text;
 
 namespace Xamarin.Auth
 {
-	public static class WebUtilities
+#if XAMARIN_AUTH_INTERNAL
+    internal static class WebUtilities
+#else
+    public static class WebUtilities
+#endif 		
 	{
 		/// <summary>
 		/// Encodes the dictionary to a form representation.

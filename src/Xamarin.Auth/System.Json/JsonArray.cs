@@ -35,7 +35,11 @@ using System.Text;
 
 namespace System.Json
 {
+#if XAMARIN_AUTH_INTERNAL
+	internal class JsonArray : JsonValue, IList<JsonValue>
+#else
 	public class JsonArray : JsonValue, IList<JsonValue>
+#endif	
 	{
 		List<JsonValue> list;
 
