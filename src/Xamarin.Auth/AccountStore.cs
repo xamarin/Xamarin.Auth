@@ -39,11 +39,20 @@ namespace Xamarin.Auth
 		}
 #elif PLATFORM_ANDROID
 		/// <summary>
-		/// Create an account store.
+		/// Create an account store with a default password.
 		/// </summary>
+		/// <remarks>A default password will be used, which is not recommended.</remarks>
 		public static AccountStore Create (Android.Content.Context context)
 		{
 			return new AndroidAccountStore (context);
+		}
+
+		/// <summary>
+		/// Create an account store with an application provided KeyStore password.
+		/// </summary>
+		public static AccountStore Create(Android.Content.Context context, string password)
+		{
+			return new AndroidAccountStore (context, password);
 		}
 #else
 		/// <summary>

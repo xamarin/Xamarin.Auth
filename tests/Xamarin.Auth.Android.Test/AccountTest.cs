@@ -32,6 +32,35 @@ namespace Xamarin.Auth.Android.Test
 		{
 			var store = AccountStore.Create (TestRunner.Shared);
 
+			// Make sure that a new store gets created to avoid key clashes
+			TestRunner.Shared.DeleteFile ("Xamarin.Social.Accounts");
+
+			// Store a test account
+			var account = new Account ("xamarin_delete");
+			store.Save (account, "test");
+
+			// Make sure it was stored
+			var saccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_delete");
+			Assert.That (saccount, Is.Not.Null ());
+
+			// Delete it
+			store.Delete (saccount, "test");
+
+			// Make sure it was deleted
+			var daccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_delete");
+			Assert.That (daccount, Is.Null ());
+		}
+
+		[Test]
+		public void DeleteWithAppProvidedPassword ()
+		{
+			var password = "MyOwnPassword";
+
+			// Make sure that a new store gets created to avoid key clashes
+			TestRunner.Shared.DeleteFile ("Xamarin.Social.Accounts");
+
+			var store = AccountStore.Create (TestRunner.Shared, password);
+
 			// Store a test account
 			var account = new Account ("xamarin_delete");
 			store.Save (account, "test");

@@ -38,11 +38,35 @@ namespace Xamarin.Auth
 		static readonly object fileLock = new object ();
 
 		const string FileName = "Xamarin.Social.Accounts";
-		static readonly char[] Password = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray ();
+		static readonly string DefaultPassword = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617";
+		static char[] Password;
 
-		public AndroidAccountStore (Context context)
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.AndroidAccountStore"/> class
+		/// with a default KeyStore password.
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <remarks>This constructor uses the hard coded default password, which is not recommended.</remarks>
+		public AndroidAccountStore (Context context): this (context, DefaultPassword)
 		{
+
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.AndroidAccountStore"/> class
+		/// with a KeyStore password provided by the application.
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="password">KeyStore Password.</param>
+		public AndroidAccountStore (Context context, string password)
+		{
+			if (null == password) {
+				throw new ArgumentNullException ("password");
+			}
+
 			this.context = context;
+
+			Password = password.ToCharArray ();
 
 			ks = KeyStore.GetInstance (KeyStore.DefaultType);
 
