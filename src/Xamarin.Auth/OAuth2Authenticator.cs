@@ -180,18 +180,33 @@ namespace Xamarin.Auth
 		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync ()
 		{
-			var url = new Uri (string.Format (
-				"{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
-				authorizeUrl.AbsoluteUri,
-				Uri.EscapeDataString (clientId),
-				Uri.EscapeDataString (redirectUrl.AbsoluteUri),
-				IsImplicit ? "token" : "code",
-				Uri.EscapeDataString (scope),
-				Uri.EscapeDataString (requestState)));
+			var query = new Dictionary<string, string> {
+				{"client_id", this.clientId},
+				{"redirect_uri", this.redirectUrl.AbsoluteUri},
+				{"response_type", this.IsImplicit ? "token" : "code"},
+				{"scope", this.scope},
+				{"state",this.requestState}
+			};
+
+			OnCreatingInitialUrl(query);
+
+			string queryString = string.Join ("&", query.Select (i => i.Key + "=" + Uri.EscapeDataString (i.Value)));
+
+			var url = string.IsNullOrEmpty (queryString) ? this.authorizeUrl : new Uri (this.authorizeUrl.AbsoluteUri + "?" + queryString);
 
 			var tcs = new TaskCompletionSource<Uri> ();
 			tcs.SetResult (url);
 			return tcs.Task;
+		}
+
+		/// <summary>
+		/// Invoked when the initial URL is being constructed.
+		/// </summary>
+		/// <param name='query'>
+		/// The parsed query of the URL.
+		/// </param>
+		protected virtual void OnCreatingInitialUrl (IDictionary<string, string> query)
+		{
 		}
 
 		/// <summary>
