@@ -122,9 +122,6 @@ namespace Xamarin.Auth
 			}
 			this.clientId = clientId;
 
-			if (string.IsNullOrEmpty (clientSecret)) {
-				throw new ArgumentException ("clientSecret must be provided", "clientSecret");
-			}
 			this.clientSecret = clientSecret;
 
 			this.scope = scope ?? "";
