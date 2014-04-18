@@ -69,6 +69,13 @@ namespace Xamarin.Auth
 		/// <value><c>true</c> if authorization has been completed, <c>false</c> otherwise.</value>
 		public bool HasCompleted { get; private set; }
 
+
+		/// <summary>
+		/// Controls the behavior of the <see cref="OnError"/> method when <see cref="HasCompleted"/> is <c>true</c>.
+		/// </summary>
+		/// <value><c>true</c> to raise the <see cref="Error" event/> , <c>false</c> to do nothing.</value>
+		protected bool IgnoreErrorsWhenCompleted { get; set; }
+
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Xamarin.Auth.Authenticator"/> class.
 		/// </summary>
@@ -77,6 +84,7 @@ namespace Xamarin.Auth
 			Title = "Authenticate";
 			HasCompleted = false;
 			AllowCancel = true;
+			IgnoreErrorsWhenCompleted = false;
 		}
 
 #if PLATFORM_ANDROID
@@ -170,12 +178,7 @@ namespace Xamarin.Auth
 		/// </param>
 		public void OnError (string message)
 		{
-			BeginInvokeOnUIThread (delegate {
-				var ev = Error;
-				if (ev != null) {
-					ev (this, new AuthenticatorErrorEventArgs (message));
-				}
-			});
+			RaiseErrorEvent(new AuthenticatorErrorEventArgs (message));
 		}
 
 		/// <summary>
@@ -186,12 +189,18 @@ namespace Xamarin.Auth
 		/// </param>
 		public void OnError (Exception exception)
 		{
-			BeginInvokeOnUIThread (delegate {
-				var ev = Error;
-				if (ev != null) {
-					ev (this, new AuthenticatorErrorEventArgs (exception));
-				}
-			});
+			RaiseErrorEvent(new AuthenticatorErrorEventArgs (exception));
+		}
+
+		void RaiseErrorEvent(AuthenticatorErrorEventArgs args)
+		{
+			if (!(HasCompleted && IgnoreErrorsWhenCompleted)) 
+				BeginInvokeOnUIThread (delegate {
+					var ev = Error;
+					if (ev != null) {
+						ev (this, args);
+					}
+				});
 		}
 
 		void BeginInvokeOnUIThread (Action action)
