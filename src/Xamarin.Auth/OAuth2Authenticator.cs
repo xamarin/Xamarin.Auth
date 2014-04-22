@@ -44,6 +44,60 @@ namespace Xamarin.Auth
 		bool reportedForgery = false;
 
 		/// <summary>
+		/// Gets the client identifier.
+		/// </summary>
+		/// <value>The client identifier.</value>
+		public string ClientId
+		{
+			get { return this.clientId; }
+		}
+
+		/// <summary>
+		/// Gets the client secret.
+		/// </summary>
+		/// <value>The client secret.</value>
+		public string ClientSecret
+		{
+			get { return this.clientSecret; }
+		}
+
+		/// <summary>
+		/// Gets the authorization scope.
+		/// </summary>
+		/// <value>The authorization scope.</value>
+		public string Scope
+		{
+			get { return this.scope; }
+		}
+
+		/// <summary>
+		/// Gets the authorize URL.
+		/// </summary>
+		/// <value>The authorize URL.</value>
+		public Uri AuthorizeUrl
+		{
+			get { return this.authorizeUrl; }
+		}
+
+		/// <summary>
+		/// Gets the redirect URL.
+		/// </summary>
+		/// <value>The redirect URL.</value>
+		public Uri RedirectUrl
+		{
+			get { return this.redirectUrl; }
+		}
+
+		/// <summary>
+		/// Gets the access token URL.
+		/// </summary>
+		/// <value>The URL used to request access tokens after an authorization code was received.</value>
+		public Uri AccessTokenUrl
+		{
+			get { return this.accessTokenUrl; }
+		}
+
+		/// <summary>
 		/// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
 		/// that authenticates using implicit granting (token).
 		/// </summary>
