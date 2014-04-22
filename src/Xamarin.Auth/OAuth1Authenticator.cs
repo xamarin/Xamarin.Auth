@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2014, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -113,6 +113,54 @@ namespace Xamarin.Auth
 			this.callbackUrl = callbackUrl;
 
 			this.getUsernameAsync = getUsernameAsync;
+		}
+
+		/// <summary>
+		/// Gets the consumer key.
+		/// </summary>
+		public string ConsumerKey
+		{
+			get { return this.consumerKey; }
+		}
+
+		/// <summary>
+		/// Gets the consumer secret.
+		/// </summary>
+		public string ConsumerSecret
+		{
+			get { return this.consumerSecret; }
+		}
+
+		/// <summary>
+		/// Gets the request token url. http://oauth.net/core/1.0/#request_urls
+		/// </summary>
+		public Uri RequestTokenUrl
+		{
+			get { return this.requestTokenUrl; }
+		}
+
+		/// <summary>
+		/// Gets the authorize url. http://oauth.net/core/1.0/#request_urls
+		/// </summary>
+		public Uri AuthorizeUrl
+		{
+			get { return this.authorizeUrl; }
+		}
+
+		/// <summary>
+		/// Gets the access token url. http://oauth.net/core/1.0/#request_urls
+		/// </summary>
+		public Uri AccessTokenUrl
+		{
+			get { return this.accessTokenUrl; }
+		}
+
+		/// <summary>
+		/// Gets the callback url. http://oauth.net/core/1.0/#auth_step2
+		/// </summary>
+		public Uri CallbackUrl
+		{
+			get { return this.callbackUrl; }
 		}
 
 		/// <summary>
