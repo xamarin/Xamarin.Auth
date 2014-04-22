@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2014, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -36,7 +36,6 @@ namespace Xamarin.Auth
 		string clientSecret;
 		string scope;
 		Uri authorizeUrl;
-		Uri redirectUrl;
 		Uri accessTokenUrl;
 		GetUsernameAsyncFunc getUsernameAsync;
 
@@ -77,15 +76,6 @@ namespace Xamarin.Auth
 		public Uri AuthorizeUrl
 		{
 			get { return this.authorizeUrl; }
-		}
-
-		/// <summary>
-		/// Gets the redirect URL.
-		/// </summary>
-		/// <value>The redirect URL.</value>
-		public Uri RedirectUrl
-		{
-			get { return this.redirectUrl; }
 		}
 
 		/// <summary>
@@ -131,11 +121,6 @@ namespace Xamarin.Auth
 				throw new ArgumentNullException ("authorizeUrl");
 			}
 			this.authorizeUrl = authorizeUrl;
-
-			if (redirectUrl == null) {
-				throw new ArgumentNullException ("redirectUrl");
-			}
-			this.redirectUrl = redirectUrl;
 
 			this.getUsernameAsync = getUsernameAsync;
 
@@ -188,11 +173,6 @@ namespace Xamarin.Auth
 			}
 			this.authorizeUrl = authorizeUrl;
 
-			if (redirectUrl == null) {
-				throw new ArgumentNullException ("redirectUrl");
-			}
-			this.redirectUrl = redirectUrl;
-
 			if (accessTokenUrl == null) {
 				throw new ArgumentNullException ("accessTokenUrl");
 			}
@@ -204,11 +184,6 @@ namespace Xamarin.Auth
 		OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
 			: base (redirectUrl, redirectUrl)
 		{
-			if (redirectUrl == null) {
-				throw new ArgumentNullException ("redirectUrl");
-			}
-			this.redirectUrl = redirectUrl;
-
 			this.clientSecret = clientSecret;
 
 			this.accessTokenUrl = accessTokenUrl;
@@ -238,7 +213,7 @@ namespace Xamarin.Auth
 				"{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
 				authorizeUrl.AbsoluteUri,
 				Uri.EscapeDataString (clientId),
-				Uri.EscapeDataString (redirectUrl.AbsoluteUri),
+				Uri.EscapeDataString (RedirectUrl.AbsoluteUri),
 				IsImplicit ? "token" : "code",
 				Uri.EscapeDataString (scope),
 				Uri.EscapeDataString (requestState)));
@@ -341,7 +316,7 @@ namespace Xamarin.Auth
 			var queryValues = new Dictionary<string, string> {
 				{ "grant_type", "authorization_code" },
 				{ "code", code },
-				{ "redirect_uri", redirectUrl.AbsoluteUri },
+				{ "redirect_uri", RedirectUrl.AbsoluteUri },
 				{ "client_id", clientId },
 			};
 			if (!string.IsNullOrEmpty (clientSecret)) {

@@ -91,6 +91,7 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="OAuth1Test.cs" />
     <Compile Include="AccountTest.cs" />
+    <Compile Include="OAuth2AuthenticatorTests.cs" />
     <Compile Include="RequestTest.cs" />
     <Compile Include="WebExTests.cs" />
     <Compile Include="WebUtilitiesTest.cs" />
