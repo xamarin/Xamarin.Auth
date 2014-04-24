@@ -30,10 +30,10 @@ namespace Xamarin.Auth.Android.Test
 		[Test]
 		public void Delete ()
 		{
-			var store = AccountStore.Create (TestRunner.Shared);
-
 			// Make sure that a new store gets created to avoid key clashes
 			TestRunner.Shared.DeleteFile ("Xamarin.Social.Accounts");
+
+			var store = AccountStore.Create (TestRunner.Shared, "delete test");
 
 			// Store a test account
 			var account = new Account ("xamarin_delete");
@@ -52,29 +52,68 @@ namespace Xamarin.Auth.Android.Test
 		}
 
 		[Test]
-		public void DeleteWithAppProvidedPassword ()
+		public void MigrationSucceeds ()
 		{
-			var password = "MyOwnPassword";
-
-			// Make sure that a new store gets created to avoid key clashes
+			// Reset
 			TestRunner.Shared.DeleteFile ("Xamarin.Social.Accounts");
 
-			var store = AccountStore.Create (TestRunner.Shared, password);
+			// Create a keystore with the old default password
+			var hardCodedPassword = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617";
+			var store = AccountStore.Create (TestRunner.Shared, hardCodedPassword);
 
 			// Store a test account
-			var account = new Account ("xamarin_delete");
+			var account = new Account ("xamarin_migration");
 			store.Save (account, "test");
 
 			// Make sure it was stored
-			var saccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_delete");
+			var saccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_migration");
 			Assert.That (saccount, Is.Not.Null ());
 
-			// Delete it
-			store.Delete (saccount, "test");
+			// Now create a new one using a different password, to trigger the migration
+			store = AccountStore.Create(TestRunner.Shared, "a different password");
 
-			// Make sure it was deleted
-			var daccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_delete");
-			Assert.That (daccount, Is.Null ());
+			// We should be able to find the previously stored test account
+			saccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_migration");
+			Assert.That (saccount, Is.Not.Null ());
+		}
+
+		[Test]
+		public void MigrationFails ()
+		{
+			// Reset
+			TestRunner.Shared.DeleteFile ("Xamarin.Social.Accounts");
+
+			// Create a keystore with some password
+			var store = AccountStore.Create (TestRunner.Shared, "some old password");
+
+			// Store a test account
+			var account = new Account ("xamarin_migration");
+			store.Save (account, "test");
+
+			// Make sure it was stored
+			var saccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_migration");
+			Assert.That (saccount, Is.Not.Null ());
+
+			bool exceptionHappened = false;
+			try
+			{
+				// Now create a new one using a different password, to trigger the migration
+				// This should lead to an exception, since the hard coded password won't match
+				store = AccountStore.Create(TestRunner.Shared, "a different password");
+			}
+			catch (Java.IO.IOException ex) {
+				Assert.That (ex.Message == "KeyStore integrity check failed.");
+				exceptionHappened = true;
+			}
+
+			Assert.That (exceptionHappened);
+
+			// Check that the migration did not touch the original keystore
+			store = AccountStore.Create (TestRunner.Shared, "some old password");
+
+			// Try to read a previously stored key
+			saccount = store.FindAccountsForService ("test").FirstOrDefault (a => a.Username == "xamarin_migration");
+			Assert.That (saccount, Is.Not.Null ());
 		}
 	}
 }
