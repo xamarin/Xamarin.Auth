@@ -70,6 +70,16 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
+		/// Disables the escaping of the scope parameter.
+		/// </summary>
+		/// <value><c>true</c> if the scope should not be escaped; otherwise, <c>false</c>.</value>
+		/// <remarks>By default, the <see cref="Xamarin.Auth.OAuth2Authenticator"/> escapes the scope parameter. When used with some OAuth2 providers (such as Instagram), this results in an HTTP 400 BAD REQUEST being returned on authentication. Setting this property to <c>true</c> will prevent escaping of the scope parameter.</remarks>
+		public bool DoNotEscapeScope {
+			get;
+			set;
+		}
+
+		/// <summary>
 		/// Gets the authorize URL.
 		/// </summary>
 		/// <value>The authorize URL.</value>
@@ -215,7 +225,7 @@ namespace Xamarin.Auth
 				Uri.EscapeDataString (clientId),
 				Uri.EscapeDataString (RedirectUrl.AbsoluteUri),
 				IsImplicit ? "token" : "code",
-				Uri.EscapeDataString (scope),
+				DoNotEscapeScope ? scope : Uri.EscapeDataString (scope),
 				Uri.EscapeDataString (requestState)));
 
 			var tcs = new TaskCompletionSource<Uri> ();
