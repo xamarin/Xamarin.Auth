@@ -8,13 +8,13 @@ namespace Xamarin.Auth_Async_Sample
 {
     public class FacebookService
     {
-        public async Task<AuthenticatorCompletedEventArgs> LoginAsync(Activity activity, bool allowCancel)
+        public async Task<Account> LoginAsync(Activity activity, bool allowCancel)
         {
             var auth = new OAuth2Authenticator(
-                clientId: "App ID from https://developers.facebook.com/apps",
-                scope: "",
+                clientId: "<client id>",
+                scope: "<scopes>",
                 authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
-                redirectUrl: new Uri("http://www.facebook.com/connect/login_success.html"))
+                redirectUrl: new Uri("https://m.facebook.com/connect/login_success.html"))
             {
                 AllowCancel = allowCancel
             };
@@ -33,12 +33,24 @@ namespace Xamarin.Auth_Async_Sample
                         tcs1.TrySetResult(new AuthenticatorCompletedEventArgs(null));
                     }
                 };
-            auth.Completed += d1;
-            var intent = auth.GetUI(activity);
-            activity.StartActivity(intent);
-            var result= await tcs1.Task;
-            auth.Completed -= d1;
-            return result;
+
+            try
+            {
+                auth.Completed += d1;
+                var intent = auth.GetUI(activity);
+                activity.StartActivity(intent);
+                var result= await tcs1.Task;
+                return result.Account;
+            }
+            catch (Exception)
+            {
+                // todo you should handle the exception
+                return null;
+            }
+            finally
+            {
+                auth.Completed -= d1;
+            }
         }
 
         public async Task<string> GetUserInfoAsync(Account account)
@@ -51,7 +63,7 @@ namespace Xamarin.Auth_Async_Sample
                 if (obj != null)
                 {
                     // the best solution is to create an object with all parameters, but it is an example :)
-                    return obj["first_name"];
+                    return obj["name"];
                 }
             }
             catch (Exception ex)

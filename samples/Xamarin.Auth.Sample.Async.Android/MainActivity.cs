@@ -10,18 +10,18 @@ namespace Xamarin.Auth_Async_Sample
         private async void LoginToFacebook(bool allowCancel)
         {
             var facebookService = new FacebookService();
-            var loginResult = await facebookService.LoginAsync(this, allowCancel);
+            var account = await facebookService.LoginAsync(this, allowCancel);
 
-            if (!loginResult.IsAuthenticated)
+            if (account==null)
             {
                 ShowMessage("Not Authenticated");
                 return;
             }
 
             // in this step the username is always null, but i followed the original sample
-            ShowMessage(string.Format("Authenticated {0}", loginResult.Account.Username));
+            ShowMessage(string.Format("Authenticated {0}", account.Username));
 
-            var userInfo = await facebookService.GetUserInfoAsync(loginResult.Account);
+            var userInfo = await facebookService.GetUserInfoAsync(account);
             ShowMessage(!string.IsNullOrEmpty(userInfo) ? string.Format("Logged as {0}", userInfo) : "Wasn´t possible to get the name.");
         }
 
