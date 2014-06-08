@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Xamarin.Auth_Async_Sample" android:versionCode="1" android:versionName="1.0">
+	<uses-sdk android:targetSdkVersion="8" android:minSdkVersion="8" />
+	<application android:label="Xamarin.Auth Async Sample" android:icon="@drawable/Icon"></application>
+</manifest>

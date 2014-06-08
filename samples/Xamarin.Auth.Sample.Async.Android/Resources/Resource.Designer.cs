@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Xamarin.Auth.Sample.Android.Resource", IsApplication=true)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Xamarin.Auth_Async_Sample.Resource", IsApplication=true)]
 
-namespace Xamarin.Auth.Sample.Android
+namespace Xamarin.Auth_Async_Sample
 {
 	
 	
