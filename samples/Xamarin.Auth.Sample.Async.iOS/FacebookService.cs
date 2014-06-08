@@ -12,7 +12,7 @@ namespace Xamarin.Auth_Async_Sample
         public async Task<AuthenticatorCompletedEventArgs> LoginAsync(DialogViewController dialog, bool allowCancel)
         {
             var auth = new OAuth2Authenticator(
-                clientId: "497156763693780",
+                clientId: "<client id>",
                 scope: "basic_info, public_profile, email",
                 authorizeUrl: new Uri("https://m.facebook.com/dialog/oauth/"),
                 redirectUrl: new Uri("https://www.facebook.com/connect/login_success.html"))
