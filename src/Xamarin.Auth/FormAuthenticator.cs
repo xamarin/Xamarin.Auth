@@ -20,7 +20,13 @@ using System.Threading.Tasks;
 using System.Threading;
 
 #if PLATFORM_IOS
+#if __UNIFIED__
+using UIKit;
+using AuthenticateUIType = UIKit.UIViewController;
+#else
+using MonoTouch.UIKit;
 using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
+#endif
 #elif PLATFORM_ANDROID
 using AuthenticateUIType = Android.Content.Intent;
 using UIContext = Android.Content.Context;
@@ -103,7 +109,7 @@ namespace Xamarin.Auth
 		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI ()
 		{
-			return new MonoTouch.UIKit.UINavigationController (new FormAuthenticatorController (this));
+			return new UINavigationController (new FormAuthenticatorController (this));
 		}
 #elif PLATFORM_ANDROID
 		/// <summary>

@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.Json;
 using System.Linq;
 using System.Threading.Tasks;
+using MonoTouch.Dialog;
+
+#if __UNIFIED__
+using Foundation;
+using UIKit;
+#else
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using MonoTouch.Dialog;
+#endif
 
 namespace Xamarin.Auth.Sample.iOS
 {

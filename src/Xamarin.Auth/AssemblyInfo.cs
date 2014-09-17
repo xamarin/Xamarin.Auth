@@ -40,4 +40,8 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
+#if __UNIFIED__
 [assembly: InternalsVisibleTo ("XamarinAuthiOSTest")]
+#else
+[assembly: InternalsVisibleTo ("XamarinAuthiOSTestClassic")]
+#endif

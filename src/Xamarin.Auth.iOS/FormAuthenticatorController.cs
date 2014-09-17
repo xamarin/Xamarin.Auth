@@ -19,10 +19,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
 using Xamarin.Controls;
 using Xamarin.Utilities.iOS;
+
+#if __UNIFIED__
+using UIKit;
+using Foundation;
+using CoreGraphics;
+#else 
+using MonoTouch.UIKit;
+using MonoTouch.Foundation;
+using nint = global::System.Int32;
+using CGRect = global::System.Drawing.RectangleF;
+using nfloat = global::System.Single;
+#endif
 
 namespace Xamarin.Auth
 {
@@ -123,7 +133,7 @@ namespace Xamarin.Auth
 
 			public UITextField TextField { get; private set; }
 
-			public FieldCell (FormAuthenticatorField field, float fieldXPosition, Action handleReturn)
+			public FieldCell (FormAuthenticatorField field, nfloat fieldXPosition, Action handleReturn)
 				: base (UITableViewCellStyle.Default, "Field")
 			{
 				SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -135,7 +145,7 @@ namespace Xamarin.Auth
 
 				var cellSize = Frame.Size;
 
-				TextField = new UITextField (new RectangleF (
+				TextField = new UITextField (new CGRect (
 					fieldXPosition, (cellSize.Height - h)/2, 
 					cellSize.Width - fieldXPosition - 12, h)) {
 
@@ -179,12 +189,12 @@ namespace Xamarin.Auth
 				this.controller = controller;
 			}
 
-			public override int NumberOfSections (UITableView tableView)
+			public override nint NumberOfSections (UITableView tableView)
 			{
 				return 2 + (controller.authenticator.CreateAccountLink != null ? 1 : 0);
 			}
 
-			public override int RowsInSection (UITableView tableView, int section)
+			public override nint RowsInSection (UITableView tableView, nint section)
 			{
 				if (section == 0) {
 					return controller.authenticator.Fields.Count;
@@ -224,7 +234,7 @@ namespace Xamarin.Auth
 			{
 				if (indexPath.Section == 0) {
 					if (fieldCells == null) {
-						var fieldXPosition = controller
+						var fieldXPosition = (nfloat)controller
 							.authenticator
 							.Fields
 							.Select (f => tableView.StringSize (f.Title, FieldCell.LabelFont).Width)
