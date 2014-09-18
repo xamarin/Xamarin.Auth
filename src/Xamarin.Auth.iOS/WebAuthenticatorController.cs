@@ -15,10 +15,16 @@
 //
 using System;
 using System.Threading.Tasks;
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
 using Xamarin.Utilities.iOS;
 using Xamarin.Controls;
+
+#if __UNIFIED__
+using Foundation;
+using UIKit;
+#else
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+#endif
 
 namespace Xamarin.Auth
 {

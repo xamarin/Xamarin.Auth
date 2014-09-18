@@ -19,7 +19,15 @@ using System.Threading.Tasks;
 using System.Threading;
 
 #if PLATFORM_IOS
+#if __UNIFIED__
+using Foundation;
+using UIKit;
+using AuthenticateUIType = UIKit.UIViewController;
+#else
+using MonoTouch.UIKit;
+using MonoTouch.Foundation;
 using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
+#endif
 #elif PLATFORM_ANDROID
 using AuthenticateUIType = Android.Content.Intent;
 using UIContext = Android.Content.Context;
@@ -83,7 +91,7 @@ namespace Xamarin.Auth
 		public static void ClearCookies()
 		{
 #if PLATFORM_IOS
-			var store = MonoTouch.Foundation.NSHttpCookieStorage.SharedStorage;
+			var store = NSHttpCookieStorage.SharedStorage;
 			var cookies = store.Cookies;
 			foreach (var c in cookies) {
 				store.DeleteCookie (c);
@@ -122,7 +130,7 @@ namespace Xamarin.Auth
 		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI ()
 		{
-			return new MonoTouch.UIKit.UINavigationController (new WebAuthenticatorController (this));
+			return new UINavigationController (new WebAuthenticatorController (this));
 		}
 #elif PLATFORM_ANDROID
 		/// <summary>
