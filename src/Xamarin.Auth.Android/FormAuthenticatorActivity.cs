@@ -142,19 +142,11 @@ namespace Xamarin.Auth
 				var editor = new EditText (this) {
 					Hint = f.Placeholder,
 				};
-                switch (f.FieldType)
-                {
-                    case FormAuthenticatorFieldType.Email:
-                        editor.InputType = InputTypes.TextVariationEmailAddress;
-                        break;
-                    case FormAuthenticatorFieldType.Password:
-                        editor.InputType = InputTypes.TextVariationPassword;
-                        editor.TransformationMethod = new Android.Text.Method.PasswordTransformationMethod();
-                        break;
-                    default:
-                        editor.InputType = InputTypes.TextVariationNormal;
-                        break;
-                }
+				if (f.FieldType == FormAuthenticatorFieldType.Password)
+				{
+					editor.InputType = InputTypes.TextVariationPassword;
+					editor.TransformationMethod = new Android.Text.Method.PasswordTransformationMethod();
+				}
 				row.AddView (editor);
 				fieldEditors [f] = editor;
 
