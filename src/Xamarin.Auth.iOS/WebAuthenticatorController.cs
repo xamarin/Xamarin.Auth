@@ -170,12 +170,15 @@ namespace Xamarin.Auth
 				(Action)BeginLoadingInitialUrl :
 				(Action)Cancel;
 
-			if (e.Exception != null) {
-				this.ShowError ("Authentication Error", e.Exception, after);
-			}
-			else {
-				this.ShowError ("Authentication Error", e.Message, after);
-			}
+			if (authenticator.ShowUIErrors) {
+				if (e.Exception != null) {
+					this.ShowError ("Authentication Error", e.Exception, after);
+				} else {
+					this.ShowError ("Authentication Error", e.Message, after);
+				}
+			} else {
+				after ();
+			}			
 		}
 
 		protected class WebViewDelegate : UIWebViewDelegate
