@@ -68,7 +68,7 @@ namespace Xamarin.Auth
 				Finish ();
 			};
 			state.Authenticator.Error += (s, e) => {
-				if(state.Authenticator.ShowUIErrors)
+				if (state.Authenticator.ShowUIErrors)
 				{
 					if (e.Exception != null) {
 						this.ShowError ("Authentication Error", e.Exception);
@@ -108,7 +108,7 @@ namespace Xamarin.Auth
 		{
 			state.Authenticator.GetInitialUrlAsync ().ContinueWith (t => {
 				if (t.IsFaulted) {
-					if(state.Authenticator.ShowUIErrors)
+					if (state.Authenticator.ShowUIErrors)
 						this.ShowError ("Authentication Error", t.Exception);
 				}
 				else {
