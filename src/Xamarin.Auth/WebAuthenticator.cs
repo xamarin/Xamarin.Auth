@@ -57,6 +57,15 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
+		/// Gets or sets whether to display authentication errors in the UI. Set to false if you want to handle the errors yourself.
+		/// </summary>
+		public bool ShowUIErrors 
+		{
+			get { return this.showUIErrors; }
+			set { this.showUIErrors = value; }
+		}
+
+		/// <summary>
 		/// Method that returns the initial URL to be displayed in the web browser.
 		/// </summary>
 		/// <returns>
@@ -109,6 +118,7 @@ namespace Xamarin.Auth
 		public event EventHandler BrowsingCompleted;
 
 		private bool clearCookies = true;
+		private bool showUIErrors = true;
 
 		/// <summary>
 		/// Raises the browsing completed event.
