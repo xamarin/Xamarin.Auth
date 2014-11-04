@@ -25,7 +25,11 @@ using System.Json;
 
 namespace Xamarin.Utilities
 {
+#if XAMARIN_AUTH_INTERNAL
 	internal static class WebEx
+#else
+	public static class WebEx
+#endif
 	{
 		public static string GetCookie (this CookieContainer containers, Uri domain, string name)
 		{
@@ -164,4 +168,3 @@ namespace Xamarin.Utilities
 		}
 	}
 }
-

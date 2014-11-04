@@ -37,8 +37,7 @@ namespace Xamarin.Auth
 		/// Parameters that will pre-populate the <see cref="Request.Parameters"/> property or <c>null</c>.
 		/// </param>
 		/// <param name='account'>The account used to authenticate this request.</param>
-		public OAuth2Request (string method, Uri url, IDictionary<string, string> parameters, Account account)
-			: base (method, url, parameters, account)
+		public OAuth2Request (string method, Uri url, IDictionary<string, string> parameters, Account account) : base (method, url, parameters, account)
 		{
 			AccessTokenParameterName = "access_token";
 		}
