@@ -223,6 +223,35 @@ namespace Xamarin.Auth
 			return tcs.Task;
 		}
 
+        /// <summary>
+        /// Method that requests a new access token based on an initial refresh token
+        /// </summary>
+        /// <param name="refreshToken">Refresh token, typically from the <see cref="AccountStore"/>'s refresh_token property</param>
+        /// <returns>Time in seconds the refresh token expires in</returns>
+	    public virtual Task<int> RequestRefreshTokenAsync(string refreshToken)
+	    {
+	        var queryValues = new Dictionary<string, string>
+	        {
+	            {"refresh_token", refreshToken},
+	            {"client_id", this.ClientId},
+	            {"grant_type", "refresh_token"}
+	        };
+
+			if (!string.IsNullOrEmpty(this.ClientSecret))
+			{
+				queryValues["client_secret"] = this.ClientSecret;
+			}
+
+			return this.RequestAccessTokenAsync(queryValues).ContinueWith(result =>
+			{
+			    var accountProperties = result.Result;
+
+			    this.OnRetrievedAccountProperties(accountProperties);
+
+                return int.Parse(accountProperties["expires_in"]);
+			});
+        }
+
 		/// <summary>
 		/// Raised when a new page has been loaded.
 		/// </summary>
