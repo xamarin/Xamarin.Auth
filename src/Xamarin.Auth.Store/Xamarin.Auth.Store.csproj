@@ -175,7 +175,6 @@
     <Compile Include="AuthPage.xaml.cs">
       <DependentUpon>AuthPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Win8AccountStore.cs" />
   </ItemGroup>
   <ItemGroup>
