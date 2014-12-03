@@ -54,7 +54,8 @@ namespace Xamarin.Auth.Store
                 try
                 {
                     //try to manually go back, might not work based on navigation method
-                    this.Frame.GoBack();
+                    if (this.Frame.CanGoBack)
+                        this.Frame.GoBack();
                 }
                 catch { }
             };
