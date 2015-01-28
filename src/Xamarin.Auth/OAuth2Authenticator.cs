@@ -1,4 +1,3 @@
-//
 // Copyright 2012-2014, Xamarin Inc.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,6 +13,7 @@
 // limitations under the License.
 //
 using System;
+using System.IO;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -188,7 +188,7 @@ internal class OAuth2Authenticator : WebRedirectAuthenticator
 		/// <returns>
 		/// A task that will return the initial URL.
 		/// </returns>
-		public override Task<Uri> GetInitialUrlAsync()
+		public Task<Uri> GetInitialUrlAsyncNormal()
 		{
 			var url = new Uri(string.Format(
 			"{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
@@ -202,6 +202,64 @@ internal class OAuth2Authenticator : WebRedirectAuthenticator
 			tcs.SetResult(url);
 			return tcs.Task;
 		}
+
+        /// <summary>
+        /// Method that returns the initial URL to be displayed in the web browser.
+        /// </summary>
+        /// <returns>
+        /// A task that will return the initial URL.
+        /// </returns>
+        public override Task<Uri> GetInitialUrlAsync()
+        {
+            var url = new Uri(string.Format(
+                "{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
+                authorizeUrl.AbsoluteUri,
+                Uri.EscapeDataString(clientId),
+                Uri.EscapeDataString(RedirectUrl.AbsoluteUri),
+                IsImplicit ? "token" : "code",
+                Uri.EscapeDataString(scope),
+                Uri.EscapeDataString(requestState)));
+            var tcs = new TaskCompletionSource<Uri>();
+            tcs.SetResult(url);
+            return tcs.Task;
+        }
+
+        /// <summary>
+        /// Method that requests a new access token based on an initial refresh token
+        /// </summary>
+        /// <param name="refreshToken">Refresh token, typically from the <see cref="AccountStore"/>'s refresh_token property</param>
+        /// <returns>Time in seconds the refresh token expires in</returns>
+        public virtual Task<int> RequestRefreshTokenAsync(string refreshToken)
+        {
+            var queryValues = new Dictionary<string, string>
+			{
+				{"refresh_token", refreshToken},
+				{"client_id", this.ClientId},
+				{"grant_type", "refresh_token"}
+			};
+
+            if (!string.IsNullOrEmpty(this.ClientSecret))
+            {
+                queryValues["client_secret"] = this.ClientSecret;
+            }
+
+            return this.RequestAccessTokenAsync(queryValues).ContinueWith(result =>
+            {
+                if (result.IsFaulted)
+                {
+                    throw new AuthException(result.Exception.ToString());
+                }
+                else
+                {
+                    var accountProperties = result.Result;
+
+                    this.OnRetrievedAccountProperties(accountProperties);
+
+                    return int.Parse(accountProperties["expires_in"]);
+                }
+            });
+        }
+
 		/// <summary>
 		/// Raised when a new page has been loaded.
 		/// </summary>
@@ -324,58 +382,77 @@ internal class OAuth2Authenticator : WebRedirectAuthenticator
 			var content = new System.Net.Http.FormUrlEncodedContent(queryValues);
 
 			System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
-			System.Net.Http.HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
-			string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            System.Net.Http.HttpResponseMessage response;
+            try
+            {
+                response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
+                string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
-			// Parse the response
-			var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
+                // Parse the response
+                var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
 
-			if (data.ContainsKey("error")) {
-				throw new AuthException("Error authenticating: " + data["error"]);
-			}
-			else if (data.ContainsKey("access_token")) {
-				return data;
-			}
-			else {
-				throw new AuthException("Expected access_token in access token response, but did not receive one.");
-			}
+                if (data.ContainsKey("error"))
+                {
+                    throw new AuthException("Error authenticating: " + data["error"]);
+                }
+                else if (data.ContainsKey("access_token"))
+                {
+                    return data;
+                }
+                else
+                {
+                    throw new AuthException("Expected access_token in access token response, but did not receive one.");
+                }
+            }
+            catch (Exception)
+            {
+                throw new AuthException("Error retrieving access_token.");
+            }
 		}
 #else
-		/// <summary>
+        /// <summary>
 		/// Asynchronously makes a request to the access token URL with the given parameters.
 		/// </summary>
 		/// <param name="queryValues">The parameters to make the request with.</param>
 		/// <returns>The data provided in the response to the access token request.</returns>
 		protected Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
 		{
-			var query = queryValues.FormEncode();
-			var req = WebRequest.Create(accessTokenUrl);
-			req.Method = "POST";
-			var body = Encoding.UTF8.GetBytes(query);
-			req.ContentLength = body.Length;
-			req.ContentType = "application/x-www-form-urlencoded";
-			using (var s = req.GetRequestStream())
-			{
-				s.Write(body, 0, body.Length);
-			}
-			return req.GetResponseAsync().ContinueWith(task =>
-			{
-				var text = task.Result.GetResponseText();
-				// Parse the response
-				var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
-				if (data.ContainsKey("error"))
-				{
-					throw new AuthException("Error authenticating: " + data["error"]);
-				}
-				else if (data.ContainsKey("access_token"))
-				{
-					return data;
-				}
-				else
-				{
-					throw new AuthException("Expected access_token in access token response, but did not receive one.");
-				}
-			});
+            var query = queryValues.FormEncode();
+            var req = WebRequest.Create(accessTokenUrl);
+            req.Method = "POST";
+            var body = Encoding.UTF8.GetBytes(query);
+            req.ContentLength = body.Length;
+            req.ContentType = "application/x-www-form-urlencoded";
+            using (var s = req.GetRequestStream())
+            {
+                s.Write(body, 0, body.Length);
+            }
+            return req.GetResponseAsync().ContinueWith(task =>
+            {
+                if (task.IsFaulted)
+                {
+                    throw new AuthException("Error retrieving access_token.");
+                }
+                else
+                {
+                    var text = task.Result.GetResponseText();
+                    // Parse the response
+                    var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
+                    if (data.ContainsKey("error"))
+                    {
+                        throw new AuthException("Error authenticating: " + data["error"]);
+                    }
+                    else if (data.ContainsKey("access_token"))
+                    {
+                        return data;
+                    }
+                    else
+                    {
+                        throw new AuthException("Expected access_token in access token response, but did not receive one.");
+                    }
+                }
+
+            });
 		}
 #endif
 		/// <summary>

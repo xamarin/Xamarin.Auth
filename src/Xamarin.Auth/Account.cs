@@ -18,9 +18,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Globalization;
 #if !PLATFORM_WINPHONE
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
+
 
 namespace Xamarin.Auth
 {
@@ -47,6 +49,27 @@ namespace Xamarin.Auth
 		/// Cookies that are stored with the account for web services that control access using cookies.
 		/// </summary>
 		public virtual CookieContainer Cookies { get; private set; }
+
+        private DateTime tokenExpiration
+        {
+            get
+            {
+                var val = Properties["token_expiration"];
+                DateTime dt;
+                DateTime.TryParseExact(val, dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out dt);
+                return dt;
+            }
+        }
+
+        private const String dateFormat = "MM/dd/yyyy HH:mm:ss";
+
+        public bool IsTokenExpired
+        {
+            get
+            {
+                return (DateTime.Now > tokenExpiration);
+            }
+        }
 
 		/// <summary>
 		/// Initializes a new blank <see cref="Xamarin.Auth.Account"/>.
@@ -125,24 +148,32 @@ namespace Xamarin.Auth
 		/// <seealso cref="Deserialize"/>
 		public string Serialize ()
 		{
-			var sb = new StringBuilder ();
+            var sb = new StringBuilder();
 
-			sb.Append ("__username__=");
-			sb.Append (Uri.EscapeDataString (Username));
+            sb.Append("__username__=");
+            sb.Append(Uri.EscapeDataString(Username));
 
-			foreach (var p in Properties) {
-				sb.Append ("&");
-				sb.Append (Uri.EscapeDataString (p.Key));
-				sb.Append ("=");
-				sb.Append (Uri.EscapeDataString (p.Value));
-			}
+            foreach (var p in Properties)
+            {
+                sb.Append("&");
+                sb.Append(Uri.EscapeDataString(p.Key));
+                sb.Append("=");
+                sb.Append(Uri.EscapeDataString(p.Value));
+                if (p.Key == "expires_in")
+                {
+                    var val = DateTime.Now.AddSeconds(int.Parse(p.Value));
+                    sb.Append("&token_expiration=");
+                    sb.Append(Uri.EscapeDataString(val.ToString(dateFormat)));
+                }
+            }
 
-			if (Cookies.Count > 0) {
-				sb.Append ("&__cookies__=");
-				sb.Append (Uri.EscapeDataString (SerializeCookies ()));
-			}
+            if (Cookies.Count > 0)
+            {
+                sb.Append("&__cookies__=");
+                sb.Append(Uri.EscapeDataString(SerializeCookies()));
+            }
 
-			return sb.ToString ();
+            return sb.ToString();
 		}
 
 		/// <summary>

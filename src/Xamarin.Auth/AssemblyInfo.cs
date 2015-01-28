@@ -20,9 +20,9 @@ using System.Runtime.CompilerServices;
 // Change them to the values specific to your project.
 
 [assembly: AssemblyTitle("Xamarin.Auth")]
-[assembly: AssemblyDescription("Cross platform authentication library")]
+[assembly: AssemblyDescription("Cross platform authentication library - Alaska Airlines")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Xamarin Inc.")]
+[assembly: AssemblyCompany("Xamarin Inc. (Alaska Airlines)")]
 [assembly: AssemblyProduct("Xamarin.Auth")]
 [assembly: AssemblyCopyright("2012-2013 Xamarin Inc.")]
 [assembly: AssemblyTrademark("")]
@@ -32,7 +32,7 @@ using System.Runtime.CompilerServices;
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
 // and "{Major}.{Minor}.{Build}.*" will update just the revision.
 
-[assembly: AssemblyVersion("1.2.2.0")]
+[assembly: AssemblyVersion("1.2.4.1")]
 
 // The following attributes are used to specify the signing key for the assembly, 
 // if desired. See the Mono documentation for more information about signing.
@@ -43,5 +43,5 @@ using System.Runtime.CompilerServices;
 #if __UNIFIED__
 [assembly: InternalsVisibleTo ("XamarinAuthiOSTest")]
 #else
-[assembly: InternalsVisibleTo ("XamarinAuthiOSTestClassic")]
+[assembly: InternalsVisibleTo("XamarinAuthiOSTestClassic")]
 #endif
