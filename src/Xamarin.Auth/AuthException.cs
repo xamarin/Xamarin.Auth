@@ -23,7 +23,7 @@ namespace Xamarin.Auth
 #if !PLATFORM_WINPHONE
 	[Serializable]
 #endif
-	#if XAMARIN_AUTH_INTERNAL
+#if XAMARIN_AUTH_INTERNAL
 	internal class AuthException : Exception
 #else
 	public class AuthException : Exception
