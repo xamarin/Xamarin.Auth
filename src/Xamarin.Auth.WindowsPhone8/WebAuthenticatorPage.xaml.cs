@@ -60,11 +60,15 @@ namespace Xamarin.Auth.WindowsPhone
 			base.OnNavigatedFrom (e);
 		}
 
-		private void OnAuthError (object sender, AuthenticatorErrorEventArgs e)
-		{
-			MessageBox.Show (e.Message, "Error", MessageBoxButton.OK);
-			//NavigationService.GoBack();
-		}
+        private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
+        {
+            //temporary "fix" for invalid_grant error
+            if (!e.Message.Equals("Error authenticating: invalid_grant"))
+            {
+                MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
+            }
+            //NavigationService.GoBack();
+        }
 
 		private void OnBrowserNavigationFailed (object sender, NavigationFailedEventArgs e)
 		{

@@ -227,7 +227,7 @@ internal class OAuth2Authenticator : WebRedirectAuthenticator
         /// <summary>
         /// Method that requests a new access token based on an initial refresh token
         /// </summary>
-        /// <param name="refreshToken">Refresh token, typically from the <see cref="AccountStore"/>'s refresh_token property</param>
+        /// <param name="PL">Refresh token, typically from the <see cref="AccountStore"/>'s refresh_token property</param>
         /// <returns>Time in seconds the refresh token expires in</returns>
         public virtual Task<int> RequestRefreshTokenAsync(string refreshToken)
         {
@@ -372,21 +372,18 @@ internal class OAuth2Authenticator : WebRedirectAuthenticator
 			return RequestAccessTokenAsync(queryValues);
 		}
 #if PLATFORM_WINPHONE
-		/// <summary>
-		/// Asynchronously makes a request to the access token URL with the given parameters.
-		/// </summary>
-		/// <param name="queryValues">The parameters to make the request with.</param>
-		/// <returns>The data provided in the response to the access token request.</returns>
-		protected async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
-		{
-			var content = new System.Net.Http.FormUrlEncodedContent(queryValues);
-
-			System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
-            System.Net.Http.HttpResponseMessage response;
-            try
+        /// <summary>
+        /// Asynchronously makes a request to the access token URL with the given parameters.
+        /// </summary>
+        /// <param name="queryValues">The parameters to make the request with.</param>
+        /// <returns>The data provided in the response to the access token request.</returns>
+        protected Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
+        {
+            var content = new System.Net.Http.FormUrlEncodedContent(queryValues);
+            var client = new System.Net.Http.HttpClient();
+            return client.PostAsync(accessTokenUrl, content).ContinueWith((task) =>
             {
-                response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
-                string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+                string text = task.Result.Content.ReadAsStringAsync().Result;
 
                 // Parse the response
                 var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
@@ -403,12 +400,40 @@ internal class OAuth2Authenticator : WebRedirectAuthenticator
                 {
                     throw new AuthException("Expected access_token in access token response, but did not receive one.");
                 }
-            }
-            catch (Exception)
-            {
-                throw new AuthException("Error retrieving access_token.");
-            }
-		}
+            });
+
+            /*
+            var content = new System.Net.Http.FormUrlEncodedContent(queryValues);
+
+            System.Net.Http.HttpClient client = new System.Net.Http.HttpClient();
+                        System.Net.Http.HttpResponseMessage response;
+                        try
+                        {
+                            response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
+                            string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+                            // Parse the response
+                            var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
+
+                            if (data.ContainsKey("error"))
+                            {
+                                throw new AuthException("Error authenticating: " + data["error"]);
+                            }
+                            else if (data.ContainsKey("access_token"))
+                            {
+                                return data;
+                            }
+                            else
+                            {
+                                throw new AuthException("Expected access_token in access token response, but did not receive one.");
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            throw new AuthException("Error retrieving access_token.");
+                        }
+            */
+        }
 #else
         /// <summary>
 		/// Asynchronously makes a request to the access token URL with the given parameters.
