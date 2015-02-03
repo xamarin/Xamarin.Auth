@@ -17,7 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+#if !PLATFORM_WINDOWS_PHONE
 using System.Security.Cryptography;
+#endif
 using System.Net;
 using System.Globalization;
 using Xamarin.Utilities;

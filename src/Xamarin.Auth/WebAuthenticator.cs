@@ -106,7 +106,6 @@ namespace Xamarin.Auth
 				store.DeleteCookie (c);
 			}
 #elif PLATFORM_ANDROID
-			Android.Webkit.CookieSyncManager.CreateInstance (Android.App.Application.Context);
 			Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
 #endif
 		}
@@ -159,6 +158,18 @@ namespace Xamarin.Auth
 			i.PutExtra ("StateKey", WebAuthenticatorActivity.StateRepo.Add (state));
 			return i;
 		}
+#elif PLATFORM_WINDOWS_PHONE
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        protected override AuthenticateUIType GetPlatformUI()
+        {
+            return new AuthenticatorControl(this);
+            //return typeof(AuthenticatorPage);
+        }
 #else
 		/// <summary>
 		/// Gets the UI for this authenticator.
@@ -173,4 +184,3 @@ namespace Xamarin.Auth
 #endif
 	}
 }
-

@@ -233,7 +233,7 @@ namespace System.Runtime.Serialization.Json
 				if (fdigits == 0)
 					throw JsonError ("Invalid JSON numeric literal; extra dot");
 			}
-			frac = Decimal.Round (frac, fdigits);
+			frac = Math.Round (frac, fdigits);
 
 			c = PeekChar ();
 			if (c != 'e' && c != 'E') {

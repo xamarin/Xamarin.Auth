@@ -153,7 +153,8 @@ namespace Xamarin.Auth
 			//
 			var signInLayout = new LinearLayout (this) {
 				Orientation = Orientation.Horizontal,
-				LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent) {
+                LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent)
+                {
 					TopMargin = 24,
 					LeftMargin = hmargin,
 					RightMargin = hmargin,
@@ -169,7 +170,7 @@ namespace Xamarin.Auth
 
 			signIn = new Button (this) {
 				Text = "Sign In",
-				LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent) {
+				LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent) {
 				},
 			};
 			signIn.Click += HandleSignIn;
@@ -178,7 +179,8 @@ namespace Xamarin.Auth
 			if (state.Authenticator.CreateAccountLink != null) {
 				var createAccount = new Button (this) {
 					Text = "Create Account",
-					LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent) {
+                    LayoutParameters = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MatchParent, LinearLayout.LayoutParams.WrapContent)
+                    {
 						TopMargin = 12,
 						LeftMargin = hmargin,
 						RightMargin = hmargin,
