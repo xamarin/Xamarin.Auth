@@ -331,32 +331,54 @@ namespace Xamarin.Auth
 		/// </summary>
 		/// <param name="queryValues">The parameters to make the request with.</param>
 		/// <returns>The data provided in the response to the access token request.</returns>
-		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
+		protected async Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
 		{
-			var query = queryValues.FormEncode ();
+			#if ! USING_HTTPCLIENT
 
-			var req = WebRequest.Create (accessTokenUrl);
-			req.Method = "POST";
-			var body = Encoding.UTF8.GetBytes (query);
-			req.ContentLength = body.Length;
-			req.ContentType = "application/x-www-form-urlencoded";
-			using (var s = req.GetRequestStream ()) {
-				s.Write (body, 0, body.Length);
-			}
-			return req.GetResponseAsync ().ContinueWith (task => {
-				var text = task.Result.GetResponseText ();
+				# if ! PORTABLE
+				var query = queryValues.FormEncode ();
+				var req = WebRequest.Create (accessTokenUrl);
+				req.Method = "POST";
+				// no ASCII in portable
+				var body = Encoding.ASCII.GetBytes (query);
+				req.Headers[HttpRequestHeader.ContentLength] = body.Length.ToString();
+				req.ContentType = "application/x-www-form-urlencoded";
 
-				// Parse the response
-				var data = text.Contains ("{") ? WebEx.JsonDecode (text) : WebEx.FormDecode (text);
-
-				if (data.ContainsKey ("error")) {
-					throw new AuthException ("Error authenticating: " + data ["error"]);
-				} else if (data.ContainsKey ("access_token")) {
-					return data;
-				} else {
-					throw new AuthException ("Expected access_token in access token response, but did not receive one.");
+				using (var s = await req.GetRequestStreamAsync ()) {
+					s.Write (body, 0, body.Length);
 				}
-			});
+				WebResponse resp = await req.GetResponseAsync ();
+				string text = resp.GetResponseText ();
+				# else
+				string text = "Portable text";
+				# endif
+
+			# else
+				#if ! PORTABLE
+				// no need to implement for non portable
+				#else
+				var query = queryValues.FormEncode();
+				string text = "";
+				using (System.Net.Http.HttpClient client = new System.Net.Http.HttpClient())
+				using (System.Net.Http.HttpResponseMessage response = await client.GetAsync(query))
+				using (System.Net.Http.HttpContent content = response.Content)
+				{
+				    text = await content.ReadAsStringAsync();
+				}
+				#endif
+			# endif
+
+			// Parse the response
+			var data = text.Contains ("{") ? WebEx.JsonDecode (text) : WebEx.FormDecode (text);
+
+			if (data.ContainsKey ("error")) {
+				throw new AuthException ("Error authenticating: " + data ["error"]);
+			} else if (data.ContainsKey ("access_token")) {
+				return data;
+			} else {
+				throw new AuthException ("Expected access_token in access token response, but did not receive one.");
+			}
+
 		}
 
 		/// <summary>

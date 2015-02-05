@@ -197,7 +197,10 @@ namespace Xamarin.Auth
 			// Disable 100-Continue: http://blogs.msdn.com/b/shitals/archive/2008/12/27/9254245.aspx
 			//
 			if (Method == "POST") {
+				#if ! PORTABLE
 				ServicePointManager.Expect100Continue = false;
+				#else
+				#endif
 			}
 
 			if (Multiparts.Count > 0) {
@@ -221,7 +224,10 @@ namespace Xamarin.Auth
 			} else if (Method == "POST" && Parameters.Count > 0) {
 				var body = Parameters.FormEncode ();
 				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
+				#if ! PORTABLE
 				request.ContentLength = bodyData.Length;
+				#else
+				#endif
 				request.ContentType = "application/x-www-form-urlencoded";
 
 				return Task.Factory
@@ -249,7 +255,11 @@ namespace Xamarin.Auth
 
 		void WriteMultipartFormData (string boundary, Stream s)
 		{
-			var boundaryBytes = Encoding.ASCII.GetBytes ("--" + boundary);
+			#if ! PORTABLE
+			var boundaryBytes = Encoding.ASCII.GetBytes("--" + boundary);
+			#else
+			var boundaryBytes = Encoding.UTF8.GetBytes ("--" + boundary);
+			#endif
 
 			foreach (var p in Multiparts) {
 				s.Write (boundaryBytes, 0, boundaryBytes.Length);
@@ -262,8 +272,12 @@ namespace Xamarin.Auth
 				if (!string.IsNullOrEmpty (p.Filename)) {
 					header += "; filename=\"" + p.Filename + "\"";
 				}
-				var headerBytes = Encoding.ASCII.GetBytes (header);
-				s.Write (headerBytes, 0, headerBytes.Length);
+				#if ! PORTABLE
+				var headerBytes = Encoding.ASCII.GetBytes(header);
+				#else
+				var headerBytes = Encoding.UTF8.GetBytes (header);
+				#endif
+				s.Write(headerBytes, 0, headerBytes.Length);
 				s.Write (CrLf, 0, CrLf.Length);
 				
 				//
@@ -271,7 +285,11 @@ namespace Xamarin.Auth
 				//
 				if (!string.IsNullOrEmpty (p.MimeType)) {
 					header = "Content-Type: " + p.MimeType;
+					#if ! PORTABLE
 					headerBytes = Encoding.ASCII.GetBytes (header);
+					#else
+					headerBytes = Encoding.UTF8.GetBytes (header);
+					#endif
 					s.Write (headerBytes, 0, headerBytes.Length);
 					s.Write (CrLf, 0, CrLf.Length);
 				}
@@ -314,7 +332,11 @@ namespace Xamarin.Auth
 			var url = Url.AbsoluteUri;
 
 			if (Parameters.Count > 0 && Method != "POST") {
+				#if ! PORTABLE
 				var head = Url.AbsoluteUri.Contains ('?') ? "&" : "?";
+				#else
+				var head = Url.AbsoluteUri.Contains("?") ? "&" : "?";
+				#endif
 				foreach (var p in Parameters) {
 					url += head;
 					url += Uri.EscapeDataString (p.Key);

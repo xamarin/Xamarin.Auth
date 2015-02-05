@@ -19,6 +19,7 @@ using System.Text;
 using System.Net;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Xamarin.Auth;
 
 namespace Xamarin.Auth
 {
@@ -173,11 +174,15 @@ namespace Xamarin.Auth
 
 		string SerializeCookies ()
 		{
+			#if PORTABLE
+			return "Portable for bait and switch";
+			#else
 			var f = new BinaryFormatter ();
 			using (var s = new MemoryStream ()) {
 				f.Serialize (s, Cookies);
 				return Convert.ToBase64String (s.GetBuffer (), 0, (int)s.Length);
 			}
+			#endif
 		}
 
 		static CookieContainer DeserializeCookies (string cookiesString)

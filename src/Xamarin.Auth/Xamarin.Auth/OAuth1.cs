@@ -117,9 +117,14 @@ namespace Xamarin.Auth
 		{
 			var baseString = GetBaseString (method, uri, parameters);
 			var key = EncodeString (consumerSecret) + "&" + EncodeString (tokenSecret);
+			#if !(SILVERLIGHT || WINDOWS_PHONE || NETFX_CORE || PORTABLE)  
 			var hashAlgo = new HMACSHA1 (Encoding.ASCII.GetBytes (key));
 			var hash = hashAlgo.ComputeHash (Encoding.ASCII.GetBytes (baseString));
 			var sig = Convert.ToBase64String (hash);
+			#else
+			var hash = "Portable hash";
+			var sig = "Portable sig";
+			#endif
 			return sig;
 		}
 

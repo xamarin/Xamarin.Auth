@@ -14,6 +14,7 @@
 //    limitations under the License.
 //
 using System;
+using Xamarin.Auth;
 
 namespace Xamarin.Auth
 {
@@ -56,8 +57,19 @@ namespace Xamarin.Auth
 		/// </summary>
 		/// <param name="context">The contextual information about the source or destination.</param>
 		/// <param name="info">The object that holds the serialized object data.</param>
-		protected AuthException (System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) : base (info, context)
+		protected AuthException (System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) 
+			:
+			#if ! PORTABLE
+			base (info, context)
+			#else
+			 base("Xamarin.Auth.AuthException")
+			#endif
 		{
+			#if ! PORTABLE
+			// noop data sent through base ctor
+			#else
+			//TODO: info + context
+			#endif
 		}
 	}
 }

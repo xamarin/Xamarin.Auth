@@ -156,7 +156,10 @@ namespace Xamarin.Auth
 		protected virtual void Dispose (bool disposing)
 		{
 			if (response != null) {
+				#if ! PORTABLE
 				response.Close ();
+				#else
+				#endif
 				response = null;
 			}
 		}

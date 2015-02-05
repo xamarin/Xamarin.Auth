@@ -148,17 +148,31 @@ namespace System.Json
 				if (value == null)
 					return JsonType.String;
 
-				switch (Type.GetTypeCode (value.GetType ())) {
-				case TypeCode.Boolean:
-					return JsonType.Boolean;
-				case TypeCode.Char:
-				case TypeCode.String:
-				case TypeCode.DateTime:
-				case TypeCode.Object: // DateTimeOffset || Guid || TimeSpan || Uri
-					return JsonType.String;
-				default:
-					return JsonType.Number;
+				#if ! PORTABLE 
+				switch (Type.GetTypeCode (value.GetType ())){
+					case TypeCode.Boolean:
+						return JsonType.Boolean;
+					case TypeCode.Char:
+					case TypeCode.String:
+					case TypeCode.DateTime:
+					case TypeCode.Object: // DateTimeOffset || Guid || TimeSpan || Uri
+						return JsonType.String;
+					default:
+						return JsonType.Number;
 				}
+				#else
+				switch (Core.Type.GetTypeCode (value.GetType ())){
+					case TypeCode.Boolean:
+						return JsonType.Boolean;
+					case TypeCode.Char:
+					case TypeCode.String:
+					case TypeCode.DateTime:
+					case TypeCode.Object: // DateTimeOffset || Guid || TimeSpan || Uri
+						return JsonType.String;
+					default:
+						return JsonType.Number;
+				}
+				#endif
 			}
 		}
 

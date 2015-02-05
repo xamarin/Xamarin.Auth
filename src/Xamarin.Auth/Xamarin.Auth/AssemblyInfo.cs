@@ -24,7 +24,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Xamarin Inc.")]
 [assembly: AssemblyProduct("Xamarin.Auth")]
-[assembly: AssemblyCopyright("2012-2013 Xamarin Inc.")]
+[assembly: AssemblyCopyright("2012-2015 Xamarin Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -40,8 +40,7 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
-#if __UNIFIED__
-[assembly: InternalsVisibleTo ("XamarinAuthiOSTest")]
-#else
-[assembly: InternalsVisibleTo ("XamarinAuthiOSTestClassic")]
-#endif
+// for PCL bait and switch all DLLs have the same name
+// not necessary but due to the fact that Assembly.cs is linked/shared all UnitTest
+// projects have the same names
+[assembly: InternalsVisibleTo ("Xamarin.Auth.Test")]
