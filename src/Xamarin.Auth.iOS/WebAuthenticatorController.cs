@@ -180,6 +180,16 @@ namespace Xamarin.Auth
 				after ();
 			}			
 		}
+        
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+
+            if (authenticator.AllowCancel && authenticator.IsAuthenticated())
+            {
+                Cancel();
+            }
+        }
 
 		protected class WebViewDelegate : UIWebViewDelegate
 		{

@@ -57,6 +57,11 @@ namespace Xamarin.Auth
 		/// <value><c>true</c> by default.</value>
 		public bool AllowCancel { get; set; }
 
+        /// <summary>
+        /// Used by the ui to determine if it should stop authenticating
+        /// </summary>
+        public Func<bool> IsAuthenticated { get; set; }
+
 		/// <summary>
 		/// Occurs when authentication has been successfully or unsuccessfully completed.
 		/// Consult the <see cref="AuthenticatorCompletedEventArgs.IsAuthenticated"/> event argument to determine if
@@ -83,6 +88,7 @@ namespace Xamarin.Auth
 			Title = "Authenticate";
 			HasCompleted = false;
 			AllowCancel = true;
+            IsAuthenticated = () => false;
 		}
 
 #if PLATFORM_ANDROID

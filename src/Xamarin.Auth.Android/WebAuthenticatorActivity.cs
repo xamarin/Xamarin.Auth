@@ -104,6 +104,15 @@ namespace Xamarin.Auth
 			}
 		}
 
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
+            {
+                state.Authenticator.OnCancelled();
+            }
+        }
+
 		void BeginLoadingInitialUrl ()
 		{
 			state.Authenticator.GetInitialUrlAsync ().ContinueWith (t => {
