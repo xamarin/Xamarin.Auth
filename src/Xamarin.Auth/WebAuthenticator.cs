@@ -28,6 +28,7 @@ using Microsoft.Phone.Shell;
 using AuthenticateUIType = System.Uri;
 #else
 using AuthenticateUIType = System.Object;
+
 #endif
 
 namespace Xamarin.Auth
@@ -156,6 +157,13 @@ namespace Xamarin.Auth
 			PhoneApplicationService.Current.State[key] = this;
 			return new Uri ("/Xamarin.Auth.WindowsPhone;component/WebAuthenticatorPage.xaml?key=" + key, UriKind.Relative);
 		}
+#elif NETFX_CORE
+        protected override AuthenticateUIType GetPlatformUI()
+		{
+            //actually seems this is not needed for win8 project,
+            //but maybe i'm still missing something
+            throw new NotImplementedException("Just navigate to AuthPage");
+		}
 #else
 		/// <summary>
 		/// Gets the UI for this authenticator.
@@ -168,6 +176,6 @@ namespace Xamarin.Auth
 			throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
 		}
 #endif
-	}
+    }
 }
 

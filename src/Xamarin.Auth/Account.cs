@@ -1,26 +1,15 @@
-//
-//  Copyright 2012, Xamarin Inc.
-//
-//    Licensed under the Apache License, Version 2.0 (the "License");
-//    you may not use this file except in compliance with the License.
-//    You may obtain a copy of the License at
-//
-//        http://www.apache.org/licenses/LICENSE-2.0
-//
-//    Unless required by applicable law or agreed to in writing, software
-//    distributed under the License is distributed on an "AS IS" BASIS,
-//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//    See the License for the specific language governing permissions and
-//    limitations under the License.
-//
+
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
 
-#if !PLATFORM_WINPHONE
+#if !(PLATFORM_WINPHONE || NETFX_CORE)
 using System.Runtime.Serialization.Formatters.Binary;
+#else
+using System.Xml;
+using System.Runtime.Serialization;
 #endif
 
 namespace Xamarin.Auth
@@ -176,26 +165,43 @@ namespace Xamarin.Auth
 
 		string SerializeCookies ()
 		{
-#if !PLATFORM_WINPHONE
+#if !(PLATFORM_WINPHONE || NETFX_CORE)
 			var f = new BinaryFormatter ();
 			using (var s = new MemoryStream ()) {
 				f.Serialize (s, Cookies);
 				return Convert.ToBase64String (s.GetBuffer (), 0, (int)s.Length);
 			}
 #else
-			return String.Empty;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (XmlDictionaryWriter writer = XmlDictionaryWriter.CreateBinaryWriter(ms))
+                {
+                    DataContractSerializer dcs = new DataContractSerializer(typeof(CookieContainer));
+                    dcs.WriteObject(writer, Cookies);
+                    writer.Flush();
+                    return Encoding.UTF8.GetString(ms.ToArray(), 0, (int)ms.Length);
+                }
+            }
 #endif
 		}
 
 		static CookieContainer DeserializeCookies (string cookiesString)
-		{
-#if !PLATFORM_WINPHONE
+        {
+#if !(PLATFORM_WINPHONE || NETFX_CORE)
 			var f = new BinaryFormatter ();
 			using (var s = new MemoryStream (Convert.FromBase64String (cookiesString))) {
 				return (CookieContainer)f.Deserialize (s);
 			}
 #else
-			return new CookieContainer();
+            using (MemoryStream memoryStream = new MemoryStream(Encoding.UTF8.GetBytes(cookiesString)))
+            {
+                using (XmlDictionaryReader reader = XmlDictionaryReader.CreateBinaryReader(
+                    memoryStream, XmlDictionaryReaderQuotas.Max))
+                {
+                    DataContractSerializer dcs = new DataContractSerializer(typeof(CookieContainer));
+                    return (CookieContainer)dcs.ReadObject(reader);
+                }
+            }
 #endif
 		}
 

@@ -40,4 +40,5 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
-[assembly: InternalsVisibleTo ("XamarinAuthiOSTest")]
+[assembly: InternalsVisibleTo("XamarinAuthWP8Test")]
+[assembly: InternalsVisibleTo("Xamarin.Auth.Store.Test")]
