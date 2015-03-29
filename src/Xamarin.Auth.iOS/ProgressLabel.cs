@@ -37,7 +37,11 @@ namespace Xamarin.Controls
 			AddSubview (label);
 			
 			var f = Frame;
+			#if __UNIFIED__
+			f.Width = label.Frame.X + UIKit.UIStringDrawing.StringSize (label.Text, label.Font).Width;
+			#else
 			f.Width = label.Frame.X + label.StringSize (label.Text, label.Font).Width;
+			#endif
 			Frame = f;
 		}
 		

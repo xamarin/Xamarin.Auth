@@ -237,7 +237,11 @@ namespace Xamarin.Auth
 						var fieldXPosition = (nfloat)controller
 							.authenticator
 							.Fields
+							#if __UNIFIED__
+							.Select (f => UIKit.UIStringDrawing.StringSize (f.Title, FieldCell.LabelFont).Width)
+							#else
 							.Select (f => tableView.StringSize (f.Title, FieldCell.LabelFont).Width)
+							#endif
 							.Max ();
 						fieldXPosition += 36;
 
