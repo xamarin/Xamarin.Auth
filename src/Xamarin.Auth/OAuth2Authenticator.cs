@@ -299,11 +299,16 @@ namespace Xamarin.Auth
 			//
 			// Look for the access_token
 			//
-			if (fragment.ContainsKey (AccessTokenName)) {
+			if (fragment.ContainsKey (AccessTokenName) || query.ContainsKey(AccessTokenName)) {
 				//
 				// We found an access_token
 				//
-				OnRetrievedAccountProperties (fragment);
+				var result = new Dictionary<string, string>(fragment);
+				foreach(string key in query.Keys)
+					if (!result.ContainsKey(key))
+						result.Add(key, query[key]);
+
+				OnRetrievedAccountProperties (result);
 			} else if (!IsImplicit) {
 				//
 				// Look for the code
