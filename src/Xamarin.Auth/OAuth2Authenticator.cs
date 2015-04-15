@@ -41,6 +41,8 @@ namespace Xamarin.Auth
 
 		string requestState;
 		bool reportedForgery = false;
+		string accessTokenName = "access_token";
+
 		Dictionary<string, string> requestParams;
 
 		/// <summary>
@@ -91,6 +93,12 @@ namespace Xamarin.Auth
 		public Dictionary<string, string> RequestParameters 
 		{
 			get { return this.requestParams; }
+		}
+
+		public string AccessTokenName
+		{
+			get { return accessTokenName; }
+			set { accessTokenName = value; }
 		}
 
 		/// <summary>
@@ -291,7 +299,7 @@ namespace Xamarin.Auth
 			//
 			// Look for the access_token
 			//
-			if (fragment.ContainsKey ("access_token")) {
+			if (fragment.ContainsKey (AccessTokenName)) {
 				//
 				// We found an access_token
 				//
@@ -314,7 +322,7 @@ namespace Xamarin.Auth
 					return;
 				}
 			} else {
-				OnError ("Expected access_token in response, but did not receive one.");
+				OnError ("Expected " + AccessTokenName + " in response, but did not receive one.");
 				return;
 			}
 		}
@@ -367,10 +375,10 @@ namespace Xamarin.Auth
 
 				if (data.ContainsKey ("error")) {
 					throw new AuthException ("Error authenticating: " + data ["error"]);
-				} else if (data.ContainsKey ("access_token")) {
+				} else if (data.ContainsKey (AccessTokenName)) {
 					return data;
 				} else {
-					throw new AuthException ("Expected access_token in access token response, but did not receive one.");
+					throw new AuthException ("Expected " + AccessTokenName + " in access token response, but did not receive one.");
 				}
 			});
 		}
