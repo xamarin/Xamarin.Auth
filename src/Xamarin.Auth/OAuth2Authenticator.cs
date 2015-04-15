@@ -41,6 +41,7 @@ namespace Xamarin.Auth
 
 		string requestState;
 		bool reportedForgery = false;
+		Dictionary<string, string> requestParams;
 
 		/// <summary>
 		/// Gets the client identifier.
@@ -87,6 +88,11 @@ namespace Xamarin.Auth
 			get { return this.accessTokenUrl; }
 		}
 
+		public Dictionary<string, string> RequestParameters 
+		{
+			get { return this.requestParams; }
+		}
+
 		/// <summary>
 		/// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
 		/// that authenticates using implicit granting (token).
@@ -125,6 +131,8 @@ namespace Xamarin.Auth
 			this.getUsernameAsync = getUsernameAsync;
 
 			this.accessTokenUrl = null;
+
+			this.requestParams = new Dictionary<string, string>();
 		}
 
 		/// <summary>
@@ -209,17 +217,25 @@ namespace Xamarin.Auth
 		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync ()
 		{
-			var url = new Uri (string.Format (
+			var url = string.Format (
 				"{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
 				authorizeUrl.AbsoluteUri,
 				Uri.EscapeDataString (clientId),
 				Uri.EscapeDataString (RedirectUrl.AbsoluteUri),
 				IsImplicit ? "token" : "code",
 				Uri.EscapeDataString (scope),
-				Uri.EscapeDataString (requestState)));
+				Uri.EscapeDataString (requestState));
+
+			foreach(string key in RequestParameters.Keys)
+			{
+				if ((new [] { "client_id", "redirect_uri", "response_type", "scope", "state" }).Contains(key.ToLower()))
+					throw new NotSupportedException("You may not use RequestParameters to set parameter: " + key);
+
+				url += string.Format("&{0}={1}", Uri.EscapeDataString(key), Uri.EscapeDataString(RequestParameters[key]));
+			}
 
 			var tcs = new TaskCompletionSource<Uri> ();
-			tcs.SetResult (url);
+			tcs.SetResult (new Uri(url));
 			return tcs.Task;
 		}
 
