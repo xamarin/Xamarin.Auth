@@ -63,6 +63,7 @@ namespace Xamarin.Auth
 					UIBarButtonSystemItem.Cancel,
 					delegate {
 					Cancel ();
+					DismissViewControllerAsync(true);
 				});				
 			}
 

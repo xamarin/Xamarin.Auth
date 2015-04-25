@@ -262,8 +262,9 @@ namespace Xamarin.Auth
 		protected override void OnPageEncountered (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
-			foreach (var kv in fragment)
-				all [kv.Key] = kv.Value;
+			foreach (var key in fragment.Keys)
+				if (!string.IsNullOrWhiteSpace(key) && !all.ContainsKey(key))
+					all.Add(key, fragment[key]);
 
 			//
 			// Check for forgeries
