@@ -20,8 +20,8 @@
         <!-- Package sources used to restore packages. By default, registered sources under %APPDATA%\NuGet\NuGet.Config will be used -->
         <!-- The official NuGet package source (https://www.nuget.org/api/v2/) will be excluded if package sources are specified and it does not appear in the list -->
         <!--
-            <PackageSource Include="https://www.nuget.org/api/v2/" />
-            <PackageSource Include="https://my-nuget-source/nuget/" />
+		<PackageSource Include="https://itsalsnuget.azurewebsites.net:443/nuget/" />
+		<PackageSource Include="https://www.nuget.org/api/v2/" />
         -->
     </ItemGroup>
 
