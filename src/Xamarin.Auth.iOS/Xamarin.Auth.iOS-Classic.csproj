@@ -48,9 +48,11 @@
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monotouch\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <ItemGroup>
@@ -114,6 +116,10 @@
     <Compile Include="..\Xamarin.Auth\Response.cs">
       <Link>Response.cs</Link>
     </Compile>
+    <Compile Include="Managers\LoginManager.cs" />
+    <Compile Include="Managers\AlaskaLoginManager.cs" />
+    <Compile Include="Managers\ILoginEvents.cs" />
+    <Compile Include="Managers\OAuthSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
