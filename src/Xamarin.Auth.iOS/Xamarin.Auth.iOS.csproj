@@ -41,9 +41,11 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
     <Reference Include="System.Json" />
+    <Reference Include="MonoTouch.Dialog-1" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Managers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -107,12 +109,15 @@
     <Compile Include="..\Xamarin.Auth\Response.cs">
       <Link>Response.cs</Link>
     </Compile>
+    <Compile Include="Managers\LoginManager.cs" />
+    <Compile Include="..\Xamarin.Auth\Managers\ILoginEvents.cs">
+      <Link>Managers\ILoginEvents.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\Managers\AlaskaLoginManager.cs">
+      <Link>Managers\AlaskaLoginManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\Managers\OAuthSettings.cs">
+      <Link>Managers\OAuthSettings.cs</Link>
+    </Compile>
   </ItemGroup>
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
-  </Target>
 </Project>
