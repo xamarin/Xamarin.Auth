@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+
+<project name="Xamarin.Auth" default="pack" basedir=".">
+  <description>Builds, Tests and Deploys Xamarin.Auth.</description>
+  
+  <!-- Compile Settings -->
+  <property name="Configuration" value="Release" overwrite="false" />
+  <property name="VisualStudioVersion" value="12.0" overwrite="false" />
+  
+  <!-- Shared Settings -->
+  <property name="Project.Name" value="Xamarin.Auth" />
+  <property name="NuGet.Output.Directory" value="NuGetOutput" />
+  <property name="NuGet.Exe" value="..\.nuget\NuGet.exe" />
+
+  <choose>
+    <when test="${Configuration == 'Release'}">
+      <echo>!!!!!!!!!!!!Build RELEASE configuration!!!!!!!!!!!!</echo>
+      <property name="IsRelease" value="true" readonly="true" />
+    </when>
+    <otherwise>
+      <echo>!!!!!!!!!!!!Build DEBUG configuration!!!!!!!!!!!!</echo>
+      <property name="IsRelease" value="false" readonly="true" />
+    </otherwise>
+  </choose>
+  
+  <target name="clean" description="Remove generated files">
+    <deltree BaseDir="${NuGet.Output.Directory}" />
+  </target>
+
+  <target name="compile" description="Compile the code.">
+    <msbuild project="${Project.Name}.csproj" target="Rebuild">
+      <property name="Configuration" value="${Configuration}" />
+      <property name="VisualStudioVersion" value="${VisualStudioVersion}" />
+    </msbuild>
+  </target>
+  
+  <target name="pack" depends="clean,compile" description="Create a NuGet package from the project file.">
+    <nuget-pack />
+  </target>
+
+  <target name="push" depends="pack" description="Push NuGet packages to the NuGet Server.">
+    <nuget-push />
+  </target>
+
+  <macrodef name="deltree">
+    <attributes>
+      <attribute name="BaseDir" />
+    </attributes>
+    <sequential>
+      <delete failonerror="false">
+        <fileset basedir="${BaseDir}">
+          <include name="**\*" />
+        </fileset>
+      </delete>
+    </sequential>
+  </macrodef>
+  
+  <macrodef name="nuget-pack">
+    <sequential>
+	  <mkdir dir="${NuGet.Output.Directory}" />
+      <exec program="${NuGet.Exe}" >
+        <arg line="pack ${Project.Name}.csproj -OutputDirectory ${NuGet.Output.Directory} -IncludeReferencedProjects -Properties Configuration=${Configuration}" />
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <macrodef name="nuget-push">
+    <sequential>
+      <exec program="${NuGet.Exe}" workingdir="${NuGet.Output.Directory}" >
+        <arg line="push *.nupkg -Source https://itsalsnuget.azurewebsites.net:443/ -ApiKey C411EF48-CC0A-4D8E-AE3E-0AD3287C009F" />
+      </exec>
+    </sequential>
+  </macrodef>
+
+</project>
