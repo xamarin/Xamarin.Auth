@@ -32,15 +32,17 @@ namespace Xamarin.Auth
 	public class OAuth2Authenticator : WebRedirectAuthenticator
 #endif
 	{
-		string clientId;
-		string clientSecret;
-		string scope;
-		Uri authorizeUrl;
-		Uri accessTokenUrl;
-		GetUsernameAsyncFunc getUsernameAsync;
+		protected string clientId;
+		protected string clientSecret;
+		protected string scope;
+		protected Uri authorizeUrl;
+		protected Uri accessTokenUrl;
+		protected GetUsernameAsyncFunc getUsernameAsync;
 
-		string requestState;
-		bool reportedForgery = false;
+		protected string requestState;
+		protected bool reportedForgery = false;
+
+		protected Random random = new Random();
 
 		/// <summary>
 		/// Gets the client identifier.
@@ -181,7 +183,7 @@ namespace Xamarin.Auth
 			this.getUsernameAsync = getUsernameAsync;
 		}
 
-		OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
+		protected OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
 			: base (redirectUrl, redirectUrl)
 		{
 			this.clientSecret = clientSecret;
@@ -191,15 +193,20 @@ namespace Xamarin.Auth
 			//
 			// Generate a unique state string to check for forgeries
 			//
-			var chars = new char[16];
-			var rand = new Random ();
-			for (var i = 0; i < chars.Length; i++) {
-				chars [i] = (char)rand.Next ((int)'a', (int)'z' + 1);
-			}
-			this.requestState = new string (chars);
+			this.requestState = RandomState();
 		}
 
-		bool IsImplicit { get { return accessTokenUrl == null; } }
+		protected string RandomState()
+		{
+			var chars = new char[16];
+			for (var i = 0; i < chars.Length; i++)
+			{
+				chars[i] = (char)random.Next((int)'a', (int)'z' + 1);
+			}
+			return new string(chars);
+		}
+
+		protected bool IsImplicit { get { return accessTokenUrl == null; } }
 
 		/// <summary>
 		/// Method that returns the initial URL to be displayed in the web browser.
@@ -311,7 +318,7 @@ namespace Xamarin.Auth
 		/// </returns>
 		/// <param name='code'>The authorization code.</param>
 		/// <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
-		Task<IDictionary<string,string>> RequestAccessTokenAsync (string code)
+		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (string code)
 		{
 			var queryValues = new Dictionary<string, string> {
 				{ "grant_type", "authorization_code" },
@@ -325,13 +332,45 @@ namespace Xamarin.Auth
 
 			return RequestAccessTokenAsync (queryValues);
 		}
+		
+#if PLATFORM_WINPHONE
+        /// <summary>
+        /// Asynchronously makes a request to the access token URL with the given parameters.
+        /// </summary>
+        /// <param name="queryValues">The parameters to make the request with.</param>
+        /// <returns>The data provided in the response to the access token request.</returns>
+        Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
+        {
+            var content = new System.Net.Http.FormUrlEncodedContent(queryValues);
+            var client = new System.Net.Http.HttpClient();
+            return client.PostAsync(accessTokenUrl, content).ContinueWith((task) =>
+            {
+                string text = task.Result.Content.ReadAsStringAsync().Result;
 
+                // Parse the response
+                var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
+
+                if (data.ContainsKey("error"))
+                {
+                    throw new AuthException("Error authenticating: " + data["error"]);
+                }
+                else if (data.ContainsKey("access_token"))
+                {
+                    return data;
+                }
+                else
+                {
+                    throw new AuthException("Expected access_token in access token response, but did not receive one.");
+                }
+            });
+        }
+#else
 		/// <summary>
 		/// Asynchronously makes a request to the access token URL with the given parameters.
 		/// </summary>
 		/// <param name="queryValues">The parameters to make the request with.</param>
 		/// <returns>The data provided in the response to the access token request.</returns>
-		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
+		Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
 		{
 			var query = queryValues.FormEncode ();
 
@@ -358,6 +397,7 @@ namespace Xamarin.Auth
 				}
 			});
 		}
+#endif
 
 		/// <summary>
 		/// Event handler that is fired when an access token has been retreived.

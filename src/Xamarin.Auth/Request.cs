@@ -192,13 +192,15 @@ namespace Xamarin.Auth
 		public virtual Task<Response> GetResponseAsync (CancellationToken cancellationToken)
 		{
 			var request = GetPreparedWebRequest ();
-
+			
+#if !PLATFORM_WINPHONE
 			//
 			// Disable 100-Continue: http://blogs.msdn.com/b/shitals/archive/2008/12/27/9254245.aspx
 			//
 			if (Method == "POST") {
 				ServicePointManager.Expect100Continue = false;
 			}
+#endif
 
 			if (Multiparts.Count > 0) {
 				var boundary = "---------------------------" + new Random ().Next ();
@@ -249,7 +251,7 @@ namespace Xamarin.Auth
 
 		void WriteMultipartFormData (string boundary, Stream s)
 		{
-			var boundaryBytes = Encoding.ASCII.GetBytes ("--" + boundary);
+			var boundaryBytes = Encoding.UTF8.GetBytes ("--" + boundary);
 
 			foreach (var p in Multiparts) {
 				s.Write (boundaryBytes, 0, boundaryBytes.Length);
@@ -262,7 +264,7 @@ namespace Xamarin.Auth
 				if (!string.IsNullOrEmpty (p.Filename)) {
 					header += "; filename=\"" + p.Filename + "\"";
 				}
-				var headerBytes = Encoding.ASCII.GetBytes (header);
+				var headerBytes = Encoding.UTF8.GetBytes(header);
 				s.Write (headerBytes, 0, headerBytes.Length);
 				s.Write (CrLf, 0, CrLf.Length);
 				
@@ -271,7 +273,7 @@ namespace Xamarin.Auth
 				//
 				if (!string.IsNullOrEmpty (p.MimeType)) {
 					header = "Content-Type: " + p.MimeType;
-					headerBytes = Encoding.ASCII.GetBytes (header);
+					headerBytes = Encoding.UTF8.GetBytes(header);
 					s.Write (headerBytes, 0, headerBytes.Length);
 					s.Write (CrLf, 0, CrLf.Length);
 				}
