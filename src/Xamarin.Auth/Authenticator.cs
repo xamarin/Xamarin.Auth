@@ -62,6 +62,11 @@ namespace Xamarin.Auth
         /// </summary>
         public Func<bool> IsAuthenticated { get; set; }
 
+        /// <summary>
+        /// Used by Android to fill in the result on the activity
+        /// </summary>
+        public Func<Account, AccountResult> GetAccountResult{ get; set; }
+
 		/// <summary>
 		/// Occurs when authentication has been successfully or unsuccessfully completed.
 		/// Consult the <see cref="AuthenticatorCompletedEventArgs.IsAuthenticated"/> event argument to determine if

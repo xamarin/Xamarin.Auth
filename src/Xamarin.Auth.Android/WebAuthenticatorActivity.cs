@@ -21,14 +21,15 @@ using Android.Webkit;
 using Android.OS;
 using System.Threading.Tasks;
 using Xamarin.Utilities.Android;
+using Android.Accounts;
 
 namespace Xamarin.Auth
 {
 	[Activity (Label = "Web Authenticator")]
 #if XAMARIN_AUTH_INTERNAL
-	internal class WebAuthenticatorActivity : Activity
+	internal class WebAuthenticatorActivity : AccountAuthenticatorActivity
 #else
-	public class WebAuthenticatorActivity : Activity
+	public class WebAuthenticatorActivity : AccountAuthenticatorActivity
 #endif
 	{
 		WebView webView;
@@ -65,6 +66,22 @@ namespace Xamarin.Auth
 			//
 			state.Authenticator.Completed += (s, e) => {
 				SetResult (e.IsAuthenticated ? Result.Ok : Result.Canceled);
+ 
+				if(e.IsAuthenticated)
+				{
+                    if (state.Authenticator.GetAccountResult != null)
+                    {
+                        var accountResult = state.Authenticator.GetAccountResult(e.Account);
+
+                        Bundle result = new Bundle();
+                        result.PutString(Android.Accounts.AccountManager.KeyAccountType, accountResult.AccountType);
+                        result.PutString(Android.Accounts.AccountManager.KeyAccountName, accountResult.Name);
+                        result.PutString(Android.Accounts.AccountManager.KeyAuthtoken, accountResult.Token);
+                        result.PutString(Android.Accounts.AccountManager.KeyAccountAuthenticatorResponse, e.Account.Serialize());
+                        
+                        SetAccountAuthenticatorResult(result);
+                    }
+				}
 				Finish ();
 			};
 			state.Authenticator.Error += (s, e) => {
@@ -104,14 +121,14 @@ namespace Xamarin.Auth
 			}
 		}
 
-        protected override void OnResume()
-        {
-            base.OnResume();
-            if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
-            {
-                state.Authenticator.OnCancelled();
-            }
-        }
+		protected override void OnResume()
+		{
+			base.OnResume();
+			if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
+			{
+				state.Authenticator.OnCancelled();
+			}
+		}
 
 		void BeginLoadingInitialUrl ()
 		{
