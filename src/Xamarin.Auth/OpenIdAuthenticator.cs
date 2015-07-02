@@ -106,7 +106,7 @@ namespace Xamarin.Auth
 		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync ()
 		{
-			var responseType = IsImplicit ? "id_token" : "code";
+			var responseType = IsImplicit ? "id_token token" : "code";
 			var url = new Uri (string.Format (
 				"{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}&nonce={6}",
 				authorizeUrl.AbsoluteUri,
