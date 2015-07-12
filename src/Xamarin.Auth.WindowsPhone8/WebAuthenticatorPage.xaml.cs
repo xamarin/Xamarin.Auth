@@ -40,7 +40,13 @@ namespace Xamarin.Auth.WindowsPhone
 			string key = NavigationContext.QueryString["key"];
 
 			this.auth = (WebAuthenticator)PhoneApplicationService.Current.State[key];
-			this.auth.Completed += (sender, args) => NavigationService.GoBack();
+            this.auth.Completed += (sender, args) =>
+            {
+                Dispatcher.BeginInvoke(() =>
+                {
+                    NavigationService.GoBack();
+                });
+            };
 			this.auth.Error += OnAuthError;
 
 			PhoneApplicationService.Current.State.Remove (key);
