@@ -60,23 +60,11 @@ namespace Xamarin.Auth
 
 			Title = state.Authenticator.Title;
 
-
-			//
-			// Build the UI
-			//
-			webView = new WebView (this) {
-				Id = 42,
-			};
-			webView.Settings.JavaScriptEnabled = true;
-            webView.Settings.DomStorageEnabled = true;
-			webView.SetWebViewClient (new Client (this));
-			SetContentView (webView);
-
             //
             // Watch for completion
             //
+            state.Authenticator.Completing += (s, e) => webView.StopLoading();
             state.Authenticator.Completed += (s, e) => {
-                webView.StopLoading();
                 SetResult(e.IsAuthenticated ? Result.Ok : Result.Canceled);
                 Finish();
             };
@@ -94,6 +82,18 @@ namespace Xamarin.Auth
                 }
                 BeginLoadingInitialUrl();
             };
+
+            //
+            // Build the UI
+            //
+            webView = new WebView (this) {
+				Id = 42,
+			};
+			webView.Settings.JavaScriptEnabled = state.Authenticator.EnableJavaScript;
+            webView.Settings.DomStorageEnabled = state.Authenticator.EnableDomStorage;
+			webView.SetWebViewClient (new Client (this));
+			SetContentView (webView);
+
 
             //
             // Restore the UI state or start over

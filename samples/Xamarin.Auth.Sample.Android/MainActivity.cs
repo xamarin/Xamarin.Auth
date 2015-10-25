@@ -13,10 +13,8 @@ namespace Xamarin.Auth.Sample.Android
 	{
 		void LoginToFacebook (bool allowCancel)
 		{
-			var auth = new OAuth2Authenticator (
-				clientId: "self",
-				scope: "",
-                authorizeUrl: new Uri("http://192.168.0.12/Account/Login"),
+			var auth = new DelegatedOAuth2Authenticator (
+				authorizeUrl: new Uri("http://192.168.0.12/Account/Login"),
                 redirectUrl: new Uri("http://192.168.0.12/"),
                 getUsernameAsync: GetUserNameAsync
                 );
@@ -69,6 +67,12 @@ namespace Xamarin.Auth.Sample.Android
                 else 
                 {
                     var obj = JsonValue.Parse(t.Result.GetResponseText());
+
+                    // also add additional account properties
+                    accountproperties.Add("TenancyName", obj["tenancyName"]);
+                    accountproperties.Add("Tenant", obj["tenant"]);
+                    accountproperties.Add("TenantId", obj["tenantId"]?.ToString());
+
                     tcs.SetResult(obj["userName"]);
                 }
             });

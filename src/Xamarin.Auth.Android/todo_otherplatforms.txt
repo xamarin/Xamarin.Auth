@@ -1,0 +1,2 @@
+﻿[ ] enable DOM storage (localStorage) on each webview
+[ ] upon "Completed" event, cancel processing the URL to avoid downloading the CSS, HTML and JS of the portal

@@ -55,11 +55,36 @@ namespace Xamarin.Auth
 			get { return this.clearCookies; }
 			set { this.clearCookies = value; }
 		}
+        
+        /// <summary>
+        /// Gets or sets a value indicating whether [enable DOM storage].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable DOM storage]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnableDomStorage
+        {
+            get { return _enableDomStorage; }
+            set { _enableDomStorage = value; }
+        }
 
-		/// <summary>
-		/// Gets or sets whether to display authentication errors in the UI. Set to false if you want to handle the errors yourself.
-		/// </summary>
-		public bool ShowUIErrors 
+        /// <summary>
+        /// Gets or sets a value indicating whether [enable java script].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [enable java script]; otherwise, <c>false</c>.
+        /// </value>
+        public bool EnableJavaScript
+        {
+            get { return _enableJavaScript; }
+            set { _enableJavaScript = value; }
+        }
+
+
+        /// <summary>
+        /// Gets or sets whether to display authentication errors in the UI. Set to false if you want to handle the errors yourself.
+        /// </summary>
+        public bool ShowUIErrors 
 		{
 			get { return this.showUIErrors; }
 			set { this.showUIErrors = value; }
@@ -119,11 +144,13 @@ namespace Xamarin.Auth
 
 		private bool clearCookies = true;
 		private bool showUIErrors = true;
+        private bool _enableDomStorage = false;
+        private bool _enableJavaScript = true;
 
-		/// <summary>
-		/// Raises the browsing completed event.
-		/// </summary>
-		protected virtual void OnBrowsingCompleted ()
+        /// <summary>
+        /// Raises the browsing completed event.
+        /// </summary>
+        protected virtual void OnBrowsingCompleted ()
 		{
 			var ev = BrowsingCompleted;
 			if (ev != null) {

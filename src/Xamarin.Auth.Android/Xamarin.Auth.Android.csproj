@@ -60,6 +60,9 @@
     <Compile Include="..\Xamarin.Auth\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth\DelegatedOAuth2Authenticator.cs">
+      <Link>DelegatedOAuth2Authenticator.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth\FormAuthenticator.cs">
       <Link>FormAuthenticator.cs</Link>
     </Compile>
@@ -104,5 +107,8 @@
     <Compile Include="..\Xamarin.Auth\Response.cs">
       <Link>Response.cs</Link>
     </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="todo_otherplatforms.txt" />
   </ItemGroup>
 </Project>

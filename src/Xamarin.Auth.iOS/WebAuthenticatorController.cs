@@ -51,6 +51,7 @@ namespace Xamarin.Auth
 
 			authenticator.Error += HandleError;
 			authenticator.BrowsingCompleted += HandleBrowsingCompleted;
+		    authenticator.Completing += (s, e) => webView?.StopLoading();
 
 			//
 			// Create the UI

@@ -64,10 +64,13 @@ namespace Xamarin.Auth
 		/// </summary>
 		public event EventHandler<AuthenticatorCompletedEventArgs> Completed;
 
-		/// <summary>
-		/// Occurs when there an error is encountered when authenticating.
-		/// </summary>
-		public event EventHandler<AuthenticatorErrorEventArgs> Error;
+
+        public event EventHandler<EventArgs> Completing;
+
+        /// <summary>
+        /// Occurs when there an error is encountered when authenticating.
+        /// </summary>
+        public event EventHandler<AuthenticatorErrorEventArgs> Error;
 
 		/// <summary>
 		/// Gets whether this authenticator has completed its interaction with the user.
@@ -150,10 +153,21 @@ namespace Xamarin.Auth
 			OnSucceeded (new Account (username, accountProperties));
 		}
 
-		/// <summary>
-		/// Implementations must call this function when they have cancelled the operation.
-		/// </summary>
-		public void OnCancelled ()
+        public void OnSucceeding()
+        {
+            BeginInvokeOnUIThread(delegate {
+                var ev = Completing;
+                if (ev != null)
+                {
+                    ev(this, EventArgs.Empty);
+                }
+            });
+        }
+
+        /// <summary>
+        /// Implementations must call this function when they have cancelled the operation.
+        /// </summary>
+        public void OnCancelled ()
 		{
 			if (HasCompleted)
 				return;
