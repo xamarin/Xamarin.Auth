@@ -15,6 +15,7 @@
 //
 using System;
 using System.Collections.Generic;
+using System.Net;
 using Xamarin.Auth;
 
 namespace Xamarin.Auth
@@ -113,6 +114,13 @@ namespace Xamarin.Auth
 			
 			return "Bearer " + account.Properties ["access_token"];
 		}
+
+	    protected override HttpWebRequest GetPreparedWebRequest()
+	    {
+	        var request = base.GetPreparedWebRequest();
+            request.Headers.Add("Authorization", OAuth2Request.GetAuthorizationHeader(Account));
+	        return request;
+	    }
 	}
 }
 

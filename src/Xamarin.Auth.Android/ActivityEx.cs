@@ -16,6 +16,9 @@ namespace Xamarin.Utilities.Android
 
 		public static void ShowError (this Activity activity, string title, string message)
 		{
+		    if (activity.IsFinishing)
+		        return;
+
 			var b = new AlertDialog.Builder (activity);
 			b.SetMessage (message);
 			b.SetTitle (title);

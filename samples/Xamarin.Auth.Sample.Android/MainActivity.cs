@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Json;
 using System.Threading.Tasks;
 using Android.App;
@@ -13,10 +14,12 @@ namespace Xamarin.Auth.Sample.Android
 		void LoginToFacebook (bool allowCancel)
 		{
 			var auth = new OAuth2Authenticator (
-				clientId: "App ID from https://developers.facebook.com/apps",
+				clientId: "self",
 				scope: "",
-				authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
-				redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
+                authorizeUrl: new Uri("http://192.168.0.12/Account/Login"),
+                redirectUrl: new Uri("http://192.168.0.12/"),
+                getUsernameAsync: GetUserNameAsync
+                );
 
 			auth.AllowCancel = allowCancel;
 
@@ -31,7 +34,7 @@ namespace Xamarin.Auth.Sample.Android
 				}
 
 				// Now that we're logged in, make a OAuth2 request to get the user's info.
-				var request = new OAuth2Request ("GET", new Uri ("https://graph.facebook.com/me"), null, ee.Account);
+                var request = new OAuth2Request("GET", new Uri("http://192.168.0.12/api/accountapi/userinfo"), null, ee.Account);
 				request.GetResponseAsync().ContinueWith (t => {
 					var builder = new AlertDialog.Builder (this);
 					if (t.IsFaulted) {
@@ -43,7 +46,7 @@ namespace Xamarin.Auth.Sample.Android
 						var obj = JsonValue.Parse (t.Result.GetResponseText());
 
 						builder.SetTitle ("Logged in");
-						builder.SetMessage ("Name: " + obj["name"]);
+						builder.SetMessage ("Name: " + obj["userName"]);
 					}
 
 					builder.SetPositiveButton ("Ok", (o, e) => { });
@@ -55,7 +58,25 @@ namespace Xamarin.Auth.Sample.Android
 			StartActivity (intent);
 		}
 
-		private static readonly TaskScheduler UIScheduler = TaskScheduler.FromCurrentSynchronizationContext();
+	    private Task<string> GetUserNameAsync(IDictionary<string, string> accountproperties)
+	    {
+            var request = new OAuth2Request("GET", new Uri("http://192.168.0.12/api/accountapi/userinfo"), null, new Account(string.Empty, accountproperties));
+
+            var tcs = new TaskCompletionSource<string>();
+            request.GetResponseAsync().ContinueWith(t => {
+                if (t.IsFaulted) tcs.SetException(t.Exception.Flatten().InnerException);
+                else if (t.IsCanceled) tcs.SetCanceled();
+                else 
+                {
+                    var obj = JsonValue.Parse(t.Result.GetResponseText());
+                    tcs.SetResult(obj["userName"]);
+                }
+            });
+
+	        return tcs.Task;
+	    }
+
+	    private static readonly TaskScheduler UIScheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
 		protected override void OnCreate (Bundle bundle)
 		{

@@ -208,7 +208,7 @@ namespace Xamarin.Auth
 			});
 #elif PLATFORM_ANDROID
 			var a = context as Android.App.Activity;
-			if (a != null) {
+			if (a != null && !a.IsFinishing) {
 				a.RunOnUiThread (action);
 			}
 			else {

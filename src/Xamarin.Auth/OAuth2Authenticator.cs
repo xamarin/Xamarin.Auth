@@ -20,6 +20,8 @@ using System.Collections.Generic;
 using Xamarin.Utilities;
 using System.Net;
 using System.Text;
+using System.Threading;
+using Android.Content;
 
 namespace Xamarin.Auth
 {
@@ -41,8 +43,10 @@ namespace Xamarin.Auth
 
 		string requestState;
 		bool reportedForgery = false;
+	    private CancellationTokenSource _errorTokenSource = null;
+	    private bool _authenticated;
 
-		/// <summary>
+	    /// <summary>
 		/// Gets the client identifier.
 		/// </summary>
 		/// <value>The client identifier.</value>
@@ -127,7 +131,15 @@ namespace Xamarin.Auth
 			this.accessTokenUrl = null;
 		}
 
-		/// <summary>
+	    protected override Intent GetPlatformUI(Context context)
+	    {
+            // store change state
+	        _authenticated = false;
+
+	        return base.GetPlatformUI(context);
+	    }
+
+	    /// <summary>
 		/// Initializes a new instance <see cref="Xamarin.Auth.OAuth2Authenticator"/>
 		/// that authenticates using authorization codes (code).
 		/// </summary>
@@ -243,14 +255,14 @@ namespace Xamarin.Auth
 
 			//
 			// Check for forgeries
-			//
-			if (all.ContainsKey ("state")) {
-				if (all ["state"] != requestState && !reportedForgery) {
-					reportedForgery = true;
-					OnError ("Invalid state from server. Possible forgery!");
-					return;
-				}
-			}
+			// we do NOT check for forgeries, as our website completely handles this itself
+			//if (all.ContainsKey ("state")) {
+			//	if (all ["state"] != requestState && !reportedForgery) {
+			//		reportedForgery = true;
+			//		OnError ("Invalid state from server. Possible forgery!");
+			//		return;
+			//	}
+			//}
 
 			//
 			// Continue processing
@@ -272,14 +284,20 @@ namespace Xamarin.Auth
 		/// </param>
 		protected override void OnRedirectPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
-			//
-			// Look for the access_token
-			//
-			if (fragment.ContainsKey ("access_token")) {
+		    _errorTokenSource?.Cancel();
+		    if (_authenticated)
+		        return;
+
+		    //
+            // Look for the access_token
+            //
+            if (fragment.ContainsKey ("access_token")) {
 				//
 				// We found an access_token
 				//
+                _authenticated = true;
 				OnRetrievedAccountProperties (fragment);
+                
 			} else if (!IsImplicit) {
 				//
 				// Look for the code
@@ -293,13 +311,25 @@ namespace Xamarin.Auth
 							OnRetrievedAccountProperties (task.Result);
 						}
 					}, TaskScheduler.FromCurrentSynchronizationContext ());
-				} else {
-					OnError ("Expected code in response, but did not receive one.");
-					return;
 				}
-			} else {
-				OnError ("Expected access_token in response, but did not receive one.");
-				return;
+                else
+                {
+                    // cancel after 300 milliseconds just in case we get another redirect that returns a token
+                    _errorTokenSource = new CancellationTokenSource();
+                    Task.Delay(300, _errorTokenSource.Token).ContinueWith((t) =>
+                    {
+                        if (!t.IsCanceled) OnError("Expected code in response, but did not receive one.");
+                    });
+				}
+			}
+            else
+			{
+                // cancel after 300 milliseconds just in case we get another redirect that returns a token
+			    _errorTokenSource = new CancellationTokenSource();
+			    Task.Delay(300, _errorTokenSource.Token).ContinueWith((t) =>
+			    {
+			        if (!t.IsCanceled) OnError("Expected access_token in response, but did not receive one.");
+			    });
 			}
 		}
 

@@ -140,13 +140,14 @@ namespace Xamarin.Auth
 				return;
 			}
 
-			//
-			// Watch for the redirect
-			//
-			if (UrlMatchesRedirect (url)) {
-				OnRedirectPageLoaded (url, query, fragment);
-			}
-		}
+            //
+            // Watch for the redirect
+            //
+            if (UrlMatchesRedirect(url))
+            {
+                OnRedirectPageLoaded(url, query, fragment);
+            }
+        }
 
 		private bool UrlMatchesRedirect (Uri url)
 		{

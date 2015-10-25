@@ -60,25 +60,6 @@ namespace Xamarin.Auth
 
 			Title = state.Authenticator.Title;
 
-			//
-			// Watch for completion
-			//
-			state.Authenticator.Completed += (s, e) => {
-				SetResult (e.IsAuthenticated ? Result.Ok : Result.Canceled);
-				Finish ();
-			};
-			state.Authenticator.Error += (s, e) => {
-				if (state.Authenticator.ShowUIErrors)
-				{
-					if (e.Exception != null) {
-						this.ShowError ("Authentication Error", e.Exception);
-					}
-					else {
-						this.ShowError ("Authentication Error", e.Message);
-					}
-				}
-				BeginLoadingInitialUrl ();
-			};
 
 			//
 			// Build the UI
@@ -87,13 +68,37 @@ namespace Xamarin.Auth
 				Id = 42,
 			};
 			webView.Settings.JavaScriptEnabled = true;
+            webView.Settings.DomStorageEnabled = true;
 			webView.SetWebViewClient (new Client (this));
 			SetContentView (webView);
 
-			//
-			// Restore the UI state or start over
-			//
-			if (savedInstanceState != null) {
+            //
+            // Watch for completion
+            //
+            state.Authenticator.Completed += (s, e) => {
+                webView.StopLoading();
+                SetResult(e.IsAuthenticated ? Result.Ok : Result.Canceled);
+                Finish();
+            };
+            state.Authenticator.Error += (s, e) => {
+                if (state.Authenticator.ShowUIErrors)
+                {
+                    if (e.Exception != null)
+                    {
+                        this.ShowError("Authentication Error", e.Exception);
+                    }
+                    else
+                    {
+                        this.ShowError("Authentication Error", e.Message);
+                    }
+                }
+                BeginLoadingInitialUrl();
+            };
+
+            //
+            // Restore the UI state or start over
+            //
+            if (savedInstanceState != null) {
 				webView.RestoreState (savedInstanceState);
 			}
 			else {
@@ -166,17 +171,17 @@ namespace Xamarin.Auth
 			{
 				var uri = new Uri (url);
 				activity.state.Authenticator.OnPageLoading (uri);
-				activity.BeginProgress (uri.Authority);
+                activity.BeginProgress (uri.Authority);
 			}
-
-			public override void OnPageFinished (WebView view, string url)
+            
+            public override void OnPageFinished (WebView view, string url)
 			{
 				var uri = new Uri (url);
 				activity.state.Authenticator.OnPageLoaded (uri);
 				activity.EndProgress ();
 			}
-
-			class SslCertificateEqualityComparer
+            
+		    class SslCertificateEqualityComparer
 				: IEqualityComparer<SslCertificate>
 			{
 				public bool Equals (SslCertificate x, SslCertificate y)
