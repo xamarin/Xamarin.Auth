@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{8F5F3994-1BE1-4503-997A-800B764322B2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Json" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monotouch\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monotouch\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
+      <Link>Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
+      <Link>AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
+      <Link>AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Authenticator.cs">
+      <Link>Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
+      <Link>AuthException.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
+      <Link>ExceptionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\FormAuthenticator.cs">
+      <Link>FormAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1.cs">
+      <Link>OAuth1.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1Authenticator.cs">
+      <Link>OAuth1Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1Request.cs">
+      <Link>OAuth1Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth2Authenticator.cs">
+      <Link>OAuth2Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth2Request.cs">
+      <Link>OAuth2Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Request.cs">
+      <Link>Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Response.cs">
+      <Link>Response.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\v.2\HttpWebClientFrameworkType.cs">
+      <Link>v.2\HttpWebClientFrameworkType.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebAuthenticator.cs">
+      <Link>WebAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebEx.cs">
+      <Link>WebEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebRedirectAuthenticator.cs">
+      <Link>WebRedirectAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
+      <Link>WebUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\ACAccountWrapper.cs">
+      <Link>PlatformSpecific\ACAccountWrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\FormAuthenticatorController.cs">
+      <Link>PlatformSpecific\FormAuthenticatorController.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\KeyChainAccountStore.cs">
+      <Link>PlatformSpecific\KeyChainAccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\ProgressLabel.cs">
+      <Link>PlatformSpecific\ProgressLabel.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\UIViewControllerEx.cs">
+      <Link>PlatformSpecific\UIViewControllerEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\WebAuthenticatorController.cs">
+      <Link>PlatformSpecific\WebAuthenticatorController.cs</Link>
+    </Compile>
+    <Compile Include="Authenticator.XamarinIOS.Classic.cs" />
+    <Compile Include="FormAuthenticator.XamarinIOS.Classic.cs" />
+    <Compile Include="WebAuthenticator.XamarinIOS.Classic.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+</Project>
