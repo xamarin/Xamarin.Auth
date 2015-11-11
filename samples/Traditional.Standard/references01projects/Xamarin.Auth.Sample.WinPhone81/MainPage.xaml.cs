@@ -107,7 +107,8 @@ namespace Xamarin.Auth.Sample.WinPhone81
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
 
-            var vc = auth.GetUI();
+            Uri uri = auth.GetUI();
+            (System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
 
 
             return;

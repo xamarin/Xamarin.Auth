@@ -172,9 +172,13 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
-      <Project>{af395e40-6f1e-41e3-ba23-12e134f0d38f}</Project>
-      <Name>Xamarin.Auth.SampleData</Name>
+    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
+      <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
+      <Name>Xamarin.Auth.WindowsPhone8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
+      <Project>{2cf4d47e-e4b0-454b-9015-1e76ee30c36e}</Project>
+      <Name>Xamarin.Auth.Helpers</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
