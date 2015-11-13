@@ -1,34 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Net;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
-using Microsoft.Phone.Controls;
-using Microsoft.Phone.Shell;
-using Xamarin.Auth.Sample.WinPhone81.Resources;
-
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 
 using Xamarin.Auth.SampleData;
 
-namespace Xamarin.Auth.Sample.WinPhone81
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+
+namespace Xamarin.Auth.Sample.w81WinRT
 {
-    public partial class MainPage : PhoneApplicationPage
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class MainPage : Page
     {
         string[] provider_list;
 
-        // Constructor
         public MainPage()
         {
-            InitializeComponent();
-
-            // Sample code to localize the ApplicationBar
-            //BuildLocalizedApplicationBar();
+            this.InitializeComponent();
 
             provider_list = new string[]
-                 {
+                   {
                     "Facebook OAuth2",
                     "Twitter OAuth1",
                     "Google OAuth2",
@@ -37,15 +41,14 @@ namespace Xamarin.Auth.Sample.WinPhone81
                     "LinkedIn OAuth2",
                     "Github OAuth2",
                     "Instagram OAuth2",
-                 };
+                   };
 
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
 
-            return;
         }
 
-        private void itemList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
+        private void itemList_Tapped(object sender, TappedRoutedEventArgs e)
         {
             //TextView tv = v as TextView;
             string si = ((ListBox)sender).SelectedItem.ToString();
@@ -106,8 +109,11 @@ namespace Xamarin.Auth.Sample.WinPhone81
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
 
-            Uri uri = auth.GetUI();
-            (System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
+            //Uri uri = auth.GetUI();
+            Type page_type = auth.GetUI();
+
+            //(System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
+            this.Frame.Navigate(page_type, auth);
 
             return;
         }
@@ -151,21 +157,5 @@ namespace Xamarin.Auth.Sample.WinPhone81
             //_error.Show();
 
         }
-
-        // Sample code for building a localized ApplicationBar
-        //private void BuildLocalizedApplicationBar()
-        //{
-        //    // Set the page's ApplicationBar to a new instance of ApplicationBar.
-        //    ApplicationBar = new ApplicationBar();
-
-        //    // Create a new button and set the text value to the localized string from AppResources.
-        //    ApplicationBarIconButton appBarButton = new ApplicationBarIconButton(new Uri("/Assets/AppBar/appbar.add.rest.png", UriKind.Relative));
-        //    appBarButton.Text = AppResources.AppBarButtonText;
-        //    ApplicationBar.Buttons.Add(appBarButton);
-
-        //    // Create a new menu item with the localized string from AppResources.
-        //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
-        //    ApplicationBar.MenuItems.Add(appBarMenuItem);
-        //}
     }
 }

@@ -46,59 +46,47 @@
 			Android.
 		</summary>
 		<tags>
-			xamarin, pcl,
+			xamarin,
+			pcl,
+			android, monoandroid, monodroid, xamarin.android,
+			ios,  monotouch, xamarin.ios
+			<!--
 			plugin for xamarin, plugin,
-			settings,
-			windows phone, winphone, wp8, winrt,
-			android, monoandroid, monodroid,
 			xamarin.forms,
-			ios,  monotouch
+			-->
+			windows phone, winphone, wp8,
+			<!--
+			wp81
+			windows 8, winrt,
+			-->
 		</tags>
 		<frameworkAssemblies>
 			<frameworkAssembly
 				assemblyName="System.Json"
-				targetFramework="MonoTouch0.0"
+				targetFramework="MonoTouch10"
 				/>
 			<frameworkAssembly
 				assemblyName="System.Json"
-				targetFramework="MonoAndroid0.0"
+				targetFramework="MonoAndroid10"
 				/>
+				<frameworkAssembly
+					assemblyName="System.Json"
+					targetFramework="Xamarin.iOS10"
+					/>
 		</frameworkAssemblies>
 	</metadata>
 	<files>
 		<!--
+		src
+			on windows with \
+			on macosx with /
+		-->
+		<!--
 			Core - Portable
 		-->
 		<file
-			src="..\output\nuget\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll"
+			src="./output/nuget/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10/Xamarin.Auth.dll"
 			target="lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll"
-			>
-		</file>
-
-		<!--
-			Windows Phone 8 Silverlight
-		-->
-		<file
-			src="..\output\nuget\wp80\Xamarin.Auth.dll"
-			target="lib\wp8\Xamarin.Auth.dll"
-			>
-		</file>
-
-		<!--
-			Windows Phone 8.1
-		-->
-		<file
-			src="..\output\nuget\wp81\Xamarin.Auth.dll"
-			target="lib\wp81\Xamarin.Auth.dll"
-			>
-		</file>
-
-		<!--
-			Windows Store
-		-->
-		<file
-			src="..\output\nuget\win8\Xamarin.Auth.dll"
-			target="lib\win8\Xamarin.Auth.dll"
 			>
 		</file>
 
@@ -106,7 +94,7 @@
 			Xamarin.Android
 		-->
 		<file
-			src="..\output\nuget\MonoAndroid10\Xamarin.Auth.dll"
+			src="./output/nuget/MonoAndroid10/Xamarin.Auth.dll"
 			target="lib\MonoAndroid10\Xamarin.Auth.dll"
 			>
 		</file>
@@ -116,7 +104,7 @@
 				Unified
 		-->
 		<file
-			src="..\output\nuget\Xamarin.iOS10\Xamarin.Auth.dll"
+			src="./output/nuget/Xamarin.iOS10/Xamarin.Auth.dll"
 			target="lib\Xamarin.iOS10\Xamarin.Auth.dll"
 			>
 		</file>
@@ -125,10 +113,38 @@
 			Xamarin.iOS Classic
 		-->
 		<file
-			src="..\output\nuget\MonoTouch10\Xamarin.Auth.dll" 
+			src="./output/nuget/MonoTouch10/Xamarin.Auth.dll"
 			target="lib\MonoTouch10\Xamarin.Auth.dll"
 			>
 		</file>
+
+		<!--
+			Windows Phone 8 Silverlight
+		-->
+		<file
+			src="./output/nuget/wp80/Xamarin.Auth.dll"
+			target="lib\wp8\Xamarin.Auth.dll"
+			>
+		</file>
+
+		<!--
+			Windows Phone 8.1
+		<file
+			src="./output/nuget/wp81/Xamarin.Auth.dll"
+			target="lib\wp81\Xamarin.Auth.dll"
+			>
+		</file>
+		-->
+
+		<!--
+			Windows Store
+
+		<file
+			src="./output/nuget/win8/Xamarin.Auth.dll"
+			target="lib\win8\Xamarin.Auth.dll"
+			>
+		</file>
+		-->
 
 	</files>
 </package>
