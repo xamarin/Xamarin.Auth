@@ -1,0 +1,48 @@
+%YAML 1.2
+---
+version: 1.3.0.0
+name: Xamarin.Auth
+id: xamarin.auth
+publisher: Xamarin
+publisher-url: http://xamarin.com/
+summary: A cross-platform API for authenticating users and storing their accounts.
+details:
+  - Details.md
+license:
+  - License.md
+getting-started:
+  - GettingStarted.md
+screenshots:
+  - ./screenshots/00.png
+icons:
+  - ./icons/xamarin.auth_128x128.png
+  - ./icons/xamarin.auth_512x512.png
+#monodocs: docs
+no_build: true
+#build:
+#  - ../source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln
+#  - ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Samples.TraditionalStandard_MacOSX-Xamarin.Studio.sln
+#packages:
+#  "": Xamarin.Auth
+libraries:
+  android:
+    - ../output/component/ios/Xamarin.Auth.dll
+  ios-unified:
+    - ../output/component/ios-unified/Xamarin.Auth.dll
+  ios:
+    - ../output/component/ios/Xamarin.Auth.dll
+  winphone-8.0:
+    - ../output/component/winphone-8.0/Xamarin.Auth.dll
+  winphone-8.1:
+    - ../output/component/winphone-8.1/Xamarin.Auth.dll
+samples:
+  "Android Sample":
+    ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln
+  "iOS Unified Sample":
+    ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln
+  "iOS Classic Sample":
+    ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinIOS-Classic/Component.Sample.IOS-Classic.sln
+  "Windows Phone 8 Sample":
+    ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.WinPhone8/Component.Sample.WinPhone8.sln
+  "Windows Phone 8.1 Sample":
+    ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.WinPhone81/Component.Sample.WinPhone81.sln

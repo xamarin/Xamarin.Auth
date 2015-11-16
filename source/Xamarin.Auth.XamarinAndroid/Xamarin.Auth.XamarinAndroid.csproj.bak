@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkVersion>v5.1</TargetFrameworkVersion>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Json" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monoandroid\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\monoandroid\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="ModernHttpClient">
+      <HintPath>..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="OkHttp">
+      <HintPath>..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\OkHttp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
+      <Link>Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
+      <Link>AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
+      <Link>AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Authenticator.cs">
+      <Link>Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
+      <Link>AuthException.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
+      <Link>ExceptionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\FormAuthenticator.cs">
+      <Link>FormAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1.cs">
+      <Link>OAuth1.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1Authenticator.cs">
+      <Link>OAuth1Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1Request.cs">
+      <Link>OAuth1Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth2Authenticator.cs">
+      <Link>OAuth2Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth2Request.cs">
+      <Link>OAuth2Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Request.cs">
+      <Link>Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Response.cs">
+      <Link>Response.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\v.2\HttpWebClientFrameworkType.cs">
+      <Link>v.2\HttpWebClientFrameworkType.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebAuthenticator.cs">
+      <Link>WebAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebEx.cs">
+      <Link>WebEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebRedirectAuthenticator.cs">
+      <Link>WebRedirectAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
+      <Link>WebUtilities.cs</Link>
+    </Compile>
+    <Compile Include="Authenticator.XamarinAndroid.cs" />
+    <Compile Include="FormAuthenticator.XamarinAndroid.cs" />
+    <Compile Include="PlatformSpecific\ActivityEx.cs" />
+    <Compile Include="PlatformSpecific\ActivityStateRepository.cs" />
+    <Compile Include="PlatformSpecific\AndroidAccountStore.cs" />
+    <Compile Include="PlatformSpecific\FormAuthenticatorActivity.cs" />
+    <Compile Include="PlatformSpecific\WebAuthenticatorActivity.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="WebAuthenticator.XamarinAndroid.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Resources\AboutResources.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Resources\Values\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

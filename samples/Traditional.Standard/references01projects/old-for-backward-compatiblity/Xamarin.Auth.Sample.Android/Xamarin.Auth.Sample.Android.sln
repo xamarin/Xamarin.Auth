@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth Sample (Android)", "Xamarin.Auth Sample (Android).csproj", "{A0035902-A1F0-4613-A493-1B121FCA2BE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid", "..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj", "{D46E20A0-DBA9-49A5-B45E-CE4664850445}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A0035902-A1F0-4613-A493-1B121FCA2BE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0035902-A1F0-4613-A493-1B121FCA2BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0035902-A1F0-4613-A493-1B121FCA2BE1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{A0035902-A1F0-4613-A493-1B121FCA2BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0035902-A1F0-4613-A493-1B121FCA2BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D46E20A0-DBA9-49A5-B45E-CE4664850445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D46E20A0-DBA9-49A5-B45E-CE4664850445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D46E20A0-DBA9-49A5-B45E-CE4664850445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D46E20A0-DBA9-49A5-B45E-CE4664850445}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Xamarin.Auth Sample (Android).csproj
+	EndGlobalSection
+EndGlobal
