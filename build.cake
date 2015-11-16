@@ -4,11 +4,42 @@
 #addin "Cake.Xamarin"
 #addin "Cake.XCode"
 
-#load "../../common.cake"
+#load "../common.cake"
 //#load "../../common.moljac.cake"
 
 CakeSpec.Libs = new ISolutionBuilder []
 {
+	new DefaultSolutionBuilder {
+		IsWindowsCompatible = true,
+		IsMacCompatible = false,
+		SolutionPath = "./source/Xamarin.Auth-Library.Windows.VisualStudio-wo.Xamarin.Forms.sln",
+		OutputFiles = new [] {
+			new OutputFileCopy
+			{
+				FromFile = "./source/Xamarin.Auth.WindowsPhone8/Bin/Release/Xamarin.Auth.dll",
+				ToDirectory= "./output/wp80/"
+			},
+	      /*
+	      NOTE: postpone these until windows build cake works to build x86 and ARM
+
+				NOTE: xamarin-component has no library tag for WinRT
+
+				https://developer.xamarin.com/guides/cross-platform/advanced/submitting_components/component_submission_guide/#Compulsory_tags
+
+				new OutputFileCopy
+				{
+					FromFile = "./source/Xamarin.Auth.WindowsPhone81/Bin/ARM/Release/Xamarin.Auth.dll",
+					ToDirectory= "./output/wpa81/"
+				},
+				new OutputFileCopy
+				{
+					FromFile = "./source/Xamarin.Auth.WindowsStore81WinRT/Bin/ARM/Release/Xamarin.Auth.dll",
+					ToDirectory= "./output/win8/"
+				},
+	      */			
+		}
+
+	},
 	new IOSSolutionBuilder
 	{
 		// everything on MacOSX with Xamarin.Studio
@@ -63,86 +94,23 @@ CakeSpec.Libs = new ISolutionBuilder []
 			new OutputFileCopy
 			{
 				FromFile = "./source/Xamarin.Auth.Portable/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/component/pcl/"
+				ToDirectory= "./output/pcl/"
 			},
 			new OutputFileCopy
 			{
 				FromFile = "./source/Xamarin.Auth.XamarinAndroid/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/component/android/"
+				ToDirectory= "./output/android/"
 			},
 			new OutputFileCopy
 			{
 				FromFile = "./source/Xamarin.Auth.XamarinIOS/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/component/ios-unified/"
+				ToDirectory= "./output/ios-unified/"
 			},
 			new OutputFileCopy
 			{
 				FromFile = "./source/Xamarin.Auth.XamarinIOS-Classic/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/component/ios/"
+				ToDirectory= "./output/ios/"
 			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.WindowsPhone8/Bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/component/winphone-8.0/"
-			},
-      /*
-      NOTE: postpone these until windows build cake works to build x86 and ARM
-
-			NOTE: xamarin-component has no library tag for WinRT
-
-			https://developer.xamarin.com/guides/cross-platform/advanced/submitting_components/component_submission_guide/#Compulsory_tags
-
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.WindowsPhone81/Bin/ARM/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/component/winphone-8.1/"
-			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.WindowsStore81WinRT/Bin/ARM/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/win8/"
-			},
-      */
-			//-----------------------------------------------------------------------------
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.Portable/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10/"
-			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.XamarinAndroid/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/MonoAndroid10/"
-			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.XamarinIOS/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/Xamarin.iOS10/"
-			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.XamarinIOS-Classic/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/MonoTouch10/"
-			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.WindowsPhone8/Bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/wp80/"
-			},
-			/*
-      NOTE: postpone these until windows build cake works to build x86 and ARM
-
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.WindowsPhone81/Bin/ARM/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/wp81/"
-			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.WindowsStore81WinRT/Bin/ARM/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/nuget/win8/"
-			},
-			*/
 		}
 	},
 };
@@ -155,7 +123,7 @@ CakeSpec.Samples = new ISolutionBuilder []
 	},
 	new DefaultSolutionBuilder
 	{
-			SolutionPath = "./samples/Traditional.Standard/references01projects/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln"
+			SolutionPath = "./samples/Traditional.Standard/references01projects/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",			
 	},
 	new IOSSolutionBuilder
 	{
@@ -186,8 +154,5 @@ CakeSpec.NuSpecs = new []
 
 DefineDefaultTasks ();
 
-//RunTarget ("distclean");
-//RunTarget ("clean");
-RunTarget ("samples");
-RunTarget ("nuget");
-RunTarget ("component");
+RunTarget (TARGET);
+

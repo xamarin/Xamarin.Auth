@@ -26,15 +26,15 @@ no_build: true
 #  "": Xamarin.Auth
 libraries:
   android:
-    - ../output/component/ios/Xamarin.Auth.dll
+    - ../output/android/Xamarin.Auth.dll
   ios-unified:
-    - ../output/component/ios-unified/Xamarin.Auth.dll
+    - ../output/ios-unified/Xamarin.Auth.dll
   ios:
-    - ../output/component/ios/Xamarin.Auth.dll
+    - ../output/ios/Xamarin.Auth.dll
   winphone-8.0:
-    - ../output/component/winphone-8.0/Xamarin.Auth.dll
+    - ../output/wp80/Xamarin.Auth.dll
   winphone-8.1:
-    - ../output/component/winphone-8.1/Xamarin.Auth.dll
+    - ../output/wpa81/Xamarin.Auth.dll
 samples:
   "Android Sample":
     ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln
