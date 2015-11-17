@@ -129,22 +129,21 @@
 
 		<!--
 			Windows Phone 8.1
+		-->
 		<file
 			src="./output/wpa81/Xamarin.Auth.dll"
-			target="lib\wp81\Xamarin.Auth.dll"
+			target="lib\wpa81\Xamarin.Auth.dll"
 			>
 		</file>
-		-->
 
 		<!--
 			Windows Store
-
+		-->
 		<file
 			src="./output/win8/Xamarin.Auth.dll"
 			target="lib\win8\Xamarin.Auth.dll"
 			>
 		</file>
-		-->
 
 	</files>
 </package>
