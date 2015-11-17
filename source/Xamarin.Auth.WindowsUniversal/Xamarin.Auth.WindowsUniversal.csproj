@@ -7,8 +7,8 @@
     <ProjectGuid>{DB5B4EE0-F29D-4BE8-8254-0240A13FC2C4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth.WindowsUniversal</RootNamespace>
-    <AssemblyName>Xamarin.Auth.WindowsUniversal</AssemblyName>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10240.0</TargetPlatformVersion>

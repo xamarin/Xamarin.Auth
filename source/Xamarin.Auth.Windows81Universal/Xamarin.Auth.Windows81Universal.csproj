@@ -8,8 +8,8 @@
     <ProjectGuid>{5F4A04D8-7E74-44BB-8F5C-D9A6CFE93AED}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth.Windows81Universal</RootNamespace>
-    <AssemblyName>Xamarin.Auth.Windows81Universal</AssemblyName>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
