@@ -7,43 +7,77 @@
 #load "../common.cake"
 //#load "../../common.moljac.cake"
 
+var SLN_PATH = "./source/Xamarin.Auth-Library.Windows.VisualStudio-wo.Xamarin.Forms.sln";
+
 CakeSpec.Libs = new ISolutionBuilder []
 {
 	new DefaultSolutionBuilder {
+		SolutionPath = SLN_PATH,
+		Targets = new [] { "Xamarin_Auth_Portable" },
 		IsWindowsCompatible = true,
-		IsMacCompatible = false,
-		SolutionPath = "./source/Xamarin.Auth-Library.Windows.VisualStudio-wo.Xamarin.Forms.sln",
+		OutputFiles = new [] {
+			new OutputFileCopy {
+				FromFile = "./source/Xamarin.Auth.Portable/bin/Release/Xamarin.Auth.dll",
+				ToDirectory= "./output/pcl/"
+			},
+		}
+	},
+	new WpSolutionBuilder {
+		SolutionPath = SLN_PATH,
+		Targets = new [] { "Xamarin_Auth_WindowsPhone8" },	
 		OutputFiles = new [] {
 			new OutputFileCopy
 			{
 				FromFile = "./source/Xamarin.Auth.WindowsPhone8/Bin/Release/Xamarin.Auth.dll",
 				ToDirectory= "./output/wp80/"
 			},
-	      /*
-	      NOTE: postpone these until windows build cake works to build x86 and ARM
-
-				NOTE: xamarin-component has no library tag for WinRT
-
-				https://developer.xamarin.com/guides/cross-platform/advanced/submitting_components/component_submission_guide/#Compulsory_tags
-
-				new OutputFileCopy
-				{
-					FromFile = "./source/Xamarin.Auth.WindowsPhone81/Bin/ARM/Release/Xamarin.Auth.dll",
-					ToDirectory= "./output/wpa81/"
-				},
-				new OutputFileCopy
-				{
-					FromFile = "./source/Xamarin.Auth.WindowsStore81WinRT/Bin/ARM/Release/Xamarin.Auth.dll",
-					ToDirectory= "./output/win8/"
-				},
-	      */			
+		}
+	},
+	new WpSolutionBuilder {
+		SolutionPath = "./source/Xamarin.Auth-Library.Windows.VisualStudio-wo.Xamarin.Forms.sln",
+		Targets = new [] { "Xamarin_Auth_Windows81Universal" },
+		WpPlatformTarget = "Any Cpu",
+		OutputFiles = new [] {
+			new OutputFileCopy
+			{
+				FromFile = "./source/Xamarin.Auth.Windows81Universal/Bin/Release/Xamarin.Auth.dll",
+				ToDirectory= "./output/wpa81/"
+			},
+			new OutputFileCopy
+			{
+				FromFile = "./source/Xamarin.Auth.Windows81Universal/Bin/Release/Xamarin.Auth.dll",
+				ToDirectory= "./output/win81/"
+			},			 
 		}
 
+	},
+	// new WpSolutionBuilder {
+	// 	SolutionPath = SLN_PATH,
+	// 	Targets = new [] { "Xamarin_Auth_WindowsUniversal" },	
+	// 	OutputFiles = new [] {
+	// 		new OutputFileCopy
+	// 		{
+	// 			FromFile = "./source/Xamarin.Auth.WindowsUniversal/Bin/Release/Xamarin.Auth.dll",
+	// 			ToDirectory= "./output/uwp/"
+	// 		},
+	// 	}
+	// },
+	new DefaultSolutionBuilder {
+		SolutionPath = SLN_PATH,
+		Targets = new [] { "Xamarin_Auth_XamarinAndroid" },
+		IsWindowsCompatible = true,
+		OutputFiles = new [] {
+			new OutputFileCopy
+			{
+				FromFile = "./source/Xamarin.Auth.XamarinAndroid/bin/Release/Xamarin.Auth.dll",
+				ToDirectory= "./output/android/"
+			},
+		}
 	},
 	new IOSSolutionBuilder
 	{
 		// everything on MacOSX with Xamarin.Studio
-		SolutionPath = "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio-wo-Xamarin.Forms.sln",
+		SolutionPath = SLN_PATH,
 		OutputFiles = new []
 		{
 			/*
@@ -93,16 +127,6 @@ CakeSpec.Libs = new ISolutionBuilder []
 			*/
 			new OutputFileCopy
 			{
-				FromFile = "./source/Xamarin.Auth.Portable/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/pcl/"
-			},
-			new OutputFileCopy
-			{
-				FromFile = "./source/Xamarin.Auth.XamarinAndroid/bin/Release/Xamarin.Auth.dll",
-				ToDirectory= "./output/android/"
-			},
-			new OutputFileCopy
-			{
 				FromFile = "./source/Xamarin.Auth.XamarinIOS/bin/Release/Xamarin.Auth.dll",
 				ToDirectory= "./output/ios-unified/"
 			},
@@ -117,33 +141,47 @@ CakeSpec.Libs = new ISolutionBuilder []
 
 CakeSpec.Samples = new ISolutionBuilder []
 {
-	new IOSSolutionBuilder
-	{
-			SolutionPath = "./samples/Traditional.Standard/references01projects/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln"
+	new IOSSolutionBuilder {
+		SolutionPath = "./samples/Traditional.Standard/references01projects/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln"
 	},
-	new DefaultSolutionBuilder
-	{
-			SolutionPath = "./samples/Traditional.Standard/references01projects/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",			
+	new DefaultSolutionBuilder {
+		IsWindowsCompatible = true,
+		SolutionPath = "./samples/Traditional.Standard/references01projects/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",			
 	},
-	new IOSSolutionBuilder
-	{
-			SolutionPath = "./samples/Traditional.Standard/references01projects/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln"
+	new IOSSolutionBuilder {
+		SolutionPath = "./samples/Traditional.Standard/references01projects/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln"
 	},
+	// new DefaultSolutionBuilder {
+	// 	IsWindowsCompatible = true,
+	// 	SolutionPath = "./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
+	// },
+	// new IOSSolutionBuilder {
+	// 	SolutionPath = "./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	// },
+	// new WpSolutionBuilder {
+	// 	SolutionPath = "./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WinPhone8/Xamarin.Auth.Sample.WinPhone.sln",
+	// },
+	// new DefaultSolutionBuilder {
+	// 	IsWindowsCompatible = true,
+	// 	SolutionPath = "./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	// },
+	// new DefaultSolutionBuilder {
+	// 	IsWindowsCompatible = true,
+	// 	SolutionPath = "./samples/Traditional.Standard/references03component/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
+	// },
+	// new IOSSolutionBuilder {
+	// 	SolutionPath = "./samples/Traditional.Standard/references03component/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	// },
+	// new WpSolutionBuilder {
+	// 	SolutionPath = "./samples/Traditional.Standard/references03component/Xamarin.Auth.Sample.WinPhone8/Xamarin.Auth.Sample.WinPhone.sln",
+	// },
+	// new DefaultSolutionBuilder {
+	// 	IsWindowsCompatible = true,
+	// 	SolutionPath = "./samples/Traditional.Standard/references03component/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	// }
 	/*
-	./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln
-	./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln
-	./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WinPhone8/Xamarin.Auth.Sample.WinPhone.sln
-	./samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard.sln
-	./samples/Traditional.Standard/references03component/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln
-	./samples/Traditional.Standard/references03component/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln
-	./samples/Traditional.Standard/references03component/Xamarin.Auth.Sample.WinPhone8/Xamarin.Auth.Sample.WinPhone.sln
-	./samples/Traditional.Standard/references03component/Xamarin.Auth.Samples.TraditionalStandard.sln
 	./samples/Xamarin.Auth.Samples.sln
 	./samples/Xamarin.Forms/references01project/XamarinAuth.XamarinForms.sln
-	new DefaultSolutionBuilder
-	{
-			SolutionPath = ""
-	},
 	*/
 };
 
