@@ -35,8 +35,8 @@ libraries:
     - ../output/wp80/Xamarin.Auth.dll
   winphone-8.1:
     - ../output/wpa81/Xamarin.Auth.dll
-  win-8.0:
-    - ../output/win8/Xamarin.Auth.dll
+  win-8.1:
+    - ../output/win81/Xamarin.Auth.dll
 samples:
   "Android Sample":
     ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln
