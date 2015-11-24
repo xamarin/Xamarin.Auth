@@ -84,8 +84,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PageLoginRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Auth.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="README_FIRST.txt" />
