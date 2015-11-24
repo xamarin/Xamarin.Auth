@@ -164,6 +164,6 @@
   </Target>
   -->
   <ItemGroup>
-    <Compile Include="PageLoginRenderer.cs" />
+    <Compile Include="Auth.cs" />
   </ItemGroup>
 </Project>
