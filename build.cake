@@ -7,12 +7,13 @@
 #load "../common.cake"
 //#load "../../common.moljac.cake"
 
-var SLN_PATH = "./source/Xamarin.Auth-Library.Windows.VisualStudio-wo.Xamarin.Forms.sln";
+var WIN_SLN_PATH = "./source/Xamarin.Auth-Library.Windows.VisualStudio-wo.Xamarin.Forms.sln";
+var MAC_SLN_PATH = "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio-wo-Xamarin.Forms.sln";
 
 CakeSpec.Libs = new ISolutionBuilder []
 {
 	new DefaultSolutionBuilder {
-		SolutionPath = SLN_PATH,
+		SolutionPath = WIN_SLN_PATH,
 		Targets = new [] { "Xamarin_Auth_Portable" },
 		IsWindowsCompatible = true,
 		OutputFiles = new [] {
@@ -23,7 +24,7 @@ CakeSpec.Libs = new ISolutionBuilder []
 		}
 	},
 	new WpSolutionBuilder {
-		SolutionPath = SLN_PATH,
+		SolutionPath = WIN_SLN_PATH,
 		Targets = new [] { "Xamarin_Auth_WindowsPhone8" },	
 		OutputFiles = new [] {
 			new OutputFileCopy
@@ -34,7 +35,7 @@ CakeSpec.Libs = new ISolutionBuilder []
 		}
 	},
 	new WpSolutionBuilder {
-		SolutionPath = "./source/Xamarin.Auth-Library.Windows.VisualStudio-wo.Xamarin.Forms.sln",
+		SolutionPath = WIN_SLN_PATH,
 		Targets = new [] { "Xamarin_Auth_Windows81Universal" },
 		WpPlatformTarget = "Any Cpu",
 		OutputFiles = new [] {
@@ -52,7 +53,7 @@ CakeSpec.Libs = new ISolutionBuilder []
 
 	},
 	// new WpSolutionBuilder {
-	// 	SolutionPath = SLN_PATH,
+	// 	SolutionPath = WIN_SLN_PATH,
 	// 	Targets = new [] { "Xamarin_Auth_WindowsUniversal" },	
 	// 	OutputFiles = new [] {
 	// 		new OutputFileCopy
@@ -63,7 +64,7 @@ CakeSpec.Libs = new ISolutionBuilder []
 	// 	}
 	// },
 	new DefaultSolutionBuilder {
-		SolutionPath = SLN_PATH,
+		SolutionPath = WIN_SLN_PATH,
 		Targets = new [] { "Xamarin_Auth_XamarinAndroid" },
 		IsWindowsCompatible = true,
 		OutputFiles = new [] {
@@ -77,7 +78,7 @@ CakeSpec.Libs = new ISolutionBuilder []
 	new IOSSolutionBuilder
 	{
 		// everything on MacOSX with Xamarin.Studio
-		SolutionPath = SLN_PATH,
+		SolutionPath = MAC_SLN_PATH,		
 		OutputFiles = new []
 		{
 			/*
