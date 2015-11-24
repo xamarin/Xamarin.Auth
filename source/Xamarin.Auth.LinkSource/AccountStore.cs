@@ -29,7 +29,7 @@ namespace Xamarin.Auth
 	public abstract class AccountStore
 #endif
 	{
-#if __IOS__//PLATFORM_IOS
+#if PLATFORM_IOS
 		/// <summary>
 		/// Create an account store.
 		/// </summary>
@@ -37,7 +37,7 @@ namespace Xamarin.Auth
 		{
 			return new KeyChainAccountStore ();
 		}
-#elif __ANDROID__//PLATFORM_ANDROID
+#elif PLATFORM_ANDROID
 		/// <summary>
 		/// Create an account store.
 		/// </summary>
@@ -45,7 +45,7 @@ namespace Xamarin.Auth
 		{
 			return new AndroidAccountStore (context);
 		}
-#elif __WINPHONE__//PLATFORM_WINPHONE
+#elif PLATFORM_WINPHONE
 		/// <summary>
 		/// Create an account store.
 		/// </summary>
