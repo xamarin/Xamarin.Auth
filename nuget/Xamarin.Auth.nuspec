@@ -140,8 +140,8 @@
 			Windows Store
 		-->
 		<file
-			src="./output/win8/Xamarin.Auth.dll"
-			target="lib\win8\Xamarin.Auth.dll"
+			src="./output/win81/Xamarin.Auth.dll"
+			target="lib\win81\Xamarin.Auth.dll"
 			>
 		</file>
 
