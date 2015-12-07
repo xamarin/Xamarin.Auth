@@ -165,6 +165,10 @@
       <Project>{8F5F3994-1BE1-4503-997A-800B764322B2}</Project>
       <Name>Xamarin.Auth.XamarinIOS-Classic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
+      <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
+      <Name>Xamarin.Auth.SampleData</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SampleData\" />

@@ -17,7 +17,7 @@ namespace Xamarin.Auth.XamarinForms
 		/// <summary>
 		/// OAuth
 		/// </summary>
-		public Xamarin.Auth.Helpers.OAuth OAuth
+		public virtual Xamarin.Auth.Helpers.OAuth OAuth
 		{
 			get
 			{

@@ -169,6 +169,9 @@
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="WPAccountStore.cs" />
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\AccountStore.WindowsPhone.cs">
+      <Link>AccountStore.WindowsPhone.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

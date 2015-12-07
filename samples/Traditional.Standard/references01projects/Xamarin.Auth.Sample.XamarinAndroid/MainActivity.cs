@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
@@ -8,7 +11,6 @@ using Android.Widget;
 using Android.OS;
 
 using Xamarin.Auth.SampleData;
-using System.Text;
 
 namespace Xamarin.Auth.Sample.XamarinAndroid
 {
@@ -37,48 +39,67 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 			return;
 		}
 
+		string provider = null;
+
 		protected override void OnListItemClick (ListView l, View v, int position, long id)
 		{
 			TextView tv = v as TextView;
-			string provider = tv.Text;
+			provider = tv.Text;
 
 			switch (provider)
 			{
 				case "Facebook OAuth2":
-					Authenticate(Data.TestCases["Facebook OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Twitter OAuth1":
-					Authenticate(Data.TestCases["Twitter OAuth1"] as Xamarin.Auth.Helpers.OAuth1);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
 					break;
 				case "Google OAuth2":
-					Authenticate(Data.TestCases["Google OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Microsoft Live OAuth2":
-					Authenticate(Data.TestCases["Microsoft Live OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "LinkedIn OAuth1":
-					Authenticate(Data.TestCases["LinkedIn OAuth1"] as Xamarin.Auth.Helpers.OAuth1);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
 					break;
 				case "LinkedIn OAuth2":
-					Authenticate(Data.TestCases["LinkedIn OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Github OAuth2":
-					Authenticate(Data.TestCases["Github OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Instagram OAuth2":
-					Authenticate(Data.TestCases["Instagram OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				default:
 					Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
 					break;
 			};
-			var list = Data.TestCases;
 
 			return;
 		}
 
 		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
 		{
+			OAuth1Authenticator auth = new OAuth1Authenticator 
+				(
+					consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
+					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
+					authorizeUrl: oauth1.OAuth_UriAuthorization,
+					accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
+				);
+
+			auth.AllowCancel = oauth1.AllowCancel;
+
+			// If authorization succeeds or is canceled, .Completed will be fired.
+			auth.Completed += Auth_Completed;
+
+			var intent = auth.GetUI (this);
+			StartActivity (intent);
+
 			return;
 		}
 
@@ -103,7 +124,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 			return;
 		}
 
-		public async void Auth_Completed (object sender, AuthenticatorCompletedEventArgs ee)
+		public void Auth_Completed (object sender, AuthenticatorCompletedEventArgs ee)
 		{
 			var builder = new AlertDialog.Builder (this);
 
@@ -113,6 +134,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 			}
 			else 
 			{
+				AccountStoreTests (ee);
+
 				try 
 				{
 					AuthenticationResult ar = new AuthenticationResult()
@@ -143,10 +166,26 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 				}
 			}
 
+			//ee.Account
+
 			builder.SetPositiveButton ("Ok", (o, e) => { });
 			builder.Create().Show();
 
 			return;	
+		}
+
+		private void AccountStoreTests (AuthenticatorCompletedEventArgs ee)
+		{
+			AccountStore account_store = AccountStore.Create(this);
+			account_store.Save (ee.Account, provider);	
+			Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+
+			AccountStore.Create(this).Save(ee.Account, provider + ".v.2");
+			// throws on iOS
+			//
+			Account account2 = AccountStore.Create(this).FindAccountsForService(provider+ ".v.2").FirstOrDefault();
+
+			return;
 		}
 	}
 }

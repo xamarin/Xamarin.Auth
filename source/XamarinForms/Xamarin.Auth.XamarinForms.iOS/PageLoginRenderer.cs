@@ -2,26 +2,32 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Auth.Helpers;
 
+#if __UNIFIED__
 using Foundation;
 using UIKit;
-
+#else
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+#endif
 
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
+using Xamarin.Auth.XamarinForms;
 
 [assembly: 
 	Xamarin.Forms.ExportRenderer
 			(
 			// ViewElement to be rendered (from Portable/Shared)
-			typeof(HolisticWare.XamarinForms.Authentication.PageLogin),
+			typeof(Xamarin.Auth.XamarinForms.PageLogin),
 			// platform specific Renderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
-			typeof(HolisticWare.XamarinForms.Authentication.XamarinIOS.PageLoginRenderer)
+			typeof(Xamarin.Auth.XamarinForms.XamarinIOS.PageLoginRenderer)
 			)
 ]
 
-namespace HolisticWare.XamarinForms.Authentication.XamarinIOS
+namespace Xamarin.Auth.XamarinForms.XamarinIOS
 {
 	public partial class PageLoginRenderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
 	{
@@ -50,31 +56,18 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinIOS
 
 				IsShown = true;
 
-				// TODO: polymorfic
-				HolisticWare.Auth.OAuth1 oauth1 = this.OAuth as HolisticWare.Auth.OAuth1;
-				HolisticWare.Auth.OAuth2 oauth2 = this.OAuth as HolisticWare.Auth.OAuth2;
 
-				if (null != oauth1)
+				if (null != this.OAuth)
 				{
-					Login(oauth1);
+					Login(this.OAuth);
 					return;
 				}
-
-				if (null != oauth2)
-				{
-					Login(oauth2);
-					return;
-				}
-
-				throw new ArgumentOutOfRangeException("Unknown OAuth");
-				/*
-
-				*/
 			}
+
 			return;
 		}
 
-		private void Login (HolisticWare.Auth.OAuth1 oauth1)
+		private void Login (Xamarin.Auth.Helpers.OAuth1 oauth1)
 		{
 			global::Xamarin.Auth.OAuth1Authenticator auth = 
 					new global::Xamarin.Auth.OAuth1Authenticator 
@@ -88,7 +81,7 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinIOS
 						getUsernameAsync: null
 						);
 
-			auth.Completed += auth_Completed;
+			auth.Completed += Auth_Completed;
 
 			PresentViewController (auth.GetUI (), true, null);
 
@@ -96,7 +89,7 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinIOS
 		}
 
 
-		private void Login (HolisticWare.Auth.OAuth2 oauth2)
+		private void Login (Xamarin.Auth.Helpers.OAuth2 oauth2)
 		{
 			global::Xamarin.Auth.OAuth2Authenticator auth = null;
 
@@ -135,14 +128,14 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinIOS
 						);
 
 			}
-			auth.Completed += auth_Completed;
+			auth.Completed += Auth_Completed;
 
 			PresentViewController (auth.GetUI (), true, null);
 
 			return;
 		}
 
-		private void auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
+		private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
 		{
 			if (e.IsAuthenticated)
 			{
@@ -167,7 +160,7 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinIOS
 			return;
 		}
 
-		public HolisticWare.Auth.OAuth OAuth
+		public OAuth Oauth
 		{
 			get;
 			set;

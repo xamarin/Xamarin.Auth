@@ -7,19 +7,21 @@ using Android.App;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
+using Xamarin.Auth.XamarinForms;
+using Xamarin.Auth;
+using Xamarin.Auth.Helpers;
 
 
 [assembly: 
 	Xamarin.Forms.ExportRenderer
 			(
 			// ViewElement to be rendered (from Portable/Shared)
-			typeof(HolisticWare.XamarinForms.Authentication.PageLogin),
+			typeof(Xamarin.Auth.XamarinForms.PageLogin),
 			// platform specific Renderer : global::Xamarin.Forms.Platform.XamarinIOS.PageRenderer
-			typeof(HolisticWare.XamarinForms.Authentication.XamarinAndroid.PageLoginRenderer)
+			typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.PageLoginRenderer)
 			)
 ]
-
-namespace HolisticWare.XamarinForms.Authentication.XamarinAndroid
+namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 {
 	public partial class PageLoginRenderer : global::Xamarin.Forms.Platform.Android.PageRenderer
 	{
@@ -33,8 +35,6 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinAndroid
 
 			PageLogin e_new = e.NewElement as PageLogin;
 
-			this.OAuth = e_new.OAuth;
-
 			// PageRenderer is a ViewGroup - so should be able to load an AXML file and FindView<>
 			activity = this.Context as Activity;
 
@@ -43,49 +43,33 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinAndroid
 
 				IsShown = true;
 
-				// TODO: polymorfic
-				HolisticWare.Auth.OAuth1 oauth1 = this.OAuth as HolisticWare.Auth.OAuth1;
-				HolisticWare.Auth.OAuth2 oauth2 = this.OAuth as HolisticWare.Auth.OAuth2;
-
-				if (null != oauth1)
+				if (null != e_new.OAuth)
 				{
-					Login(oauth1);
+					this.Authenticate(e_new.OAuth);
 					return;
 				}
-
-				if (null != oauth2)
-				{
-					Login(oauth2);
-					return;
-				}
-
-				throw new ArgumentOutOfRangeException("Unknown OAuth");
-				/*
-
-				*/
 			}
-			return;
 			return;
 		}
 
 		Android.App.Activity activity = null;
 
-
-		private void Login (HolisticWare.Auth.OAuth1 oauth1)
+		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
 		{
-			global::Xamarin.Auth.OAuth1Authenticator auth = 
-					new global::Xamarin.Auth.OAuth1Authenticator 
-						(
-						consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-						consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
-						requestTokenUrl: oauth1.OAuth1_UriRequestToken,
-						authorizeUrl: oauth1.OAuth_UriAuthorization, 
-						accessTokenUrl: oauth1.OAuth1_UriAccessToken, 
-						callbackUrl: oauth1.OAuth_UriCallbackAKARedirect, 
-						getUsernameAsync: null
-						);
+			OAuth1Authenticator auth = new OAuth1Authenticator 
+				(
+					consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
+					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
+					authorizeUrl: oauth1.OAuth_UriAuthorization,
+					accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
+				);
 
-			auth.Completed += auth_Completed;
+			auth.AllowCancel = oauth1.AllowCancel;
+
+			// If authorization succeeds or is canceled, .Completed will be fired.
+			auth.Completed += Auth_Completed;
 
 			activity.StartActivity (auth.GetUI(activity));
 
@@ -93,53 +77,29 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinAndroid
 		}
 
 
-		private void Login (HolisticWare.Auth.OAuth2 oauth2)
+
+		private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
 		{
-			global::Xamarin.Auth.OAuth2Authenticator auth = null;
+			OAuth2Authenticator auth = new OAuth2Authenticator 
+				(
+					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					scope: oauth2.OAuth2_Scope,
+					authorizeUrl: oauth2.OAuth_UriAuthorization,
+					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
+				);
 
-			if (
-				null == oauth2.OAuth1_UriAccessToken)
-			{
-				try
-				{
-					auth = 
-						new global::Xamarin.Auth.OAuth2Authenticator 
-						(
-						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-						scope: oauth2.OAuth2_Scope,
-						authorizeUrl: oauth2.OAuth_UriAuthorization,
-						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-						getUsernameAsync: null
-					);
-				}
-				catch (System.Exception exc)
-				{
-					throw exc;
-				}
-			}
-			else
-			{
-				auth = 
-					new global::Xamarin.Auth.OAuth2Authenticator 
-						(
-						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer, 
-						clientSecret: oauth2.OAuth1_SecretKey_ConsumerSecret_APISecret,
-						scope: oauth2.OAuth2_Scope,
-						authorizeUrl: oauth2.OAuth_UriAuthorization,
-						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-						accessTokenUrl: oauth2.OAuth1_UriAccessToken,
-						getUsernameAsync: null
-						);
+			auth.AllowCancel = oauth2.AllowCancel;
 
-			}
-			auth.Completed += auth_Completed;
+			// If authorization succeeds or is canceled, .Completed will be fired.
+			auth.Completed += Auth_Completed;
 
 			activity.StartActivity (auth.GetUI(activity));
 
 			return;
 		}
 
-		private void auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
+
+		private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
 		{
 			if (e.IsAuthenticated)
 			{
@@ -166,7 +126,7 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinAndroid
 			return;
 		}
 
-		public HolisticWare.Auth.OAuth OAuth
+		public OAuth Oauth
 		{
 			get;
 			set;

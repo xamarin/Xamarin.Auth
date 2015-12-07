@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -117,16 +117,6 @@
   			actual secure/secrt/private data in partial methods
   -->
   <ItemGroup>
-    <Compile Include="SampleData\AuthenticationResult.cs" />
-    <Compile Include="SampleData\Data.cs" />
-    <Compile Include="SampleData\Providers\Data.Facebook.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Github.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Google.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Instagram.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth1.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.MicrosoftLive.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Twitter.OAuth1.cs" />
     <Compile Include="..\..\..\Xamarin.Auth.Sample.Data\SampleData\Providers\*.secure.cs">
       <Link>SampleData\Providers\*.secure.cs</Link>
     </Compile>
@@ -138,9 +128,6 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="Xamarin.Auth.Sample.w81WinRT_TemporaryKey.pfx" />
-    <None Include="SampleData\Providers\readme.md" />
-    <None Include="SampleData\Providers\.gitignore" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.scale-100.png" />

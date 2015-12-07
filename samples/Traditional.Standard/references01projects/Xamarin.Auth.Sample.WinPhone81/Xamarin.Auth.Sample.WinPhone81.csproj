@@ -147,7 +147,6 @@
     <None Include="Properties\WMAppManifest.xml">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SampleData\Providers\.gitignore" />
     <None Include="SampleData\Providers\readme.md" />
   </ItemGroup>
   <ItemGroup>

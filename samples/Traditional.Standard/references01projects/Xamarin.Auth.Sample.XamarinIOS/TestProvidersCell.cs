@@ -1,6 +1,7 @@
-﻿
-using System;
+﻿using System;
 using System.Text;
+using System.Collections.Generic;
+using System.Linq;
 
 #if ! __CLASSIC__
 using Foundation;
@@ -24,46 +25,71 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			TextLabel.Text = "TextLabel";
 		}
 
+		string provider = null;
+
 		public override void TouchesBegan (NSSet touches, UIEvent evt)
 		{
-			string provider = this.TextLabel.Text;
+			provider = this.TextLabel.Text;
 
 			switch (provider)
 			{
 				case "Facebook OAuth2":
-					Authenticate(Data.TestCases["Facebook OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Twitter OAuth1":
-					Authenticate(Data.TestCases["Twitter OAuth1"] as Xamarin.Auth.Helpers.OAuth1);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
 					break;
 				case "Google OAuth2":
-					Authenticate(Data.TestCases["Google OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Microsoft Live OAuth2":
-					Authenticate(Data.TestCases["Microsoft Live OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "LinkedIn OAuth1":
-					Authenticate(Data.TestCases["LinkedIn OAuth1"] as Xamarin.Auth.Helpers.OAuth1);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
 					break;
 				case "LinkedIn OAuth2":
-					Authenticate(Data.TestCases["LinkedIn OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Github OAuth2":
-					Authenticate(Data.TestCases["Github OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Instagram OAuth2":
-					Authenticate(Data.TestCases["Instagram OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				default:
 					UIAlertView _error = new UIAlertView ("Error", "Unknown OAuth Provider!", null, "Ok", null);
 					_error.Show ();
 					break;
 			};
-			var list = Data.TestCases;
+
+			return;
 		}
 
 		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
 		{
+			OAuth1Authenticator auth = new OAuth1Authenticator 
+				(
+					consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
+					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
+					authorizeUrl: oauth1.OAuth_UriAuthorization,
+					accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
+				);
+
+			auth.AllowCancel = oauth1.AllowCancel;
+
+			// If authorization succeeds or is canceled, .Completed will be fired.
+			auth.Completed += Auth_Completed;
+
+			UIViewController vc = auth.GetUI ();
+
+			UIView sv1 = this.Superview;
+			UITableView sv2 = (UITableView) sv1.Superview;
+			UIWindow sv3 = (UIWindow) sv2.Superview;
+			sv3.RootViewController.PresentViewController(vc, true, null);
+
 			return;
 		}
 
@@ -103,6 +129,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			}
 			else 
 			{
+				AccountStoreTests (ee);
+
 				try 
 				{
 					AuthenticationResult ar = new AuthenticationResult()
@@ -126,10 +154,23 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 				}
 			}
 
-
 			UIAlertView _error = new UIAlertView (title, msg, null, "Ok", null);
 			_error.Show ();
 
+		}
+
+		private void AccountStoreTests (AuthenticatorCompletedEventArgs ee)
+		{
+			AccountStore account_store = AccountStore.Create();
+			account_store.Save (ee.Account, provider);	
+			Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+
+			AccountStore.Create().Save(ee.Account, provider + ".v.2");
+			// throws on iOS
+			//
+			Account account2 = AccountStore.Create().FindAccountsForService(provider+ ".v.2").FirstOrDefault();
+
+			return;
 		}
 	}
 }

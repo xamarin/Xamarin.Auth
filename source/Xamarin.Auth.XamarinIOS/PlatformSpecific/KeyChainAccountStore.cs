@@ -13,6 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
+
+#define TEST_MARK_T
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +46,11 @@ namespace Xamarin.Auth
 
 		Account GetAccountFromRecord (SecRecord r)
 		{
+			#if ! TEST_MARK_T
 			var serializedData = NSString.FromData (r.Generic, NSStringEncoding.UTF8);
+			#else
+			var serializedData = NSString.FromData (r.ValueData, NSStringEncoding.UTF8);
+			#endif
 			return Account.Deserialize (serializedData);
 		}
 
@@ -91,8 +98,11 @@ namespace Xamarin.Auth
 			// mc++ mc#
 			// Mark Taparauskas suggetsion:
 			//		.Generic is not encrypted
-			//record.Generic = data;
+			#if ! TEST_MARK_T
+			record.Generic = data;
+			#else
 			record.ValueData = data;
+			#endif
 			//------------------------------------------------------
 			record.Accessible = SecAccessible.WhenUnlocked;
 

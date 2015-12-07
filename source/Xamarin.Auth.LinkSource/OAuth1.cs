@@ -127,8 +127,8 @@ namespace Xamarin.Auth
 			var msg = 
 				@"
 					TODO: 
-					Get-Project HolisticWare.Auth.Portable | Install-Package System.Security.Cryptography.Hashing -Pre
-					Get-Project HolisticWare.Auth.Portable | Install-Package System.Security.Cryptography.Hashing.Algorithms -Pre
+					Get-Project Xamarin.Auth.Portable | Install-Package System.Security.Cryptography.Hashing -Pre
+					Get-Project Xamarin.Auth.Portable | Install-Package System.Security.Cryptography.Hashing.Algorithms -Pre
 				";
 
 #endif
