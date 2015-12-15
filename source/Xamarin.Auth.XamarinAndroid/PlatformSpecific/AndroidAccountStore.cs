@@ -50,12 +50,25 @@ namespace Xamarin.Auth
 
 			try {
 				lock (fileLock) {
-					using (var s = context.OpenFileInput (FileName)) {
-						ks.Load (s, Password);
+                    if (! System.IO.File.Exists(FileName))
+                    {
+                        LoadEmptyKeyStore (Password);
+                    }
+                    else
+                    {
+    					using (var s = context.OpenFileInput (FileName)) {
+    						ks.Load (s, Password);
+                            }
 					}
 				}
 			}
-			catch (FileNotFoundException) {
+            catch (System.IO.FileNotFoundException) {
+                System.Diagnostics.Debug.WriteLine("System.IO.FileNotFoundException caught for AccountStore");
+                //ks.Load (null, Password);
+                LoadEmptyKeyStore (Password);
+            }
+			catch (Java.IO.FileNotFoundException) {
+                System.Diagnostics.Debug.WriteLine("Java.IO.FileNotFoundException caught for AccountStore");
 				//ks.Load (null, Password);
 				LoadEmptyKeyStore (Password);
 			}

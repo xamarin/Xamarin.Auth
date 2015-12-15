@@ -42,7 +42,6 @@ namespace Xamarin.Auth
 
 			throw new NotSupportedException (msg);
 		}
-
 	}
 }
 

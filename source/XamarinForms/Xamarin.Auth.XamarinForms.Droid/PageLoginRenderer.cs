@@ -142,7 +142,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 			}
 			set
 			{
-				this.OAuth.AccountProperties = account_properties = value;
+				account_properties = value;
 			}
 		}
 	}

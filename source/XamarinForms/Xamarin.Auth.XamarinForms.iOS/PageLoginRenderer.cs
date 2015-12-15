@@ -42,7 +42,6 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
 
 			PageLogin e_new = e.NewElement as PageLogin;
 
-			this.OAuth = e_new.OAuth;
 
 			return;
 		}
@@ -56,12 +55,6 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
 
 				IsShown = true;
 
-
-				if (null != this.OAuth)
-				{
-					Login(this.OAuth);
-					return;
-				}
 			}
 
 			return;
@@ -176,7 +169,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
 			}
 			set
 			{
-				this.OAuth.AccountProperties = account_properties = value;
+				account_properties = value;
 			}
 		}
 	}

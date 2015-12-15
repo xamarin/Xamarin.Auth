@@ -50,6 +50,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{74D18E15-01C3-403B-95E3-7FCBFAAA4376}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

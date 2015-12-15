@@ -15,24 +15,28 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using Xamarin.Utilities;
-
-
-using AuthenticateUIType = System.Uri;
 
 namespace Xamarin.Auth
 {
 	/// <summary>
-	/// A process and user interface to authenticate a user.
+	/// A persistent storage for <see cref="Account"/>s. This storage is encrypted.
+	/// Accounts are stored using a service ID and the username of the account
+	/// as a primary key.
 	/// </summary>
 #if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class Authenticator
+	internal abstract class AccountStore
 #else
-	public abstract partial class Authenticator
+	public abstract partial class AccountStore
 #endif
 	{
-	}
+        /// <summary>
+        /// Create an account store.
+        /// </summary>
+        public static AccountStore Create()
+        {
+            return new WindowsPhone.WPAccountStore();
+        }
+
+    }
 }
 

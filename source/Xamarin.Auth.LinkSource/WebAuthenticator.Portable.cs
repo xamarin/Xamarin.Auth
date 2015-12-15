@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2013, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -17,40 +17,24 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-using Xamarin.Utilities;
-
 
 using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
 	/// <summary>
-	/// A process and user interface to authenticate a user.
+	/// An authenticator that displays a web page.
 	/// </summary>
 #if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class Authenticator
+	internal abstract partial class WebAuthenticator
 #else
-	public abstract partial class Authenticator
+	public abstract partial class WebAuthenticator 
 #endif
 	{
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		public AuthenticateUIType GetUI()
+		protected override AuthenticateUIType GetPlatformUI()
 		{
-			return GetPlatformUI();
+			throw new NotSupportedException("WebAuthenticator not supported on this platform.");
 		}
-
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected abstract AuthenticateUIType GetPlatformUI();
 	}
 }
 

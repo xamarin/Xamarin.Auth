@@ -52,20 +52,6 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <!--
-  ======================================================================================
-  Classes with partial methods 
-  		*.secure.cs
-  			actual secure/secrt/private data in partial methods
-  -->
-  <ItemGroup>
-    <Compile Include="..\..\..\Xamarin.Auth.Sample.Data\SampleData\Providers\*.secure.cs">
-      <Link>SampleData\Providers\*.secure.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <!--
-  ======================================================================================
-  -->
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
@@ -86,6 +72,10 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
+      <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
+      <Name>Xamarin.Auth.SampleData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
       <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
       <Name>Xamarin.Auth.Helpers</Name>
@@ -93,10 +83,6 @@
     <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
       <Project>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</Project>
       <Name>Xamarin.Auth.XamarinAndroid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
-      <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
-      <Name>Xamarin.Auth.SampleData</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -162,6 +162,7 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
+    <Compile Include="AccountStore.WindowsPhone.cs" />
     <Compile Include="Authenticator.WindowsPhone.cs" />
     <Compile Include="FormAuthenticator.WindowsPhone.cs" />
     <Compile Include="WebAuthenticator.WindowsPhone.cs" />
@@ -169,9 +170,6 @@
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="WPAccountStore.cs" />
-    <Compile Include="..\Xamarin.Auth.XamarinIOS\AccountStore.WindowsPhone.cs">
-      <Link>AccountStore.WindowsPhone.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

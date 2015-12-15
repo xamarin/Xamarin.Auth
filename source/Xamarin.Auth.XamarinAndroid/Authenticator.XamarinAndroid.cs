@@ -39,6 +39,7 @@ namespace Xamarin.Auth
 			this.context = context;
 			return GetPlatformUI(context);
 		}
+
 		protected abstract AuthenticateUIType GetPlatformUI(UIContext context);
 	}
 }

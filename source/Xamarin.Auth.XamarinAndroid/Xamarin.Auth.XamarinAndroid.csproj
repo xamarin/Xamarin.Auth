@@ -16,6 +16,7 @@
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <RestorePackages>true</RestorePackages>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

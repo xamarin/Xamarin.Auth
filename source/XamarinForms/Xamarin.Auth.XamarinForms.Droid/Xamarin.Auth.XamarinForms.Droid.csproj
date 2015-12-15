@@ -16,6 +16,8 @@
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
     <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -25,6 +27,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,8 +36,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FormsViewGroup, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
@@ -56,25 +64,21 @@
     <Reference Include="Xamarin.Android.Support.Design">
       <HintPath>..\..\packages\Xamarin.Android.Support.Design.23.0.1.3\lib\MonoAndroid403\Xamarin.Android.Support.Design.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Forms.Platform.Android">
-      <HintPath>..\..\..\samples\Xamarin.Forms\references01project\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Platform.Android.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="FormsViewGroup">
-      <HintPath>..\..\..\samples\Xamarin.Forms\references01project\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\FormsViewGroup.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xamarin.Forms.Platform, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Xamarin.Forms.Core">
-      <HintPath>..\..\..\samples\Xamarin.Forms\references01project\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xamarin.Forms.Platform.Android, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Platform.Android.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\..\..\samples\Xamarin.Forms\references01project\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Xamarin.Forms.Platform">
-      <HintPath>..\..\..\samples\Xamarin.Forms\references01project\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="Xamarin.Forms.Xaml, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Xamarin.Forms.2.0.0.6490\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -83,6 +87,7 @@
     <Compile Include="PageLoginRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="packages.config" />
     <None Include="PageLoginRenderer.Sample.cs" />
@@ -115,4 +120,11 @@
       <Name>Xamarin.Auth.XamarinForms</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.2.0.0.6490\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets'))" />
+  </Target>
 </Project>

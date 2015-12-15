@@ -34,6 +34,11 @@ using Xamarin.Utilities;
 //using AuthenticateUIType = System.Object;
 //#endif
 //--------------------------------------------------------------------
+#if PORTABLE
+using AuthenticateUIType = System.Object;
+#else
+using AuthenticateUIType = System.Object;
+#endif
 
 namespace Xamarin.Auth
 {
@@ -311,18 +316,18 @@ namespace Xamarin.Auth
 		/// Used by Android to fill in the result on the activity
 		/// </summary>
 		public Func<Account, AccountResult> GetAccountResult { get; set; }
-		//---------------------------------------------------------------------------------------
-		# endregion
+        //---------------------------------------------------------------------------------------
+        #endregion
 
-	}
+    }
 
-	/// <summary>
-	/// Authenticator completed event arguments.
-	/// </summary>
+    /// <summary>
+    /// Authenticator completed event arguments.
+    /// </summary>
 #if XAMARIN_AUTH_INTERNAL
 	internal class AuthenticatorCompletedEventArgs : EventArgs
 #else
-	public class AuthenticatorCompletedEventArgs : EventArgs
+    public class AuthenticatorCompletedEventArgs : EventArgs
 #endif
 	{
 		/// <summary>

@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
+    <Folder Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
@@ -119,7 +120,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
-    <Compile Include="Authenticator.Portable.cs" />
     <Compile Include="FormAuthenticator.Portable.cs" />
     <Compile Include="System\DecimalExtensions.cs" />
     <Compile Include="System\Reflection\Extensions.cs" />
@@ -127,9 +127,9 @@
     <Compile Include="System\Type.cs" />
     <Compile Include="WebAuthenticator.Portable.cs" />
     <Compile Include="AccountStore.Portable.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\Authenticator.Portable.cs">
+      <Link>Authenticator.Portable.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -146,14 +146,14 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Net.Http">
-      <HintPath>..\..\samples\Xamarin.Forms\references01project\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+    <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Primitives">
-      <HintPath>..\..\samples\Xamarin.Forms\references01project\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
-    <Reference Include="System.Net.Http.Extensions">
-      <HintPath>..\..\samples\Xamarin.Forms\references01project\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
