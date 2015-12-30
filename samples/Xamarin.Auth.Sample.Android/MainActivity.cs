@@ -11,11 +11,15 @@ namespace Xamarin.Auth.Sample.Android
 	[Activity (Label = "Xamarin.Auth Sample (Android)", MainLauncher = true)]
 	public class MainActivity : Activity
 	{
-		void LoginToFacebook (bool allowCancel)
+	    const string HOST = "http://192.168.0.2";
+
+        void LoginToFacebook (bool allowCancel)
 		{
 			var auth = new DelegatedOAuth2Authenticator (
-				authorizeUrl: new Uri("http://192.168.0.12/Account/Login"),
-                redirectUrl: new Uri("http://192.168.0.12/"),
+				authorizeUrl: new Uri($"{HOST}/Account/Login"),
+                redirectUrl: new Uri(HOST),
+                clientId: "<theclientid>",
+                clientSecret:"<theclientsecret>",
                 getUsernameAsync: GetUserNameAsync
                 );
 
@@ -32,7 +36,7 @@ namespace Xamarin.Auth.Sample.Android
 				}
 
 				// Now that we're logged in, make a OAuth2 request to get the user's info.
-                var request = new OAuth2Request("GET", new Uri("http://192.168.0.12/api/accountapi/userinfo"), null, ee.Account);
+                var request = new OAuth2Request("GET", new Uri($"{HOST}/api/accountapi/userinfo"), null, ee.Account);
 				request.GetResponseAsync().ContinueWith (t => {
 					var builder = new AlertDialog.Builder (this);
 					if (t.IsFaulted) {
@@ -58,7 +62,7 @@ namespace Xamarin.Auth.Sample.Android
 
 	    private Task<string> GetUserNameAsync(IDictionary<string, string> accountproperties)
 	    {
-            var request = new OAuth2Request("GET", new Uri("http://192.168.0.12/api/accountapi/userinfo"), null, new Account(string.Empty, accountproperties));
+            var request = new OAuth2Request("GET", new Uri($"{HOST}/api/accountapi/userinfo"), null, new Account(string.Empty, accountproperties));
 
             var tcs = new TaskCompletionSource<string>();
             request.GetResponseAsync().ContinueWith(t => {

@@ -35,7 +35,9 @@ namespace Xamarin.Auth
 #endif
 	{
 		Uri authorizeUrl;
-		Uri accessTokenUrl;
+	    private readonly string clientId;
+	    private readonly string clientSecret;
+	    Uri accessTokenUrl;
 		GetUsernameAsyncFunc getUsernameAsync;
         
 		bool reportedForgery = false;
@@ -60,35 +62,59 @@ namespace Xamarin.Auth
 			get { return this.accessTokenUrl; }
 		}
 
-		/// <summary>
-		/// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
-		/// that authenticates using implicit granting (token).
-		/// </summary>
-		/// <param name='clientId'>
-		/// Client identifier.
-		/// </param>
-		/// <param name='scope'>
-		/// Authorization scope.
-		/// </param>
-		/// <param name='authorizeUrl'>
-		/// Authorize URL.
-		/// </param>
-		/// <param name='redirectUrl'>
-		/// Redirect URL.
-		/// </param>
-		/// <param name='getUsernameAsync'>
-		/// Method used to fetch the username of an account
-		/// after it has been successfully authenticated.
-		/// </param>
-		public DelegatedOAuth2Authenticator (Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+        /// <summary>
+        /// Gets the client identifier.
+        /// </summary>
+        /// <value>The client identifier.</value>
+        public string ClientId
+        {
+            get { return clientId; }
+        }
+
+        /// <summary>
+        /// Gets the client secret.
+        /// </summary>
+        /// <value>The client secret.</value>
+        public string ClientSecret
+        {
+            get { return clientSecret; }
+        }
+
+	    /// <summary>
+	    /// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
+	    /// that authenticates using implicit granting (token).
+	    /// </summary>
+	    /// <param name='clientId'>
+	    /// Client identifier.
+	    /// </param>
+	    /// <param name='scope'>
+	    /// Authorization scope.
+	    /// </param>
+	    /// <param name='authorizeUrl'>
+	    /// Authorize URL.
+	    /// </param>
+	    /// <param name='redirectUrl'>
+	    /// Redirect URL.
+	    /// </param>
+	    /// <param name="clientSecret"></param>
+	    /// <param name='getUsernameAsync'>
+	    /// Method used to fetch the username of an account
+	    /// after it has been successfully authenticated.
+	    /// </param>
+	    public DelegatedOAuth2Authenticator (Uri authorizeUrl, Uri redirectUrl, string clientId, string clientSecret, GetUsernameAsyncFunc getUsernameAsync = null)
 			: this (redirectUrl)
 		{
 			if (authorizeUrl == null) {
 				throw new ArgumentNullException ("authorizeUrl");
 			}
-			this.authorizeUrl = authorizeUrl;
+	        if (clientId == null) throw new ArgumentNullException(nameof(clientId));
+	        if (clientSecret == null) throw new ArgumentNullException(nameof(clientSecret));
 
-			this.getUsernameAsync = getUsernameAsync;
+            this.authorizeUrl = authorizeUrl;
+            this.clientId = clientId;
+	        this.clientSecret = clientSecret;
+
+	        this.getUsernameAsync = getUsernameAsync;
 
 			this.accessTokenUrl = null;
 		}
@@ -159,9 +185,20 @@ namespace Xamarin.Auth
 		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync ()
 		{
-			var tcs = new TaskCompletionSource<Uri> ();
-			tcs.SetResult (authorizeUrl);
-			return tcs.Task;
+		    var url = authorizeUrl;
+
+            // add fragment parameters if present
+		    if (!string.IsNullOrWhiteSpace(clientId))
+		    {
+		        var urlStr = url + (authorizeUrl.OriginalString.Contains("#") ? "&" : "#") + $"client_id={clientId}";
+
+                if (!string.IsNullOrWhiteSpace(clientSecret))
+                {
+                    urlStr += $"&client_secret={clientSecret}";
+                }
+		        url = new Uri(urlStr);
+		    }
+			return Task.FromResult (url);
 		}
 
 		/// <summary>
@@ -218,9 +255,9 @@ namespace Xamarin.Auth
 				OnRetrievedAccountProperties (fragment);
             }
             else { 
-                // cancel after 300 milliseconds just in case we get another redirect that returns a token
+                // cancel after 1000 milliseconds just in case we get another redirect that returns a token
 			    _errorTokenSource = new CancellationTokenSource();
-			    Task.Delay(300, _errorTokenSource.Token).ContinueWith((t) =>
+			    Task.Delay(1000, _errorTokenSource.Token).ContinueWith((t) =>
 			    {
 			        if (!t.IsCanceled)
 			        {
