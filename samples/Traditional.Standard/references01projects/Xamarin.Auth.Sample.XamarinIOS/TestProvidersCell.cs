@@ -154,24 +154,98 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 				}
 			}
 
-			UIAlertView _error = new UIAlertView (title, msg, null, "Ok", null);
-			_error.Show ();
+            InvokeOnMainThread 
+                ( 
+                    () => 
+                    {
+                        // manipulate UI controls
+                        UIAlertView _error = new UIAlertView (title, msg, null, "Ok", null);
+                        _error.Show ();
+                    }
+                );
 
 		}
 
-		private void AccountStoreTests (AuthenticatorCompletedEventArgs ee)
-		{
-			AccountStore account_store = AccountStore.Create();
-			account_store.Save (ee.Account, provider);	
-			Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+		private void AccountStoreTests(AuthenticatorCompletedEventArgs ee)
+        {
+            AccountStore account_store = AccountStore.Create();
+            account_store.Save(ee.Account, provider);  
 
-			AccountStore.Create().Save(ee.Account, provider + ".v.2");
-			// throws on iOS
-			//
-			Account account2 = AccountStore.Create().FindAccountsForService(provider+ ".v.2").FirstOrDefault();
+            //------------------------------------------------------------------
+            // Android
+            // https://kb.xamarin.com/agent/case/225411
+            // cannot reproduce 
+            try
+            {
+                //------------------------------------------------------------------
+                // Xamarin.iOS - following line throws
+                Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+                //------------------------------------------------------------------
+                if (null != account1)
+                {
+                    string token = account1.Properties["access_token"].ToString();
+                    UIAlertView alert = 
+                                    new UIAlertView
+                                        (
+                                            "Token",
+                                            "acces_token = " + token,
+                                            null,
+                                            "OK",
+                                            null
+                                        );
+                    alert.Show();
+                }
+            }
+            catch (System.Exception exc)
+            {
+                // Xamarin.iOS
+                // exc  {System.ArgumentNullException: Value cannot be null. 
+                //  Parameter name: data   
+                //      at Foundation.NSString.Fr…} System.ArgumentNullException
+                // Value cannot be null.
+                // Parameter name: data
+                string msg = exc.Message;
+                System.Diagnostics.Debug.WriteLine("Exception AccountStore: " + msg);
+            }
 
-			return;
-		}
+            try
+            {
+                AccountStore.Create().Save(ee.Account, provider + ".v.2");
+            }
+            catch (System.Exception exc)
+            {
+                string msg = exc.Message;
+                System.Diagnostics.Debug.WriteLine("Exception AccountStore: " + msg);
+            }
+
+            try
+            {
+                //------------------------------------------------------------------
+                // Xamarin.iOS - throws
+                Account account2 = AccountStore.Create().FindAccountsForService(provider+ ".v.2").FirstOrDefault();
+                //------------------------------------------------------------------
+                if( null != account2 )
+                {
+                    string token = account2.Properties["access_token"].ToString();
+                    UIAlertView alert = new UIAlertView
+                                                (
+                                                    "Token",
+                                                    "acces_token = " + token,
+                                                    null,
+                                                    "OK",
+                                                    null
+                                                );
+                    alert.Show();
+                }
+            }
+            catch (System.Exception exc)
+            {
+                string msg = exc.Message;
+                System.Diagnostics.Debug.WriteLine("Exception AccountStore: " + msg);
+            }
+
+            return;
+        }
 	}
 }
 

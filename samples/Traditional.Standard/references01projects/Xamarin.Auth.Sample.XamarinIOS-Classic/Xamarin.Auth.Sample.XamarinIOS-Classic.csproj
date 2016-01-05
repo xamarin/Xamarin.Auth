@@ -112,8 +112,6 @@
   <ItemGroup>
     <None Include="Info.plist" />
     <None Include="Entitlements.plist" />
-    <None Include="SampleData\Providers\.gitignore" />
-    <None Include="SampleData\Providers\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Xamarin.Auth.Sample.XamarinIOS\AppDelegate.cs">
@@ -137,16 +135,6 @@
   			actual secure/secrt/private data in partial methods
   -->
   <ItemGroup>
-    <Compile Include="SampleData\AuthenticationResult.cs" />
-    <Compile Include="SampleData\Data.cs" />
-    <Compile Include="SampleData\Providers\Data.Facebook.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Github.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Google.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Instagram.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth1.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.MicrosoftLive.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Twitter.OAuth1.cs" />
     <Compile Include="..\..\..\Xamarin.Auth.Sample.Data\SampleData\Providers\*.secure.cs">
       <Link>SampleData\Providers\*.secure.cs</Link>
     </Compile>
@@ -169,8 +157,5 @@
       <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
       <Name>Xamarin.Auth.SampleData</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SampleData\" />
   </ItemGroup>
 </Project>

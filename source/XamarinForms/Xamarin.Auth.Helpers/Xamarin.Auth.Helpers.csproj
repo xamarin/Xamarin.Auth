@@ -35,5 +35,12 @@
     <Compile Include="OAuth1.cs" />
     <Compile Include="OAuth2.cs" />
   </ItemGroup>
+  <!--
+  Error: 
+  source/XamarinForms/Xamarin.Auth.Helpers/Xamarin.Auth.Helpers.csproj: 
+  source/XamarinForms/Xamarin.Auth.Helpers/Xamarin.Auth.Helpers.csproj 
+  could not import 
+  	"$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" 
+  -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

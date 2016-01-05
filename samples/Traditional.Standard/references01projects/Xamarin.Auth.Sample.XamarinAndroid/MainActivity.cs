@@ -178,12 +178,41 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 		{
 			AccountStore account_store = AccountStore.Create(this);
 			account_store.Save (ee.Account, provider);	
+
+            //------------------------------------------------------------------
+            // Android
+            // https://kb.xamarin.com/agent/case/225411
+            // cannot reproduce 
 			Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+            if( null != account1 )
+            {
+                string token = account1.Properties["access_token"].ToString();
+                Toast.MakeText
+                        (
+                            this,
+                            "acces_token = " + token,
+                            ToastLength.Short
+                        ).Show();
+            }
+            //------------------------------------------------------------------
 
 			AccountStore.Create(this).Save(ee.Account, provider + ".v.2");
+
+            //------------------------------------------------------------------
 			// throws on iOS
 			//
 			Account account2 = AccountStore.Create(this).FindAccountsForService(provider+ ".v.2").FirstOrDefault();
+            if( null != account2 )
+            {
+                string token = account2.Properties["access_token"].ToString();
+                Toast.MakeText
+                        (
+                            this,
+                            "acces_token = " + token,
+                            ToastLength.Short
+                        ).Show();
+            }
+            //------------------------------------------------------------------
 
 			return;
 		}
