@@ -85,7 +85,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="PageLoginRenderer.cs" />
+    <Compile Include="PageLoginRenderer.WindowsPhone8.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

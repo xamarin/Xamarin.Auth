@@ -33,6 +33,12 @@ namespace Xamarin.Auth
 	public abstract partial class Authenticator
 #endif
 	{
-	}
+        public AuthenticateUIType GetUI()
+        {
+            return GetPlatformUI();
+        }
+
+        protected abstract AuthenticateUIType GetPlatformUI();
+    }
 }
 

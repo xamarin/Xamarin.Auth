@@ -174,12 +174,21 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\Type.cs">
       <Link>System\Type.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\AccountStore.WindowsPhone.cs">
+      <Link>AccountStore.WindowsPhone.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\Authenticator.WindowsPhone.cs">
+      <Link>Authenticator.WindowsPhone.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticator.WindowsPhone.cs">
       <Link>WebAuthenticator.WindowsPhone.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticatorPage.xaml.cs">
       <Link>WebAuthenticatorPage.xaml.cs</Link>
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\WPAccountStore.cs">
+      <Link>WPAccountStore.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>

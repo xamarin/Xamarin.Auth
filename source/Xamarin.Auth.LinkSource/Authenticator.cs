@@ -283,11 +283,18 @@ namespace Xamarin.Auth
 
 		void BeginInvokeOnUIThread (Action action)
 		{
-#if PLATFORM_IOS
-			MonoTouch.UIKit.UIApplication.SharedApplication.BeginInvokeOnMainThread (delegate {
-				action ();
-			});
-#elif PLATFORM_ANDROID
+            #if PLATFORM_IOS || __IOS__
+            #if !__UNIFIED__
+            MonoTouch.
+            #endif
+            UIKit.UIApplication.SharedApplication.BeginInvokeOnMainThread 
+                (
+                    delegate 
+                    {
+        				action ();
+		        	}
+                );
+            #elif PLATFORM_ANDROID || __ANDROID__
 			var a = context as Android.App.Activity;
 			if (a != null) {
 				a.RunOnUiThread (action);
@@ -295,9 +302,9 @@ namespace Xamarin.Auth
 			else {
 				action ();
 			}
-#else
-			action ();
-#endif
+            #else
+            action ();
+            #endif
 		}
 
 
