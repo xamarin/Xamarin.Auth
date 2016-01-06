@@ -96,12 +96,15 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += Auth_Completed;
+            auth.Error += Auth_Error;
+            auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
 			var intent = auth.GetUI (this);
 			StartActivity (intent);
 
 			return;
 		}
+
 
 		private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
 		{
@@ -117,12 +120,53 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += Auth_Completed;
+            auth.Error += Auth_Error;
+            auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
 			var intent = auth.GetUI (this);
 			StartActivity (intent);
 
 			return;
 		}
+
+        private void Auth_Error (object sender, AuthenticatorErrorEventArgs ee)
+        {
+            string title = "OAuth Error";
+            string msg = "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Message  = ").Append(ee.Message)
+                                    .Append(System.Environment.NewLine);
+            msg = sb.ToString();
+
+            Toast.MakeText
+                        (
+                            this,
+                            "Message = " + msg,
+                            ToastLength.Short
+                        ).Show();
+
+            return;
+
+        }
+
+        private void Auth_BrowsingCompleted (object sender, EventArgs ee)
+        {
+            string title = "OAuth Browsing Completed";
+            string msg = "";
+
+            StringBuilder sb = new StringBuilder();
+            msg = sb.ToString();
+
+            Toast.MakeText
+                        (
+                            this,
+                            "Message = " + msg,
+                            ToastLength.Short
+                        ).Show();
+
+            return;
+        }
 
 		public void Auth_Completed (object sender, AuthenticatorCompletedEventArgs ee)
 		{

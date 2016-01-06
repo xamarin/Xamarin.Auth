@@ -82,6 +82,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += Auth_Completed;
+            auth.Error += Auth_Error;
+            auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
 			UIViewController vc = auth.GetUI ();
 
@@ -107,6 +109,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += Auth_Completed;
+            auth.Error += Auth_Error;
+            auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
 			UIViewController vc = auth.GetUI ();
 
@@ -117,8 +121,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
 			return;
 		}
-
-		public async void Auth_Completed (object sender, AuthenticatorCompletedEventArgs ee)
+        
+		public void Auth_Completed (object sender, AuthenticatorCompletedEventArgs ee)
 		{
 			string title = "OAuth Results";
 			string msg = "";
@@ -146,7 +150,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 													.Append(System.Environment.NewLine);
 					sb.Append("Account.UserName = ").Append(ee.Account.Username)
 													.Append(System.Environment.NewLine);
-
+                    msg = sb.ToString();
 				} 
 				catch (Exception ex) 
 				{
@@ -164,7 +168,53 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                     }
                 );
 
+            return;
 		}
+
+        private void Auth_Error (object sender, AuthenticatorErrorEventArgs ee)
+        {
+            string title = "OAuth Error";
+            string msg = "";
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append("Message  = ").Append(ee.Message)
+                                    .Append(System.Environment.NewLine);
+            msg = sb.ToString();
+
+            InvokeOnMainThread 
+                ( 
+                    () => 
+                    {
+                        // manipulate UI controls
+                        UIAlertView _error = new UIAlertView (title, msg, null, "Ok", null);
+                        _error.Show ();
+                    }
+                );
+
+            return;
+
+        }
+
+        private void Auth_BrowsingCompleted (object sender, EventArgs ee)
+        {
+            string title = "OAuth Browsing Completed";
+            string msg = "";
+
+            StringBuilder sb = new StringBuilder();
+            msg = sb.ToString();
+
+            InvokeOnMainThread 
+                ( 
+                    () => 
+                    {
+                        // manipulate UI controls
+                        UIAlertView _error = new UIAlertView (title, msg, null, "Ok", null);
+                        _error.Show ();
+                    }
+                );
+
+            return;
+        }
 
 		private void AccountStoreTests(AuthenticatorCompletedEventArgs ee)
         {
