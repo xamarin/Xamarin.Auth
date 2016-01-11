@@ -21,16 +21,18 @@ using Xamarin.Auth.XamarinForms;
 	Xamarin.Forms.ExportRenderer
 			(
 			// ViewElement to be rendered (from Portable/Shared)
-			typeof(Xamarin.Auth.XamarinForms.PageLogin),
+            typeof(Xamarin.Auth.XamarinForms.PageOAuth),
 			// platform specific Renderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
-			typeof(Xamarin.Auth.XamarinForms.XamarinIOS.PageLoginRenderer)
+            typeof(Xamarin.Auth.XamarinForms.XamarinIOS.PageOAuthRenderer)
 			)
 ]
 
 namespace Xamarin.Auth.XamarinForms.XamarinIOS
 {
-	public partial class PageLoginRenderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
+    public partial class PageOAuthRenderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
 	{
+        PageOAuth e_new = null;
+
 		bool IsShown;
 
 		// public class VisualElementChangedEventArgs : ElementChangedEventArgs<VisualElement>
@@ -40,9 +42,8 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
 
 			// OnElementChanged is fired before ViewDidAppear, using it to pass data
 
-			PageLogin e_new = e.NewElement as PageLogin;
-
-
+            e_new = e.NewElement as PageOAuth;
+                     
 			return;
 		}
 
@@ -55,78 +56,162 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
 
 				IsShown = true;
 
-			}
+                if 
+                    (
+                        null != e_new.oauth1_application_id_aka_client_id
+                        &&
+                        null != e_new.oauth1_consumer_secret
+                        &&
+                        null != e_new.oauth1_uri_reuest_token
+                        &&
+                        null != e_new.oauth1_uri_authorize
+                        &&
+                        null != e_new.oauth1_uri_access_token
+                        &&
+                        null != e_new.oauth1_uri_callback_redirect
+                    )
+                {
+                    this.Authenticate
+                            (
+                                e_new.oauth1_application_id_aka_client_id,
+                                e_new.oauth1_consumer_secret,
+                                e_new.oauth1_uri_reuest_token,
+                                e_new.oauth1_uri_authorize,
+                                e_new.oauth1_uri_access_token,
+                                e_new.oauth1_uri_callback_redirect,
+                                e_new.oauth2_func_get_username,
+                                e_new.allow_cancel
+                            );
+                    return;
+                }
+                else if 
+                    (
+                        null != e_new.oauth2_application_id_aka_client_id
+                        &&
+                        null != e_new.oauth2_scope
+                        &&
+                        null != e_new.oauth2_uri_authorization
+                        &&
+                        null != e_new.oauth2_uri_callback_redirect
+                    )
+                {
+                    this.Authenticate
+                            (
+                                e_new.oauth2_application_id_aka_client_id,
+                                e_new.oauth2_scope,
+                                e_new.oauth2_uri_authorization,
+                                e_new.oauth2_uri_callback_redirect,
+                                e_new.oauth2_func_get_username,
+                                e_new.allow_cancel
+                            );
+                    return;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid OAuthenticator");
+                }
+            }
 
 			return;
 		}
 
-		private void Login (Xamarin.Auth.Helpers.OAuth1 oauth1)
-		{
-			global::Xamarin.Auth.OAuth1Authenticator auth = 
-					new global::Xamarin.Auth.OAuth1Authenticator 
-						(
-						consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-						consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
-						requestTokenUrl: oauth1.OAuth1_UriRequestToken,
-						authorizeUrl: oauth1.OAuth_UriAuthorization, 
-						accessTokenUrl: oauth1.OAuth1_UriAccessToken, 
-						callbackUrl: oauth1.OAuth_UriCallbackAKARedirect, 
-						getUsernameAsync: null
-						);
+        private void Authenticate
+                        (
+                            string application_id_aka_client_id, 
+                            string consumer_secret, 
+                            Uri uri_reuest_token, 
+                            Uri uri_authorize,
+                            Uri uri_access_token, 
+                            Uri uri_callback_redirect,
+                            GetUsernameAsyncFunc func_get_username,
+                            bool allow_cancel = true
+                        )
+        {
+            OAuth1Authenticator auth = new OAuth1Authenticator 
+                (
+                    application_id_aka_client_id,
+                    consumer_secret,
+                    uri_reuest_token,
+                    uri_authorize,
+                    uri_access_token,
+                    uri_callback_redirect,
+                    func_get_username
+                );
 
-			auth.Completed += Auth_Completed;
+            auth.AllowCancel = allow_cancel;
 
-			PresentViewController (auth.GetUI (), true, null);
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            auth.Completed += Auth_Completed;
 
-			return;
-		}
+            PresentViewController (auth.GetUI (), true, null);
 
+            return;
+        }
 
-		private void Login (Xamarin.Auth.Helpers.OAuth2 oauth2)
-		{
-			global::Xamarin.Auth.OAuth2Authenticator auth = null;
+        private void Authenticate
+                        (
+                            string application_id_aka_client_id, 
+                            string scope, 
+                            Uri uri_authorization, 
+                            Uri uri_callback_redirect,
+                            GetUsernameAsyncFunc func_get_username,
+                            bool allow_cancel = true
+                        )
+        {
+            global::Xamarin.Auth.OAuth2Authenticator auth = null;
 
-			if (
-				null == oauth2.OAuth1_UriAccessToken)
-			{
-				try
-				{
-					auth = 
-						new global::Xamarin.Auth.OAuth2Authenticator 
-						(
-						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-						scope: oauth2.OAuth2_Scope,
-						authorizeUrl: oauth2.OAuth_UriAuthorization,
-						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-						getUsernameAsync: null
-					);
-				}
-				catch (System.Exception exc)
-				{
-					throw exc;
-				}
-			}
-			else
-			{
-				auth = 
-					new global::Xamarin.Auth.OAuth2Authenticator 
-						(
-						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer, 
-						clientSecret: oauth2.OAuth1_SecretKey_ConsumerSecret_APISecret,
-						scope: oauth2.OAuth2_Scope,
-						authorizeUrl: oauth2.OAuth_UriAuthorization,
-						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-						accessTokenUrl: oauth2.OAuth1_UriAccessToken,
-						getUsernameAsync: null
-						);
+            if 
+                (
+                    //null == oauth2.OAuth1_UriAccessToken
+                    true
+                )
+            {
+                try
+                {
+                    auth = new global::Xamarin.Auth.OAuth2Authenticator 
+                        (
+                            application_id_aka_client_id,
+                            scope,
+                            uri_authorization,
+                            uri_callback_redirect,
+                            func_get_username
+                        );
+                }
+                catch (System.Exception exc)
+                {
+                    throw;
+                }
+            }
+            else
+            {
+                try
+                {
+                    auth = new global::Xamarin.Auth.OAuth2Authenticator 
+                        (
+                            application_id_aka_client_id, 
+                            //clientSecret: oauth2.OAuth1_SecretKey_ConsumerSecret_APISecret,
+                            scope,
+                            uri_authorization,
+                            uri_callback_redirect,
+                            //accessTokenUrl: oauth2.OAuth1_UriAccessToken,
+                            func_get_username
+                        );
+                }
+                catch (System.Exception exc)
+                {
+                    throw;
+                }
+            }
 
-			}
-			auth.Completed += Auth_Completed;
+            auth.AllowCancel = allow_cancel;
 
-			PresentViewController (auth.GetUI (), true, null);
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            auth.Completed += Auth_Completed;
 
-			return;
-		}
+            PresentViewController (auth.GetUI (), true, null);
+
+            return;
+        }
 
 		private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
 		{
@@ -153,11 +238,6 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
 			return;
 		}
 
-		public OAuth Oauth
-		{
-			get;
-			set;
-		}
 
 		protected Dictionary<string, string> account_properties;
 

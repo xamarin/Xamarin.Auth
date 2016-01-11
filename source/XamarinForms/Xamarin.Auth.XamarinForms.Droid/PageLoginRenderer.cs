@@ -16,57 +16,120 @@ using Xamarin.Auth.Helpers;
 	Xamarin.Forms.ExportRenderer
 			(
 			// ViewElement to be rendered (from Portable/Shared)
-			typeof(Xamarin.Auth.XamarinForms.PageLogin),
+            typeof(Xamarin.Auth.XamarinForms.PageOAuth),
 			// platform specific Renderer : global::Xamarin.Forms.Platform.XamarinIOS.PageRenderer
-			typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.PageLoginRenderer)
+			typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.PageOAuthRenderer)
 			)
 ]
 namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 {
-	public partial class PageLoginRenderer : global::Xamarin.Forms.Platform.Android.PageRenderer
+    public partial class PageOAuthRenderer : global::Xamarin.Forms.Platform.Android.PageRenderer
 	{
+        PageOAuth e_new = null;
+
 		bool IsShown;
 
-		protected override void OnElementChanged (ElementChangedEventArgs<Page> e)
-		{
-			base.OnElementChanged (e);
+		protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
+        {
+            base.OnElementChanged(e);
 
-			// OnElementChanged is fired before ViewDidAppear, using it to pass data
+            // OnElementChanged using it to pass data
 
-			PageLogin e_new = e.NewElement as PageLogin;
+            e_new = e.NewElement as PageOAuth;
 
-			// PageRenderer is a ViewGroup - so should be able to load an AXML file and FindView<>
-			activity = this.Context as Activity;
+            // PageRenderer is a ViewGroup - so should be able to load an AXML file and FindView<>
+            activity = this.Context as Activity;
 
-			if (!IsShown)
-			{
+            if (!IsShown)
+            {
 
-				IsShown = true;
+                IsShown = true;
 
-				if (null != e_new.OAuth)
-				{
-					this.Authenticate(e_new.OAuth);
-					return;
-				}
+                if 
+                    (
+                        null != e_new.oauth1_application_id_aka_client_id
+                        &&
+                        null != e_new.oauth1_consumer_secret
+                        &&
+                        null != e_new.oauth1_uri_reuest_token
+                        &&
+                        null != e_new.oauth1_uri_authorize
+                        &&
+                        null != e_new.oauth1_uri_access_token
+                        &&
+                        null != e_new.oauth1_uri_callback_redirect
+                    )
+                {
+                    this.Authenticate
+                            (
+                                e_new.oauth1_application_id_aka_client_id,
+                                e_new.oauth1_consumer_secret,
+                                e_new.oauth1_uri_reuest_token,
+                                e_new.oauth1_uri_authorize,
+                                e_new.oauth1_uri_access_token,
+                                e_new.oauth1_uri_callback_redirect,
+                                e_new.oauth2_func_get_username,
+                                e_new.allow_cancel
+                            );
+                    return;
+                }
+                else if 
+                    (
+                        null != e_new.oauth2_application_id_aka_client_id
+                        &&
+                        null != e_new.oauth2_scope
+                        &&
+                        null != e_new.oauth2_uri_authorization
+                        &&
+                        null != e_new.oauth2_uri_callback_redirect
+                    )
+                {
+                    this.Authenticate
+                            (
+                                e_new.oauth2_application_id_aka_client_id,
+                                e_new.oauth2_scope,
+                                e_new.oauth2_uri_authorization,
+                                e_new.oauth2_uri_callback_redirect,
+                                e_new.oauth2_func_get_username,
+                                e_new.allow_cancel
+                            );
+                    return;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid OAuthenticator");
+                }
 			}
+
 			return;
 		}
 
 		Android.App.Activity activity = null;
 
-		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
+		private void Authenticate
+                        (
+                            string application_id_aka_client_id, 
+                            string consumer_secret, 
+                            Uri uri_reuest_token, 
+                            Uri uri_authorize,
+                            Uri uri_access_token, 
+                            Uri uri_callback_redirect,
+                            GetUsernameAsyncFunc func_get_username,
+                            bool allow_cancel = true
+                        )
 		{
 			OAuth1Authenticator auth = new OAuth1Authenticator 
 				(
-					consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
-					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
-					authorizeUrl: oauth1.OAuth_UriAuthorization,
-					accessTokenUrl: oauth1.OAuth1_UriAccessToken,
-					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
+                    application_id_aka_client_id,
+                    consumer_secret,
+                    uri_reuest_token,
+                    uri_authorize,
+                    uri_access_token,
+                    uri_callback_redirect,
+                    func_get_username
 				);
 
-			auth.AllowCancel = oauth1.AllowCancel;
+			auth.AllowCancel = allow_cancel;
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += Auth_Completed;
@@ -75,20 +138,27 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 
 			return;
 		}
-
-
-
-		private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
+        
+		private void Authenticate
+                        (
+                            string application_id_aka_client_id, 
+                            string scope, 
+                            Uri uri_authorization, 
+                            Uri uri_callback_redirect,
+                            GetUsernameAsyncFunc func_get_username,
+                            bool allow_cancel = true
+                        )
 		{
 			OAuth2Authenticator auth = new OAuth2Authenticator 
 				(
-					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-					scope: oauth2.OAuth2_Scope,
-					authorizeUrl: oauth2.OAuth_UriAuthorization,
-					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
+                    application_id_aka_client_id,
+                    scope,
+                    uri_authorization,
+                    uri_callback_redirect,
+                    func_get_username
 				);
 
-			auth.AllowCancel = oauth2.AllowCancel;
+			auth.AllowCancel = allow_cancel;
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += Auth_Completed;
@@ -97,8 +167,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 
 			return;
 		}
-
-
+        
 		private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
 		{
 			if (e.IsAuthenticated)
@@ -125,13 +194,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 
 			return;
 		}
-
-		public OAuth Oauth
-		{
-			get;
-			set;
-		}
-
+        
 		protected Dictionary<string, string> account_properties;
 
 		public Dictionary<string, string> AccountProperties

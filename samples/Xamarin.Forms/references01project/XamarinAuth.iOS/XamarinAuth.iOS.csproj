@@ -140,4 +140,10 @@
   <ItemGroup>
     <Folder Include="Xamarin.XamarinForms.Auth\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\XamarinAuth\XamarinAuth.csproj">
+      <Project>{0786BB81-BEC8-4EE1-89DC-90259A830E57}</Project>
+      <Name>XamarinAuth</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
