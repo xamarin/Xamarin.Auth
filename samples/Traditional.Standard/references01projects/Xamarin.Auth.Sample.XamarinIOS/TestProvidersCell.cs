@@ -229,7 +229,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             {
                 //------------------------------------------------------------------
                 // Xamarin.iOS - following line throws
-                Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+                IEnumerable<Account> accounts = account_store.FindAccountsForService(provider);
+                Account account1 = accounts.FirstOrDefault();
                 //------------------------------------------------------------------
                 if (null != account1)
                 {
@@ -272,7 +273,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             {
                 //------------------------------------------------------------------
                 // Xamarin.iOS - throws
-                Account account2 = AccountStore.Create().FindAccountsForService(provider+ ".v.2").FirstOrDefault();
+                IEnumerable<Account> accounts = account_store.FindAccountsForService(provider+ ".v.2");
+                Account account2 = accounts.FirstOrDefault();
                 //------------------------------------------------------------------
                 if( null != account2 )
                 {

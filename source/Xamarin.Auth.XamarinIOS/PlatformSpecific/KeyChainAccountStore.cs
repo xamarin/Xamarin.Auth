@@ -13,12 +13,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-
 #define TEST_MARK_T
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Diagnostics;
+
 #if ! __UNIFIED__
 using MonoTouch.Security;
 using MonoTouch.Foundation;
@@ -31,27 +32,106 @@ namespace Xamarin.Auth
 {
 	internal class KeyChainAccountStore : AccountStore
 	{
-		public override IEnumerable<Account> FindAccountsForService (string serviceId)
-		{
-			var query = new SecRecord (SecKind.GenericPassword);
-			query.Service = serviceId;
+		public override IEnumerable<Account> FindAccountsForService(string serviceId)
+        {
+            var query = new SecRecord(SecKind.GenericPassword);
+            query.Service = serviceId;
 
-			SecStatusCode result;
-			var records = SecKeyChain.QueryAsRecord (query, 1000, out result);
+            SecStatusCode result;
+            SecRecord[] records = SecKeyChain.QueryAsRecord(query, 1000, out result);
 
-			return records != null ?
-				records.Select (GetAccountFromRecord).ToList () :
-				new List<Account> ();
+            IEnumerable<Account> accounts_found = null;
+            IEnumerable<Account> ienumerable_accounts = null;
+            if (records != null)
+            {
+                /*
+                moljac note:
+                ienumerable_accounts    
+                    {
+                        System.Linq.Enumerable.WhereSelectArrayIterator
+                                                <
+                                                    MonoTouch.Security.SecRecord,
+                                                    Xamarin.Auth.Account
+                                                >
+                    }    
+                    {
+                        System.Linq.Enumerable.WhereSelectArrayIterator
+                                                <
+                                                    Security.SecRecord,
+                                                    Xamarin.Auth.Account
+                                                >
+                    }    
+                */
+                ienumerable_accounts = records.Select(GetAccountFromRecord);
+
+                /*
+                    must check for empty IEnumerable
+                    IEnumerable ToList()
+                    Value cannot be null.
+                    Parameter name: data
+                */
+                try
+                {
+                    /*
+                        Classic
+                        accessing throws
+                        > ienumerable_accounts.Count()
+                        System.ArgumentNullException: Value cannot be null.
+                        Parameter name: data
+                        > ienumerable_accounts.LongCount()
+                        System.ArgumentNullException: Value cannot be null.
+                        Parameter name: data 
+                    */
+                    if (ienumerable_accounts.Count() > 0 && ienumerable_accounts.LongCount() > 0)
+                    {
+                        /*
+                            Unified enters
+                            method call ToList() throws
+
+                            > ienumerable_accounts.Count()
+                            System.ArgumentNullException: Value cannot be null.
+                            Parameter name: data
+                            > ienumerable_accounts.LongCount()
+                            System.ArgumentNullException: Value cannot be null.
+                            Parameter name: data
+                            > ienumerable_accounts.ToList()
+                            System.ArgumentNullException: Value cannot be null.
+                            Parameter name: data
+                        */
+                         accounts_found = ienumerable_accounts.ToList();
+                    }
+                    else
+                    {
+                        accounts_found = new List<Account> ();
+                    }
+                }
+                catch(System.Exception exc)
+                {
+                    string msg = exc.Message;
+                    Debug.WriteLine("IEnumerable access excption = " + msg);
+                }
+            }
+            else
+            {
+                accounts_found = new List<Account> ();
+            }
+
+			return accounts_found;
 		}
 
 		Account GetAccountFromRecord (SecRecord r)
 		{
 			#if ! TEST_MARK_T
-			var serializedData = NSString.FromData (r.Generic, NSStringEncoding.UTF8);
+            NSData data = r.Generic;
 			#else
-			var serializedData = NSString.FromData (r.ValueData, NSStringEncoding.UTF8);
+            NSData data = r.ValueData;
 			#endif
-			return Account.Deserialize (serializedData);
+
+            var serializedData = NSString.FromData (data, NSStringEncoding.UTF8);
+
+            Account a = Account.Deserialize (serializedData); 
+
+			return a;
 		}
 
 		Account FindAccount (string username, string serviceId)
