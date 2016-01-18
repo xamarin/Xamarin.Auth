@@ -38,11 +38,13 @@ namespace Xamarin.Auth
 		static readonly object fileLock = new object ();
 
 		const string FileName = "Xamarin.Social.Accounts";
-		static readonly char[] Password = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray ();
+		private char[] Password = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray ();
 
-		public AndroidAccountStore (Context context)
+		public AndroidAccountStore (Context context, char[] password = null)
 		{
 			this.context = context;
+		    if (password != null)
+		        Password = password;
 
 			ks = KeyStore.GetInstance (KeyStore.DefaultType);
 
