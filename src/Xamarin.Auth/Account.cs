@@ -132,12 +132,15 @@ namespace Xamarin.Auth
 				sb.Append ("&");
 				sb.Append (Uri.EscapeDataString (p.Key));
 				sb.Append ("=");
-				sb.Append (Uri.EscapeDataString (p.Value));
+				sb.Append (p.Value != null ? Uri.EscapeDataString (p.Value) : string.Empty);
 			}
+           
+			if (Cookies.Count > 0)
+			{
+			    var cookieString = SerializeCookies();
 
-			if (Cookies.Count > 0) {
-				sb.Append ("&__cookies__=");
-				sb.Append (Uri.EscapeDataString (SerializeCookies ()));
+                sb.Append ("&__cookies__=");
+				sb.Append (cookieString != null ? Uri.EscapeDataString(cookieString) : string.Empty);
 			}
 
 			return sb.ToString ();
