@@ -97,13 +97,31 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
 		private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
 		{
-			OAuth2Authenticator auth = new OAuth2Authenticator 
-				(
-					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-					scope: oauth2.OAuth2_Scope,
-					authorizeUrl: oauth2.OAuth_UriAuthorization,
-					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
-				);
+			OAuth2Authenticator auth = null;
+
+			if (!oauth2.Description.Equals ("Github OAuth2"))
+			{
+				// all but github
+				auth = new OAuth2Authenticator 
+					(
+						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+						scope: oauth2.OAuth2_Scope,
+						authorizeUrl: oauth2.OAuth_UriAuthorization,
+						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
+					);
+			}
+			else
+			{
+				auth = new OAuth2Authenticator 
+					(
+						clientId: "5b5c2d2d76e2fd9a804b",
+						clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
+						scope: "",
+						authorizeUrl: new Uri("https://github.com/login/oauth/authorize"),
+						redirectUrl: new Uri("http://xamarin.com"),
+						accessTokenUrl: new Uri("https://github.com/login/oauth/access_token")
+					);
+			}
 
 			auth.AllowCancel = oauth2.AllowCancel;
 
@@ -137,6 +155,15 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
 				try 
 				{
+					//------------------------------------------------------------------
+					Account account = ee.Account;
+					string token = default(string);
+					if (null != account)
+					{
+						token = account.Properties["access_token"].ToString();
+					}
+					//------------------------------------------------------------------
+
 					AuthenticationResult ar = new AuthenticationResult()
 					{
 						Title = "n/a",
@@ -149,6 +176,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 					sb.Append("Name             = ").Append(ar.User)
 													.Append(System.Environment.NewLine);
 					sb.Append("Account.UserName = ").Append(ee.Account.Username)
+													.Append(System.Environment.NewLine);
+					sb.Append("token            = ").Append(ee.Account.Username)
 													.Append(System.Environment.NewLine);
                     msg = sb.ToString();
 				} 

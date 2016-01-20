@@ -143,7 +143,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         (
                             this,
                             "Message = " + msg,
-                            ToastLength.Short
+                            ToastLength.Long
                         ).Show();
 
             return;
@@ -162,7 +162,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         (
                             this,
                             "Message = " + msg,
-                            ToastLength.Short
+                            ToastLength.Long
                         ).Show();
 
             return;
@@ -182,6 +182,15 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
 				try 
 				{
+					//------------------------------------------------------------------
+					Account account = ee.Account;
+					string token = default(string);
+					if (null != account)
+					{
+						token = account.Properties["access_token"].ToString();
+					}
+					//------------------------------------------------------------------
+
 					AuthenticationResult ar = new AuthenticationResult()
 					{
 						Title = "n/a",
@@ -194,6 +203,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 					sb.Append("Name             = ").Append(ar.User)
 													.Append(System.Environment.NewLine);
 					sb.Append("Account.UserName = ").Append(ee.Account.Username)
+													.Append(System.Environment.NewLine);
+					sb.Append("token            = ").Append(ee.Account.Username)
 													.Append(System.Environment.NewLine);
 
 					builder.SetTitle (ar.Title);
@@ -235,7 +246,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         (
                             this,
                             "acces_token = " + token,
-                            ToastLength.Short
+                            ToastLength.Long
                         ).Show();
             }
             //------------------------------------------------------------------
@@ -253,7 +264,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         (
                             this,
                             "acces_token = " + token,
-                            ToastLength.Short
+                            ToastLength.Long
                         ).Show();
             }
             //------------------------------------------------------------------
