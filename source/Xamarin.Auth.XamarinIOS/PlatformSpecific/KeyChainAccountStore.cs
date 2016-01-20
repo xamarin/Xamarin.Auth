@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
+
 #define TEST_MARK_T
 
 using System;
@@ -23,9 +24,11 @@ using System.Diagnostics;
 #if ! __UNIFIED__
 using MonoTouch.Security;
 using MonoTouch.Foundation;
+using MonoTouch.ObjCRuntime;
 #else
 using Security;
 using Foundation;
+using ObjCRuntime;
 #endif
 
 namespace Xamarin.Auth
@@ -36,6 +39,14 @@ namespace Xamarin.Auth
         {
             var query = new SecRecord(SecKind.GenericPassword);
             query.Service = serviceId;
+			var prop = query.GetType ().GetProperty ("queryDict", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+			var queryDict = prop.GetMethod.Invoke (query, new object [] {}) as NSMutableDictionary;
+
+			var SecItemType = query.GetType ().Assembly.GetTypes ().First (t => t.Name == "SecItem" && t.Namespace == "Security");
+			var ReturnDataKey = (IntPtr)SecItemType.GetProperty ("ReturnData").GetMethod.Invoke (null, new Object [] {});
+			var CFBooleanTrue = query.GetType ().Assembly.GetTypes ().First (t => t.Name == "CFBoolean" && t.Namespace == "CoreFoundation").GetField ("True").GetValue (null) as INativeObject;
+
+			queryDict.LowlevelSetObject (CFBooleanTrue.Handle, ReturnDataKey);
 
             SecStatusCode result;
             SecRecord[] records = SecKeyChain.QueryAsRecord(query, 1000, out result);
