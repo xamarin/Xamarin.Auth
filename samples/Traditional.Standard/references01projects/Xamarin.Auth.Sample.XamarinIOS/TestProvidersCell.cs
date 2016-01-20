@@ -151,7 +151,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			}
 			else 
 			{
-				AccountStoreTests (ee);
+				AccountStoreTests (sender, ee);
 
 				try 
 				{
@@ -160,7 +160,18 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 					string token = default(string);
 					if (null != account)
 					{
-						token = account.Properties["access_token"].ToString();
+						string token_name = default(string);
+						Type t = sender.GetType();
+						if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
+						{
+							token_name = "access_token";
+							token = account.Properties[token_name].ToString();
+						}
+						else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
+						{
+							token_name = "oauth_token";
+							token = account.Properties[token_name].ToString();
+						}
 					}
 					//------------------------------------------------------------------
 
@@ -177,7 +188,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 													.Append(System.Environment.NewLine);
 					sb.Append("Account.UserName = ").Append(ee.Account.Username)
 													.Append(System.Environment.NewLine);
-					sb.Append("token            = ").Append(ee.Account.Username)
+					sb.Append("token            = ").Append(token)
 													.Append(System.Environment.NewLine);
                     msg = sb.ToString();
 				} 
@@ -245,7 +256,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             return;
         }
 
-		private void AccountStoreTests(AuthenticatorCompletedEventArgs ee)
+		private void AccountStoreTests(object authenticator, AuthenticatorCompletedEventArgs ee)
         {
             AccountStore account_store = AccountStore.Create();
             account_store.Save(ee.Account, provider);  
@@ -263,12 +274,24 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //------------------------------------------------------------------
                 if (null != account1)
                 {
-                    string token = account1.Properties["access_token"].ToString();
+					string token = default(string);
+					string token_name = default(string);
+					Type t = authenticator.GetType();
+					if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
+					{
+						token_name = "access_token";
+						token = account1.Properties[token_name].ToString();
+					}
+					else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
+					{
+						token_name = "oauth_token";
+						token = account1.Properties[token_name].ToString();
+					}
                     UIAlertView alert = 
                                     new UIAlertView
                                         (
                                             "Token",
-                                            "acces_token = " + token,
+											"access_token = " + token,
                                             null,
                                             "OK",
                                             null
@@ -307,11 +330,23 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //------------------------------------------------------------------
                 if( null != account2 )
                 {
-                    string token = account2.Properties["access_token"].ToString();
+					string token = default(string);
+					string token_name = default(string);
+					Type t = authenticator.GetType();
+					if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
+					{
+						token_name = "access_token";
+						token = account2.Properties[token_name].ToString();
+					}
+					else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
+					{
+						token_name = "oauth_token";
+						token = account2.Properties[token_name].ToString();
+					}
                     UIAlertView alert = new UIAlertView
                                                 (
                                                     "Token",
-                                                    "acces_token = " + token,
+													"access_token = " + token,
                                                     null,
                                                     "OK",
                                                     null
