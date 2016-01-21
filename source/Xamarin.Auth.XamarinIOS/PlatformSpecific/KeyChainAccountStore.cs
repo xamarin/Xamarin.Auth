@@ -35,18 +35,26 @@ namespace Xamarin.Auth
 {
 	internal class KeyChainAccountStore : AccountStore
 	{
+		static Lazy <System.Reflection.MethodInfo> SecRecord_queryDictGetter = new Lazy<System.Reflection.MethodInfo> (() => {
+			return typeof (SecRecord).GetProperty ("queryDict", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetMethod;
+			});
+
+		static Lazy <IntPtr> Security_ReturnData = new Lazy<IntPtr> (() => {
+			return (IntPtr)typeof (SecRecord).Assembly.GetTypes ().First (t => t.Name == "SecItem" && t.Namespace == "Security").GetProperty ("ReturnData").GetMethod.Invoke (null, new Object [] {});
+			});
+
+		static Lazy <INativeObject> CFBoolean_True = new Lazy<INativeObject> (() => {
+			return typeof (SecRecord).Assembly.GetTypes ().First (t => t.Name == "CFBoolean" && t.Namespace == "CoreFoundation").GetField ("True").GetValue (null) as INativeObject;
+			});
+
 		public override IEnumerable<Account> FindAccountsForService(string serviceId)
         {
             var query = new SecRecord(SecKind.GenericPassword);
             query.Service = serviceId;
-			var prop = query.GetType ().GetProperty ("queryDict", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-			var queryDict = prop.GetMethod.Invoke (query, new object [] {}) as NSMutableDictionary;
 
-			var SecItemType = query.GetType ().Assembly.GetTypes ().First (t => t.Name == "SecItem" && t.Namespace == "Security");
-			var ReturnDataKey = (IntPtr)SecItemType.GetProperty ("ReturnData").GetMethod.Invoke (null, new Object [] {});
-			var CFBooleanTrue = query.GetType ().Assembly.GetTypes ().First (t => t.Name == "CFBoolean" && t.Namespace == "CoreFoundation").GetField ("True").GetValue (null) as INativeObject;
-
-			queryDict.LowlevelSetObject (CFBooleanTrue.Handle, ReturnDataKey);
+			// Workaround for https://bugzilla.xamarin.com/show_bug.cgi?id=29977
+			var queryDict = SecRecord_queryDictGetter.Value.Invoke (query, new object [] {}) as NSMutableDictionary;
+			queryDict.LowlevelSetObject (CFBoolean_True.Value.Handle, Security_ReturnData.Value);
 
             SecStatusCode result;
             SecRecord[] records = SecKeyChain.QueryAsRecord(query, 1000, out result);
