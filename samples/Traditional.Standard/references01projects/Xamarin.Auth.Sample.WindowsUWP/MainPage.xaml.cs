@@ -14,11 +14,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+
 using Xamarin.Auth.SampleData;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Xamarin.Auth.Sample.w81WinRT
+namespace Xamarin.Auth.Sample.Windows10UWP
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -30,7 +31,7 @@ namespace Xamarin.Auth.Sample.w81WinRT
             this.InitializeComponent();
 
             provider_list = new string[]
-                   {
+                    {
                     "Facebook OAuth2",
                     "Twitter OAuth1",
                     "Google OAuth2",
@@ -39,7 +40,7 @@ namespace Xamarin.Auth.Sample.w81WinRT
                     "LinkedIn OAuth2",
                     "Github OAuth2",
                     "Instagram OAuth2",
-                   };
+                    };
 
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
@@ -47,7 +48,7 @@ namespace Xamarin.Auth.Sample.w81WinRT
             return;
         }
 
-        string[] provider_list;
+        string[] provider_list = null;
 
         private void itemList_Tapped(object sender, TappedRoutedEventArgs e)
         {

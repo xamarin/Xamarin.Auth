@@ -140,14 +140,6 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
-      <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
-      <Name>Xamarin.Auth.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
-      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
-      <Name>Xamarin.Auth.XamarinIOS</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
       <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
       <Name>Xamarin.Auth.SampleData</Name>
