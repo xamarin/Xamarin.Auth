@@ -9,27 +9,26 @@ using Xamarin.Forms;
 using Xamarin.Forms.Platform.Android;
 using Xamarin.Auth.XamarinForms;
 using Xamarin.Auth;
-using Xamarin.Auth.Helpers;
 
 
 [assembly: 
-	Xamarin.Forms.ExportRenderer
-			(
-			// ViewElement to be rendered (from Portable/Shared)
+    Xamarin.Forms.ExportRenderer
+            (
+            // ViewElement to be rendered (from Portable/Shared)
             typeof(Xamarin.Auth.XamarinForms.PageOAuth),
-			// platform specific Renderer : global::Xamarin.Forms.Platform.XamarinIOS.PageRenderer
-			typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.PageOAuthRenderer)
-			)
+            // platform specific Renderer : global::Xamarin.Forms.Platform.XamarinIOS.PageRenderer
+            typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.PageOAuthRenderer)
+            )
 ]
 namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 {
     public partial class PageOAuthRenderer : global::Xamarin.Forms.Platform.Android.PageRenderer
-	{
+    {
         PageOAuth e_new = null;
 
-		bool IsShown;
+        bool IsShown;
 
-		protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
         {
             base.OnElementChanged(e);
 
@@ -99,14 +98,14 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
                 {
                     throw new ArgumentException("Invalid OAuthenticator");
                 }
-			}
+            }
 
-			return;
-		}
+            return;
+        }
 
-		Android.App.Activity activity = null;
+        Android.App.Activity activity = null;
 
-		private void Authenticate
+        private void Authenticate
                         (
                             string application_id_aka_client_id, 
                             string consumer_secret, 
@@ -117,9 +116,9 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
                             GetUsernameAsyncFunc func_get_username,
                             bool allow_cancel = true
                         )
-		{
-			OAuth1Authenticator auth = new OAuth1Authenticator 
-				(
+        {
+            OAuth1Authenticator auth = new OAuth1Authenticator 
+                (
                     application_id_aka_client_id,
                     consumer_secret,
                     uri_reuest_token,
@@ -127,19 +126,19 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
                     uri_access_token,
                     uri_callback_redirect,
                     func_get_username
-				);
+                );
 
-			auth.AllowCancel = allow_cancel;
+            auth.AllowCancel = allow_cancel;
 
-			// If authorization succeeds or is canceled, .Completed will be fired.
-			auth.Completed += Auth_Completed;
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            auth.Completed += Auth_Completed;
 
-			activity.StartActivity (auth.GetUI(activity));
+            activity.StartActivity (auth.GetUI(activity));
 
-			return;
-		}
+            return;
+        }
         
-		private void Authenticate
+        private void Authenticate
                         (
                             string application_id_aka_client_id, 
                             string scope, 
@@ -148,65 +147,65 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
                             GetUsernameAsyncFunc func_get_username,
                             bool allow_cancel = true
                         )
-		{
-			OAuth2Authenticator auth = new OAuth2Authenticator 
-				(
+        {
+            OAuth2Authenticator auth = new OAuth2Authenticator 
+                (
                     application_id_aka_client_id,
                     scope,
                     uri_authorization,
                     uri_callback_redirect,
                     func_get_username
-				);
+                );
 
-			auth.AllowCancel = allow_cancel;
+            auth.AllowCancel = allow_cancel;
 
-			// If authorization succeeds or is canceled, .Completed will be fired.
-			auth.Completed += Auth_Completed;
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            auth.Completed += Auth_Completed;
 
-			activity.StartActivity (auth.GetUI(activity));
+            activity.StartActivity (auth.GetUI(activity));
 
-			return;
-		}
+            return;
+        }
         
-		private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
-		{
-			if (e.IsAuthenticated)
-			{
-				// e.Account contains info:
-				//		e.AccountProperties[""]
-				//
-				// use access tokenmore detailed user info from the API
+        private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
+        {
+            if (e.IsAuthenticated)
+            {
+                // e.Account contains info:
+                //		e.AccountProperties[""]
+                //
+                // use access tokenmore detailed user info from the API
 
-				this.AccountProperties = e.Account.Properties;
-			}
-			else
-			{
-				// The user cancelled
-			}
+                this.AccountProperties = e.Account.Properties;
+            }
+            else
+            {
+                // The user cancelled
+            }
 
-			// dismiss UI on iOS, because it was manually created
-			// IOS
-			// 			DismissViewController(true, null);
-			// Android
+            // dismiss UI on iOS, because it was manually created
+            // IOS
+            // 			DismissViewController(true, null);
+            // Android
 
-			// possibly do something to dismiss THIS viewcontroller, 
-			// or else login screen does not disappear             
+            // possibly do something to dismiss THIS viewcontroller, 
+            // or else login screen does not disappear             
 
-			return;
-		}
+            return;
+        }
         
-		protected Dictionary<string, string> account_properties;
+        protected Dictionary<string, string> account_properties;
 
-		public Dictionary<string, string> AccountProperties
-		{
-			protected get
-			{
-				return account_properties;
-			}
-			set
-			{
-				account_properties = value;
-			}
-		}
-	}
+        public Dictionary<string, string> AccountProperties
+        {
+            protected get
+            {
+                return account_properties;
+            }
+            set
+            {
+                account_properties = value;
+            }
+        }
+    }
 }

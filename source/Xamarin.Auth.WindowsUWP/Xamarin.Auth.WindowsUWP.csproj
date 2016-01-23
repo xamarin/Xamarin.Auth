@@ -203,6 +203,17 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
+    <Compile Include="Authenticator.WindowsUWP.cs" />
+    <Compile Include="WebAuthenticator.WindowsUWP.cs" />
+    <Compile Include="WebAuthenticatorPage.xaml.cs">
+      <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WebAuthenticatorPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -106,10 +106,6 @@
       <Project>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</Project>
       <Name>Xamarin.Auth.XamarinAndroid</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
-      <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
-      <Name>Xamarin.Auth.Helpers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj">
       <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
       <Name>Xamarin.Auth.XamarinForms</Name>
