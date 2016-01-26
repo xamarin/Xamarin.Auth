@@ -25,8 +25,6 @@ namespace Xamarin.Auth.Sample.w81WinRT
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        string[] provider_list;
-
         public MainPage()
         {
             this.InitializeComponent();
@@ -46,7 +44,10 @@ namespace Xamarin.Auth.Sample.w81WinRT
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
 
+            return;
         }
+
+        string[] provider_list;
 
         private void itemList_Tapped(object sender, TappedRoutedEventArgs e)
         {

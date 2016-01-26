@@ -19,8 +19,6 @@ namespace Xamarin.Auth.Sample.WinPhone8
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        string[] provider_list;
-
         // Constructor
         public MainPage()
         {
@@ -45,7 +43,12 @@ namespace Xamarin.Auth.Sample.WinPhone8
 
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
+
+            return;
         }
+
+        string[] provider_list = null;
+        string provider = null;
 
         private void itemList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -112,8 +115,8 @@ namespace Xamarin.Auth.Sample.WinPhone8
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
 
-			Uri uri = auth.GetUI();
-			(System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
+            Uri uri = auth.GetUI();
+            (System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
 
             return;
         }
@@ -173,5 +176,71 @@ namespace Xamarin.Auth.Sample.WinPhone8
         //    ApplicationBarMenuItem appBarMenuItem = new ApplicationBarMenuItem(AppResources.AppBarMenuItemText);
         //    ApplicationBar.MenuItems.Add(appBarMenuItem);
         //}
+
+
+        private void AccountStoreTests(object authenticator, AuthenticatorCompletedEventArgs ee)
+        {
+            AccountStore account_store = AccountStore.Create();
+            account_store.Save(ee.Account, provider);
+            // https://kb.xamarin.com/agent/case/225411
+
+            //------------------------------------------------------------------
+            // Android
+            // cannot reproduce 
+            Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+            if (null != account1)
+            {
+                //------------------------------------------------------------------
+                string token = default(string);
+                if (null != account1)
+                {
+                    string token_name = default(string);
+                    Type t = authenticator.GetType();
+                    if (t == typeof(Xamarin.Auth.OAuth2Authenticator))
+                    {
+                        token_name = "access_token";
+                        token = account1.Properties[token_name].ToString();
+                    }
+                    else if (t == typeof(Xamarin.Auth.OAuth1Authenticator))
+                    {
+                        token_name = "oauth_token";
+                        token = account1.Properties[token_name].ToString();
+                    }
+                }
+                //------------------------------------------------------------------
+            }
+            //------------------------------------------------------------------
+
+            AccountStore.Create().Save(ee.Account, provider + ".v.2");
+
+            //------------------------------------------------------------------
+            // throws on iOS
+            //
+            Account account2 = AccountStore.Create().FindAccountsForService(provider + ".v.2").FirstOrDefault();
+            if (null != account2)
+            {
+                //------------------------------------------------------------------
+                string token = default(string);
+                if (null != account2)
+                {
+                    string token_name = default(string);
+                    Type t = authenticator.GetType();
+                    if (t == typeof(Xamarin.Auth.OAuth2Authenticator))
+                    {
+                        token_name = "access_token";
+                        token = account2.Properties[token_name].ToString();
+                    }
+                    else if (t == typeof(Xamarin.Auth.OAuth1Authenticator))
+                    {
+                        token_name = "oauth_token";
+                        token = account2.Properties[token_name].ToString();
+                    }
+                }
+                //------------------------------------------------------------------
+            }
+            //------------------------------------------------------------------
+
+            return;
+        }
     }
 }

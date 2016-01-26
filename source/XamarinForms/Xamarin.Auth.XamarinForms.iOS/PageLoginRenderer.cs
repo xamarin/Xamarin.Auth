@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Xamarin.Auth.Helpers;
 
 #if __UNIFIED__
 using Foundation;
@@ -18,43 +17,43 @@ using Xamarin.Forms.Platform.iOS;
 using Xamarin.Auth.XamarinForms;
 
 [assembly: 
-	Xamarin.Forms.ExportRenderer
-			(
-			// ViewElement to be rendered (from Portable/Shared)
+    Xamarin.Forms.ExportRenderer
+            (
+            // ViewElement to be rendered (from Portable/Shared)
             typeof(Xamarin.Auth.XamarinForms.PageOAuth),
-			// platform specific Renderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
+            // platform specific Renderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
             typeof(Xamarin.Auth.XamarinForms.XamarinIOS.PageOAuthRenderer)
-			)
+            )
 ]
 
 namespace Xamarin.Auth.XamarinForms.XamarinIOS
 {
     public partial class PageOAuthRenderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
-	{
+    {
         PageOAuth e_new = null;
 
-		bool IsShown;
+        bool IsShown;
 
-		// public class VisualElementChangedEventArgs : ElementChangedEventArgs<VisualElement>
-		protected override void OnElementChanged (VisualElementChangedEventArgs e)
-		{
-			base.OnElementChanged (e);
+        // public class VisualElementChangedEventArgs : ElementChangedEventArgs<VisualElement>
+        protected override void OnElementChanged (VisualElementChangedEventArgs e)
+        {
+            base.OnElementChanged (e);
 
-			// OnElementChanged is fired before ViewDidAppear, using it to pass data
+            // OnElementChanged is fired before ViewDidAppear, using it to pass data
 
             e_new = e.NewElement as PageOAuth;
                      
-			return;
-		}
+            return;
+        }
 
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);
+        public override void ViewDidAppear (bool animated)
+        {
+            base.ViewDidAppear (animated);
 
-			if (!IsShown)
-			{
+            if (!IsShown)
+            {
 
-				IsShown = true;
+                IsShown = true;
 
                 if 
                     (
@@ -112,8 +111,8 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                 }
             }
 
-			return;
-		}
+            return;
+        }
 
         private void Authenticate
                         (
@@ -213,44 +212,44 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
             return;
         }
 
-		private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
-		{
-			if (e.IsAuthenticated)
-			{
-				// e.Account contains info:
-				//		e.AccountProperties[""]
-				//
-				// use access tokenmore detailed user info from the API
+        private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
+        {
+            if (e.IsAuthenticated)
+            {
+                // e.Account contains info:
+                //		e.AccountProperties[""]
+                //
+                // use access tokenmore detailed user info from the API
 
-				this.AccountProperties = e.Account.Properties;
-			}
-			else
-			{
-				// The user cancelled
-			}
+                this.AccountProperties = e.Account.Properties;
+            }
+            else
+            {
+                // The user cancelled
+            }
 
-			// dismiss UI on iOS, because it was manually created
-			DismissViewController(true, null);
+            // dismiss UI on iOS, because it was manually created
+            DismissViewController(true, null);
 
-			// possibly do something to dismiss THIS viewcontroller, 
-			// or else login screen does not disappear             
+            // possibly do something to dismiss THIS viewcontroller, 
+            // or else login screen does not disappear             
 
-			return;
-		}
+            return;
+        }
 
 
-		protected Dictionary<string, string> account_properties;
+        protected Dictionary<string, string> account_properties;
 
-		public Dictionary<string, string> AccountProperties
-		{
-			protected get
-			{
-				return account_properties;
-			}
-			set
-			{
-				account_properties = value;
-			}
-		}
-	}
+        public Dictionary<string, string> AccountProperties
+        {
+            protected get
+            {
+                return account_properties;
+            }
+            set
+            {
+                account_properties = value;
+            }
+        }
+    }
 }
