@@ -17,8 +17,6 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
     [Activity (Label = "Xamarin.Auth.Sample.XamarinAndroid", MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : ListActivity 
     {
-        string[] provider_list;
-
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -39,6 +37,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             return;
         }
 
+        string[] provider_list = null;
         string provider = null;
 
         protected override void OnListItemClick (ListView l, View v, int position, long id)
