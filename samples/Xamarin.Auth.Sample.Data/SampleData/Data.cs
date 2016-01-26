@@ -63,6 +63,9 @@ namespace Xamarin.Auth.SampleData
 			TwitterOAuth1 twitter = new TwitterOAuth1();
 			TestCases.Add(twitter.Description,twitter);
 
+			AmazonOAuth2 amazon = new AmazonOAuth2();
+			TestCases.Add(amazon.Description,amazon);
+
 			return;
 		}
 	}

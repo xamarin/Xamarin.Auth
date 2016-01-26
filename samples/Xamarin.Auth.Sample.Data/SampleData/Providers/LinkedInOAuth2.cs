@@ -24,8 +24,8 @@ namespace Xamarin.Auth.SampleData
 	https://www.linkedin.com/developer/apps/3679273/auth
 	
 	Authentication Keys
-		Client ID:		7708jdzn99hom0
-		Client Secret:	ktFMFnqyw8b5LGMp
+		Client ID:		
+		Client Secret:	
 	Default Application Permissions
 		r_basicprofile	r_contactinfo	r_emailaddress
 		r_fullprofile	r_network	rw_company_admin
@@ -33,6 +33,7 @@ namespace Xamarin.Auth.SampleData
 		w_share
 
 	OAuth 2.0
+		NOTE: trailing s
 		Authorized Redirect URLs: 
 			https://xamarin.com 		
 			http://xamarin.com 		

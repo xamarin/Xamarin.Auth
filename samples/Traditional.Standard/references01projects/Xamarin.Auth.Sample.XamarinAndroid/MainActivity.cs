@@ -17,8 +17,6 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 	[Activity (Label = "Xamarin.Auth.Sample.XamarinAndroid", MainLauncher = true, Icon = "@drawable/icon")]
 	public class MainActivity : ListActivity 
 	{
-		string[] provider_list;
-
 		protected override void OnCreate(Bundle bundle)
 		{
 			base.OnCreate(bundle);
@@ -28,10 +26,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 					"Twitter OAuth1",
 					"Google OAuth2",
 					"Microsoft Live OAuth2",
-					"LinkedIn OAuth1",
+					// "LinkedIn OAuth1", // unsupported
 					"LinkedIn OAuth2",
 					"Github OAuth2",
 					"Instagram OAuth2", 
+					"Amazon OAuth2",
 				};
 
 			ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, provider_list);
@@ -39,6 +38,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 			return;
 		}
 
+		string[] provider_list;
 		string provider = null;
 
 		protected override void OnListItemClick (ListView l, View v, int position, long id)
@@ -70,6 +70,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				case "Instagram OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Amazon OAuth2":
 					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
 				default:
@@ -141,7 +144,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             Toast.MakeText
                         (
-                            this,
+							// this, 
+							Android.App.Application.Context,
                             "Message = " + msg,
                             ToastLength.Long
                         ).Show();
@@ -160,7 +164,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             Toast.MakeText
                         (
-                            this,
+							// this, 
+							Android.App.Application.Context,
                             "Message = " + msg,
                             ToastLength.Long
                         ).Show();
@@ -272,7 +277,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 				//------------------------------------------------------------------
                 Toast.MakeText
                         (
-                            this,
+                            // this, 
+							Android.App.Application.Context,
                             "access_token = " + token,
                             ToastLength.Long
                         ).Show();
@@ -307,7 +313,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 				//------------------------------------------------------------------
                 Toast.MakeText
                         (
-                            this,
+							// this, 
+							Android.App.Application.Context,
 							"access_token = " + token,
                             ToastLength.Long
                         ).Show();

@@ -24,7 +24,7 @@ namespace Xamarin.Auth.SampleData
 	https://www.instagram.com/developer/clients/manage/
 	Xamarin.Auth.Component
 	CLIENT INFO
-	CLIENT ID		5a0590cb807045d68cbb2459ab336869
+	CLIENT ID		
 	WEBSITE URL		http://xamarin.com
 	REDIRECT URI	http://xamarin.com/
 	SUPPORT EMAIL	None

@@ -57,6 +57,9 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 				case "Instagram OAuth2":
 					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
 					break;
+				case "Amazon OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
 				default:
 					UIAlertView _error = new UIAlertView ("Error", "Unknown OAuth Provider!", null, "Ok", null);
 					_error.Show ();
@@ -74,7 +77,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
 					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
 					authorizeUrl: oauth1.OAuth_UriAuthorization,
-					accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+					accessTokenUrl: oauth1.OAuth_UriAccessToken,
 					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
 				);
 
@@ -114,12 +117,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			{
 				auth = new OAuth2Authenticator 
 					(
-						clientId: "5b5c2d2d76e2fd9a804b",
-						clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
-						scope: "",
-						authorizeUrl: new Uri("https://github.com/login/oauth/authorize"),
-						redirectUrl: new Uri("http://xamarin.com"),
-						accessTokenUrl: new Uri("https://github.com/login/oauth/access_token")
+						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+						clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+						scope: oauth2.OAuth2_Scope,
+						authorizeUrl: oauth2.OAuth_UriAuthorization,
+						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+						accessTokenUrl: oauth2.OAuth_UriAccessToken 
 					);
 			}
 
@@ -198,7 +201,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 				}
 			}
 
-            InvokeOnMainThread 
+            this.InvokeOnMainThread 
                 ( 
                     () => 
                     {
@@ -221,7 +224,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     .Append(System.Environment.NewLine);
             msg = sb.ToString();
 
-            InvokeOnMainThread 
+            this.InvokeOnMainThread 
                 ( 
                     () => 
                     {

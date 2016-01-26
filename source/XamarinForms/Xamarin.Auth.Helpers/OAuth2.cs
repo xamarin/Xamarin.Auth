@@ -14,7 +14,7 @@ namespace Xamarin.Auth.Helpers
 			set;
 		}
 
-		public string OAuth1_SecretKey_ConsumerSecret_APISecret
+		public string OAuth_SecretKey_ConsumerSecret_APISecret
 		{
 			get;
 			set;
@@ -30,14 +30,15 @@ namespace Xamarin.Auth.Helpers
 		}
 		*/
 
-		public Uri OAuth1_UriAccessToken
-		{
-			get;
-			set;
-		}
 
 		public virtual void Login ()
 		{			
+		}
+
+		public OAuth2Authenticator OAuthAuthenticator
+		{
+			get;
+			set;
 		}
 	}
 }

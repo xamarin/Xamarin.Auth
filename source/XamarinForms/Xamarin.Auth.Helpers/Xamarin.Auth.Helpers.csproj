@@ -30,7 +30,6 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OAuth.cs" />
     <Compile Include="OAuth1.cs" />
     <Compile Include="OAuth2.cs" />
@@ -43,4 +42,10 @@
   	"$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" 
   -->
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\..\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
+      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
+      <Name>Xamarin.Auth.Portable</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>

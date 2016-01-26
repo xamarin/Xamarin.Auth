@@ -27,12 +27,12 @@ namespace Xamarin.Auth.Helpers
 			set;
 		}
 
-		public Uri OAuth1_UriAccessToken
+
+		public OAuth1Authenticator OAuthAuthenticator
 		{
 			get;
 			set;
 		}
-
 	}
 }
 

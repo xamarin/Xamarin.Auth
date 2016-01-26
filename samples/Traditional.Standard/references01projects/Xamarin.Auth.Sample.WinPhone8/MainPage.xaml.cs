@@ -36,10 +36,11 @@ namespace Xamarin.Auth.Sample.WinPhone8
                     "Twitter OAuth1",
                     "Google OAuth2",
                     "Microsoft Live OAuth2",
-                    "LinkedIn OAuth1",
+                    // "LinkedIn OAuth1", unsupported
                     "LinkedIn OAuth2",
                     "Github OAuth2",
                     "Instagram OAuth2",
+					"Amazon OAuth2",
                 };
 
             itemList.ItemsSource = null;
@@ -78,6 +79,9 @@ namespace Xamarin.Auth.Sample.WinPhone8
                 case "Instagram OAuth2":
                     Authenticate(Data.TestCases["Instagram OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
                     break;
+				case "Amazon OAuth2":
+					Authenticate(Data.TestCases["Amazon OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
+				break;
                 default:
                     //Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
                     break;

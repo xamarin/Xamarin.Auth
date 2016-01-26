@@ -105,6 +105,12 @@ namespace Xamarin.Auth.Helpers
 			set;
 		}
 
+		public Uri OAuth_UriAccessToken
+		{
+			get;
+			set;
+		}
+
 		public Dictionary<string, string> AccountProperties
 		{
 			get;
