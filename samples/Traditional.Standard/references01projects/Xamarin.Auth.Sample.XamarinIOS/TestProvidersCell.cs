@@ -25,8 +25,6 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             TextLabel.Text = "TextLabel";
         }
 
-        string provider = null;
-
         public override void TouchesBegan (NSSet touches, UIEvent evt)
         {
             provider = this.TextLabel.Text;
@@ -57,6 +55,24 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 case "Instagram OAuth2":
                     Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
                     break;
+				case "Amazon OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Meetup OAuth1":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
+					break;
+				case "Meetup OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Dropbox OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Paypal OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Stackoverflow OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
                 default:
                     UIAlertView _error = new UIAlertView ("Error", "Unknown OAuth Provider!", null, "Ok", null);
                     _error.Show ();
@@ -66,6 +82,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             return;
         }
 
+		string provider = null;
+
         private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
         {
             OAuth1Authenticator auth = new OAuth1Authenticator 
@@ -74,7 +92,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                     consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                     requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                     authorizeUrl: oauth1.OAuth_UriAuthorization,
-                    accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+                    accessTokenUrl: oauth1.OAuth_UriAccessToken,
                     callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
                 );
 

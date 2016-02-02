@@ -8,7 +8,7 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Xamarin.Auth.Sample.WinPhone8.Resources;
 
-namespace Xamarin.Auth.Sample.WinPhone8
+namespace Xamarin.Auth.Sample
 {
     public partial class App : Application
     {

@@ -57,7 +57,7 @@ namespace XamarinAuth.Views
                                     oauth_twitter.OAuth1_SecretKey_ConsumerSecret_APISecret,
                                     oauth_twitter.OAuth1_UriRequestToken,
                                     oauth_twitter.OAuth_UriAuthorization,
-                                    oauth_twitter.OAuth1_UriAccessToken,
+                                    oauth_twitter.OAuth_UriAccessToken,
                                     oauth_twitter.OAuth_UriCallbackAKARedirect,
                                     null,
                                     true
@@ -98,7 +98,7 @@ namespace XamarinAuth.Views
                                     oauth_linkedin1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                                     oauth_linkedin1.OAuth1_UriRequestToken,
                                     oauth_linkedin1.OAuth_UriAuthorization,
-                                    oauth_linkedin1.OAuth1_UriAccessToken,
+                                    oauth_linkedin1.OAuth_UriAccessToken,
                                     oauth_linkedin1.OAuth_UriCallbackAKARedirect,
                                     null,
                                     true

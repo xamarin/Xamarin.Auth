@@ -102,7 +102,23 @@ namespace Xamarin.Auth.XamarinForms
 			root.Add(section);
 			table_view.Root = root;
 
-			this.Content = table_view;
+			Button buttonOAuthProvider = new Button () 
+			{
+				Text = "Authenticate"
+			};
+			buttonOAuthProvider.Clicked += ButtonOAuthProvider_Clicked;
+			StackLayout stack_layout = new StackLayout ();
+			stack_layout.Children.Add (buttonOAuthProvider);
+			stack_layout.Children.Add (table_view);
+
+			this.Content = stack_layout;
+
+			return;
+		}
+
+		protected void ButtonOAuthProvider_Clicked (object sender, EventArgs e)
+		{			
+			this.Navigation.PushAsync (new PageOAuth ());
 
 			return;
 		}

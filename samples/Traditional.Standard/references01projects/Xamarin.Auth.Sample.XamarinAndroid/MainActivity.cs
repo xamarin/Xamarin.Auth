@@ -20,24 +20,28 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            provider_list = new string[] 
-                { 
-                    "Facebook OAuth2",
-                    "Twitter OAuth1",
-                    "Google OAuth2",
-                    "Microsoft Live OAuth2",
-                    "LinkedIn OAuth1",
-                    "LinkedIn OAuth2",
-                    "Github OAuth2",
-                    "Instagram OAuth2", 
-                };
 
             ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, provider_list);
 
             return;
         }
 
-        string[] provider_list = null;
+        string[] provider_list = new string[] 
+		{ 
+			"Facebook OAuth2",
+			"Twitter OAuth1",
+			"Google OAuth2",
+			"Microsoft Live OAuth2",
+			"LinkedIn OAuth1",
+			"LinkedIn OAuth2",
+			"Github OAuth2",
+			"Amazon OAuth2", 
+			"Dropbox OAuth2", 
+			"Meetup OAuth1", 
+			"Meetup OAuth2", 
+			"Paypal OAuth2", 
+			"Stackoverflow OAuth2", 
+		};
         string provider = null;
 
         protected override void OnListItemClick (ListView l, View v, int position, long id)
@@ -71,6 +75,24 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 case "Instagram OAuth2":
                     Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
                     break;
+				case "Amazon OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Meetup OAuth1":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
+					break;
+				case "Meetup OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Dropbox OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Paypal OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Stackoverflow OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
                 default:
                     Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
                     break;
@@ -87,7 +109,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                     requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                     authorizeUrl: oauth1.OAuth_UriAuthorization,
-                    accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+                    accessTokenUrl: oauth1.OAuth_UriAccessToken,
                     callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
                 );
 

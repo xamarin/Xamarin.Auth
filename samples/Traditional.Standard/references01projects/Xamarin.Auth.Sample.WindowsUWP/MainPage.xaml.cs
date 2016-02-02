@@ -20,7 +20,7 @@ using Xamarin.Auth.SampleData;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace Xamarin.Auth.Sample.Windows10UWP
+namespace Xamarin.Auth.Sample
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -31,25 +31,28 @@ namespace Xamarin.Auth.Sample.Windows10UWP
         {
             this.InitializeComponent();
 
-            provider_list = new string[]
-                    {
-                    "Facebook OAuth2",
-                    "Twitter OAuth1",
-                    "Google OAuth2",
-                    "Microsoft Live OAuth2",
-                    "LinkedIn OAuth1",
-                    "LinkedIn OAuth2",
-                    "Github OAuth2",
-                    "Instagram OAuth2",
-                    };
-
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
 
             return;
         }
 
-        string[] provider_list = null;
+        string[] provider_list = new string[] 
+        { 
+            "Facebook OAuth2",
+            "Twitter OAuth1",
+            "Google OAuth2",
+            "Microsoft Live OAuth2",
+            "LinkedIn OAuth1",
+            "LinkedIn OAuth2",
+            "Github OAuth2",
+            "Amazon OAuth2", 
+            "Dropbox OAuth2", 
+            "Meetup OAuth1", 
+            "Meetup OAuth2", 
+            "Paypal OAuth2", 
+            "Stackoverflow OAuth2", 
+        };
         string provider = null;
 
         private void itemList_Tapped(object sender, TappedRoutedEventArgs e)
@@ -84,6 +87,24 @@ namespace Xamarin.Auth.Sample.Windows10UWP
                 case "Instagram OAuth2":
                     Authenticate(Data.TestCases["Instagram OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
                     break;
+                case "Amazon OAuth2":
+                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+                    break;
+                case "Meetup OAuth1":
+                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+                    break;
+                case "Meetup OAuth2":
+                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+                    break;
+                case "Dropbox OAuth2":
+                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+                    break;
+                case "Paypal OAuth2":
+                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+                    break;
+                case "Stackoverflow OAuth2":
+                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+                    break;
                 default:
                     //Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
                     break;
@@ -101,7 +122,7 @@ namespace Xamarin.Auth.Sample.Windows10UWP
                     consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                     requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                     authorizeUrl: oauth1.OAuth_UriAuthorization,
-                    accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+                    accessTokenUrl: oauth1.OAuth_UriAccessToken,
                     callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
                 );
 

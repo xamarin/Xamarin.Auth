@@ -68,7 +68,7 @@ namespace Xamarin.Auth.XamarinForms.Authentication.WindowsPhone
                 throw new ArgumentOutOfRangeException("Unknown OAuth");
                 /*
 
-				*/
+                */
             }
             return;
         }
@@ -82,7 +82,7 @@ namespace Xamarin.Auth.XamarinForms.Authentication.WindowsPhone
                         consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                         requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                         authorizeUrl: oauth1.OAuth_UriAuthorization,
-                        accessTokenUrl: oauth1.OAuth1_UriAccessToken,
+                        accessTokenUrl: oauth1.OAuth_UriAccessToken,
                         callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
                         getUsernameAsync: null
                         );
@@ -100,7 +100,7 @@ namespace Xamarin.Auth.XamarinForms.Authentication.WindowsPhone
             global::Xamarin.Auth.OAuth2Authenticator auth = null;
 
             if (
-                null == oauth2.OAuth1_UriAccessToken)
+                null == oauth2.OAuth_UriAccessToken)
             {
                 try
                 {
@@ -125,11 +125,11 @@ namespace Xamarin.Auth.XamarinForms.Authentication.WindowsPhone
                     new global::Xamarin.Auth.OAuth2Authenticator
                         (
                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                        clientSecret: oauth2.OAuth1_SecretKey_ConsumerSecret_APISecret,
+                        clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
                         scope: oauth2.OAuth2_Scope,
                         authorizeUrl: oauth2.OAuth_UriAuthorization,
                         redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                        accessTokenUrl: oauth2.OAuth1_UriAccessToken,
+                        accessTokenUrl: oauth2.OAuth_UriAccessToken,
                         getUsernameAsync: null
                         );
 

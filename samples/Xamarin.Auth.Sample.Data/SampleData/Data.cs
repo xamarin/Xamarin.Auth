@@ -66,6 +66,23 @@ namespace Xamarin.Auth.SampleData
 			AmazonOAuth2 amazon = new AmazonOAuth2();
 			TestCases.Add(amazon.Description,amazon);
 
+			MeetupOAuth1 meetup_oauth1 = new MeetupOAuth1();
+			TestCases.Add(meetup_oauth1.Description,meetup_oauth1);
+
+			MeetupOAuth2 meetup_oauth2 = new MeetupOAuth2();
+			TestCases.Add(meetup_oauth2.Description,meetup_oauth2);
+
+			DropboxOAuth2 dropbox = new DropboxOAuth2();
+			TestCases.Add(dropbox.Description,dropbox);
+
+			PaypalOAuth2 paypal = new PaypalOAuth2();
+			TestCases.Add(paypal.Description,paypal);
+
+			StackoverflowOAuth2 stackoverflow = new StackoverflowOAuth2();
+			TestCases.Add(stackoverflow.Description,stackoverflow);
+
+
+
 			return;
 		}
 	}

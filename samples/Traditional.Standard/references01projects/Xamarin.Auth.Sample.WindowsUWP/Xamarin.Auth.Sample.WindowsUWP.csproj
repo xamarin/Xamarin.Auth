@@ -7,7 +7,7 @@
     <ProjectGuid>{B412BBA1-9C46-40BF-A615-DDCF97868117}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth.Sample.Windows10UWP</RootNamespace>
+    <RootNamespace>Xamarin.Auth.Sample</RootNamespace>
     <AssemblyName>Xamarin.Auth.Sample.Windows10UWP</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>

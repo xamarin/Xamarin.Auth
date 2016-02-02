@@ -7,7 +7,7 @@
     <ProjectGuid>{02513D4A-DF26-41D6-AC5E-A5DD76DE52BE}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth.Sample.w81WinRT</RootNamespace>
+    <RootNamespace>Xamarin.Auth.Sample</RootNamespace>
     <AssemblyName>Xamarin.Auth.Sample.w81WinRT</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
@@ -110,20 +110,6 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <!--
-  ======================================================================================
-  Classes with partial methods 
-  		*.secure.cs
-  			actual secure/secrt/private data in partial methods
-  -->
-  <ItemGroup>
-    <Compile Include="..\..\..\Xamarin.Auth.Sample.Data\SampleData\Providers\*.secure.cs">
-      <Link>SampleData\Providers\*.secure.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <!--
-  ======================================================================================
-  -->
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>

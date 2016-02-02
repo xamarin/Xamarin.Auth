@@ -7,7 +7,7 @@
     <ProjectTypeGuids>{C089C8C0-30E0-4E22-80C0-CE093F111A43};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth.Sample.WinPhone8</RootNamespace>
+    <RootNamespace>Xamarin.Auth.Sample</RootNamespace>
     <AssemblyName>Xamarin.Auth.Sample.WinPhone8</AssemblyName>
     <TargetFrameworkIdentifier>WindowsPhone</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
@@ -101,21 +101,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
-  </ItemGroup>
-  <!--
-  ======================================================================================
-  Classes with partial methods 
-  		*.secure.cs
-  			actual secure/secrt/private data in partial methods
-  -->
-  <ItemGroup>
-    <Compile Include="..\..\..\Xamarin.Auth.Sample.Data\SampleData\Providers\*.secure.cs">
-      <Link>SampleData\Providers\*.secure.cs</Link>
+    <Compile Include="MainPage.Xamarin.Auth.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
-  <!--
-  ======================================================================================
-  -->
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <SubType>Designer</SubType>

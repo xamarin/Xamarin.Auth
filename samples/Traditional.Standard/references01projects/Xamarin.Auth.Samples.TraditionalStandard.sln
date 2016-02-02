@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Sample.XamarinAndroid", "Xamarin.Auth.Sample.XamarinAndroid\Xamarin.Auth.Sample.XamarinAndroid.csproj", "{623403B7-1667-49A9-B1F3-8D1425AD25A3}"
 EndProject
@@ -801,6 +801,7 @@ Global
 		{87580927-9F8E-42AE-BDFE-35F95ABF17D8}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{87580927-9F8E-42AE-BDFE-35F95ABF17D8}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{87580927-9F8E-42AE-BDFE-35F95ABF17D8}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{87580927-9F8E-42AE-BDFE-35F95ABF17D8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{87580927-9F8E-42AE-BDFE-35F95ABF17D8}.Release|x64.ActiveCfg = Release|Any CPU
 		{87580927-9F8E-42AE-BDFE-35F95ABF17D8}.Release|x86.ActiveCfg = Release|Any CPU
 		{EDE30D4F-FC0D-458A-A358-A745FC138DF3}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
@@ -1359,8 +1360,8 @@ Global
 		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|ARM.Build.0 = Debug|ARM
 		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|x86.ActiveCfg = Debug|x86
 		{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}.Debug|x86.Build.0 = Debug|x86
@@ -1403,8 +1404,8 @@ Global
 		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|ARM.Build.0 = Debug|ARM
 		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|x86.ActiveCfg = Debug|x86
 		{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}.Debug|x86.Build.0 = Debug|x86
@@ -1449,8 +1450,8 @@ Global
 		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|ARM.Build.0 = Debug|ARM
 		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|x64.ActiveCfg = Debug|x64
 		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|x64.Build.0 = Debug|x64
 		{9EE3F977-6715-4509-8FE8-B862158AA293}.Debug|x86.ActiveCfg = Debug|x86
@@ -1595,8 +1596,8 @@ Global
 		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
 		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
 		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|x64.ActiveCfg = Debug|x64
 		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|x64.Build.0 = Debug|x64
 		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|x86.ActiveCfg = Debug|x86
