@@ -82,6 +82,7 @@
     <Compile Include="WebUtilities.cs" />
     <Compile Include="v.2\OAuth2Authenticator.HttpClient.cs" />
     <Compile Include="Authenticator.Portable.cs" />
+    <Compile Include="AccountStore.Async.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
