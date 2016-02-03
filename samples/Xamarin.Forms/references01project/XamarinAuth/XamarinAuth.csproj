@@ -67,13 +67,13 @@
       <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
       <Name>Xamarin.Auth.Helpers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
-      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
-      <Name>Xamarin.Auth.Portable</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj">
       <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
       <Name>Xamarin.Auth.XamarinForms</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
+      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
+      <Name>Xamarin.Auth.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
