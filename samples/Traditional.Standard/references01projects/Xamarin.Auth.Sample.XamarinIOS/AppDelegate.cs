@@ -32,9 +32,14 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 		{
 			// create a new window instance based on the screen size
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
+
+			UIApplication.SharedApplication.StatusBarStyle = UIStatusBarStyle.LightContent;
 			
 			// If you have defined a root view controller, set it here:
-			window.RootViewController = new TestProvidersController();
+			var navCtrl = new UINavigationController (new TestProvidersController());
+			navCtrl.NavigationBar.BarTintColor = new UIColor (0x2C/255f, 0x3E/255f, 0x50/255f, 1);
+			navCtrl.NavigationBar.TitleTextAttributes = new UIStringAttributes {ForegroundColor = UIColor.White};
+			window.RootViewController = navCtrl;
 			
 			// make the window visible
 			window.MakeKeyAndVisible ();
