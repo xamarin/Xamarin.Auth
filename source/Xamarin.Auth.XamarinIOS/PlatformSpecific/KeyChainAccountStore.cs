@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
+using System.Threading.Tasks;
 
 #define TEST_MARK_T
 
@@ -47,7 +48,7 @@ namespace Xamarin.Auth
 			return typeof (SecRecord).Assembly.GetTypes ().First (t => t.Name == "CFBoolean" && t.Namespace == "CoreFoundation").GetField ("True").GetValue (null) as INativeObject;
 			});
 
-		public override IEnumerable<Account> FindAccountsForService(string serviceId)
+		public override Task<List<Account>> FindAccountsForServiceAsync (string serviceId)
         {
             var query = new SecRecord(SecKind.GenericPassword);
             query.Service = serviceId;
@@ -135,7 +136,7 @@ namespace Xamarin.Auth
                 accounts_found = new List<Account> ();
             }
 
-			return accounts_found;
+			return Task.FromResult(accounts_found);
 		}
 
 		Account GetAccountFromRecord (SecRecord r)
@@ -165,7 +166,7 @@ namespace Xamarin.Auth
 			return record != null ?	GetAccountFromRecord (record) : null;
 		}
 
-		public override void Save (Account account, string serviceId)
+		public override Task SaveAsync (Account account, string serviceId)
 		{
 			var statusCode = SecStatusCode.Success;
 			var serializedAccount = account.Serialize ();
@@ -210,9 +211,11 @@ namespace Xamarin.Auth
 			if (statusCode != SecStatusCode.Success) {
 				throw new Exception ("Could not save account to KeyChain: " + statusCode);
 			}
+
+			return Task.FromResult (true);
 		}
 
-		public override void Delete (Account account, string serviceId)
+		public override Task DeleteAsync (Account account, string serviceId)
 		{
 			var query = new SecRecord (SecKind.GenericPassword);
 			query.Service = serviceId;
@@ -223,6 +226,8 @@ namespace Xamarin.Auth
 			if (statusCode != SecStatusCode.Success) {
 				throw new Exception ("Could not delete account from KeyChain: " + statusCode);
 			}
+
+			return Task.FromResult (true);
 		}
 	}
 }
