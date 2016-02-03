@@ -18,7 +18,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.IsolatedStorage;
-using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,31 +26,38 @@ namespace Xamarin.Auth.WindowsPhone
 {
 	internal class WPAccountStore : AccountStore
 	{
-		public override IEnumerable<Account> FindAccountsForService (string serviceId)
+		public override Task<List<Account>> FindAccountsForServiceAsync (string serviceId)
 		{
+            var accounts = new List<Account>();
 			using (var store = IsolatedStorageFile.GetUserStoreForApplication()) {
 				string[] auths = store.GetFileNames ("xamarin.auth.*");
 				foreach (string path in auths) {
+                    if (!path.EndsWith("." + serviceId)) continue;
+
 					using (var stream = new BinaryReader (new IsolatedStorageFileStream (path, FileMode.Open, FileAccess.Read, FileShare.Read, store))) {
 						int length = stream.ReadInt32();
 						byte[] data = stream.ReadBytes (length);
 
 						byte[] unprot = ProtectedData.Unprotect (data, null);
-						yield return Account.Deserialize (Encoding.UTF8.GetString (unprot, 0, unprot.Length));
+						accounts.Add(Account.Deserialize (Encoding.UTF8.GetString (unprot, 0, unprot.Length)));
 					}
 				}
 			}
+
+            return Task.FromResult(accounts);
 		}
 
-		public override void Delete (Account account, string serviceId)
+		public override Task DeleteAsync (Account account, string serviceId)
 		{
 			var path = GetAccountPath (account, serviceId);
 			using (var store = IsolatedStorageFile.GetUserStoreForApplication()) {
 				store.DeleteFile (path);
 			}
+
+            return Task.FromResult(true);
 		}
 
-		public override void Save (Account account, string serviceId)
+		public override Task SaveAsync (Account account, string serviceId)
 		{
 			byte[] data = Encoding.UTF8.GetBytes (account.Serialize());
 			byte[] prot = ProtectedData.Protect (data, null);
@@ -63,7 +69,9 @@ namespace Xamarin.Auth.WindowsPhone
 				stream.WriteAsync (BitConverter.GetBytes (prot.Length), 0, sizeof (int)).Wait();
 				stream.WriteAsync (prot, 0, prot.Length).Wait();
 			}
-		}
+
+            return Task.FromResult(true);
+        }
 
 		private static string GetAccountPath (Account account, string serviceId)
 		{
