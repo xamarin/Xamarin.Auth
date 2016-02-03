@@ -23,52 +23,74 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Windows.Security.Cryptography;
+using Windows.Storage;
 
-namespace Xamarin.Auth.WindowsPhone
+namespace Xamarin.Auth.WindowsUWP
 {
-    internal class WPAccountStore : AccountStore
+    internal class UWPAccountStore : AccountStore
     {
-        public override IEnumerable<Account> FindAccountsForService (string serviceId)
+        public override async Task<List<Account>> FindAccountsForServiceAsync(string serviceId)
         {
-            using (var store = IsolatedStorageFile.GetUserStoreForApplication()) {
-                string[] auths = store.GetFileNames ("xamarin.auth.*");
-                foreach (string path in auths) {
-                    using (var stream = new BinaryReader (new IsolatedStorageFileStream (path, FileMode.Open, FileAccess.Read, FileShare.Read, store))) {
-                        int length = stream.ReadInt32();
-                        byte[] data = stream.ReadBytes (length);
+            var localFolder = ApplicationData.Current.LocalFolder;
 
-                        byte[] unprot = null; // ProtectedData.Unprotect (data, null);
-                        yield return Account.Deserialize (Encoding.UTF8.GetString (unprot, 0, unprot.Length));
-                    }
+            var files = await localFolder.GetFilesAsync().AsTask().ConfigureAwait(false);
+
+            var names = files.Select(x => x.Name);
+            var accounts = new List<Account>();
+
+            foreach (var file in files.Where(x => x.Name.StartsWith("xamarin.auth.") &&
+                                                  x.Name.EndsWith("." + serviceId))
+                                      .ToList())
+            {
+                using (var stream = await file.OpenStreamForReadAsync().ConfigureAwait(false))
+                using (var reader = new BinaryReader(stream))
+                {
+                    int length = reader.ReadInt32();
+                    byte[] data = reader.ReadBytes(length);
+
+                    byte[] unprot = (await DataProtectionExtensions.UnprotectAsync(data.AsBuffer()).ConfigureAwait(false)).ToArray();
+                    accounts.Add(Account.Deserialize(Encoding.UTF8.GetString(unprot, 0, unprot.Length)));
                 }
             }
+
+            return accounts;
         }
 
-        public override void Delete (Account account, string serviceId)
+        public override async Task DeleteAsync(Account account, string serviceId)
         {
-            var path = GetAccountPath (account, serviceId);
-            using (var store = IsolatedStorageFile.GetUserStoreForApplication()) {
-                store.DeleteFile (path);
+            var path = GetAccountPath(account, serviceId);
+            try
+            {
+                var localFolder = ApplicationData.Current.LocalFolder;
+                var file = await localFolder.GetFileAsync(path).AsTask().ConfigureAwait(false);
+                await file.DeleteAsync().AsTask().ConfigureAwait(false);
+            }
+            catch
+            {
+                // Ignore this error if file doesn't exist
             }
         }
 
-        public override void Save (Account account, string serviceId)
+        public override async Task SaveAsync(Account account, string serviceId)
         {
-            byte[] data = Encoding.UTF8.GetBytes (account.Serialize());
-            byte[] prot = null; // ProtectedData.Protect (data, null);
+            byte[] data = Encoding.UTF8.GetBytes(account.Serialize());
+            byte[] prot = (await DataProtectionExtensions.ProtectAsync(data.AsBuffer()).ConfigureAwait(false)).ToArray();
 
-            var path = GetAccountPath (account, serviceId);
+            var path = GetAccountPath(account, serviceId);
 
-            using (var store = IsolatedStorageFile.GetUserStoreForApplication())
-            using (var stream = new IsolatedStorageFileStream (path, FileMode.Create, FileAccess.Write, FileShare.None, store)) {
-                stream.WriteAsync (BitConverter.GetBytes (prot.Length), 0, sizeof (int)).Wait();
-                stream.WriteAsync (prot, 0, prot.Length).Wait();
+            var localFolder = ApplicationData.Current.LocalFolder;
+            var file = await localFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists).AsTask().ConfigureAwait(false);
+            using (var stream = await file.OpenStreamForWriteAsync().ConfigureAwait(false))
+            using (var writer = new BinaryWriter(stream))
+            {
+                writer.Write((Int32)prot.Length);
+                writer.Write(prot);
             }
         }
 
-        private static string GetAccountPath (Account account, string serviceId)
+        private static string GetAccountPath(Account account, string serviceId)
         {
-            return String.Format ("xamarin.auth.{0}.{1}", account.Username, serviceId);
+            return String.Format("xamarin.auth.{0}.{1}", account.Username, serviceId);
         }
     }
 }

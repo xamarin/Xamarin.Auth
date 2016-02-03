@@ -13,14 +13,14 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-using System.Threading.Tasks;
-
 #define TEST_MARK_T
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
+using System.Threading.Tasks;
+
 
 #if ! __UNIFIED__
 using MonoTouch.Security;
@@ -136,7 +136,9 @@ namespace Xamarin.Auth
                 accounts_found = new List<Account> ();
             }
 
-			return Task.FromResult(accounts_found);
+			List<Account> retval = new List<Account> (accounts_found);
+
+			return Task.FromResult(retval);
 		}
 
 		Account GetAccountFromRecord (SecRecord r)

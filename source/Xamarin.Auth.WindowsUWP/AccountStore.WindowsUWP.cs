@@ -34,7 +34,7 @@ namespace Xamarin.Auth
         /// </summary>
         public static AccountStore Create()
         {
-            return new WindowsPhone.WPAccountStore();
+            return new WindowsUWP.UWPAccountStore();
         }
 
     }
