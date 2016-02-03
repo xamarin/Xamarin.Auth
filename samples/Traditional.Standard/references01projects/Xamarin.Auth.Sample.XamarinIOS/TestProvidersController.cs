@@ -91,8 +91,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 		{
 			OAuth2Authenticator auth = null;
 
-			if (!oauth2.Description.Equals ("Github OAuth2")) {
-				// all but github
+			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
 				auth = new OAuth2Authenticator (
 					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
 					scope: oauth2.OAuth2_Scope,
@@ -101,12 +100,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 				);
 			} else {
 				auth = new OAuth2Authenticator (
-					clientId: "5b5c2d2d76e2fd9a804b",
+					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
 					clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
-					scope: "",
-					authorizeUrl: new Uri ("https://github.com/login/oauth/authorize"),
-					redirectUrl: new Uri ("http://xamarin.com"),
-					accessTokenUrl: new Uri ("https://github.com/login/oauth/access_token")
+					scope: oauth2.OAuth2_Scope,
+					authorizeUrl: oauth2.OAuth_UriAuthorization,
+					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+					accessTokenUrl: oauth2.OAuth2_UriRequestToken
 				);
 			}
 

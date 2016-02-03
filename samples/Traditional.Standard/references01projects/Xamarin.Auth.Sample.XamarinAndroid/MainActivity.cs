@@ -26,79 +26,23 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             return;
         }
 
-        string[] provider_list = new string[] 
-		{ 
-			"Facebook OAuth2",
-			"Twitter OAuth1",
-			"Google OAuth2",
-			"Microsoft Live OAuth2",
-			"LinkedIn OAuth1",
-			"LinkedIn OAuth2",
-			"Github OAuth2",
-			"Amazon OAuth2", 
-			"Dropbox OAuth2", 
-			"Meetup OAuth1", 
-			"Meetup OAuth2", 
-			"Paypal OAuth2", 
-			"Stackoverflow OAuth2", 
-		};
+        string[] provider_list = Data.TestCases.Keys.ToArray ();
+
         string provider = null;
 
         protected override void OnListItemClick (ListView l, View v, int position, long id)
         {
-            TextView tv = v as TextView;
-            provider = tv.Text;
+            provider = provider_list [position];
 
-            switch (provider)
-            {
-                case "Facebook OAuth2":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-                    break;
-                case "Twitter OAuth1":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
-                    break;
-                case "Google OAuth2":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-                    break;
-                case "Microsoft Live OAuth2":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-                    break;
-                case "LinkedIn OAuth1":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
-                    break;
-                case "LinkedIn OAuth2":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-                    break;
-                case "Github OAuth2":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-                    break;
-                case "Instagram OAuth2":
-                    Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-                    break;
-				case "Amazon OAuth2":
-					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-					break;
-				case "Meetup OAuth1":
-					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
-					break;
-				case "Meetup OAuth2":
-					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-					break;
-				case "Dropbox OAuth2":
-					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-					break;
-				case "Paypal OAuth2":
-					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-					break;
-				case "Stackoverflow OAuth2":
-					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-					break;
-                default:
-                    Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
-                    break;
-            };
-
-            return;
+            Xamarin.Auth.Helpers.OAuth auth;
+            if (!Data.TestCases.TryGetValue (provider, out auth)) {
+                Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
+            }
+            if (auth is Xamarin.Auth.Helpers.OAuth1) {
+                Authenticate (auth as Xamarin.Auth.Helpers.OAuth1);
+            } else {
+                Authenticate (auth as Xamarin.Auth.Helpers.OAuth2);
+            }
         }
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
@@ -129,13 +73,25 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
         {
-            OAuth2Authenticator auth = new OAuth2Authenticator 
-                (
+            OAuth2Authenticator auth = null;
+
+            if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
+                auth = new OAuth2Authenticator (
                     clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                     scope: oauth2.OAuth2_Scope,
                     authorizeUrl: oauth2.OAuth_UriAuthorization,
                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
                 );
+            } else {
+                auth = new OAuth2Authenticator (
+                    clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                    clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
+                    scope: oauth2.OAuth2_Scope,
+                    authorizeUrl: oauth2.OAuth_UriAuthorization,
+                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                    accessTokenUrl: oauth2.OAuth2_UriRequestToken
+                );
+            }
 
             auth.AllowCancel = oauth2.AllowCancel;
 
