@@ -16,6 +16,7 @@
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <RestorePackages>true</RestorePackages>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -128,6 +129,7 @@
     <Compile Include="PlatformSpecific\WebAuthenticatorActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="WebAuthenticator.XamarinAndroid.cs" />
+    <Compile Include="AccountStore.XamarinAndroid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

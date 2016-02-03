@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2016, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -13,8 +13,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Xamarin.Auth
 {
@@ -26,44 +26,9 @@ namespace Xamarin.Auth
 #if XAMARIN_AUTH_INTERNAL
 	internal abstract class AccountStore
 #else
-	public abstract class AccountStore
+	public abstract partial class AccountStore
 #endif
 	{
-#if PLATFORM_IOS
-		/// <summary>
-		/// Create an account store.
-		/// </summary>
-		public static AccountStore Create ()
-		{
-			return new KeyChainAccountStore ();
-		}
-#elif PLATFORM_ANDROID
-		/// <summary>
-		/// Create an account store.
-		/// </summary>
-		public static AccountStore Create (Android.Content.Context context)
-		{
-			return new AndroidAccountStore (context);
-		}
-#elif PLATFORM_WINPHONE
-		/// <summary>
-		/// Create an account store.
-		/// </summary>
-		public static AccountStore Create()
-		{
-			return new WindowsPhone.WPAccountStore();
-		}
-#else
-		/// <summary>
-		/// Create an account store.
-		/// </summary>
-		/// <returns>A new <see cref="AccountStore"/> instance.</returns>
-		public static AccountStore Create ()
-		{
-			throw new NotSupportedException ("Cannot save account on this platform");
-		}
-#endif
-
 		/// <summary>
 		/// Finds the accounts for a given service.
 		/// </summary>
@@ -73,7 +38,7 @@ namespace Xamarin.Auth
 		/// <param name='serviceId'>
 		/// Service identifier.
 		/// </param>
-		public abstract IEnumerable<Account> FindAccountsForService (string serviceId);
+		public abstract Task<List<Account>> FindAccountsForServiceAsync (string serviceId);
 
 		/// <summary>
 		/// Save the specified account by combining its username and the serviceId
@@ -85,7 +50,7 @@ namespace Xamarin.Auth
 		/// <param name='serviceId'>
 		/// Service identifier.
 		/// </param>
-		public abstract void Save (Account account, string serviceId);
+		public abstract Task SaveAsync (Account account, string serviceId);
 
 		/// <summary>
 		/// Deletes the account for a given serviceId.
@@ -96,7 +61,7 @@ namespace Xamarin.Auth
 		/// <param name='serviceId'>
 		/// Service identifier.
 		/// </param>
-		public abstract void Delete (Account account, string serviceId);
+		public abstract Task DeleteAsync (Account account, string serviceId);
 	}
 }
 

@@ -34,30 +34,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="DataPrivateSecure\SecurePrivateSecretHidden\*.sensitive.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleData\Data.cs" />
-    <Compile Include="SampleData\Providers\Data.Facebook.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Github.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Google.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Instagram.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth1.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.MicrosoftLive.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Twitter.OAuth1.cs" />
     <None Include="SampleData\Providers\.gitignore" />
-    <Compile Include="SampleData\Providers\Data.Facebook.OAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\Data.Github.OAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\Data.Google.OAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\Data.Instagram.OAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth1.secure.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\Data.MicrosoftLive.OAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\Data.Twitter.OAuth1.secure.cs" />
-    <None Include="SampleData\Providers\readme.md" />
     <Compile Include="SampleData\AuthenticationResult.cs" />
+    <None Include="SampleData\Providers\00-readme.md" />
+    <Compile Include="SampleData\Providers\FacebookOAuth2.cs" />
+    <Compile Include="SampleData\Providers\GithubOAuth2.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2.cs" />
+    <Compile Include="SampleData\Providers\InstagramOAuth2.cs" />
+    <Compile Include="SampleData\Providers\LinkedInOAuth1.cs" />
+    <Compile Include="SampleData\Providers\LinkedInOAuth2.cs" />
+    <Compile Include="SampleData\Providers\MicrosoftLiveOAuth2.cs" />
+    <Compile Include="SampleData\Providers\TwitterOAuth1.cs" />
+    <None Include="packages.config" />
+    <Compile Include="SampleData\Providers\AmazonOAuth2.cs" />
+    <Compile Include="SampleData\Providers\MeetupOAuth2.cs" />
+    <Compile Include="SampleData\Providers\MeetupOAuth1.cs" />
+    <Compile Include="SampleData\Providers\StackoverflowOAuth2.cs" />
+    <Compile Include="SampleData\Providers\PaypalOAuth2.cs" />
+    <Compile Include="SampleData\Providers\DropboxOAuth2.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\Traditional.Standard\references01projects\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\Traditional.Standard\references01projects\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -66,13 +65,13 @@
   </Target>
   -->
   <ItemGroup>
+    <None Include="SampleData\Providers\secure\.gitignore" />
+    <Compile Include="SampleData\Providers\secure\**\*.secure.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
       <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
       <Name>Xamarin.Auth.Helpers</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
-      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
-      <Name>Xamarin.Auth.Portable</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

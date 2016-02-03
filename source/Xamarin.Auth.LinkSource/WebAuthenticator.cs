@@ -43,7 +43,7 @@ namespace Xamarin.Auth
 #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class WebAuthenticator : Authenticator
 #else
-	public abstract partial class WebAuthenticator : Authenticator
+    public abstract partial class WebAuthenticator : Authenticator
 #endif
 	{
 		/// <summary>
@@ -166,17 +166,18 @@ namespace Xamarin.Auth
 		//	return new Uri ("/" + assembly_name + ";component/WebAuthenticatorPage.xaml?key=" + key, UriKind.Relative);
 		//}
 #else
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		//protected override AuthenticateUIType GetPlatformUI ()
-		//{
-		//	throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
-		//}
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        //protected override AuthenticateUIType GetPlatformUI ()
+        //{
+        //	throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
+        //}
 #endif
-	}
+
+    }
 }
 

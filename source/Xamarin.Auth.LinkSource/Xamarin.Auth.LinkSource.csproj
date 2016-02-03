@@ -76,10 +76,12 @@
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="WebAuthenticator.cs" />
+    <Compile Include="WebAuthenticator.Portable.cs" />
     <Compile Include="WebEx.cs" />
     <Compile Include="WebRedirectAuthenticator.cs" />
     <Compile Include="WebUtilities.cs" />
     <Compile Include="v.2\OAuth2Authenticator.HttpClient.cs" />
+    <Compile Include="Authenticator.Portable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

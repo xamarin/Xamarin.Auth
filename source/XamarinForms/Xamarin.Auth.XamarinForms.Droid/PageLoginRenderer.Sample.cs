@@ -14,13 +14,12 @@ using XamarinAuth;
 	Xamarin.Forms.ExportRenderer
 			(
 			// ViewElement to be rendered (from Portable/Shared)
-			typeof(HolisticWare.XamarinForms.Authentication.PageLogin),
+			typeof(Xamarin.Auth.XamarinForms.PageLogin),
 			// platform specific Renderer : global::Xamarin.Forms.Platform.Android.PageRenderer
-			typeof(HolisticWare.XamarinForms.Authentication.XamarinAndroid.PageLoginRenderer)
+			typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.PageLoginRenderer)
 			)
 ]
-
-namespace HolisticWare.XamarinForms.Authentication.XamarinAndroid
+namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 {
 	public partial class PageLoginRenderer : global::Xamarin.Forms.Platform.Android.PageRenderer
 	{
@@ -71,6 +70,7 @@ namespace HolisticWare.XamarinForms.Authentication.XamarinAndroid
 
 			return;
 		}
+
 		public string AccessToken 
 		{
 			get; 

@@ -29,7 +29,7 @@ namespace Xamarin.Auth
 #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class WebAuthenticator
 #else
-	public abstract partial class WebAuthenticator 
+    public abstract partial class WebAuthenticator 
 #endif
 	{
 		/// <summary>

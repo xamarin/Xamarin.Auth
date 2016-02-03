@@ -117,6 +117,7 @@
     <Compile Include="PlatformSpecific\UIViewControllerEx.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.cs" />
     <Compile Include="WebAuthenticator.XamarinIOS.cs" />
+    <Compile Include="AccountStore.XamarinIOS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

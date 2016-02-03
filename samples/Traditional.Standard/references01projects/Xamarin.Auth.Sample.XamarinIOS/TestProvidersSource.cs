@@ -31,7 +31,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 				"LinkedIn OAuth1",
 				"LinkedIn OAuth2",
 				"Github OAuth2",
-				"Instagram OAuth2", 
+				"Amazon OAuth2", 
+				"Dropbox OAuth2", 
+				"Meetup OAuth1", 
+				"Meetup OAuth2", 
+				"Paypal OAuth2", 
+				"Stackoverflow OAuth2", 
 	        };
 		}
 

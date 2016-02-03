@@ -1,6 +1,6 @@
 ﻿using Xamarin.Auth.Sample.WinPhone8.Resources;
 
-namespace Xamarin.Auth.Sample.WinPhone8
+namespace Xamarin.Auth.Sample
 {
     /// <summary>
     /// Provides access to string resources.

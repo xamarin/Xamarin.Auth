@@ -9,9 +9,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::Android.Runtime.ResourceDesignerAttribute("Xamarin.Auth.XamarinForms.Droid.Resource", IsApplication=false)]
+[assembly: global::Android.Runtime.ResourceDesignerAttribute("Xamarin.Auth.XamarinForms.Resource", IsApplication=false)]
 
-namespace Xamarin.Auth.XamarinForms.Droid
+namespace Xamarin.Auth.XamarinForms
 {
 	
 	

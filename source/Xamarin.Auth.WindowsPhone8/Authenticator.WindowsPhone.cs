@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2016, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -33,24 +33,12 @@ namespace Xamarin.Auth
 	public abstract partial class Authenticator
 #endif
 	{
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		public AuthenticateUIType GetUI()
-		{
-			return GetPlatformUI();
-		}
+        public AuthenticateUIType GetUI()
+        {
+            return GetPlatformUI();
+        }
 
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected abstract AuthenticateUIType GetPlatformUI();
-	}
+        protected abstract AuthenticateUIType GetPlatformUI();
+    }
 }
 
