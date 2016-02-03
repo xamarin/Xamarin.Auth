@@ -201,6 +201,7 @@
       <Link>System\TypeCode.cs</Link>
     </Compile>
     <Compile Include="Authenticator.WindowsStore81WinRT.cs" />
+    <Compile Include="DataProtectionExtensions.cs" />
     <Compile Include="WebAuthenticator.WindowsStore81WinRT.cs" />
     <Compile Include="WebAuthenticatorPage.xaml.cs">
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>

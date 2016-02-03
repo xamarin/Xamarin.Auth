@@ -22,6 +22,7 @@ using Javax.Security.Auth.Callback;
 using Java.IO;
 using Android.Content;
 using Android.Runtime;
+using System.Threading.Tasks;
 
 namespace Xamarin.Auth
 {
@@ -74,7 +75,7 @@ namespace Xamarin.Auth
 			}
 		}
 
-		public override IEnumerable<Account> FindAccountsForService (string serviceId)
+		public override Task<List<Account>> FindAccountsForServiceAsync (string serviceId)
 		{
 			var r = new List<Account> ();
 
@@ -96,10 +97,10 @@ namespace Xamarin.Auth
 
 			r.Sort ((a, b) => a.Username.CompareTo (b.Username));
 
-			return r;
+			return Task.FromResult(r);
 		}
 
-		public override void Save (Account account, string serviceId)
+		public override Task SaveAsync (Account account, string serviceId)
 		{
 			var alias = MakeAlias (account, serviceId);
 
@@ -108,14 +109,18 @@ namespace Xamarin.Auth
 			ks.SetEntry (alias, entry, prot);
 
 			Save();
+
+			return Task.FromResult (true);
 		}
 
-		public override void Delete (Account account, string serviceId)
+		public override Task DeleteAsync (Account account, string serviceId)
 		{
 			var alias = MakeAlias (account, serviceId);
 
 			ks.DeleteEntry (alias);
 			Save();
+
+			return Task.FromResult (true);
 		}
 
 		void Save()

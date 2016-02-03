@@ -13,8 +13,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Xamarin.Auth
 {
@@ -38,7 +38,7 @@ namespace Xamarin.Auth
 		/// <param name='serviceId'>
 		/// Service identifier.
 		/// </param>
-		public abstract IEnumerable<Account> FindAccountsForService (string serviceId);
+		public abstract Task<List<Account>> FindAccountsForServiceAsync (string serviceId);
 
 		/// <summary>
 		/// Save the specified account by combining its username and the serviceId
@@ -50,7 +50,7 @@ namespace Xamarin.Auth
 		/// <param name='serviceId'>
 		/// Service identifier.
 		/// </param>
-		public abstract void Save (Account account, string serviceId);
+		public abstract Task SaveAsync (Account account, string serviceId);
 
 		/// <summary>
 		/// Deletes the account for a given serviceId.
@@ -61,7 +61,7 @@ namespace Xamarin.Auth
 		/// <param name='serviceId'>
 		/// Service identifier.
 		/// </param>
-		public abstract void Delete (Account account, string serviceId);
+		public abstract Task DeleteAsync (Account account, string serviceId);
 	}
 }
 
