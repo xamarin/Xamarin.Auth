@@ -203,6 +203,9 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsStore81WinRT\DataProtectionExtensions.cs">
+      <Link>DataProtectionExtensions.cs</Link>
+    </Compile>
     <Compile Include="AccountStore.WindowsUWP.cs" />
     <Compile Include="Authenticator.WindowsUWP.cs" />
     <Compile Include="UWPAccountStore.cs" />
