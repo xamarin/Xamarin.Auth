@@ -120,8 +120,6 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="TestProvidersController.cs" />
-    <Compile Include="TestProvidersCell.cs" />
-    <Compile Include="TestProvidersSource.cs" />
   </ItemGroup>
   <!--
   ======================================================================================
@@ -141,13 +139,13 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
-      <Project>{15be2387-8e72-4c0b-8a6a-460ef5fa4539}</Project>
+      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
       <Name>Xamarin.Auth.XamarinIOS</Name>
-      <IsAppExtension>false</IsAppExtension>
-      <IsWatchApp>false</IsWatchApp>
+      <IsAppExtension>False</IsAppExtension>
+      <IsWatchApp>False</IsWatchApp>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
-      <Project>{2cf4d47e-e4b0-454b-9015-1e76ee30c36e}</Project>
+      <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
       <Name>Xamarin.Auth.Helpers</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
