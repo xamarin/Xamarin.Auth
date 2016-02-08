@@ -18,23 +18,23 @@ using System.Collections.Generic;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// A persistent storage for <see cref="Account"/>s. This storage is encrypted.
-	/// Accounts are stored using a service ID and the username of the account
-	/// as a primary key.
-	/// </summary>
+    /// <summary>
+    /// A persistent storage for <see cref="Account"/>s. This storage is encrypted.
+    /// Accounts are stored using a service ID and the username of the account
+    /// as a primary key.
+    /// </summary>
 #if XAMARIN_AUTH_INTERNAL
-	internal abstract class AccountStore
+    internal abstract class AccountStore
 #else
-	public abstract partial class AccountStore
+    public abstract partial class AccountStore
 #endif
-	{
+    {
         /// <summary>
         /// Create an account store.
         /// </summary>
         public static AccountStore Create()
         {
-            return new WindowsPhone.WPAccountStore();
+            return new WinRT.WinRTAccountStore();
         }
 
     }

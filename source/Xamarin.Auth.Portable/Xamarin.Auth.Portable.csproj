@@ -45,6 +45,10 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
       <Link>AccountResult.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
     </Compile>
@@ -125,9 +129,6 @@
     <Compile Include="System\TypeCode.cs" />
     <Compile Include="System\Type.cs" />
     <Compile Include="AccountStore.Portable.cs" />
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
-      <Link>AccountStore.Async.cs</Link>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

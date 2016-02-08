@@ -49,97 +49,11 @@ namespace Xamarin.Auth.XamarinForms.Authentication.WindowsStore81WinRT
 
                 IsShown = true;
 
-                // TODO: polymorfic
-                Xamarin.Auth.Helpers.OAuth1 oauth1 = this.OAuth as Xamarin.Auth.Helpers.OAuth1;
-                Xamarin.Auth.Helpers.OAuth2 oauth2 = this.OAuth as Xamarin.Auth.Helpers.OAuth2;
-
-                if (null != oauth1)
-                {
-                    Login(oauth1);
-                    return;
-                }
-
-                if (null != oauth2)
-                {
-                    Login(oauth2);
-                    return;
-                }
-
                 throw new ArgumentOutOfRangeException("Unknown OAuth");
-                /*
-
-                */
             }
             return;
         }
 
-        private void Login (Xamarin.Auth.Helpers.OAuth1 oauth1)
-        {
-            global::Xamarin.Auth.OAuth1Authenticator auth = 
-                    new global::Xamarin.Auth.OAuth1Authenticator 
-                        (
-                        consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                        consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
-                        requestTokenUrl: oauth1.OAuth1_UriRequestToken,
-                        authorizeUrl: oauth1.OAuth_UriAuthorization, 
-                        accessTokenUrl: oauth1.OAuth_UriAccessToken, 
-                        callbackUrl: oauth1.OAuth_UriCallbackAKARedirect, 
-                        getUsernameAsync: null
-                        );
-
-            auth.Completed += Auth_Completed;
-
-            //PresentViewController (auth.GetUI (), true, null);
-
-            return;
-        }
-
-
-        private void Login(Xamarin.Auth.Helpers.OAuth2 oauth2)
-        {
-            global::Xamarin.Auth.OAuth2Authenticator auth = null;
-
-            if (
-                null == oauth2.OAuth_UriAccessToken)
-            {
-                try
-                {
-                    auth = 
-                        new global::Xamarin.Auth.OAuth2Authenticator 
-                        (
-                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                        scope: oauth2.OAuth2_Scope,
-                        authorizeUrl: oauth2.OAuth_UriAuthorization,
-                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                        getUsernameAsync: null
-                    );
-                }
-                catch (System.Exception exc)
-                {
-                    throw exc;
-                }
-            }
-            else
-            {
-                auth = 
-                    new global::Xamarin.Auth.OAuth2Authenticator 
-                        (
-                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer, 
-                        clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
-                        scope: oauth2.OAuth2_Scope,
-                        authorizeUrl: oauth2.OAuth_UriAuthorization,
-                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                        accessTokenUrl: oauth2.OAuth_UriAccessToken,
-                        getUsernameAsync: null
-                        );
-
-            }
-            auth.Completed += Auth_Completed;
-
-            //PresentViewController (auth.GetUI (), true, null);
-
-            return;
-        }
 
         private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
         {
@@ -166,12 +80,6 @@ namespace Xamarin.Auth.XamarinForms.Authentication.WindowsStore81WinRT
             return;
         }
 
-        public Xamarin.Auth.Helpers.OAuth OAuth
-        {
-            get;
-            set;
-        }
-
         protected Dictionary<string, string> account_properties;
 
         public Dictionary<string, string> AccountProperties
@@ -182,7 +90,7 @@ namespace Xamarin.Auth.XamarinForms.Authentication.WindowsStore81WinRT
             }
             set
             {
-                this.OAuth.AccountProperties = account_properties = value;
+                account_properties = value;
             }
         }
     }

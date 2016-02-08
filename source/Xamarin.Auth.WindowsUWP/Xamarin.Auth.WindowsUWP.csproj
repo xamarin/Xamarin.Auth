@@ -113,11 +113,15 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
       <Link>Account.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
-      <Link>AccountResult.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+      <DependentUpon>AccountStore.Async.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
+      <Link>AccountResult.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
@@ -208,7 +212,11 @@
     </Compile>
     <Compile Include="AccountStore.WindowsUWP.cs" />
     <Compile Include="Authenticator.WindowsUWP.cs" />
-    <Compile Include="UWPAccountStore.cs" />
+    <Compile Include="PlatformSpecific\UWPAccountStore.cs">
+    </Compile>
+    <Compile Include="PlatformSpecific\UWPAccountStore.Async.cs">
+      <DependentUpon>UWPAccountStore.cs</DependentUpon>
+    </Compile>
     <Compile Include="WebAuthenticator.WindowsUWP.cs" />
     <Compile Include="WebAuthenticatorPage.xaml.cs">
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
@@ -220,6 +228,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

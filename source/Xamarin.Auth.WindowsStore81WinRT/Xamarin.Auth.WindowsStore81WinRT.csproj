@@ -116,6 +116,13 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+      <DependentUpon>AccountStore.Async.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AccountStore.WindowsStore81WinRT.cs" >
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -202,11 +209,14 @@
     </Compile>
     <Compile Include="Authenticator.WindowsStore81WinRT.cs" />
     <Compile Include="DataProtectionExtensions.cs" />
+    <Compile Include="PlatformSpecific\WinRTAccountStore.cs" />
     <Compile Include="WebAuthenticator.WindowsStore81WinRT.cs" />
     <Compile Include="WebAuthenticatorPage.xaml.cs">
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WinRTAccountStore.cs" />
+    <Compile Include="PlatformSpecific\WinRTAccountStore.Async.cs">
+      <DependentUpon>WinRTAccountStore.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http.Extensions, Version=2.2.29.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
