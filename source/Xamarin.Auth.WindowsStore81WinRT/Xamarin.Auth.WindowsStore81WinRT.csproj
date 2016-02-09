@@ -120,7 +120,7 @@
       <Link>AccountStore.Async.cs</Link>
       <DependentUpon>AccountStore.Async.cs</DependentUpon>
     </Compile>
-    <Compile Include="AccountStore.WindowsStore81WinRT.cs" >
+    <Compile Include="AccountStore.WindowsStore81WinRT.cs">
       <DependentUpon>AccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">

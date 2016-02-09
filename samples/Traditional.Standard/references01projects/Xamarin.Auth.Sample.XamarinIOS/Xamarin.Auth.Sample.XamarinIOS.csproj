@@ -144,10 +144,6 @@
       <IsAppExtension>False</IsAppExtension>
       <IsWatchApp>False</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
-      <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
-      <Name>Xamarin.Auth.Helpers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
       <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
       <Name>Xamarin.Auth.SampleData</Name>

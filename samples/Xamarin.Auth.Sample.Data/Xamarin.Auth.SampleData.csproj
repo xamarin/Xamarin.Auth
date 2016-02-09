@@ -54,6 +54,9 @@
     <Compile Include="SampleData\Providers\StackoverflowOAuth2.cs" />
     <Compile Include="SampleData\Providers\PaypalOAuth2.cs" />
     <Compile Include="SampleData\Providers\DropboxOAuth2.cs" />
+    <Compile Include="Helpers\OAuth.cs" />
+    <Compile Include="Helpers\OAuth1.cs" />
+    <Compile Include="Helpers\OAuth2.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\Traditional.Standard\references01projects\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\Traditional.Standard\references01projects\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -69,9 +72,12 @@
     <Compile Include="SampleData\Providers\secure\**\*.secure.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
-      <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
-      <Name>Xamarin.Auth.Helpers</Name>
+    <Folder Include="Helpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
+      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
+      <Name>Xamarin.Auth.Portable</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
