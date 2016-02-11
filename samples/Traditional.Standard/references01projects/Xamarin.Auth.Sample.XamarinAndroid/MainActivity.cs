@@ -12,6 +12,8 @@ using Android.OS;
 
 using Xamarin.Auth.SampleData;
 
+[assembly: UsesPermission(Android.Manifest.Permission.Internet)]	
+
 namespace Xamarin.Auth.Sample.XamarinAndroid
 {
     [Activity (Label = "Xamarin.Auth.Sample.XamarinAndroid", MainLauncher = true, Icon = "@drawable/icon")]
@@ -156,6 +158,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             else 
             {
                 AccountStoreTests (sender, ee);
+				AccountStoreTestsAsync (sender, ee);
 
                 try 
                 {
@@ -217,82 +220,161 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             return;	
         }
 
-        private void AccountStoreTests (object authenticator, AuthenticatorCompletedEventArgs ee)
-        {
-            AccountStore account_store = AccountStore.Create(this);
-            account_store.Save (ee.Account, provider);	
+		private void AccountStoreTests (object authenticator, AuthenticatorCompletedEventArgs ee)
+		{
+			AccountStore account_store = AccountStore.Create(this);
+			account_store.Save (ee.Account, provider);	
 
-            //------------------------------------------------------------------
-            // Android
-            // https://kb.xamarin.com/agent/case/225411
-            // cannot reproduce 
-            Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
-            if( null != account1 )
-            {
-                //------------------------------------------------------------------
-                string token = default(string);
-                if (null != account1)
-                {
-                    string token_name = default(string);
-                    Type t = authenticator.GetType();
-                    if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
-                    {
-                        token_name = "access_token";
-                        token = account1.Properties[token_name].ToString();
-                    }
-                    else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
-                    {
-                        token_name = "oauth_token";
-                        token = account1.Properties[token_name].ToString();
-                    }
-                }
-                //------------------------------------------------------------------
-                Toast.MakeText
-                        (
-                            this,
-                            "access_token = " + token,
-                            ToastLength.Long
-                        ).Show();
-            }
-            //------------------------------------------------------------------
+			//------------------------------------------------------------------
+			// Android
+			// https://kb.xamarin.com/agent/case/225411
+			// cannot reproduce 
+			Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
+			if( null != account1 )
+			{
+				//------------------------------------------------------------------
+				string token = default(string);
+				if (null != account1)
+				{
+					string token_name = default(string);
+					Type t = authenticator.GetType();
+					if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
+					{
+						token_name = "access_token";
+						token = account1.Properties[token_name].ToString();
+					}
+					else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
+					{
+						token_name = "oauth_token";
+						token = account1.Properties[token_name].ToString();
+					}
+				}
+				//------------------------------------------------------------------
+				Toast.MakeText
+				(
+					this,
+					"access_token = " + token,
+					ToastLength.Long
+				).Show();
+			}
+			//------------------------------------------------------------------
 
-            AccountStore.Create(this).Save(ee.Account, provider + ".v.2");
+			AccountStore.Create(this).Save(ee.Account, provider + ".v.2");
 
-            //------------------------------------------------------------------
-            // throws on iOS
-            //
-            Account account2 = AccountStore.Create(this).FindAccountsForService(provider+ ".v.2").FirstOrDefault();
-            if( null != account2 )
-            {
-                //------------------------------------------------------------------
-                string token = default(string);
-                if (null != account2)
-                {
-                    string token_name = default(string);
-                    Type t = authenticator.GetType();
-                    if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
-                    {
-                        token_name = "access_token";
-                        token = account2.Properties[token_name].ToString();
-                    }
-                    else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
-                    {
-                        token_name = "oauth_token";
-                        token = account2.Properties[token_name].ToString();
-                    }
-                }
-                //------------------------------------------------------------------
-                Toast.MakeText
-                        (
-                            this,
-                            "access_token = " + token,
-                            ToastLength.Long
-                        ).Show();
-            }
-            //------------------------------------------------------------------
+			//------------------------------------------------------------------
+			// throws on iOS
+			//
+			Account account2 = AccountStore.Create(this).FindAccountsForService(provider+ ".v.2").FirstOrDefault();
+			if( null != account2 )
+			{
+				//------------------------------------------------------------------
+				string token = default(string);
+				if (null != account2)
+				{
+					string token_name = default(string);
+					Type t = authenticator.GetType();
+					if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
+					{
+						token_name = "access_token";
+						token = account2.Properties[token_name].ToString();
+					}
+					else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
+					{
+						token_name = "oauth_token";
+						token = account2.Properties[token_name].ToString();
+					}
+				}
+				//------------------------------------------------------------------
+				Toast.MakeText
+				(
+					this,
+					"access_token = " + token,
+					ToastLength.Long
+				).Show();
+			}
+			//------------------------------------------------------------------
 
-            return;
-        }
+			return;
+		}
+
+		private async void AccountStoreTestsAsync (object authenticator, AuthenticatorCompletedEventArgs ee)
+		{
+			AccountStore account_store = AccountStore.Create(this);
+			await account_store.SaveAsync(ee.Account, provider);	
+
+			//------------------------------------------------------------------
+			// Android
+			// https://kb.xamarin.com/agent/case/225411
+			// cannot reproduce 
+			Account account1 = (await account_store.FindAccountsForServiceAsync(provider)).FirstOrDefault();
+			if( null != account1 )
+			{
+				//------------------------------------------------------------------
+				string token = default(string);
+				if (null != account1)
+				{
+					string token_name = default(string);
+					Type t = authenticator.GetType();
+					if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
+					{
+						token_name = "access_token";
+						token = account1.Properties[token_name].ToString();
+					}
+					else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
+					{
+						token_name = "oauth_token";
+						token = account1.Properties[token_name].ToString();
+					}
+				}
+				//------------------------------------------------------------------
+				Toast.MakeText
+				(
+					this,
+					"access_token = " + token,
+					ToastLength.Long
+				).Show();
+			}
+			//------------------------------------------------------------------
+
+			AccountStore.Create(this).Save(ee.Account, provider + ".v.2");
+
+			//------------------------------------------------------------------
+			// throws on iOS
+			//
+			IEnumerable<Account> accounts = await (AccountStore.Create(this).FindAccountsForServiceAsync(provider+ ".v.2"));
+			Account account2 = accounts.FirstOrDefault();
+			if( null != account2 )
+			{
+				//------------------------------------------------------------------
+				string token = default(string);
+				if (null != account2)
+				{
+					string token_name = default(string);
+					Type t = authenticator.GetType();
+					if ( t == typeof(Xamarin.Auth.OAuth2Authenticator) )
+					{
+						token_name = "access_token";
+						token = account2.Properties[token_name].ToString();
+					}
+					else if ( t == typeof(Xamarin.Auth.OAuth1Authenticator) )
+					{
+						token_name = "oauth_token";
+						token = account2.Properties[token_name].ToString();
+					}
+				}
+				//------------------------------------------------------------------
+				Toast.MakeText
+				(
+					this,
+					"access_token = " + token,
+					ToastLength.Long
+				).Show();
+			}
+			//------------------------------------------------------------------
+
+			return;
+		}
+
     }
 }
 

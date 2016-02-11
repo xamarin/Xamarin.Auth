@@ -65,7 +65,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
 		private void Authenticate (Xamarin.Auth.Helpers.OAuth1 oauth1)
 		{
-			OAuth1Authenticator auth = new OAuth1Authenticator (
+			OAuth1Authenticator auth = new OAuth1Authenticator 
+										(
 				                           consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
 				                           consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
 				                           requestTokenUrl: oauth1.OAuth1_UriRequestToken,
@@ -99,14 +100,15 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
 				);
 			} else {
-				auth = new OAuth2Authenticator (
-					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-					clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
-					scope: oauth2.OAuth2_Scope,
-					authorizeUrl: oauth2.OAuth_UriAuthorization,
-					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-					accessTokenUrl: oauth2.OAuth2_UriRequestToken
-				);
+				auth = new OAuth2Authenticator 
+					(
+						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+						clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+						scope: oauth2.OAuth2_Scope,
+						authorizeUrl: oauth2.OAuth_UriAuthorization,
+						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+						accessTokenUrl: oauth2.OAuth2_UriRequestToken
+					);
 			}
 
 			auth.AllowCancel = oauth2.AllowCancel;
@@ -130,7 +132,9 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			if (!ee.IsAuthenticated) {
 				msg = "Not Authenticated";
 			} else {
+				
 				AccountStoreTests (sender, ee);
+				AccountStoreTestsAsync (sender, ee);
 
 				try {
 					//------------------------------------------------------------------
@@ -302,6 +306,94 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 						                    "OK",
 						                    null
 					                    );
+					alert.Show ();
+				}
+			} catch (System.Exception exc) {
+				string msg = exc.Message;
+				System.Diagnostics.Debug.WriteLine ("Exception AccountStore: " + msg);
+			}
+
+			return;
+		}
+
+		private async void AccountStoreTestsAsync (object authenticator, AuthenticatorCompletedEventArgs ee)
+		{
+			AccountStore account_store = AccountStore.Create ();
+			await account_store.SaveAsync (ee.Account, provider);  
+
+			//------------------------------------------------------------------
+			// Android
+			// https://kb.xamarin.com/agent/case/225411
+			// cannot reproduce 
+			try {
+				//------------------------------------------------------------------
+				// Xamarin.iOS - following line throws
+				IEnumerable<Account> accounts = await account_store.FindAccountsForServiceAsync (provider);
+				Account account1 = accounts.FirstOrDefault ();
+				//------------------------------------------------------------------
+				if (null != account1) {
+					string token = default(string);
+					string token_name = default(string);
+					Type t = authenticator.GetType ();
+					if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) {
+						token_name = "access_token";
+						token = account1.Properties [token_name].ToString ();
+					} else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) {
+						token_name = "oauth_token";
+						token = account1.Properties [token_name].ToString ();
+					}
+					UIAlertView alert = 
+						new UIAlertView (
+							"Token",
+							"access_token = " + token,
+							null,
+							"OK",
+							null
+						);
+					alert.Show ();
+				}
+			} catch (System.Exception exc) {
+				// Xamarin.iOS
+				// exc  {System.ArgumentNullException: Value cannot be null. 
+				//  Parameter name: data   
+				//      at Foundation.NSString.Fr…} System.ArgumentNullException
+				// Value cannot be null.
+				// Parameter name: data
+				string msg = exc.Message;
+				System.Diagnostics.Debug.WriteLine ("Exception AccountStore: " + msg);
+			}
+
+			try {
+				await AccountStore.Create ().SaveAsync (ee.Account, provider + ".v.2");
+			} catch (System.Exception exc) {
+				string msg = exc.Message;
+				System.Diagnostics.Debug.WriteLine ("Exception AccountStore: " + msg);
+			}
+
+			try {
+				//------------------------------------------------------------------
+				// Xamarin.iOS - throws
+				IEnumerable<Account> accounts = await account_store.FindAccountsForServiceAsync (provider + ".v.2");
+				Account account2 = accounts.FirstOrDefault ();
+				//------------------------------------------------------------------
+				if (null != account2) {
+					string token = default(string);
+					string token_name = default(string);
+					Type t = authenticator.GetType ();
+					if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) {
+						token_name = "access_token";
+						token = account2.Properties [token_name].ToString ();
+					} else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) {
+						token_name = "oauth_token";
+						token = account2.Properties [token_name].ToString ();
+					}
+					UIAlertView alert = new UIAlertView (
+						"Token",
+						"access_token = " + token,
+						null,
+						"OK",
+						null
+					);
 					alert.Show ();
 				}
 			} catch (System.Exception exc) {
