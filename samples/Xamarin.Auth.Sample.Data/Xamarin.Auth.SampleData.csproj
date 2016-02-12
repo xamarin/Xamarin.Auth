@@ -51,12 +51,13 @@
     <Compile Include="SampleData\Providers\AmazonOAuth2.cs" />
     <Compile Include="SampleData\Providers\MeetupOAuth2.cs" />
     <Compile Include="SampleData\Providers\MeetupOAuth1.cs" />
-    <Compile Include="SampleData\Providers\StackoverflowOAuth2.cs" />
     <Compile Include="SampleData\Providers\PaypalOAuth2.cs" />
     <Compile Include="SampleData\Providers\DropboxOAuth2.cs" />
     <Compile Include="Helpers\OAuth.cs" />
     <Compile Include="Helpers\OAuth1.cs" />
     <Compile Include="Helpers\OAuth2.cs" />
+    <Compile Include="SampleData\Providers\StackoverflowOAuth2Explicit.cs" />
+    <Compile Include="SampleData\Providers\StackoverflowOAuth2Implicit.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\Traditional.Standard\references01projects\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\Traditional.Standard\references01projects\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

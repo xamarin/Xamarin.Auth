@@ -78,9 +78,11 @@ namespace Xamarin.Auth.SampleData
 			PaypalOAuth2 paypal = new PaypalOAuth2();
 			TestCases.Add(paypal.Description,paypal);
 
-			StackoverflowOAuth2 stackoverflow = new StackoverflowOAuth2();
-			TestCases.Add(stackoverflow.Description,stackoverflow);
+			StackoverflowOAuth2Explicit stackoverflowoauth2explicit = new StackoverflowOAuth2Explicit();
+			TestCases.Add(stackoverflowoauth2explicit.Description,stackoverflowoauth2explicit);
 
+			StackoverflowOAuth2Implicit stackoverflowoauth2implicit = new StackoverflowOAuth2Implicit();
+			TestCases.Add(stackoverflowoauth2implicit.Description,stackoverflowoauth2implicit);
 
 
 			return;
