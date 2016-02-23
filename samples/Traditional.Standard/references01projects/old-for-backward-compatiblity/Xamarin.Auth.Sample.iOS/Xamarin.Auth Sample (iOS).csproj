@@ -107,6 +107,8 @@
     <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.XamarinIOS-Classic\Xamarin.Auth.XamarinIOS-Classic.csproj">
       <Project>{8F5F3994-1BE1-4503-997A-800B764322B2}</Project>
       <Name>Xamarin.Auth.XamarinIOS-Classic</Name>
+      <IsAppExtension>False</IsAppExtension>
+      <IsWatchApp>False</IsWatchApp>
     </ProjectReference>
   </ItemGroup>
 </Project>

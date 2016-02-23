@@ -12,13 +12,12 @@ using Xamarin.Forms.Platform.WinPhone;
 	Xamarin.Forms.ExportRenderer
 			(
 			// ViewElement to be rendered (from Portable/Shared)
-			typeof(HolisticWare.XamarinForms.Authentication.PageLogin),
+			typeof(Xamarin.Auth.XamarinForms.PageLogin),
 			// platform specific Renderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
-			typeof(HolisticWare.XamarinForms.Authentication.WindowsPhone.PageLoginRenderer)
+			typeof(Xamarin.Auth.XamarinForms.WindowsPhone.PageLoginRenderer)
 			)
 ]
-
-namespace HolisticWare.XamarinForms.Authentication.WindowsPhone
+namespace Xamarin.Auth.XamarinForms.WindowsPhone
 {
 	public partial class PageLoginRenderer : global::Xamarin.Forms.Platform.WinPhone.PageRenderer
 	{
@@ -186,7 +185,7 @@ namespace HolisticWare.XamarinForms.Authentication.WindowsPhone
 			return;
 		}
 
-		public HolisticWare.Auth.OAuth OAuth
+		public Xamarin.Auth.Helpers.OAuth OAuth
 		{
 			get;
 			set;

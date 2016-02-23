@@ -15,7 +15,7 @@ namespace XamarinAuth
 		public App()
 		{
 			// The root page of your application
-			MainPage = new NavigationPage(new PageMain());
+			MainPage = new NavigationPage(new PageOAuthProviders());
 		}
 
 		protected override void OnStart()

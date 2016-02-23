@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2016, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -34,6 +34,11 @@ using Xamarin.Utilities;
 //using AuthenticateUIType = System.Object;
 //#endif
 //--------------------------------------------------------------------
+#if PORTABLE
+using AuthenticateUIType = System.Object;
+#else
+using AuthenticateUIType = System.Object;
+#endif
 
 namespace Xamarin.Auth
 {
@@ -278,11 +283,18 @@ namespace Xamarin.Auth
 
 		void BeginInvokeOnUIThread (Action action)
 		{
-#if PLATFORM_IOS
-			MonoTouch.UIKit.UIApplication.SharedApplication.BeginInvokeOnMainThread (delegate {
-				action ();
-			});
-#elif PLATFORM_ANDROID
+            #if PLATFORM_IOS || __IOS__
+            #if !__UNIFIED__
+            MonoTouch.
+            #endif
+            UIKit.UIApplication.SharedApplication.BeginInvokeOnMainThread 
+                (
+                    delegate 
+                    {
+        				action ();
+		        	}
+                );
+            #elif PLATFORM_ANDROID || __ANDROID__
 			var a = context as Android.App.Activity;
 			if (a != null) {
 				a.RunOnUiThread (action);
@@ -290,9 +302,9 @@ namespace Xamarin.Auth
 			else {
 				action ();
 			}
-#else
-			action ();
-#endif
+            #else
+            action ();
+            #endif
 		}
 
 
@@ -311,18 +323,18 @@ namespace Xamarin.Auth
 		/// Used by Android to fill in the result on the activity
 		/// </summary>
 		public Func<Account, AccountResult> GetAccountResult { get; set; }
-		//---------------------------------------------------------------------------------------
-		# endregion
+        //---------------------------------------------------------------------------------------
+        #endregion
 
-	}
+    }
 
-	/// <summary>
-	/// Authenticator completed event arguments.
-	/// </summary>
+    /// <summary>
+    /// Authenticator completed event arguments.
+    /// </summary>
 #if XAMARIN_AUTH_INTERNAL
 	internal class AuthenticatorCompletedEventArgs : EventArgs
 #else
-	public class AuthenticatorCompletedEventArgs : EventArgs
+    public class AuthenticatorCompletedEventArgs : EventArgs
 #endif
 	{
 		/// <summary>

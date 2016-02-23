@@ -17,8 +17,6 @@ namespace Xamarin.Auth.Sample.WinPhone81
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        string[] provider_list;
-
         // Constructor
         public MainPage()
         {
@@ -27,23 +25,29 @@ namespace Xamarin.Auth.Sample.WinPhone81
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
 
-            provider_list = new string[]
-                 {
-                    "Facebook OAuth2",
-                    "Twitter OAuth1",
-                    "Google OAuth2",
-                    "Microsoft Live OAuth2",
-                    "LinkedIn OAuth1",
-                    "LinkedIn OAuth2",
-                    "Github OAuth2",
-                    "Instagram OAuth2",
-                 };
-
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
 
             return;
         }
+
+		string[] provider_list = new string[]
+		{
+			"Facebook OAuth2",
+			"Twitter OAuth1",
+			"Google OAuth2",
+			"Microsoft Live OAuth2",
+			"LinkedIn OAuth1",  // unsupported
+			"LinkedIn OAuth2",
+			"Github OAuth2",
+			"Instagram OAuth2",
+			"Amazon OAuth2", 
+			"Dropbox OAuth2", 
+			"Meetup OAuth1", 
+			"Meetup OAuth2", 
+			"Paypal OAuth2", 
+			"Stackoverflow OAuth2", 
+		};
 
         private void itemList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
         {
@@ -77,6 +81,24 @@ namespace Xamarin.Auth.Sample.WinPhone81
                 case "Instagram OAuth2":
                     Authenticate(Data.TestCases["Instagram OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
                     break;
+				case "Amazon OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Meetup OAuth1":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth1);
+					break;
+				case "Meetup OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Dropbox OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Paypal OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
+				case "Stackoverflow OAuth2":
+					Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
+					break;
                 default:
                     //Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
                     break;

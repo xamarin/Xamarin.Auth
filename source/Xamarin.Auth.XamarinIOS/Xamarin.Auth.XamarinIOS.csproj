@@ -112,11 +112,16 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlatformSpecific\FormAuthenticatorController.cs" />
-    <Compile Include="PlatformSpecific\KeyChainAccountStore.cs" />
     <Compile Include="PlatformSpecific\ProgressLabel.cs" />
     <Compile Include="PlatformSpecific\UIViewControllerEx.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.cs" />
     <Compile Include="WebAuthenticator.XamarinIOS.cs" />
+    <Compile Include="AccountStore.XamarinIOS.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+    </Compile>
+    <Compile Include="PlatformSpecific\KeyChainAccountStore.Aync.cs" />
+    <Compile Include="PlatformSpecific\KeyChainAccountStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

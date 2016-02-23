@@ -90,6 +90,10 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
       <Link>AccountResult.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
     </Compile>
@@ -162,13 +166,17 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
+    <Compile Include="AccountStore.WindowsPhone.cs" />
     <Compile Include="Authenticator.WindowsPhone.cs" />
     <Compile Include="FormAuthenticator.WindowsPhone.cs" />
     <Compile Include="WebAuthenticator.WindowsPhone.cs" />
     <Compile Include="WebAuthenticatorPage.xaml.cs">
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WPAccountStore.cs" />
+    <Compile Include="PlatformSpecific\WPAccountStore.Async.cs">
+      <DependentUpon>WPAccountStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlatformSpecific\WPAccountStore.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

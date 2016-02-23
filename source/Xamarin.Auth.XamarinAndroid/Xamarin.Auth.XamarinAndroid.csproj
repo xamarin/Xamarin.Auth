@@ -128,6 +128,13 @@
     <Compile Include="PlatformSpecific\WebAuthenticatorActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="WebAuthenticator.XamarinAndroid.cs" />
+    <Compile Include="AccountStore.XamarinAndroid.cs" />
+    <Compile Include="PlatformSpecific\AndroidAccountStore.Async.cs">
+      <DependentUpon>AndroidAccountStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

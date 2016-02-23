@@ -90,6 +90,10 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
       <Link>AccountResult.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
     </Compile>
@@ -174,8 +178,20 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\Type.cs">
       <Link>System\Type.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\AccountStore.WindowsPhone.cs">
+      <Link>AccountStore.WindowsPhone.cs</Link>
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\Authenticator.WindowsPhone.cs">
       <Link>Authenticator.WindowsPhone.cs</Link>
+      <DependentUpon>Authenticator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\PlatformSpecific\WPAccountStore.cs">
+      <Link>PlatformSpecific\WPAccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\PlatformSpecific\WPAccountStore.Async.cs">
+      <Link>PlatformSpecific\WPAccountStore.Async.cs</Link>
+      <DependentUpon>PlatformSpecific\WPAccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticator.WindowsPhone.cs">
       <Link>WebAuthenticator.WindowsPhone.cs</Link>
@@ -191,6 +207,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticatorPage.xaml">
+      <Link>WebAuthenticatorPage.xaml</Link>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
       <Private>True</Private>
@@ -203,13 +226,6 @@
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\sl4-windowsphone71\System.Net.Http.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticatorPage.xaml">
-      <Link>WebAuthenticatorPage.xaml</Link>
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

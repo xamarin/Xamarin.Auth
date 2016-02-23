@@ -6,7 +6,7 @@
             Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>Xamarin.Auth.Sample.w81WinRT</DisplayName>
+    <DisplayName>Xamarin.Auth.Sample</DisplayName>
     <PublisherDisplayName>mcvje</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
@@ -23,12 +23,12 @@
   <Applications>
     <Application Id="App"
         Executable="$targetnametoken$.exe"
-        EntryPoint="Xamarin.Auth.Sample.w81WinRT.App">
+        EntryPoint="Xamarin.Auth.Sample.App">
         <m2:VisualElements
-            DisplayName="Xamarin.Auth.Sample.w81WinRT"
+            DisplayName="Xamarin.Auth.Sample"
             Square150x150Logo="Assets\Logo.png"
             Square30x30Logo="Assets\SmallLogo.png"
-            Description="Xamarin.Auth.Sample.w81WinRT"
+            Description="Xamarin.Auth.Sample"
             ForegroundText="light"
             BackgroundColor="#464646">
             <m2:SplashScreen Image="Assets\SplashScreen.png" />

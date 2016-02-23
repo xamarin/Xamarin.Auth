@@ -6,18 +6,6 @@ namespace XamarinAuth.Views
 	/// <summary>
 	/// Navigation.
 	/// </summary>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
-	/// <see cref=""/>
 	public partial class Navigation
 	{
 		/// <summary>

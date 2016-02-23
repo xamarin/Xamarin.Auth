@@ -113,9 +113,6 @@
     <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\FormAuthenticatorController.cs">
       <Link>PlatformSpecific\FormAuthenticatorController.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\KeyChainAccountStore.cs">
-      <Link>PlatformSpecific\KeyChainAccountStore.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\ProgressLabel.cs">
       <Link>PlatformSpecific\ProgressLabel.cs</Link>
     </Compile>
@@ -128,6 +125,18 @@
     <Compile Include="Authenticator.XamarinIOS.Classic.cs" />
     <Compile Include="FormAuthenticator.XamarinIOS.Classic.cs" />
     <Compile Include="WebAuthenticator.XamarinIOS.Classic.cs" />
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\AccountStore.XamarinIOS.cs">
+      <Link>AccountStore.XamarinIOS.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\KeyChainAccountStore.Aync.cs">
+      <Link>PlatformSpecific\KeyChainAccountStore.Aync.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
+      <Link>AccountStore.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.XamarinIOS\PlatformSpecific\KeyChainAccountStore.cs">
+      <Link>PlatformSpecific\KeyChainAccountStore.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

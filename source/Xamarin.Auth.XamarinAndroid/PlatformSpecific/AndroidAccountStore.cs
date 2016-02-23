@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2016, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -16,12 +16,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Java.Security;
-using Javax.Crypto;
-using Javax.Security.Auth.Callback;
-using Java.IO;
+using System.Threading.Tasks;
 using Android.Content;
 using Android.Runtime;
+using Java.IO;
+using Java.Security;
+using Javax.Security.Auth.Callback;
+using Javax.Crypto;
 
 namespace Xamarin.Auth
 {
@@ -29,7 +30,7 @@ namespace Xamarin.Auth
 	/// AccountStore that uses a KeyStore of PrivateKeys protected by a fixed password
 	/// in a private region of internal storage.
 	/// </summary>
-	internal class AndroidAccountStore : AccountStore
+	internal partial class AndroidAccountStore : AccountStore
 	{
 		Context context;
 		KeyStore ks;
@@ -50,12 +51,25 @@ namespace Xamarin.Auth
 
 			try {
 				lock (fileLock) {
-					using (var s = context.OpenFileInput (FileName)) {
-						ks.Load (s, Password);
+					if (! System.IO.File.Exists(FileName))
+					{
+						LoadEmptyKeyStore (Password);
+					}
+					else
+					{
+						using (var s = context.OpenFileInput (FileName)) {
+							ks.Load (s, Password);
+						}
 					}
 				}
 			}
-			catch (FileNotFoundException) {
+			catch (System.IO.FileNotFoundException) {
+				System.Diagnostics.Debug.WriteLine("System.IO.FileNotFoundException caught for AccountStore");
+				//ks.Load (null, Password);
+				LoadEmptyKeyStore (Password);
+			}
+			catch (Java.IO.FileNotFoundException) {
+				System.Diagnostics.Debug.WriteLine("Java.IO.FileNotFoundException caught for AccountStore");
 				//ks.Load (null, Password);
 				LoadEmptyKeyStore (Password);
 			}
@@ -63,49 +77,24 @@ namespace Xamarin.Auth
 
 		public override IEnumerable<Account> FindAccountsForService (string serviceId)
 		{
-			var r = new List<Account> ();
-
-			var postfix = "-" + serviceId;
-
-			var aliases = ks.Aliases ();
-			while (aliases.HasMoreElements) {
-				var alias = aliases.NextElement ().ToString ();
-				if (alias.EndsWith (postfix)) {
-					var e = ks.GetEntry (alias, prot) as KeyStore.SecretKeyEntry;
-					if (e != null) {
-						var bytes = e.SecretKey.GetEncoded ();
-						var serialized = System.Text.Encoding.UTF8.GetString (bytes);
-						var acct = Account.Deserialize (serialized);
-						r.Add (acct);
-					}
-				}
-			}
-
-			r.Sort ((a, b) => a.Username.CompareTo (b.Username));
-
-			return r;
+			return FindAccountsForServiceAsync(serviceId).Result;
 		}
 
 		public override void Save (Account account, string serviceId)
 		{
-			var alias = MakeAlias (account, serviceId);
+			SaveAsync(account, serviceId);
 
-			var secretKey = new SecretAccount (account);
-			var entry = new KeyStore.SecretKeyEntry (secretKey);
-			ks.SetEntry (alias, entry, prot);
-
-			Save();
+			return;
 		}
 
 		public override void Delete (Account account, string serviceId)
 		{
-			var alias = MakeAlias (account, serviceId);
+			DeleteAsync(account, serviceId);
 
-			ks.DeleteEntry (alias);
-			Save();
+			return;
 		}
 
-		void Save()
+		protected void Save()
 		{
 			lock (fileLock) {
 				using (var s = context.OpenFileOutput (FileName, FileCreationMode.Private)) {
@@ -155,10 +144,10 @@ namespace Xamarin.Auth
 			IntPtr intPtr = IntPtr.Zero;
 			IntPtr intPtr2 = JNIEnv.NewArray (password);
 			JNIEnv.CallVoidMethod (ks.Handle, id_load_Ljava_io_InputStream_arrayC, new JValue[]
-				{
-					new JValue (intPtr),
-					new JValue (intPtr2)
-				});
+			{
+				new JValue (intPtr),
+				new JValue (intPtr2)
+			});
 			JNIEnv.DeleteLocalRef (intPtr);
 			if (password != null)
 			{
@@ -168,4 +157,3 @@ namespace Xamarin.Auth
 		}
 	}
 }
-

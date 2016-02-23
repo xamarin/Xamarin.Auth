@@ -18,7 +18,7 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkMode>Full</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -29,6 +29,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>full</DebugType>
@@ -39,6 +40,7 @@
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <ConsolePause>false</ConsolePause>
     <AndroidSupportedAbis>armeabi;armeabi-v7a;x86;arm64-v8a;x86_64</AndroidSupportedAbis>
+    <RunCodeAnalysis>false</RunCodeAnalysis>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -52,36 +54,10 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <!--
-  ======================================================================================
-  Classes with partial methods 
-  		*.secure.cs
-  			actual secure/secrt/private data in partial methods
-  -->
-  <ItemGroup>
-    <Compile Include="SampleData\AuthenticationResult.cs" />
-    <Compile Include="SampleData\Data.cs" />
-    <Compile Include="SampleData\Providers\Data.Facebook.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Github.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Google.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Instagram.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth1.cs" />
-    <Compile Include="SampleData\Providers\Data.LinkedIn.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.MicrosoftLive.OAuth2.cs" />
-    <Compile Include="SampleData\Providers\Data.Twitter.OAuth1.cs" />
-    <Compile Include="..\..\..\Xamarin.Auth.Sample.Data\SampleData\Providers\*.secure.cs">
-      <Link>SampleData\Providers\*.secure.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <!--
-  ======================================================================================
-  -->
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="SampleData\Providers\.gitignore" />
-    <None Include="SampleData\Providers\readme.md" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\Main.axml" />
@@ -98,16 +74,13 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj">
-      <Project>{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}</Project>
-      <Name>Xamarin.Auth.Helpers</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
       <Project>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</Project>
       <Name>Xamarin.Auth.XamarinAndroid</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="SampleData\" />
+    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
+      <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
+      <Name>Xamarin.Auth.SampleData</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

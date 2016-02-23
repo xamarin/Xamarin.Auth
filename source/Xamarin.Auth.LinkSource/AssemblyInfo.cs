@@ -1,5 +1,5 @@
 //
-//  Copyright 2012, Xamarin Inc.
+//  Copyright 2012-2016, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Xamarin Inc.")]
 [assembly: AssemblyProduct("Xamarin.Auth")]
-[assembly: AssemblyCopyright("2012-2015 Xamarin Inc.")]
+[assembly: AssemblyCopyright("2012-2016 Xamarin Inc.")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

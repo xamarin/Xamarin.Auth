@@ -4,10 +4,11 @@
 Prerequisites: 
 
 
-	Get-Project XamarinAuth				| Install-Package HolisticWare.Auth		-Pre
-	Get-Project XamarinAuth.Droid		| Install-Package HolisticWare.Auth		-Pre
-	Get-Project XamarinAuth.iOS			| Install-Package HolisticWare.Auth		-Pre
-	Get-Project XamarinAuth.WinPhone	| Install-Package HolisticWare.Auth		-Pre
+	Get-Project Xamarin.Auth.Sample.Forms			| Install-Package Xamarin.Forms
+	Get-Project Xamarin.Auth.Sample.Forms.Droid		| Install-Package Xamarin.Forms
+	Get-Project Xamarin.Auth.Sample.Forms.iOS		| Install-Package Xamarin.Forms
+	Get-Project Xamarin.Auth.Sample.Forms.WinPhone	| Install-Package Xamarin.Forms
+
 
 	Get-Project XamarinAuth				| unInstall-Package HolisticWare.Auth
 	Get-Project XamarinAuth.Droid		| unInstall-Package HolisticWare.Auth
@@ -24,10 +25,10 @@ Prerequisites:
 	
 	
 	
-	Get-Project XamarinAuth				| Install-Package Xamarin.Auth		-Pre
-	Get-Project XamarinAuth.Droid		| Install-Package Xamarin.Auth		-Pre
-	Get-Project XamarinAuth.iOS			| Install-Package Xamarin.Auth		-Pre
-	Get-Project XamarinAuth.WinPhone	| Install-Package Xamarin.Auth		-Pre
+	Get-Project XamarinAuth				| unInstall-Package Xamarin.Auth		-Pre
+	Get-Project XamarinAuth.Droid		| unInstall-Package Xamarin.Auth		-Pre
+	Get-Project XamarinAuth.iOS			| unInstall-Package Xamarin.Auth		-Pre
+	Get-Project XamarinAuth.WinPhone	| unInstall-Package Xamarin.Auth		-Pre
 	
 	
 ## Xamarin.Auth

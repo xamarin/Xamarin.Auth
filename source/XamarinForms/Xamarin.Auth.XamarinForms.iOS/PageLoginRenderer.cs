@@ -3,188 +3,253 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+#if __UNIFIED__
 using Foundation;
 using UIKit;
-
+#else
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+#endif
 
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
 
+using Xamarin.Auth.XamarinForms;
 
 [assembly: 
-	Xamarin.Forms.ExportRenderer
-			(
-			// ViewElement to be rendered (from Portable/Shared)
-			typeof(HolisticWare.XamarinForms.Authentication.PageLogin),
-			// platform specific Renderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
-			typeof(HolisticWare.XamarinForms.Authentication.XamarinIOS.PageLoginRenderer)
-			)
+    Xamarin.Forms.ExportRenderer
+            (
+            // ViewElement to be rendered (from Portable/Shared)
+            typeof(Xamarin.Auth.XamarinForms.PageOAuth),
+            // platform specific Renderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
+            typeof(Xamarin.Auth.XamarinForms.XamarinIOS.PageOAuthRenderer)
+            )
 ]
 
-namespace HolisticWare.XamarinForms.Authentication.XamarinIOS
+namespace Xamarin.Auth.XamarinForms.XamarinIOS
 {
-	public partial class PageLoginRenderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
-	{
-		bool IsShown;
+    public partial class PageOAuthRenderer : global::Xamarin.Forms.Platform.iOS.PageRenderer
+    {
+        PageOAuth e_new = null;
 
-		// public class VisualElementChangedEventArgs : ElementChangedEventArgs<VisualElement>
-		protected override void OnElementChanged (VisualElementChangedEventArgs e)
-		{
-			base.OnElementChanged (e);
+        bool IsShown;
 
-			// OnElementChanged is fired before ViewDidAppear, using it to pass data
+        // public class VisualElementChangedEventArgs : ElementChangedEventArgs<VisualElement>
+        protected override void OnElementChanged (VisualElementChangedEventArgs e)
+        {
+            base.OnElementChanged (e);
 
-			PageLogin e_new = e.NewElement as PageLogin;
+            // OnElementChanged is fired before ViewDidAppear, using it to pass data
 
-			this.OAuth = e_new.OAuth;
+            e_new = e.NewElement as PageOAuth;
+                     
+            return;
+        }
 
-			return;
-		}
+        public override void ViewDidAppear (bool animated)
+        {
+            base.ViewDidAppear (animated);
 
-		public override void ViewDidAppear (bool animated)
-		{
-			base.ViewDidAppear (animated);
+            if (!IsShown)
+            {
 
-			if (!IsShown)
-			{
+                IsShown = true;
 
-				IsShown = true;
+                if 
+                    (
+                        null != e_new.oauth1_application_id_aka_client_id
+                        &&
+                        null != e_new.oauth1_consumer_secret
+                        &&
+                        null != e_new.oauth1_uri_reuest_token
+                        &&
+                        null != e_new.oauth1_uri_authorize
+                        &&
+                        null != e_new.oauth1_uri_access_token
+                        &&
+                        null != e_new.oauth1_uri_callback_redirect
+                    )
+                {
+                    this.Authenticate
+                            (
+                                e_new.oauth1_application_id_aka_client_id,
+                                e_new.oauth1_consumer_secret,
+                                e_new.oauth1_uri_reuest_token,
+                                e_new.oauth1_uri_authorize,
+                                e_new.oauth1_uri_access_token,
+                                e_new.oauth1_uri_callback_redirect,
+                                e_new.oauth2_func_get_username,
+                                e_new.allow_cancel
+                            );
+                    return;
+                }
+                else if 
+                    (
+                        null != e_new.oauth2_application_id_aka_client_id
+                        &&
+                        null != e_new.oauth2_scope
+                        &&
+                        null != e_new.oauth2_uri_authorization
+                        &&
+                        null != e_new.oauth2_uri_callback_redirect
+                    )
+                {
+                    this.Authenticate
+                            (
+                                e_new.oauth2_application_id_aka_client_id,
+                                e_new.oauth2_scope,
+                                e_new.oauth2_uri_authorization,
+                                e_new.oauth2_uri_callback_redirect,
+                                e_new.oauth2_func_get_username,
+                                e_new.allow_cancel
+                            );
+                    return;
+                }
+                else
+                {
+                    throw new ArgumentException("Invalid OAuthenticator");
+                }
+            }
 
-				// TODO: polymorfic
-				HolisticWare.Auth.OAuth1 oauth1 = this.OAuth as HolisticWare.Auth.OAuth1;
-				HolisticWare.Auth.OAuth2 oauth2 = this.OAuth as HolisticWare.Auth.OAuth2;
+            return;
+        }
 
-				if (null != oauth1)
-				{
-					Login(oauth1);
-					return;
-				}
+        private void Authenticate
+                        (
+                            string application_id_aka_client_id, 
+                            string consumer_secret, 
+                            Uri uri_reuest_token, 
+                            Uri uri_authorize,
+                            Uri uri_access_token, 
+                            Uri uri_callback_redirect,
+                            GetUsernameAsyncFunc func_get_username,
+                            bool allow_cancel = true
+                        )
+        {
+            OAuth1Authenticator auth = new OAuth1Authenticator 
+                (
+                    application_id_aka_client_id,
+                    consumer_secret,
+                    uri_reuest_token,
+                    uri_authorize,
+                    uri_access_token,
+                    uri_callback_redirect,
+                    func_get_username
+                );
 
-				if (null != oauth2)
-				{
-					Login(oauth2);
-					return;
-				}
+            auth.AllowCancel = allow_cancel;
 
-				throw new ArgumentOutOfRangeException("Unknown OAuth");
-				/*
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            auth.Completed += Auth_Completed;
 
-				*/
-			}
-			return;
-		}
+            PresentViewController (auth.GetUI (), true, null);
 
-		private void Login (HolisticWare.Auth.OAuth1 oauth1)
-		{
-			global::Xamarin.Auth.OAuth1Authenticator auth = 
-					new global::Xamarin.Auth.OAuth1Authenticator 
-						(
-						consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-						consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
-						requestTokenUrl: oauth1.OAuth1_UriRequestToken,
-						authorizeUrl: oauth1.OAuth_UriAuthorization, 
-						accessTokenUrl: oauth1.OAuth1_UriAccessToken, 
-						callbackUrl: oauth1.OAuth_UriCallbackAKARedirect, 
-						getUsernameAsync: null
-						);
+            return;
+        }
 
-			auth.Completed += auth_Completed;
+        private void Authenticate
+                        (
+                            string application_id_aka_client_id, 
+                            string scope, 
+                            Uri uri_authorization, 
+                            Uri uri_callback_redirect,
+                            GetUsernameAsyncFunc func_get_username,
+                            bool allow_cancel = true
+                        )
+        {
+            global::Xamarin.Auth.OAuth2Authenticator auth = null;
 
-			PresentViewController (auth.GetUI (), true, null);
+            if 
+                (
+                    //null == oauth2.OAuth1_UriAccessToken
+                    true
+                )
+            {
+                try
+                {
+                    auth = new global::Xamarin.Auth.OAuth2Authenticator 
+                        (
+                            application_id_aka_client_id,
+                            scope,
+                            uri_authorization,
+                            uri_callback_redirect,
+                            func_get_username
+                        );
+                }
+                catch (System.Exception exc)
+                {
+                    throw;
+                }
+            }
+            else
+            {
+                try
+                {
+                    auth = new global::Xamarin.Auth.OAuth2Authenticator 
+                        (
+                            application_id_aka_client_id, 
+                            //clientSecret: oauth2.OAuth1_SecretKey_ConsumerSecret_APISecret,
+                            scope,
+                            uri_authorization,
+                            uri_callback_redirect,
+                            //accessTokenUrl: oauth2.OAuth1_UriAccessToken,
+                            func_get_username
+                        );
+                }
+                catch (System.Exception exc)
+                {
+                    throw;
+                }
+            }
 
-			return;
-		}
+            auth.AllowCancel = allow_cancel;
+
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            auth.Completed += Auth_Completed;
+
+            PresentViewController (auth.GetUI (), true, null);
+
+            return;
+        }
+
+        private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
+        {
+            if (e.IsAuthenticated)
+            {
+                // e.Account contains info:
+                //		e.AccountProperties[""]
+                //
+                // use access tokenmore detailed user info from the API
+
+                this.AccountProperties = e.Account.Properties;
+            }
+            else
+            {
+                // The user cancelled
+            }
+
+            // dismiss UI on iOS, because it was manually created
+            DismissViewController(true, null);
+
+            // possibly do something to dismiss THIS viewcontroller, 
+            // or else login screen does not disappear             
+
+            return;
+        }
 
 
-		private void Login (HolisticWare.Auth.OAuth2 oauth2)
-		{
-			global::Xamarin.Auth.OAuth2Authenticator auth = null;
+        protected Dictionary<string, string> account_properties;
 
-			if (
-				null == oauth2.OAuth1_UriAccessToken)
-			{
-				try
-				{
-					auth = 
-						new global::Xamarin.Auth.OAuth2Authenticator 
-						(
-						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-						scope: oauth2.OAuth2_Scope,
-						authorizeUrl: oauth2.OAuth_UriAuthorization,
-						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-						getUsernameAsync: null
-					);
-				}
-				catch (System.Exception exc)
-				{
-					throw exc;
-				}
-			}
-			else
-			{
-				auth = 
-					new global::Xamarin.Auth.OAuth2Authenticator 
-						(
-						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer, 
-						clientSecret: oauth2.OAuth1_SecretKey_ConsumerSecret_APISecret,
-						scope: oauth2.OAuth2_Scope,
-						authorizeUrl: oauth2.OAuth_UriAuthorization,
-						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-						accessTokenUrl: oauth2.OAuth1_UriAccessToken,
-						getUsernameAsync: null
-						);
-
-			}
-			auth.Completed += auth_Completed;
-
-			PresentViewController (auth.GetUI (), true, null);
-
-			return;
-		}
-
-		private void auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
-		{
-			if (e.IsAuthenticated)
-			{
-				// e.Account contains info:
-				//		e.AccountProperties[""]
-				//
-				// use access tokenmore detailed user info from the API
-
-				this.AccountProperties = e.Account.Properties;
-			}
-			else
-			{
-				// The user cancelled
-			}
-
-			// dismiss UI on iOS, because it was manually created
-			DismissViewController(true, null);
-
-			// possibly do something to dismiss THIS viewcontroller, 
-			// or else login screen does not disappear             
-
-			return;
-		}
-
-		public HolisticWare.Auth.OAuth OAuth
-		{
-			get;
-			set;
-		}
-
-		protected Dictionary<string, string> account_properties;
-
-		public Dictionary<string, string> AccountProperties
-		{
-			protected get
-			{
-				return account_properties;
-			}
-			set
-			{
-				this.OAuth.AccountProperties = account_properties = value;
-			}
-		}
-	}
+        public Dictionary<string, string> AccountProperties
+        {
+            protected get
+            {
+                return account_properties;
+            }
+            set
+            {
+                account_properties = value;
+            }
+        }
+    }
 }

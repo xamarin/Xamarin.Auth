@@ -35,70 +35,55 @@ namespace Xamarin.Auth.SampleData
 	{
 		public static Dictionary<string, OAuth> TestCases = null;
 
-		protected static Xamarin.Auth.Helpers.OAuth oauth = null;
-		protected static Xamarin.Auth.Helpers.OAuth1 oauth1 = null;
-		protected static Xamarin.Auth.Helpers.OAuth2 oauth2 = null;
-
-		//---------------------------------------------------------------------------------
-		// methods implemented in other file which is included in project through wildcard
-		// in this case files are in folder
-		//			SecureSensitivePrivateData/
-		//	patterns
-		//			*.secure.cs
-		//			*.sensitive.cs
-		//			*.sensitive.cs
-		//
-		//		<Compile Include="SecureSensitivePrivateData/*.secure.cs" />
-		//		<Compile Include="SecureSensitivePrivateData/*.secret.cs" />
-		//		<Compile Include="SecureSensitivePrivateData/*.sensitive.cs" />
-		//
-		// csproj include
-
-		// samples for docs
-		static partial void SetPublicDemoDataGoogleOAuth2();
-		static partial void SetPublicDemoDataFacebookOAuth2();
-		static partial void SetPublicDemoDataGithubOAuth2();
-		static partial void SetPublicDemoDataTwitterOAuth1();
-		static partial void SetPublicDemoDataMicrosoftLiveOAuth2();
-		static partial void SetPublicDemoDataInstagramOAuth2();
-		static partial void SetPublicDemoDataLinkedInOAuth1();
-		static partial void SetPublicDemoDataLinkedInOAuth2();
-
-		// real data (presonal, hidden, secret, sensitive)
-		// in csproj included as wildcard:
-		//			    <Compile Include="Data\SecurePrivateSecretHidden\*.cs" />
-		// data set in PublicDemo is overriden in those methods
-		static partial void SetSensitiveDataGoogleOAuth2();
-		static partial void SetSensitiveDataFacebookOAuth2();
-		static partial void SetSensitiveDataGithubOAuth2();
-		static partial void SetSensitiveDataTwitterOAuth1();
-		static partial void SetSensitiveDataMicrosoftLiveOAuth2();
-		static partial void SetSensitiveDataInstagramOAuth2();
-		static partial void SetSensitiveDataLinkedInOAuth1();
-		static partial void SetSensitiveDataLinkedInOAuth2();
-		//---------------------------------------------------------------------------------
-
 		static Data()
 		{
 			TestCases = new Dictionary<string, OAuth>();
 
-			SetPublicDemoDataGoogleOAuth2();
-			SetPublicDemoDataFacebookOAuth2();
-			SetPublicDemoDataGithubOAuth2();
-			SetPublicDemoDataTwitterOAuth1();
-			SetPublicDemoDataMicrosoftLiveOAuth2();
-			SetPublicDemoDataInstagramOAuth2();
-			SetPublicDemoDataLinkedInOAuth1();
-			SetPublicDemoDataLinkedInOAuth2();
+			FacebookOAuth2 facebook = new FacebookOAuth2();
+			TestCases.Add(facebook.Description,facebook);
 
-			SetSensitiveDataGoogleOAuth2();
-			SetSensitiveDataFacebookOAuth2();
-			SetSensitiveDataGithubOAuth2();
-			SetSensitiveDataTwitterOAuth1();
-			SetSensitiveDataMicrosoftLiveOAuth2();
-			SetSensitiveDataInstagramOAuth2();
-			SetSensitiveDataLinkedInOAuth1();
-			SetSensitiveDataLinkedInOAuth2();
+			GoogleOAuth2 google = new GoogleOAuth2();
+			TestCases.Add(google.Description,google);
+
+			GithubOAuth2 github = new GithubOAuth2();
+			TestCases.Add(github.Description,github);
+
+			InstagramOAuth2 instagram = new InstagramOAuth2();
+			TestCases.Add(instagram.Description,instagram);
+
+			LinkedInOAuth1 linkedin1 = new LinkedInOAuth1();
+			TestCases.Add(linkedin1.Description,linkedin1);
+
+			LinkedInOAuth2 linkedin2 = new LinkedInOAuth2();
+			TestCases.Add(linkedin2.Description,linkedin2);
+
+			MicrosoftLiveOAuth2 microsoft_live = new MicrosoftLiveOAuth2();
+			TestCases.Add(microsoft_live.Description,microsoft_live);
+
+			TwitterOAuth1 twitter = new TwitterOAuth1();
+			TestCases.Add(twitter.Description,twitter);
+
+			AmazonOAuth2 amazon = new AmazonOAuth2();
+			TestCases.Add(amazon.Description,amazon);
+
+			MeetupOAuth1 meetup_oauth1 = new MeetupOAuth1();
+			TestCases.Add(meetup_oauth1.Description,meetup_oauth1);
+
+			MeetupOAuth2 meetup_oauth2 = new MeetupOAuth2();
+			TestCases.Add(meetup_oauth2.Description,meetup_oauth2);
+
+			DropboxOAuth2 dropbox = new DropboxOAuth2();
+			TestCases.Add(dropbox.Description,dropbox);
+
+			PaypalOAuth2 paypal = new PaypalOAuth2();
+			TestCases.Add(paypal.Description,paypal);
+
+			StackoverflowOAuth2Explicit stackoverflowoauth2explicit = new StackoverflowOAuth2Explicit();
+			TestCases.Add(stackoverflowoauth2explicit.Description,stackoverflowoauth2explicit);
+
+			StackoverflowOAuth2Implicit stackoverflowoauth2implicit = new StackoverflowOAuth2Implicit();
+			TestCases.Add(stackoverflowoauth2implicit.Description,stackoverflowoauth2implicit);
+
 
 			return;
 		}
