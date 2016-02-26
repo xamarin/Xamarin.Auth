@@ -299,10 +299,13 @@ namespace Xamarin.Auth
             //---------------------------------------------------------------------------------------
             #endregion
 
-            var tcs = new TaskCompletionSource<Uri> ();
-            tcs.SetResult(url);
+			// mc++ optimized by Mark Smith
+            // var tcs = new TaskCompletionSource<Uri> ();
+            // tcs.SetResult(url);
 
-            return tcs.Task;
+            //return tcs.Task;
+
+			return Task.FromResult(url);
         }
 
         #region
