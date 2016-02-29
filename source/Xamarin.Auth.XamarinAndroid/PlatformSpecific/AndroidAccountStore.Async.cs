@@ -59,10 +59,10 @@ namespace Xamarin.Auth
 
 		public override Task SaveAsync (Account account, string serviceId)
 		{
-			var alias = MakeAlias (account, serviceId);
+			string alias = MakeAlias (account, serviceId);
 
-			var secretKey = new SecretAccount (account);
-			var entry = new KeyStore.SecretKeyEntry (secretKey);
+			SecretAccount secretKey = new SecretAccount (account);
+			Java.Security.KeyStore.SecretKeyEntry entry = new KeyStore.SecretKeyEntry (secretKey);
 			ks.SetEntry (alias, entry, prot);
 
 			Save();
