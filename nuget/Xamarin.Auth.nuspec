@@ -9,7 +9,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.3.0-alpha
+			1.3.0-alpha-01
 		</version>
 		<title>
 			Xamarin.Auth
@@ -21,7 +21,7 @@
 			Xamarin
 		</owners>
 		<copyright>
-			Copyright 2013-2015
+			Copyright 2013-2016
 		</copyright>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
