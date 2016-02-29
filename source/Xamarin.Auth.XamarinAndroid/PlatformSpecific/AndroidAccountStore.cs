@@ -51,7 +51,7 @@ namespace Xamarin.Auth
 
 			try {
 				lock (fileLock) {
-					if (! System.IO.File.Exists(FileName))
+					if (! this.FileExists(context, FileName))
 					{
 						LoadEmptyKeyStore (Password);
 					}
@@ -83,8 +83,6 @@ namespace Xamarin.Auth
 		public override void Save (Account account, string serviceId)
 		{
 			SaveAsync(account, serviceId);
-
-			return;
 		}
 
 		public override void Delete (Account account, string serviceId)
@@ -99,8 +97,12 @@ namespace Xamarin.Auth
 			lock (fileLock) {
 				using (var s = context.OpenFileOutput (FileName, FileCreationMode.Private)) {
 					ks.Store (s, Password);
+					s.Flush ();
+					s.Close ();
 				}
 			}
+
+			return;
 		}
 
 		static string MakeAlias (Account account, string serviceId)
@@ -154,6 +156,17 @@ namespace Xamarin.Auth
 				JNIEnv.CopyArray (intPtr2, password);
 				JNIEnv.DeleteLocalRef (intPtr2);
 			}
+		}
+
+		public bool FileExists(Context context, String filename) 
+		{    
+			File file = context.GetFileStreamPath(filename);
+			if(file == null || !file.Exists())
+			{
+				return false;
+			}
+
+			return true;
 		}
 	}
 }
