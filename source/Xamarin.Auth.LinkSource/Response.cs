@@ -85,6 +85,11 @@ namespace Xamarin.Auth
 		{
 		}
 
+		public virtual string GetResponseText()
+		{
+			return this.response.Content.ReadAsStringAsync().Result;
+		}
+
 		public virtual Task<string> GetResponseTextAsync()
 		{
 			return this.response.Content.ReadAsStringAsync();
