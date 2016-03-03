@@ -117,14 +117,8 @@
     <Compile Include="..\Xamarin.Auth.Sample.XamarinIOS\AppDelegate.cs">
       <Link>AppDelegate.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.Sample.XamarinIOS\TestProvidersCell.cs">
-      <Link>TestProvidersCell.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.Sample.XamarinIOS\TestProvidersController.cs">
       <Link>TestProvidersController.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Sample.XamarinIOS\TestProvidersSource.cs">
-      <Link>TestProvidersSource.cs</Link>
     </Compile>
     <Compile Include="Main.cs" />
   </ItemGroup>
