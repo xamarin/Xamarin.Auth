@@ -30,7 +30,7 @@ namespace Xamarin.Auth.XamarinForms
 			Uri uri_access_token, 
 			Uri uri_callback_redirect,
 			GetUsernameAsyncFunc func_get_username,
-			bool allow_cancel = true
+			bool allow_cncl = true
 		)
 			: this()
 		{
@@ -41,7 +41,7 @@ namespace Xamarin.Auth.XamarinForms
 			oauth1_uri_access_token = uri_access_token;
 			oauth1_uri_callback_redirect = uri_callback_redirect;
 			oauth1_func_get_username = func_get_username;
-			allow_cancel = allow_cancel;
+			allow_cancel = allow_cncl;
 
 			return;
 		}
@@ -60,7 +60,7 @@ namespace Xamarin.Auth.XamarinForms
 			Uri uri_authorization, 
 			Uri uri_callback_redirect,
 			GetUsernameAsyncFunc func_get_username,
-			bool allow_cancel = true
+			bool allow_cncl = true
 		)
 			: this()
 		{
@@ -69,7 +69,7 @@ namespace Xamarin.Auth.XamarinForms
 			oauth2_uri_authorization = uri_authorization;
 			oauth2_uri_callback_redirect = uri_callback_redirect;
 			oauth2_func_get_username = func_get_username;
-			allow_cancel = allow_cancel;
+			allow_cancel = allow_cncl;
 
 			return;
 		}
