@@ -38,7 +38,8 @@ namespace Xamarin.Utilities.Android
 			}
 			catch (Exception ex) 
 			{
-				global::Android.Util.Log.Error("Xamarin.Auth", "Error: {0}:{1}", title, message);
+				string msg = ex.Message;
+				global::Android.Util.Log.Error("Xamarin.Auth", "Error: {0}:{1} - {2}", title, message, msg);
 			}
 
 			return;

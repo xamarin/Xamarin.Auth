@@ -178,6 +178,9 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                 }
                 catch (System.Exception exc)
                 {
+					string msg = exc.Message;
+					System.Diagnostics.Debug.WriteLine ("Xamarin.Auth.OAuth2Authenticator exception = {0}", msg);
+
                     throw;
                 }
             }
