@@ -69,7 +69,11 @@ namespace Xamarin.Utilities
 		}
 
 		static char[] AmpersandChars = new char[] { '&' };
+		/*
+		 * mc++
+		 * never used
 		static char[] EqualsChars = new char[] { '=' };
+		*/
 
 		public static IDictionary<string, string> FormDecode (string encodedString)
 		{

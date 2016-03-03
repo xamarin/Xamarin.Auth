@@ -63,7 +63,7 @@ namespace Xamarin.Auth.SampleData
 	redirectUrl: new Uri('https://login.live.com/oauth20_desktop.srf'))
 ";
 			Description = "Microsoft Live OAuth2";
-			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "0000000040150A7D";
+			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = "wl.basic, wl.signin, wl.offline_access";
 			OAuth_UriAuthorization = new Uri("https://login.live.com/oauth20_authorize.srf");
 			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");

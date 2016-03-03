@@ -117,20 +117,20 @@ namespace Xamarin.Auth
 		/// </param>
 		public static string GetSignature (string method, Uri uri, IDictionary<string, string> parameters, string consumerSecret, string tokenSecret)
 		{
+# if ! PORTABLE && ! NETFX_CORE
 			var baseString = GetBaseString (method, uri, parameters);
 			var key = EncodeString (consumerSecret) + "&" + EncodeString (tokenSecret);
-# if ! PORTABLE && ! NETFX_CORE
 			var hashAlgo = new HMACSHA1 (Encoding.UTF8.GetBytes (key));
 			var hash = hashAlgo.ComputeHash (Encoding.UTF8.GetBytes (baseString));
 #else
 			var hash = new byte[] { };
-			var msg = 
+			string msg = 
 				@"
 					TODO: 
 					Get-Project Xamarin.Auth.Portable | Install-Package System.Security.Cryptography.Hashing -Pre
 					Get-Project Xamarin.Auth.Portable | Install-Package System.Security.Cryptography.Hashing.Algorithms -Pre
 				";
-
+			System.Diagnostics.Debug.WriteLine("Xamarin.Auth: " + msg);
 #endif
 			var sig = Convert.ToBase64String (hash);
 			return sig;

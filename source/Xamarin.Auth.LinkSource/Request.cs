@@ -220,8 +220,12 @@ namespace Xamarin.Auth
 			return new Response (response);
 		}
 
+		/*
+		 * mc++
+		 * never used
 		static readonly byte[] CrLf = new byte[] { (byte)'\r', (byte)'\n' };
 		static readonly byte[] DashDash = new byte[] { (byte)'-', (byte)'-' };
+		*/
 
 		/// <summary>
 		/// Gets the prepared URL.
