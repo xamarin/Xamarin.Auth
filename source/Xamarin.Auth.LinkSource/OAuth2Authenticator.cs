@@ -356,48 +356,7 @@ namespace Xamarin.Auth
             //
             base.OnPageEncountered (url, query, fragment);
         }
-
-
-		/*
-        # region
-        //---------------------------------------------------------------------------------------
-        /// Pull Request - manually added/fixed
-        ///		Adding method to request a refresh token #79
-        ///		https://github.com/xamarin/Xamarin.Auth/pull/79
-        ///		
-        /// <summary>
-        /// Method that requests a new access token based on an initial refresh token
-        /// </summary>
-        /// <param name="refreshToken">Refresh token, typically from the <see cref="AccountStore"/>'s refresh_token property</param>
-        /// <returns>Time in seconds the refresh token expires in</returns>
-        public virtual Task<int> RequestRefreshTokenAsync(string refreshToken)
-        {
-            var queryValues = new Dictionary<string, string>
-            {
-                {"refresh_token", refreshToken},
-                {"client_id", this.ClientId},
-                {"grant_type", "refresh_token"}
-            };
-
-            if (!string.IsNullOrEmpty(this.ClientSecret))
-            {
-                queryValues["client_secret"] = this.ClientSecret;
-            }
-
-            return this.RequestAccessTokenAsync(queryValues).ContinueWith(result =>
-            {
-            var accountProperties = result.Result;
-
-            this.OnRetrievedAccountProperties(accountProperties);
-
-            return int.Parse(accountProperties["expires_in"]);
-            });
-        }
-        //---------------------------------------------------------------------------------------
-        # endregion
-		*/
-
-
+			
         /// <summary>
         /// Raised when a new page has been loaded.
         /// </summary>
@@ -463,8 +422,10 @@ namespace Xamarin.Auth
         /// </returns>
         /// <param name='code'>The authorization code.</param>
         /// <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
-        Task<IDictionary<string,string>> RequestAccessTokenAsync (string code)
+        public Task<IDictionary<string,string>> RequestAccessTokenAsync (string code)
         {
+			// mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
+
             var queryValues = new Dictionary<string, string> {
                 { "grant_type", "authorization_code" },
                 { "code", code },
@@ -483,8 +444,9 @@ namespace Xamarin.Auth
         /// </summary>
         /// <param name="queryValues">The parameters to make the request with.</param>
         /// <returns>The data provided in the response to the access token request.</returns>
-        protected async Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
+        public async Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
         {
+			// mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
             var content = new FormUrlEncodedContent (queryValues);
 
 
@@ -530,8 +492,9 @@ namespace Xamarin.Auth
         /// <param name='accountProperties'>
         /// The retrieved account properties
         /// </param>
-        protected virtual void OnRetrievedAccountProperties (IDictionary<string, string> accountProperties)
+        public virtual void OnRetrievedAccountProperties (IDictionary<string, string> accountProperties)
         {
+			// mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
             //
             // Now we just need a username for the account
             //
