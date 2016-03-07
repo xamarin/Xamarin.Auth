@@ -26,10 +26,12 @@ using System.Threading.Tasks;
 using MonoTouch.Security;
 using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
+using MonoTouch.CoreFoundation;
 #else
 using Security;
 using Foundation;
 using ObjCRuntime;
+using CoreFoundation;
 #endif
 
 namespace Xamarin.Auth
@@ -41,11 +43,17 @@ namespace Xamarin.Auth
 			});
 
 		static Lazy <IntPtr> Security_ReturnData = new Lazy<IntPtr> (() => {
-			return (IntPtr)typeof (SecRecord).Assembly.GetTypes ().First (t => t.Name == "SecItem" && t.Namespace == "Security").GetProperty ("ReturnData").GetMethod.Invoke (null, new Object [] {});
+			return (IntPtr)typeof (SecRecord).Assembly.GetTypes ()
+						.First (t => t.Name == "SecItem" 
+						&& t.Namespace == (typeof (SecRecord)).Namespace /*"[MonoTouch.]Security"*/
+						).GetProperty ("ReturnData").GetMethod.Invoke (null, new Object [] {});
 			});
 
 		static Lazy <INativeObject> CFBoolean_True = new Lazy<INativeObject> (() => {
-			return typeof (SecRecord).Assembly.GetTypes ().First (t => t.Name == "CFBoolean" && t.Namespace == "CoreFoundation").GetField ("True").GetValue (null) as INativeObject;
+			return typeof (SecRecord).Assembly.GetTypes ()
+						.First (t => t.Name == "CFBoolean" 
+						&& t.Namespace == (typeof (CFObject)).Namespace /* "[MonoTouch.]CoreFoundation" */
+						).GetField ("True").GetValue (null) as INativeObject;
 			});
 
 		public override Task<List<Account>> FindAccountsForServiceAsync (string serviceId)
