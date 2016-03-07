@@ -8,10 +8,13 @@ using Xamarin.Auth.SampleData;
 #if ! __CLASSIC__
 using Foundation;
 using UIKit;
-
 #else
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+// Mappings Unified types to MonoTouch types
+using nfloat = global::System.Single;
+using nint = global::System.Int32;
+using nuint = global::System.UInt32;
 #endif
 
 namespace Xamarin.Auth.Sample.XamarinIOS
