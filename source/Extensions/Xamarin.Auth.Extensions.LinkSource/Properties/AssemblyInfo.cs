@@ -4,14 +4,14 @@ using System.Runtime.CompilerServices;
 // Information about this assembly is defined by the following attributes.
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle ("Xamarin.Auth.Extensions.LinkSource")]
-[assembly: AssemblyDescription ("Xamarin.Auth Extensions (non standard features)")]
-[assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("Xamarin")]
-[assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("moljac")]
-[assembly: AssemblyTrademark ("")]
-[assembly: AssemblyCulture ("")]
+[assembly: AssemblyTitle("Xamarin.Auth.Extensions")]
+[assembly: AssemblyDescription("Cross platform authentication library Xamarin.Auth Extensions (non standard features)")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("Xamarin Inc.")]
+[assembly: AssemblyProduct("Xamarin.Auth")]
+[assembly: AssemblyCopyright("2012-2016 Xamarin Inc.")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,
