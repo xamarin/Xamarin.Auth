@@ -32,7 +32,7 @@ namespace Xamarin.Auth
 		/// <summary>
 		/// Create an account store.
 		/// </summary>
-		public static AccountStore Create (Android.Content.Context context)
+		public static AccountStore Create (global::Android.Content.Context context)
 		{
 			return new AndroidAccountStore (context);
 		}
@@ -43,7 +43,7 @@ namespace Xamarin.Auth
 		/// <param name="context">Context.</param>
 		public static AccountStore Create () 
 		{
-			return Create (Android.App.Application.Context);
+			return Create (global::Android.App.Application.Context);
 		}
 	}
 }

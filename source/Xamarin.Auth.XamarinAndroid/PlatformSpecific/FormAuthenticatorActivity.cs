@@ -165,7 +165,7 @@ namespace Xamarin.Auth
 				if (f.FieldType == FormAuthenticatorFieldType.Password)
 				{
 					editor.InputType = InputTypes.TextVariationPassword;
-					editor.TransformationMethod = new Android.Text.Method.PasswordTransformationMethod();
+					editor.TransformationMethod = new global::Android.Text.Method.PasswordTransformationMethod();
 				}
 				///-------------------------------------------------------------------------------------------------
 				# endregion
@@ -259,7 +259,7 @@ namespace Xamarin.Auth
 
 		void HandleCreateAccount (object sender, EventArgs e)
 		{
-			var intent = new Intent (Intent.ActionView, Android.Net.Uri.Parse (state.Authenticator.CreateAccountLink.AbsoluteUri));
+			var intent = new Intent (Intent.ActionView, global::Android.Net.Uri.Parse (state.Authenticator.CreateAccountLink.AbsoluteUri));
 			StartActivity (intent);
 		}
 

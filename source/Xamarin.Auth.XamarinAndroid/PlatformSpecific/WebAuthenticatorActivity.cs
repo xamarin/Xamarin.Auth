@@ -32,7 +32,7 @@ namespace Xamarin.Auth
 	///		Marshalled NavigationService.GoBack to UI Thread #94
 	///		https://github.com/xamarin/Xamarin.Auth/pull/88
 	//public class WebAuthenticatorActivity : Activity
-	public class WebAuthenticatorActivity : Android.Accounts.AccountAuthenticatorActivity
+	public class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
 #endif
 	{
 		WebView webView;
@@ -82,10 +82,10 @@ namespace Xamarin.Auth
 						   var accountResult = state.Authenticator.GetAccountResult(e.Account);
 
 						   Bundle result = new Bundle();
-						   result.PutString(Android.Accounts.AccountManager.KeyAccountType, accountResult.AccountType);
-						   result.PutString(Android.Accounts.AccountManager.KeyAccountName, accountResult.Name);
-						   result.PutString(Android.Accounts.AccountManager.KeyAuthtoken, accountResult.Token);
-						   result.PutString(Android.Accounts.AccountManager.KeyAccountAuthenticatorResponse, e.Account.Serialize());
+						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountType, accountResult.AccountType);
+						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountName, accountResult.Name);
+						   result.PutString(global::Android.Accounts.AccountManager.KeyAuthtoken, accountResult.Token);
+						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountAuthenticatorResponse, e.Account.Serialize());
            
 						   SetAccountAuthenticatorResult(result);
 					   }
@@ -203,7 +203,7 @@ namespace Xamarin.Auth
 				return false;
 			}
 
-			public override void OnPageStarted (WebView view, string url, Android.Graphics.Bitmap favicon)
+			public override void OnPageStarted (WebView view, string url, global::Android.Graphics.Bitmap favicon)
 			{
 				var uri = new Uri (url);
 				activity.state.Authenticator.OnPageLoading (uri);
@@ -283,7 +283,7 @@ namespace Xamarin.Auth
 
 				AlertDialog.Builder builder = new AlertDialog.Builder (this.activity);
 				builder.SetTitle ("Security warning");
-				builder.SetIcon (Android.Resource.Drawable.IcDialogAlert);
+				builder.SetIcon (global::Android.Resource.Drawable.IcDialogAlert);
 				builder.SetMessage ("There are problems with the security certificate for this site.");
 				
 				builder.SetNegativeButton ("Go back", (sender, args) => {

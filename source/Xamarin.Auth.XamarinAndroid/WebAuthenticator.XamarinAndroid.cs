@@ -38,8 +38,8 @@ namespace Xamarin.Auth
 		/// <seealso cref="ClearCookiesBeforeLogin"/>
 		public static void ClearCookies()
 		{
-			Android.Webkit.CookieSyncManager.CreateInstance (Android.App.Application.Context);
-			Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
+			global::Android.Webkit.CookieSyncManager.CreateInstance (global::Android.App.Application.Context);
+			global::Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
 		}
 
 
