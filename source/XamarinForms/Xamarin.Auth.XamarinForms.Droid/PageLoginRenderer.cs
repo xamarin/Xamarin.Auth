@@ -103,7 +103,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
             return;
         }
 
-        Android.App.Activity activity = null;
+        global::Android.App.Activity activity = null;
 
         private void Authenticate
                         (
