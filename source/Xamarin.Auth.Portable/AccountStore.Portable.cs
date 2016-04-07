@@ -34,14 +34,16 @@ namespace Xamarin.Auth
 		/// </summary>
 		public static AccountStore Create()
 		{
-			string msg = 
+            string msg = 
+                LibraryUtilities.MessageNotImplementedException
+                + System.Environment.NewLine +
 				"Cannot save account in Portable profile - bite-and-switch error."
 				+	System.Environment.NewLine +
 				"Please file a bug in https://bugzilla.xamarin.com"
 				;
 
-			throw new NotSupportedException (msg);
-		}
+            throw new NotImplementedException(msg);
+        }
 	}
 }
 

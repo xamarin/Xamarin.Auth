@@ -1,5 +1,5 @@
 //
-//  Copyright 2012-2013, Xamarin Inc.
+//  Copyright 2012-2016, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -19,8 +19,9 @@ using System.Threading.Tasks;
 using System.Threading;
 
 using Microsoft.Phone.Shell;
-using AuthenticateUIType = System.Uri;
 using Microsoft.Phone.Controls;
+
+using AuthenticateUIType = System.Uri;
 
 namespace Xamarin.Auth
 {
@@ -30,35 +31,35 @@ namespace Xamarin.Auth
 #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class WebAuthenticator
 #else
-	public abstract partial class WebAuthenticator 
+    public abstract partial class WebAuthenticator 
 #endif
 	{
-		/// <summary>
-		/// Clears all cookies.
-		/// </summary>
-		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public async static void ClearCookies()
-		{
-			// add reference Microsoft.Phone.Controls
-			await new WebBrowser().ClearCookiesAsync();
-		}
+        /// <summary>
+        /// Clears all cookies.
+        /// </summary>
+        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        public async static void ClearCookies()
+        {
+            // add reference Microsoft.Phone.Controls
+            await new WebBrowser().ClearCookiesAsync();
+        }
 
-		protected override AuthenticateUIType GetPlatformUI()
-		{
-			Random r = new Random();
-			string key;
-			do
-			{
-				key = "xamarin_auth_" + r.Next();
-			} while (PhoneApplicationService.Current.State.ContainsKey(key));
+        protected override AuthenticateUIType GetPlatformUI()
+        {
+            Random r = new Random();
+            string key;
+            do
+            {
+                key = "xamarin_auth_" + r.Next();
+            } while (PhoneApplicationService.Current.State.ContainsKey(key));
 
-			PhoneApplicationService.Current.State[key] = this;
+            PhoneApplicationService.Current.State[key] = this;
 
 
-			System.Reflection.Assembly assembly = typeof(Authenticator).Assembly;
-			string assembly_name = assembly.GetName().Name;
-			return new Uri("/" + assembly_name + ";component/WebAuthenticatorPage.xaml?key=" + key, UriKind.Relative);
-		}
-	}
+            System.Reflection.Assembly assembly = typeof(Authenticator).Assembly;
+            string assembly_name = assembly.GetName().Name;
+            return new Uri("/" + assembly_name + ";component/WebAuthenticatorPage.xaml?key=" + key, UriKind.Relative);
+        }
+    }
 }
 
