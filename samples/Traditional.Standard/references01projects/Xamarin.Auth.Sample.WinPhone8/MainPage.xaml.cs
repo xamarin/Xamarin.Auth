@@ -8,7 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-using Xamarin.Auth.Sample.WinPhone8.Resources;
+using Xamarin.Auth.Sample.Resources;
 
 
 using System.Text;

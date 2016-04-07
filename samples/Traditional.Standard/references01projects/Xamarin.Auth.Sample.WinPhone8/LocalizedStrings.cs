@@ -1,4 +1,4 @@
-﻿using Xamarin.Auth.Sample.WinPhone8.Resources;
+﻿using Xamarin.Auth.Sample.Resources;
 
 namespace Xamarin.Auth.Sample
 {

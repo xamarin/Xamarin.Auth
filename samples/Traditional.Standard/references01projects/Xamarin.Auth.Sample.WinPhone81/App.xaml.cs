@@ -6,9 +6,9 @@ using System.Windows.Markup;
 using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
-using Xamarin.Auth.Sample.WinPhone81.Resources;
+using Xamarin.Auth.Sample.Resources;
 
-namespace Xamarin.Auth.Sample.WinPhone81
+namespace Xamarin.Auth.Sample
 {
     public partial class App : Application
     {

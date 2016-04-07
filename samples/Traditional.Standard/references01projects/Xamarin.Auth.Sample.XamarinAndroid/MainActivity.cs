@@ -23,7 +23,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnCreate(bundle);
 
-            ListAdapter = new ArrayAdapter<String>(this, Android.Resource.Layout.SimpleListItem1, provider_list);
+            ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
 
             return;
         }
@@ -201,7 +201,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     builder.SetTitle (ar.Title);
                     builder.SetMessage (sb.ToString());
                 } 
-                catch (Android.OS.OperationCanceledException) 
+                catch (global::Android.OS.OperationCanceledException) 
                 {
                     builder.SetTitle ("Task Canceled");
                 } 

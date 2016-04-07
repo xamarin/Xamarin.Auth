@@ -36,7 +36,7 @@ namespace Xamarin.Auth.Sample.Android
 						var obj = JsonValue.Parse (await response.GetResponseTextAsync());
 						builder.SetTitle ("Logged in");
 						builder.SetMessage ("Name: " + obj["name"]);
-					} catch (OperationCanceledException) {
+					} catch (System.OperationCanceledException) {
 						builder.SetTitle ("Task Canceled");
 					} catch (Exception ex) {
 						builder.SetTitle ("Error");

@@ -8,7 +8,7 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 
-using Xamarin.Auth.Sample.WinPhone8.Resources;
+using Xamarin.Auth.Sample.Resources;
 
 
 using System.Text;
@@ -19,22 +19,7 @@ namespace Xamarin.Auth.Sample
 {
     public partial class MainPage
     {
-		string[] provider_list = new string[] 
-		{ 
-			"Facebook OAuth2",
-			"Twitter OAuth1",
-			"Google OAuth2",
-			"Microsoft Live OAuth2",
-			"LinkedIn OAuth1",
-			"LinkedIn OAuth2",
-			"Github OAuth2",
-			"Amazon OAuth2", 
-			"Dropbox OAuth2", 
-			"Meetup OAuth1", 
-			"Meetup OAuth2", 
-			"Paypal OAuth2", 
-			"Stackoverflow OAuth2", 
-		};
+		string[] provider_list = Data.TestCases.Keys.ToArray ();
 		string provider = null;
 
 		private void itemList_Tap(object sender, System.Windows.Input.GestureEventArgs e)
@@ -43,54 +28,15 @@ namespace Xamarin.Auth.Sample
 			string si = ((ListBox)sender).SelectedItem.ToString();
 			string provider = si;
 
-			switch (provider)
-			{
-			case "Facebook OAuth2":
-				Authenticate(Data.TestCases["Facebook OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Twitter OAuth1":
-				Authenticate(Data.TestCases["Twitter OAuth1"] as Xamarin.Auth.Helpers.OAuth1);
-				break;
-			case "Google OAuth2":
-				Authenticate(Data.TestCases["Google OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Microsoft Live OAuth2":
-				Authenticate(Data.TestCases["Microsoft Live OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "LinkedIn OAuth1":
-				Authenticate(Data.TestCases["LinkedIn OAuth1"] as Xamarin.Auth.Helpers.OAuth1);
-				break;
-			case "LinkedIn OAuth2":
-				Authenticate(Data.TestCases["LinkedIn OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Github OAuth2":
-				Authenticate(Data.TestCases["Github OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Instagram OAuth2":
-				Authenticate(Data.TestCases["Instagram OAuth2"] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Amazon OAuth2":
-				Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Meetup OAuth1":
-				Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Meetup OAuth2":
-				Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Dropbox OAuth2":
-				Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Paypal OAuth2":
-				Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			case "Stackoverflow OAuth2":
-				Authenticate(Data.TestCases[provider] as Xamarin.Auth.Helpers.OAuth2);
-				break;
-			default:
-				//Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
-				break;
-			};
+			Xamarin.Auth.Helpers.OAuth auth;
+			if (!Data.TestCases.TryGetValue (provider, out auth)) {
+				MessageBox.Show("Unknown OAuth Provider!");
+			}
+			if (auth is Xamarin.Auth.Helpers.OAuth1) {
+				Authenticate (auth as Xamarin.Auth.Helpers.OAuth1);
+			} else {
+				Authenticate (auth as Xamarin.Auth.Helpers.OAuth2);
+			}
 			var list = Data.TestCases;
 
 			return;
@@ -99,26 +45,89 @@ namespace Xamarin.Auth.Sample
 
 		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
 		{
+			OAuth1Authenticator auth = new OAuth1Authenticator 
+				(
+					consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
+					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
+					authorizeUrl: oauth1.OAuth_UriAuthorization,
+					accessTokenUrl: oauth1.OAuth_UriAccessToken,
+					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
+				);
+
+			auth.AllowCancel = oauth1.AllowCancel;
+
+			// If authorization succeeds or is canceled, .Completed will be fired.
+			auth.Completed += Auth_Completed;
+			auth.Error += Auth_Error;
+			auth.BrowsingCompleted += Auth_BrowsingCompleted;
+
+			Uri uri = auth.GetUI ();
+            this.NavigationService.Navigate(uri);
+
 			return;
 		}
 
 		private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
 		{
-			OAuth2Authenticator auth = new OAuth2Authenticator
-				(
+			OAuth2Authenticator auth = null;
+
+			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
+				auth = new OAuth2Authenticator (
 					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
 					scope: oauth2.OAuth2_Scope,
 					authorizeUrl: oauth2.OAuth_UriAuthorization,
 					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
 				);
+			} else {
+				auth = new OAuth2Authenticator (
+					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+					clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
+					scope: oauth2.OAuth2_Scope,
+					authorizeUrl: oauth2.OAuth_UriAuthorization,
+					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+					accessTokenUrl: oauth2.OAuth2_UriRequestToken
+				);
+			}
 
 			auth.AllowCancel = oauth2.AllowCancel;
 
 			// If authorization succeeds or is canceled, .Completed will be fired.
 			auth.Completed += Auth_Completed;
+			auth.Error += Auth_Error;
+			auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
-			Uri uri = auth.GetUI();
-			(System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
+            Uri uri = auth.GetUI();
+            this.NavigationService.Navigate(uri);
+
+            return;
+		}
+
+		private void Auth_Error (object sender, AuthenticatorErrorEventArgs ee)
+		{
+			string title = "OAuth Error";
+			string msg = "";
+
+			StringBuilder sb = new StringBuilder();
+			sb.Append("Message  = ").Append(ee.Message)
+				.Append(System.Environment.NewLine);
+			msg = sb.ToString();
+
+            MessageBox.Show("Message = " + msg);
+            
+			return;
+
+		}
+
+		private void Auth_BrowsingCompleted (object sender, EventArgs ee)
+		{
+			string title = "OAuth Browsing Completed";
+			string msg = "";
+
+			StringBuilder sb = new StringBuilder();
+			msg = sb.ToString();
+
+            MessageBox.Show("Message = " + msg);
 
 			return;
 		}
@@ -157,10 +166,7 @@ namespace Xamarin.Auth.Sample
 				}
 			}
 
-
-			//UIAlertView _error = new UIAlertView(title, msg, null, "Ok", null);
-			//_error.Show();
-
+            return;
 		}
 
 		private void AccountStoreTests(object authenticator, AuthenticatorCompletedEventArgs ee)
