@@ -69,6 +69,9 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\FormAuthenticator.cs">
       <Link>FormAuthenticator.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\LibraryUtilities.cs">
+      <Link>LibraryUtilities.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1.cs">
       <Link>OAuth1.cs</Link>
     </Compile>
