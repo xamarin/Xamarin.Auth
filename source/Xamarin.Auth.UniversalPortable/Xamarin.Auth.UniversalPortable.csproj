@@ -1,15 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5F4A04D8-7E74-44BB-8F5C-D9A6CFE93AED}</ProjectGuid>
+    <ProjectGuid>{FFEE7B99-FF95-4D22-A3F7-EAB6AE800284}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth</RootNamespace>
-    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <RootNamespace>Xamarin.Auth.UniversalPortable</RootNamespace>
+    <AssemblyName>Xamarin.Auth.UniversalPortable</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -21,7 +21,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PORTABLE</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -29,7 +29,7 @@
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;PORTABLE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -37,8 +37,8 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <TargetPlatform Include="Windows, Version=8.1" />
     <TargetPlatform Include="WindowsPhoneApp, Version=8.1" />
+    <TargetPlatform Include="Windows, Version=8.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
@@ -49,7 +49,6 @@
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
       <Link>AccountStore.Async.cs</Link>
-      <DependentUpon>AccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
@@ -94,25 +93,28 @@
       <Link>Response.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\System.Json\JavaScriptReader.cs">
-      <Link>System.Json\JavaScriptReader.cs</Link>
+      <Link>System\Json\JavaScriptReader.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\System.Json\JsonArray.cs">
-      <Link>System.Json\JsonArray.cs</Link>
+      <Link>System\Json\JsonArray.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\System.Json\JsonObject.cs">
-      <Link>System.Json\JsonObject.cs</Link>
+      <Link>System\Json\JsonObject.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\System.Json\JsonPrimitive.cs">
-      <Link>System.Json\JsonPrimitive.cs</Link>
+      <Link>System\Json\JsonPrimitive.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\System.Json\JsonType.cs">
-      <Link>System.Json\JsonType.cs</Link>
+      <Link>System\Json\JsonType.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\System.Json\JsonValue.cs">
-      <Link>System.Json\JsonValue.cs</Link>
+      <Link>System\Json\JsonValue.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\System\Decimal.cs">
       <Link>System\Decimal.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\System\DecimalExtensions.cs">
+      <Link>System\DecimalExtensions.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\v.2\HttpWebClientFrameworkType.cs">
       <Link>v.2\HttpWebClientFrameworkType.cs</Link>
@@ -129,12 +131,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.Portable\AccountStore.Portable.cs">
-      <Link>AccountStore.Portable.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Portable\System\DecimalExtensions.cs">
-      <Link>System\DecimalExtensions.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.Portable\System\Reflection\Extensions.cs">
       <Link>System\Reflection\Extensions.cs</Link>
     </Compile>
@@ -144,6 +140,7 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
+    <Folder Include="PlatformSpecific\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

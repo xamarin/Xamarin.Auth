@@ -28,6 +28,8 @@ script:
 	get-project Xamarin.Auth.XamarinForms.WindowsStore81WinRT	| uninstall-package Xamarin.Forms
 
 
+	get-project *.Auth.XamarinForms								| uninstall-package Xamarin.Forms
+
 	get-project Xamarin.Auth.XamarinForms						| install-package Xamarin.Forms
 	get-project Xamarin.Auth.XamarinForms.Droid					| install-package Xamarin.Forms
 	get-project Xamarin.Auth.XamarinForms.iOS					| install-package Xamarin.Forms
@@ -36,7 +38,9 @@ script:
 	get-project Xamarin.Auth.XamarinForms.WindowsPhone81		| install-package Xamarin.Forms
 	get-project Xamarin.Auth.XamarinForms.WindowsStore81WinRT	| install-package Xamarin.Forms
 
+	get-project *.Auth.XamarinForms								| install-package Xamarin.Forms
 
 
+	get-project *.Auth.XamarinForms								| install-package Xamarin.Forms
 
 https://forums.xamarin.com/discussion/57283/unable-to-find-a-version-of-xf-compatible-with
