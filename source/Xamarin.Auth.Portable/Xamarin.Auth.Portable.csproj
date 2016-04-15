@@ -5,7 +5,7 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FD44B8FA-C7D8-4B44-B1BF-303939E0BF29}</ProjectGuid>
+    <ProjectGuid>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Xamarin.Auth</RootNamespace>
