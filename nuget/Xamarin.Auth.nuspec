@@ -59,7 +59,7 @@
 			-->
 			windows phone, winphone, wp8,
 			wp81
-			windows 8, winrt,
+			windows 8, windows 8.1, winrt,
             windows, universal, platform, windows universal platform, uwp
 		</tags>
 		<frameworkAssemblies>
@@ -144,6 +144,14 @@
 		<file
 			src="./source/output/win81/Xamarin.Auth.dll"
 			target="lib\win81\Xamarin.Auth.dll"
+			>
+		</file>
+		<!--
+			Universal Windows Platform
+		-->
+		<file
+			src="./source/output/uwp/Xamarin.Auth.dll"
+			target="lib\uwp\Xamarin.Auth.dll"
 			>
 		</file>
 
