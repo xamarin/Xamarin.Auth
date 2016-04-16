@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
-using System.Text;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -14,9 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using Xamarin.Auth.SampleData;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 namespace Xamarin.Auth.Sample
 {
@@ -31,8 +28,6 @@ namespace Xamarin.Auth.Sample
 
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
-
-            return;
         }
 
     }

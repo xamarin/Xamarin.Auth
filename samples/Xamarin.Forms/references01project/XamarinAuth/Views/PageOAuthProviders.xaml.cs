@@ -19,8 +19,6 @@ namespace XamarinAuth.Views
 			InitializeComponent ();
 		}
 
-
-
 		Page page = null;
 				
 		string provider = null;

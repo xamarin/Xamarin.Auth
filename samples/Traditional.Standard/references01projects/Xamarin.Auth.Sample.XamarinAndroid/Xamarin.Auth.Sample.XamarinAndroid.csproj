@@ -75,12 +75,12 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
-      <Project>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</Project>
+      <Project>{d46e20a0-dba9-49a5-b45e-ce4664850445}</Project>
       <Name>Xamarin.Auth.XamarinAndroid</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
-      <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
-      <Name>Xamarin.Auth.SampleData</Name>
+    <ProjectReference Include="..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
+      <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
+      <Name>Xamarin.Auth.SamplesData</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

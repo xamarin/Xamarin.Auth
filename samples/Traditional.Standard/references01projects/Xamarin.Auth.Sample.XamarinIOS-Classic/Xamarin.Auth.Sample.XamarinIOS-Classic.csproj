@@ -140,14 +140,14 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinIOS-Classic\Xamarin.Auth.XamarinIOS-Classic.csproj">
-      <Project>{ABB2C4AF-00FA-405A-960E-CCF409899D09}</Project>
+      <Project>{abb2c4af-00fa-405a-960e-ccf409899d09}</Project>
       <Name>Xamarin.Auth.XamarinIOS-Classic</Name>
-      <IsAppExtension>False</IsAppExtension>
-      <IsWatchApp>False</IsWatchApp>
+      <IsAppExtension>false</IsAppExtension>
+      <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
-      <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
-      <Name>Xamarin.Auth.SampleData</Name>
+    <ProjectReference Include="..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
+      <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
+      <Name>Xamarin.Auth.SamplesData</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
