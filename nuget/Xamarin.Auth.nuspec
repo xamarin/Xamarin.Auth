@@ -12,7 +12,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.3.0-alpha-04
+			1.3.0
 		</version>
 		<title>
 			Xamarin.Auth
@@ -53,6 +53,10 @@
 			pcl,
 			android, monoandroid, monodroid, xamarin.android,
 			ios,  monotouch, xamarin.ios
+			windows phone 8, winphone 8, wp8
+			windows 8.1, windows 8.1 winrt, 
+			windows phone 8.1 winrt, winphone 8.1 winrt, wpa81
+			universal windows platform, uwp, windows 10
 			<!--
 			plugin for xamarin, plugin,
 			xamarin.forms,
