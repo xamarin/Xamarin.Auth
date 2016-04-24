@@ -53,18 +53,16 @@
 			pcl,
 			android, monoandroid, monodroid, xamarin.android,
 			ios,  monotouch, xamarin.ios
-			windows phone 8, winphone 8, wp8
+			windows phone, winphone, wp, 
+			windows phone 8 silverlight, winphone 8 sl, wp8 sl
+			windows phone 8.1 silverlight, winphone 8.1 sl, wp81 sl
+			<!--
 			windows 8.1, windows 8.1 winrt, 
 			windows phone 8.1 winrt, winphone 8.1 winrt, wpa81
 			universal windows platform, uwp, windows 10
-			<!--
 			plugin for xamarin, plugin,
 			xamarin.forms,
 			-->
-			windows phone, winphone, wp8,
-			wp81
-			windows 8, windows 8.1, winrt,
-            windows, universal, platform, windows universal platform, uwp
 		</tags>
 		<frameworkAssemblies>
 			<frameworkAssembly
@@ -134,30 +132,32 @@
 		</file>
 
 		<!--
-			Windows Phone 8.1
-		-->
+			Windows Phone 8.1 WinRT
 		<file
 			src="./source/output/wpa81/Xamarin.Auth.dll"
 			target="lib\wpa81\Xamarin.Auth.dll"
 			>
 		</file>
+		-->
 
 		<!--
+			Windows 8.1 WinRT
 			Windows Store
-		-->
 		<file
 			src="./source/output/win81/Xamarin.Auth.dll"
 			target="lib\win81\Xamarin.Auth.dll"
 			>
 		</file>
-		<!--
-			Universal Windows Platform
 		-->
+		<!--
+			Universal Windows Platform, UWP
+			Windows 10
 		<file
 			src="./source/output/uwp/Xamarin.Auth.dll"
 			target="lib\uwp\Xamarin.Auth.dll"
 			>
 		</file>
+		-->
 
 	</files>
 </package>
