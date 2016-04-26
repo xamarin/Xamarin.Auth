@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Xamarin.Auth Sample (Android)</string>
+	<string name="Facebook">Login to Facebook</string>
+	<string name="FacebookNoCancel">Login to Facebook (no cancel)</string>
+</resources>
