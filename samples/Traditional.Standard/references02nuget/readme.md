@@ -10,4 +10,4 @@
 
 
 
-Get-Project Xamarin.Auth.Sample* | install-package Holisticware.Auth -pre
+Get-Project Xamarin.Auth.Sample* | install-package Holisticware.Auth

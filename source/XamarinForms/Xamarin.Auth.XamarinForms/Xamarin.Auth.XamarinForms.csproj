@@ -81,7 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
-      <Project>{fd44b8fa-c7d8-4b44-b1bf-303939e0bf29}</Project>
+      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
       <Name>Xamarin.Auth.Portable</Name>
     </ProjectReference>
   </ItemGroup>
