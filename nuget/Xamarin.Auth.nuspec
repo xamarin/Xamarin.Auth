@@ -56,9 +56,9 @@
 			windows phone, winphone, wp, 
 			windows phone 8 silverlight, winphone 8 sl, wp8 sl
 			windows phone 8.1 silverlight, winphone 8.1 sl, wp81 sl
-			<!--
-			windows 8.1, windows 8.1 winrt, 
+			windows 8.1, windows 8.1 winrt, win81
 			windows phone 8.1 winrt, winphone 8.1 winrt, wpa81
+			<!--
 			universal windows platform, uwp, windows 10
 			plugin for xamarin, plugin,
 			xamarin.forms,
@@ -152,12 +152,12 @@
 		<!--
 			Universal Windows Platform, UWP
 			Windows 10
-		-->
 		<file
 			src="./source/output/uwp/Xamarin.Auth.dll"
 			target="lib\uwp\Xamarin.Auth.dll"
 			>
 		</file>
+		-->
 
 	</files>
 </package>
