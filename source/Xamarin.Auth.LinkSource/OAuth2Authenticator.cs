@@ -259,12 +259,25 @@ namespace Xamarin.Auth
         /// </returns>
         public override Task<Uri> GetInitialUrlAsync ()
         {
-            #region
-            //---------------------------------------------------------------------------------------
-            /// Pull Request - manually added/fixed
-            ///		OnCreatingInitialUrl virtual method #57
-            ///		https://github.com/xamarin/Xamarin.Auth/pull/57
-            /*
+			/*
+			 	mc++
+				OriginalString property of the Uri object should be used instead of AbsoluteUri
+				otherwise trailing slash is added.
+			*/
+			string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
+			string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
+
+			System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
+			System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
+
+			string oauth_callback_uri = oauth_redirect_uri_absolute;
+
+			#region
+			//---------------------------------------------------------------------------------------
+			/// Pull Request - manually added/fixed
+			///		OnCreatingInitialUrl virtual method #57
+			///		https://github.com/xamarin/Xamarin.Auth/pull/57
+			/*
             var url = new Uri (string.Format (
                 "{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
                 authorizeUrl.AbsoluteUri,
@@ -274,10 +287,11 @@ namespace Xamarin.Auth
                 Uri.EscapeDataString (scope),
                 Uri.EscapeDataString (requestState)));
             */
-            var query = new Dictionary<string, string> {
+			var query = new Dictionary<string, string> {
                 {"client_id", Uri.EscapeDataString (this.clientId)},
-                {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
-                {"response_type", this.IsImplicit ? Uri.EscapeDataString ("token") : Uri.EscapeDataString ("code")},
+                //mc++ {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
+				{"redirect_uri", Uri.EscapeDataString (oauth_redirect_uri_original)},
+				{"response_type", this.IsImplicit ? Uri.EscapeDataString ("token") : Uri.EscapeDataString ("code")},
                 //---------------------------------------------------------------------------------------
                 /// Pull Request - manually added/fixed
                 ///		Add new property to disable the escaping of scope parameter. #62
@@ -494,7 +508,7 @@ namespace Xamarin.Auth
         /// </param>
         public virtual void OnRetrievedAccountProperties (IDictionary<string, string> accountProperties)
         {
-			// mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
+			// mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
             //
             // Now we just need a username for the account
             //

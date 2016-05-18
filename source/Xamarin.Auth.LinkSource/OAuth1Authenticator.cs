@@ -125,11 +125,24 @@ namespace Xamarin.Auth
 		/// A task that will return the initial URL.
 		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync () {
+			/*
+			 	mc++
+				OriginalString property of the Uri object should be used instead of AbsoluteUri
+				otherwise trailing slash is added.
+			*/
+			string oauth_callback_uri_absolute = callbackUrl.AbsoluteUri;
+			string oauth_callback_uri_original = callbackUrl.OriginalString;
+
+			System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_callback_uri_absolute);
+			System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_callback_uri_original);
+
+			string oauth_callback_uri = oauth_callback_uri_absolute;
+		
 			var req = OAuth1.CreateRequest (
 				"GET",
 				requestTokenUrl, 
 				new Dictionary<string, string>() {
-					{ "oauth_callback", callbackUrl.AbsoluteUri },
+					{ "oauth_callback", oauth_callback_uri },
 				},
 				consumerKey,
 				consumerSecret,
