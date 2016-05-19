@@ -40,10 +40,13 @@ namespace Xamarin.Auth
 
 		const string FileName = "Xamarin.Social.Accounts";
 		static char[] Password;
-
+		// mc++
+		// NOTE security hole! Left for backwards compatibility
+		// PR56
+		static readonly char[] PasswordHardCoded = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray();
 
 		public AndroidAccountStore (Context context)
-			: this(context, "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617")
+			: this(context, PasswordHardCoded.ToString())
 		{
 			return;
 		}
@@ -197,7 +200,6 @@ namespace Xamarin.Auth
 		}
 
 		#region Migration of key store with hard coded password
-		static readonly char[] DefaultPassword = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray();
 		void MigrateKeyStore (Context context)
 		{
 			// Moves aside the old keystore, opens it with the old hard coded password
@@ -210,7 +212,7 @@ namespace Xamarin.Auth
 				// If that succeeds, the store can be migrated
 				lock (fileLock) {
 					using (var s = context.OpenFileInput (FileName)) {
-					ks.Load (s, DefaultPassword);
+					ks.Load (s, PasswordHardCoded);
 								}
 				}
 
@@ -242,11 +244,11 @@ namespace Xamarin.Auth
 		protected void CopyKeyStoreContents ()
 		{
 			var oldKeyStore = KeyStore.GetInstance (KeyStore.DefaultType);
-			var oldProtection = new KeyStore.PasswordProtection (DefaultPassword);
+			var oldProtection = new KeyStore.PasswordProtection (PasswordHardCoded);
 
 			using (var s = context.OpenFileInput (FileName + "Old")) 
 			{
-				oldKeyStore.Load (s, DefaultPassword);
+				oldKeyStore.Load (s, PasswordHardCoded);
 				// Copy all aliases to a new keystore, using a different password
 				var aliases = oldKeyStore.Aliases();
 				while (aliases.HasMoreElements) 
