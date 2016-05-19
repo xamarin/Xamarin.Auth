@@ -39,42 +39,69 @@ namespace Xamarin.Auth
 		static readonly object fileLock = new object ();
 
 		const string FileName = "Xamarin.Social.Accounts";
-		static readonly char[] Password = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray ();
+		static char[] Password;
+
 
 		public AndroidAccountStore (Context context)
+			: this(context, "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617")
 		{
+			return;
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="Xamarin.Auth.AndroidAccountStore"/> class
+		/// with a KeyStore password provided by the application.
+		/// </summary>
+		/// <param name="context">Context.</param>
+		/// <param name="password">KeyStore Password.</param>
+		public AndroidAccountStore (Context context, string password)
+		{
+			if (password == null)
+			{
+				throw new ArgumentNullException ("password");
+			}
+			Password = password.ToCharArray ();
+
 			this.context = context;
 
 			ks = KeyStore.GetInstance (KeyStore.DefaultType);
-
 			prot = new KeyStore.PasswordProtection (Password);
 
-			try {
-				lock (fileLock) {
+			try
+			{
+				lock (fileLock) 
+				{
 					if (! this.FileExists(context, FileName))
 					{
 						LoadEmptyKeyStore (Password);
 					}
 					else
 					{
-						using (var s = context.OpenFileInput (FileName)) {
+						using (var s = context.OpenFileInput (FileName)) 
+						{
 							ks.Load (s, Password);
 						}
 					}
 				}
 			}
-			catch (System.IO.FileNotFoundException) {
-				System.Diagnostics.Debug.WriteLine("System.IO.FileNotFoundException caught for AccountStore");
-				//ks.Load (null, Password);
+			catch (FileNotFoundException)
+			{
 				LoadEmptyKeyStore (Password);
 			}
-			catch (Java.IO.FileNotFoundException) {
-				System.Diagnostics.Debug.WriteLine("Java.IO.FileNotFoundException caught for AccountStore");
-				//ks.Load (null, Password);
-				LoadEmptyKeyStore (Password);
+			catch (Java.IO.IOException ex)
+			{
+				if (ex.Message == "KeyStore integrity check failed.")
+				{
+					// Migration scenario: this exception means that the keystore could not be opened
+					// with the app provided password, so there is probably an existing keystore
+					// that was encoded with the old hard coded password, which was deprecated.
+					// We'll try to open the keystore with the old password, and migrate the contents
+					// to a new one that will be encoded with the new password.
+					MigrateKeyStore (context);
+				}
 			}
 		}
-
+			
 		public override IEnumerable<Account> FindAccountsForService (string serviceId)
 		{
 			return FindAccountsForServiceAsync(serviceId).Result;
@@ -168,5 +195,69 @@ namespace Xamarin.Auth
 
 			return true;
 		}
+
+		#region Migration of key store with hard coded password
+		static readonly char[] DefaultPassword = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray();
+		void MigrateKeyStore (Context context)
+		{
+			// Moves aside the old keystore, opens it with the old hard coded password
+			// and copies all entries to the new keystore, secured with the app provided password
+
+			lock (fileLock) 
+			{
+
+				// First: attempt to open the keystore with the old password
+				// If that succeeds, the store can be migrated
+				lock (fileLock) {
+					using (var s = context.OpenFileInput (FileName)) {
+					ks.Load (s, DefaultPassword);
+								}
+				}
+
+				MoveKeyStoreFile (context, FileName, FileName + "Old");
+				LoadEmptyKeyStore (Password);
+				CopyKeyStoreContents ();
+
+				context.DeleteFile (FileName + "Old");
+			}
+		}
+
+		protected void MoveKeyStoreFile(Context context, string source, string destination)
+		{
+			var input = context.OpenFileInput (source);
+			var output = context.OpenFileOutput(destination, FileCreationMode.Private);
+
+			byte[] buffer = new byte[1024];
+			int len;
+			while ((len = input.Read(buffer, 0, 1024)) > 0) 
+			{
+				output.Write(buffer, 0, len);
+			}
+			input.Close();
+			output.Close();
+
+			context.DeleteFile (FileName);
+		}
+
+		protected void CopyKeyStoreContents ()
+		{
+			var oldKeyStore = KeyStore.GetInstance (KeyStore.DefaultType);
+			var oldProtection = new KeyStore.PasswordProtection (DefaultPassword);
+
+			using (var s = context.OpenFileInput (FileName + "Old")) 
+			{
+				oldKeyStore.Load (s, DefaultPassword);
+				// Copy all aliases to a new keystore, using a different password
+				var aliases = oldKeyStore.Aliases();
+				while (aliases.HasMoreElements) 
+				{
+					var alias = aliases.NextElement ().ToString ();
+					var e = oldKeyStore.GetEntry (alias, oldProtection) as KeyStore.SecretKeyEntry;
+					ks.SetEntry (alias, e, prot);
+				}
+			}
+			Save ();
+		}
+		#endregion
 	}
 }

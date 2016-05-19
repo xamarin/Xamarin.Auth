@@ -37,6 +37,11 @@ namespace Xamarin.Auth
 			return new AndroidAccountStore (context);
 		}
 
+		public static AccountStore Create (global::Android.Content.Context context, string password)
+		{
+			return new AndroidAccountStore (context, password);
+		}
+
 		/// <summary>
 		/// Create the specified context.
 		/// </summary>
