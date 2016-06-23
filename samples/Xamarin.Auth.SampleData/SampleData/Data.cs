@@ -84,6 +84,8 @@ namespace Xamarin.Auth.SampleData
 			StackoverflowOAuth2Implicit stackoverflowoauth2implicit = new StackoverflowOAuth2Implicit();
 			TestCases.Add(stackoverflowoauth2implicit.Description,stackoverflowoauth2implicit);
 
+			SlackOAuth2 slack = new SlackOAuth2();
+			TestCases.Add(slack.Description,slack);
 
 			return;
 		}

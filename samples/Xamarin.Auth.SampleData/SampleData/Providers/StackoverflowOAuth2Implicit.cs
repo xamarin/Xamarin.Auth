@@ -78,7 +78,7 @@ private_info - access full history of a user's private actions on the site 2.1
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = ""; // "", "read_inbox", "no_expiry", "write_access", ""
 			OAuth_UriAuthorization = new Uri("https://stackexchange.com/oauth/dialog");
-			OAuth_UriCallbackAKARedirect = new Uri("https://xamarin.com");
+			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
 			AllowCancel = true;
 
 			return;
