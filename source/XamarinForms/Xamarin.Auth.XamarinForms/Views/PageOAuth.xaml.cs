@@ -76,7 +76,7 @@ namespace Xamarin.Auth.XamarinForms
 		public OAuth1Authenticator OAuth1Authenticator = null;
         public OAuth2Authenticator OAuth2Authenticator = null;
 
-        public void OnItemSelected (object sender, ItemTappedEventArgs args_tapped)
+        public void OnItemSelected (object sender,  ItemTappedEventArgs args_tapped)
 		{
 			object item = args_tapped.Item;
 

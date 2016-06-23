@@ -43,4 +43,30 @@ script:
 
 	get-project *.Auth.XamarinForms								| install-package Xamarin.Forms
 
-https://forums.xamarin.com/discussion/57283/unable-to-find-a-version-of-xf-compatible-with
+	https://forums.xamarin.com/discussion/57283/unable-to-find-a-version-of-xf-compatible-with
+
+
+
+	get-project Xamarin.Auth.LinkSource							| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.Portable							| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.UniversalWindowsPlatform			| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.Windows81Universal					| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.WindowsPhone8						| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.WindowsPhone81						| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.WinRTWindows81						| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.WinRTWindowsPhone81				| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.XamarinAndroid						| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.XamarinIOS							| uninstall-package PCLCrypto
+	get-project Xamarin.Auth.XamarinIOS-Classic					| uninstall-package PCLCrypto
+
+	get-project Xamarin.Auth.LinkSource							| install-package PCLCrypto
+	get-project Xamarin.Auth.Portable							| install-package PCLCrypto
+	get-project Xamarin.Auth.UniversalWindowsPlatform			| install-package PCLCrypto
+	get-project Xamarin.Auth.Windows81Universal					| install-package PCLCrypto
+	get-project Xamarin.Auth.WindowsPhone8						| install-package PCLCrypto
+	get-project Xamarin.Auth.WindowsPhone81						| install-package PCLCrypto
+	get-project Xamarin.Auth.WinRTWindows81						| install-package PCLCrypto
+	get-project Xamarin.Auth.WinRTWindowsPhone81				| install-package PCLCrypto
+	get-project Xamarin.Auth.XamarinAndroid						| install-package PCLCrypto
+	get-project Xamarin.Auth.XamarinIOS							| install-package PCLCrypto
+	get-project Xamarin.Auth.XamarinIOS-Classic					| install-package PCLCrypto

@@ -78,7 +78,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                                 e_new.oauth1_uri_authorize,
                                 e_new.oauth1_uri_access_token,
                                 e_new.oauth1_uri_callback_redirect,
-                                e_new.oauth2_func_get_username,
+                                //e_new.oauth2_func_get_username,
                                 e_new.allow_cancel
                             );
                     return;
@@ -100,7 +100,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                                 e_new.oauth2_scope,
                                 e_new.oauth2_uri_authorization,
                                 e_new.oauth2_uri_callback_redirect,
-                                e_new.oauth2_func_get_username,
+                                //e_new.oauth2_func_get_username,
                                 e_new.allow_cancel
                             );
                     return;
@@ -122,7 +122,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                             Uri uri_authorize,
                             Uri uri_access_token, 
                             Uri uri_callback_redirect,
-                            GetUsernameAsyncFunc func_get_username,
+                            //GetUsernameAsyncFunc func_get_username,
                             bool allow_cancel = true
                         )
         {
@@ -133,8 +133,8 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                     uri_reuest_token,
                     uri_authorize,
                     uri_access_token,
-                    uri_callback_redirect,
-                    func_get_username
+                    uri_callback_redirect
+                    //func_get_username
                 );
 
             auth.AllowCancel = allow_cancel;
@@ -153,7 +153,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                             string scope, 
                             Uri uri_authorization, 
                             Uri uri_callback_redirect,
-                            GetUsernameAsyncFunc func_get_username,
+                            //GetUsernameAsyncFunc func_get_username,
                             bool allow_cancel = true
                         )
         {
@@ -172,8 +172,8 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                             application_id_aka_client_id,
                             scope,
                             uri_authorization,
-                            uri_callback_redirect,
-                            func_get_username
+                            uri_callback_redirect//,
+                            //func_get_username
                         );
                 }
                 catch (System.Exception exc)
@@ -194,9 +194,9 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
                             //clientSecret: oauth2.OAuth1_SecretKey_ConsumerSecret_APISecret,
                             scope,
                             uri_authorization,
-                            uri_callback_redirect,
+                            uri_callback_redirect//,
                             //accessTokenUrl: oauth2.OAuth1_UriAccessToken,
-                            func_get_username
+                            //func_get_username
                         );
                 }
                 catch (System.Exception exc)
@@ -215,7 +215,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
             return;
         }
 
-        private void Auth_Completed(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
+        private void Auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
             if (e.IsAuthenticated)
             {

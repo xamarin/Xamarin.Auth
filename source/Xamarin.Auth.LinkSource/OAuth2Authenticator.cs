@@ -148,10 +148,10 @@ namespace Xamarin.Auth
             ///		https://github.com/xamarin/Xamarin.Auth/pull/91
             ///		
             this.requestParams = new Dictionary<string, string>();
-            ///---------------------------------------------------------------------------------------
-            #endregion
+			///---------------------------------------------------------------------------------------
+			#endregion
 
-
+			return;
         }
 
         /// <summary>
@@ -211,6 +211,8 @@ namespace Xamarin.Auth
             this.accessTokenUrl = accessTokenUrl;
 
             this.getUsernameAsync = getUsernameAsync;
+
+			return;
         }
 
         OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
@@ -247,6 +249,8 @@ namespace Xamarin.Auth
                 chars [i] = (char)rand.Next ((int)'a', (int)'z' + 1);
             }
             this.requestState = new string (chars);
+
+			return;
         }
 
         bool IsImplicit { get { return accessTokenUrl == null; } }
@@ -485,7 +489,6 @@ namespace Xamarin.Auth
             //---------------------------------------------------------------------------------------
             # endregion
             {
-                return data;
             } else {
                 # region
                 //---------------------------------------------------------------------------------------
@@ -498,7 +501,9 @@ namespace Xamarin.Auth
                 //---------------------------------------------------------------------------------------
                 # endregion
             }
-        }
+
+			return data;
+		}
 
         /// <summary>
         /// Event handler that is fired when an access token has been retreived.

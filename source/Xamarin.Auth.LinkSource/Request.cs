@@ -85,6 +85,8 @@ namespace Xamarin.Auth
 				new Dictionary<string, string> () :
 				new Dictionary<string, string> (parameters);
 			Account = account;
+
+			return;
 		}
 
 		/// <summary>
@@ -217,6 +219,7 @@ namespace Xamarin.Auth
 			}
 
 			HttpResponseMessage response = await client.SendAsync (httpRequest, cancellationToken).ConfigureAwait (false);
+
 			return new Response (response);
 		}
 

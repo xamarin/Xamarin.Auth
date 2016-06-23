@@ -186,6 +186,9 @@
       <Link>Authenticator.WindowsPhone.cs</Link>
       <DependentUpon>Authenticator.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\PlatformSpecific\FileHelper.cs">
+      <Link>PlatformSpecific\FileHelper.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\PlatformSpecific\WPAccountStore.cs">
       <Link>PlatformSpecific\WPAccountStore.cs</Link>
     </Compile>
@@ -199,6 +202,12 @@
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticatorPage.xaml.cs">
       <Link>WebAuthenticatorPage.xaml.cs</Link>
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
+      <Link>Evolve16.Labs\AccountManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
+      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -214,6 +223,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
+      <HintPath>..\packages\PCLCrypto.2.0.147\lib\wp80\PCLCrypto.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\sl4-windowsphone71\System.Net.Http.dll</HintPath>
       <Private>True</Private>
@@ -224,6 +237,10 @@
     </Reference>
     <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\sl4-windowsphone71\System.Net.Http.Primitives.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Validation, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Validation.2.2.8\lib\dotnet\Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
