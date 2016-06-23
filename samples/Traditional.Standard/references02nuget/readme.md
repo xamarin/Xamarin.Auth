@@ -9,5 +9,6 @@
 4.  add nuget dependencies
 
 
+Add Xamarin.Auth nuget
 
-Get-Project Xamarin.Auth.Sample* | install-package Holisticware.Auth
+	Get-Project Xamarin.Auth.Sample* | install-package Holisticware.Auth

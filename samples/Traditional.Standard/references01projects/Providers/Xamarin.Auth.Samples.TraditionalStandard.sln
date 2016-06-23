@@ -5,7 +5,7 @@ VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Auth.Sample.Data", "Xamarin.Auth.Sample.Data", "{F5EDE5DA-AA22-4681-BEF6-AD43EBBA41B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.SamplesData", "..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj", "{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.SamplesData", "..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj", "{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Sample.XamarinAndroid", "Xamarin.Auth.Sample.XamarinAndroid\Xamarin.Auth.Sample.XamarinAndroid.csproj", "{623403B7-1667-49A9-B1F3-8D1425AD25A3}"
 EndProject
@@ -31,53 +31,53 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth Sample (iOS)",
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Auth-Library", "Xamarin.Auth-Library", "{9D1F4812-2987-4E95-BB15-3E9CE2E3CCBA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.LinkSource", "..\..\..\source\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.LinkSource", "..\..\..\..\source\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Portable", "..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj", "{87580927-9F8E-42AE-BDFE-35F95ABF17D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Portable", "..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj", "{87580927-9F8E-42AE-BDFE-35F95ABF17D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid", "..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj", "{D46E20A0-DBA9-49A5-B45E-CE4664850445}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid", "..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj", "{D46E20A0-DBA9-49A5-B45E-CE4664850445}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS-Classic", "..\..\..\source\Xamarin.Auth.XamarinIOS-Classic\Xamarin.Auth.XamarinIOS-Classic.csproj", "{ABB2C4AF-00FA-405A-960E-CCF409899D09}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS-Classic", "..\..\..\..\source\Xamarin.Auth.XamarinIOS-Classic\Xamarin.Auth.XamarinIOS-Classic.csproj", "{ABB2C4AF-00FA-405A-960E-CCF409899D09}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone8", "..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj", "{08470E0D-EB43-4E07-92F4-020DF019F628}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone8", "..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj", "{08470E0D-EB43-4E07-92F4-020DF019F628}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone81", "..\..\..\source\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj", "{18B5054D-6035-40DB-B1AE-3E4FDE8DB6E9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone81", "..\..\..\..\source\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj", "{18B5054D-6035-40DB-B1AE-3E4FDE8DB6E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Windows81Universal", "..\..\..\source\Xamarin.Auth.Windows81Universal\Xamarin.Auth.Windows81Universal.csproj", "{5F4A04D8-7E74-44BB-8F5C-D9A6CFE93AED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Windows81Universal", "..\..\..\..\source\Xamarin.Auth.Windows81Universal\Xamarin.Auth.Windows81Universal.csproj", "{5F4A04D8-7E74-44BB-8F5C-D9A6CFE93AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WinRTWindows81", "..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj", "{C4202AC1-1027-4737-8215-16182421E342}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WinRTWindows81", "..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj", "{C4202AC1-1027-4737-8215-16182421E342}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WinRTWindowsPhone81", "..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj", "{D07C6FC6-6860-495C-9BC8-0F731C74AE2F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WinRTWindowsPhone81", "..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj", "{D07C6FC6-6860-495C-9BC8-0F731C74AE2F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.UniversalWindowsPlatform", "..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj", "{2D712AA6-7697-4F4D-B5F1-AA03476F59A7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.UniversalWindowsPlatform", "..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj", "{2D712AA6-7697-4F4D-B5F1-AA03476F59A7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms", "..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.Droid", "..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.Droid\Xamarin.Auth.XamarinForms.Droid.csproj", "{1B702A60-3D89-4183-B251-4A07388DCCB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.Droid", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.Droid\Xamarin.Auth.XamarinForms.Droid.csproj", "{1B702A60-3D89-4183-B251-4A07388DCCB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS", "..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS\Xamarin.Auth.XamarinForms.iOS.csproj", "{7666F0AB-7493-49F2-82B0-7D51A0250FC9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS\Xamarin.Auth.XamarinForms.iOS.csproj", "{7666F0AB-7493-49F2-82B0-7D51A0250FC9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS-Classic", "..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS-Classic\Xamarin.Auth.XamarinForms.iOS-Classic.csproj", "{55214E2D-4FEE-49F6-BB69-5ADC2BD6B8EC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS-Classic", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS-Classic\Xamarin.Auth.XamarinForms.iOS-Classic.csproj", "{55214E2D-4FEE-49F6-BB69-5ADC2BD6B8EC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone8", "..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone8\Xamarin.Auth.XamarinForms.WindowsPhone8.csproj", "{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone8", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone8\Xamarin.Auth.XamarinForms.WindowsPhone8.csproj", "{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone81", "..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone81\Xamarin.Auth.XamarinForms.WindowsPhone81.csproj", "{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone81", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone81\Xamarin.Auth.XamarinForms.WindowsPhone81.csproj", "{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{C1AFC24F-8A5D-4AAF-938E-C61212111835}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.LinkSource", "..\..\..\source\Extensions\Xamarin.Auth.Extensions.LinkSource\Xamarin.Auth.Extensions.LinkSource.csproj", "{3EBB5946-5B7E-4EB3-8E3A-4FEE91D69ED6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.LinkSource", "..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.LinkSource\Xamarin.Auth.Extensions.LinkSource.csproj", "{3EBB5946-5B7E-4EB3-8E3A-4FEE91D69ED6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.Portable", "..\..\..\source\Extensions\Xamarin.Auth.Extensions.Portable\Xamarin.Auth.Extensions.Portable.csproj", "{6397C9BB-4FCF-4484-923B-A36093A4253D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.Portable", "..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.Portable\Xamarin.Auth.Extensions.Portable.csproj", "{6397C9BB-4FCF-4484-923B-A36093A4253D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinAndroid", "..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinAndroid\Xamarin.Auth.Extensions.XamarinAndroid.csproj", "{FA8B2786-B839-4271-9303-43EE483BCC1F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinAndroid", "..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinAndroid\Xamarin.Auth.Extensions.XamarinAndroid.csproj", "{FA8B2786-B839-4271-9303-43EE483BCC1F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS", "..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinIOS\Xamarin.Auth.Extensions.XamarinIOS.csproj", "{ED88D56E-0677-4735-B083-60A46FA8CB94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS", "..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinIOS\Xamarin.Auth.Extensions.XamarinIOS.csproj", "{ED88D56E-0677-4735-B083-60A46FA8CB94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS-Classic", "..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinIOS-Classic\Xamarin.Auth.Extensions.XamarinIOS-Classic.csproj", "{8F5F3994-1BE1-4503-997A-800B764322B2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS-Classic", "..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinIOS-Classic\Xamarin.Auth.Extensions.XamarinIOS-Classic.csproj", "{8F5F3994-1BE1-4503-997A-800B764322B2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
 	ProjectSection(SolutionItems) = preProject
@@ -90,6 +90,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73798C
 		..\..\..\source\.nuget\NuGet.exe = ..\..\..\source\.nuget\NuGet.exe
 		..\..\..\source\.nuget\NuGet.targets = ..\..\..\source\.nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Sample.UITests.XamarinAndroid", "Xamarin.Auth.Sample.UITests.XamarinAndroid\Xamarin.Auth.Sample.UITests.XamarinAndroid.csproj", "{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Sample.UITests.XamarinIOS", "Xamarin.Auth.Sample.UITests.XamarinIOS\Xamarin.Auth.Sample.UITests.XamarinIOS.csproj", "{63153F59-EC3A-403C-8408-D6439E06FBA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -2007,6 +2011,118 @@ Global
 		{8F5F3994-1BE1-4503-997A-800B764322B2}.Release|x64.Build.0 = Release|Any CPU
 		{8F5F3994-1BE1-4503-997A-800B764322B2}.Release|x86.ActiveCfg = Release|Any CPU
 		{8F5F3994-1BE1-4503-997A-800B764322B2}.Release|x86.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|ARM.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|x64.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Ad-Hoc|x86.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|ARM.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|x64.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.AppStore|x86.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|ARM.Build.0 = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|x64.Build.0 = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Debug|x86.Build.0 = Debug|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|ARM.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|ARM.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|iPhone.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|x64.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|x64.Build.0 = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|x86.ActiveCfg = Release|Any CPU
+		{A31CF884-1E4D-45B3-92FD-0BCFFBA257A5}.Release|x86.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|ARM.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|ARM.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|Mixed Platforms.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|x64.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|x64.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Ad-Hoc|x86.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|Any CPU.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|ARM.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|ARM.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|Mixed Platforms.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|x64.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|x64.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|x86.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.AppStore|x86.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|ARM.Build.0 = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|x64.Build.0 = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Debug|x86.Build.0 = Debug|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|ARM.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|ARM.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|iPhone.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|x64.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|x64.Build.0 = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|x86.ActiveCfg = Release|Any CPU
+		{63153F59-EC3A-403C-8408-D6439E06FBA9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
