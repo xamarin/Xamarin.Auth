@@ -63,6 +63,9 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
       <Link>Evolve16.Labs\AccountManager.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
+      <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
       <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
     </Compile>

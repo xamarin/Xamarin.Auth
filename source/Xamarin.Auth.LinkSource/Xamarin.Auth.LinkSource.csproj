@@ -80,6 +80,7 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Authenticator.cs" />
     <Compile Include="AuthException.cs" />
+    <Compile Include="Evolve16.Labs\OAuthLoginPresenter.cs" />
     <Compile Include="Evolve16.Labs\Security\CryptoUtilities.cs" />
     <Compile Include="LibraryUtilities.cs" />
     <Compile Include="PlatformSpecific\FileHelper.cs" />

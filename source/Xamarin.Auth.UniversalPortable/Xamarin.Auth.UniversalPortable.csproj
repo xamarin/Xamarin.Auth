@@ -62,6 +62,15 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
+      <Link>Evolve16.Labs\AccountManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
+      <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
+      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
     </Compile>
