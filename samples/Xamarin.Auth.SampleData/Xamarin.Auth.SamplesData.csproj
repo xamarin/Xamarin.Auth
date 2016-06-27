@@ -62,7 +62,6 @@
     <Compile Include="SampleData\Providers\StackoverflowOAuth2Implicit.cs" />
     <Compile Include="SampleData\Providers\TwitterOAuth1.cs" />
     <Compile Include="SampleData\Providers\SlackOAuth2.cs" />
-    <Compile Include="SampleData\Providers\secure\SlackOAuth2.secure.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SampleData\Providers\secure\.gitignore" />
@@ -70,7 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
-      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
+      <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
       <Name>Xamarin.Auth.Portable</Name>
     </ProjectReference>
   </ItemGroup>

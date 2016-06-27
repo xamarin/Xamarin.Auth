@@ -14,11 +14,11 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <MandroidI18n />
     <JavaMaximumHeapSize>
     </JavaMaximumHeapSize>
-    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v6.0.99</TargetFrameworkVersion>
     <NuGetPackageImportStamp>657c30c1</NuGetPackageImportStamp>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -103,29 +103,9 @@
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.1.0.6529\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
-      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
-      <Name>Xamarin.Auth.Portable</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj">
-      <Project>{AF395E40-6F1E-41E3-BA23-12E134F0D38F}</Project>
-      <Name>Xamarin.Auth.SampleData</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
-      <Project>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</Project>
-      <Name>Xamarin.Auth.XamarinAndroid</Name>
-    </ProjectReference>
     <ProjectReference Include="..\XamarinAuth\XamarinAuth.csproj">
       <Project>{0786BB81-BEC8-4EE1-89DC-90259A830E57}</Project>
       <Name>XamarinAuth</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.Droid\Xamarin.Auth.XamarinForms.Droid.csproj">
-      <Project>{1B702A60-3D89-4183-B251-4A07388DCCB5}</Project>
-      <Name>Xamarin.Auth.XamarinForms.Droid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj">
-      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
-      <Name>Xamarin.Auth.XamarinForms</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -145,21 +145,5 @@
       <Project>{0786BB81-BEC8-4EE1-89DC-90259A830E57}</Project>
       <Name>XamarinAuth</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS\Xamarin.Auth.XamarinForms.iOS.csproj">
-      <Project>{7666F0AB-7493-49F2-82B0-7D51A0250FC9}</Project>
-      <Name>Xamarin.Auth.XamarinForms.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
-      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
-      <Name>Xamarin.Auth.XamarinIOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj">
-      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
-      <Name>Xamarin.Auth.XamarinForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
-      <Project>{87580927-9F8E-42AE-BDFE-35F95ABF17D8}</Project>
-      <Name>Xamarin.Auth.Portable</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>
