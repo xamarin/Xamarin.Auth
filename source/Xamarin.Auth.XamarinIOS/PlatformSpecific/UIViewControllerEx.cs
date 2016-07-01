@@ -25,7 +25,7 @@ using UIKit;
 
 namespace Xamarin.Utilities.iOS
 {
-	internal static class UIViewControllerEx
+	public static class UIViewControllerEx
 	{
 		public static void ShowError (this UIViewController controller, string title, Exception error, Action continuation = null)
 		{
