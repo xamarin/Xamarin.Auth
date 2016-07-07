@@ -232,3 +232,4 @@ lib/**
 # Android
 **/Resources/Resource.[Dd]esigner.cs
 #------------------------------------------
+/source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/*.bak
