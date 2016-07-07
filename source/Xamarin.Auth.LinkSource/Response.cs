@@ -106,13 +106,18 @@ namespace Xamarin.Auth
 			return this.response.Content.ReadAsStreamAsync();
 		}
 
-		/// <summary>
-		/// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Response"/>.
-		/// </summary>
-		/// <returns>
-		/// A <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Response"/>.
-		/// </returns>
-		public override string ToString ()
+        public virtual Stream GetResponseStream()
+        {
+            return GetResponseStreamAsync().Result;
+        }
+
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Response"/>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Response"/>.
+        /// </returns>
+        public override string ToString ()
 		{
 			return string.Format ("{0} {1}", StatusCode, ResponseUri);
 		}
