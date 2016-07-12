@@ -63,7 +63,7 @@
             windows, universal, platform, windows universal platform, uwp
 		</tags>
         <dependencies>
-            <dependency id="Xamarin.Auth" version="1.3.0-alpha"/>
+            <dependency id="Xamarin.Auth" version="1.3.0"/>
         </dependencies>
 	</metadata>
 	<files>
