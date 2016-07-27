@@ -67,11 +67,13 @@ namespace Xamarin.Auth
             SecStatusCode result;
             SecRecord[] records = SecKeyChain.QueryAsRecord(query, 1000, out result);
 
-		    List<Account> accounts_found;
+		    List<Account> accounts_found = null;
 		    try
 		    {
-		        accounts_found = records.Select(GetAccountFromRecord)
-                    .ToList();
+		        if (records != null)
+		        {
+		            accounts_found = records.Select(GetAccountFromRecord).ToList();
+		        }
 		    }
 		    catch (Exception ex)
 		    {
@@ -80,11 +82,9 @@ namespace Xamarin.Auth
 		            Debug.WriteLine("IEnumerable access excption = " + ex.Message);
 		            Debug.WriteLine(ex);
                 } while ((ex = ex.InnerException) != null);
-
-                accounts_found = new List<Account>();
 		    }
 
-            return Task.FromResult(accounts_found);
+            return Task.FromResult(accounts_found ?? new List<Account>());
 		}
 
 		Account GetAccountFromRecord (SecRecord r)
