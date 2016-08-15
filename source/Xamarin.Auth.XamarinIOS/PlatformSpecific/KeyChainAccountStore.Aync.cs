@@ -13,7 +13,6 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-#define TEST_MARK_T
 
 using System;
 using System.Collections.Generic;
@@ -68,94 +67,43 @@ namespace Xamarin.Auth
             SecStatusCode result;
             SecRecord[] records = SecKeyChain.QueryAsRecord(query, 1000, out result);
 
-            IEnumerable<Account> accounts_found = null;
-            IEnumerable<Account> ienumerable_accounts = null;
-            if (records != null)
-            {
-                /*
-                moljac note:
-                ienumerable_accounts    
-                    {
-                        System.Linq.Enumerable.WhereSelectArrayIterator
-                                                <
-                                                    MonoTouch.Security.SecRecord,
-                                                    Xamarin.Auth.Account
-                                                >
-                    }    
-                    {
-                        System.Linq.Enumerable.WhereSelectArrayIterator
-                                                <
-                                                    Security.SecRecord,
-                                                    Xamarin.Auth.Account
-                                                >
-                    }    
-                */
-                ienumerable_accounts = records.Select(GetAccountFromRecord);
+		    List<Account> accounts_found = null;
+		    try
+		    {
+		        if (records != null)
+		        {
+		            accounts_found = records.Select(GetAccountFromRecord).ToList();
+		        }
+		    }
+		    catch (Exception ex)
+		    {
+		        do
+		        {
+		            Debug.WriteLine("IEnumerable access excption = " + ex.Message);
+		            Debug.WriteLine(ex);
+                } while ((ex = ex.InnerException) != null);
+		    }
 
-                /*
-                    must check for empty IEnumerable
-                    IEnumerable ToList()
-                    Value cannot be null.
-                    Parameter name: data
-                */
-                try
-                {
-                    /*
-                        Classic
-                        accessing throws
-                        > ienumerable_accounts.Count()
-                        System.ArgumentNullException: Value cannot be null.
-                        Parameter name: data
-                        > ienumerable_accounts.LongCount()
-                        System.ArgumentNullException: Value cannot be null.
-                        Parameter name: data 
-                    */
-                    if (ienumerable_accounts.Count() > 0 && ienumerable_accounts.LongCount() > 0)
-                    {
-                        /*
-                            Unified enters
-                            method call ToList() throws
-
-                            > ienumerable_accounts.Count()
-                            System.ArgumentNullException: Value cannot be null.
-                            Parameter name: data
-                            > ienumerable_accounts.LongCount()
-                            System.ArgumentNullException: Value cannot be null.
-                            Parameter name: data
-                            > ienumerable_accounts.ToList()
-                            System.ArgumentNullException: Value cannot be null.
-                            Parameter name: data
-                        */
-                         accounts_found = ienumerable_accounts.ToList();
-                    }
-                    else
-                    {
-                        accounts_found = new List<Account> ();
-                    }
-                }
-                catch(System.Exception exc)
-                {
-                    string msg = exc.Message;
-                    Debug.WriteLine("IEnumerable access excption = " + msg);
-                }
-            }
-            else
-            {
-                accounts_found = new List<Account> ();
-            }
-
-			List<Account> retval = new List<Account> (accounts_found);
-
-			return Task.FromResult(retval);
+            return Task.FromResult(accounts_found ?? new List<Account>());
 		}
 
 		Account GetAccountFromRecord (SecRecord r)
 		{
-			#if ! TEST_MARK_T
-            NSData data = r.Generic;
-			#else
+            //This library used to store passwords in .Generic.
+            // Mark Taparauskas suggested using ValueData because it's encrypted,
+            // but we need to handle apps upgrading to this version.
             NSData data = r.ValueData;
-			#endif
+            if (data == null)
+            {
+                data = r.Generic;
+                if (data != null)
+                {
+                    //Migrate to ValueData and clear the unencrypted data
+                    r.ValueData = data;
+                    r.Generic = NSData.FromArray(Array.Empty<byte>());
+                    SecKeyChain.Add(r);
+                }
+            }
 
             var serializedData = NSString.FromData (data, NSStringEncoding.UTF8);
 
@@ -208,11 +156,7 @@ namespace Xamarin.Auth
 			// mc++ mc#
 			// Mark Taparauskas suggetsion:
 			//		.Generic is not encrypted
-			#if ! TEST_MARK_T
-			record.Generic = data;
-			#else
 			record.ValueData = data;
-			#endif
 			//------------------------------------------------------
 			record.Accessible = SecAccessible.WhenUnlocked;
 
