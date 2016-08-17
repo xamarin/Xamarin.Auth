@@ -78,6 +78,11 @@
 					targetFramework="Xamarin.iOS10"
 					/>
 		</frameworkAssemblies>
+		<dependencies> 
+		   <group>
+			  <dependency id="PCLCrypto" />
+		   </group>
+		</dependencies>
 	</metadata>
 	<files>
 		<!--
