@@ -13,7 +13,6 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-#define TEST_MARK_T
 
 using System;
 using System.Collections.Generic;
@@ -151,11 +150,21 @@ namespace Xamarin.Auth
 
 		Account GetAccountFromRecord (SecRecord r)
 		{
-			#if ! TEST_MARK_T
-            NSData data = r.Generic;
-			#else
-            NSData data = r.ValueData;
-			#endif
+            NSData data_generic_unencrypted = r.Generic;
+            NSData data_valuedata_encrypted = r.ValueData;
+
+			NSData data = null;
+
+			if (data_generic_unencrypted != null)
+			{
+				// old API - unencrypted/insecure/unsafe
+				data = data_generic_unencrypted;
+			}
+			else if (data_valuedata_encrypted != null)
+			{
+				// new API - encrypted/secure/safe
+				data = data_valuedata_encrypted;
+			}
 
             var serializedData = NSString.FromData (data, NSStringEncoding.UTF8);
 
@@ -166,12 +175,12 @@ namespace Xamarin.Auth
 
 		Account FindAccount (string username, string serviceId)
 		{
-			var query = new SecRecord (SecKind.GenericPassword);
+			SecRecord query = new SecRecord (SecKind.GenericPassword);
 			query.Service = serviceId;
 			query.Account = username;
 
 			SecStatusCode result;
-			var record = SecKeyChain.QueryAsRecord (query, out result);
+			SecRecord record = SecKeyChain.QueryAsRecord (query, out result);
 
 			return record != null ?	GetAccountFromRecord (record) : null;
 		}
