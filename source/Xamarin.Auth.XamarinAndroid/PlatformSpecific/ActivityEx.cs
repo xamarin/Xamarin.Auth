@@ -3,7 +3,7 @@ using Android.App;
 
 namespace Xamarin.Utilities.Android
 {
-	internal static class ActivityEx
+	public static class ActivityEx
 	{
 		public static void ShowError (this Activity activity, string title, Exception exception)
 		{
