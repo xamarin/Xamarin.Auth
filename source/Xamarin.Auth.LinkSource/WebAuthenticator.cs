@@ -121,7 +121,7 @@ namespace Xamarin.Auth
 			}
 		}
 
-#if PLATFORM_IOS
+#if __IOS__
 		/// <summary>
 		/// Gets the UI for this authenticator.
 		/// </summary>
@@ -132,7 +132,7 @@ namespace Xamarin.Auth
 		//{
 		//	return new MonoTouch.UIKit.UINavigationController (new WebAuthenticatorController (this));
 		//}
-#elif PLATFORM_ANDROID
+#elif __ANDROID__
 		/// <summary>
 		/// Gets the UI for this authenticator.
 		/// </summary>
@@ -149,7 +149,7 @@ namespace Xamarin.Auth
 		//	i.PutExtra ("StateKey", WebAuthenticatorActivity.StateRepo.Add (state));
 		//	return i;
 		//}
-#elif PLATFORM_WINPHONE
+#elif WINDOWS_PHONE && SILVERLIGHT
 		//protected override AuthenticateUIType GetPlatformUI()
 		//{
 		//	Random r = new Random();
@@ -166,18 +166,18 @@ namespace Xamarin.Auth
 		//	return new Uri ("/" + assembly_name + ";component/WebAuthenticatorPage.xaml?key=" + key, UriKind.Relative);
 		//}
 #else
-        /// <summary>
-        /// Gets the UI for this authenticator.
-        /// </summary>
-        /// <returns>
-        /// The UI that needs to be presented.
-        /// </returns>
-        //protected override AuthenticateUIType GetPlatformUI ()
-        //{
-        //	throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
-        //}
+		/// <summary>
+		/// Gets the UI for this authenticator.
+		/// </summary>
+		/// <returns>
+		/// The UI that needs to be presented.
+		/// </returns>
+		//protected override AuthenticateUIType GetPlatformUI ()
+		//{
+		//	throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
+		//}
 #endif
 
-    }
+	}
 }
 

@@ -126,7 +126,7 @@ namespace Xamarin.Auth
 			return;
 		}
 
-#if PLATFORM_ANDROID
+#if __ANDROID__
 		//UIContext context;
 		//public AuthenticateUIType GetUI (UIContext context)
 		//{
@@ -283,7 +283,7 @@ namespace Xamarin.Auth
 
 		void BeginInvokeOnUIThread (Action action)
 		{
-            #if PLATFORM_IOS || __IOS__
+            #if __IOS__
             #if !__UNIFIED__
             MonoTouch.
             #endif
@@ -294,7 +294,7 @@ namespace Xamarin.Auth
         				action ();
 		        	}
                 );
-            #elif PLATFORM_ANDROID || __ANDROID__
+            #elif __ANDROID__
 			var a = context as global::Android.App.Activity;
 			if (a != null) {
 				a.RunOnUiThread (action);

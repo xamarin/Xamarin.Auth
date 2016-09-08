@@ -101,7 +101,7 @@ namespace Xamarin.Auth
 		/// </param>
 		public abstract Task<Account> SignInAsync (CancellationToken cancellationToken);
 
-#if PLATFORM_IOS
+#if __IOS__
 		/// <summary>
 		/// Gets the UI to present this form.
 		/// </summary>
@@ -112,7 +112,7 @@ namespace Xamarin.Auth
 		//{
 		//	return new MonoTouch.UIKit.UINavigationController (new FormAuthenticatorController (this));
 		//}
-#elif PLATFORM_ANDROID
+#elif __ANDROID__
 		/// <summary>
 		/// Gets the UI to present this form.
 		/// </summary>
