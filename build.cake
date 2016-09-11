@@ -157,7 +157,7 @@ Task ("libs")
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinPortable/**/Release/Xamarin.Auth.dll", 
+						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
