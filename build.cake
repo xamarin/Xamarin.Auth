@@ -65,7 +65,9 @@ Task ("libs")
 			CreateDirectory ("./output/ios/");
 			CreateDirectory ("./output/wp80/");
 			CreateDirectory ("./output/wp81/");
+			CreateDirectory ("./output/win81/");
 			CreateDirectory ("./output/winrt/");
+			CreateDirectory ("./output/uwp/");
 
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
