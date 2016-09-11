@@ -65,6 +65,7 @@ Task ("libs")
 			CreateDirectory ("./output/ios/");
 			CreateDirectory ("./output/wp80/");
 			CreateDirectory ("./output/wp81/");
+			CreateDirectory ("./output/wpa81/");
 			CreateDirectory ("./output/win81/");
 			CreateDirectory ("./output/winrt/");
 			CreateDirectory ("./output/uwp/");
