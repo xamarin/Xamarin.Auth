@@ -222,6 +222,9 @@ src/samples/Components/**
 
 
 #------------------------------------------
+# Cake Build
+tools/**
+#------------------------------------------
 # iOS build files
 **DerivedData**
 **build**
