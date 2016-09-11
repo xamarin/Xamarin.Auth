@@ -30,11 +30,17 @@ Task ("nuget-fixes")
 					https://dist.nuget.org/index.html
 				*/
 				if ( ! FileExists ("./tools/nuget.2.8.6.exe"))
-				DownloadFile
-				(
-					@"https://dist.nuget.org/win-x86-commandline/v2.8.6/nuget.exe",
-					"./tools/nuget.2.8.6.exe"
-				);
+				{
+					if ( ! DirectoryExists("./tools/"))
+					{
+						CreateDirectory("./tools/");
+					}
+					DownloadFile
+					(
+						@"https://dist.nuget.org/win-x86-commandline/v2.8.6/nuget.exe",
+						"./tools/nuget.2.8.6.exe"
+					);
+				}
 				nuget_tool_path = GetToolPath ("../nuget.2.8.6.exe");
 			}
 
