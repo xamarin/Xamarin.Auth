@@ -21,8 +21,16 @@ Task ("nuget-fixes")
 		() => 
 		{
 			nuget_tool_path = GetToolPath ("../nuget.exe");
+			cake_tool_path = GetToolPath ("./Cake.exe");
 
-			if(IsRunningOnWindows() == false)
+			Information("cake_tool_path = {0}", cake_tool_path);
+
+			if
+				(
+					IsRunningOnWindows() == false
+					//&&
+					//"Components-Generic-Build-Mac/CI/tools/Cake"
+				)
 			{
 				/*
 					NuGet Version: 3.4.4.1321
@@ -41,6 +49,8 @@ Task ("nuget-fixes")
 						"./tools/nuget.2.8.6.exe"
 					);
 				}
+
+				if ()
 				nuget_tool_path = GetToolPath ("../nuget.2.8.6.exe");
 			}
 
