@@ -21,30 +21,7 @@ Task ("nuget-fixes")
 	(
 		() => 
 		{
-			nuget_tool_path = GetToolPath ("../nuget.exe");
-			cake_tool_path = GetToolPath ("./Cake.exe");
-
-			Information("cake_tool_path = {0}", cake_tool_path.ToString());
-
-			// Xamarin CI MacOSX bot uses central cake folder
-			//		.Contains("Components-Generic-Build-Mac/CI/tools/Cake");
-			bool runs_on_xamarin_ci_macosx_bot = false;
-			string path_xamarin_ci_macosx_bot = "Components-Generic-Build-Mac/CI/tools/Cake"; 
-			Information("cake_tool_path = {0} ", cake_tool_path);
-			if (cake_tool_path.ToString().Contains(path_xamarin_ci_macosx_bot))
-			{
-				runs_on_xamarin_ci_macosx_bot = true;
-				Information("Running on Xamarin CI MacOSX bot");
-			}
-			{
-				Information("NOT Running on Xamarin CI MacOSX bot");				
-			}
-			if
-				(
-					IsRunningOnWindows() == false
-					//&&
-					//! runs_on_xamarin_ci_macosx_bot
-				)
+			if( ! IsRunningOnWindows() )
 			{
 				/*
    					Executing: /Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/tools/Cake/../
@@ -59,28 +36,38 @@ Task ("nuget-fixes")
 					NuGet Version: 3.4.4.1321
 
 					https://dist.nuget.org/index.html
+
+					Xamarin CI MacOSX bot uses central cake folder
+						.Contains("Components-Generic-Build-Mac/CI/tools/Cake");
 				*/
-				if ( ! FileExists ("./tools/nuget.2.8.6.exe"))
+				nuget_tool_path = GetToolPath ("../nuget.exe");
+				cake_tool_path = GetToolPath ("./Cake.exe");
+
+				bool runs_on_xamarin_ci_macosx_bot = false;
+				string path_xamarin_ci_macosx_bot = "Components-Generic-Build-Mac/CI/tools/Cake"; 
+				Information("cake_tool_path = {0} ", cake_tool_path);
+
+				string nuget_location = null;
+				if (cake_tool_path.ToString().Contains(path_xamarin_ci_macosx_bot))
 				{
-					if ( ! DirectoryExists("./tools/"))
-					{
-						CreateDirectory("./tools/");
-					}
+					runs_on_xamarin_ci_macosx_bot = true;
+					Information("Running on Xamarin CI MacOSX bot");
+				}
+				{
+					Information("NOT Running on Xamarin CI MacOSX bot");				
+				}
+				
+				nuget_location = "../nuget.2.8.6.exe";
+				if ( ! FileExists (nuget_location))
+				{
 					DownloadFile
 					(
 						@"https://dist.nuget.org/win-x86-commandline/v2.8.6/nuget.exe",
-						"./tools/nuget.2.8.6.exe"
+						nuget_location
 					);
 				}
+				nuget_tool_path = GetToolPath (nuget_location);
 
-				if (runs_on_xamarin_ci_macosx_bot)
-				{
-					nuget_tool_path = GetToolPath ("./tools/nuget.2.8.6.exe");					
-				}
-				else
-				{
-					nuget_tool_path = GetToolPath ("../nuget.2.8.6.exe");
-				}
 			}
 
 			Information("nuget_tool_path = {0}", nuget_tool_path);
