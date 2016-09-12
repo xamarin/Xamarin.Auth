@@ -42,11 +42,20 @@ Task ("nuget-fixes")
 			if
 				(
 					IsRunningOnWindows() == false
-					&&
-					! runs_on_xamarin_ci_macosx_bot
+					//&&
+					//! runs_on_xamarin_ci_macosx_bot
 				)
 			{
 				/*
+   					Executing: /Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/tools/Cake/../
+					nuget.exe restore "/Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/Xamarin.Auth/source/source/Xamarin.Auth-Library.sln" -Verbosity detailed -NonInteractive
+    				MSBuild auto-detection: using msbuild version '4.0' from '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5'. 
+					Use option -MSBuildVersion to force nuget to use a specific version of MSBuild.
+    				MSBuild P2P timeout [ms]: 120000
+    				System.AggregateException: One or more errors occurred. 
+					---> 
+					NuGet.CommandLineException: MsBuild.exe does not exist at '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5/msbuild.exe'.
+ 				
 					NuGet Version: 3.4.4.1321
 
 					https://dist.nuget.org/index.html
@@ -64,7 +73,14 @@ Task ("nuget-fixes")
 					);
 				}
 
-				nuget_tool_path = GetToolPath ("../nuget.2.8.6.exe");
+				if (runs_on_xamarin_ci_macosx_bot)
+				{
+					nuget_tool_path = GetToolPath ("./tools/nuget.2.8.6.exe");					
+				}
+				else
+				{
+					nuget_tool_path = GetToolPath ("../nuget.2.8.6.exe");
+				}
 			}
 
 			Information("nuget_tool_path = {0}", nuget_tool_path);
