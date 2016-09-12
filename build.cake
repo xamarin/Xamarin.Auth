@@ -14,6 +14,7 @@
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
 FilePath nuget_tool_path = null;
+FilePath cake_tool_path = null;
 
 Task ("nuget-fixes")
 	.Does 
@@ -23,13 +24,26 @@ Task ("nuget-fixes")
 			nuget_tool_path = GetToolPath ("../nuget.exe");
 			cake_tool_path = GetToolPath ("./Cake.exe");
 
-			Information("cake_tool_path = {0}", cake_tool_path);
+			Information("cake_tool_path = {0}", cake_tool_path.ToString());
 
+			// Xamarin CI MacOSX bot uses central cake folder
+			//		.Contains("Components-Generic-Build-Mac/CI/tools/Cake");
+			bool runs_on_xamarin_ci_macosx_bot = false;
+			string path_xamarin_ci_macosx_bot = "Components-Generic-Build-Mac/CI/tools/Cake"; 
+			Information("cake_tool_path = {0} ", cake_tool_path);
+			if (cake_tool_path.ToString().Contains(path_xamarin_ci_macosx_bot))
+			{
+				runs_on_xamarin_ci_macosx_bot = true;
+				Information("Running on Xamarin CI MacOSX bot");
+			}
+			{
+				Information("NOT Running on Xamarin CI MacOSX bot");				
+			}
 			if
 				(
 					IsRunningOnWindows() == false
-					//&&
-					//"Components-Generic-Build-Mac/CI/tools/Cake"
+					&&
+					! runs_on_xamarin_ci_macosx_bot
 				)
 			{
 				/*
@@ -50,7 +64,6 @@ Task ("nuget-fixes")
 					);
 				}
 
-				if ()
 				nuget_tool_path = GetToolPath ("../nuget.2.8.6.exe");
 			}
 
