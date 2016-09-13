@@ -64,12 +64,12 @@ Task ("nuget-fixes")
 
 				if (runs_on_xamarin_ci_macosx_bot)
 				{
-					nuget_location = "./tools/nuget.2.8.6.exe";
+					nuget_location = "../../tools/nuget.2.8.6.exe";
 					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
 				}
 				else
 				{
-					nuget_location = "../tools/nuget.2.8.6.exe";
+					nuget_location = "./tools/nuget.2.8.6.exe";
 					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
 				}
 
