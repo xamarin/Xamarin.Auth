@@ -21,7 +21,6 @@ using Xamarin.Utilities;
 using System.Net;
 using System.Text;
 using System.Threading;
-using Android.Content;
 
 namespace Xamarin.Auth
 {
@@ -119,7 +118,8 @@ namespace Xamarin.Auth
 			this.accessTokenUrl = null;
 		}
 
-	    protected override Intent GetPlatformUI(Context context)
+#if PLATFORM_ANDROID
+        protected override Intent GetPlatformUI(Context context)
 	    {
             // store change state
 	        _authenticated = false;
@@ -128,6 +128,7 @@ namespace Xamarin.Auth
 
 	        return base.GetPlatformUI(context);
 	    }
+#endif
 
 	    /// <summary>
 		/// Initializes a new instance <see cref="Xamarin.Auth.OAuth2Authenticator"/>
@@ -272,19 +273,19 @@ namespace Xamarin.Auth
 		/// </summary>
 		/// <param name="queryValues">The parameters to make the request with.</param>
 		/// <returns>The data provided in the response to the access token request.</returns>
-		protected Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
+		protected async Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
 		{
 			var query = queryValues.FormEncode ();
 
 			var req = WebRequest.Create (accessTokenUrl);
 			req.Method = "POST";
 			var body = Encoding.UTF8.GetBytes (query);
-			req.ContentLength = body.Length;
+			//req.ContentLength = body.Length;
 			req.ContentType = "application/x-www-form-urlencoded";
-			using (var s = req.GetRequestStream ()) {
+			using (var s = await req.GetRequestStreamAsync ()) {
 				s.Write (body, 0, body.Length);
 			}
-			return req.GetResponseAsync ().ContinueWith (task => {
+			return await req.GetResponseAsync().ContinueWith (task => {
 				var text = task.Result.GetResponseText ();
 
 				// Parse the response

@@ -156,7 +156,7 @@ namespace Xamarin.Auth
 		protected virtual void Dispose (bool disposing)
 		{
 			if (response != null) {
-				response.Close ();
+				response.Dispose();
 				response = null;
 			}
 		}

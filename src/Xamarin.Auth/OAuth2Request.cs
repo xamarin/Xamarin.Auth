@@ -118,7 +118,7 @@ namespace Xamarin.Auth
 	    protected override HttpWebRequest GetPreparedWebRequest()
 	    {
 	        var request = base.GetPreparedWebRequest();
-            request.Headers.Add("Authorization", OAuth2Request.GetAuthorizationHeader(Account));
+            request.Headers["Authorization"] = OAuth2Request.GetAuthorizationHeader(Account);
 	        return request;
 	    }
 	}

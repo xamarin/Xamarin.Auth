@@ -24,6 +24,16 @@ using System.Text;
 namespace Xamarin.Auth
 {
     /// <summary>
+    /// Type of method used to fetch the username of an account
+    /// after it has been successfully authenticated.
+    /// </summary>
+#if XAMARIN_AUTH_INTERNAL
+	internal delegate Task<string> GetUsernameAsyncFunc (IDictionary<string, string> accountProperties);
+#else
+    public delegate Task<string> GetUsernameAsyncFunc(IDictionary<string, string> accountProperties);
+#endif
+
+    /// <summary>
     /// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
     /// </summary>
 #if XAMARIN_AUTH_INTERNAL
@@ -352,20 +362,20 @@ namespace Xamarin.Auth
         /// </summary>
         /// <param name="queryValues">The parameters to make the request with.</param>
         /// <returns>The data provided in the response to the access token request.</returns>
-        protected Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
+        protected async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
         {
             var query = queryValues.FormEncode();
 
             var req = WebRequest.Create(accessTokenUrl);
             req.Method = "POST";
             var body = Encoding.UTF8.GetBytes(query);
-            req.ContentLength = body.Length;
+            //req.ContentLength = body.Length;
             req.ContentType = "application/x-www-form-urlencoded";
-            using (var s = req.GetRequestStream())
+            using (var s = await req.GetRequestStreamAsync())
             {
                 s.Write(body, 0, body.Length);
             }
-            return req.GetResponseAsync().ContinueWith(task => {
+            return await req.GetResponseAsync().ContinueWith(task => {
                 var text = task.Result.GetResponseText();
 
                 // Parse the response

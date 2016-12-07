@@ -197,7 +197,7 @@ namespace Xamarin.Auth
 			// Disable 100-Continue: http://blogs.msdn.com/b/shitals/archive/2008/12/27/9254245.aspx
 			//
 			if (Method == "POST") {
-				ServicePointManager.Expect100Continue = false;
+				//ServicePointManager.Expect100Continue = false;
 			}
 
 			if (Multiparts.Count > 0) {
@@ -221,7 +221,7 @@ namespace Xamarin.Auth
 			} else if (Method == "POST" && Parameters.Count > 0) {
 				var body = Parameters.FormEncode ();
 				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
-				request.ContentLength = bodyData.Length;
+				//request.ContentLength = bodyData.Length;
 				request.ContentType = "application/x-www-form-urlencoded";
 
 				return Task.Factory
@@ -249,7 +249,9 @@ namespace Xamarin.Auth
 
 		void WriteMultipartFormData (string boundary, Stream s)
 		{
-			var boundaryBytes = Encoding.ASCII.GetBytes ("--" + boundary);
+		    var encoding = new UTF8Encoding();
+
+			var boundaryBytes = encoding.GetBytes ("--" + boundary);
 
 			foreach (var p in Multiparts) {
 				s.Write (boundaryBytes, 0, boundaryBytes.Length);
@@ -262,7 +264,7 @@ namespace Xamarin.Auth
 				if (!string.IsNullOrEmpty (p.Filename)) {
 					header += "; filename=\"" + p.Filename + "\"";
 				}
-				var headerBytes = Encoding.ASCII.GetBytes (header);
+				var headerBytes = encoding.GetBytes (header);
 				s.Write (headerBytes, 0, headerBytes.Length);
 				s.Write (CrLf, 0, CrLf.Length);
 				
@@ -271,7 +273,7 @@ namespace Xamarin.Auth
 				//
 				if (!string.IsNullOrEmpty (p.MimeType)) {
 					header = "Content-Type: " + p.MimeType;
-					headerBytes = Encoding.ASCII.GetBytes (header);
+					headerBytes = encoding.GetBytes (header);
 					s.Write (headerBytes, 0, headerBytes.Length);
 					s.Write (CrLf, 0, CrLf.Length);
 				}
@@ -314,7 +316,7 @@ namespace Xamarin.Auth
 			var url = Url.AbsoluteUri;
 
 			if (Parameters.Count > 0 && Method != "POST") {
-				var head = Url.AbsoluteUri.Contains ('?') ? "&" : "?";
+				var head = Url.AbsoluteUri.Contains("?") ? "&" : "?";
 				foreach (var p in Parameters) {
 					url += head;
 					url += Uri.EscapeDataString (p.Key);

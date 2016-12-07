@@ -17,8 +17,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Net;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+using Polenter.Serialization;
 
 namespace Xamarin.Auth
 {
@@ -175,19 +175,20 @@ namespace Xamarin.Auth
 		}
 
 		string SerializeCookies ()
-		{
-			var f = new BinaryFormatter ();
-			using (var s = new MemoryStream ()) {
-				f.Serialize (s, Cookies);
-				return Convert.ToBase64String (s.GetBuffer (), 0, (int)s.Length);
+        {
+            var f = new SharpSerializer(new SharpSerializerBinarySettings());
+            using (var s = new MemoryStream ()) {
+				f.Serialize (Cookies, s);
+				return Convert.ToBase64String (s.ToArray(), 0, (int)s.Length);
 			}
+
 		}
 
 		static CookieContainer DeserializeCookies (string cookiesString)
 		{
-			var f = new BinaryFormatter ();
-			using (var s = new MemoryStream (Convert.FromBase64String (cookiesString))) {
-				return (CookieContainer)f.Deserialize (s);
+			var f = new SharpSerializer(new SharpSerializerBinarySettings());
+            using (var s = new MemoryStream (Convert.FromBase64String (cookiesString))) {
+				return (CookieContainer)f.Deserialize(s);
 			}
 		}
 
