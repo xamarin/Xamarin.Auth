@@ -13,7 +13,7 @@
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
     <AssemblyName>Xamarin.Auth.Android</AssemblyName>
     <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
-    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>True</DebugSymbols>
@@ -45,70 +45,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <Compile Include="..\Xamarin.Auth\Account.cs">
-      <Link>Account.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\AccountStore.cs">
-      <Link>AccountStore.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\Authenticator.cs">
-      <Link>Authenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\AuthException.cs">
-      <Link>AuthException.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\DelegatedOAuth2Authenticator.cs">
-      <Link>DelegatedOAuth2Authenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\FormAuthenticator.cs">
-      <Link>FormAuthenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\OAuth1.cs">
-      <Link>OAuth1.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\OAuth1Authenticator.cs">
-      <Link>OAuth1Authenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\OAuth2Authenticator.cs">
-      <Link>OAuth2Authenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\WebAuthenticator.cs">
-      <Link>WebAuthenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\WebUtilities.cs">
-      <Link>WebUtilities.cs</Link>
-    </Compile>
     <Compile Include="AndroidAccountStore.cs" />
     <Compile Include="FormAuthenticatorActivity.cs" />
     <Compile Include="WebAuthenticatorActivity.cs" />
-    <Compile Include="..\Xamarin.Auth\ExceptionEx.cs">
-      <Link>ExceptionEx.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\WebEx.cs">
-      <Link>WebEx.cs</Link>
-    </Compile>
     <Compile Include="ActivityEx.cs" />
     <Compile Include="ActivityStateRepository.cs" />
-    <Compile Include="..\Xamarin.Auth\WebRedirectAuthenticator.cs">
-      <Link>WebRedirectAuthenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\OAuth1Request.cs">
-      <Link>OAuth1Request.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\OAuth2Request.cs">
-      <Link>OAuth2Request.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\Request.cs">
-      <Link>Request.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth\Response.cs">
-      <Link>Response.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="todo_otherplatforms.txt" />
+    <ProjectReference Include="..\Xamarin.Auth.Core\Xamarin.Auth.Core.csproj">
+      <Project>{a2955bb4-7789-472e-84d8-a82fad1fbca5}</Project>
+      <Name>Xamarin.Auth.Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

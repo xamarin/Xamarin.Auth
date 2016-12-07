@@ -20,6 +20,7 @@ using Android.Net.Http;
 using Android.Webkit;
 using Android.OS;
 using System.Threading.Tasks;
+using Android.Graphics;
 using Xamarin.Utilities.Android;
 
 namespace Xamarin.Auth
@@ -167,7 +168,7 @@ namespace Xamarin.Auth
 				return false;
 			}
 
-			public override void OnPageStarted (WebView view, string url, Android.Graphics.Bitmap favicon)
+			public override void OnPageStarted (WebView view, string url, Bitmap favicon)
 			{
 				var uri = new Uri (url);
 				activity.state.Authenticator.OnPageLoading (uri);
@@ -238,7 +239,7 @@ namespace Xamarin.Auth
 
 				AlertDialog.Builder builder = new AlertDialog.Builder (this.activity);
 				builder.SetTitle ("Security warning");
-				builder.SetIcon (Android.Resource.Drawable.IcDialogAlert);
+				//builder.SetIcon (Android.Resource.Drawable.IcDialogAlert);
 				builder.SetMessage ("There are problems with the security certificate for this site.");
 				
 				builder.SetNegativeButton ("Go back", (sender, args) => {
