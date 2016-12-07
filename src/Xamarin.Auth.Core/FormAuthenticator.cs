@@ -18,32 +18,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
+using Xamarin.Auth.Core.Pages;
+using Xamarin.Forms;
 
-#if PLATFORM_IOS
-#if __UNIFIED__
-using UIKit;
-using AuthenticateUIType = UIKit.UIViewController;
-#else
-using MonoTouch.UIKit;
-using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
-#endif
-#elif PLATFORM_ANDROID
-using AuthenticateUIType = Android.Content.Intent;
-using UIContext = Android.Content.Context;
-#else
-using AuthenticateUIType = System.Object;
-#endif
 
 namespace Xamarin.Auth
 {
 	/// <summary>
 	/// An authenticator that presents a form to the user.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract class FormAuthenticator : Authenticator
-#else
 	public abstract class FormAuthenticator : Authenticator
-#endif
 	{
 		/// <summary>
 		/// The fields that need to be filled in by the user in order to authenticate.
@@ -134,9 +118,9 @@ namespace Xamarin.Auth
 		/// <returns>
 		/// The UI that needs to be presented.
 		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI ()
+		protected override VisualElement GetPlatformUI ()
 		{
-			throw new NotSupportedException ("FormAuthenticator not supported on this platform.");
+            return new FormsAuthenticationPage();
 		}
 #endif
 	}
@@ -144,11 +128,7 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Account credential form field.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class FormAuthenticatorField
-#else
 	public class FormAuthenticatorField
-#endif
 	{
 		/// <summary>
 		/// A key used to identify this field.
@@ -238,11 +218,7 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// The display type of a credential field.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal enum FormAuthenticatorFieldType
-#else
 	public enum FormAuthenticatorFieldType
-#endif
 	{
 		/// <summary>
 		/// The field is plain text.

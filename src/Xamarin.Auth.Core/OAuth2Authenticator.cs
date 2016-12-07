@@ -27,20 +27,12 @@ namespace Xamarin.Auth
     /// Type of method used to fetch the username of an account
     /// after it has been successfully authenticated.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal delegate Task<string> GetUsernameAsyncFunc (IDictionary<string, string> accountProperties);
-#else
     public delegate Task<string> GetUsernameAsyncFunc(IDictionary<string, string> accountProperties);
-#endif
 
     /// <summary>
     /// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class OAuth2Authenticator : WebRedirectAuthenticator
-#else
     public class OAuth2Authenticator : WebRedirectAuthenticator
-#endif
     {
         string clientId;
         string clientSecret;

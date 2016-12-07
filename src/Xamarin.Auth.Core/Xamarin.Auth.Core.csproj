@@ -34,12 +34,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Polenter.SharpSerializer.PCL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f4f20011571ee5f, processorArchitecture=MSIL">
-      <HintPath>..\packages\SharpSerializer.PCL.2.18.7\lib\portable-net45+sl50+win+wpa81+wp80\Polenter.SharpSerializer.PCL.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
@@ -55,6 +49,8 @@
     <Compile Include="FormAuthenticator.cs" />
     <Compile Include="OAuth2Authenticator.cs" />
     <Compile Include="OAuth2Request.cs" />
+    <Compile Include="Pages\WebAuthenticationPage.cs" />
+    <Compile Include="Pages\FormsAuthenticationPage.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="System.Json\JavaScriptReader.cs" />

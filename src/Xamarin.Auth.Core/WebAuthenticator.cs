@@ -17,34 +17,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-
-#if PLATFORM_IOS
-#if __UNIFIED__
-using Foundation;
-using UIKit;
-using AuthenticateUIType = UIKit.UIViewController;
-#else
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
-using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
-#endif
-#elif PLATFORM_ANDROID
-using AuthenticateUIType = Android.Content.Intent;
-using UIContext = Android.Content.Context;
-#else
-using AuthenticateUIType = System.Object;
-#endif
+using Xamarin.Auth.Core.Pages;
+using Xamarin.Forms;
 
 namespace Xamarin.Auth
 {
 	/// <summary>
 	/// An authenticator that displays a web page.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract class WebAuthenticator : Authenticator
-#else
 	public abstract class WebAuthenticator : Authenticator
-#endif
 	{
 		/// <summary>
 		/// Gets or sets whether to automatically clear cookies before logging in.
@@ -193,9 +174,9 @@ namespace Xamarin.Auth
 		/// <returns>
 		/// The UI that needs to be presented.
 		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI ()
+		protected override VisualElement GetPlatformUI ()
 		{
-			throw new NotSupportedException ("WebAuthenticator not supported on this platform.");
+            return new WebAuthenticationPage();
 		}
 #endif
 	}

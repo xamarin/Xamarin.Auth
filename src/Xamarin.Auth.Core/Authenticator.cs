@@ -17,33 +17,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
+using Xamarin.Forms;
 using Xamarin.Utilities;
-
-#if PLATFORM_IOS
-#if __UNIFIED__
-using UIKit;
-using AuthenticateUIType = UIKit.UIViewController;
-#else
-using MonoTouch.UIKit;
-using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
-#endif
-#elif PLATFORM_ANDROID
-using AuthenticateUIType = Android.Content.Intent;
-using UIContext = Android.Content.Context;
-#else
-using AuthenticateUIType = System.Object;
-#endif
 
 namespace Xamarin.Auth
 {
 	/// <summary>
 	/// A process and user interface to authenticate a user.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract class Authenticator
-#else
 	public abstract class Authenticator
-#endif
 	{
 		/// <summary>
 		/// Gets or sets the title of any UI elements that need to be presented for this authenticator.
@@ -88,34 +70,13 @@ namespace Xamarin.Auth
 			AllowCancel = true;
 		}
 
-#if PLATFORM_ANDROID
-		UIContext context;
-		public AuthenticateUIType GetUI (UIContext context)
-		{
-			this.context = context;
-			return GetPlatformUI (context);
-		}
-		protected abstract AuthenticateUIType GetPlatformUI (UIContext context);
-#else
 		/// <summary>
 		/// Gets the UI for this authenticator.
 		/// </summary>
 		/// <returns>
 		/// The UI that needs to be presented.
 		/// </returns>
-		public AuthenticateUIType GetUI ()
-		{
-			return GetPlatformUI ();
-		}
-
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected abstract AuthenticateUIType GetPlatformUI ();
-#endif
+		protected abstract VisualElement GetPlatformUI ();
 
 		/// <summary>
 		/// Implementations must call this function when they have successfully authenticated.
@@ -216,32 +177,14 @@ namespace Xamarin.Auth
 
 		void BeginInvokeOnUIThread (Action action)
 		{
-#if PLATFORM_IOS
-			UIApplication.SharedApplication.BeginInvokeOnMainThread (delegate {
-				action ();
-			});
-#elif PLATFORM_ANDROID
-			var a = context as Android.App.Activity;
-			if (a != null && !a.IsFinishing) {
-				a.RunOnUiThread (action);
-			}
-			else {
-				action ();
-			}
-#else
-			action ();
-#endif
+		    Forms.Device.BeginInvokeOnMainThread(action);
 		}
 	}
 
 	/// <summary>
 	/// Authenticator completed event arguments.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class AuthenticatorCompletedEventArgs : EventArgs
-#else
 	public class AuthenticatorCompletedEventArgs : EventArgs
-#endif
 	{
 		/// <summary>
 		/// Whether the authentication succeeded and there is a valid <see cref="Account"/>.
@@ -274,11 +217,7 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// Authenticator error event arguments.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class AuthenticatorErrorEventArgs : EventArgs
-#else
 	public class AuthenticatorErrorEventArgs : EventArgs
-#endif
 	{
 		/// <summary>
 		/// Gets a message describing the error.
