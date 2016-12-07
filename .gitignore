@@ -8,3 +8,4 @@ obj
 test-results
 *.ide
 /src/packages
+/src/Xamarin.Auth.Core/RedirAuth.cs

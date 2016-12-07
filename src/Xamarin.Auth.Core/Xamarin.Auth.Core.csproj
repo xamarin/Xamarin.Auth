@@ -51,7 +51,6 @@
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Authenticator.cs" />
     <Compile Include="AuthException.cs" />
-    <Compile Include="DelegatedOAuth2Authenticator.cs" />
     <Compile Include="ExceptionEx.cs" />
     <Compile Include="FormAuthenticator.cs" />
     <Compile Include="OAuth2Authenticator.cs" />
