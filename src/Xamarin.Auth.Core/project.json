@@ -1,0 +1,10 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "sharpSerializer.PCL": "2.18.7",
+    "Xamarin.Forms": "2.3.3.175" 
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.5,Profile=Profile111": {}
+  }
+}

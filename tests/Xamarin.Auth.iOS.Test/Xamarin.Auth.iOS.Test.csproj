@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -119,10 +119,4 @@
     <Compile Include="WebUtilitiesTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Xamarin.Auth.iOS\Xamarin.Auth.iOS.csproj">
-      <Project>{19A091BD-B0E7-49FC-BF83-4118D91A7DC3}</Project>
-      <Name>Xamarin.Auth.iOS</Name>
-    </ProjectReference>
-  </ItemGroup>
 </Project>
