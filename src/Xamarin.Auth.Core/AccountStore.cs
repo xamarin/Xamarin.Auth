@@ -14,11 +14,13 @@
 //    limitations under the License.
 //
 using System;
+using System.Linq;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
+    /// <summary>
 	/// A persistent storage for <see cref="Account"/>s. This storage is encrypted.
 	/// Accounts are stored using a service ID and the username of the account
 	/// as a primary key.
@@ -28,7 +30,8 @@ namespace Xamarin.Auth
 #else
 	public abstract class AccountStore
 #endif
-	{
+        : IAccountStore
+    {
 #if PLATFORM_IOS
 		/// <summary>
 		/// Create an account store.
@@ -46,17 +49,47 @@ namespace Xamarin.Auth
 			return new AndroidAccountStore (context, password);
 		}
 #else
-		/// <summary>
-		/// Create an account store.
-		/// </summary>
-		/// <returns>A new <see cref="AccountStore"/> instance.</returns>
-		public static AccountStore Create ()
+	    /// <summary>
+	    /// Create an account store.
+	    /// </summary>
+	    /// <returns>A new <see cref="AccountStore"/> instance.</returns>
+	    public static IAccountStore Create(char[] password = null)
 		{
-			throw new NotSupportedException ("Cannot save account on this platform");
+		    return Factory.Create(password);
 		}
 #endif
+	    private static readonly object Lock = new object();
+	    private static IAccountStoreFactory _factory = null;
 
-		/// <summary>
+	    private static IAccountStoreFactory Factory
+	    {
+	        get
+	        {
+	            if (_factory == null)
+	            {
+	                lock (Lock)
+	                {
+	                    if (_factory == null)
+	                    {
+	                        var assemblies = GetAppDomainAssemblies();
+	                        var attribute = GetAssemblyAttribute<PlatformAccountStoreAttribute>(assemblies).FirstOrDefault();
+	                        if (attribute == null)
+	                            throw new InvalidOperationException(
+	                                "Could not find platform specific AccountStore implementation. Make sure there is one and it is decorated with the [PlatformAccountStoreAttribute]!");
+
+	                        _factory = Activator.CreateInstance(attribute.AccountStoreFactoryType) as IAccountStoreFactory;
+                            if (_factory == null)
+                                throw new InvalidOperationException(
+                                    "The type decorated by the [PlatformAccountStoreAttribute] must implement the interface Xamarin.Auth.IAccountStoreFactory!");
+                        }
+                    }
+	            }
+
+	            return _factory;
+	        }
+	    }
+        
+	    /// <summary>
 		/// Finds the accounts for a given service.
 		/// </summary>
 		/// <returns>
@@ -89,6 +122,31 @@ namespace Xamarin.Auth
 		/// Service identifier.
 		/// </param>
 		public abstract void Delete (Account account, string serviceId);
-	}
+
+        private static IEnumerable<T> GetAssemblyAttribute<T>(Assembly[] assemblies)
+        {
+            var platformSetupAttributeTypes =
+                assemblies.SelectMany(a => a.CustomAttributes.Where(ca => ca.AttributeType == typeof(T)))
+                    .ToList();
+
+            foreach (var pt in platformSetupAttributeTypes)
+            {
+                var ctor = pt.AttributeType.GetTypeInfo().DeclaredConstructors.First();
+                var parameters = pt.ConstructorArguments?.Select(carg => carg.Value).ToArray();
+                yield return (T)ctor.Invoke(parameters);
+            }
+        }
+
+        private static Assembly[] GetAppDomainAssemblies()
+        {
+            var ass = typeof(string).GetTypeInfo().Assembly;
+            var ty = ass.GetType("System.AppDomain");
+            var gm = ty.GetRuntimeProperty("CurrentDomain").GetMethod;
+            var currentdomain = gm.Invoke(null, new object[] { });
+            var getassemblies = currentdomain.GetType().GetRuntimeMethod("GetAssemblies", new Type[] { });
+            var assemblies = getassemblies.Invoke(currentdomain, new object[] { }) as Assembly[];
+            return assemblies;
+        }
+    }
 }
 

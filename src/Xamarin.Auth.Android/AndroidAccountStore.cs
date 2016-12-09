@@ -15,13 +15,11 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Java.Security;
 using Javax.Crypto;
-using Javax.Security.Auth.Callback;
 using Java.IO;
-using Android.Content;
 using Android.Runtime;
+using Xamarin.Auth;
 
 namespace Xamarin.Auth
 {
@@ -31,18 +29,18 @@ namespace Xamarin.Auth
 	/// </summary>
 	internal class AndroidAccountStore : AccountStore
 	{
-		Context context;
 		KeyStore ks;
 		KeyStore.PasswordProtection prot;
+        static string appDataPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
 		static readonly object fileLock = new object ();
 
 		const string FileName = "Xamarin.Social.Accounts";
+	    private string FilePath = System.IO.Path.Combine(appDataPath, FileName);
 		private char[] Password = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray ();
 
-		public AndroidAccountStore (Context context, char[] password = null)
+		public AndroidAccountStore (char[] password = null)
 		{
-			this.context = context;
 		    if (password != null)
 		        Password = password;
 
@@ -52,7 +50,7 @@ namespace Xamarin.Auth
 
 			try {
 				lock (fileLock) {
-					using (var s = context.OpenFileInput (FileName)) {
+					using (var s = System.IO.File.OpenRead(FilePath)) {
 						ks.Load (s, Password);
 					}
 				}
@@ -110,7 +108,7 @@ namespace Xamarin.Auth
 		void Save()
 		{
 			lock (fileLock) {
-				using (var s = context.OpenFileOutput (FileName, FileCreationMode.Private)) {
+				using (var s = System.IO.File.OpenWrite(FilePath)) {
 					ks.Store (s, Password);
 				}
 			}

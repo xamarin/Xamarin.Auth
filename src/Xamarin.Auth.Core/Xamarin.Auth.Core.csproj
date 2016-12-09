@@ -8,7 +8,7 @@
     <ProjectGuid>{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth.Core</RootNamespace>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
     <AssemblyName>Xamarin.Auth.Core</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
@@ -47,10 +47,13 @@
     <Compile Include="AuthException.cs" />
     <Compile Include="ExceptionEx.cs" />
     <Compile Include="FormAuthenticator.cs" />
+    <Compile Include="IAccountStore.cs" />
+    <Compile Include="IAccountStoreFactory.cs" />
     <Compile Include="OAuth2Authenticator.cs" />
     <Compile Include="OAuth2Request.cs" />
     <Compile Include="Pages\WebAuthenticationPage.cs" />
     <Compile Include="Pages\FormsAuthenticationPage.cs" />
+    <Compile Include="PlatformAccountStoreAttribute.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="System.Json\JavaScriptReader.cs" />

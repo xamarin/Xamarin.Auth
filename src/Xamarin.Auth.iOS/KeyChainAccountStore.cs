@@ -28,6 +28,10 @@ namespace Xamarin.Auth
 {
 	internal class KeyChainAccountStore : AccountStore
 	{
+	    public KeyChainAccountStore(char[] password = null)
+	    {
+	    }
+
 		public override IEnumerable<Account> FindAccountsForService (string serviceId)
 		{
 			var query = new SecRecord (SecKind.GenericPassword);

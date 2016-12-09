@@ -46,6 +46,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
     <Compile Include="AndroidAccountStore.cs" />
+    <Compile Include="AndroidAccountStoreFactory.cs" />
     <Compile Include="FormAuthenticatorActivity.cs" />
     <Compile Include="WebAuthenticatorActivity.cs" />
     <Compile Include="ActivityEx.cs" />

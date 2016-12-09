@@ -45,6 +45,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
+    <Compile Include="ACAccountStoreFactory.cs" />
     <Compile Include="ACAccountWrapper.cs" />
     <Compile Include="FormAuthenticatorController.cs" />
     <Compile Include="KeyChainAccountStore.cs" />
