@@ -83,46 +83,6 @@ namespace Xamarin.Auth
 		/// Cancellation token used to cancel the authentication.
 		/// </param>
 		public abstract Task<Account> SignInAsync (CancellationToken cancellationToken);
-
-#if PLATFORM_IOS
-		/// <summary>
-		/// Gets the UI to present this form.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI ()
-		{
-			return new UINavigationController (new FormAuthenticatorController (this));
-		}
-#elif PLATFORM_ANDROID
-		/// <summary>
-		/// Gets the UI to present this form.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI (UIContext context)
-		{
-			var i = new global::Android.Content.Intent (context, typeof (FormAuthenticatorActivity));
-			var state = new FormAuthenticatorActivity.State {
-				Authenticator = this,
-			};
-			i.PutExtra ("StateKey", FormAuthenticatorActivity.StateRepo.Add (state));
-			return i;
-		}
-#else
-		/// <summary>
-		/// Gets the UI to present this form.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override VisualElement GetPlatformUI ()
-		{
-            return new FormsAuthenticationPage();
-		}
-#endif
 	}
 
 	/// <summary>

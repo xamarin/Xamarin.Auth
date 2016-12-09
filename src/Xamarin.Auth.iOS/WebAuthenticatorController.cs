@@ -101,8 +101,15 @@ namespace Xamarin.Auth
 				}
 				else {
 					// Delete cookies so we can work with multiple accounts
-					if (this.authenticator.ClearCookiesBeforeLogin)
-						WebAuthenticator.ClearCookies();
+				    if (this.authenticator.ClearCookiesBeforeLogin)
+				    {
+                        var store = NSHttpCookieStorage.SharedStorage;
+                        var cookies = store.Cookies;
+                        foreach (var c in cookies)
+                        {
+                            store.DeleteCookie(c);
+                        }
+                    }
 					
 					//
 					// Begin displaying the page

@@ -58,4 +58,5 @@
       <Name>Xamarin.Auth.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\Xamarin.Auth.Shared\Xamarin.Auth.Shared.projitems" Label="Shared" />
 </Project>

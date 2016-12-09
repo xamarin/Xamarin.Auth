@@ -103,8 +103,11 @@ namespace Xamarin.Auth
 				webView.RestoreState (savedInstanceState);
 			}
 			else {
-				if (Intent.GetBooleanExtra ("ClearCookies", true))
-					WebAuthenticator.ClearCookies();
+                if (Intent.GetBooleanExtra("ClearCookies", true))
+                {
+                    CookieSyncManager.CreateInstance(Application.Context);
+                    CookieManager.Instance.RemoveAllCookie();
+                }
 
 				BeginLoadingInitialUrl ();
 			}

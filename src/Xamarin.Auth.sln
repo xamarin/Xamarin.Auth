@@ -18,7 +18,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Core", "Xamari
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.iOS", "Xamarin.Auth.iOS\Xamarin.Auth.iOS.csproj", "{19A091BD-B0E7-49FC-BF83-4118D91A7DC3}"
 EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Auth.Shared", "Xamarin.Auth.Shared\Xamarin.Auth.Shared.shproj", "{84282A57-AD4B-40C2-8DE2-624E126874E1}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Xamarin.Auth.Shared\Xamarin.Auth.Shared.projitems*{19a091bd-b0e7-49fc-bf83-4118d91a7dc3}*SharedItemsImports = 4
+		Xamarin.Auth.Shared\Xamarin.Auth.Shared.projitems*{84282a57-ad4b-40c2-8de2-624e126874e1}*SharedItemsImports = 13
+		Xamarin.Auth.Shared\Xamarin.Auth.Shared.projitems*{fcf02c8c-6dd3-4c59-a8a2-58bc01a4bb21}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
 		Ad-Hoc|iPhone = Ad-Hoc|iPhone

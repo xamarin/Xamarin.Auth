@@ -100,24 +100,6 @@ namespace Xamarin.Auth
 		public abstract void OnPageLoaded (Uri url);
 
 		/// <summary>
-		/// Clears all cookies.
-		/// </summary>
-		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public static void ClearCookies()
-		{
-#if PLATFORM_IOS
-			var store = NSHttpCookieStorage.SharedStorage;
-			var cookies = store.Cookies;
-			foreach (var c in cookies) {
-				store.DeleteCookie (c);
-			}
-#elif PLATFORM_ANDROID
-			Android.Webkit.CookieSyncManager.CreateInstance (Android.App.Application.Context);
-			Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
-#endif
-		}
-
-		/// <summary>
 		/// Occurs when the visual, user-interactive, browsing has completed but there
 		/// is more authentication work to do.
 		/// </summary>
@@ -138,37 +120,8 @@ namespace Xamarin.Auth
 				ev (this, EventArgs.Empty);
 			}
 		}
-
-#if PLATFORM_IOS
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI ()
-		{
-			return new UINavigationController (new WebAuthenticatorController (this));
-		}
-#elif PLATFORM_ANDROID
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI (UIContext context)
-		{
-			var i = new global::Android.Content.Intent (context, typeof (WebAuthenticatorActivity));
-			i.PutExtra ("ClearCookies", ClearCookiesBeforeLogin);
-			var state = new WebAuthenticatorActivity.State {
-				Authenticator = this,
-			};
-			i.PutExtra ("StateKey", WebAuthenticatorActivity.StateRepo.Add (state));
-			return i;
-		}
-#else
-		/// <summary>
+        
+        /// <summary>
 		/// Gets the UI for this authenticator.
 		/// </summary>
 		/// <returns>
@@ -178,7 +131,7 @@ namespace Xamarin.Auth
 		{
             return new WebAuthenticationPage();
 		}
-#endif
+
 	}
 }
 
