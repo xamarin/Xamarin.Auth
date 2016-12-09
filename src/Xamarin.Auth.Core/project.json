@@ -1,7 +1,7 @@
 ﻿{
   "supports": {},
   "dependencies": {
-    "SharpSerializer": "2.20.0.1"
+    "SharpSerializer.PCL": "2.18.7"
   },
   "frameworks": {
     ".NETPortable,Version=v4.5,Profile=Profile111": {}
