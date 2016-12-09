@@ -1,20 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Xamarin.Auth
 {
     /// <summary>
@@ -22,31 +11,53 @@ namespace Xamarin.Auth
     /// </summary>
     public sealed partial class WebAuthenticatorPage : Page
     {
-        private OAuth2Authenticator auth;
+        private WebAuthenticator _auth;
 
         public WebAuthenticatorPage()
         {
             this.InitializeComponent();
         }
-
      
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            auth = (OAuth2Authenticator) e.Parameter;
+            _auth = (WebAuthenticator) e.Parameter;
 
-            auth.Completed += OnAuthCompleted;
-            auth.Error += OnAuthError;
+            if (_auth == null)
+                throw new InvalidOperationException("Expected WebAuthenticator as NavigationEventArgs.Parameter");
 
-            Uri uri = await auth.GetInitialUrlAsync();
+            _auth.Completed += OnAuthCompleted;
+            _auth.Error += OnAuthError;
+
+            Uri uri = await _auth.GetInitialUrlAsync();
             this.browser.Source = uri;
+            this.browser.Settings.IsJavaScriptEnabled = true;
+            this.browser.NavigationStarting += Browser_NavigationStarting;
+            this.browser.NavigationCompleted += Browser_NavigationCompleted;
 
-            auth.Completed += (sender, args) =>  // throws on BackButton
-            auth.Completed += OnAuthCompleted;
-            auth.Error += OnAuthError;
-           
-            
+            if (_auth.ClearCookiesBeforeLogin)
+            {
+                await Windows.UI.Xaml.Controls.WebView.ClearTemporaryWebDataAsync();
+            }
 
             base.OnNavigatedTo(e);
+        }
+
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            _auth.Completed -= OnAuthCompleted;
+            _auth.Error -= OnAuthError;
+
+            base.OnNavigatedFrom(e);
+        }
+
+        private void Browser_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            _auth.OnPageLoading(args.Uri);
+        }
+
+        private void Browser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            _auth.OnPageLoaded(args.Uri);
         }
 
         private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
@@ -59,7 +70,7 @@ namespace Xamarin.Auth
             this.Frame.GoBack();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.GoBack();
 

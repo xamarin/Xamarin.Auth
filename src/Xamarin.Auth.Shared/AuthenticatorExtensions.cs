@@ -16,6 +16,9 @@ using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
 #elif PLATFORM_ANDROID
 using AuthenticateUIType = Android.Content.Intent;
 using UIContext = Android.Content.Context;
+#elif WINDOWS_UWP
+using AuthenticateUIType = System.Type;
+
 #else
 using AuthenticateUIType = System.Object;
 #endif
@@ -24,13 +27,14 @@ namespace Xamarin.Auth
 {
     public static class AuthenticatorExtensions
     {
+
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
 #if PLATFORM_IOS
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
 		public static AuthenticateUIType GetPlatformUI (this Authenticator authenticator)
 		{
             var wa = authenticator as WebAuthenticator;
@@ -44,16 +48,10 @@ namespace Xamarin.Auth
             {
 			    return new UINavigationController (new FormAuthenticatorController (fa));
             }
-
-            throw new NotSupportedException();
+        
+            throw new NotSupportedException("No UI is defined for this authenticator type");
         }
 #elif PLATFORM_ANDROID
-        /// <summary>
-        /// Gets the UI for this authenticator.
-        /// </summary>
-        /// <returns>
-        /// The UI that needs to be presented.
-        /// </returns>
         public static AuthenticateUIType GetPlatformUI(this Authenticator authenticator, UIContext context)
         {
             var wa = authenticator as WebAuthenticator;
@@ -80,7 +78,24 @@ namespace Xamarin.Auth
                 return i;
             }
 
-            throw new NotSupportedException();
+            throw new NotSupportedException("No UI is defined for this authenticator type");
+        }
+#elif WINDOWS_UWP
+        public static AuthenticateUIType GetPlatformUI (this Authenticator authenticator)
+		{
+            var wa = authenticator as WebAuthenticator;
+            if(wa != null)
+            {
+                return typeof(WebAuthenticatorPage);
+            }
+            
+            var fa = authenticator as FormAuthenticator;
+            if (fa != null)
+            {
+                throw new NotSupportedException("FormsAuthenticator is not yet supported on UWP platform");
+            }
+
+            throw new NotSupportedException("No UI is defined for this authenticator type");
         }
 #endif
     }

@@ -14,11 +14,11 @@
         </Grid.RowDefinitions>
         <Button 
             Grid.Row="0" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" 
-            Click="Button_Click"
+            Click="BackButton_Click"
             />
             <WebView 
                 Grid.Row="1" x:Name="browser"/>
-
+  
 
     </Grid>
 </Page>

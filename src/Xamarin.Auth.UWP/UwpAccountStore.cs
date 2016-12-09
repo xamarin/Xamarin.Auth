@@ -27,6 +27,11 @@ namespace Xamarin.Auth
 {
     internal partial class UwpAccountStore : AccountStore
     {
+        public UwpAccountStore(char[] password = null)
+        {
+            
+        }
+
         public override async Task<IEnumerable<Account>> FindAccountsForServiceAsync(string serviceId)
         {
             var localFolder = ApplicationData.Current.LocalFolder;

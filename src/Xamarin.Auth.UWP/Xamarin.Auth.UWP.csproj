@@ -107,6 +107,7 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UwpAccountStoreFactory.cs" />
     <Compile Include="DataProtectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebAuthenticatorPage.xaml.cs">
