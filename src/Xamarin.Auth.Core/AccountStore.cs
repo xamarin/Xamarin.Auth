@@ -56,39 +56,9 @@ namespace Xamarin.Auth
 	    /// <returns>A new <see cref="AccountStore"/> instance.</returns>
 	    public static IAccountStore Create(char[] password = null)
 		{
-		    return Factory.Create(password);
+		    return Platform.Engine.Create(password);
 		}
 #endif
-	    private static readonly object Lock = new object();
-	    private static IAccountStoreFactory _factory = null;
-
-	    private static IAccountStoreFactory Factory
-	    {
-	        get
-	        {
-	            if (_factory == null)
-	            {
-	                lock (Lock)
-	                {
-	                    if (_factory == null)
-	                    {
-	                        var assemblies = GetAppDomainAssemblies();
-	                        var attribute = GetAssemblyAttribute<PlatformAccountStoreAttribute>(assemblies).FirstOrDefault();
-	                        if (attribute == null)
-	                            throw new InvalidOperationException(
-	                                "Could not find platform specific AccountStore implementation. Make sure there is one and it is decorated with the [PlatformAccountStoreAttribute]!");
-
-	                        _factory = Activator.CreateInstance(attribute.AccountStoreFactoryType) as IAccountStoreFactory;
-                            if (_factory == null)
-                                throw new InvalidOperationException(
-                                    "The type decorated by the [PlatformAccountStoreAttribute] must implement the interface Xamarin.Auth.IAccountStoreFactory!");
-                        }
-                    }
-	            }
-
-	            return _factory;
-	        }
-	    }
         
 	    /// <summary>
 		/// Finds the accounts for a given service.
@@ -123,31 +93,6 @@ namespace Xamarin.Auth
 		/// Service identifier.
 		/// </param>
 		public abstract Task DeleteAsync (Account account, string serviceId);
-
-        private static IEnumerable<T> GetAssemblyAttribute<T>(Assembly[] assemblies)
-        {
-            var platformSetupAttributeTypes =
-                assemblies.SelectMany(a => a.CustomAttributes.Where(ca => ca.AttributeType == typeof(T)))
-                    .ToList();
-
-            foreach (var pt in platformSetupAttributeTypes)
-            {
-                var ctor = pt.AttributeType.GetTypeInfo().DeclaredConstructors.First();
-                var parameters = pt.ConstructorArguments?.Select(carg => carg.Value).ToArray();
-                yield return (T)ctor.Invoke(parameters);
-            }
-        }
-
-        private static Assembly[] GetAppDomainAssemblies()
-        {
-            var ass = typeof(string).GetTypeInfo().Assembly;
-            var ty = ass.GetType("System.AppDomain");
-            var gm = ty.GetRuntimeProperty("CurrentDomain").GetMethod;
-            var currentdomain = gm.Invoke(null, new object[] { });
-            var getassemblies = currentdomain.GetType().GetRuntimeMethod("GetAssemblies", new Type[] { });
-            var assemblies = getassemblies.Invoke(currentdomain, new object[] { }) as Assembly[];
-            return assemblies;
-        }
     }
 }
 

@@ -10,5 +10,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)AuthenticatorExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ServicePointManagerDispabler.cs" />
   </ItemGroup>
 </Project>

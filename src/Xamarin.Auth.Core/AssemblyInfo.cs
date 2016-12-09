@@ -45,3 +45,7 @@ using System.Runtime.CompilerServices;
 #else
 [assembly: InternalsVisibleTo ("XamarinAuthiOSTestClassic")]
 #endif
+
+[assembly: InternalsVisibleTo("Xamarin.Auth.Android")]
+[assembly: InternalsVisibleTo("Xamarin.Auth.iOS")]
+[assembly: InternalsVisibleTo("Xamarin.Auth.UWP")]

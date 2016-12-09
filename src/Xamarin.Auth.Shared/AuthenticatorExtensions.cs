@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Xamarin.Auth.Core.Pages;
 #if PLATFORM_IOS
 #if __UNIFIED__
 using Foundation;
@@ -35,7 +34,7 @@ namespace Xamarin.Auth
         /// The UI that needs to be presented.
         /// </returns>
 #if PLATFORM_IOS
-		public static AuthenticateUIType GetPlatformUI (this Authenticator authenticator)
+		public static AuthenticateUIType GetUI (this Authenticator authenticator)
 		{
             var wa = authenticator as WebAuthenticator;
             if(wa != null)
@@ -52,7 +51,7 @@ namespace Xamarin.Auth
             throw new NotSupportedException("No UI is defined for this authenticator type");
         }
 #elif PLATFORM_ANDROID
-        public static AuthenticateUIType GetPlatformUI(this Authenticator authenticator, UIContext context)
+        public static AuthenticateUIType GetUI(this Authenticator authenticator, UIContext context)
         {
             var wa = authenticator as WebAuthenticator;
             if(wa != null)
@@ -81,7 +80,7 @@ namespace Xamarin.Auth
             throw new NotSupportedException("No UI is defined for this authenticator type");
         }
 #elif WINDOWS_UWP
-        public static AuthenticateUIType GetPlatformUI (this Authenticator authenticator)
+        public static AuthenticateUIType GetUI (this Authenticator authenticator)
 		{
             var wa = authenticator as WebAuthenticator;
             if(wa != null)

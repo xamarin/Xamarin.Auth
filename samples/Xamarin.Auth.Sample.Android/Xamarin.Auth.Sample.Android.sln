@@ -1,11 +1,21 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth Sample (Android)", "Xamarin.Auth Sample (Android).csproj", "{A0035902-A1F0-4613-A493-1B121FCA2BE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Android", "..\..\src\Xamarin.Auth.Android\Xamarin.Auth.Android.csproj", "{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Core", "..\..\src\Xamarin.Auth.Core\Xamarin.Auth.Core.csproj", "{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Auth.Shared", "..\..\src\Xamarin.Auth.Shared\Xamarin.Auth.Shared.shproj", "{84282A57-AD4B-40C2-8DE2-624E126874E1}"
+EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\..\src\Xamarin.Auth.Shared\Xamarin.Auth.Shared.projitems*{84282a57-ad4b-40c2-8de2-624e126874e1}*SharedItemsImports = 13
+		..\..\src\Xamarin.Auth.Shared\Xamarin.Auth.Shared.projitems*{fcf02c8c-6dd3-4c59-a8a2-58bc01a4bb21}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -20,6 +30,13 @@ Global
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Xamarin.Auth Sample (Android).csproj

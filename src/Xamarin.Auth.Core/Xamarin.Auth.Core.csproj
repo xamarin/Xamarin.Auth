@@ -48,11 +48,9 @@
     <Compile Include="ExceptionEx.cs" />
     <Compile Include="FormAuthenticator.cs" />
     <Compile Include="IAccountStore.cs" />
-    <Compile Include="IAccountStoreFactory.cs" />
+    <Compile Include="IPlatformEngine.cs" />
     <Compile Include="OAuth2Authenticator.cs" />
     <Compile Include="OAuth2Request.cs" />
-    <Compile Include="Pages\WebAuthenticationPage.cs" />
-    <Compile Include="Pages\FormsAuthenticationPage.cs" />
     <Compile Include="PlatformAccountStoreAttribute.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />

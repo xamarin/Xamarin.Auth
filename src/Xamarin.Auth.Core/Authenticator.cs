@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-using Xamarin.Forms;
 using Xamarin.Utilities;
 
 namespace Xamarin.Auth
@@ -45,8 +44,7 @@ namespace Xamarin.Auth
 		/// authentication was successful.
 		/// </summary>
 		public event EventHandler<AuthenticatorCompletedEventArgs> Completed;
-
-
+        
         public event EventHandler<EventArgs> Completing;
 
         /// <summary>
@@ -69,14 +67,6 @@ namespace Xamarin.Auth
 			HasCompleted = false;
 			AllowCancel = true;
 		}
-
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected abstract VisualElement GetPlatformUI ();
 
 		/// <summary>
 		/// Implementations must call this function when they have successfully authenticated.
@@ -177,7 +167,7 @@ namespace Xamarin.Auth
 
 		void BeginInvokeOnUIThread (Action action)
 		{
-		    Forms.Device.BeginInvokeOnMainThread(action);
+		    Platform.Engine.InvokeOnMainThread(action);
 		}
 	}
 

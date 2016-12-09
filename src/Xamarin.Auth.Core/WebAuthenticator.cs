@@ -17,8 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-using Xamarin.Auth.Core.Pages;
-using Xamarin.Forms;
 
 namespace Xamarin.Auth
 {
@@ -120,18 +118,6 @@ namespace Xamarin.Auth
 				ev (this, EventArgs.Empty);
 			}
 		}
-        
-        /// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override VisualElement GetPlatformUI ()
-		{
-            return new WebAuthenticationPage();
-		}
-
 	}
 }
 
