@@ -33,23 +33,6 @@ namespace Xamarin.Auth
 #endif
         : IAccountStore
     {
-#if PLATFORM_IOS
-		/// <summary>
-		/// Create an account store.
-		/// </summary>
-		public static AccountStore Create ()
-		{
-			return new KeyChainAccountStore ();
-		}
-#elif PLATFORM_ANDROID
-		/// <summary>
-		/// Create an account store.
-		/// </summary>
-		public static AccountStore Create (Android.Content.Context context, char[] password = null)
-		{
-			return new AndroidAccountStore (context, password);
-		}
-#else
 	    /// <summary>
 	    /// Create an account store.
 	    /// </summary>
@@ -58,7 +41,6 @@ namespace Xamarin.Auth
 		{
 		    return Platform.Engine.Create(password);
 		}
-#endif
         
 	    /// <summary>
 		/// Finds the accounts for a given service.

@@ -7,8 +7,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth Sample (Androi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Android", "..\..\src\Xamarin.Auth.Android\Xamarin.Auth.Android.csproj", "{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Core", "..\..\src\Xamarin.Auth.Core\Xamarin.Auth.Core.csproj", "{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Auth.Shared", "..\..\src\Xamarin.Auth.Shared\Xamarin.Auth.Shared.shproj", "{84282A57-AD4B-40C2-8DE2-624E126874E1}"
 EndProject
 Global
@@ -30,10 +28,6 @@ Global
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

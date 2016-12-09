@@ -69,9 +69,5 @@
       <Project>{FCF02C8C-6DD3-4C59-A8A2-58BC01A4BB21}</Project>
       <Name>Xamarin.Auth.Android</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\src\Xamarin.Auth.Core\Xamarin.Auth.Core.csproj">
-      <Project>{a2955bb4-7789-472e-84d8-a82fad1fbca5}</Project>
-      <Name>Xamarin.Auth.Core</Name>
-    </ProjectReference>
   </ItemGroup>
 </Project>

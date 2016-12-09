@@ -12,6 +12,17 @@
           "lib/portable-net45+sl50+win+wpa81+wp80/Polenter.SharpSerializer.PCL.dll": {}
         }
       }
+    },
+    ".NETPortable,Version=v4.5,Profile=Profile111/win": {
+      "SharpSerializer.PCL/2.18.7": {
+        "type": "package",
+        "compile": {
+          "lib/portable-net45+sl50+win+wpa81+wp80/Polenter.SharpSerializer.PCL.dll": {}
+        },
+        "runtime": {
+          "lib/portable-net45+sl50+win+wpa81+wp80/Polenter.SharpSerializer.PCL.dll": {}
+        }
+      }
     }
   },
   "libraries": {

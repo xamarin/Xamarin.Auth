@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Core", "..\..\src\Xamarin.Auth.Core\Xamarin.Auth.Core.csproj", "{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}"
-EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Xamarin.Auth.Shared", "..\..\src\Xamarin.Auth.Shared\Xamarin.Auth.Shared.shproj", "{84282A57-AD4B-40C2-8DE2-624E126874E1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.UWP", "..\..\src\Xamarin.Auth.UWP\Xamarin.Auth.UWP.csproj", "{BF64CD62-A381-48BF-9AA8-804CEECF0FFB}"
@@ -27,22 +25,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|ARM.Build.0 = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|x64.Build.0 = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Debug|x86.Build.0 = Debug|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|ARM.ActiveCfg = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|ARM.Build.0 = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|x64.ActiveCfg = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|x64.Build.0 = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|x86.ActiveCfg = Release|Any CPU
-		{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}.Release|x86.Build.0 = Release|Any CPU
 		{BF64CD62-A381-48BF-9AA8-804CEECF0FFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BF64CD62-A381-48BF-9AA8-804CEECF0FFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF64CD62-A381-48BF-9AA8-804CEECF0FFB}.Debug|ARM.ActiveCfg = Debug|ARM

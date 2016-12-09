@@ -5,19 +5,16 @@
     <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A2955BB4-7789-472E-84D8-A82FAD1FBCA5}</ProjectGuid>
+    <ProjectGuid>{BFB4D017-4D3D-4BEF-B1CB-5456C2EDA584}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth</RootNamespace>
-    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <RootNamespace>Xamarin.Auth.Platform</RootNamespace>
+    <AssemblyName>Xamarin.Auth.Platform</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile111</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-  </PropertyGroup>
-  <PropertyGroup>
-    <CopyNuGetImplementations>true</CopyNuGetImplementations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,41 +34,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="project.json" />
+    <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="AccountStore.cs" />
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="Authenticator.cs" />
-    <Compile Include="AuthException.cs" />
-    <Compile Include="ExceptionEx.cs" />
-    <Compile Include="FormAuthenticator.cs" />
-    <Compile Include="IAccountStore.cs" />
-    <Compile Include="IPlatformEngine.cs" />
-    <Compile Include="OAuth2Authenticator.cs" />
-    <Compile Include="OAuth2Request.cs" />
-    <Compile Include="PlatformAccountStoreAttribute.cs" />
-    <Compile Include="PlatformEngine.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="Response.cs" />
-    <Compile Include="System.Json\JavaScriptReader.cs" />
-    <Compile Include="System.Json\JsonArray.cs" />
-    <Compile Include="System.Json\JsonObject.cs" />
-    <Compile Include="System.Json\JsonPrimitive.cs" />
-    <Compile Include="System.Json\JsonType.cs" />
-    <Compile Include="System.Json\JsonValue.cs" />
-    <Compile Include="WebAuthenticator.cs" />
-    <Compile Include="WebEx.cs" />
-    <Compile Include="WebRedirectAuthenticator.cs" />
-    <Compile Include="WebUtilities.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="todo_otherplatforms.txt" />
-  </ItemGroup>
+  <Import Project="..\Xamarin.Auth.Platform.Shared\Xamarin.Auth.Platform.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
