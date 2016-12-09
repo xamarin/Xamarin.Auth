@@ -15,6 +15,7 @@
 //
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Java.Security;
 using Javax.Crypto;
 using Java.IO;
@@ -61,7 +62,7 @@ namespace Xamarin.Auth
 			}
 		}
 
-		public override IEnumerable<Account> FindAccountsForService (string serviceId)
+		public override Task<IEnumerable<Account>> FindAccountsForServiceAsync (string serviceId)
 		{
 			var r = new List<Account> ();
 
@@ -83,10 +84,10 @@ namespace Xamarin.Auth
 
 			r.Sort ((a, b) => a.Username.CompareTo (b.Username));
 
-			return r;
+			return Task.FromResult((IEnumerable<Account>)r);
 		}
 
-		public override void Save (Account account, string serviceId)
+		public override Task SaveAsync (Account account, string serviceId)
 		{
 			var alias = MakeAlias (account, serviceId);
 
@@ -95,15 +96,19 @@ namespace Xamarin.Auth
 			ks.SetEntry (alias, entry, prot);
 
 			Save();
+
+		    return Task.FromResult(true);
 		}
 
-		public override void Delete (Account account, string serviceId)
+		public override Task DeleteAsync (Account account, string serviceId)
 		{
 			var alias = MakeAlias (account, serviceId);
 
 			ks.DeleteEntry (alias);
 			Save();
-		}
+
+            return Task.FromResult(true);
+        }
 
 		void Save()
 		{

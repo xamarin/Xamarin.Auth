@@ -107,7 +107,12 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataProtectionExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WebAuthenticatorPage.xaml.cs">
+      <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UwpAccountStore.cs" />
     <EmbeddedResource Include="Properties\Xamarin.Auth.UWP.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -115,6 +120,12 @@
       <Project>{a2955bb4-7789-472e-84d8-a82fad1fbca5}</Project>
       <Name>Xamarin.Auth.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="WebAuthenticatorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
   <Import Project="..\Xamarin.Auth.Shared\Xamarin.Auth.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

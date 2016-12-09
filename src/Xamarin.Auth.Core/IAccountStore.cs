@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Xamarin.Auth
 {
@@ -13,7 +14,7 @@ namespace Xamarin.Auth
         /// <param name='serviceId'>
         /// Service identifier.
         /// </param>
-        IEnumerable<Account> FindAccountsForService (string serviceId);
+        Task<IEnumerable<Account>> FindAccountsForServiceAsync (string serviceId);
 
         /// <summary>
         /// Save the specified account by combining its username and the serviceId
@@ -25,7 +26,7 @@ namespace Xamarin.Auth
         /// <param name='serviceId'>
         /// Service identifier.
         /// </param>
-        void Save (Account account, string serviceId);
+        Task SaveAsync (Account account, string serviceId);
 
         /// <summary>
         /// Deletes the account for a given serviceId.
@@ -36,6 +37,6 @@ namespace Xamarin.Auth
         /// <param name='serviceId'>
         /// Service identifier.
         /// </param>
-        void Delete (Account account, string serviceId);
+        Task DeleteAsync (Account account, string serviceId);
     }
 }
