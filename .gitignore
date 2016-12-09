@@ -9,3 +9,5 @@ test-results
 *.ide
 /src/packages
 /src/Xamarin.Auth.Core/RedirAuth.cs
+/samples/Key.cs
+*project.lock.json
