@@ -1,7 +1,7 @@
 ﻿{
   "dependencies": {
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
-    "SharpSerializer.PCL": "2.18.7"
+    "SharpSerializer": "2.20.0.1"
   },
   "frameworks": {
     "uap10.0": {}
