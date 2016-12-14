@@ -286,20 +286,6 @@ Task ("libs")
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/Xamarin.Auth.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/**/Release/Xamarin.Auth.dll", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
 						"./source/Xamarin.Auth.WindowsPhone8/Xamarin.Auth.WindowsPhone8.csproj", 
 						c => 
 						{
@@ -417,20 +403,6 @@ Task ("libs")
 						"./output/ios-unified/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/Xamarin.Auth.Extensions.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
 			} 
 			else	// ! IsRunningOnWindows() 
 			{
@@ -510,23 +482,6 @@ Task ("libs")
 						"./output/ios-unified/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/Xamarin.Auth.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/**/Release/Xamarin.Auth.dll", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
-
-
-
 
 
 
@@ -571,20 +526,6 @@ Task ("libs")
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
 						"./output/ios-unified/"
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/Xamarin.Auth.Extensions.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
 

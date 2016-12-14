@@ -29,8 +29,6 @@ libraries:
     - ../output/android/Xamarin.Auth.dll
   ios-unified:
     - ../output/ios-unified/Xamarin.Auth.dll
-  ios:
-    - ../output/ios/Xamarin.Auth.dll
   winphone-8.0:
     - ../output/wp80/Xamarin.Auth.dll
   winphone-8.1:
@@ -42,8 +40,6 @@ samples:
     ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln
   "iOS Unified Sample":
     ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln
-  "iOS Classic Sample":
-    ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.XamarinIOS-Classic/Component.Sample.IOS-Classic.sln
   "Windows Phone 8 Sample":
     ../samples/Traditional.Standard/references01projects/Xamarin.Auth.Sample.WinPhone8/Component.Sample.WinPhone8.sln
   "Windows Phone 8.1 Sample":

@@ -67,10 +67,6 @@
 		<frameworkAssemblies>
 			<frameworkAssembly
 				assemblyName="System.Json"
-				targetFramework="MonoTouch10"
-				/>
-			<frameworkAssembly
-				assemblyName="System.Json"
 				targetFramework="MonoAndroid10"
 				/>
 				<frameworkAssembly
@@ -115,15 +111,6 @@
 		<file
 			src="output/ios-unified/Xamarin.Auth.dll"
 			target="lib/Xamarin.iOS10/Xamarin.Auth.dll"
-			>
-		</file>
-
-		<!--
-			Xamarin.iOS Classic
-		-->
-		<file
-			src="output/ios/Xamarin.Auth.dll"
-			target="lib/MonoTouch10/Xamarin.Auth.dll"
 			>
 		</file>
 
