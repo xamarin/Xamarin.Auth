@@ -68,6 +68,9 @@ namespace Xamarin.Auth
 			AllowCancel = true;
 		}
 
+	    public Action<Action> MainThreadInvoker { get; set; }
+
+
 		/// <summary>
 		/// Implementations must call this function when they have successfully authenticated.
 		/// </summary>
@@ -167,7 +170,10 @@ namespace Xamarin.Auth
 
 		void BeginInvokeOnUIThread (Action action)
 		{
-		    Platform.Engine.InvokeOnMainThread(action);
+		    if (MainThreadInvoker != null)
+		        MainThreadInvoker(action);
+            else
+		        Platform.Engine.InvokeOnMainThread(action);
 		}
 	}
 
