@@ -74,7 +74,11 @@ namespace Xamarin.Auth
 				StopProgress ();
 
 				if (task.IsFaulted) {
-					this.ShowError ("Error Signing In", task.Exception);
+
+                    if (!state.Authenticator.ShowErrors)
+                        return;
+
+                    this.ShowError ("Error Signing In", task.Exception);
 				}
 				else {
 					authenticator.OnSucceeded (task.Result);
