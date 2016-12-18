@@ -63,18 +63,18 @@ namespace Xamarin.Auth
 		/// <value><c>true</c> by default.</value>
 		public bool AllowCancel { get; set; }
 
-        /// <summary>
+                /// <summary>
 		/// Gets or sets whether Xamarin.Auth should display login errors.
 		/// </summary>
 		/// <value><c>true</c> by default.</value>
 		public bool ShowErrors { get; set; }
 
-        /// <summary>
-        /// Occurs when authentication has been successfully or unsuccessfully completed.
-        /// Consult the <see cref="AuthenticatorCompletedEventArgs.IsAuthenticated"/> event argument to determine if
-        /// authentication was successful.
-        /// </summary>
-        public event EventHandler<AuthenticatorCompletedEventArgs> Completed;
+                /// <summary>
+                /// Occurs when authentication has been successfully or unsuccessfully completed.
+                /// Consult the <see cref="AuthenticatorCompletedEventArgs.IsAuthenticated"/> event argument to determine if
+                /// authentication was successful.
+                /// </summary>
+                public event EventHandler<AuthenticatorCompletedEventArgs> Completed;
 
 		/// <summary>
 		/// Occurs when there an error is encountered when authenticating.
@@ -110,7 +110,7 @@ namespace Xamarin.Auth
 			Title = "Authenticate";
 			HasCompleted = false;
 			AllowCancel = true;
-             ShowErrors = true;
+                        ShowErrors = true;
 			#region
 			//---------------------------------------------------------------------------------------
 			/// Pull Request - manually added/fixed

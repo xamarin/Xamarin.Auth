@@ -75,10 +75,10 @@ namespace Xamarin.Auth
 
 				if (task.IsFaulted) {
 
-                    if (!state.Authenticator.ShowErrors)
-                        return;
+                                        if (!authenticator.ShowErrors)
+                                                return;
 
-                    this.ShowError ("Error Signing In", task.Exception);
+                                        this.ShowError ("Error Signing In", task.Exception);
 				}
 				else {
 					authenticator.OnSucceeded (task.Result);

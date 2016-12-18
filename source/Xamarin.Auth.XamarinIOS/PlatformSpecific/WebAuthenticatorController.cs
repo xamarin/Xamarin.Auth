@@ -175,10 +175,10 @@ namespace Xamarin.Auth
 				(Action)BeginLoadingInitialUrl :
 				(Action)Cancel;
 
-            if (!authenticator.ShowErrors)
-                return;
+                        if (!authenticator.ShowErrors)
+                                return;
 
-            if (e.Exception != null) {
+                        if (e.Exception != null) {
 				this.ShowError ("Authentication Error", e.Exception, after);
 			}
 			else {
