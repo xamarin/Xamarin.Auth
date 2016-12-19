@@ -96,7 +96,11 @@ namespace Xamarin.Auth
 				Finish ();
 			};
 			state.Authenticator.Error += (s, e) => {
-				if (e.Exception != null) {
+
+                                if (!state.Authenticator.ShowErrors)
+                                        return;
+
+                                if (e.Exception != null) {
 					this.ShowError ("Authentication Error", e.Exception);
 				}
 				else {
@@ -150,7 +154,11 @@ namespace Xamarin.Auth
 		{
 			state.Authenticator.GetInitialUrlAsync ().ContinueWith (t => {
 				if (t.IsFaulted) {
-					this.ShowError ("Authentication Error", t.Exception);
+
+                                        if (!state.Authenticator.ShowErrors)
+                                                return;
+
+                                        this.ShowError ("Authentication Error", t.Exception);
 				}
 				else {
 					webView.LoadUrl (t.Result.AbsoluteUri);
