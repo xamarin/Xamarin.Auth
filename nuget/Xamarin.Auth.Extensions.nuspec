@@ -95,17 +95,8 @@
 				Unified
 		-->
 		<file
-			src="output/ios-unified/Xamarin.Auth.Extensions.dll"
-			target="lib/Xamarin.iOS10/Xamarin.Auth.Extensions.dll"
-			>
-		</file>
-
-		<!--
-			Xamarin.iOS Classic
-		-->
-		<file
 			src="output/ios/Xamarin.Auth.Extensions.dll"
-			target="lib/MonoTouch10/Xamarin.Auth.Extensions.dll"
+			target="lib/Xamarin.iOS10/Xamarin.Auth.Extensions.dll"
 			>
 		</file>
 
