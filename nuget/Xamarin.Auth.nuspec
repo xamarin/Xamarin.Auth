@@ -150,8 +150,8 @@
 			Windows 10
 		-->
 		<file
-			src="output/uwp/Xamarin.Auth.dll"
-			target="lib/uwp/Xamarin.Auth.dll"
+			src="output/uap10.0/Xamarin.Auth.dll"
+			target="lib/uap10.0/Xamarin.Auth.dll"
 			>
 		</file>
 
