@@ -8,7 +8,7 @@ using Xamarin.Forms;
 using Xamarin.Auth;
 using Xamarin.Auth.XamarinForms;
 
-using Xamarin.Auth.Sam;
+using Xamarin.Auth.SampleData;
 
 namespace XamarinAuth.Views
 {
