@@ -32,24 +32,6 @@ Running
 #addin "Cake.Xamarin"
 #addin nuget:?package=Cake.FileHelpers
 
-if ( ! FileExists("./common.cake"))
-{
-		FileWriteLines
-		(
-			"./common.cake", 
-			new[] 
-			{
-				"Information (\"Empty Cake script\");",
-				""
-			} 
-		);	
-}
-//CakeExecuteScript("./common.cake");
-
-//RunTarget("common-cake");
-//FileWriteLines("./common.cake", "");
-#load "common.cake"
-
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
 FilePath nuget_tool_path = null;
