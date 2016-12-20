@@ -572,11 +572,29 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.UniversalWindowsPlatform/**/Release/Xamarin.Auth.dll", 
-						"./output/uwp/"
+						"./output/uap10.0/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/**/Release/Xamarin.Auth.pdb", 
+						"./output/uap10.0/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/**/Release/Xamarin.Auth.pri", 
+						"./output/uap10.0/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/**/Release/Xamarin.Auth.xr.xml", 
+						"./output/uap10.0/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/**/Release/WebAuthenticatorPage.xbf", 
+						"./output/uap10.0/"
 					);
 				//-------------------------------------------------------------------------------------
-
-
 
 
 				//-------------------------------------------------------------------------------------
