@@ -78,7 +78,11 @@ namespace Xamarin.Auth
 				Finish ();
 			};
 			state.Authenticator.Error += (s, e) => {
-				if (e.Exception != null) {
+
+                                if (!state.Authenticator.ShowErrors)
+                                         return;
+
+                                if (e.Exception != null) {
 					this.ShowError ("Authentication Error", e.Exception);
 				}
 				else {
