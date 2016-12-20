@@ -57,14 +57,60 @@ namespace Xamarin.Auth
 
         public Dictionary<string, string> RequestParameters 
         {
-            get { return this.requestParams; }
+            get 
+			{ 
+				return this.requestParams; 
+			}
         }
 
         public string AccessTokenName
         {
-            get { return accessTokenName; }
-            set { accessTokenName = value; }
+            get 
+			{ 
+				return accessTokenName; 
+			}
+            set 
+			{
+				accessTokenName = value; 
+			}
         }
+
+		/// <summary>
+		/// Gets the authorization scope.
+		/// </summary>
+		/// <value>The authorization scope.</value>
+		public string Scope
+		{
+			get 
+			{ 
+				return this.scope; 
+			}
+		}
+
+		/// <summary>
+		/// Gets the authorize URL.
+		/// </summary>
+		/// <value>The authorize URL.</value>
+		public Uri AuthorizeUrl
+		{
+			get 
+			{ 
+				return this.authorizeUrl; 
+			}
+		}
+
+		/// <summary>
+		/// Gets the access token URL.
+		/// </summary>
+		/// <value>The URL used to request access tokens after an authorization code was received.</value>
+		public Uri AccessTokenUrl
+		{
+			get 
+			{ 
+				return this.accessTokenUrl; 
+			}
+		}
+
         ///---------------------------------------------------------------------------------------
         # endregion
  
@@ -93,6 +139,15 @@ namespace Xamarin.Auth
         {
             get { return this.clientSecret; }
         }
+
+		bool IsImplicit 
+		{ 
+			get 
+			{ 
+				return accessTokenUrl == null; 
+			} 
+		}
+
         ///---------------------------------------------------------------------------------------
         # endregion
 
@@ -252,8 +307,6 @@ namespace Xamarin.Auth
 
 			return;
         }
-
-        bool IsImplicit { get { return accessTokenUrl == null; } }
 
         /// <summary>
         /// Method that returns the initial URL to be displayed in the web browser.
