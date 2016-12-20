@@ -1,15 +1,54 @@
 /*
+Installing
+
+	Windows
+
+        Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
+        .\build.ps1
+
+	Linux
+
+        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
+        chmod +x ./build.sh && ./build.sh
+
+	OS X
+
+        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
+        chmod +x ./build.sh && ./build.sh
+
+Running
+
 	MacOSX 
 	
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
 		
 	Windows
+
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
 */	
 #addin "Cake.Xamarin"
+#addin nuget:?package=Cake.FileHelpers
+
+if ( ! FileExists("./common.cake"))
+{
+		FileWriteLines
+		(
+			"./common.cake", 
+			new[] 
+			{
+				"Information (\"Empty Cake script\");",
+				""
+			} 
+		);	
+}
+//CakeExecuteScript("./common.cake");
+
+//RunTarget("common-cake");
+//FileWriteLines("./common.cake", "");
+#load "common.cake"
 
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
@@ -21,9 +60,13 @@ Task ("nuget-fixes")
 	(
 		() => 
 		{
-			if( ! IsRunningOnWindows() )
+			// if( ! IsRunningOnWindows() )
 			{
 				/*
+					2016-12-19
+					Fixing nuget 3.4.4 on windows - parsing solution file
+					
+					2016-09
 					Temporary fix for nuget bug MSBuild.exe autodetection on MacOSX and Linux
 
 					This target will be removed in the future! 
@@ -144,26 +187,32 @@ Task ("rebuild")
 
 Task ("build")
 	.IsDependentOn ("libs")
+	.IsDependentOn ("samples")
+	;	
+
+Task ("package")
+	.IsDependentOn ("libs")
 	.IsDependentOn ("nuget")
 	;	
 
 Task ("libs")
 	.IsDependentOn ("nuget-fixes")
+	.IsDependentOn ("libs-macosx")	
+	.IsDependentOn ("libs-windows")	
 	.Does 
 	(
 		() => 
 		{	
-			CreateDirectory ("./output/");
-			CreateDirectory ("./output/pcl/");
-			CreateDirectory ("./output/android/");
-			CreateDirectory ("./output/ios-unified/");
-			CreateDirectory ("./output/ios/");
-			CreateDirectory ("./output/wp80/");
-			CreateDirectory ("./output/wp81/");
-			CreateDirectory ("./output/wpa81/");
-			CreateDirectory ("./output/win81/");
-			CreateDirectory ("./output/winrt/");
-			CreateDirectory ("./output/uwp/");
+		}
+	);
+
+Task ("nuget-restore")
+	.IsDependentOn ("nuget-fixes")
+	.Does 
+	(
+		() => 
+		{	
+			//RunTarget("nuget-fixes");
 
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
@@ -187,7 +236,195 @@ Task ("libs")
 					"./source/XamarinForms-Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 					nuget_restore_settings
 				);
+		}
+	);
+
+Task ("libs-macosx")
+	.IsDependentOn ("nuget-fixes")
+	.IsDependentOn ("nuget-restore")	
+	.Does 
+	(
+		() => 
+		{	
+			CreateDirectory ("./output/");
+			CreateDirectory ("./output/pcl/");
+			CreateDirectory ("./output/android/");
+			CreateDirectory ("./output/ios/");
+
+			if ( ! IsRunningOnWindows() )
+			{
+				XBuild 
+					(
+						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				XBuild 
+					(
+						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+						c => 
+						{
+							c.SetConfiguration("Debug");
+						}
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				XBuild
+					(
+						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Debug");
+						}
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
+						"./output/pcl/"
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
+						"./output/android/"
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+						"./output/iOS/"
+					);
+				//-------------------------------------------------------------------------------------
+
+
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
+						"./output/pcl/"
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
+						"./output/android/"
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
+						"./output/ios/"
+					);
+				//-------------------------------------------------------------------------------------
+			}
+
+			return;
+		}
+	);
+
+
+Task ("libs-windows")
+	.IsDependentOn ("nuget-fixes")
+	.IsDependentOn ("nuget-restore")
+	.Does 
+	(
+		() => 
+		{	
+			CreateDirectory ("./output/");
+			CreateDirectory ("./output/pcl/");
+			CreateDirectory ("./output/android/");
+			CreateDirectory ("./output/ios-unified/");
+			CreateDirectory ("./output/ios/");
+			CreateDirectory ("./output/wp80/");
+			CreateDirectory ("./output/wp81/");
+			CreateDirectory ("./output/wpa81/");
+			CreateDirectory ("./output/win81/");
+			CreateDirectory ("./output/winrt/");
+			CreateDirectory ("./output/uwp/");
+
 			
+			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
+
+			NuGetRestore 
+				(
+					"./source/Xamarin.Auth-Library.sln",
+					nuget_restore_settings
+				);
+			NuGetRestore 
+				(
+					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+					nuget_restore_settings
+				);
+			NuGetRestore 
+				(
+					"./source/XamarinForms-Xamarin.Auth-Library.sln",
+					nuget_restore_settings
+				);
+			NuGetRestore 
+				(
+					"./source/XamarinForms-Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+					nuget_restore_settings
+				);
+
+
 			if (IsRunningOnWindows ()) 
 			{	
 				MSBuild 
@@ -282,20 +519,6 @@ Task ("libs")
 					(
 						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
 						"./output/ios-unified/"
-					);
-				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/Xamarin.Auth.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/**/Release/Xamarin.Auth.dll", 
-						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
@@ -417,189 +640,165 @@ Task ("libs")
 						"./output/ios-unified/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/Xamarin.Auth.Extensions.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
 			} 
-			else	// ! IsRunningOnWindows() 
+
+			return;
+		}
+	);
+
+string[] sample_solutions_macosx = new []
+{
+	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
+};
+string[] sample_solutions_windows = new []
+{
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
+	
+	// "samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.xxx.sln",
+	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	// "samples/Traditional.Standard/references02nuget/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
+	// "samples/Traditional.Standard/references02nuget/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
+	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
+	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
+	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
+	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	// "samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8/Demo.sln",
+	// "samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8-XA/Demo.sln",
+	// "samples/Xamarin.Forms/references01project/Evolve16Labs/04-Securing Local Data/Diary.sln",
+	// "samples/Xamarin.Forms/references01project/Evolve16Labs/05-OAuth/ComicBook.sln",
+	// "samples/Xamarin.Forms/references01project/Providers/XamarinAuth.XamarinForms.sln",
+	// "samples/Xamarin.Forms/references02nuget/04-Securing Local Data/Diary.sln",
+};
+
+string[] sample_solutions = 
+			sample_solutions_macosx
+				.Concat(sample_solutions_windows)  // comment out this line if in need
+				.ToArray()
+				;
+
+string[] build_configurations =  new []
+{
+	"Debug",
+	"Release",
+};
+
+Task ("samples-nuget-restore")
+	.Does 
+	(
+		() => 
+		{
+			foreach (string sample_solution in sample_solutions)
 			{
-				XBuild 
-					(
-						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				XBuild 
-					(
-						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-						c => 
-						{
-							c.SetConfiguration("Debug");
-						}
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				XBuild
-					(
-						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Debug");
-						}
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
-						"./output/pcl/"
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
-						"./output/android/"
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
-						"./output/ios-unified/"
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/Xamarin.Auth.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Xamarin.Auth.XamarinIOS-Classic/**/Release/Xamarin.Auth.dll", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
+				NuGetRestore(sample_solution, nuget_restore_settings); 
+			}
+			return;
+		}
+	);
 
+Task ("samples")
+	.IsDependentOn ("samples-windows")
+	.IsDependentOn ("samples-macosx")
+	.Does 
+	(
+		() => 
+		{
+		}
+	);
 
-
-
-
-
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/pcl/"
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/android/"
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/ios-unified/"
-					);
-				//-------------------------------------------------------------------------------------
-				XBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/Xamarin.Auth.Extensions.XamarinIOS-Classic.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS-Classic/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
-
+Task ("samples-macosx")
+	.IsDependentOn ("samples-nuget-restore")
+	.IsDependentOn ("libs")
+	.Does 
+	(
+		() => 
+		{
+			foreach (string sample_solution in sample_solutions_macosx)
+			{
+				foreach (string configuration in build_configurations)
+				{
+					if ( IsRunningOnWindows() )
+					{
+					}
+					else
+					{
+						XBuild
+							(
+								sample_solution, 
+								c => 
+								{
+									c.SetConfiguration(configuration);
+								}
+							);						
+					}
+				}
 			}
 
 			return;
 		}
 	);
 
+Task ("samples-windows")
+	.IsDependentOn ("samples-nuget-restore")
+	.IsDependentOn ("libs")
+	.Does 
+	(
+		() => 
+		{
+			foreach (string sample_solution in sample_solutions_windows)
+			{
+				foreach (string configuration in build_configurations)
+				{
+					if ( IsRunningOnWindows() )
+					{
+					}
+					else
+					{
+						XBuild
+							(
+								sample_solution, 
+								c => 
+								{
+									c.SetConfiguration(configuration);
+								}
+							);						
+					}
+				}
+			}
+
+			return;
+		}
+	);
+	
 Task ("nuget")
 	.IsDependentOn ("libs")
 	.Does 
 	(
 		() => 
 		{
+			if 
+			(
+				! FileExists("./output/wp80/Xamarin.Auth.dll")
+			)
+			{
+				string msg =
+				"Missing dll artifacts"
+				+ System.Environment.NewLine +
+				"Please, build on Windows first!";
+
+				throw new System.ArgumentNullException(msg);
+			}
 			NuGetPack 
 				(
 					"./nuget/Xamarin.Auth.nuspec", 
@@ -634,7 +833,39 @@ Task ("externals")
 		}
 	);
 
+Task ("component")
+	.IsDependentOn ("nuget")
+	.IsDependentOn ("samples")
+	.Does 
+	(
+		() => 
+		{
+			var COMPONENT_VERSION = "1.3.1.1";
+			var yamls = GetFiles ("./**/component.yaml");
 
+			foreach (var yaml in yamls) 
+			{
+				Information("yaml = " + yaml);
+				var contents = FileReadText (yaml).Replace ("$version$", COMPONENT_VERSION);
+				
+				var fixedFile = yaml.GetDirectory ().CombineWithFilePath ("component.yaml");
+				FileWriteText (fixedFile, contents);
+				
+				PackageComponent 
+					(
+						fixedFile.GetDirectory (), 
+						new XamarinComponentSettings ()
+					);
+			}
+
+			if (!DirectoryExists ("./output"))
+			{
+				CreateDirectory ("./output");
+			}
+
+			CopyFiles ("./component/**/*.xam", "./output");		
+		}
+	);
 FilePath GetToolPath (FilePath toolPath)
 {
     var appRoot = Context.Environment.GetApplicationRoot ();
@@ -644,16 +875,6 @@ FilePath GetToolPath (FilePath toolPath)
          return appRootExe;
 	 }
     throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
-}
-
-if 
-	(
-		! FileExists(@"./source/Xamarin.Auth-Library.sln")
-		&&
-		! FileExists(@"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln")
-	)
-{
-	RunTarget("externals");
 }
 
 RunTarget (TARGET);
