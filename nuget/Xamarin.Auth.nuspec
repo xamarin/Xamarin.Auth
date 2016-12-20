@@ -80,7 +80,7 @@
 		</frameworkAssemblies>
 		<dependencies> 
 		   <group>
-			  <dependency id="PCLCrypto" />
+			  <dependency id="PCLCrypto" version="[2.0.147,)"/>
 		   </group>
 		</dependencies>
 	</metadata>
