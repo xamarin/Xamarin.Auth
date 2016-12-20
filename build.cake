@@ -373,14 +373,13 @@ Task ("libs-windows")
 			CreateDirectory ("./output/");
 			CreateDirectory ("./output/pcl/");
 			CreateDirectory ("./output/android/");
-			CreateDirectory ("./output/ios-unified/");
 			CreateDirectory ("./output/ios/");
 			CreateDirectory ("./output/wp80/");
 			CreateDirectory ("./output/wp81/");
 			CreateDirectory ("./output/wpa81/");
 			CreateDirectory ("./output/win81/");
 			CreateDirectory ("./output/winrt/");
-			CreateDirectory ("./output/uwp/");
+			CreateDirectory ("./output/uap10.0/");
 
 			
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
@@ -500,7 +499,7 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
-						"./output/ios-unified/"
+						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
@@ -637,7 +636,7 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/ios-unified/"
+						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
 			} 
