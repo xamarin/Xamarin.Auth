@@ -683,7 +683,7 @@ string[] sample_solutions_windows = new []
 
 string[] sample_solutions = 
 			sample_solutions_macosx
-				.Concat(sample_solutions_windows)  // comment out this line if in need
+				//.Concat(sample_solutions_windows)  // comment out this line if in need
 				.ToArray()
 				;
 
@@ -707,12 +707,15 @@ Task ("samples-nuget-restore")
 	);
 
 Task ("samples")
-	.IsDependentOn ("samples-windows")
-	.IsDependentOn ("samples-macosx")
 	.Does 
 	(
 		() => 
 		{
+			if ( IsRunningOnWindows() )
+			{
+				RunTarget ("samples-windows");
+			}
+			RunTarget ("samples-macosx");
 		}
 	);
 
