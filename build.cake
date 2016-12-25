@@ -648,7 +648,7 @@ Task ("libs-windows")
 string[] sample_solutions_macosx = new []
 {
 	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
+	"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE-MacOSX-Xamarin.Studio.sln",
 };
 string[] sample_solutions_windows = new []
 {
