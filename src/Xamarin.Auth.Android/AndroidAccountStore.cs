@@ -49,13 +49,20 @@ namespace Xamarin.Auth
 
 			prot = new KeyStore.PasswordProtection (Password);
 
-			try {
-				lock (fileLock) {
-					using (var s = System.IO.File.OpenRead(FilePath)) {
-						ks.Load (s, Password);
-					}
-				}
-			}
+		    try
+		    {
+		        lock (fileLock)
+		        {
+		            using (var s = System.IO.File.OpenRead(FilePath))
+		            {
+		                ks.Load(s, Password);
+		            }
+		        }
+		    }
+		    catch (System.IO.FileNotFoundException)
+            {
+                LoadEmptyKeyStore(Password);
+            }
 			catch (FileNotFoundException) {
 				//ks.Load (null, Password);
 				LoadEmptyKeyStore (Password);
