@@ -1,0 +1,12 @@
+﻿{
+  "supports": {},
+  "dependencies": {
+    "SharpSerializer": "2.20.0.1"
+  },
+  "frameworks": {
+    ".NETPortable,Version=v4.5,Profile=Profile111": {}
+  },
+  "runtimes": {
+    "win": {}
+  }
+}

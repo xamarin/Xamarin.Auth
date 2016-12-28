@@ -15,13 +15,12 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading.Tasks;
 using Java.Security;
 using Javax.Crypto;
-using Javax.Security.Auth.Callback;
 using Java.IO;
-using Android.Content;
 using Android.Runtime;
+using Xamarin.Auth;
 
 namespace Xamarin.Auth
 {
@@ -31,37 +30,46 @@ namespace Xamarin.Auth
 	/// </summary>
 	internal class AndroidAccountStore : AccountStore
 	{
-		Context context;
 		KeyStore ks;
 		KeyStore.PasswordProtection prot;
+        static string appDataPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
 
 		static readonly object fileLock = new object ();
 
 		const string FileName = "Xamarin.Social.Accounts";
-		static readonly char[] Password = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray ();
+	    private string FilePath = System.IO.Path.Combine(appDataPath, FileName);
+		private char[] Password = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray ();
 
-		public AndroidAccountStore (Context context)
+		public AndroidAccountStore (char[] password = null)
 		{
-			this.context = context;
+		    if (password != null)
+		        Password = password;
 
 			ks = KeyStore.GetInstance (KeyStore.DefaultType);
 
 			prot = new KeyStore.PasswordProtection (Password);
 
-			try {
-				lock (fileLock) {
-					using (var s = context.OpenFileInput (FileName)) {
-						ks.Load (s, Password);
-					}
-				}
-			}
+		    try
+		    {
+		        lock (fileLock)
+		        {
+		            using (var s = System.IO.File.OpenRead(FilePath))
+		            {
+		                ks.Load(s, Password);
+		            }
+		        }
+		    }
+		    catch (System.IO.FileNotFoundException)
+            {
+                LoadEmptyKeyStore(Password);
+            }
 			catch (FileNotFoundException) {
 				//ks.Load (null, Password);
 				LoadEmptyKeyStore (Password);
 			}
 		}
 
-		public override IEnumerable<Account> FindAccountsForService (string serviceId)
+		public override Task<IEnumerable<Account>> FindAccountsForServiceAsync (string serviceId)
 		{
 			var r = new List<Account> ();
 
@@ -83,10 +91,10 @@ namespace Xamarin.Auth
 
 			r.Sort ((a, b) => a.Username.CompareTo (b.Username));
 
-			return r;
+			return Task.FromResult((IEnumerable<Account>)r);
 		}
 
-		public override void Save (Account account, string serviceId)
+		public override Task SaveAsync (Account account, string serviceId)
 		{
 			var alias = MakeAlias (account, serviceId);
 
@@ -95,20 +103,24 @@ namespace Xamarin.Auth
 			ks.SetEntry (alias, entry, prot);
 
 			Save();
+
+		    return Task.FromResult(true);
 		}
 
-		public override void Delete (Account account, string serviceId)
+		public override Task DeleteAsync (Account account, string serviceId)
 		{
 			var alias = MakeAlias (account, serviceId);
 
 			ks.DeleteEntry (alias);
 			Save();
-		}
+
+            return Task.FromResult(true);
+        }
 
 		void Save()
 		{
 			lock (fileLock) {
-				using (var s = context.OpenFileOutput (FileName, FileCreationMode.Private)) {
+				using (var s = System.IO.File.OpenWrite(FilePath)) {
 					ks.Store (s, Password);
 				}
 			}

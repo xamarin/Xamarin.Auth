@@ -7,3 +7,11 @@ bin
 obj
 test-results
 *.ide
+/src/packages
+/src/Xamarin.Auth.Core/RedirAuth.cs
+/samples/Key.cs
+*project.lock.json
+/samples/Xamarin.Auth.Sample.Android/packages/*
+/nuget/nuget.exe
+*.nupkg
+/samples/Xamarin.Auth.Sample.iOS/packages/*

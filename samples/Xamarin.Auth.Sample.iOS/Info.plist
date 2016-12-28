@@ -13,6 +13,14 @@
 		<integer>1</integer>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>5.2</string>
+	<string>6.0</string>
+	<key>CFBundleDisplayName</key>
+	<string></string>
+	<key>CFBundleIdentifier</key>
+	<string></string>
+	<key>CFBundleShortVersionString</key>
+	<string></string>
+	<key>CFBundleVersion</key>
+	<string></string>
 </dict>
 </plist>
