@@ -11,7 +11,7 @@ test-results
 /src/Xamarin.Auth.Core/RedirAuth.cs
 /samples/Key.cs
 *project.lock.json
-/samples/Xamarin.Auth.Sample.Android/packages/SharpSerializer.PCL.2.18.7
+/samples/Xamarin.Auth.Sample.Android/packages/*
 /nuget/nuget.exe
-/samples/Xamarin.Auth.Sample.Android/packages/SharpSerializer.2.20.0.1
 *.nupkg
+/samples/Xamarin.Auth.Sample.iOS/packages/*

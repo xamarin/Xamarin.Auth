@@ -42,7 +42,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
-    <Reference Include="System.Json" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
