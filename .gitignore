@@ -13,3 +13,5 @@ test-results
 *project.lock.json
 /samples/Xamarin.Auth.Sample.Android/packages/SharpSerializer.PCL.2.18.7
 /nuget/nuget.exe
+/samples/Xamarin.Auth.Sample.Android/packages/SharpSerializer.2.20.0.1
+*.nupkg
