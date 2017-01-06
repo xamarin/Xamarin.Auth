@@ -37,26 +37,12 @@ var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")))
 FilePath nuget_tool_path = null;
 FilePath cake_tool_path = null;
 
-//=================================================================================================
-// Xamarin CI - Jenkins job targets
-Task ("ci-osx")
-    .IsDependentOn ("libs")
-    .IsDependentOn ("nuget")
-    //.IsDependentOn ("samples")
-	;
-Task ("ci-windows")
-    .IsDependentOn ("libs")
-    .IsDependentOn ("nuget")
-    //.IsDependentOn ("samples")
-	;	
-//=================================================================================================
-
 Task ("nuget-fixes")
 	.Does 
 	(
 		() => 
 		{
-			// if( ! IsRunningOnWindows() )
+			if( true /*! IsRunningOnWindows()*/ )
 			{
 				/*
 					2016-12-19
@@ -892,5 +878,20 @@ FilePath GetToolPath (FilePath toolPath)
 	 }
     throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
 }
+
+//=================================================================================================
+// Xamarin CI - Jenkins job targets
+Task ("ci-osx")
+    .IsDependentOn ("libs")
+    .IsDependentOn ("nuget")
+    //.IsDependentOn ("samples")
+	;
+Task ("ci-windows")
+    .IsDependentOn ("libs")
+    .IsDependentOn ("nuget")
+    //.IsDependentOn ("samples")
+	;	
+//=================================================================================================
+
 
 RunTarget (TARGET);
