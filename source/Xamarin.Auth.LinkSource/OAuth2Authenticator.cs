@@ -45,7 +45,7 @@ namespace Xamarin.Auth
         string requestState;
         bool reportedForgery = false;
 
-        # region
+        #region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		OAuth2Authenticator changes to work with joind.in OAuth #91
@@ -55,66 +55,70 @@ namespace Xamarin.Auth
         Dictionary<string, string> requestParams;
 
 
-        public Dictionary<string, string> RequestParameters 
+        public Dictionary<string, string> RequestParameters
         {
-            get 
-			{ 
-				return this.requestParams; 
-			}
+            get
+            {
+                return this.requestParams;
+            }
         }
 
         public string AccessTokenName
         {
-            get 
-			{ 
-				return accessTokenName; 
-			}
-            set 
-			{
-				accessTokenName = value; 
-			}
+            get
+            {
+                return accessTokenName;
+            }
+            set
+            {
+                accessTokenName = value;
+            }
         }
 
-		/// <summary>
-		/// Gets the authorization scope.
-		/// </summary>
-		/// <value>The authorization scope.</value>
-		public string Scope
-		{
-			get 
-			{ 
-				return this.scope; 
-			}
-		}
+        /// <summary>
+        /// Gets the authorization scope.
+        /// </summary>
+        /// <value>The authorization scope.</value>
+        public string Scope
+        {
+            get
+            {
+                return this.scope;
+            }
+        }
 
-		/// <summary>
-		/// Gets the authorize URL.
-		/// </summary>
-		/// <value>The authorize URL.</value>
-		public Uri AuthorizeUrl
-		{
-			get 
-			{ 
-				return this.authorizeUrl; 
-			}
-		}
+        /// <summary>
+        /// Gets the authorize URL.
+        /// </summary>
+        /// <value>The authorize URL.</value>
+        public Uri AuthorizeUrl
+        {
+            get
+            {
+                return this.authorizeUrl;
+            }
+        }
 
-		/// <summary>
-		/// Gets the access token URL.
-		/// </summary>
-		/// <value>The URL used to request access tokens after an authorization code was received.</value>
-		public Uri AccessTokenUrl
-		{
-			get 
-			{ 
-				return this.accessTokenUrl; 
-			}
-		}
+        /// <summary>
+        /// Gets the access token URL.
+        /// </summary>
+        /// <value>The URL used to request access tokens after an authorization code was received.</value>
+        public Uri AccessTokenUrl
+        {
+            get
+            {
+                return this.accessTokenUrl;
+            }
+            set
+            {
+                this.accessTokenUrl = value;
+            }
+        }
 
         ///---------------------------------------------------------------------------------------
-        # endregion
- 
-        # region
+        #endregion
+
+        #region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		Adding method to request a refresh token #79
@@ -137,19 +141,22 @@ namespace Xamarin.Auth
         /// <value>The client secret.</value>
         public string ClientSecret
         {
-            get { return this.clientSecret; }
+            get
+            {
+                return this.clientSecret;
+            }
         }
 
-		bool IsImplicit 
-		{ 
-			get 
-			{ 
-				return accessTokenUrl == null; 
-			} 
-		}
+        bool IsImplicit
+        {
+            get
+            {
+                return accessTokenUrl == null;
+            }
+        }
 
         ///---------------------------------------------------------------------------------------
-        # endregion
+        #endregion
 
 
         /// <summary>
@@ -172,23 +179,26 @@ namespace Xamarin.Auth
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
-        public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null)
-            : this (redirectUrl)
+        public OAuth2Authenticator(string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+            : this(redirectUrl)
         {
-            if (string.IsNullOrEmpty (clientId)) {
-                throw new ArgumentException ("clientId must be provided", "clientId");
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException("clientId must be provided", "clientId");
             }
             this.clientId = clientId;
 
             this.scope = scope ?? "";
 
-            if (authorizeUrl == null) {
-                throw new ArgumentNullException ("authorizeUrl");
+            if (authorizeUrl == null)
+            {
+                throw new ArgumentNullException("authorizeUrl");
             }
             this.authorizeUrl = authorizeUrl;
 
-            if (redirectUrl == null) {
-                throw new ArgumentNullException ("redirectUrl");
+            if (redirectUrl == null)
+            {
+                throw new ArgumentNullException("redirectUrl");
             }
             this.redirectUrl = redirectUrl;
 
@@ -203,10 +213,10 @@ namespace Xamarin.Auth
             ///		https://github.com/xamarin/Xamarin.Auth/pull/91
             ///		
             this.requestParams = new Dictionary<string, string>();
-			///---------------------------------------------------------------------------------------
-			#endregion
+            ///---------------------------------------------------------------------------------------
+            #endregion
 
-			return;
+            return;
         }
 
         /// <summary>
@@ -235,46 +245,52 @@ namespace Xamarin.Auth
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
-        public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, GetUsernameAsyncFunc getUsernameAsync = null)
-            : this (redirectUrl, clientSecret, accessTokenUrl)
+        public OAuth2Authenticator(string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+            : this(redirectUrl, clientSecret, accessTokenUrl)
         {
-            if (string.IsNullOrEmpty (clientId)) {
-                throw new ArgumentException ("clientId must be provided", "clientId");
+            if (string.IsNullOrEmpty(clientId))
+            {
+                throw new ArgumentException("clientId must be provided", "clientId");
             }
             this.clientId = clientId;
 
-            if (string.IsNullOrEmpty (clientSecret)) {
-                throw new ArgumentException ("clientSecret must be provided", "clientSecret");
+            if (string.IsNullOrEmpty(clientSecret))
+            {
+                throw new ArgumentException("clientSecret must be provided", "clientSecret");
             }
             this.clientSecret = clientSecret;
 
             this.scope = scope ?? "";
 
-            if (authorizeUrl == null) {
-                throw new ArgumentNullException ("authorizeUrl");
+            if (authorizeUrl == null)
+            {
+                throw new ArgumentNullException("authorizeUrl");
             }
             this.authorizeUrl = authorizeUrl;
 
-            if (redirectUrl == null) {
-                throw new ArgumentNullException ("redirectUrl");
+            if (redirectUrl == null)
+            {
+                throw new ArgumentNullException("redirectUrl");
             }
             this.redirectUrl = redirectUrl;
 
-            if (accessTokenUrl == null) {
-                throw new ArgumentNullException ("accessTokenUrl");
+            if (accessTokenUrl == null)
+            {
+                throw new ArgumentNullException("accessTokenUrl");
             }
             this.accessTokenUrl = accessTokenUrl;
 
             this.getUsernameAsync = getUsernameAsync;
 
-			return;
+            return;
         }
 
-        OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
-            : base (redirectUrl, redirectUrl)
+        OAuth2Authenticator(Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
+            : base(redirectUrl, redirectUrl)
         {
-            if (redirectUrl == null) {
-                throw new ArgumentNullException ("redirectUrl");
+            if (redirectUrl == null)
+            {
+                throw new ArgumentNullException("redirectUrl");
             }
             this.redirectUrl = redirectUrl;
 
@@ -299,13 +315,14 @@ namespace Xamarin.Auth
             // Generate a unique state string to check for forgeries
             //
             var chars = new char[16];
-            var rand = new Random ();
-            for (var i = 0; i < chars.Length; i++) {
-                chars [i] = (char)rand.Next ((int)'a', (int)'z' + 1);
+            var rand = new Random();
+            for (var i = 0; i < chars.Length; i++)
+            {
+                chars[i] = (char)rand.Next((int)'a', (int)'z' + 1);
             }
-            this.requestState = new string (chars);
+            this.requestState = new string(chars);
 
-			return;
+            return;
         }
 
         /// <summary>
@@ -314,27 +331,27 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public override Task<Uri> GetInitialUrlAsync ()
+        public override Task<Uri> GetInitialUrlAsync()
         {
-			/*
+            /*
 			 	mc++
 				OriginalString property of the Uri object should be used instead of AbsoluteUri
 				otherwise trailing slash is added.
 			*/
-			string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
-			string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
+            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
+            string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
 
-			System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
-			System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
+            System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
+            System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
 
-			string oauth_callback_uri = oauth_redirect_uri_absolute;
+            string oauth_callback_uri = oauth_redirect_uri_absolute;
 
-			#region
-			//---------------------------------------------------------------------------------------
-			/// Pull Request - manually added/fixed
-			///		OnCreatingInitialUrl virtual method #57
-			///		https://github.com/xamarin/Xamarin.Auth/pull/57
-			/*
+            #region
+            //---------------------------------------------------------------------------------------
+            /// Pull Request - manually added/fixed
+            ///		OnCreatingInitialUrl virtual method #57
+            ///		https://github.com/xamarin/Xamarin.Auth/pull/57
+            /*
             var url = new Uri (string.Format (
                 "{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
                 authorizeUrl.AbsoluteUri,
@@ -344,11 +361,11 @@ namespace Xamarin.Auth
                 Uri.EscapeDataString (scope),
                 Uri.EscapeDataString (requestState)));
             */
-			var query = new Dictionary<string, string> {
+            var query = new Dictionary<string, string> {
                 {"client_id", Uri.EscapeDataString (this.clientId)},
                 //mc++ {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
 				{"redirect_uri", Uri.EscapeDataString (oauth_redirect_uri_original)},
-				{"response_type", this.IsImplicit ? Uri.EscapeDataString ("token") : Uri.EscapeDataString ("code")},
+                {"response_type", this.IsImplicit ? Uri.EscapeDataString ("token") : Uri.EscapeDataString ("code")},
                 //---------------------------------------------------------------------------------------
                 /// Pull Request - manually added/fixed
                 ///		Add new property to disable the escaping of scope parameter. #62
@@ -364,19 +381,19 @@ namespace Xamarin.Auth
 
             // already escaped manually merged PRs 62 and 57
             //string queryString = string.Join ("&", query.Select (i => i.Key + "=" + Uri.EscapeDataString (i.Value)));
-            string queryString = string.Join ("&", query.Select (i => i.Key + "=" + i.Value));
+            string queryString = string.Join("&", query.Select(i => i.Key + "=" + i.Value));
 
-            var url = string.IsNullOrEmpty (queryString) ? this.authorizeUrl : new Uri (this.authorizeUrl.AbsoluteUri + "?" + queryString);
+            var url = string.IsNullOrEmpty(queryString) ? this.authorizeUrl : new Uri(this.authorizeUrl.AbsoluteUri + "?" + queryString);
             //---------------------------------------------------------------------------------------
             #endregion
 
-			// mc++ optimized by Mark Smith
+            // mc++ optimized by Mark Smith
             // var tcs = new TaskCompletionSource<Uri> ();
             // tcs.SetResult(url);
 
             //return tcs.Task;
 
-			return Task.FromResult(url);
+            return Task.FromResult(url);
         }
 
         #region
@@ -390,7 +407,7 @@ namespace Xamarin.Auth
         /// <param name='query'>
         /// The parsed query of the URL.
         /// </param>
-        protected virtual void OnCreatingInitialUrl (IDictionary<string, string> query)
+        protected virtual void OnCreatingInitialUrl(IDictionary<string, string> query)
         {
         }
         //---------------------------------------------------------------------------------------
@@ -408,16 +425,18 @@ namespace Xamarin.Auth
         /// <param name='fragment'>
         /// The parsed fragment of the URL.
         /// </param>
-        protected override void OnPageEncountered (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
+        protected override void OnPageEncountered(Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
         {
-            var all = new Dictionary<string, string> (query);
+            var all = new Dictionary<string, string>(query);
             //
             // Check for forgeries
             //
-            if (all.ContainsKey ("state")) {
-                if (all ["state"] != requestState && !reportedForgery) {
+            if (all.ContainsKey("state"))
+            {
+                if (all["state"] != requestState && !reportedForgery)
+                {
                     reportedForgery = true;
-                    OnError ("Invalid state from server. Possible forgery!");
+                    OnError("Invalid state from server. Possible forgery!");
                     return;
                 }
             }
@@ -425,9 +444,9 @@ namespace Xamarin.Auth
             //
             // Continue processing
             //
-            base.OnPageEncountered (url, query, fragment);
+            base.OnPageEncountered(url, query, fragment);
         }
-			
+
         /// <summary>
         /// Raised when a new page has been loaded.
         /// </summary>
@@ -440,7 +459,7 @@ namespace Xamarin.Auth
         /// <param name='fragment'>
         /// The parsed fragment of the URL.
         /// </param>
-        protected override void OnRedirectPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
+        protected override void OnRedirectPageLoaded(Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
         {
             //
             // Look for the access_token
@@ -450,28 +469,37 @@ namespace Xamarin.Auth
                 //
                 // We found an access_token
                 //
-                OnRetrievedAccountProperties (fragment);
+                OnRetrievedAccountProperties(fragment);
             }
             else if (!IsImplicit)
             {
                 //
                 // Look for the code
                 //
-                if (query.ContainsKey ("code")) {
-                    var code = query ["code"];
-                    RequestAccessTokenAsync (code).ContinueWith (task => {
-                        if (task.IsFaulted) {
-                            OnError (task.Exception);
-                        } else {
-                            OnRetrievedAccountProperties (task.Result);
+                if (query.ContainsKey("code"))
+                {
+                    var code = query["code"];
+                    RequestAccessTokenAsync(code).ContinueWith(task =>
+                    {
+                        if (task.IsFaulted)
+                        {
+                            OnError(task.Exception);
                         }
-                    }, TaskScheduler.FromCurrentSynchronizationContext ());
-                } else {
-                    OnError ("Expected code in response, but did not receive one.");
+                        else
+                        {
+                            OnRetrievedAccountProperties(task.Result);
+                        }
+                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                }
+                else
+                {
+                    OnError("Expected code in response, but did not receive one.");
                     return;
                 }
-            } else {
-                # region
+            }
+            else
+            {
+                #region
                 //---------------------------------------------------------------------------------------
                 /// Pull Request - manually added/fixed
                 ///		OAuth2Authenticator changes to work with joind.in OAuth #91
@@ -480,7 +508,7 @@ namespace Xamarin.Auth
                 //OnError ("Expected access_token in response, but did not receive one.");
                 OnError("Expected " + AccessTokenName + " in response, but did not receive one.");
                 //---------------------------------------------------------------------------------------
-                # endregion
+                #endregion
                 return;
             }
         }
@@ -493,9 +521,9 @@ namespace Xamarin.Auth
         /// </returns>
         /// <param name='code'>The authorization code.</param>
         /// <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
-        public Task<IDictionary<string,string>> RequestAccessTokenAsync (string code)
+        public Task<IDictionary<string, string>> RequestAccessTokenAsync(string code)
         {
-			// mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
+            // mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
 
             var queryValues = new Dictionary<string, string> {
                 { "grant_type", "authorization_code" },
@@ -503,11 +531,12 @@ namespace Xamarin.Auth
                 { "redirect_uri", redirectUrl.AbsoluteUri },
                 { "client_id", clientId },
             };
-            if (!string.IsNullOrEmpty (clientSecret)) {
-                queryValues ["client_secret"] = clientSecret;
+            if (!string.IsNullOrEmpty(clientSecret))
+            {
+                queryValues["client_secret"] = clientSecret;
             }
 
-            return RequestAccessTokenAsync (queryValues);
+            return RequestAccessTokenAsync(queryValues);
         }
 
         /// <summary>
@@ -515,35 +544,38 @@ namespace Xamarin.Auth
         /// </summary>
         /// <param name="queryValues">The parameters to make the request with.</param>
         /// <returns>The data provided in the response to the access token request.</returns>
-        public async Task<IDictionary<string,string>> RequestAccessTokenAsync (IDictionary<string, string> queryValues)
+        public async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
         {
-			// mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
-            var content = new FormUrlEncodedContent (queryValues);
+            // mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
+            var content = new FormUrlEncodedContent(queryValues);
 
 
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync (accessTokenUrl, content).ConfigureAwait (false);
-            string text = await response.Content.ReadAsStringAsync().ConfigureAwait (false);
+            HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
+            string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             // Parse the response
-            var data = text.Contains ("{") ? WebEx.JsonDecode (text) : WebEx.FormDecode (text);
+            var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
 
-            if (data.ContainsKey ("error")) {
-                throw new AuthException ("Error authenticating: " + data ["error"]);
-            } 
-            # region
+            if (data.ContainsKey("error"))
+            {
+                throw new AuthException("Error authenticating: " + data["error"]);
+            }
+            #region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		OAuth2Authenticator changes to work with joind.in OAuth #91
             ///		https://github.com/xamarin/Xamarin.Auth/pull/91
             ///		
             //else if (data.ContainsKey("access_token"))
-            else if (data.ContainsKey (AccessTokenName))
+            else if (data.ContainsKey(AccessTokenName))
             //---------------------------------------------------------------------------------------
-            # endregion
+            #endregion
             {
-            } else {
-                # region
+            }
+            else
+            {
+                #region
                 //---------------------------------------------------------------------------------------
                 /// Pull Request - manually added/fixed
                 ///		OAuth2Authenticator changes to work with joind.in OAuth #91
@@ -552,11 +584,11 @@ namespace Xamarin.Auth
                 //throw new AuthException ("Expected access_token in access token response, but did not receive one.");
                 throw new AuthException("Expected " + AccessTokenName + " in access token response, but did not receive one.");
                 //---------------------------------------------------------------------------------------
-                # endregion
+                #endregion
             }
 
-			return data;
-		}
+            return data;
+        }
 
         /// <summary>
         /// Event handler that is fired when an access token has been retreived.
@@ -564,22 +596,29 @@ namespace Xamarin.Auth
         /// <param name='accountProperties'>
         /// The retrieved account properties
         /// </param>
-        public virtual void OnRetrievedAccountProperties (IDictionary<string, string> accountProperties)
+        public virtual void OnRetrievedAccountProperties(IDictionary<string, string> accountProperties)
         {
-			// mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
+            // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
             //
             // Now we just need a username for the account
             //
-            if (getUsernameAsync != null) {
-                getUsernameAsync (accountProperties).ContinueWith (task => {
-                    if (task.IsFaulted) {
-                        OnError (task.Exception);
-                    } else {
-                        OnSucceeded (task.Result, accountProperties);
+            if (getUsernameAsync != null)
+            {
+                getUsernameAsync(accountProperties).ContinueWith(task =>
+                {
+                    if (task.IsFaulted)
+                    {
+                        OnError(task.Exception);
                     }
-                }, TaskScheduler.FromCurrentSynchronizationContext ());
-            } else {
-                OnSucceeded ("", accountProperties);
+                    else
+                    {
+                        OnSucceeded(task.Result, accountProperties);
+                    }
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+            else
+            {
+                OnSucceeded("", accountProperties);
             }
         }
 
@@ -596,7 +635,7 @@ namespace Xamarin.Auth
         /// scope parameter. When used with some OAuth2 providers (such as Instagram), this results 
         /// in an HTTP 400 BAD REQUEST being returned on authentication. Setting this property to 
         /// <c>true</c> will prevent escaping of the scope parameter.</remarks>
-        public bool DoNotEscapeScope 
+        public bool DoNotEscapeScope
         {
             get;
             set;
