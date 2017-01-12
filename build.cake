@@ -879,7 +879,15 @@ FilePath GetToolPath (FilePath toolPath)
     throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
 }
 
+
 //=================================================================================================
+// Put those 2 CI targets at the end of the file after all targets
+// If those targets are before 1st RunTarget() call following error occusrs on 
+//		*	MacOSX under Mono
+//		*	Windows
+// 
+//	Task 'ci-osx' is dependent on task 'libs' which do not exist.
+//
 // Xamarin CI - Jenkins job targets
 Task ("ci-osx")
     .IsDependentOn ("libs")
