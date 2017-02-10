@@ -19,18 +19,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using System.Text;
 
 
-#if ! __UNIFIED__
+#if !__UNIFIED__
 using MonoTouch.Security;
 using MonoTouch.Foundation;
 using MonoTouch.ObjCRuntime;
 using MonoTouch.CoreFoundation;
+using Monotouch.UIKit;
 #else
 using Security;
 using Foundation;
 using ObjCRuntime;
 using CoreFoundation;
+using UIKit;
 #endif
 
 namespace Xamarin.Auth
@@ -187,51 +190,78 @@ namespace Xamarin.Auth
 
 		public override Task SaveAsync (Account account, string serviceId)
 		{
-			var statusCode = SecStatusCode.Success;
-			var serializedAccount = account.Serialize ();
-			var data = NSData.FromString (serializedAccount, NSStringEncoding.UTF8);
+            var statusCode = SecStatusCode.Success;
+            var serializedAccount = account.Serialize();
+            var data = NSData.FromString(serializedAccount, NSStringEncoding.UTF8);
 
-			//
-			// Remove any existing record
-			//
-			var existing = FindAccount (account.Username, serviceId);
+            //
+            // Remove any existing record
+            //
+            var existing = FindAccount(account.Username, serviceId);
 
-			if (existing != null) {
-				var query = new SecRecord (SecKind.GenericPassword);
-				query.Service = serviceId;
-				query.Account = account.Username;
+            if (existing != null)
+            {
+                var query = new SecRecord(SecKind.GenericPassword);
+                query.Service = serviceId;
+                query.Account = account.Username;
 
-				statusCode = SecKeyChain.Remove (query);
-				if (statusCode != SecStatusCode.Success) {
-					throw new Exception ("Could not save account to KeyChain: " + statusCode);
-				}
-			}
+                statusCode = SecKeyChain.Remove(query);
+                if (statusCode != SecStatusCode.Success)
+                {
+                    throw new AuthException("Could not remove account from KeyChain: " + statusCode);
+                }
+            }
 
-			//
-			// Add this record
-			//
-			var record = new SecRecord (SecKind.GenericPassword);
-			record.Service = serviceId;
-			record.Account = account.Username;
-			//------------------------------------------------------
-			// mc++ mc#
-			// Mark Taparauskas suggetsion:
-			//		.Generic is not encrypted
-			#if ! TEST_MARK_T
-			record.Generic = data;
-			#else
-			record.ValueData = data;
-			#endif
-			//------------------------------------------------------
-			record.Accessible = SecAccessible.WhenUnlocked;
+            //
+            // Add this record
+            //
+            var record = new SecRecord(SecKind.GenericPassword);
+            record.Service = serviceId;
+            record.Account = account.Username;
+            //------------------------------------------------------
+            // mc++ mc#
+            // Mark Taparauskas suggetsion:
+            //		.Generic is not encrypted
+            #if !TEST_MARK_T
+            record.Generic = data;
+            #else
+    		record.ValueData = data;
+            #endif
+            //------------------------------------------------------
+            record.Accessible =
+                            SecAccessible.WhenUnlocked
+                            // Pull Request - manually added/fixed
+                            //      Changed SecAccessible.WhenUnLocked to AfterFirstUnLocked #80
+                            //      https://github.com/xamarin/Xamarin.Auth/pull/80
+                            //SecAccessible.AfterFirstUnlock; ////THIS IS THE FIX
+                            ;
 
-			statusCode = SecKeyChain.Add (record);
+            statusCode = SecKeyChain.Add(record);
 
-			if (statusCode != SecStatusCode.Success) {
-				throw new Exception ("Could not save account to KeyChain: " + statusCode);
-			}
+            if (statusCode != SecStatusCode.Success)
+            {
+                StringBuilder sb = new StringBuilder("error = ");
+                sb.AppendLine("Could not save account to KeyChain: " + statusCode);
+                sb.AppendLine("Add Empty Entitlements.plist");
+                sb.AppendLine(" File /+ New file /+ iOS /+ Entitlements.plist");
+                /*
+                    https://github.com/xamarin/Xamarin.Auth/issues/128 
+                    https://github.com/xamarin/Xamarin.Auth/pull/80
+                    http://stackoverflow.com/questions/39776498/crashing-at-accountstore-create-save-e-account
+                sb.AppendLine("see: ");
+                sb.AppendLine("https://github.com/xamarin/Xamarin.Auth/issues/128");
+                sb.AppendLine("https://github.com/xamarin/Xamarin.Auth/pull/80");
+                sb.AppendLine("http://stackoverflow.com/questions/39776498/crashing-at-accountstore-create-save-e-account");
+                */
+                sb.AppendLine("");
+                sb.AppendLine("");
+                sb.AppendLine("");
+                string msg = sb.ToString();
 
-			return Task.FromResult (true);
+                throw new AuthException(msg);
+            }
+
+            return Task.FromResult (true);
 		}
 
 		public override Task DeleteAsync (Account account, string serviceId)

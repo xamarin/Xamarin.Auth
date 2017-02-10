@@ -187,6 +187,18 @@
       <DependentUpon>WPAccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="PlatformSpecific\WPAccountStore.cs" />
+
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
+    </Compile>
+
+    		
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

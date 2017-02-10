@@ -20,7 +20,10 @@ using System.Threading;
 using Xamarin.Utilities;
 
 
-using AuthenticateUIType = UIKit.UIViewController;
+using AuthenticateUIType = 
+            // UIKit.UIViewController;
+            System.Object
+            ;
 
 namespace Xamarin.Auth
 {

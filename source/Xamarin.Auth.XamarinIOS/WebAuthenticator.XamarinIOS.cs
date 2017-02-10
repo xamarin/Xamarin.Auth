@@ -18,7 +18,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 
-using AuthenticateUIType = UIKit.UIViewController;
+using AuthenticateUIType =
+            // UIKit.UIViewController;
+            System.Object
+            ;
 
 namespace Xamarin.Auth
 {
@@ -53,8 +56,36 @@ namespace Xamarin.Auth
 		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI()
 		{
-			return new UIKit.UINavigationController(new WebAuthenticatorController(this));
+            System.Object ui = null;
+            if (this.IsUsingNativeUI == true)
+            {
+                ui = GetPlatformUINative();
+            }
+            else
+            {
+                ui = GetPlatformUIEmbeddedBrowser();
+            }
+
+            return ui;
 		}
-	}
+
+        /// <summary>
+        /// Gets the platform  UI (Android - WebView).
+        /// </summary>
+        /// <returns>
+        /// The platform Native UI (embeded/integrated Browser Control/Widget/View (WebView)).
+        /// Android.Support.CustomTabs.CustomTabsIntent
+        /// </returns>
+        /// <see cref="https://components.xamarin.com/gettingstarted/xamandroidsupportcustomtabs"/>
+        protected AuthenticateUIType GetPlatformUIEmbeddedBrowser()
+        {
+            // Embedded Browser - Deprecated
+            UIKit.UINavigationController nc = new UIKit.UINavigationController(new WebAuthenticatorController(this));
+
+            AuthenticateUIType ui = nc;
+
+            return ui;
+        }
+    }
 }
 

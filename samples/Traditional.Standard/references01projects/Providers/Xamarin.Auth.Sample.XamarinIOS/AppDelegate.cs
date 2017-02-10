@@ -46,6 +46,49 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			
 			return true;
 		}
+
+        /// <summary>
+        /// Opens the URL.
+        /// 
+        /// 
+        /// </summary>
+        /// <returns><c>true</c>, if URL was opened, <c>false</c> otherwise.</returns>
+        /// <param name="app">App.</param>
+        /// <param name="url">URL.</param>
+        /// <param name="sourceApp">Source app.</param>
+        /// <param name="annotation">Annotation.</param>
+        /// <example>
+        /// <code>
+        /// <!--
+        ///     Info.plist
+        /// -->
+        ///     <key>CFBundleURLTypes</key>
+        ///    <array>
+        ///        <dict>
+        ///            <key>CFBundleURLName</key>
+        ///            <string>com.example.store</string>
+        ///            <key>CFBundleURLTypes</key>
+        ///            <string>Viewer</string>
+        ///            <key>CFBundleURLSchemes</key>
+        ///            <array>
+        ///                <string>xamarin-auth</string>
+        ///                <string>xamarinauth</string>
+        ///                <string>localhost</string>
+        ///                <string>http</string>
+        ///                <string>https</string>
+        ///            </array>
+        ///        </dict>
+        ///    </array>
+        /// </code>
+        /// </example>
+        /// <see cref=""/>
+        /// <see cref=""/>
+        /// <see cref=""/>
+        /// <see cref="http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml"/> 
+        public override bool OpenUrl(UIApplication app, NSUrl url, string sourceApp, NSObject annotation)
+        {
+            return true;
+        }
 	}
 }
 

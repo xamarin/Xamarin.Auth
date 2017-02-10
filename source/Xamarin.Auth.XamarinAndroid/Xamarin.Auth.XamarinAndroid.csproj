@@ -12,12 +12,13 @@
     <FileAlignment>512</FileAlignment>
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
+    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <DevInstrumentationEnabled>True</DevInstrumentationEnabled>
     <RestorePackages>true</RestorePackages>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
-    <AndroidTlsProvider></AndroidTlsProvider>
+    <AndroidTlsProvider>
+    </AndroidTlsProvider>
+    <TargetFrameworkVersion>v7.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -28,6 +29,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
+    <AndroidLinkSkip>
+    </AndroidLinkSkip>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -82,6 +85,12 @@
     <Reference Include="Validation, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Validation.2.2.8\lib\dotnet\Validation.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Compat">
+      <HintPath>..\packages\Xamarin.Android.Support.Compat.24.2.1\lib\MonoAndroid70\Xamarin.Android.Support.Compat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.CustomTabs">
+      <HintPath>..\packages\Xamarin.Android.Support.CustomTabs.24.2.1\lib\MonoAndroid70\Xamarin.Android.Support.CustomTabs.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +180,17 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
       <Link>AccountStore.Async.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
+    </Compile>
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.Native.XamarinAndroid.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\XamarinAuthCustomUrlSchemeCallbackActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

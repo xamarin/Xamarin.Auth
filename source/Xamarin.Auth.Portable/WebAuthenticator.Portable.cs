@@ -58,8 +58,28 @@ namespace Xamarin.Auth
 		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI()
 		{
-            throw new NotImplementedException(LibraryUtilities.MessageNotImplementedException);
+            // System.Object
+            AuthenticateUIType ui = PlatformUIMethod();
+ 
+            return ui;
         }
-	}
+
+        protected AuthenticateUIType GetPlatformUIEmbeddedBrowser()
+        {
+            throw new NotImplementedException("PCL bite-n-switch");
+
+            System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
+
+            // System.Object
+            AuthenticateUIType ui = null;
+
+            return ui;
+        }
+
+        public AuthenticateUIType AuthenticationUIPlatformSpecificEmbeddedBrowser()
+        {
+            return GetPlatformUIEmbeddedBrowser();
+        }
+    }
 }
 

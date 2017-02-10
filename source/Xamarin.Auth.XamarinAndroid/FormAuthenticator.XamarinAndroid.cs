@@ -19,7 +19,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 
-using AuthenticateUIType = Android.Content.Intent;
+using AuthenticateUIType =
+            // Android.Content.Intent
+            System.Object
+            ;
 using UIContext = Android.Content.Context;
 
 namespace Xamarin.Auth

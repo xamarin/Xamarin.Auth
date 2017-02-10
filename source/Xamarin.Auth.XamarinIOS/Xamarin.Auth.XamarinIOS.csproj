@@ -156,6 +156,20 @@
     </Compile>
     <Compile Include="PlatformSpecific\KeyChainAccountStore.Aync.cs" />
     <Compile Include="PlatformSpecific\KeyChainAccountStore.cs" />
+
+		
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    </Compile>        
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.Native.XamarinIOS.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
+    </Compile>
+		
+    <Compile Include="UINativeNonIntegratedBrowsers\NativeAuthSafariViewControllerDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

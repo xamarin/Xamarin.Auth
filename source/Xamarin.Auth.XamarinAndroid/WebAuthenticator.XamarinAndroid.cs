@@ -18,7 +18,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
 
-using AuthenticateUIType = Android.Content.Intent;
+using AuthenticateUIType =
+            // Android.Content.Intent
+            System.Object
+            ;
 using UIContext = Android.Content.Context;
 
 namespace Xamarin.Auth
@@ -50,16 +53,49 @@ namespace Xamarin.Auth
 		/// The UI that needs to be presented.
 		/// </returns>
 		protected override AuthenticateUIType GetPlatformUI(UIContext context)
-		{
-			var i = new global::Android.Content.Intent(context, typeof(WebAuthenticatorActivity));
-			i.PutExtra("ClearCookies", ClearCookiesBeforeLogin);
-			var state = new WebAuthenticatorActivity.State
-			{
-				Authenticator = this,
-			};
-			i.PutExtra("StateKey", WebAuthenticatorActivity.StateRepo.Add(state));
-			return i;
-		}
-	}
+        {
+            System.Object ui = null;
+            if (this.IsUsingNativeUI == true)
+            {
+                ui = GetPlatformUINative (context);
+            }
+            else
+            {
+                ui = GetPlatformUIEmbeddedBrowser(context);
+            }
+ 
+            return ui;
+        }
+
+        /// <summary>
+        /// Gets the platform  UI (Android - WebView).
+        /// </summary>
+        /// <returns>
+        /// The platform Native UI (embeded/integrated Browser Control/Widget/View (WebView)).
+        /// Android.Support.CustomTabs.CustomTabsIntent
+        /// </returns>
+        /// <see cref="https://components.xamarin.com/gettingstarted/xamandroidsupportcustomtabs"/>
+        protected AuthenticateUIType GetPlatformUIEmbeddedBrowser(UIContext context)
+        {
+            // Embedded Browser - Deprecated
+            global::Android.Content.Intent i = null;
+            i = new global::Android.Content.Intent(context, typeof(WebAuthenticatorActivity));
+            i.PutExtra("ClearCookies", ClearCookiesBeforeLogin);
+            var state = new WebAuthenticatorActivity.State
+            {
+                Authenticator = this,
+            };
+            i.PutExtra("StateKey", WebAuthenticatorActivity.StateRepo.Add(state));
+
+            AuthenticateUIType ui = i;
+
+            return ui;
+        }
+
+        public AuthenticateUIType AuthenticationUIPlatformSpecificEmbeddedBrowser(UIContext context)
+        {
+            return GetPlatformUIEmbeddedBrowser(context);
+        }
+    }
 }
 

@@ -80,7 +80,13 @@ namespace Xamarin.Auth
 		/// Method used to fetch the username of an account
 		/// after it has been successfully authenticated.
 		/// </param>
-		public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+		public OAuth1Authenticator 
+                        (
+                            string consumerKey, string consumerSecret, 
+                            Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, 
+                            GetUsernameAsyncFunc getUsernameAsync = null,
+                            bool isUsingNativeUI = true
+                        )
 		{
 			if (string.IsNullOrEmpty (consumerKey)) {
 				throw new ArgumentException ("consumerKey must be provided", "consumerKey");

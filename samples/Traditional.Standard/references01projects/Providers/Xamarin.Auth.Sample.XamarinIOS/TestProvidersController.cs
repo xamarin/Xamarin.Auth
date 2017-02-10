@@ -21,7 +21,9 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 {
 	public class TestProvidersController : UITableViewController
 	{
-		string[] items = Data.TestCases.Keys.ToArray ();
+        bool test_native_ui = false;
+
+        string[] items = Data.TestCases.Keys.ToArray ();
 
 		public TestProvidersController () : base (UITableViewStyle.Plain)
 		{
@@ -69,14 +71,15 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 		private void Authenticate (Xamarin.Auth.Helpers.OAuth1 oauth1)
 		{
 			OAuth1Authenticator auth = new OAuth1Authenticator 
-										(
-				                           consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-				                           consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
-				                           requestTokenUrl: oauth1.OAuth1_UriRequestToken,
-				                           authorizeUrl: oauth1.OAuth_UriAuthorization,
-				                           accessTokenUrl: oauth1.OAuth_UriAccessToken,
-				                           callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
-			                           );
+                                            (
+                                                consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                                consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
+                                                requestTokenUrl: oauth1.OAuth1_UriRequestToken,
+                                                authorizeUrl: oauth1.OAuth_UriAuthorization,
+                                                accessTokenUrl: oauth1.OAuth_UriAccessToken,
+                                                callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
+                                                isUsingNativeUI: test_native_ui
+                                            );
 
 			auth.AllowCancel = oauth1.AllowCancel;
 
@@ -85,8 +88,19 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			auth.Error += Auth_Error;
 			auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
-			UIViewController vc = auth.GetUI ();
-			PresentViewController (vc, true, null);
+			//UIViewController ui_intent_as_object = auth.GetUI ();
+            System.Object ui_controller_as_object = auth.GetUI();
+            if (auth.IsUsingNativeUI == true)
+            {
+                SafariServices.SFSafariViewController c = null;
+                c = (SafariServices.SFSafariViewController) ui_controller_as_object;
+                PresentViewController (c, true, null);
+            }
+            else
+            {
+                UIViewController c = (UIViewController)ui_controller_as_object;
+                PresentViewController (c, true, null);
+            }
 
 			return;
 		}
@@ -95,23 +109,29 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 		{
 			OAuth2Authenticator auth = null;
 
-			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
-				auth = new OAuth2Authenticator (
-					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-					scope: oauth2.OAuth2_Scope,
-					authorizeUrl: oauth2.OAuth_UriAuthorization,
-					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
-				);
-			} else {
+			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) 
+            {
 				auth = new OAuth2Authenticator 
-					(
-						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-						clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
-						scope: oauth2.OAuth2_Scope,
-						authorizeUrl: oauth2.OAuth_UriAuthorization,
-						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-						accessTokenUrl: oauth2.OAuth2_UriRequestToken
-					);
+                                (
+                					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                					scope: oauth2.OAuth2_Scope,
+                					authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect, 
+                                    isUsingNativeUI: test_native_ui
+                				);
+			} 
+            else 
+            {
+				auth = new OAuth2Authenticator 
+            					(
+            						clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+            						clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+            						scope: oauth2.OAuth2_Scope,
+            						authorizeUrl: oauth2.OAuth_UriAuthorization,
+            						redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+            						accessTokenUrl: oauth2.OAuth2_UriRequestToken, 
+                                    isUsingNativeUI: test_native_ui
+                                );
 			}
 
 			auth.AllowCancel = oauth2.AllowCancel;
@@ -121,10 +141,22 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			auth.Error += Auth_Error;
 			auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
-			UIViewController vc = auth.GetUI ();
-			PresentViewController (vc, true, null);
+            //UIViewController ui_intent_as_object = auth.GetUI ();
+            System.Object ui_controller_as_object = auth.GetUI();
+            if (auth.IsUsingNativeUI == true)
+            {
+                SafariServices.SFSafariViewController c = null;
+                c = (SafariServices.SFSafariViewController)ui_controller_as_object;
+                PresentViewController(c, true, null);
+            }
+            else
+            {
+                UIViewController c = (UIViewController)ui_controller_as_object;
+                PresentViewController(c, true, null);
+            }
 
-			return;
+
+            return;
 		}
 
 		public void Auth_Completed (object sender, AuthenticatorCompletedEventArgs ee)
@@ -132,31 +164,56 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			string title = "OAuth Results";
 			string msg = "";
 
-			if (!ee.IsAuthenticated) {
+			if (!ee.IsAuthenticated) 
+            {
 				msg = "Not Authenticated";
-			} else {
-				
-				AccountStoreTests (sender, ee);
-				AccountStoreTestsAsync (sender, ee);
-
-				try {
+			} 
+            else 
+            {
+                try
+                {
+                    AccountStoreTests(sender, ee);
+                    AccountStoreTestsAsync(sender, ee);
+                }
+                catch (Xamarin.Auth.AuthException exc)
+                {
+                    msg = exc.Message;
+                    UIAlertView alert =
+                            new UIAlertView
+                                    (
+                                        "Error - AccountStore Saving",
+                                        "AuthException = " + Environment.NewLine + msg,
+                                        null,
+                                        "OK",
+                                        null
+                                    );
+                    alert.Show();
+                    throw new Exception("AuthException", exc);
+                }
+				try 
+                {
 					//------------------------------------------------------------------
 					Account account = ee.Account;
 					string token = default(string);
-					if (null != account) {
+					if (null != account) 
+                    {
 						string token_name = default(string);
 						Type t = sender.GetType ();
-						if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) {
+						if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) 
+                        {
 							token_name = "access_token";
 							token = account.Properties [token_name].ToString ();
-						} else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) {
+						} 
+                        else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) 
+                        {
 							token_name = "oauth_token";
 							token = account.Properties [token_name].ToString ();
 						}
 					}
 					//------------------------------------------------------------------
 
-					AuthenticationResult ar = new AuthenticationResult () {
+					AuthenticationResult ar = new AuthenticationResult () 
+                    {
 						Title = "n/a",
 						User = "n/a",
 					};
@@ -171,7 +228,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 					sb.Append ("token            = ").Append (token)
 						.Append (System.Environment.NewLine);
 					msg = sb.ToString ();
-				} catch (Exception ex) {
+				} catch (Exception ex)
+                {
 					msg = ex.Message;
 				}
 			}
@@ -295,14 +353,17 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 					string token = default(string);
 					string token_name = default(string);
 					Type t = authenticator.GetType ();
-					if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) {
+					if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) 
+                    {
 						token_name = "access_token";
 						token = account2.Properties [token_name].ToString ();
-					} else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) {
+					} else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) 
+                    {
 						token_name = "oauth_token";
 						token = account2.Properties [token_name].ToString ();
 					}
-					UIAlertView alert = new UIAlertView (
+					UIAlertView alert = new UIAlertView 
+                                        (
 						                    "Token",
 						                    "access_token = " + token,
 						                    null,
@@ -328,31 +389,37 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 			// Android
 			// https://kb.xamarin.com/agent/case/225411
 			// cannot reproduce 
-			try {
+			try 
+            {
 				//------------------------------------------------------------------
 				// Xamarin.iOS - following line throws
 				IEnumerable<Account> accounts = await account_store.FindAccountsForServiceAsync (provider);
 				Account account1 = accounts.FirstOrDefault ();
 				//------------------------------------------------------------------
-				if (null != account1) {
+				if (null != account1) 
+                {
 					string token = default(string);
 					string token_name = default(string);
 					Type t = authenticator.GetType ();
-					if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) {
+					if (t == typeof(Xamarin.Auth.OAuth2Authenticator)) 
+                    {
 						token_name = "access_token";
 						token = account1.Properties [token_name].ToString ();
-					} else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) {
+					} 
+                    else if (t == typeof(Xamarin.Auth.OAuth1Authenticator)) 
+                    {
 						token_name = "oauth_token";
 						token = account1.Properties [token_name].ToString ();
 					}
 					UIAlertView alert = 
-						new UIAlertView (
-							"Token",
-							"access_token = " + token,
-							null,
-							"OK",
-							null
-						);
+						new UIAlertView 
+                                (
+        							"Token",
+        							"access_token = " + token,
+        							null,
+        							"OK",
+        							null
+        						);
 					alert.Show ();
 				}
 			} catch (System.Exception exc) {

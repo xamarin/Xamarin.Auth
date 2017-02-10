@@ -215,6 +215,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
+    </Compile>
+
+		
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">

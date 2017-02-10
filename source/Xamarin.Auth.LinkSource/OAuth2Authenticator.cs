@@ -179,7 +179,13 @@ namespace Xamarin.Auth
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
-        public OAuth2Authenticator(string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+        public OAuth2Authenticator
+                        (
+                            string clientId, string scope, 
+                            Uri authorizeUrl, Uri redirectUrl, 
+                            GetUsernameAsyncFunc getUsernameAsync = null,
+                            bool isUsingNativeUI = true
+                        )
             : this(redirectUrl)
         {
             if (string.IsNullOrEmpty(clientId))
@@ -216,6 +222,9 @@ namespace Xamarin.Auth
             ///---------------------------------------------------------------------------------------
             #endregion
 
+
+            this.IsUsingNativeUI = isUsingNativeUI;
+
             return;
         }
 
@@ -245,7 +254,13 @@ namespace Xamarin.Auth
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
-        public OAuth2Authenticator(string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, GetUsernameAsyncFunc getUsernameAsync = null)
+        public OAuth2Authenticator
+                        (
+                            string clientId, string clientSecret, string scope, 
+                            Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, 
+                            GetUsernameAsyncFunc getUsernameAsync = null,
+                            bool isUsingNativeUI = true
+                        )
             : this(redirectUrl, clientSecret, accessTokenUrl)
         {
             if (string.IsNullOrEmpty(clientId))
@@ -282,10 +297,16 @@ namespace Xamarin.Auth
 
             this.getUsernameAsync = getUsernameAsync;
 
+            this.IsUsingNativeUI = isUsingNativeUI;
+
             return;
         }
 
-        OAuth2Authenticator(Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
+        OAuth2Authenticator
+                        (
+                            Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null, 
+                            bool isUsingNativeUI = true
+                        )
             : base(redirectUrl, redirectUrl)
         {
             if (redirectUrl == null)
@@ -321,6 +342,8 @@ namespace Xamarin.Auth
                 chars[i] = (char)rand.Next((int)'a', (int)'z' + 1);
             }
             this.requestState = new string(chars);
+
+            this.IsUsingNativeUI = isUsingNativeUI;
 
             return;
         }

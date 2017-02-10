@@ -143,6 +143,17 @@
     <Compile Include="System\TypeCode.cs" />
     <Compile Include="System\Type.cs" />
     <Compile Include="WebAuthenticator.Portable.cs" />
+
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
+      <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
+    </Compile>
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.Native.Portable.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
@@ -162,6 +173,9 @@
       <HintPath>..\packages\Validation.2.2.8\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="UINativeNonIntegratedBrowsers\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

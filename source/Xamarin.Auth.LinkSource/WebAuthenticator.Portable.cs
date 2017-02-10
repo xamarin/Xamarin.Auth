@@ -33,8 +33,27 @@ namespace Xamarin.Auth
 	{
 		protected override AuthenticateUIType GetPlatformUI()
 		{
-			throw new NotSupportedException("WebAuthenticator not supported on this platform.");
+            AuthenticateUIType ui = null;
+
+            ui = PlatformUIMethod();
+
+            return ui;
 		}
-	}
+
+        protected AuthenticateUIType GetPlatformUIEmbeddedBrowser()
+        {
+
+            System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
+            System.Object ui = null;
+
+            return ui;
+        }
+
+        public AuthenticateUIType AuthenticationUIPlatformSpecificEmbeddedBrowser()
+        {
+            return GetPlatformUIEmbeddedBrowser();
+        }
+
+    }
 }
 

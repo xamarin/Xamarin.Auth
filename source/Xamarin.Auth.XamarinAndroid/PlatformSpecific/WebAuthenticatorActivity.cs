@@ -67,70 +67,81 @@ namespace Xamarin.Auth
 			//
 			// Watch for completion
 			//
-			state.Authenticator.Completed += (s, e) => {
-				SetResult (e.IsAuthenticated ? Result.Ok : Result.Canceled);
+			state.Authenticator.Completed += 
+                (s, e) => 
+                {
+    				SetResult (e.IsAuthenticated ? Result.Ok : Result.Canceled);
 
-				# region
-				///-------------------------------------------------------------------------------------------------
-				/// Pull Request - manually added/fixed
-				///		Added IsAuthenticated check #88
-				///		https://github.com/xamarin/Xamarin.Auth/pull/88
-				if (e.IsAuthenticated)
-				{
-					   if (state.Authenticator.GetAccountResult != null)
-					   {
-						   var accountResult = state.Authenticator.GetAccountResult(e.Account);
+    				# region
+    				///-------------------------------------------------------------------------------------------------
+    				/// Pull Request - manually added/fixed
+    				///		Added IsAuthenticated check #88
+    				///		https://github.com/xamarin/Xamarin.Auth/pull/88
+    				if (e.IsAuthenticated)
+    				{
+    					   if (state.Authenticator.GetAccountResult != null)
+    					   {
+    						   var accountResult = state.Authenticator.GetAccountResult(e.Account);
 
-						   Bundle result = new Bundle();
-						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountType, accountResult.AccountType);
-						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountName, accountResult.Name);
-						   result.PutString(global::Android.Accounts.AccountManager.KeyAuthtoken, accountResult.Token);
-						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountAuthenticatorResponse, e.Account.Serialize());
-           
-						   SetAccountAuthenticatorResult(result);
-					   }
-				}
-				///-------------------------------------------------------------------------------------------------
-				# endregion
+    						   Bundle result = new Bundle();
+    						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountType, accountResult.AccountType);
+    						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountName, accountResult.Name);
+    						   result.PutString(global::Android.Accounts.AccountManager.KeyAuthtoken, accountResult.Token);
+    						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountAuthenticatorResponse, e.Account.Serialize());
+               
+    						   SetAccountAuthenticatorResult(result);
+    					   }
+    				}
+    				///-------------------------------------------------------------------------------------------------
+	    			# endregion
 
 				Finish ();
-			};
-			state.Authenticator.Error += (s, e) => {
+		    	};
 
-                                if (!state.Authenticator.ShowErrors)
-                                        return;
+			    state.Authenticator.Error += 
+                (s, e) => 
+                {
+                    if (!state.Authenticator.ShowErrors)
+                            return;
 
-                                if (e.Exception != null) {
-					this.ShowError ("Authentication Error", e.Exception);
-				}
-				else {
-					this.ShowError ("Authentication Error", e.Message);
-				}
-				BeginLoadingInitialUrl ();
-			};
+                    if (e.Exception != null) 
+                    {
+                		this.ShowError ("Authentication Error", e.Exception);
+                	}
+				    else 
+                    {
+					    this.ShowError ("Authentication Error", e.Message);
+    				}
+	    			BeginLoadingInitialUrl ();
+			    };
 
-			//
-			// Build the UI
-			//
-			webView = new WebView (this) {
-				Id = 42,
-			};
-			webView.Settings.JavaScriptEnabled = true;
-			webView.SetWebViewClient (new Client (this));
-			SetContentView (webView);
+    			//
+    			// Build the UI
+    			//
+    			webView = new WebView (this) 
+                {
+    				Id = 42,
+    			};
+    			webView.Settings.JavaScriptEnabled = true;
+    			webView.SetWebViewClient (new Client (this));
+    			SetContentView (webView);
 
-			//
-			// Restore the UI state or start over
-			//
-			if (savedInstanceState != null) {
-				webView.RestoreState (savedInstanceState);
-			}
-			else {
-				if (Intent.GetBooleanExtra ("ClearCookies", true))
-					WebAuthenticator.ClearCookies();
+    			//
+    			// Restore the UI state or start over
+    			//
+    			if (savedInstanceState != null) 
+                {
+    				webView.RestoreState (savedInstanceState);
+    			}
+    			else 
+                {
+    				if (Intent.GetBooleanExtra ("ClearCookies", true))
+    					WebAuthenticator.ClearCookies();
 
-				BeginLoadingInitialUrl ();
-			}
+    				BeginLoadingInitialUrl ();
+    			}
+
+            return;
 		}
 
 

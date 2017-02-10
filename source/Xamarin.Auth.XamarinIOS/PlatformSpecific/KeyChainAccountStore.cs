@@ -43,7 +43,7 @@ namespace Xamarin.Auth
 
 		public override void Save (Account account, string serviceId)
 		{
-			SaveAsync(account, serviceId);
+            SaveAsync(account, serviceId);
 
 			return;
 		}

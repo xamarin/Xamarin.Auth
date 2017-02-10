@@ -16,9 +16,17 @@ using Xamarin.Auth.SampleData;
 
 namespace Xamarin.Auth.Sample.XamarinAndroid
 {
-    [Activity (Label = "Xamarin.Auth.Sample.XamarinAndroid", MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity 
+        (
+            Label = "Xamarin.Auth.Sample.XamarinAndroid", 
+            MainLauncher = true, 
+            Icon = "@drawable/icon"
+        )
+    ]
     public class MainActivity : ListActivity 
     {
+        bool test_native_ui = false;
+
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
@@ -37,26 +45,32 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             provider = provider_list [position];
 
             Xamarin.Auth.Helpers.OAuth auth;
-            if (!Data.TestCases.TryGetValue (provider, out auth)) {
+            if (!Data.TestCases.TryGetValue (provider, out auth)) 
+            {
                 Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
             }
-            if (auth is Xamarin.Auth.Helpers.OAuth1) {
+            if (auth is Xamarin.Auth.Helpers.OAuth1) 
+            {
                 Authenticate (auth as Xamarin.Auth.Helpers.OAuth1);
-            } else {
+            } else 
+            {
                 Authenticate (auth as Xamarin.Auth.Helpers.OAuth2);
             }
+
+            return;
         }
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
         {
-            OAuth1Authenticator auth = new OAuth1Authenticator 
+            OAuth1Authenticator auth = new OAuth1Authenticator
                 (
                     consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                     consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                     requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                     authorizeUrl: oauth1.OAuth_UriAuthorization,
                     accessTokenUrl: oauth1.OAuth_UriAccessToken,
-                    callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
+                    callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
+                    isUsingNativeUI: test_native_ui
                 );
 
             auth.AllowCancel = oauth1.AllowCancel;
@@ -66,8 +80,20 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             auth.Error += Auth_Error;
             auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
-            var intent = auth.GetUI (this);
-            StartActivity (intent);
+            System.Object ui_intent_as_object = auth.GetUI(this);
+            if (auth.IsUsingNativeUI == true)
+            {
+                // Add Android.Support.CustomTabs package 
+                global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
+                cti = (global::Android.Support.CustomTabs.CustomTabsIntent)ui_intent_as_object;
+
+            }
+            else 
+            {
+                global::Android.Content.Intent i = null;
+                i = (global::Android.Content.Intent)ui_intent_as_object;
+                StartActivity(i);
+            }
 
             return;
         }
@@ -77,22 +103,29 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             OAuth2Authenticator auth = null;
 
-            if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
-                auth = new OAuth2Authenticator (
-                    clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                    scope: oauth2.OAuth2_Scope,
-                    authorizeUrl: oauth2.OAuth_UriAuthorization,
-                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
-                );
-            } else {
-                auth = new OAuth2Authenticator (
-                    clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                    clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
-                    scope: oauth2.OAuth2_Scope,
-                    authorizeUrl: oauth2.OAuth_UriAuthorization,
-                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                    accessTokenUrl: oauth2.OAuth2_UriRequestToken
-                );
+            if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
+            {
+                auth = new OAuth2Authenticator 
+                    (
+                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                        scope: oauth2.OAuth2_Scope,
+                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                        isUsingNativeUI: test_native_ui
+                    );
+            }
+            else 
+            {
+                auth = new OAuth2Authenticator
+                    (
+                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                        clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
+                        scope: oauth2.OAuth2_Scope,
+                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                        accessTokenUrl: oauth2.OAuth2_UriRequestToken,
+                        isUsingNativeUI: test_native_ui
+                    );
             }
 
             auth.AllowCancel = oauth2.AllowCancel;
@@ -102,8 +135,54 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             auth.Error += Auth_Error;
             auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
-            var intent = auth.GetUI (this);
-            StartActivity (intent);
+            System.Object intent_as_object = auth.GetUI(this);
+            if (auth.IsUsingNativeUI == true)
+            {
+                System.Uri uri_netfx = auth.GetInitialUrlAsync().Result;
+                global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
+
+                // Add Android.Support.CustomTabs package 
+                global::Android.Support.CustomTabs.CustomTabsActivityManager ctam = null;
+                ctam = new global::Android.Support.CustomTabs.CustomTabsActivityManager(this);
+
+                global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
+                cti = (global::Android.Support.CustomTabs.CustomTabsIntent) intent_as_object;
+
+                cti.LaunchUrl(this, uri_android);
+                /*
+                ctam.CustomTabsServiceConnected += delegate
+                {
+                    //ctam.LaunchUrl(uri_android.ToString());
+
+                    return;
+                };
+                ctam.CustomTabsServiceDisconnected += (name) =>
+                {
+                    return;
+                };
+                ctam.ExtraCallback += (sender, e) =>
+                {
+                    return;
+                };
+                ctam.NavigationEvent += (navigationEvent, extras) =>
+                {
+                    return;
+                };
+                ctam.ExtraCallback += (sender, e) =>
+                {
+                    return;
+                }; 
+                ctam.BindService();
+                // ctam.LaunchUrl(uri_android.ToString(), cti);
+                */
+
+            }
+            else
+            {
+                global::Android.Content.Intent i = null;
+                i = (global::Android.Content.Intent)intent_as_object;
+                StartActivity(i);
+            }
 
             return;
         }
