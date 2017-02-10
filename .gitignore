@@ -234,6 +234,8 @@ lib/**
 #------------------------------------------
 # Android
 **/Resources/Resource.[Dd]esigner.cs
+**/Resource.Designer.cs
+**/*.csproj.bak
 #------------------------------------------
 /source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/*.bak
 
@@ -246,4 +248,3 @@ lib/**
 # Universal Windows Platform
 **/project.lock.json
 /source/Xamarin.Auth.UniversalWindowsPlatform/project.lock.json
-/source/XamarinForms/Xamarin.Auth.XamarinForms.Droid/Resources/Resource.Designer.cs
