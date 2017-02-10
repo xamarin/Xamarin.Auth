@@ -229,11 +229,11 @@ namespace Xamarin.Auth
             #endif
             //------------------------------------------------------
             record.Accessible =
-                            SecAccessible.WhenUnlocked
+                            //SecAccessible.WhenUnlocked
                             // Pull Request - manually added/fixed
                             //      Changed SecAccessible.WhenUnLocked to AfterFirstUnLocked #80
                             //      https://github.com/xamarin/Xamarin.Auth/pull/80
-                            //SecAccessible.AfterFirstUnlock; ////THIS IS THE FIX
+                            SecAccessible.AfterFirstUnlock; ////THIS IS THE FIX
                             ;
 
             statusCode = SecKeyChain.Add(record);
@@ -242,20 +242,15 @@ namespace Xamarin.Auth
             {
                 StringBuilder sb = new StringBuilder("error = ");
                 sb.AppendLine("Could not save account to KeyChain: " + statusCode);
-                sb.AppendLine("Add Empty Entitlements.plist");
+                sb.AppendLine("Add Empty Entitlements.plist ");
                 sb.AppendLine(" File /+ New file /+ iOS /+ Entitlements.plist");
                 /*
+                    Error: Could not save account to KeyChain -- iOS 10 #128
                     https://github.com/xamarin/Xamarin.Auth/issues/128 
-                    https://github.com/xamarin/Xamarin.Auth/pull/80
-                    http://stackoverflow.com/questions/39776498/crashing-at-accountstore-create-save-e-account
-                sb.AppendLine("see: ");
-                sb.AppendLine("https://github.com/xamarin/Xamarin.Auth/issues/128");
-                sb.AppendLine("https://github.com/xamarin/Xamarin.Auth/pull/80");
-                sb.AppendLine("http://stackoverflow.com/questions/39776498/crashing-at-accountstore-create-save-e-account");
+                    https://bugzilla.xamarin.com/show_bug.cgi?id=43514
+                    
+                    sb.AppendLine("");
                 */
-                sb.AppendLine("");
-                sb.AppendLine("");
-                sb.AppendLine("");
                 string msg = sb.ToString();
 
                 throw new AuthException(msg);
@@ -272,8 +267,9 @@ namespace Xamarin.Auth
 			
 			var statusCode = SecKeyChain.Remove (query);
 
-			if (statusCode != SecStatusCode.Success) {
-				throw new Exception ("Could not delete account from KeyChain: " + statusCode);
+			if (statusCode != SecStatusCode.Success) 
+            {
+				throw new AuthException ("Could not delete account from KeyChain: " + statusCode);
 			}
 
 			return Task.FromResult (true);
