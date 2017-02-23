@@ -380,6 +380,7 @@ Task ("libs-windows")
 			CreateDirectory ("./output/win81/");
 			CreateDirectory ("./output/winrt/");
 			CreateDirectory ("./output/uap10.0/");
+			CreateDirectory ("./output/uap10.0/Xamarin.Auth/");
 
 			
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
@@ -575,23 +576,18 @@ Task ("libs-windows")
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/**/Release/Xamarin.Auth.pdb", 
-						"./output/uap10.0/"
-					);
-				CopyFiles
-					(
 						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri", 
 						"./output/uap10.0/"
 					);
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml", 
-						"./output/uap10.0/"
+						"./output/uap10.0/Xamarin.Auth/"
 					);
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf", 
-						"./output/uap10.0/"
+						"./output/uap10.0/Xamarin.Auth/"
 					);
 				//-------------------------------------------------------------------------------------
 
