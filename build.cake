@@ -385,21 +385,25 @@ Task ("libs-windows")
 			
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
+			Information("nuget restore {0}", "./source/Xamarin.Auth-Library.sln");
 			NuGetRestore 
 				(
 					"./source/Xamarin.Auth-Library.sln",
 					nuget_restore_settings
 				);
+			Information("nuget restore {0}", "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
 			NuGetRestore 
 				(
 					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 					nuget_restore_settings
 				);
+			Information("nuget restore {0}", "./source/XamarinForms.Auth.sln");
 			NuGetRestore 
 				(
 					"./source/XamarinForms-Xamarin.Auth-Library.sln",
 					nuget_restore_settings
 				);
+			Information("nuget restore {0}", "./source/XamarinForms.Auth-Library-MacOSX-Xamarin.Studio.sln");
 			NuGetRestore 
 				(
 					"./source/XamarinForms-Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
