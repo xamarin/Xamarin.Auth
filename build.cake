@@ -42,82 +42,97 @@ Task ("nuget-fixes")
 	(
 		() => 
 		{
-			if( true /*! IsRunningOnWindows()*/ )
+			/*
+				2016-12-19
+				Fixing nuget 3.4.4 on windows - parsing solution file
+				
+				2016-09
+				Temporary fix for nuget bug MSBuild.exe autodetection on MacOSX and Linux
+
+				This target will be removed in the future! 
+
+				Executing: /Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/tools/Cake/../
+				nuget.exe restore "/Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/Xamarin.Auth/source/source/Xamarin.Auth-Library.sln" -Verbosity detailed -NonInteractive
+				MSBuild auto-detection: using msbuild version '4.0' from '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5'. 
+				Use option -MSBuildVersion to force nuget to use a specific version of MSBuild.
+				MSBuild P2P timeout [ms]: 120000
+				System.AggregateException: One or more errors occurred. 
+				---> 
+				NuGet.CommandLineException: MsBuild.exe does not exist at '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5/msbuild.exe'.
+			
+				NuGet Version: 3.4.4.1321
+
+				https://dist.nuget.org/index.html
+
+				Xamarin CI MacOSX bot uses central cake folder
+					.Contains("Components-Generic-Build-Mac/CI/tools/Cake");
+			*/
+			nuget_tool_path = GetToolPath ("../nuget.exe");
+			cake_tool_path = GetToolPath ("./Cake.exe");
+
+			bool runs_on_xamarin_ci_macosx_bot = false;
+			string path_xamarin_ci_macosx_bot = "Components-Generic-Build-Mac/CI/tools/Cake"; 
+
+			string nuget_location = null;
+			string nuget_location_relative_from_cake_exe = null;
+			
+			if (cake_tool_path.ToString().Contains(path_xamarin_ci_macosx_bot))
 			{
-				/*
-					2016-12-19
-					Fixing nuget 3.4.4 on windows - parsing solution file
-					
-					2016-09
-					Temporary fix for nuget bug MSBuild.exe autodetection on MacOSX and Linux
+				runs_on_xamarin_ci_macosx_bot = true;
+			}
+			else
+			{
+				Information("NOT Running on Xamarin CI MacOSX bot");
+			}
 
-					This target will be removed in the future! 
-
-   					Executing: /Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/tools/Cake/../
-					nuget.exe restore "/Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/Xamarin.Auth/source/source/Xamarin.Auth-Library.sln" -Verbosity detailed -NonInteractive
-    				MSBuild auto-detection: using msbuild version '4.0' from '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5'. 
-					Use option -MSBuildVersion to force nuget to use a specific version of MSBuild.
-    				MSBuild P2P timeout [ms]: 120000
-    				System.AggregateException: One or more errors occurred. 
-					---> 
-					NuGet.CommandLineException: MsBuild.exe does not exist at '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5/msbuild.exe'.
- 				
-					NuGet Version: 3.4.4.1321
-
-					https://dist.nuget.org/index.html
-
-					Xamarin CI MacOSX bot uses central cake folder
-						.Contains("Components-Generic-Build-Mac/CI/tools/Cake");
-				*/
-				nuget_tool_path = GetToolPath ("../nuget.exe");
-				cake_tool_path = GetToolPath ("./Cake.exe");
-
-				bool runs_on_xamarin_ci_macosx_bot = false;
-				string path_xamarin_ci_macosx_bot = "Components-Generic-Build-Mac/CI/tools/Cake"; 
-
-				string nuget_location = null;
-				string nuget_location_relative_from_cake_exe = null;
-				if (cake_tool_path.ToString().Contains(path_xamarin_ci_macosx_bot))
-				{
-					runs_on_xamarin_ci_macosx_bot = true;
-					Information("Running on Xamarin CI MacOSX bot");
-				}
-				else
-				{
-					Information("NOT Running on Xamarin CI MacOSX bot");
-				}
-
-				if (runs_on_xamarin_ci_macosx_bot)
-				{
-					nuget_location = "../../tools/nuget.2.8.6.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
-				}
-				else
-				{
-					nuget_location = "./tools/nuget.2.8.6.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
-				}
-
+			if (runs_on_xamarin_ci_macosx_bot)
+			{
+				Information("Running on Xamarin CI MacOSX bot");
+				
+				nuget_location = "../../tools/nuget.2.8.6.exe";
+				nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
+				
 				Information("nuget_location = {0} ", nuget_location);
-
-				if ( ! FileExists (nuget_location))
+			}
+			else
+			{
+				if (IsRunningOnWindows())
 				{
+					// new nuget is needed for UWP!
+					Information("Running on Windows");
+					nuget_location = "./tools/nuget.3.5.0.exe";
+					nuget_location_relative_from_cake_exe = "../nuget.3.5.0.exe";
+					Information("On Mac downloading 3.5.0 to " + nuget_location);				
+					DownloadFile
+					(					
+						@"https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe",
+						nuget_location
+					);
+				}
+				else
+				{
+					Information("Running on MacOSX (non-Windows)");
+					nuget_location = "./tools/nuget.2.8.6.exe";
+					Information("On Mac downloading 2.8.6 to " + nuget_location);				
+					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
 					DownloadFile
 					(
 						@"https://dist.nuget.org/win-x86-commandline/v2.8.6/nuget.exe",
 						nuget_location
 					);
 				}
-				DirectoryPath path01 = MakeAbsolute(Directory("./"));
-				string path02 = System.IO.Directory.GetCurrentDirectory();
-				string path03 = Environment.CurrentDirectory;
-				// Cake - WorkingDirectory??
-				Information("path01         = {0} ", path01);
-				Information("path02         = {0} ", path02);
-				Information("path03         = {0} ", path03);
-				Information("cake_tool_path = {0} ", cake_tool_path);
-				nuget_tool_path = GetToolPath (nuget_location_relative_from_cake_exe);
 			}
+		
+			DirectoryPath path01 = MakeAbsolute(Directory("./"));
+			string path02 = System.IO.Directory.GetCurrentDirectory();
+			string path03 = Environment.CurrentDirectory;
+			// Cake - WorkingDirectory??
+			Information("path01         = {0} ", path01);
+			Information("path02         = {0} ", path02);
+			Information("path03         = {0} ", path03);
+			Information("cake_tool_path = {0} ", cake_tool_path);
+			
+			nuget_tool_path = GetToolPath (nuget_location_relative_from_cake_exe);
 
 			Information("nuget_tool_path = {0}", nuget_tool_path);
 
