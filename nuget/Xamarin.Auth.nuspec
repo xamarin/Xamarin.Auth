@@ -12,7 +12,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.3.2.2
+			1.3.2.3
 		</version>
 		<title>
 			Xamarin.Auth
@@ -129,29 +129,111 @@
 
 		<!--
 			Windows Phone 8.1 WinRT
+
+			.
+			├── Release
+			│   ├── Xamarin.Auth
+			│   │   ├── WebAuthenticatorPage.xaml
+			│   │   └── Xamarin.Auth.xr.xml
+			│   ├── Xamarin.Auth.dll
+			│   ├── Xamarin.Auth.pdb
+			│   └── Xamarin.Auth.pri
 		-->
 		<file
 			src="output/wpa81/Xamarin.Auth.dll"
 			target="lib/wpa81/Xamarin.Auth.dll"
 			>
 		</file>
+		<file
+			src="output/wpa81/Xamarin.Auth.pdb"
+			target="lib/wpa81/Xamarin.Auth.pdb"
+			>
+		</file>
+		<file
+			src="output/wpa81/Xamarin.Auth.pri"
+			target="lib/wpa81/Xamarin.Auth.pri"
+			>
+		</file>
+		<file
+			src="output/wpa81/Xamarin.Auth/WebAuthenticatorPage.xaml"
+			target="lib/wpa81/Xamarin.Auth/WebAuthenticatorPage.xaml"
+			>
+		</file>
+		<file
+			src="output/wpa81/Xamarin.Auth/WebAuthenticatorPage.xbf"
+			target="lib/wpa81/Xamarin.Auth/WebAuthenticatorPage.xbf"
+			>
+		</file>
+		<file
+			src="output/wpa81/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			target="lib/wpa81/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			>
+		</file>
 
 		<!--
 			Windows 8.1 WinRT
 			Windows Store
+
+			.
+			├── Release
+			│   ├── Xamarin.Auth
+			│   │   ├── WebAuthenticatorPage.xaml
+			│   │   └── Xamarin.Auth.xr.xml
+			│   ├── Xamarin.Auth.dll
+			│   ├── Xamarin.Auth.pdb
+			│   └── Xamarin.Auth.pri
 		-->
 		<file
 			src="output/win81/Xamarin.Auth.dll"
 			target="lib/win81/Xamarin.Auth.dll"
 			>
 		</file>
+		<file
+			src="output/win81/Xamarin.Auth.pdb"
+			target="lib/win81/Xamarin.Auth.pdb"
+			>
+		</file>
+		<file
+			src="output/win81/Xamarin.Auth.pri"
+			target="lib/win81/Xamarin.Auth.pri"
+			>
+		</file>
+		<file
+			src="output/win81/Xamarin.Auth/WebAuthenticatorPage.xaml"
+			target="lib/win81/Xamarin.Auth/WebAuthenticatorPage.xaml"
+			>
+		</file>
+		<file
+			src="output/win81/Xamarin.Auth/WebAuthenticatorPage.xbf"
+			target="lib/win81/Xamarin.Auth/WebAuthenticatorPage.xbf"
+			>
+		</file>
+		<file
+			src="output/win81/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			target="lib/win81/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			>
+		</file>
 		<!--
 			Universal Windows Platform, UWP
 			Windows 10
+
+			.
+			├── Release
+			│   ├── Xamarin.Auth
+			│   │   ├── WebAuthenticatorPage.xaml
+			│   │   └── Xamarin.Auth.xr.xml
+			│   ├── Xamarin.Auth.dll
+			│   ├── Xamarin.Auth.pdb
+			│   └── Xamarin.Auth.pri
 		-->
 		<file
 			src="output/uap10.0/Xamarin.Auth.dll"
 			target="lib/uap10.0/Xamarin.Auth.dll"
+			>
+		</file>
+		<file
+			src="output/uap10.0/Xamarin.Auth.pdb"
+			target="lib/uap10.0/Xamarin.Auth.pdb"
 			>
 		</file>
 		<file
@@ -160,13 +242,13 @@
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
-			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			src="output/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xaml"
+			target="lib/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xaml"
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xbf"
-			target="lib/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xbf"
+			src="output/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
 			>
 		</file>
 
