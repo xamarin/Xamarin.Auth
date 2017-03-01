@@ -26,6 +26,7 @@
     <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +36,7 @@
     <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <GenerateLibraryLayout>true</GenerateLibraryLayout>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <PlatformTarget>x86</PlatformTarget>
@@ -136,7 +138,7 @@
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
       <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
-    </Compile>	
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
     </Compile>
@@ -226,7 +228,6 @@
     <Compile Include="WebAuthenticatorPage.xaml.cs">
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
-		
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
     </Compile>
@@ -236,10 +237,9 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
-		
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Properties\Xamarin.Auth.UniversalWindowsPlatform.rd.xml" />
+    <EmbeddedResource Include="Properties\Xamarin.Auth.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="WebAuthenticatorPage.xaml">

@@ -196,6 +196,8 @@ namespace Xamarin.Auth
 		public void OnSucceeded (string username, IDictionary<string, string> accountProperties)
 		{
 			OnSucceeded (new Account (username, accountProperties));
+
+            return;
 		}
 
 		/// <summary>

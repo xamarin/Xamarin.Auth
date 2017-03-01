@@ -38,7 +38,7 @@ namespace Xamarin.Auth.SampleData
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = ""; // "", "basic", "email",
 			OAuth_UriAuthorization = new Uri("https://m.facebook.com/dialog/oauth/");
-			OAuth_UriCallbackAKARedirect = new Uri("https://xamarin.com");
+			OAuth_UriCallbackAKARedirect = new Uri("http://localhost/");
 			AllowCancel = true;
 						
 			return;

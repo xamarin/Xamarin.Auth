@@ -89,6 +89,8 @@ namespace Xamarin.Auth
 			var query = WebEx.FormDecode (url.Query);
 			var fragment = WebEx.FormDecode (url.Fragment);
 
+        // mc++
+        // TODO: schemas
 			OnPageEncountered (url, query, fragment);
 		}
 
@@ -132,13 +134,18 @@ namespace Xamarin.Auth
 			//
 			// Watch for the redirect
 			//
-			if (UrlMatchesRedirect (url)) {
+			if (UrlMatchesRedirect (url)) 
+            {
+                // mc++
+                // TODO: schemas
 				OnRedirectPageLoaded (url, query, fragment);
 			}
 		}
 
 		private bool UrlMatchesRedirect (Uri url)
 		{
+            // mc++
+            // TODO: schemas
 			return url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath;
 		}
 

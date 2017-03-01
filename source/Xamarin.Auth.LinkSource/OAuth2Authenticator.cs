@@ -467,6 +467,8 @@ namespace Xamarin.Auth
             //
             // Continue processing
             //
+            // mc++
+            // TODO: schemas
             base.OnPageEncountered(url, query, fragment);
         }
 
@@ -502,17 +504,22 @@ namespace Xamarin.Auth
                 if (query.ContainsKey("code"))
                 {
                     var code = query["code"];
-                    RequestAccessTokenAsync(code).ContinueWith(task =>
-                    {
-                        if (task.IsFaulted)
-                        {
-                            OnError(task.Exception);
-                        }
-                        else
-                        {
-                            OnRetrievedAccountProperties(task.Result);
-                        }
-                    }, TaskScheduler.FromCurrentSynchronizationContext());
+                    RequestAccessTokenAsync(code)
+                        .ContinueWith
+                            (
+                                task =>
+                                {
+                                    if (task.IsFaulted)
+                                    {
+                                        OnError(task.Exception);
+                                    }
+                                    else
+                                    {
+                                        OnRetrievedAccountProperties(task.Result);
+                                    }
+                                }, 
+                                TaskScheduler.FromCurrentSynchronizationContext()
+                            );
                 }
                 else
                 {

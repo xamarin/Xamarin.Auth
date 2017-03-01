@@ -21,6 +21,7 @@ using Android.Webkit;
 using Android.OS;
 using System.Threading.Tasks;
 using Xamarin.Utilities.Android;
+using System.Text;
 
 namespace Xamarin.Auth
 {
@@ -219,7 +220,39 @@ namespace Xamarin.Auth
 
 			public override bool ShouldOverrideUrlLoading (WebView view, string url)
 			{
-				return false;
+                string scheme = null;
+                string host = null;
+
+                scheme =
+                    global::Android.Net.Uri.Parse(url).Scheme
+                    ;
+                host =
+                    global::Android.Net.Uri.Parse(url).Host
+                    ;
+
+                activity.state.Authenticator.Host = host;
+                activity.state.Authenticator.Scheme = scheme;
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("Xamarin.Auth.Android.WebAuthenticatorActivity").AppendLine("");
+                sb.Append("             Scheme = ").AppendLine(scheme);
+                sb.Append("             Host   = ").AppendLine(host);
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+
+                if (url != null && scheme == "http" /*url.StartsWith("http://")*/)
+                {
+                    return false;
+                }
+                else if (url != null && scheme == "https" /*url.StartsWith("https://")*/)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+
+                return false;
 			}
 
 			public override void OnPageStarted (WebView view, string url, global::Android.Graphics.Bitmap favicon)
