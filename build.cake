@@ -392,8 +392,9 @@ Task ("libs-windows")
 			CreateDirectory ("./output/wp80/");
 			CreateDirectory ("./output/wp81/");
 			CreateDirectory ("./output/wpa81/");
+			CreateDirectory ("./output/wpa81/Xamarin.Auth/");
 			CreateDirectory ("./output/win81/");
-			CreateDirectory ("./output/winrt/");
+			CreateDirectory ("./output/win81/Xamarin.Auth/");
 			CreateDirectory ("./output/uap10.0/");
 			CreateDirectory ("./output/uap10.0/Xamarin.Auth/");
 
@@ -552,6 +553,18 @@ Task ("libs-windows")
 						"./output/wp81/"
 					);
 				//-------------------------------------------------------------------------------------
+				/*
+					Dependencies omitted!! 
+					.
+					├── Release
+					│   ├── Xamarin.Auth
+					│   │   ├── WebAuthenticatorPage.xaml
+					│   │   ├── WebAuthenticatorPage.xbf
+					│   │   └── Xamarin.Auth.xr.xml
+					│   ├── Xamarin.Auth.dll
+					│   ├── Xamarin.Auth.pdb
+					│   └── Xamarin.Auth.pri
+				*/
 				MSBuild
 					(
 						"./source/Xamarin.Auth.WinRTWindows81/Xamarin.Auth.WinRTWindows81.csproj", 
@@ -562,10 +575,47 @@ Task ("libs-windows")
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.dll", 
+						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.dll", 
 						"./output/win81/"
 					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pdb", 
+						"./output/win81/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pri", 
+						"./output/win81/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+						"./output/win81/Xamarin.Auth/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+						"./output/win81/Xamarin.Auth/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+						"./output/win81/Xamarin.Auth/"
+					);
 				//-------------------------------------------------------------------------------------
+				/*
+					Dependencies omitted!! 
+					.
+					├── Release
+					│   ├── Xamarin.Auth
+					│   │   ├── WebAuthenticatorPage.xaml
+					│   │   ├── WebAuthenticatorPage.xbf
+					│   │   └── Xamarin.Auth.xr.xml
+					│   ├── Xamarin.Auth.dll
+					│   ├── Xamarin.Auth.pdb
+					│   └── Xamarin.Auth.pri
+				*/
 				MSBuild
 					(
 						"./source/Xamarin.Auth.WinRTWindowsPhone81/Xamarin.Auth.WinRTWindowsPhone81.csproj", 
@@ -576,10 +626,46 @@ Task ("libs-windows")
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.dll", 
+						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.dll", 
 						"./output/wpa81/"
 					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pdb", 
+						"./output/wpa81/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pri", 
+						"./output/wpa81/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+						"./output/wpa81/Xamarin.Auth/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+						"./output/wpa81/Xamarin.Auth/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+						"./output/wpa81/Xamarin.Auth/"
+					);
 				//-------------------------------------------------------------------------------------
+				/*
+					Dependencies omitted!! 
+					.
+					├── Release
+					│   ├── Xamarin.Auth
+					│   │   ├── WebAuthenticatorPage.xaml
+					│   │   └── Xamarin.Auth.xr.xml
+					│   ├── Xamarin.Auth.dll
+					│   ├── Xamarin.Auth.pdb
+					│   └── Xamarin.Auth.pri
+				*/
 				MSBuild
 					(
 						"./source/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj", 
@@ -595,19 +681,32 @@ Task ("libs-windows")
 					);
 				CopyFiles
 					(
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pdb", 
+						"./output/uap10.0/"
+					);
+				CopyFiles
+					(
 						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri", 
 						"./output/uap10.0/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml", 
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
 						"./output/uap10.0/Xamarin.Auth/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf", 
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
 						"./output/uap10.0/Xamarin.Auth/"
 					);
+				/*
+					.net Native - Linking stuff - not needed
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Properties/Xamarin.Auth.rd.xml", 
+						"./output/uap10.0/Properties/"
+					);
+				*/
 				//-------------------------------------------------------------------------------------
 
 
