@@ -763,13 +763,16 @@ string[] sample_solutions_macosx = new []
 {
 	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	//"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE-MacOSX-Xamarin.Studio.sln", // could not build shared project on CI
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
 };
 string[] sample_solutions_windows = new []
 {
 	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
 	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
-	
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln", 
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
 	// "samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
 	// "samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
 	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
@@ -797,9 +800,9 @@ string[] sample_solutions_windows = new []
 
 string[] sample_solutions = 
 			sample_solutions_macosx
-				//.Concat(sample_solutions_windows)  // comment out this line if in need
-				.ToArray()
-				;
+			.Concat(sample_solutions_windows)  // comment out this line if in need
+			.ToArray()
+			;
 
 string[] build_configurations =  new []
 {
@@ -846,6 +849,14 @@ Task ("samples-macosx")
 				{
 					if ( IsRunningOnWindows() )
 					{
+						MSBuild
+							(
+								sample_solution, 
+								c => 
+								{
+									c.SetConfiguration(configuration);
+								}
+							);						
 					}
 					else
 					{
