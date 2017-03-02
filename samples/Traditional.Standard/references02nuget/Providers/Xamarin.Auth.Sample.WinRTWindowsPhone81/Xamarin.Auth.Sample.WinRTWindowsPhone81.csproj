@@ -110,11 +110,6 @@
     <Folder Include="SamplesData.Linked\SampleData\Providers" />
     <Folder Include="SamplesData.Linked\SampleData\Providers\secure" />
     -->
-  <ItemGroup>
-    <Compile Include="..\..\..\..\Xamarin.Auth.SampleData\SampleData\Providers\secure\TwitterOAuth1.secure.cs">
-      <Link>SamplesData.Linked\SampleData\Providers\secure\TwitterOAuth1.secure.cs</Link>
-    </Compile>
-  </ItemGroup>
   <!--
     ==================================================================================================
     -->
