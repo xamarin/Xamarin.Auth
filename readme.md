@@ -1,6 +1,24 @@
 # Xamarin.Auth
 
-v.1.3.0
+## Release Notes
+
+### v.1.3.2.3
+
+1.	fixes for nuget packaging for Windows	
+	*.rd.xml Runtime Directive files BuildAction=EmbeddedResource and paths		
+	1.	Windows Universal Platform		
+	2.	Windows Store 8.1 (WinRT)		
+	3.	Windows Phone 8.1 (WinRT)		
+2.	Initial bits for Native App (Browser) support	
+	1.	Android - [Chrome] Custom Tabs 		
+		NOTE: braking changes GetUI() returns object instead of Intent!		
+		Xamarin.Android.Support.CustomTabs package must be added to the
+		application.
+	2.	iOS - Safari ViewController		
+		SafariServices.SFSafariViewController		
+		NOTE: braking changes GetUI() returns object instead of UIViewController!		
+		
+### v.1.3.0+
 
 1.	new platforms supported:
 	1.	Windows Phone 8 		
