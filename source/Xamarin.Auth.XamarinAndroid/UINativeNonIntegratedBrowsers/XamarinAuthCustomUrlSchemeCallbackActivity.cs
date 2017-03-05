@@ -2,14 +2,9 @@
 
 namespace Xamarin.Auth
 {
-    [global::Android.App.Activity
-        (
-            Label = "Xamarin.Auth.CustomUrlSchemeCallbackActivity",
-            MainLauncher = true,
-            Icon = "@drawable/icon"
-        )
-    ]
-    [global::Android.App.IntentFilter
+    [global::Android.App.Activity()]
+    [
+        global::Android.App.IntentFilter
         (
             new[] { global::Android.Content.Intent.ActionView },
             DataScheme = "xamarin.auth",

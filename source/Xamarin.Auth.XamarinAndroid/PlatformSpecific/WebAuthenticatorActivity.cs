@@ -25,201 +25,206 @@ using System.Text;
 
 namespace Xamarin.Auth
 {
-	[Activity (Label = "Web Authenticator")]
+    [Activity(Label = "Web Authenticator")]
 #if XAMARIN_AUTH_INTERNAL
 	internal class WebAuthenticatorActivity : Activity
 #else
-	/// Pull Request - manually added/fixed
-	///		Marshalled NavigationService.GoBack to UI Thread #94
-	///		https://github.com/xamarin/Xamarin.Auth/pull/88
-	//public class WebAuthenticatorActivity : Activity
-	public class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    /// Pull Request - manually added/fixed
+    ///		Marshalled NavigationService.GoBack to UI Thread #94
+    ///		https://github.com/xamarin/Xamarin.Auth/pull/88
+    //public class WebAuthenticatorActivity : Activity
+    public class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
 #endif
-	{
-		WebView webView;
+    {
+        WebView webView;
 
-		internal class State : Java.Lang.Object
-		{
-			public WebAuthenticator Authenticator;
-		}
-		internal static readonly ActivityStateRepository<State> StateRepo = new ActivityStateRepository<State> ();
+        internal class State : Java.Lang.Object
+        {
+            public WebAuthenticator Authenticator;
+        }
+        internal static readonly ActivityStateRepository<State> StateRepo = new ActivityStateRepository<State>();
 
-		State state;
+        State state;
 
-		protected override void OnCreate (Bundle savedInstanceState)
-		{
-			base.OnCreate (savedInstanceState);
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
 
-			//
-			// Load the state either from a configuration change or from the intent.
-			//
-			state = LastNonConfigurationInstance as State;
-			if (state == null && Intent.HasExtra ("StateKey")) {
-				var stateKey = Intent.GetStringExtra ("StateKey");
-				state = StateRepo.Remove (stateKey);
-			}
-			if (state == null) {
-				Finish ();
-				return;
-			}
+            //
+            // Load the state either from a configuration change or from the intent.
+            //
+            state = LastNonConfigurationInstance as State;
+            if (state == null && Intent.HasExtra("StateKey"))
+            {
+                var stateKey = Intent.GetStringExtra("StateKey");
+                state = StateRepo.Remove(stateKey);
+            }
+            if (state == null)
+            {
+                Finish();
+                return;
+            }
 
-			Title = state.Authenticator.Title;
+            Title = state.Authenticator.Title;
 
-			//
-			// Watch for completion
-			//
-			state.Authenticator.Completed += 
-                (s, e) => 
+            //
+            // Watch for completion
+            //
+            state.Authenticator.Completed +=
+                (s, e) =>
                 {
-    				SetResult (e.IsAuthenticated ? Result.Ok : Result.Canceled);
+                    SetResult(e.IsAuthenticated ? Result.Ok : Result.Canceled);
 
-    				# region
-    				///-------------------------------------------------------------------------------------------------
-    				/// Pull Request - manually added/fixed
-    				///		Added IsAuthenticated check #88
-    				///		https://github.com/xamarin/Xamarin.Auth/pull/88
-    				if (e.IsAuthenticated)
-    				{
-    					   if (state.Authenticator.GetAccountResult != null)
-    					   {
-    						   var accountResult = state.Authenticator.GetAccountResult(e.Account);
-
-    						   Bundle result = new Bundle();
-    						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountType, accountResult.AccountType);
-    						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountName, accountResult.Name);
-    						   result.PutString(global::Android.Accounts.AccountManager.KeyAuthtoken, accountResult.Token);
-    						   result.PutString(global::Android.Accounts.AccountManager.KeyAccountAuthenticatorResponse, e.Account.Serialize());
-               
-    						   SetAccountAuthenticatorResult(result);
-    					   }
-    				}
-    				///-------------------------------------------------------------------------------------------------
-	    			# endregion
-
-				Finish ();
-		    	};
-
-			    state.Authenticator.Error += 
-                (s, e) => 
-                {
-                    if (!state.Authenticator.ShowErrors)
-                            return;
-
-                    if (e.Exception != null) 
+                    #region
+                    ///-------------------------------------------------------------------------------------------------
+                    /// Pull Request - manually added/fixed
+                    ///		Added IsAuthenticated check #88
+                    ///		https://github.com/xamarin/Xamarin.Auth/pull/88
+                    if (e.IsAuthenticated)
                     {
-                		this.ShowError ("Authentication Error", e.Exception);
-                	}
-				    else 
-                    {
-					    this.ShowError ("Authentication Error", e.Message);
-    				}
-	    			BeginLoadingInitialUrl ();
-			    };
+                        if (state.Authenticator.GetAccountResult != null)
+                        {
+                            var accountResult = state.Authenticator.GetAccountResult(e.Account);
 
-    			//
-    			// Build the UI
-    			//
-    			webView = new WebView (this) 
-                {
-    				Id = 42,
-    			};
-    			webView.Settings.JavaScriptEnabled = true;
-    			webView.SetWebViewClient (new Client (this));
-    			SetContentView (webView);
+                            Bundle result = new Bundle();
+                            result.PutString(global::Android.Accounts.AccountManager.KeyAccountType, accountResult.AccountType);
+                            result.PutString(global::Android.Accounts.AccountManager.KeyAccountName, accountResult.Name);
+                            result.PutString(global::Android.Accounts.AccountManager.KeyAuthtoken, accountResult.Token);
+                            result.PutString(global::Android.Accounts.AccountManager.KeyAccountAuthenticatorResponse, e.Account.Serialize());
 
-    			//
-    			// Restore the UI state or start over
-    			//
-    			if (savedInstanceState != null) 
-                {
-    				webView.RestoreState (savedInstanceState);
-    			}
-    			else 
-                {
-    				if (Intent.GetBooleanExtra ("ClearCookies", true))
-    					WebAuthenticator.ClearCookies();
+                            SetAccountAuthenticatorResult(result);
+                        }
+                    }
+                    ///-------------------------------------------------------------------------------------------------
+                    #endregion
 
-    				BeginLoadingInitialUrl ();
-    			}
+                    Finish();
+                };
+
+            state.Authenticator.Error +=
+            (s, e) =>
+            {
+                if (!state.Authenticator.ShowErrors)
+                    return;
+
+                if (e.Exception != null)
+                {
+                    this.ShowError("Authentication Error", e.Exception);
+                }
+                else
+                {
+                    this.ShowError("Authentication Error", e.Message);
+                }
+                BeginLoadingInitialUrl();
+            };
+
+            //
+            // Build the UI
+            //
+            webView = new WebView(this)
+            {
+                Id = 42,
+            };
+            webView.Settings.JavaScriptEnabled = true;
+            webView.SetWebViewClient(new Client(this));
+            SetContentView(webView);
+
+            //
+            // Restore the UI state or start over
+            //
+            if (savedInstanceState != null)
+            {
+                webView.RestoreState(savedInstanceState);
+            }
+            else
+            {
+                if (Intent.GetBooleanExtra("ClearCookies", true))
+                    WebAuthenticator.ClearCookies();
+
+                BeginLoadingInitialUrl();
+            }
 
             return;
-		}
+        }
 
 
-		# region
-		///-------------------------------------------------------------------------------------------------
-		/// Pull Request - manually added/fixed
-		///		Added IsAuthenticated check #88
-		///		https://github.com/xamarin/Xamarin.Auth/pull/88
-		protected override void OnResume()
-		{
-			base.OnResume();
-			if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
-			{
-				state.Authenticator.OnCancelled();
-			}
-		}
-		///-------------------------------------------------------------------------------------------------
-		# endregion
+        #region
+        ///-------------------------------------------------------------------------------------------------
+        /// Pull Request - manually added/fixed
+        ///		Added IsAuthenticated check #88
+        ///		https://github.com/xamarin/Xamarin.Auth/pull/88
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
+            {
+                state.Authenticator.OnCancelled();
+            }
+        }
+        ///-------------------------------------------------------------------------------------------------
+        #endregion
 
-		void BeginLoadingInitialUrl ()
-		{
-			state.Authenticator.GetInitialUrlAsync ().ContinueWith (t => {
-				if (t.IsFaulted) {
+        void BeginLoadingInitialUrl()
+        {
+            state.Authenticator.GetInitialUrlAsync().ContinueWith(t =>
+            {
+                if (t.IsFaulted)
+                {
 
-                                        if (!state.Authenticator.ShowErrors)
-                                                return;
+                    if (!state.Authenticator.ShowErrors)
+                        return;
 
-                                        this.ShowError ("Authentication Error", t.Exception);
-				}
-				else {
-					webView.LoadUrl (t.Result.AbsoluteUri);
-				}
-			}, TaskScheduler.FromCurrentSynchronizationContext ());
-		}
+                    this.ShowError("Authentication Error", t.Exception);
+                }
+                else
+                {
+                    webView.LoadUrl(t.Result.AbsoluteUri);
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
 
-		public override void OnBackPressed ()
-		{
-			if (state.Authenticator.AllowCancel)
-			{
-				state.Authenticator.OnCancelled ();
-			}
-		}
+        public override void OnBackPressed()
+        {
+            if (state.Authenticator.AllowCancel)
+            {
+                state.Authenticator.OnCancelled();
+            }
+        }
 
-		public override Java.Lang.Object OnRetainNonConfigurationInstance ()
-		{
-			return state;
-		}
+        public override Java.Lang.Object OnRetainNonConfigurationInstance()
+        {
+            return state;
+        }
 
-		protected override void OnSaveInstanceState (Bundle outState)
-		{
-			base.OnSaveInstanceState (outState);
-			webView.SaveState (outState);
-		}
+        protected override void OnSaveInstanceState(Bundle outState)
+        {
+            base.OnSaveInstanceState(outState);
+            webView.SaveState(outState);
+        }
 
-		void BeginProgress (string message)
-		{
-			webView.Enabled = false;
-		}
+        void BeginProgress(string message)
+        {
+            webView.Enabled = false;
+        }
 
-		void EndProgress ()
-		{
-			webView.Enabled = true;
-		}
+        void EndProgress()
+        {
+            webView.Enabled = true;
+        }
 
-		class Client : WebViewClient
-		{
-			WebAuthenticatorActivity activity;
-			HashSet<SslCertificate> sslContinue;
-			Dictionary<SslCertificate, List<SslErrorHandler>> inProgress;
+        class Client : WebViewClient
+        {
+            WebAuthenticatorActivity activity;
+            HashSet<SslCertificate> sslContinue;
+            Dictionary<SslCertificate, List<SslErrorHandler>> inProgress;
 
-			public Client (WebAuthenticatorActivity activity)
-			{
-				this.activity = activity;
-			}
+            public Client(WebAuthenticatorActivity activity)
+            {
+                this.activity = activity;
+            }
 
-			public override bool ShouldOverrideUrlLoading (WebView view, string url)
-			{
+            public override bool ShouldOverrideUrlLoading(WebView view, string url)
+            {
                 string scheme = null;
                 string host = null;
 
@@ -253,117 +258,123 @@ namespace Xamarin.Auth
                 }
 
                 return false;
-			}
+            }
 
-			public override void OnPageStarted (WebView view, string url, global::Android.Graphics.Bitmap favicon)
-			{
-				var uri = new Uri (url);
-				activity.state.Authenticator.OnPageLoading (uri);
-				activity.BeginProgress (uri.Authority);
-			}
+            public override void OnPageStarted(WebView view, string url, global::Android.Graphics.Bitmap favicon)
+            {
+                var uri = new Uri(url);
+                activity.state.Authenticator.OnPageLoading(uri);
+                activity.BeginProgress(uri.Authority);
+            }
 
-			public override void OnPageFinished (WebView view, string url)
-			{
-				var uri = new Uri (url);
-				activity.state.Authenticator.OnPageLoaded (uri);
-				activity.EndProgress ();
-			}
+            public override void OnPageFinished(WebView view, string url)
+            {
+                var uri = new Uri(url);
+                activity.state.Authenticator.OnPageLoaded(uri);
+                activity.EndProgress();
+            }
 
-			class SslCertificateEqualityComparer
-				: IEqualityComparer<SslCertificate>
-			{
-				public bool Equals (SslCertificate x, SslCertificate y)
-				{
-					return Equals (x.IssuedTo, y.IssuedTo) && Equals (x.IssuedBy, y.IssuedBy) && x.ValidNotBeforeDate.Equals (y.ValidNotBeforeDate) && x.ValidNotAfterDate.Equals (y.ValidNotAfterDate);
-				}
+            class SslCertificateEqualityComparer
+                : IEqualityComparer<SslCertificate>
+            {
+                public bool Equals(SslCertificate x, SslCertificate y)
+                {
+                    return Equals(x.IssuedTo, y.IssuedTo) && Equals(x.IssuedBy, y.IssuedBy) && x.ValidNotBeforeDate.Equals(y.ValidNotBeforeDate) && x.ValidNotAfterDate.Equals(y.ValidNotAfterDate);
+                }
 
-				bool Equals (SslCertificate.DName x, SslCertificate.DName y)
-				{
-					if (ReferenceEquals (x, y))
-						return true;
-					
-					# region
-					///-------------------------------------------------------------------------------------------------
-					/// Pull Request - manually added/fixed
-					///		bug fix in SslCertificateEqualityComparer #76
-					///		https://github.com/xamarin/Xamarin.Auth/pull/76
-					//if (ReferenceEquals (x, y) || ReferenceEquals (null, y))
-					if (ReferenceEquals (x, null) || ReferenceEquals (null, y))
-						return false;
-					///-------------------------------------------------------------------------------------------------
-					# endregion
-					return x.GetDName().Equals (y.GetDName());
-				}
+                bool Equals(SslCertificate.DName x, SslCertificate.DName y)
+                {
+                    if (ReferenceEquals(x, y))
+                        return true;
 
-				public int GetHashCode (SslCertificate obj)
-				{
-					unchecked {
-						int hashCode = GetHashCode (obj.IssuedTo);
-						hashCode = (hashCode * 397) ^ GetHashCode (obj.IssuedBy);
-						hashCode = (hashCode * 397) ^ obj.ValidNotBeforeDate.GetHashCode();
-						hashCode = (hashCode * 397) ^ obj.ValidNotAfterDate.GetHashCode();
-						return hashCode;
-					}
-				}
+                    #region
+                    ///-------------------------------------------------------------------------------------------------
+                    /// Pull Request - manually added/fixed
+                    ///		bug fix in SslCertificateEqualityComparer #76
+                    ///		https://github.com/xamarin/Xamarin.Auth/pull/76
+                    //if (ReferenceEquals (x, y) || ReferenceEquals (null, y))
+                    if (ReferenceEquals(x, null) || ReferenceEquals(null, y))
+                        return false;
+                    ///-------------------------------------------------------------------------------------------------
+                    #endregion
+                    return x.GetDName().Equals(y.GetDName());
+                }
 
-				int GetHashCode (SslCertificate.DName dname)
-				{
-					return dname.GetDName().GetHashCode();
-				}
-			}
+                public int GetHashCode(SslCertificate obj)
+                {
+                    unchecked
+                    {
+                        int hashCode = GetHashCode(obj.IssuedTo);
+                        hashCode = (hashCode * 397) ^ GetHashCode(obj.IssuedBy);
+                        hashCode = (hashCode * 397) ^ obj.ValidNotBeforeDate.GetHashCode();
+                        hashCode = (hashCode * 397) ^ obj.ValidNotAfterDate.GetHashCode();
+                        return hashCode;
+                    }
+                }
 
-			public override void OnReceivedSslError (WebView view, SslErrorHandler handler, SslError error)
-			{
-				if (sslContinue == null) {
-					var certComparer = new SslCertificateEqualityComparer();
-					sslContinue = new HashSet<SslCertificate> (certComparer);
-					inProgress = new Dictionary<SslCertificate, List<SslErrorHandler>> (certComparer);
-				}
+                int GetHashCode(SslCertificate.DName dname)
+                {
+                    return dname.GetDName().GetHashCode();
+                }
+            }
 
-				List<SslErrorHandler> handlers;
-				if (inProgress.TryGetValue (error.Certificate, out handlers)) {
-					handlers.Add (handler);
-					return;
-				}
+            public override void OnReceivedSslError(WebView view, SslErrorHandler handler, SslError error)
+            {
+                if (sslContinue == null)
+                {
+                    var certComparer = new SslCertificateEqualityComparer();
+                    sslContinue = new HashSet<SslCertificate>(certComparer);
+                    inProgress = new Dictionary<SslCertificate, List<SslErrorHandler>>(certComparer);
+                }
 
-				if (sslContinue.Contains (error.Certificate)) {
-					handler.Proceed();
-					return;
-				}
+                List<SslErrorHandler> handlers;
+                if (inProgress.TryGetValue(error.Certificate, out handlers))
+                {
+                    handlers.Add(handler);
+                    return;
+                }
 
-				inProgress[error.Certificate] = new List<SslErrorHandler>();
+                if (sslContinue.Contains(error.Certificate))
+                {
+                    handler.Proceed();
+                    return;
+                }
 
-				AlertDialog.Builder builder = new AlertDialog.Builder (this.activity);
-				builder.SetTitle ("Security warning");
-				builder.SetIcon (global::Android.Resource.Drawable.IcDialogAlert);
-				builder.SetMessage ("There are problems with the security certificate for this site.");
-				
-				builder.SetNegativeButton ("Go back", (sender, args) => {
-					UpdateInProgressHandlers (error.Certificate, h => h.Cancel());
-					handler.Cancel();
-				});
+                inProgress[error.Certificate] = new List<SslErrorHandler>();
 
-				builder.SetPositiveButton ("Continue", (sender, args) => {
-					sslContinue.Add (error.Certificate);
-					UpdateInProgressHandlers (error.Certificate, h => h.Proceed());
-					handler.Proceed();
-				});
-				
-				builder.Create().Show();
-			}
+                AlertDialog.Builder builder = new AlertDialog.Builder(this.activity);
+                builder.SetTitle("Security warning");
+                builder.SetIcon(global::Android.Resource.Drawable.IcDialogAlert);
+                builder.SetMessage("There are problems with the security certificate for this site.");
 
-			void UpdateInProgressHandlers (SslCertificate certificate, Action<SslErrorHandler> update)
-			{
-				List<SslErrorHandler> inProgressHandlers;
-				if (!this.inProgress.TryGetValue (certificate, out inProgressHandlers))
-					return;
+                builder.SetNegativeButton("Go back", (sender, args) =>
+                {
+                    UpdateInProgressHandlers(error.Certificate, h => h.Cancel());
+                    handler.Cancel();
+                });
 
-				foreach (SslErrorHandler sslErrorHandler in inProgressHandlers)
-					update (sslErrorHandler);
+                builder.SetPositiveButton("Continue", (sender, args) =>
+                {
+                    sslContinue.Add(error.Certificate);
+                    UpdateInProgressHandlers(error.Certificate, h => h.Proceed());
+                    handler.Proceed();
+                });
 
-				inProgressHandlers.Clear();
-			}
-		}
-	}
+                builder.Create().Show();
+            }
+
+            void UpdateInProgressHandlers(SslCertificate certificate, Action<SslErrorHandler> update)
+            {
+                List<SslErrorHandler> inProgressHandlers;
+                if (!this.inProgress.TryGetValue(certificate, out inProgressHandlers))
+                    return;
+
+                foreach (SslErrorHandler sslErrorHandler in inProgressHandlers)
+                    update(sslErrorHandler);
+
+                inProgressHandlers.Clear();
+            }
+        }
+    }
 }
 
