@@ -92,6 +92,8 @@ namespace Xamarin.Auth
         // mc++
         // TODO: schemas
 			OnPageEncountered (url, query, fragment);
+
+            return;
 		}
 
 		/// <summary>
@@ -136,9 +138,8 @@ namespace Xamarin.Auth
 			//
 			if (UrlMatchesRedirect (url)) 
             {
-                // mc++
-                // TODO: schemas
-				OnRedirectPageLoaded (url, query, fragment);
+                // TODO:  mc++ schemas
+                OnRedirectPageLoaded(url, query, fragment);
 			}
 		}
 
@@ -163,7 +164,10 @@ namespace Xamarin.Auth
 		/// </param>
 		protected virtual void OnRedirectPageLoaded (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
-			OnSucceeded ("", fragment);
+            // TODO:  mc++ schemas
+            OnSucceeded("", fragment);
+
+            return;
 		}
 	}
 }

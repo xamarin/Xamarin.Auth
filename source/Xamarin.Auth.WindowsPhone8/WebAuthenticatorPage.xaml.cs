@@ -22,24 +22,24 @@ using Microsoft.Phone.Shell;
 
 namespace Xamarin.Auth.WindowsPhone
 {
-	public partial class WebAuthenticatorPage : PhoneApplicationPage
-	{
-		public WebAuthenticatorPage()
-		{
-			InitializeComponent();
+    public partial class WebAuthenticatorPage : PhoneApplicationPage
+    {
+        public WebAuthenticatorPage()
+        {
+            InitializeComponent();
 
-			this.browser.Navigating += OnBrowserNavigating;
-			this.browser.Navigated += OnBrowserNavigated;
-			this.browser.NavigationFailed += OnBrowserNavigationFailed;
+            this.browser.Navigating += OnBrowserNavigating;
+            this.browser.Navigated += OnBrowserNavigated;
+            this.browser.NavigationFailed += OnBrowserNavigationFailed;
 
-			Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+            Windows.Phone.UI.Input.HardwareButtons.BackPressed += HardwareButtons_BackPressed;
 
-			return;
-		}
+            return;
+        }
 
-		private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
-		{
-			/*
+        private void HardwareButtons_BackPressed(object sender, Windows.Phone.UI.Input.BackPressedEventArgs e)
+        {
+            /*
 			System.Windows.Controls.Frame rootFrame = this.Content as Frame;
 			if (rootFrame != null && rootFrame.CanGoBack && MainWebView.CanGoBack)
 			{
@@ -47,97 +47,97 @@ namespace Xamarin.Auth.WindowsPhone
 				MainWebView.GoBack();
 			}
 			*/
-			return;
-		}
+            return;
+        }
 
-		protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
-		{
-			base.OnBackKeyPress(e);
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnBackKeyPress(e);
 
 
-			if (browser.CanGoBack)
-			{
-				e.Cancel = true;
-				browser.GoBack();
-			}
-			else
-			{
-				return;
-			}
-		}
-	
-		private WebAuthenticator auth;
+            if (browser.CanGoBack)
+            {
+                e.Cancel = true;
+                browser.GoBack();
+            }
+            else
+            {
+                return;
+            }
+        }
 
-		protected override async void OnNavigatedTo (NavigationEventArgs e)
-		{
-			string key = NavigationContext.QueryString["key"];
+        private WebAuthenticator auth;
 
-			this.auth = (WebAuthenticator)PhoneApplicationService.Current.State[key];
-			//this.auth.Completed += (sender, args) => NavigationService.GoBack(); // throws on BackButton
-			this.auth.Completed += auth_Completed;
-			this.auth.Error += OnAuthError;
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            string key = NavigationContext.QueryString["key"];
 
-			PhoneApplicationService.Current.State.Remove (key);
+            this.auth = (WebAuthenticator)PhoneApplicationService.Current.State[key];
+            //this.auth.Completed += (sender, args) => NavigationService.GoBack(); // throws on BackButton
+            this.auth.Completed += auth_Completed;
+            this.auth.Error += OnAuthError;
 
-			if (this.auth.ClearCookiesBeforeLogin)
-				await this.browser.ClearCookiesAsync();
+            PhoneApplicationService.Current.State.Remove(key);
 
-			Uri uri = await this.auth.GetInitialUrlAsync();
-			this.browser.Source = uri;
+            if (this.auth.ClearCookiesBeforeLogin)
+                await this.browser.ClearCookiesAsync();
 
-			base.OnNavigatedTo (e);
-		}
+            Uri uri = await this.auth.GetInitialUrlAsync();
+            this.browser.Source = uri;
 
-		void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
-		{
-			if (NavigationService.CanGoBack)
-			{
-				// Pull Request - manually added/fixed
-				//		Marshalled NavigationService.GoBack to UI Thread #94
-				//		https://github.com/xamarin/Xamarin.Auth/pull/94
-				Dispatcher.BeginInvoke
-				(
-					() =>
-					{
-						NavigationService.GoBack();
-					}
-				);
-			}
+            base.OnNavigatedTo(e);
+        }
 
-			return;
-		}
+        void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            if (NavigationService.CanGoBack)
+            {
+                // Pull Request - manually added/fixed
+                //		Marshalled NavigationService.GoBack to UI Thread #94
+                //		https://github.com/xamarin/Xamarin.Auth/pull/94
+                Dispatcher.BeginInvoke
+                (
+                    () =>
+                    {
+                        NavigationService.GoBack();
+                    }
+                );
+            }
 
-		protected override void OnNavigatedFrom (NavigationEventArgs e)
-		{
-			this.auth.OnCancelled();
-			base.OnNavigatedFrom (e);
-		}
+            return;
+        }
 
-		private void OnAuthError (object sender, AuthenticatorErrorEventArgs e)
-		{
-			MessageBox.Show (e.Message, "Error", MessageBoxButton.OK);
-			//NavigationService.GoBack();
-		}
+        protected override void OnNavigatedFrom(NavigationEventArgs e)
+        {
+            this.auth.OnCancelled();
+            base.OnNavigatedFrom(e);
+        }
 
-		private void OnBrowserNavigationFailed (object sender, NavigationFailedEventArgs e)
-		{
-			this.progress.IsVisible = false;
-			if (e.Exception == null)
-				this.auth.OnError ("Unknown"); // Shows up when not connected to the internet
-			else
-				this.auth.OnError (e.Exception);
-		}
+        private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
+        {
+            MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
+            //NavigationService.GoBack();
+        }
 
-		private void OnBrowserNavigated (object sender, NavigationEventArgs e)
-		{
-			this.progress.IsVisible = false;
-			this.auth.OnPageLoaded (e.Uri);
-		}
+        private void OnBrowserNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            this.progress.IsVisible = false;
+            if (e.Exception == null)
+                this.auth.OnError("Unknown"); // Shows up when not connected to the internet
+            else
+                this.auth.OnError(e.Exception);
+        }
 
-		private void OnBrowserNavigating (object sender, NavigatingEventArgs e)
-		{
-			this.progress.IsVisible = true;
-			this.auth.OnPageLoading (e.Uri);
-		}
-	}
+        private void OnBrowserNavigated(object sender, NavigationEventArgs e)
+        {
+            this.progress.IsVisible = false;
+            this.auth.OnPageLoaded(e.Uri);
+        }
+
+        private void OnBrowserNavigating(object sender, NavigatingEventArgs e)
+        {
+            this.progress.IsVisible = true;
+            this.auth.OnPageLoading(e.Uri);
+        }
+    }
 }

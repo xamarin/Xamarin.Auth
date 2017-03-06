@@ -133,7 +133,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
 
-            activity.StartActivity (auth.GetUI(activity));
+            activity.StartActivity ((global::Android.Content.Intent)auth.GetUI(activity));
 
             return;
         }
@@ -162,7 +162,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
 
-            activity.StartActivity (auth.GetUI(activity));
+            activity.StartActivity ((global::Android.Content.Intent)auth.GetUI(activity));
 
             return;
         }

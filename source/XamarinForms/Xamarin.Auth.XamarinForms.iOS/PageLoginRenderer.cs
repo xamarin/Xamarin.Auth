@@ -142,7 +142,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
 
-            PresentViewController (auth.GetUI (), true, null);
+            PresentViewController ((UIViewController)auth.GetUI (), true, null);
 
             return;
         }
@@ -210,7 +210,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
 
-            PresentViewController (auth.GetUI (), true, null);
+            PresentViewController ((UIViewController)auth.GetUI (), true, null);
 
             return;
         }

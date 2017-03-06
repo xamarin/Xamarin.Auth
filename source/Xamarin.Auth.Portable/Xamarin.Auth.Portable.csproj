@@ -57,6 +57,12 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\Authenticator.cs">
       <Link>Authenticator.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AuthenticatorCompletedEventArgs.cs">
+      <Link>AuthenticatorCompletedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AuthenticatorErrorEventArgs.cs">
+      <Link>AuthenticatorErrorEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
@@ -154,28 +160,36 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
-      <HintPath>..\packages\PCLCrypto.2.0.147\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\PCLCrypto.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Net.Http, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Extensions, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Net.Http.Primitives, Version=1.5.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
-    </Reference>
-    <Reference Include="Validation, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Validation.2.2.8\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Validation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
+      <Link>Plugins\UIThreadRunInvoker.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\IRunInvoker.cs">
+      <Link>Plugins\IRunInvoker.cs</Link>
+    </Compile>
+    <Compile Include="Plugins\UIThreadRunInvoker.Portable.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UINativeNonIntegratedBrowsers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ModernHttpClient">
+      <HintPath>..\packages\modernhttpclient.2.4.2\lib\Portable-Net45+WinRT45+WP8+WPA81\ModernHttpClient.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation">
+      <HintPath>..\packages\Validation.2.2.8\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLCrypto">
+      <HintPath>..\packages\PCLCrypto.2.0.147\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\PCLCrypto.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
@@ -186,4 +200,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\samples\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\samples\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
 </Project>

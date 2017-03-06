@@ -27,7 +27,6 @@ namespace Xamarin.Auth
             this.InitializeComponent();
         }
 
-     
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             OAuth2Authenticator auth = (OAuth2Authenticator) e.Parameter;
@@ -62,9 +61,24 @@ namespace Xamarin.Auth
             throw new NotImplementedException();
         }
 
-        private void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        private async void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (this.Frame.CanGoBack)
+            {
+                await
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+                    (
+                        Windows.UI.Core.CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                            this.Frame.GoBack();
+                        }
+                    );
+
+                return;
+            }
+
+            return;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -73,5 +87,8 @@ namespace Xamarin.Auth
 
             return;
         }
+
+        private WebAuthenticator auth;
+
     }
 }

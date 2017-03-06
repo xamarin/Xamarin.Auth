@@ -25,45 +25,11 @@ namespace Xamarin.Auth
         public WebAuthenticatorPage()
         {
             this.InitializeComponent();
-        }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            OAuth2Authenticator auth = (OAuth2Authenticator)e.Parameter;
-
-            auth.Completed += auth_Completed;
-            auth.Error += OnAuthError;
-
-            Uri uri = await auth.GetInitialUrlAsync();
-            this.browser.Source = uri;
-
-            /*
-            string key = NavigationContext.QueryString["key"];
-
-            this.auth = (WebAuthenticator)PhoneApplicationService.Current.State[key];
-            //this.auth.Completed += (sender, args) => NavigationService.GoBack(); // throws on BackButton
-            this.auth.Completed += auth_Completed;
-            this.auth.Error += OnAuthError;
-
-            PhoneApplicationService.Current.State.Remove(key);
-
-            if (this.auth.ClearCookiesBeforeLogin)
-                await this.browser.ClearCookiesAsync();
-
-            Uri uri = await this.auth.GetInitialUrlAsync();
-            this.browser.Source = uri;
-            */
-            base.OnNavigatedTo(e);
-        }
-
-        private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            throw new NotImplementedException();
+            this.browser.NavigationCompleted += Browser_NavigationCompleted;
+            this.browser.NavigationStarting += Browser_NavigationStarting;
+            this.browser.NavigationFailed += Browser_NavigationFailed;
+            return;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -72,5 +38,72 @@ namespace Xamarin.Auth
 
             return;
         }
+
+        Uri url_initial = null;
+        Uri url_args_redirect = null;
+
+        OAuth2Authenticator authenticator = null;
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            authenticator = (OAuth2Authenticator)e.Parameter;
+
+            url_initial = this.authenticator.GetInitialUrlAsync().Result;
+            this.browser.Navigate(url_initial);
+
+            System.Diagnostics.Debug.WriteLine("OnNavigatedTo authenticator = " + authenticator.Title);
+
+            authenticator.Completed += auth_Completed;
+            authenticator.Error += auth_Error;
+
+            url_initial = await authenticator.GetInitialUrlAsync();
+
+            base.OnNavigatedTo(e);
+
+            return;
+        }
+
+        private void Browser_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        {
+            Uri uri_navigated = args.Uri;
+
+            System.Diagnostics.Debug.WriteLine("Browser_NavigationStarting = " + uri_navigated.OriginalString);
+
+            this.authenticator.OnPageLoading(uri_navigated);
+
+            return;
+        }
+
+        private void Browser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            url_args_redirect = args.Uri;
+            Windows.Web.WebErrorStatus status = args.WebErrorStatus;
+
+            System.Diagnostics.Debug.WriteLine("Browser_NavigationCompleted = " + url_args_redirect.OriginalString);
+
+            return;
+        }
+
+        private void Browser_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        {
+            Uri uri_failed = e.Uri;
+
+            System.Diagnostics.Debug.WriteLine("Browser_NavigationFailed = " + uri_failed.OriginalString);
+
+            return;
+        }
+
+        private void auth_Error(object sender, AuthenticatorErrorEventArgs e)
+        {
+            throw new Xamarin.Auth.AuthException("Auth Error");
+        }
+
+        private void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine("auth_Completed Username = " + e.Account.Username);
+
+            return;
+        }
+
     }
 }

@@ -124,6 +124,12 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\Authenticator.cs">
       <Link>Authenticator.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AuthenticatorCompletedEventArgs.cs">
+      <Link>AuthenticatorCompletedEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AuthenticatorErrorEventArgs.cs">
+      <Link>AuthenticatorErrorEventArgs.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
@@ -230,6 +236,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+
+
+    <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
+      <Link>Plugins\UIThreadRunInvoker.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\IRunInvoker.cs">
+      <Link>Plugins\IRunInvoker.cs</Link>
+    </Compile>
+    <Compile Include="Plugins\UIThreadRunInvoker.WinRTWindows81.cs" />
+		
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
     </Compile>

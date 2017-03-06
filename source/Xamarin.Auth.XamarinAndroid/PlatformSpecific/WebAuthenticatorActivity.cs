@@ -259,7 +259,12 @@ namespace Xamarin.Auth
 
                 return false;
             }
-
+            /// <summary>
+            /// On the page started.
+            /// </summary>
+            /// <param name="view">View.</param>
+            /// <param name="url">URL.</param>
+            /// <param name="favicon">Favicon.</param>
             public override void OnPageStarted(WebView view, string url, global::Android.Graphics.Bitmap favicon)
             {
                 var uri = new Uri(url);
