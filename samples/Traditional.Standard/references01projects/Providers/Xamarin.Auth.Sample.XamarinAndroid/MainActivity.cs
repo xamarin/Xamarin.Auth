@@ -261,23 +261,15 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     }
                     //------------------------------------------------------------------
 
-                    AuthenticationResult ar = new AuthenticationResult()
-                    {
-                        Title = "n/a",
-                        User = "n/a",
-                    };
-
                     StringBuilder sb = new StringBuilder();
                     sb.Append("IsAuthenticated  = ").Append(ee.IsAuthenticated)
-                                                    .Append(System.Environment.NewLine);
-                    sb.Append("Name             = ").Append(ar.User)
                                                     .Append(System.Environment.NewLine);
                     sb.Append("Account.UserName = ").Append(ee.Account.Username)
                                                     .Append(System.Environment.NewLine);
                     sb.Append("token            = ").Append(token)
                                                     .Append(System.Environment.NewLine);
 
-                    builder.SetTitle (ar.Title);
+                    builder.SetTitle ("AuthenticationResults");
                     builder.SetMessage (sb.ToString());
                 } 
                 catch (global::Android.OS.OperationCanceledException) 

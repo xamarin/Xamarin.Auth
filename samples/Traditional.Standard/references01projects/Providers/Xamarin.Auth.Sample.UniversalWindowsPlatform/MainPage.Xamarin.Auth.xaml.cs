@@ -27,12 +27,15 @@ namespace Xamarin.Auth.Sample
 			string provider = si;
 
 			Xamarin.Auth.Helpers.OAuth auth;
-			if (!Data.TestCases.TryGetValue (provider, out auth)) {
+			if (!Data.TestCases.TryGetValue (provider, out auth)) 
+            {
 				//TODO: MessageBox.Show("Unknown OAuth Provider!");
 			}
-			if (auth is Xamarin.Auth.Helpers.OAuth1) {
+			if (auth is Xamarin.Auth.Helpers.OAuth1) 
+            {
 				Authenticate (auth as Xamarin.Auth.Helpers.OAuth1);
-			} else {
+			} else 
+            {
 				Authenticate (auth as Xamarin.Auth.Helpers.OAuth2);
 			}
 			var list = Data.TestCases;
@@ -73,15 +76,20 @@ namespace Xamarin.Auth.Sample
 		{
 			OAuth2Authenticator auth = null;
 
-			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
-				auth = new OAuth2Authenticator (
+			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) 
+            {
+				auth = new OAuth2Authenticator 
+                (
 					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
 					scope: oauth2.OAuth2_Scope,
 					authorizeUrl: oauth2.OAuth_UriAuthorization,
 					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
 				);
-			} else {
-				auth = new OAuth2Authenticator (
+			} 
+            else 
+            {
+				auth = new OAuth2Authenticator 
+                (
 					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
 					clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
 					scope: oauth2.OAuth2_Scope,
@@ -150,16 +158,8 @@ namespace Xamarin.Auth.Sample
 			{
 				try
 				{
-					AuthenticationResult ar = new AuthenticationResult()
-					{
-						Title = "n/a",
-						User = "n/a",
-					};
-
 					StringBuilder sb = new StringBuilder();
 					sb.Append("IsAuthenticated  = ").Append(ee.IsAuthenticated)
-						.Append(System.Environment.NewLine);
-					sb.Append("Name             = ").Append(ar.User)
 						.Append(System.Environment.NewLine);
 					sb.Append("Account.UserName = ").Append(ee.Account.Username)
 						.Append(System.Environment.NewLine);

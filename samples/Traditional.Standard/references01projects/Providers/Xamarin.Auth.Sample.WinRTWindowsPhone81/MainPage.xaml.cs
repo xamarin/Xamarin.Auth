@@ -30,6 +30,8 @@ namespace Xamarin.Auth.Sample
 
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
+
+            return;
         }
 
         /// <summary>

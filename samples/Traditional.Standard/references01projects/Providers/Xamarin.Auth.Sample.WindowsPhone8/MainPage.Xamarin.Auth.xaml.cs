@@ -105,7 +105,8 @@ namespace Xamarin.Auth.Sample
 			string msg = "";
 
 			StringBuilder sb = new StringBuilder();
-			sb.Append("Message  = ").Append(ee.Message)
+			sb.Append("Message  = ")
+                .Append(ee.Message)
 				.Append(System.Environment.NewLine);
 			msg = sb.ToString();
 
@@ -141,22 +142,14 @@ namespace Xamarin.Auth.Sample
 			{
 				try
 				{
-					AuthenticationResult ar = new AuthenticationResult()
-					{
-						Title = "n/a",
-						User = "n/a",
-					};
-
 					StringBuilder sb = new StringBuilder();
 					sb.Append("IsAuthenticated  = ").Append(ee.IsAuthenticated)
 						.Append(System.Environment.NewLine);
-					sb.Append("Name             = ").Append(ar.User)
+					sb.Append("Name             = ").Append(ee.Account.Username)
 						.Append(System.Environment.NewLine);
-					sb.Append("Account.UserName = ").Append(ee.Account.Username)
-						.Append(System.Environment.NewLine);
-
-				}
-				catch (Exception ex)
+                    msg = sb.ToString();
+                }
+                catch (Exception ex)
 				{
 					msg = ex.Message;
 				}

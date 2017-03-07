@@ -5,6 +5,7 @@
 	<key>keychain-access-groups</key>
 	<array>
 		<string>$(AppIdentifierPrefix)com.your-company.Xamarin.Auth.Sample.XamarinIOS</string>
+		<string></string>
 	</array>
 </dict>
 </plist>
