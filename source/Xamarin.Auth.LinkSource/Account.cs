@@ -25,190 +25,200 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An Account that represents an authenticated user of a social network.
-	/// </summary>
+    /// <summary>
+    /// An Account that represents an authenticated user of a social network.
+    /// </summary>
 #if XAMARIN_AUTH_INTERNAL
 	internal class Account
 #else
-	public class Account
+    public class Account
 #endif
-	{
-		/// <summary>
-		/// The username used as a key when storing this account.
-		/// </summary>
-		public virtual string Username { get; set; }
+    {
+        /// <summary>
+        /// The username used as a key when storing this account.
+        /// </summary>
+        public virtual string Username { get; set; }
 
-		/// <summary>
-		/// A key-value store associated with this account. These get encrypted when the account is stored.
-		/// </summary>
-		public virtual Dictionary<string, string> Properties { get; private set; }
+        /// <summary>
+        /// A key-value store associated with this account. These get encrypted when the account is stored.
+        /// </summary>
+        public virtual Dictionary<string, string> Properties { get; private set; }
 
-		/// <summary>
-		/// Cookies that are stored with the account for web services that control access using cookies.
-		/// </summary>
-		public virtual CookieContainer Cookies { get; private set; }
+        /// <summary>
+        /// Cookies that are stored with the account for web services that control access using cookies.
+        /// </summary>
+        public virtual CookieContainer Cookies { get; private set; }
 
-		/// <summary>
-		/// Initializes a new blank <see cref="Xamarin.Auth.Account"/>.
-		/// </summary>
-		public Account ()
-			: this ("", null, null)
-		{
-		}
+        /// <summary>
+        /// Initializes a new blank <see cref="Xamarin.Auth.Account"/>.
+        /// </summary>
+        public Account()
+            : this("", null, null)
+        {
+        }
 
-		/// <summary>
-		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username.
-		/// </summary>
-		/// <param name='username'>
-		/// The username for the account.
-		/// </param>
-		public Account (string username)
-			: this (username, null, null)
-		{
-		}
+        /// <summary>
+        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username.
+        /// </summary>
+        /// <param name='username'>
+        /// The username for the account.
+        /// </param>
+        public Account(string username)
+            : this(username, null, null)
+        {
+        }
 
-		/// <summary>
-		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
-		/// </summary>
-		/// <param name='username'>
-		/// The username for the account.
-		/// </param>
-		/// <param name='cookies'>
-		/// The cookies to be stored with the account.
-		/// </param>
-		public Account (string username, CookieContainer cookies)
-			: this (username, null, cookies)
-		{
-		}
+        /// <summary>
+        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
+        /// </summary>
+        /// <param name='username'>
+        /// The username for the account.
+        /// </param>
+        /// <param name='cookies'>
+        /// The cookies to be stored with the account.
+        /// </param>
+        public Account(string username, CookieContainer cookies)
+            : this(username, null, cookies)
+        {
+        }
 
-		/// <summary>
-		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
-		/// </summary>
-		/// <param name='username'>
-		/// The username for the account.
-		/// </param>
-		/// <param name='properties'>
-		/// Properties for the account.
-		/// </param>
-		public Account (string username, IDictionary<string, string> properties)
-			: this (username, properties, null)
-		{
-		}
+        /// <summary>
+        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
+        /// </summary>
+        /// <param name='username'>
+        /// The username for the account.
+        /// </param>
+        /// <param name='properties'>
+        /// Properties for the account.
+        /// </param>
+        public Account(string username, IDictionary<string, string> properties)
+            : this(username, properties, null)
+        {
+        }
 
-		/// <summary>
-		/// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
-		/// </summary>
-		/// <param name='username'>
-		/// The username for the account.
-		/// </param>
-		/// <param name='properties'>
-		/// Properties for the account.
-		/// </param>
-		/// <param name='cookies'>
-		/// The cookies to be stored with the account.
-		/// </param>
-		public Account (string username, IDictionary<string, string> properties, CookieContainer cookies)
-		{
-			Username = username;
-			Properties = (properties == null) ?
-				new Dictionary<string, string> () :
-				new Dictionary<string, string> (properties);
-			Cookies = (cookies == null) ?
-				new CookieContainer () :
-				cookies;
-		}
+        /// <summary>
+        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
+        /// </summary>
+        /// <param name='username'>
+        /// The username for the account.
+        /// </param>
+        /// <param name='properties'>
+        /// Properties for the account.
+        /// </param>
+        /// <param name='cookies'>
+        /// The cookies to be stored with the account.
+        /// </param>
+        public Account(string username, IDictionary<string, string> properties, CookieContainer cookies)
+        {
+            Username = username;
+            Properties = (properties == null) ?
+                new Dictionary<string, string>() :
+                new Dictionary<string, string>(properties);
+            Cookies = (cookies == null) ?
+                new CookieContainer() :
+                cookies;
+        }
 
-		/// <summary>
-		/// Serialize this account into a string that can be deserialized.
-		/// </summary>
-		/// <returns>A <c>string</c> representing the <see cref="Account"/> instance.</returns>
-		/// <seealso cref="Deserialize"/>
-		public string Serialize ()
-		{
-			var sb = new StringBuilder ();
+        /// <summary>
+        /// Serialize this account into a string that can be deserialized.
+        /// </summary>
+        /// <returns>A <c>string</c> representing the <see cref="Account"/> instance.</returns>
+        /// <seealso cref="Deserialize"/>
+        public string Serialize()
+        {
+            var sb = new StringBuilder();
 
-			sb.Append ("__username__=");
-			sb.Append (Uri.EscapeDataString (Username));
+            sb.Append("__username__=");
+            sb.Append(Uri.EscapeDataString(Username));
 
-			foreach (var p in Properties) {
-				sb.Append ("&");
-				sb.Append (Uri.EscapeDataString (p.Key));
-				sb.Append ("=");
-				sb.Append (Uri.EscapeDataString (p.Value));
-			}
+            foreach (var p in Properties)
+            {
+                sb.Append("&");
+                sb.Append(Uri.EscapeDataString(p.Key));
+                sb.Append("=");
+                sb.Append(Uri.EscapeDataString(p.Value));
+            }
 
-			if (Cookies.Count > 0) {
-				sb.Append ("&__cookies__=");
-				sb.Append (Uri.EscapeDataString (SerializeCookies ()));
-			}
+            if (Cookies.Count > 0)
+            {
+                sb.Append("&__cookies__=");
+                sb.Append(Uri.EscapeDataString(SerializeCookies()));
+            }
 
-			return sb.ToString ();
-		}
+            return sb.ToString();
+        }
 
-		/// <summary>
-		/// Restores an account from its serialized string representation.
-		/// </summary>
-		/// <param name='serializedString'>The serialized account generated by <see cref="Serialize"/>.</param>
-		/// <returns>An <see cref="Account"/> instance represented by <paramref name="serializedString"/>.</returns>
-		/// <seealso cref="Serialize"/>
-		public static Account Deserialize (string serializedString)
-		{
-			var acct = new Account ();
+        /// <summary>
+        /// Restores an account from its serialized string representation.
+        /// </summary>
+        /// <param name='serializedString'>The serialized account generated by <see cref="Serialize"/>.</param>
+        /// <returns>An <see cref="Account"/> instance represented by <paramref name="serializedString"/>.</returns>
+        /// <seealso cref="Serialize"/>
+        public static Account Deserialize(string serializedString)
+        {
+            var acct = new Account();
 
-			foreach (var p in serializedString.Split ('&')) {
-				var kv = p.Split ('=');
+            foreach (var p in serializedString.Split('&'))
+            {
+                var kv = p.Split('=');
 
-				var key = Uri.UnescapeDataString (kv [0]);
-				var val = kv.Length > 1 ? Uri.UnescapeDataString (kv [1]) : "";
+                var key = Uri.UnescapeDataString(kv[0]);
+                var val = kv.Length > 1 ? Uri.UnescapeDataString(kv[1]) : "";
 
-				if (key == "__cookies__") {
-					acct.Cookies = DeserializeCookies (val);
-				} else if (key == "__username__") {
-					acct.Username = val;
-				} else {
-					acct.Properties [key] = val;
-				}
-			}
+                if (key == "__cookies__")
+                {
+                    acct.Cookies = DeserializeCookies(val);
+                }
+                else if (key == "__username__")
+                {
+                    acct.Username = val;
+                }
+                else
+                {
+                    acct.Properties[key] = val;
+                }
+            }
 
-			return acct;
-		}
+            return acct;
+        }
 
-		string SerializeCookies ()
-		{
-			#if !PORTABLE && !NETFX_CORE && ! (WINDOWS_PHONE && SILVERLIGHT)
-            var f = new BinaryFormatter ();
-			using (var s = new MemoryStream ()) {
-				f.Serialize (s, Cookies);
-				return Convert.ToBase64String (s.GetBuffer (), 0, (int)s.Length);
-			}
-			#else
+        string SerializeCookies()
+        {
+#if !PORTABLE && !NETFX_CORE && !(WINDOWS_PHONE && SILVERLIGHT)
+            var f = new BinaryFormatter();
+            using (var s = new MemoryStream())
+            {
+                f.Serialize(s, Cookies);
+                return Convert.ToBase64String(s.GetBuffer(), 0, (int)s.Length);
+            }
+#else
 			return String.Empty;
-			#endif
-		}
+#endif
+        }
 
-		static CookieContainer DeserializeCookies (string cookiesString)
-		{
-			#if !PORTABLE && !NETFX_CORE && ! (WINDOWS_PHONE && SILVERLIGHT)
-			var f = new BinaryFormatter ();
-			using (var s = new MemoryStream (Convert.FromBase64String (cookiesString))) {
-				return (CookieContainer)f.Deserialize (s);
-			}
-            #else
+        static CookieContainer DeserializeCookies(string cookiesString)
+        {
+#if !PORTABLE && !NETFX_CORE && !(WINDOWS_PHONE && SILVERLIGHT)
+            var f = new BinaryFormatter();
+            using (var s = new MemoryStream(Convert.FromBase64String(cookiesString)))
+            {
+                return (CookieContainer)f.Deserialize(s);
+            }
+#else
             return new CookieContainer();
-			#endif
-		}
+#endif
+        }
 
-		/// <summary>
-		/// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
-		/// </summary>
-		/// <returns>
-		/// A <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
-		/// </returns>
-		public override string ToString ()
-		{
-			return Serialize ();
-		}
-	}
+        /// <summary>
+        /// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
+        /// </returns>
+        public override string ToString()
+        {
+            return Serialize();
+        }
+    }
 }
 

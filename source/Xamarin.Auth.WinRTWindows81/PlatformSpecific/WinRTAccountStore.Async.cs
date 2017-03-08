@@ -36,9 +36,17 @@ namespace Xamarin.Auth.WinRT
             var names = files.Select(x => x.Name);
             var accounts = new List<Account>();
 
-            foreach (var file in files.Where(x => x.Name.StartsWith("xamarin.auth.") &&
-                                                  x.Name.EndsWith("." + serviceId))
-                                      .ToList())
+            foreach (
+                        var file in 
+                            files.Where
+                                (
+                                    x => 
+                                        x.Name.StartsWith("xamarin.auth.") 
+                                        &&
+                                        x.Name.EndsWith("." + serviceId)
+                                )
+                                .ToList()
+                    )
             {
                 using (var stream = await file.OpenStreamForReadAsync().ConfigureAwait(false))
                 using (var reader = new BinaryReader(stream))

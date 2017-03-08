@@ -93,6 +93,9 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
+      <Link>AccountStoreException.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -213,9 +216,6 @@
     <Compile Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticator.WindowsStore81WinRT.cs">
       <Link>WebAuthenticator.WindowsStore81WinRT.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticatorPage.xaml.cs">
-      <Link>WebAuthenticatorPage.xaml.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticatorPage.xaml">
@@ -223,6 +223,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticatorPage.xaml.cs">
+      <Link>WebAuthenticatorPage.xaml.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.UniversalWindowsPlatform\WebAuthenticatorPage.Events.xaml.cs">
+      <Link>WebAuthenticatorPage.Events.xaml.cs</Link>
+    </Compile>
 
 
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">

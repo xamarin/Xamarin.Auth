@@ -31,292 +31,340 @@ using Xamarin.Utilities.iOS;
 
 namespace Xamarin.Auth
 {
-	internal class FormAuthenticatorController : UITableViewController
-	{
-		FormAuthenticator authenticator;
+    internal class FormAuthenticatorController : UITableViewController
+    {
+        FormAuthenticator authenticator;
 
-		ProgressLabel progress;
+        ProgressLabel progress;
 
-		CancellationTokenSource cancelSource;
+        CancellationTokenSource cancelSource;
 
-		public FormAuthenticatorController (FormAuthenticator authenticator)
-			: base (UITableViewStyle.Grouped)
-		{
-			this.authenticator = authenticator;
+        public FormAuthenticatorController(FormAuthenticator authenticator)
+            : base(UITableViewStyle.Grouped)
+        {
+            this.authenticator = authenticator;
 
-			Title = authenticator.Title;
+            Title = authenticator.Title;
 
-			TableView.DataSource = new FormDataSource (this);
-			TableView.Delegate = new FormDelegate (this);
+            TableView.DataSource = new FormDataSource(this);
+            TableView.Delegate = new FormDelegate(this);
 
-			if (authenticator.AllowCancel) {
-				NavigationItem.LeftBarButtonItem = new UIBarButtonItem (
-					UIBarButtonSystemItem.Cancel,
-					delegate {
-						StopProgress();
-						authenticator.OnCancelled();
-					});
-			}
-		}
+            if (authenticator.AllowCancel)
+            {
+                NavigationItem.LeftBarButtonItem = new UIBarButtonItem
+                                                        (
+                                                            UIBarButtonSystemItem.Cancel,
+                                                            delegate
+                                                            {
+                                                                StopProgress();
+                                                                authenticator.OnCancelled();
+                                                            }
+                                                        );
+            }
+        }
 
-		void HandleSubmit ()
-		{
-			if (progress == null) {
-				progress = new ProgressLabel (NSBundle.MainBundle.LocalizedString ("Verifying", "Verifying status message when adding accounts"));
-				NavigationItem.TitleView = progress;
-				progress.StartAnimating ();
-			}
+        void HandleSubmit()
+        {
+            if (progress == null)
+            {
+                progress = new ProgressLabel
+                            (
+                                NSBundle.MainBundle.LocalizedString
+                                                    (
+                                                        "Verifying", 
+                                                        "Verifying status message when adding accounts"
+                                                    )
+                            );
+                NavigationItem.TitleView = progress;
+                progress.StartAnimating();
+            }
 
-			cancelSource = new CancellationTokenSource ();
+            cancelSource = new CancellationTokenSource();
 
-			authenticator.SignInAsync (cancelSource.Token).ContinueWith (task => {
+            authenticator.SignInAsync(cancelSource.Token).ContinueWith(task =>
+            {
+                StopProgress();
 
-				StopProgress ();
+                if (task.IsFaulted)
+                {
 
-				if (task.IsFaulted) {
+                    if (!authenticator.ShowErrors)
+                        return;
 
-                                        if (!authenticator.ShowErrors)
-                                                return;
+                    this.ShowError("Error Signing In", task.Exception);
+                }
+                else
+                {
+                    authenticator.OnSucceeded(task.Result);
+                }
 
-                                        this.ShowError ("Error Signing In", task.Exception);
-				}
-				else {
-					authenticator.OnSucceeded (task.Result);
-				}
+            }, TaskScheduler.FromCurrentSynchronizationContext());
 
-			}, TaskScheduler.FromCurrentSynchronizationContext ());
-		}
+            return;
+        }
 
-		void StopProgress ()
-		{
-			if (progress != null) {
-				progress.StopAnimating ();
-				NavigationItem.TitleView = null;
-				progress = null;
-			}
-		}
+        void StopProgress()
+        {
+            if (progress != null)
+            {
+                progress.StopAnimating();
+                NavigationItem.TitleView = null;
+                progress = null;
+            }
 
-		# region
-		///-------------------------------------------------------------------------------------------------
-		/// Pull Request - manually added/fixed
-		///		Added IsAuthenticated check #88
-		///		https://github.com/xamarin/Xamarin.Auth/pull/88
-		public override void ViewDidAppear(bool animated)
-		{
-			base.ViewDidAppear(animated);
+            return;
+        }
 
-			if (authenticator.AllowCancel && authenticator.IsAuthenticated())
-			{
-				authenticator.OnCancelled();
-			}
-		}
-		///-------------------------------------------------------------------------------------------------
-		# endregion
+        #region
+        ///-------------------------------------------------------------------------------------------------
+        /// Pull Request - manually added/fixed
+        ///		Added IsAuthenticated check #88
+        ///		https://github.com/xamarin/Xamarin.Auth/pull/88
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
 
-		class FormDelegate : UITableViewDelegate
-		{
-			FormAuthenticatorController controller;
+            if (authenticator.AllowCancel && authenticator.IsAuthenticated())
+            {
+                authenticator.OnCancelled();
+            }
 
-			public FormDelegate (FormAuthenticatorController controller)
-			{
-				this.controller = controller;
-			}
+            return;
+        }
+        ///-------------------------------------------------------------------------------------------------
+        #endregion
 
-			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-			{
-				tableView.ResignFirstResponder ();
+        class FormDelegate : UITableViewDelegate
+        {
+            FormAuthenticatorController controller;
 
-				if (indexPath.Section == 1) {
-					tableView.DeselectRow (indexPath, true);
-					((FormDataSource)tableView.DataSource).ResignFirstResponder ();
-					controller.HandleSubmit ();
-				}
-				else if (indexPath.Section == 2) {
-					tableView.DeselectRow (indexPath, true);
-					UIApplication.SharedApplication.OpenUrl (
-						new NSUrl (controller.authenticator.CreateAccountLink.AbsoluteUri));
+            public FormDelegate(FormAuthenticatorController controller)
+            {
+                this.controller = controller;
+            }
 
-				}
-			}
-		}
+            public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
+            {
+                tableView.ResignFirstResponder();
 
-		class FieldCell : UITableViewCell
-		{
-			public static readonly UIFont LabelFont = UIFont.BoldSystemFontOfSize (16);
-			public static readonly UIFont FieldFont = UIFont.SystemFontOfSize (16);
+                if (indexPath.Section == 1)
+                {
+                    tableView.DeselectRow(indexPath, true);
+                    ((FormDataSource)tableView.DataSource).ResignFirstResponder();
+                    controller.HandleSubmit();
+                }
+                else if (indexPath.Section == 2)
+                {
+                    tableView.DeselectRow(indexPath, true);
+                    UIApplication.SharedApplication.OpenUrl(
+                        new NSUrl(controller.authenticator.CreateAccountLink.AbsoluteUri));
 
-			static readonly UIColor FieldColor = UIColor.FromRGB (56, 84, 135);
+                }
+            }
+        }
 
-			public UITextField TextField { get; private set; }
+        class FieldCell : UITableViewCell
+        {
+            public static readonly UIFont LabelFont = UIFont.BoldSystemFontOfSize(16);
+            public static readonly UIFont FieldFont = UIFont.SystemFontOfSize(16);
 
-#if ! __UNIFIED__
+            static readonly UIColor FieldColor = UIColor.FromRGB(56, 84, 135);
+
+            public UITextField TextField { get; private set; }
+
+#if !__UNIFIED__
 			public FieldCell (FormAuthenticatorField field, float fieldXPosition, Action handleReturn)
 #else
-			public FieldCell(FormAuthenticatorField field, nfloat fieldXPosition, Action handleReturn)
+            public FieldCell(FormAuthenticatorField field, nfloat fieldXPosition, Action handleReturn)
 #endif
-				: base (UITableViewCellStyle.Default, "Field")
-			{
-				SelectionStyle = UITableViewCellSelectionStyle.None;
+                : base(UITableViewCellStyle.Default, "Field")
+            {
+                SelectionStyle = UITableViewCellSelectionStyle.None;
 
-				TextLabel.Text = field.Title;
+                TextLabel.Text = field.Title;
 
-				var hang = 3;
-				var h = FieldFont.PointSize + hang;
+                var hang = 3;
+                var h = FieldFont.PointSize + hang;
 
-				var cellSize = Frame.Size;
+                var cellSize = Frame.Size;
 
-#if ! __UNIFIED__
-				TextField = new UITextField (new RectangleF (
-					fieldXPosition, (cellSize.Height - h)/2, 
-					cellSize.Width - fieldXPosition - 12, h)) {
-#else
-				TextField = new UITextField(new CoreGraphics.CGRect(
-					fieldXPosition, (cellSize.Height - h) / 2,
-					cellSize.Width - fieldXPosition - 12, h))
-					{
-#endif
-					Font = FieldFont,
-					Placeholder = field.Placeholder,
-					Text = field.Value,
-					TextColor = FieldColor,
-					AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
+                #if !__UNIFIED__
+				TextField = new UITextField 
+                                (
+                                    new RectangleF 
+                                            (
+					                            fieldXPosition, (cellSize.Height - h)/2, 
+					                            cellSize.Width - fieldXPosition - 12, h)
+                                            ) 
+                #else
+                TextField = new UITextField
+                                (
+                                    new CoreGraphics.CGRect
+                                            (
+                                                fieldXPosition, (cellSize.Height - h) / 2,
+                                                cellSize.Width - fieldXPosition - 12, h
+                                            )
+                                )
+                #endif
+                {
+                    Font = FieldFont,
+                    Placeholder = field.Placeholder,
+                    Text = field.Value,
+                    TextColor = FieldColor,
+                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
 
-					SecureTextEntry = (field.FieldType == FormAuthenticatorFieldType.Password),
+                    SecureTextEntry = (field.FieldType == FormAuthenticatorFieldType.Password),
 
-					KeyboardType = (field.FieldType == FormAuthenticatorFieldType.Email) ?
-						UIKeyboardType.EmailAddress :
-						UIKeyboardType.Default,
+                    KeyboardType = (field.FieldType == FormAuthenticatorFieldType.Email) ?
+                        UIKeyboardType.EmailAddress :
+                        UIKeyboardType.Default,
 
-					AutocorrectionType = (field.FieldType == FormAuthenticatorFieldType.PlainText) ?
-						UITextAutocorrectionType.Yes :
-						UITextAutocorrectionType.No,
-					
-					AutocapitalizationType = UITextAutocapitalizationType.None,
+                    AutocorrectionType = (field.FieldType == FormAuthenticatorFieldType.PlainText) ?
+                        UITextAutocorrectionType.Yes :
+                        UITextAutocorrectionType.No,
 
-					ShouldReturn = delegate {
-						handleReturn ();
-						return false;
-					},
-				};
-				TextField.EditingDidEnd += delegate {
-					field.Value = TextField.Text;
-				};
+                    AutocapitalizationType = UITextAutocapitalizationType.None,
 
-				ContentView.AddSubview (TextField);
-			}
-		}
+                    ShouldReturn = delegate
+                    {
+                        handleReturn();
+                        return false;
+                    },
+                };
 
-		class FormDataSource : UITableViewDataSource
-		{
-			FormAuthenticatorController controller;
+                TextField.EditingDidEnd += delegate
+                {
+                    field.Value = TextField.Text;
+                };
 
-			public FormDataSource (FormAuthenticatorController controller)
-			{
-				this.controller = controller;
-			}
+                ContentView.AddSubview(TextField);
+            }
+        }
 
-#if ! __UNIFIED__
+        class FormDataSource : UITableViewDataSource
+        {
+            FormAuthenticatorController controller;
+
+            public FormDataSource(FormAuthenticatorController controller)
+            {
+                this.controller = controller;
+            }
+
+            #if !__UNIFIED__
 			public override int NumberOfSections (UITableView tableView)
-#else
-			public override nint NumberOfSections (UITableView tableView)
-#endif
-			{
-				return 2 + (controller.authenticator.CreateAccountLink != null ? 1 : 0);
-			}
+            #else
+            public override nint NumberOfSections(UITableView tableView)
+            #endif
+            {
+                return 2 + (controller.authenticator.CreateAccountLink != null ? 1 : 0);
+            }
 
-#if ! __UNIFIED__
+            #if !__UNIFIED__
 			public override int RowsInSection (UITableView tableView, int section)
-#else
-			public override nint RowsInSection (UITableView tableView, nint section)
-#endif
-			{
-				if (section == 0) {
-					return controller.authenticator.Fields.Count;
-				}
-				else {
-					return 1;
-				}
-			}
+            #else
+            public override nint RowsInSection(UITableView tableView, nint section)
+            #endif
+            {
+                if (section == 0)
+                {
+                    return controller.authenticator.Fields.Count;
+                }
+                else
+                {
+                    return 1;
+                }
+            }
 
-			FieldCell[] fieldCells = null;
+            FieldCell[] fieldCells = null;
 
-			public void SelectNext ()
-			{
-				for (var i = 0; i < controller.authenticator.Fields.Count; i++) {
-					if (fieldCells[i].TextField.IsFirstResponder) {
-						if (i + 1 < fieldCells.Length) {
-							fieldCells[i+1].TextField.BecomeFirstResponder ();
-							return;
-						}
-						else {
-							fieldCells[i].TextField.ResignFirstResponder ();
-							controller.HandleSubmit ();
-							return;
-						}
-					}
-				}
-			}
+            public void SelectNext()
+            {
+                for (var i = 0; i < controller.authenticator.Fields.Count; i++)
+                {
+                    if (fieldCells[i].TextField.IsFirstResponder)
+                    {
+                        if (i + 1 < fieldCells.Length)
+                        {
+                            fieldCells[i + 1].TextField.BecomeFirstResponder();
+                            return;
+                        }
+                        else
+                        {
+                            fieldCells[i].TextField.ResignFirstResponder();
+                            controller.HandleSubmit();
+                            return;
+                        }
+                    }
+                }
+            }
 
-			public void ResignFirstResponder ()
-			{
-				foreach (var cell in fieldCells) {
-					cell.TextField.ResignFirstResponder ();
-				}
-			}
+            public void ResignFirstResponder()
+            {
+                foreach (var cell in fieldCells)
+                {
+                    cell.TextField.ResignFirstResponder();
+                }
+            }
 
-			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
-			{
-				if (indexPath.Section == 0) {
-					if (fieldCells == null) {
-						var fieldXPosition = controller
-							.authenticator
-							.Fields
-#if ! __UNIFIED__
+            public override UITableViewCell GetCell(UITableView tableView, NSIndexPath indexPath)
+            {
+                if (indexPath.Section == 0)
+                {
+                    if (fieldCells == null)
+                    {
+                        var fieldXPosition = controller
+                            .authenticator
+                            .Fields
+                            #if !__UNIFIED__
 							.Select (f => tableView.StringSize (f.Title, FieldCell.LabelFont).Width)
-#else
-							.Select(f => UIKit.UIStringDrawing.StringSize(f.Title, FieldCell.LabelFont).Width)
-#endif
-							.Max ();
-						fieldXPosition += 36;
+                            #else
+                            .Select(f => UIKit.UIStringDrawing.StringSize(f.Title, FieldCell.LabelFont).Width)
+                            #endif
+                            .Max();
+                        fieldXPosition += 36;
 
-						fieldCells = controller
-							.authenticator
-							.Fields
-#if ! __UNIFIED__
+                        fieldCells = controller
+                            .authenticator
+                            .Fields
+                            #if !__UNIFIED__
 							.Select (f => new FieldCell (f, fieldXPosition, SelectNext))
-#else
-							.Select(f => new FieldCell(f, fieldXPosition, SelectNext))
-#endif
-							.ToArray ();
-					}
+                            #else
+                            .Select(f => new FieldCell(f, fieldXPosition, SelectNext))
+                            #endif
+                            .ToArray();
+                    }
 
-					return fieldCells[indexPath.Row];
-				}
-				else if (indexPath.Section == 1) {
-					var cell = tableView.DequeueReusableCell ("SignIn");
-					if (cell == null) {
-						cell = new UITableViewCell (UITableViewCellStyle.Default, "SignIn");
-						cell.TextLabel.TextAlignment = UITextAlignment.Center;
-					}
+                    return fieldCells[indexPath.Row];
+                }
+                else if (indexPath.Section == 1)
+                {
+                    var cell = tableView.DequeueReusableCell("SignIn");
+                    if (cell == null)
+                    {
+                        cell = new UITableViewCell(UITableViewCellStyle.Default, "SignIn");
+                        cell.TextLabel.TextAlignment = UITextAlignment.Center;
+                    }
 
-					cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString ("Sign In", "Sign In button title");
+                    cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString("Sign In", "Sign In button title");
 
-					return cell;
-				}
-				else {
-					var cell = tableView.DequeueReusableCell ("CreateAccount");
-					if (cell == null) {
-						cell = new UITableViewCell (UITableViewCellStyle.Default, "CreateAccount");
-						cell.TextLabel.TextAlignment = UITextAlignment.Center;
-					}
+                    return cell;
+                }
+                else
+                {
+                    var cell = tableView.DequeueReusableCell("CreateAccount");
+                    if (cell == null)
+                    {
+                        cell = new UITableViewCell(UITableViewCellStyle.Default, "CreateAccount");
+                        cell.TextLabel.TextAlignment = UITextAlignment.Center;
+                    }
 
-					cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString ("Create Account", "Create Account button title");
+                    cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString("Create Account", "Create Account button title");
 
-					return cell;
-				}
-			}
-		}
+                    return cell;
+                }
+            }
+        }
 
-	}
+    }
 }
 

@@ -367,7 +367,6 @@ namespace Xamarin.Auth
             System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
             System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
 
-            string oauth_callback_uri = oauth_redirect_uri_absolute;
 
             #region
             //---------------------------------------------------------------------------------------
@@ -384,7 +383,8 @@ namespace Xamarin.Auth
                 Uri.EscapeDataString (scope),
                 Uri.EscapeDataString (requestState)));
             */
-            var query = new Dictionary<string, string> {
+            Dictionary<string, string>  query = new Dictionary<string, string> 
+            {
                 {"client_id", Uri.EscapeDataString (this.clientId)},
                 //mc++ {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
 				{"redirect_uri", Uri.EscapeDataString (oauth_redirect_uri_original)},

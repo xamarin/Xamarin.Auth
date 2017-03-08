@@ -38,37 +38,53 @@ using UIKit;
 
 namespace Xamarin.Auth
 {
-	internal partial class KeyChainAccountStore : AccountStore
-	{
-		static Lazy <System.Reflection.MethodInfo> SecRecord_queryDictGetter = new Lazy<System.Reflection.MethodInfo> (() => {
-			return typeof (SecRecord).GetProperty ("queryDict", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetMethod;
-			});
-
-		static Lazy <IntPtr> Security_ReturnData = new Lazy<IntPtr> (() => {
-			return (IntPtr)typeof (SecRecord).Assembly.GetTypes ()
-						.First (t => t.Name == "SecItem" 
-						&& t.Namespace == (typeof (SecRecord)).Namespace /*"[MonoTouch.]Security"*/
-						).GetProperty ("ReturnData").GetMethod.Invoke (null, new Object [] {});
-			});
-
-		static Lazy <INativeObject> CFBoolean_True = new Lazy<INativeObject> (() => {
-			return typeof (SecRecord).Assembly.GetTypes ()
-						.First (t => t.Name == "CFBoolean" 
-						&& t.Namespace == (typeof (CFObject)).Namespace /* "[MonoTouch.]CoreFoundation" */
-						).GetField ("True").GetValue (null) as INativeObject;
-			});
-
-		public override Task<List<Account>> FindAccountsForServiceAsync (string serviceId)
+    internal partial class KeyChainAccountStore
+    {
+        static Lazy<System.Reflection.MethodInfo> SecRecord_queryDictGetter = new Lazy<System.Reflection.MethodInfo>(() =>
         {
-            var query = new SecRecord(SecKind.GenericPassword);
-            query.Service = serviceId;
+            return typeof(SecRecord).GetProperty("queryDict", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetMethod;
+        });
 
-			// Workaround for https://bugzilla.xamarin.com/show_bug.cgi?id=29977
-			var queryDict = SecRecord_queryDictGetter.Value.Invoke (query, new object [] {}) as NSMutableDictionary;
-			queryDict.LowlevelSetObject (CFBoolean_True.Value.Handle, Security_ReturnData.Value);
+        static Lazy<IntPtr> Security_ReturnData = new Lazy<IntPtr>
+            (
+                () =>
+                {
+                    return (IntPtr)typeof(SecRecord).Assembly.GetTypes()
+                                .First(t => t.Name == "SecItem"
+                               && t.Namespace == (typeof(SecRecord)).Namespace /*"[MonoTouch.]Security"*/
+                                ).GetProperty("ReturnData").GetMethod.Invoke(null, new Object[] { });
+                }
+            );
 
-            SecStatusCode result;
-            SecRecord[] records = SecKeyChain.QueryAsRecord(query, 1000, out result);
+        static Lazy<INativeObject> CFBoolean_True = new Lazy<INativeObject>(() =>
+        {
+            return typeof(SecRecord).Assembly.GetTypes()
+                        .First(t => t.Name == "CFBoolean"
+                       && t.Namespace == (typeof(CFObject)).Namespace /* "[MonoTouch.]CoreFoundation" */
+                        ).GetField("True").GetValue(null) as INativeObject;
+        });
+
+        public override Task<List<Account>> FindAccountsForServiceAsync(string serviceId)
+        {
+            SecRecord[] records = null;
+
+            try
+            {
+                var query = new SecRecord(SecKind.GenericPassword);
+                query.Service = serviceId;
+
+                // Workaround for https://bugzilla.xamarin.com/show_bug.cgi?id=29977
+                var queryDict = SecRecord_queryDictGetter.Value.Invoke(query, new object[] { }) as NSMutableDictionary;
+                queryDict.LowlevelSetObject(CFBoolean_True.Value.Handle, Security_ReturnData.Value);
+
+                SecStatusCode result;
+                records = SecKeyChain.QueryAsRecord(query, 1000, out result);
+            }
+            catch (System.Exception exc)
+            {
+                string msg = String.Format("Search/Find FindAccountsForServiceAsync {0}", exc.Message);
+                throw new Xamarin.Auth.AccountStoreException(msg, exc);
+            }
 
             IEnumerable<Account> accounts_found = null;
             IEnumerable<Account> ienumerable_accounts = null;
@@ -128,152 +144,207 @@ namespace Xamarin.Auth
                             System.ArgumentNullException: Value cannot be null.
                             Parameter name: data
                         */
-                         accounts_found = ienumerable_accounts.ToList();
+                        accounts_found = ienumerable_accounts.ToList();
                     }
                     else
                     {
-                        accounts_found = new List<Account> ();
+                        accounts_found = new List<Account>();
                     }
                 }
-                catch(System.Exception exc)
+                catch (System.Exception exc)
                 {
                     string msg = exc.Message;
                     Debug.WriteLine("IEnumerable access excption = " + msg);
+                    // throw new Xamarin.Auth.AccountStoreException("IEnumerable access excption = " + msg);
                 }
             }
             else
             {
-                accounts_found = new List<Account> ();
+                accounts_found = new List<Account>();
             }
 
-			List<Account> retval = new List<Account> (accounts_found);
+            List<Account> retval = new List<Account>(accounts_found);
 
-			return Task.FromResult(retval);
-		}
+            return Task.FromResult(retval);
+        }
 
-		Account GetAccountFromRecord (SecRecord r)
-		{
-            NSData data_generic_unencrypted = r.Generic;
-            NSData data_valuedata_encrypted = r.ValueData;
+        Account GetAccountFromRecord(SecRecord r)
+        {
+            Account a = null;
 
-			NSData data = null;
+			try
+            {
+                NSData data_generic_unencrypted = r.Generic;
+                NSData data_valuedata_encrypted = r.ValueData;
 
-			if (data_generic_unencrypted != null)
+                NSData data = null;
+
+                if (data_generic_unencrypted != null)
+                {
+                    // old API - unencrypted/insecure/unsafe
+                    data = data_generic_unencrypted;
+                }
+                else if (data_valuedata_encrypted != null)
+                {
+                    // new API - encrypted/secure/safe
+                    data = data_valuedata_encrypted;
+                }
+
+				NSString serializedData = NSString.FromData(data, NSStringEncoding.UTF8);
+                a = Account.Deserialize(serializedData);
+            }
+            catch (System.Exception exc)
 			{
-				// old API - unencrypted/insecure/unsafe
-				data = data_generic_unencrypted;
+                string msg = String.Format("GetAccountFromRecord error = {0}", exc.Message);
+				Debug.WriteLine(msg);
+				throw new Xamarin.Auth.AccountStoreException(msg);
 			}
-			else if (data_valuedata_encrypted != null)
+
+            return a;
+        }
+
+        Account FindAccount(string username, string serviceId)
+        {
+            Account a = null;
+
+            try
+            {
+                SecRecord query = new SecRecord(SecKind.GenericPassword);
+                query.Service = serviceId;
+                query.Account = username;
+
+                SecStatusCode result;
+                SecRecord record = SecKeyChain.QueryAsRecord(query, out result);
+
+                a = record != null ? GetAccountFromRecord(record) : null;
+            }
+            catch (System.Exception exc)
 			{
-				// new API - encrypted/secure/safe
-				data = data_valuedata_encrypted;
+				string msg = String.Format("FindAccount error = {0}", exc.Message);
+				Debug.WriteLine(msg);
+				throw new Xamarin.Auth.AccountStoreException(msg);
 			}
 
-            var serializedData = NSString.FromData (data, NSStringEncoding.UTF8);
+            return a;
+        }
 
-            Account a = Account.Deserialize (serializedData); 
+        public override Task SaveAsync(Account account, string serviceId)
+        {
+            try
+            {
+                SecStatusCode statusCode = SecStatusCode.Success;
+                string serializedAccount = account.Serialize();
+                NSData data = NSData.FromString(serializedAccount, NSStringEncoding.UTF8);
 
-			return a;
-		}
+                //
+                // Remove any existing record
+                //
+                var existing = FindAccount(account.Username, serviceId);
 
-		Account FindAccount (string username, string serviceId)
-		{
-			SecRecord query = new SecRecord (SecKind.GenericPassword);
-			query.Service = serviceId;
-			query.Account = username;
+                if (existing != null)
+                {
+                    var query = new SecRecord(SecKind.GenericPassword);
+                    query.Service = serviceId;
+                    query.Account = account.Username;
 
-			SecStatusCode result;
-			SecRecord record = SecKeyChain.QueryAsRecord (query, out result);
+                    statusCode = SecKeyChain.Remove(query);
+                    if (statusCode != SecStatusCode.Success)
+                    {
+                        throw new AuthException("Could not remove account from KeyChain: " + statusCode);
+                    }
+                }
 
-			return record != null ?	GetAccountFromRecord (record) : null;
-		}
+                //
+                // Add this record
+                //
+                SecRecord record = new SecRecord(SecKind.GenericPassword)
+                {
+                    Service = serviceId,
+                    Account = account.Username,
+                    //------------------------------------------------------
+                    // mc++ mc#
+                    // Mark Taparauskas suggetsion:
+                    //      .Generic is not encrypted
+                    #if TEST_MARK_T
+                    Generic = data,
+                    #else
+                    ValueData = data,
+                    #endif
+                };
+                //------------------------------------------------------
+                record.Accessible =
+                                //SecAccessible.WhenUnlocked
+                                // Pull Request - manually added/fixed
+                                //      Changed SecAccessible.WhenUnLocked to AfterFirstUnLocked #80
+                                //      https://github.com/xamarin/Xamarin.Auth/pull/80
+                                SecAccessible.AfterFirstUnlock ////THIS IS THE FIX
+                                                               // ???
+                                                               // SecAccessible.AlwaysThisDeviceOnly
+                                ;
 
-		public override Task SaveAsync (Account account, string serviceId)
-		{
-            var statusCode = SecStatusCode.Success;
-            var serializedAccount = account.Serialize();
-            var data = NSData.FromString(serializedAccount, NSStringEncoding.UTF8);
+                statusCode = SecKeyChain.Add(record);
 
-            //
-            // Remove any existing record
-            //
-            var existing = FindAccount(account.Username, serviceId);
+                if (statusCode != SecStatusCode.Success)
+                {
+                    StringBuilder sb = new StringBuilder("error = ");
+                    sb.AppendLine("Could not save account to KeyChain: " + statusCode);
+                    sb.AppendLine("Add Empty Entitlements.plist ");
+                    sb.AppendLine(" File /+ New file /+ iOS /+ Entitlements.plist");
+                    /*
+                        Error: Could not save account to KeyChain -- iOS 10 #128
+                        https://github.com/xamarin/Xamarin.Auth/issues/128 
+                        https://bugzilla.xamarin.com/show_bug.cgi?id=43514
 
-            if (existing != null)
+                        sb.AppendLine("");
+                    */
+                    if ((int)statusCode == -34018)
+                    {
+                        // http://stackoverflow.com/questions/38456471/secitemadd-always-returns-error-34018-in-xcode-8-in-ios-10-simulator
+                        // NOTE: code was not copy/pasted! That was iOS sample
+
+                        sb.AppendLine("SecKeyChain.Add returned : " + statusCode);
+                        sb.AppendLine("1. Add Keychain Access Groups to the Entitlements file.");
+                        sb.AppendLine("2. Turne on the Keychain Sharing switch in the Capabilities section in the app.");
+                    }
+                    string msg = sb.ToString();
+
+                    throw new AuthException(msg);
+                }
+            }
+            catch (System.Exception exc)
+			{
+				string msg = String.Format("SaveAsync error = {0}", exc.Message);
+				Debug.WriteLine(msg);
+				throw new Xamarin.Auth.AccountStoreException(msg);
+			}
+
+			return Task.FromResult(true);
+        }
+
+        public override Task DeleteAsync(Account account, string serviceId)
+        {
+            try
             {
                 var query = new SecRecord(SecKind.GenericPassword);
                 query.Service = serviceId;
                 query.Account = account.Username;
 
-                statusCode = SecKeyChain.Remove(query);
+                var statusCode = SecKeyChain.Remove(query);
+
                 if (statusCode != SecStatusCode.Success)
                 {
-                    throw new AuthException("Could not remove account from KeyChain: " + statusCode);
+                    throw new AuthException("Could not delete account from KeyChain: " + statusCode);
                 }
             }
-
-            //
-            // Add this record
-            //
-            var record = new SecRecord(SecKind.GenericPassword);
-            record.Service = serviceId;
-            record.Account = account.Username;
-            //------------------------------------------------------
-            // mc++ mc#
-            // Mark Taparauskas suggetsion:
-            //		.Generic is not encrypted
-            #if !TEST_MARK_T
-            record.Generic = data;
-            #else
-    		record.ValueData = data;
-            #endif
-            //------------------------------------------------------
-            record.Accessible =
-                            //SecAccessible.WhenUnlocked
-                            // Pull Request - manually added/fixed
-                            //      Changed SecAccessible.WhenUnLocked to AfterFirstUnLocked #80
-                            //      https://github.com/xamarin/Xamarin.Auth/pull/80
-                            SecAccessible.AfterFirstUnlock; ////THIS IS THE FIX
-                            ;
-
-            statusCode = SecKeyChain.Add(record);
-
-            if (statusCode != SecStatusCode.Success)
-            {
-                StringBuilder sb = new StringBuilder("error = ");
-                sb.AppendLine("Could not save account to KeyChain: " + statusCode);
-                sb.AppendLine("Add Empty Entitlements.plist ");
-                sb.AppendLine(" File /+ New file /+ iOS /+ Entitlements.plist");
-                /*
-                    Error: Could not save account to KeyChain -- iOS 10 #128
-                    https://github.com/xamarin/Xamarin.Auth/issues/128 
-                    https://bugzilla.xamarin.com/show_bug.cgi?id=43514
-                    
-                    sb.AppendLine("");
-                */
-                string msg = sb.ToString();
-
-                throw new AuthException(msg);
-            }
-
-            return Task.FromResult (true);
-		}
-
-		public override Task DeleteAsync (Account account, string serviceId)
-		{
-			var query = new SecRecord (SecKind.GenericPassword);
-			query.Service = serviceId;
-			query.Account = account.Username;
-			
-			var statusCode = SecKeyChain.Remove (query);
-
-			if (statusCode != SecStatusCode.Success) 
-            {
-				throw new AuthException ("Could not delete account from KeyChain: " + statusCode);
+            catch (System.Exception exc)
+			{
+				string msg = String.Format("DeleteAsync error = {0}", exc.Message);
+				Debug.WriteLine(msg);
+				throw new Xamarin.Auth.AccountStoreException(msg);
 			}
 
-			return Task.FromResult (true);
-		}
-	}
+			return Task.FromResult(true);
+        }
+    }
 }
 

@@ -13,33 +13,16 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class WebAuthenticatorPage : Page
+    public sealed partial class WebAuthenticatorPage
     {
-        public WebAuthenticatorPage()
-        {
-            this.InitializeComponent();
 
-            this.browser.NavigationCompleted += Browser_NavigationCompleted;
-            this.browser.NavigationStarting += Browser_NavigationStarting;
-            this.browser.NavigationFailed += Browser_NavigationFailed;
-            return;
-        }
+        Uri url_initial = null;
+        Uri url_args_redirect = null;
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Frame.GoBack();
+        WebAuthenticator authenticator = null;
 
-            return;
-        }
-
-        /*
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             authenticator = (OAuth2Authenticator)e.Parameter;
@@ -59,7 +42,7 @@ namespace Xamarin.Auth
             return;
         }
 
-        private void Browser_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private async void Browser_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             Uri uri_navigated = args.Uri;
 
@@ -70,7 +53,7 @@ namespace Xamarin.Auth
             return;
         }
 
-        private void Browser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private async void Browser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             url_args_redirect = args.Uri;
             Windows.Web.WebErrorStatus status = args.WebErrorStatus;
@@ -80,7 +63,7 @@ namespace Xamarin.Auth
             return;
         }
 
-        private void Browser_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
+        private async void Browser_NavigationFailed(object sender, WebViewNavigationFailedEventArgs e)
         {
             Uri uri_failed = e.Uri;
 
@@ -94,12 +77,24 @@ namespace Xamarin.Auth
             throw new Xamarin.Auth.AuthException("Auth Error");
         }
 
-        private void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        private async void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("auth_Completed Username = " + e.Account.Username);
 
+            if (this.Frame.CanGoBack)
+            {
+                await
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+                    (
+                        Windows.UI.Core.CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                            this.Frame.GoBack();
+                        }
+                    );
+            }
+
             return;
         }
-        */
     }
 }

@@ -2,19 +2,19 @@
 
 namespace Xamarin.Auth
 {
-	public static class FileHelper
-	{
-		public static string GetLocalStoragePath()
-		{
-			string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-			string libFolder = System.IO.Path.Combine(docFolder, "..", "Library", "Databases");
+    public static class FileHelper
+    {
+        public static string GetLocalStoragePath()
+        {
+            string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            string libFolder = System.IO.Path.Combine(docFolder, "..", "Library", "Databases");
 
-			if (!System.IO.Directory.Exists(libFolder))
-			{
-				System.IO.Directory.CreateDirectory(libFolder);
-			}
+            if (!System.IO.Directory.Exists(libFolder))
+            {
+                System.IO.Directory.CreateDirectory(libFolder);
+            }
 
-			return libFolder;
-		}
-	}
+            return libFolder;
+        }
+    }
 }

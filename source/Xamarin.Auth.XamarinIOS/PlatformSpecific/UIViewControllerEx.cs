@@ -25,31 +25,35 @@ using UIKit;
 
 namespace Xamarin.Utilities.iOS
 {
-	public static class UIViewControllerEx
-	{
-		public static void ShowError (this UIViewController controller, string title, Exception error, Action continuation = null)
-		{
-			ShowError (controller, title, error.GetUserMessage (), continuation);
-		}
+    public static class UIViewControllerEx
+    {
+        public static void ShowError(this UIViewController controller, string title, Exception error, Action continuation = null)
+        {
+            ShowError(controller, title, error.GetUserMessage(), continuation);
+        }
 
-		public static void ShowError (this UIViewController controller, string title, string message, Action continuation = null)
-		{
-			var mainBundle = NSBundle.MainBundle;
-			
-			var alert = new UIAlertView (
-				mainBundle.LocalizedString (title, "Error message title"),
-				mainBundle.LocalizedString (message, "Error"),
-				null,
-				mainBundle.LocalizedString ("OK", "Dismiss button title for error message"));
+        public static void ShowError(this UIViewController controller, string title, string message, Action continuation = null)
+        {
+            var mainBundle = NSBundle.MainBundle;
 
-			if (continuation != null) {
-				alert.Dismissed += delegate {
-					continuation ();
-				};
-			}
+            var alert = new UIAlertView
+                            (
+                                mainBundle.LocalizedString(title, "Error message title"),
+                                mainBundle.LocalizedString(message, "Error"),
+                                null,
+                                mainBundle.LocalizedString("OK", "Dismiss button title for error message")
+                            );
 
-			alert.Show ();
-		}
-	}
+            if (continuation != null)
+            {
+                alert.Dismissed += delegate
+                {
+                    continuation();
+                };
+            }
+
+            alert.Show();
+        }
+    }
 }
 

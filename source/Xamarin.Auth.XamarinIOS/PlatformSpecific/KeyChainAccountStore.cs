@@ -13,7 +13,6 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-#define TEST_MARK_T
 
 using System;
 using System.Collections.Generic;
@@ -34,26 +33,26 @@ using ObjCRuntime;
 
 namespace Xamarin.Auth
 {
-	internal partial class KeyChainAccountStore : AccountStore
-	{
-		public override IEnumerable<Account> FindAccountsForService (string serviceId)
-		{
-			return FindAccountsForServiceAsync(serviceId).Result;
-		}
+    internal partial class KeyChainAccountStore : AccountStore
+    {
+        public override IEnumerable<Account> FindAccountsForService(string serviceId)
+        {
+            return FindAccountsForServiceAsync(serviceId).Result;
+        }
 
-		public override void Save (Account account, string serviceId)
-		{
+        public override void Save(Account account, string serviceId)
+        {
             SaveAsync(account, serviceId);
 
-			return;
-		}
+            return;
+        }
 
-		public override void Delete (Account account, string serviceId)
-		{
-			DeleteAsync(account, serviceId);
+        public override void Delete(Account account, string serviceId)
+        {
+            DeleteAsync(account, serviceId);
 
-			return;
-		}
-	}
+            return;
+        }
+    }
 }
 

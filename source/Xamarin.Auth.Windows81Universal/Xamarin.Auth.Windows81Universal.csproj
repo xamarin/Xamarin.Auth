@@ -52,6 +52,9 @@
       <Link>AccountStore.Async.cs</Link>
       <DependentUpon>AccountStore.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
+      <Link>AccountStoreException.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
     </Compile>
@@ -184,10 +187,6 @@
 		
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Validation, Version=2.2.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
-      <HintPath>..\packages\Validation.2.2.8\lib\portable-net40+sl50+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\Validation.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="PCLCrypto">
       <HintPath>..\packages\PCLCrypto.2.0.147\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\PCLCrypto.dll</HintPath>
     </Reference>
@@ -199,6 +198,9 @@
     </Reference>
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation">
+      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.13\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -212,4 +214,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Import Project="..\..\samples\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\samples\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
 </Project>

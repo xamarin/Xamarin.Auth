@@ -50,6 +50,21 @@
     <Reference Include="PCLCrypto">
       <HintPath>..\packages\PCLCrypto.2.0.147\lib\net45\PCLCrypto.dll</HintPath>
     </Reference>
+    <Reference Include="PInvoke.Windows.Core">
+      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Windows.Core.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Windows.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.Kernel32">
+      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Kernel32.0.4.10\lib\net40\PInvoke.Kernel32.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.BCrypt">
+      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.BCrypt.0.4.10\lib\net40\PInvoke.BCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.NCrypt">
+      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.NCrypt.0.4.10\lib\net40\PInvoke.NCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation">
+      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.13\lib\net45\Validation.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Account.cs" />
@@ -103,6 +118,7 @@
     <Compile Include="Plugins\UIThreadRunInvoker.cs" />
     <Compile Include="Plugins\IRunInvoker.cs" />
     <Compile Include="Plugins\UIThreadRunInvoker.LinkSource.cs" />
+    <Compile Include="AccountStoreException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

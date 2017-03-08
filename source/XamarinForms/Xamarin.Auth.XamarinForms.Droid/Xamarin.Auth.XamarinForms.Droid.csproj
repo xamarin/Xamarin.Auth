@@ -121,27 +121,27 @@
       <HintPath>..\..\packages\Xamarin.Forms.2.3.3.193\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.Windows.Core">
-      <HintPath>..\..\packages\PInvoke.Windows.Core.0.3.152\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Windows.Core.dll</HintPath>
+      <HintPath>..\..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Windows.Core.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Windows.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PInvoke.Kernel32">
-      <HintPath>..\..\packages\PInvoke.Kernel32.0.3.152\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Kernel32.dll</HintPath>
+      <HintPath>..\..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Kernel32.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Kernel32.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PInvoke.BCrypt">
-      <HintPath>..\..\packages\PInvoke.BCrypt.0.3.152\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.BCrypt.dll</HintPath>
+      <HintPath>..\..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.BCrypt.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.BCrypt.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="PInvoke.NCrypt">
-      <HintPath>..\..\packages\PInvoke.NCrypt.0.3.152\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.NCrypt.dll</HintPath>
+      <HintPath>..\..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.NCrypt.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.NCrypt.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Validation">
-      <HintPath>..\..\packages\Validation.2.4.10\lib\netstandard1.3\Validation.dll</HintPath>
+      <HintPath>..\..\..\samples\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.13\lib\netstandard1.3\Validation.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Auth">
-      <HintPath>..\..\packages\Xamarin.Auth.1.3.2.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Auth.1.3.2.5\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

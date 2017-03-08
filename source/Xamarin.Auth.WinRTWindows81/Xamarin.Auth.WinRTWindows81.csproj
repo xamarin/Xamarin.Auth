@@ -118,6 +118,9 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
       <Link>AccountStore.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
+      <Link>AccountStoreException.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -227,17 +230,18 @@
     <Compile Include="PlatformSpecific\WinRTAccountStore.Async.cs" />
     <Compile Include="PlatformSpecific\WinRTAccountStore.cs" />
     <Compile Include="WebAuthenticator.WindowsStore81WinRT.cs" />
-    <Compile Include="WebAuthenticatorPage.xaml.cs">
-      <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="WebAuthenticatorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-
-
+    <Compile Include="WebAuthenticatorPage.xaml.cs">
+      <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.UniversalWindowsPlatform\WebAuthenticatorPage.Events.xaml.cs">
+      <Link>WebAuthenticatorPage.Events.xaml.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
@@ -245,7 +249,6 @@
       <Link>Plugins\IRunInvoker.cs</Link>
     </Compile>
     <Compile Include="Plugins\UIThreadRunInvoker.WinRTWindows81.cs" />
-		
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
     </Compile>

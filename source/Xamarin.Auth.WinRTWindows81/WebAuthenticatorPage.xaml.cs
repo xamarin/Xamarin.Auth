@@ -25,58 +25,10 @@ namespace Xamarin.Auth
         public WebAuthenticatorPage()
         {
             this.InitializeComponent();
-        }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            OAuth2Authenticator auth = (OAuth2Authenticator) e.Parameter;
-
-            auth.Completed += auth_Completed;
-            auth.Error += OnAuthError;
-
-            Uri uri = await auth.GetInitialUrlAsync();
-            this.browser.Source = uri;
-
-            /*
-            string key = NavigationContext.QueryString["key"];
-
-            this.auth = (WebAuthenticator)PhoneApplicationService.Current.State[key];
-            //this.auth.Completed += (sender, args) => NavigationService.GoBack(); // throws on BackButton
-            this.auth.Completed += auth_Completed;
-            this.auth.Error += OnAuthError;
-
-            PhoneApplicationService.Current.State.Remove(key);
-
-            if (this.auth.ClearCookiesBeforeLogin)
-                await this.browser.ClearCookiesAsync();
-
-            Uri uri = await this.auth.GetInitialUrlAsync();
-            this.browser.Source = uri;
-            */
-            base.OnNavigatedTo(e);
-        }
-
-        private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
-        {
-            throw new NotImplementedException();
-        }
-
-        private async void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            if (this.Frame.CanGoBack)
-            {
-                await
-                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
-                    (
-                        Windows.UI.Core.CoreDispatcherPriority.Normal,
-                        () =>
-                        {
-                            this.Frame.GoBack();
-                        }
-                    );
-
-                return;
-            }
+            this.browser.NavigationCompleted += Browser_NavigationCompleted;
+            this.browser.NavigationStarting += Browser_NavigationStarting;
+            this.browser.NavigationFailed += Browser_NavigationFailed;
 
             return;
         }
@@ -87,8 +39,5 @@ namespace Xamarin.Auth
 
             return;
         }
-
-        private WebAuthenticator auth;
-
     }
 }
