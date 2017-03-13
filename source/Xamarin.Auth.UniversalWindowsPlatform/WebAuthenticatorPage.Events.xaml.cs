@@ -46,7 +46,7 @@ namespace Xamarin.Auth
         {
             Uri uri_navigated = args.Uri;
 
-            System.Diagnostics.Debug.WriteLine("Browser_NavigationStarting = " + uri_navigated.OriginalString);
+            System.Diagnostics.Debug.WriteLine("Browser_NavigationStarting uri_navigated = " + uri_navigated.OriginalString);
 
             this.authenticator.OnPageLoading(uri_navigated);
 
