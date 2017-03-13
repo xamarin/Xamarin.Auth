@@ -17,7 +17,7 @@ namespace Xamarin.Auth.Sample
 {
     public partial class MainPage
     {
-		string[] provider_list = Data.TestCases.Keys.ToArray ();
+		string[] provider_list = null;
 		string provider = null;
 
         private void itemList_Tap(object sender, TappedRoutedEventArgs e)

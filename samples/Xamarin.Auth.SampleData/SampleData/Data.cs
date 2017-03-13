@@ -39,14 +39,33 @@ namespace Xamarin.Auth.SampleData
 		{
 			TestCases = new Dictionary<string, OAuth>();
 
-			FacebookOAuth2 facebook = new FacebookOAuth2();
-			TestCases.Add(facebook.Description,facebook);
+			FacebookOAuth2WWWAppXamarin facebook1 = new FacebookOAuth2WWWAppXamarin();
+			TestCases.Add(facebook1.Description,facebook1);
+
+			FacebookOAuth2WWWAppLocalhost facebook2 = new FacebookOAuth2WWWAppLocalhost();
+			TestCases.Add(facebook2.Description,facebook2);
+
+			FacebookOAuth2WWWApp127001 facebook3 = new FacebookOAuth2WWWApp127001();
+			TestCases.Add(facebook3.Description,facebook2);
+
+            GithubOAuth2HttpXamarinCom github1 = new GithubOAuth2HttpXamarinCom();
+			TestCases.Add(github1.Description, github1);
+
+            GithubOAuth2HttpsXamarinCom github2 = new GithubOAuth2HttpsXamarinCom();
+			TestCases.Add(github2.Description, github2);
+
+            GithubOAuth2HttpsLocalHost github3 = new GithubOAuth2HttpsLocalHost();
+			TestCases.Add(github3.Description, github1);
+
+            GithubOAuth2Https127001 github4 = new GithubOAuth2Https127001();
+			TestCases.Add(github4.Description, github1);
+
+            GithubOAuth2XamarinAuthSchemeLocalhost github5 = new GithubOAuth2XamarinAuthSchemeLocalhost();
+			TestCases.Add(github5.Description, github1);
 
 			GoogleOAuth2 google = new GoogleOAuth2();
 			TestCases.Add(google.Description,google);
 
-			GithubOAuth2 github = new GithubOAuth2();
-			TestCases.Add(github.Description,github);
 
 			InstagramOAuth2 instagram = new InstagramOAuth2();
 			TestCases.Add(instagram.Description,instagram);

@@ -18,27 +18,27 @@ namespace Xamarin.Auth.SampleData
 
 		partial void SetPublicNonSensitiveData()
 		{
-			HowToMarkDown = 
-@"
- 	https://instagram.com/developer/
-	https://www.instagram.com/developer/clients/manage/
-	Xamarin.Auth.Component
-	CLIENT INFO
-	CLIENT ID		
-	WEBSITE URL		http://xamarin.com
-	REDIRECT URI	http://xamarin.com/
-	SUPPORT EMAIL	None
-	Sample for Xamarin.Auth component
-
-";
 			Description = "Instagram OAuth2";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = "basic";
 			OAuth_UriAuthorization = new Uri("https://api.instagram.com/oauth/authorize/");
 			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
 			AllowCancel = true;
+            HowToMarkDown =
+@"
+    https://instagram.com/developer/
+    https://www.instagram.com/developer/clients/manage/
+    Xamarin.Auth.Component
+    CLIENT INFO
+    CLIENT ID       
+    WEBSITE URL     http://xamarin.com
+    REDIRECT URI    http://xamarin.com/
+    SUPPORT EMAIL   None
+    Sample for Xamarin.Auth component
 
-			return;
+";
+
+            return;
 		}
 	}
 }

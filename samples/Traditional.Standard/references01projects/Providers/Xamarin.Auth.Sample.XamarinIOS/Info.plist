@@ -57,31 +57,12 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>xamarin-auth</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.xamarin.auth</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>http</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.xamarin.auth</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
+				<string>xamarinauth</string>
 				<string>https</string>
+				<string>New element</string>
 			</array>
-		</dict>
-		<dict>
-			<key>CFBundleURLName</key>
-			<string>com.xamarin.auth</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>localhost</string>
-			</array>
+			<key>CFBundleURLTypes</key>
+			<string>Viewer</string>
 		</dict>
 	</array>
 </dict>

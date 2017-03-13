@@ -1,18 +1,28 @@
-﻿# Secure / Sensitive / Private Data Folder
+﻿# InSecure / inSensitive / Public Data Folder
 
 This folder consists of:
 
-*	c# files with private/senstive/secret/hidden data		
+*	c# files with public/insenstive/open/exposed data		
 	in this case for OAtuh providers for this sample	
-	*	c# code is 
-		*	included into project in project file (csproj) by the means of wildcards		
-		*	excluded/ignored for source versioning by the means of .gitignore
+    *   c# code is 
+        *   included into project in project file (csproj)        
+        *   code can be pushed to the repo
+        *   this code calls to partial method implementation[s]
+*   c# files in secure/ folder with private/sensitive/secret/hidden data        
+    *   c# code is 
+        *   included into project in project file (csproj) by the means of wildcards        
+        *   excluded/ignored for source versioning by the means of .gitignore
+        *   code contains sensitive data in partial methods
+
+
 
 ## Goal and Implementation
 
 *	goal		
 	*	make samples compile clean
 	*	hide private/sensitive/secret data like API keys (Client Key, Customer key)
+
+
 
 ## Project File (csproj)
 
@@ -75,6 +85,10 @@ igonre patterns (personal):
 	**/*.private.sh
 	**/*.private.bat
 	**/*.private.cmd
+
+## OAuth Providers implemented
+
+
 
 
 		/*

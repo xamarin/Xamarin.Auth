@@ -87,6 +87,18 @@ namespace Xamarin.Auth.Sample.XamarinIOS
         /// <see cref="http://www.iana.org/assignments/uri-schemes/uri-schemes.xhtml"/> 
         public override bool OpenUrl(UIApplication app, NSUrl url, string sourceApp, NSObject annotation)
         {
+            UIAlertView av = new UIAlertView
+                                    (
+                                        "OpenUrl",
+                                        url.AbsoluteString
+                                        + Environment.NewLine +
+                                        sourceApp
+                                        ,
+                                        null,
+                                        "OK", null
+                                    );
+            av.Show();
+
             return true;
         }
 	}

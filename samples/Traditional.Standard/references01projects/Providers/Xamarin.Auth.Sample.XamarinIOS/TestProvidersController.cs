@@ -57,8 +57,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             Xamarin.Auth.Helpers.OAuth auth;
             if (!Data.TestCases.TryGetValue(provider, out auth))
             {
-                var _error = new UIAlertView("Error", "Unknown OAuth Provider!", null, "Ok", null);
-                _error.Show();
+                UIAlertView alert = new UIAlertView("Error", "Unknown OAuth Provider!", null, "Ok", null);
+                alert.Show();
             }
             if (auth is Xamarin.Auth.Helpers.OAuth1)
             {
@@ -83,9 +83,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                                 accessTokenUrl: oauth1.OAuth_UriAccessToken,
                                                 callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
                                                 isUsingNativeUI: test_native_ui
-                                            );
+                                            )
+			{
+				ShowErrors = false,
+			};
 
-            auth.AllowCancel = oauth1.AllowCancel;
+			auth.AllowCancel = oauth1.AllowCancel;
 
             // If authorization succeeds or is canceled, .Completed will be fired.
             auth.Completed += Auth_Completed;
@@ -115,17 +118,22 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
             if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
             {
-                auth = new OAuth2Authenticator
+				// Implicit
+				auth = new OAuth2Authenticator
                                 (
                                     clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                                     scope: oauth2.OAuth2_Scope,
                                     authorizeUrl: oauth2.OAuth_UriAuthorization,
                                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
                                     isUsingNativeUI: test_native_ui
-                                );
-            }
+                                )
+				{
+					ShowErrors = false,
+				};
+			}
             else
             {
+                // Explicit
                 auth = new OAuth2Authenticator
                                 (
                                     clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -135,7 +143,10 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
                                     accessTokenUrl: oauth2.OAuth2_UriRequestToken,
                                     isUsingNativeUI: test_native_ui
-                                );
+                                )
+                {
+                    ShowErrors = false,
+                };
             }
 
             auth.AllowCancel = oauth2.AllowCancel;
@@ -165,8 +176,19 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
         public void Auth_Completed(object sender, AuthenticatorCompletedEventArgs ee)
         {
-            string title = "OAuth Results";
-            string msg = "";
+            string title = "Event Auth Completed";
+            string msg = null;
+
+            #if DEBUG
+            string d = null;
+            string[] values = ee?.Account?.Properties?.Select(x => x.Key + "=" + x.Value).ToArray();
+            if ( values != null)
+            {
+                d = string.Join("  ;  ", values);
+            }
+            msg = String.Format("TestProviderController.Auth_Completed {0}", d);
+            System.Diagnostics.Debug.WriteLine(msg);
+            #endif
 
             if (!ee.IsAuthenticated)
             {
@@ -246,12 +268,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
         private void Auth_Error(object sender, AuthenticatorErrorEventArgs ee)
         {
-            string title = "OAuth Error";
+            string title = "Event Auth Error";
             string msg = "";
 
             StringBuilder sb = new StringBuilder();
             sb.Append("Message  = ").Append(ee.Message)
-                .Append(System.Environment.NewLine);
+              .Append(System.Environment.NewLine);
             msg = sb.ToString();
 
             InvokeOnMainThread
@@ -270,7 +292,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
         private void Auth_BrowsingCompleted(object sender, EventArgs ee)
         {
-            string title = "OAuth Browsing Completed";
+            string title = "Event Auth Browsing Completed";
             string msg = "";
 
             StringBuilder sb = new StringBuilder();
@@ -321,8 +343,9 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                         token = account1.Properties[token_name].ToString();
                     }
                     UIAlertView alert =
-                        new UIAlertView(
-                            "Token",
+                        new UIAlertView
+                        (
+                            "Token 1",
                             "access_token = " + token,
                             null,
                             "OK",
@@ -377,7 +400,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                     }
                     UIAlertView alert = new UIAlertView
                                         (
-                                            "Token",
+                                            "Token 2",
                                             "access_token = " + token,
                                             null,
                                             "OK",
@@ -429,7 +452,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                     UIAlertView alert =
                         new UIAlertView
                                 (
-                                    "Token",
+                                    "Token 3",
                                     "access_token = " + token,
                                     null,
                                     "OK",
@@ -484,7 +507,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                     }
                     UIAlertView alert = new UIAlertView
                                 (
-                                    "Token",
+                                    "Token 4",
                                     "access_token = " + token,
                                     null,
                                     "OK",
