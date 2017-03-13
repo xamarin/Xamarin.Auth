@@ -64,80 +64,9 @@ namespace Xamarin.Auth.WindowsPhone
             {
                 return;
             }
-        }
-
-        private WebAuthenticator auth;
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            string key = NavigationContext.QueryString["key"];
-
-            this.auth = (WebAuthenticator)PhoneApplicationService.Current.State[key];
-            //this.auth.Completed += (sender, args) => NavigationService.GoBack(); // throws on BackButton
-            this.auth.Completed += auth_Completed;
-            this.auth.Error += OnAuthError;
-
-            PhoneApplicationService.Current.State.Remove(key);
-
-            if (this.auth.ClearCookiesBeforeLogin)
-                await this.browser.ClearCookiesAsync();
-
-            Uri uri = await this.auth.GetInitialUrlAsync();
-            this.browser.Source = uri;
-
-            base.OnNavigatedTo(e);
-        }
-
-        void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            if (NavigationService.CanGoBack)
-            {
-                // Pull Request - manually added/fixed
-                //		Marshalled NavigationService.GoBack to UI Thread #94
-                //		https://github.com/xamarin/Xamarin.Auth/pull/94
-                Dispatcher.BeginInvoke
-                (
-                    () =>
-                    {
-                        NavigationService.GoBack();
-                    }
-                );
-            }
 
             return;
         }
 
-        protected override void OnNavigatedFrom(NavigationEventArgs e)
-        {
-            this.auth.OnCancelled();
-            base.OnNavigatedFrom(e);
-        }
-
-        private void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
-        {
-            MessageBox.Show(e.Message, "Error", MessageBoxButton.OK);
-            //NavigationService.GoBack();
-        }
-
-        private void OnBrowserNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            this.progress.IsVisible = false;
-            if (e.Exception == null)
-                this.auth.OnError("Unknown"); // Shows up when not connected to the internet
-            else
-                this.auth.OnError(e.Exception);
-        }
-
-        private void OnBrowserNavigated(object sender, NavigationEventArgs e)
-        {
-            this.progress.IsVisible = false;
-            this.auth.OnPageLoaded(e.Uri);
-        }
-
-        private void OnBrowserNavigating(object sender, NavigatingEventArgs e)
-        {
-            this.progress.IsVisible = true;
-            this.auth.OnPageLoading(e.Uri);
-        }
-    }
+      }
 }

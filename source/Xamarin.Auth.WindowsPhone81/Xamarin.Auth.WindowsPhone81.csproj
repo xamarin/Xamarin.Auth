@@ -217,11 +217,13 @@
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticator.WindowsPhone.cs">
       <Link>WebAuthenticator.WindowsPhone.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticatorPage.Events.xaml.cs">
+      <Link>WebAuthenticatorPage.Events.xaml.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\WebAuthenticatorPage.xaml.cs">
       <Link>WebAuthenticatorPage.xaml.cs</Link>
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
-
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
@@ -231,7 +233,6 @@
     <Compile Include="..\Xamarin.Auth.WindowsPhone8\Plugins\UIThreadRunInvoker.WindowsPhone8.cs">
       <Link>Plugins\UIThreadRunInvoker.WindowsPhone81.cs</Link>
     </Compile>
-
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
     </Compile>
@@ -241,7 +242,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
-		
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

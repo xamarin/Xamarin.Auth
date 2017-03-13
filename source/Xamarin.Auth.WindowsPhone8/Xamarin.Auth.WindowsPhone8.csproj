@@ -216,6 +216,9 @@
     </Compile>
 
     		
+    <Compile Include="WebAuthenticatorPage.Events.xaml.cs">
+      <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
