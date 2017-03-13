@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 using System.Threading;
 using Xamarin.Utilities;
 
+using System.Linq;
+
 //--------------------------------------------------------------------
 //	Original defines
 //		usings are in Authenticator.<Platform>.cs
@@ -133,7 +135,7 @@ namespace Xamarin.Auth
             return;
         }
 
-#if __ANDROID__
+        #if __ANDROID__
 		//UIContext context;
 		//public AuthenticateUIType GetUI (UIContext context)
 		//{
@@ -141,7 +143,7 @@ namespace Xamarin.Auth
 		//	return GetPlatformUI (context);
 		//}
 		//protected abstract AuthenticateUIType GetPlatformUI (UIContext context);
-#else
+        #else
         /// <summary>
         /// Gets the UI for this authenticator.
         /// </summary>
@@ -160,7 +162,7 @@ namespace Xamarin.Auth
         /// The UI that needs to be presented.
         /// </returns>
         //protected abstract AuthenticateUIType GetPlatformUI ();
-#endif
+        #endif
 
         /// <summary>
         /// Implementations must call this function when they have successfully authenticated.
@@ -170,8 +172,18 @@ namespace Xamarin.Auth
         /// </param>
         public void OnSucceeded(Account account)
         {
+            string msg = null;
+
+            #if DEBUG
+            string d = string.Join("  ;  ", account.Properties.Select(x => x.Key + "=" + x.Value));
+            msg = String.Format("Authenticator.OnSucceded {0}", d);
+            System.Diagnostics.Debug.WriteLine(msg);
+            #endif
+
             if (HasCompleted)
+            {
                 return;
+            }
 
             HasCompleted = true;
 
@@ -187,7 +199,14 @@ namespace Xamarin.Auth
                     var ev = Completed;
                     if (ev != null)
                     {
+                        System.Diagnostics.Debug.WriteLine("Authenticator.OnSucceded Completed Begin");
                         ev(this, new AuthenticatorCompletedEventArgs(account));
+                        System.Diagnostics.Debug.WriteLine("Authenticator.OnSucceded Completed End");
+                    }
+                    else
+                    {
+                        msg = "No subscribers to Xamarin.Auth.Authenticator.Completed (OnCompleted) event";
+                        System.Diagnostics.Debug.WriteLine(msg);
                     }
                 }
             );
@@ -275,7 +294,7 @@ namespace Xamarin.Auth
         /// </param>
         public void OnError(Exception exception)
         {
-#region
+            #region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		IgnoreErrorsWhenCompleted #58
@@ -290,10 +309,12 @@ namespace Xamarin.Auth
 			*/
             RaiseErrorEvent(new AuthenticatorErrorEventArgs(exception));
             //---------------------------------------------------------------------------------------
-#endregion
+            #endregion
+
+            return;
         }
 
-#region
+        #region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		IgnoreErrorsWhenCompleted #58
@@ -322,10 +343,10 @@ namespace Xamarin.Auth
             return;
         }
         //---------------------------------------------------------------------------------------
-#endregion
+        #endregion
 
 
-#region
+        #region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		Added IsAuthenticated check #88
@@ -341,7 +362,7 @@ namespace Xamarin.Auth
         /// </summary>
         public Func<Account, AccountResult> GetAccountResult { get; set; }
         //---------------------------------------------------------------------------------------
-#endregion
+        #endregion
 
     }
 

@@ -26,44 +26,44 @@ using UIContext = Android.Content.Context;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that displays a web page.
-	/// </summary>
+    /// <summary>
+    /// An authenticator that displays a web page.
+    /// </summary>
 #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class WebAuthenticator
 #else
-    public abstract partial class WebAuthenticator 
+    public abstract partial class WebAuthenticator
 #endif
-	{
-		/// <summary>
-		/// Clears all cookies.
-		/// </summary>
-		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public static void ClearCookies()
-		{
-			global::Android.Webkit.CookieSyncManager.CreateInstance (global::Android.App.Application.Context);
-			global::Android.Webkit.CookieManager.Instance.RemoveAllCookie ();
-		}
+    {
+        /// <summary>
+        /// Clears all cookies.
+        /// </summary>
+        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        public static void ClearCookies()
+        {
+            global::Android.Webkit.CookieSyncManager.CreateInstance(global::Android.App.Application.Context);
+            global::Android.Webkit.CookieManager.Instance.RemoveAllCookie();
+        }
 
 
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI(UIContext context)
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        protected override AuthenticateUIType GetPlatformUI(UIContext context)
         {
             System.Object ui = null;
             if (this.IsUsingNativeUI == true)
             {
-                ui = GetPlatformUINative (context);
+                ui = GetPlatformUINative(context);
             }
             else
             {
                 ui = GetPlatformUIEmbeddedBrowser(context);
             }
- 
+
             return ui;
         }
 

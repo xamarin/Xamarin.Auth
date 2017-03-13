@@ -29,7 +29,9 @@ namespace Xamarin.Auth
             // SafariServices.SFSafariViewController 
             AuthenticateUIType ui = null;
 
-            ui = new SafariServices.SFSafariViewController(url_ios, false)
+            ui = 
+                new global::SafariServices.SFSafariViewController(url_ios, false)
+                //new Xamarin.Auth.SafariServices.SFSafariViewController()
             {
                 Delegate = new NativeAuthSafariViewControllerDelegate(this),
             };

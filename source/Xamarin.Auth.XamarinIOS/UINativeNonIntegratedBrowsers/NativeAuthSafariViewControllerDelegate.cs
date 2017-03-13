@@ -1,16 +1,41 @@
 ﻿using System;
-namespace Xamarin.Auth
+
+using Foundation;
+using UIKit;
+using SafariServices;
+
+namespace Xamarin.Auth//.SafariServices
 {
-    public class NativeAuthSafariViewControllerDelegate : SafariServices.SFSafariViewControllerDelegate
+	public partial class NativeAuthSafariViewControllerDelegate 
+        :
+			global::SafariServices.SFSafariViewControllerDelegate
+            // to mimic SFSafariViewController
+            //UIKit.UIViewController,
+            //global::SafariServices.ISFSafariViewControllerDelegate
     {
-        WeakReference authenticator;
-        public NativeAuthSafariViewControllerDelegate(WebAuthenticator authenticator)
+        WebAuthenticator authenticator = null;
+
+        public NativeAuthSafariViewControllerDelegate(WebAuthenticator wa)
         {
-            this.authenticator = new WeakReference(authenticator);
+            authenticator = wa;
+
+            return;
         }
-        public override void DidFinish(SafariServices.SFSafariViewController controller)
+
+        public override void DidCompleteInitialLoad(SFSafariViewController controller, bool didLoadSuccessfully)
         {
-            (authenticator?.Target as WebAuthenticator)?.OnCancelled();
+            return;
         }
+
+		public override void DidFinish(SFSafariViewController controller)
+        {
+			return;
+		}
+
+		public override UIActivity[] GetActivityItems(SFSafariViewController controller, NSUrl url, string title)
+        {
+			return null;
+		}
+
     }
 }

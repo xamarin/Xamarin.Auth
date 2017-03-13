@@ -109,11 +109,11 @@ namespace Xamarin.Auth
 
                 if (e.Exception != null)
                 {
-                    this.ShowError("Authentication Error", e.Exception);
+                    this.ShowError("Authentication Error e.Exception = ", e.Exception);
                 }
                 else
                 {
-                    this.ShowError("Authentication Error", e.Message);
+                    this.ShowError("Authentication Error e.Message = ", e.Message);
                 }
                 BeginLoadingInitialUrl();
             };
@@ -174,7 +174,7 @@ namespace Xamarin.Auth
                     if (!state.Authenticator.ShowErrors)
                         return;
 
-                    this.ShowError("Authentication Error", t.Exception);
+                    this.ShowError("Authentication Error t.Exception = ", t.Exception);
                 }
                 else
                 {

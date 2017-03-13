@@ -25,37 +25,38 @@ using AuthenticateUIType =
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that displays a web page.
-	/// </summary>
+    /// <summary>
+    /// An authenticator that displays a web page.
+    /// </summary>
 #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class WebAuthenticator
 #else
-	public abstract partial class WebAuthenticator 
+    public abstract partial class WebAuthenticator
 #endif
-	{
-		/// <summary>
-		/// Clears all cookies.
-		/// </summary>
-		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public static void ClearCookies()
-		{
-			var store = Foundation.NSHttpCookieStorage.SharedStorage;
-			var cookies = store.Cookies;
-			foreach (var c in cookies) {
-				store.DeleteCookie (c);
-			}
-		}
+    {
+        /// <summary>
+        /// Clears all cookies.
+        /// </summary>
+        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        public static void ClearCookies()
+        {
+            var store = Foundation.NSHttpCookieStorage.SharedStorage;
+            var cookies = store.Cookies;
+            foreach (var c in cookies)
+            {
+                store.DeleteCookie(c);
+            }
+        }
 
 
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI()
-		{
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        protected override AuthenticateUIType GetPlatformUI()
+        {
             System.Object ui = null;
             if (this.IsUsingNativeUI == true)
             {
@@ -67,7 +68,7 @@ namespace Xamarin.Auth
             }
 
             return ui;
-		}
+        }
 
         /// <summary>
         /// Gets the platform  UI (Android - WebView).
