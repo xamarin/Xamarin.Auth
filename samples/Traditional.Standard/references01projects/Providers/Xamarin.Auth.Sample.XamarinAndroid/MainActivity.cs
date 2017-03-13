@@ -71,6 +71,17 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     authorizeUrl: oauth1.OAuth_UriAuthorization,
                     accessTokenUrl: oauth1.OAuth_UriAccessToken,
                     callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
+                    // Native UI API switch
+                    // Default - false
+                    // will be switched to true in the near future 2017-04
+                    //      true    - NEW native UI support 
+                    //              - Android - Chrome Custom Tabs 
+                    //              - iOS SFSafariViewController
+                    //              - WORK IN PROGRESS
+                    //              - undocumented
+                    //      false   - OLD embedded browser API 
+                    //              - Android - WebView 
+                    //              - iOS - UIWebView
                     isUsingNativeUI: test_native_ui
                 );
 
@@ -84,6 +95,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             System.Object ui_intent_as_object = auth.GetUI(this);
             if (auth.IsUsingNativeUI == true)
             {
+                // NEW UPCOMMING API undocumented work in progress
+                // using new Native UI API Chrome Custom Tabs on Android and SFSafariViewController on iOS
+                // on 2014-04-20 google login (and some other providers) will work only with this API
                 // Add Android.Support.CustomTabs package 
                 global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
                 cti = (global::Android.Support.CustomTabs.CustomTabsIntent)ui_intent_as_object;
@@ -91,6 +105,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
             else
             {
+                // OLD API undocumented work in progress (soon to be deprecated)
+                // set to false to use old embedded browser API WebView and UIWebView
+                // on 2014-04-20 google login (and some other providers) will NOT work with this API
+                // This will be left as optional API for some devices (wearables) which do not support
+                // Chrome Custom Tabs on Android.
                 global::Android.Content.Intent i = null;
                 i = (global::Android.Content.Intent)ui_intent_as_object;
                 StartActivity(i);
@@ -112,6 +131,17 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         scope: oauth2.OAuth2_Scope,
                         authorizeUrl: oauth2.OAuth_UriAuthorization,
                         redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                        // Native UI API switch
+                        // Default - false
+                        // will be switched to true in the near future 2017-04
+                        //      true    - NEW native UI support 
+                        //              - Android - Chrome Custom Tabs 
+                        //              - iOS SFSafariViewController
+                        //              - WORK IN PROGRESS
+                        //              - undocumented
+                        //      false   - OLD embedded browser API 
+                        //              - Android - WebView 
+                        //              - iOS - UIWebView
                         isUsingNativeUI: test_native_ui
                     );
             }
@@ -125,6 +155,17 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         authorizeUrl: oauth2.OAuth_UriAuthorization,
                         redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
                         accessTokenUrl: oauth2.OAuth2_UriRequestToken,
+                        // Native UI API switch
+                        // Default - false
+                        // will be switched to true in the near future 2017-04
+                        //      true    - NEW native UI support 
+                        //              - Android - Chrome Custom Tabs 
+                        //              - iOS SFSafariViewController
+                        //              - WORK IN PROGRESS
+                        //              - undocumented
+                        //      false   - OLD embedded browser API 
+                        //              - Android - WebView 
+                        //              - iOS - UIWebView
                         isUsingNativeUI: test_native_ui
                     );
             }
@@ -139,6 +180,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             System.Object intent_as_object = auth.GetUI(this);
             if (auth.IsUsingNativeUI == true)
             {
+                // NEW UPCOMMING API undocumented work in progress
+                // using new Native UI API Chrome Custom Tabs on Android and SFSafariViewController on iOS
+                // on 2014-04-20 google login (and some other providers) will work only with this API
                 System.Uri uri_netfx = auth.GetInitialUrlAsync().Result;
                 global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
 
@@ -180,6 +224,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
             else
             {
+                // OLD API undocumented work in progress (soon to be deprecated)
+                // set to false to use old embedded browser API WebView and UIWebView
+                // on 2014-04-20 google login (and some other providers) will NOT work with this API
+                // This will be left as optional API for some devices (wearables) which do not support
+                // Chrome Custom Tabs on Android.
                 global::Android.Content.Intent i = null;
                 i = (global::Android.Content.Intent)intent_as_object;
                 StartActivity(i);

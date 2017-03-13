@@ -82,6 +82,15 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                                 authorizeUrl: oauth1.OAuth_UriAuthorization,
                                                 accessTokenUrl: oauth1.OAuth_UriAccessToken,
                                                 callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
+                                                // Native UI API switch
+                                                //      true    - NEW native UI support 
+                                                //              - Android - Chrome Custom Tabs 
+                                                //              - iOS SFSafariViewController
+                                                //              - WORK IN PROGRESS
+                                                //              - undocumented
+                                                //      false   - OLD embedded browser API 
+                                                //              - Android - WebView 
+                                                //              - iOS - UIWebView
                                                 isUsingNativeUI: test_native_ui
                                             )
 			{
@@ -99,12 +108,20 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             System.Object ui_controller_as_object = auth.GetUI();
             if (auth.IsUsingNativeUI == true)
             {
+                // NEW UPCOMMING API undocumented work in progress
+                // using new Native UI API Chrome Custom Tabs on Android and SFSafariViewController on iOS
+                // on 2014-04-20 google login (and some other providers) will work only with this API
                 SafariServices.SFSafariViewController c = null;
                 c = (SafariServices.SFSafariViewController)ui_controller_as_object;
                 PresentViewController(c, true, null);
             }
             else
             {
+                // OLD API undocumented work in progress (soon to be deprecated)
+                // set to false to use old embedded browser API WebView and UIWebView
+                // on 2014-04-20 google login (and some other providers) will NOT work with this API
+                // This will be left as optional API for some devices (wearables) which do not support
+                // Chrome Custom Tabs on Android.
                 UIViewController c = (UIViewController)ui_controller_as_object;
                 PresentViewController(c, true, null);
             }
