@@ -1,6 +1,16 @@
 # Xamarin.Auth
 
+The valid documentation is still documentation for Component 
+
+*	[./component/GettingStarted.md](./component/GettingStarted.md)
+*	[./component/Details.md](./component/Details.md)
+*	[./component/License.md](./component/License.md)
+
 ## Release Notes
+
+### v.1.3.2.6
+
+### v.1.3.2.5
 
 ### v.1.3.2.3
 
