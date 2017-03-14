@@ -103,11 +103,14 @@ Task ("nuget-fixes")
 					nuget_location = "./tools/nuget.3.5.0.exe";
 					nuget_location_relative_from_cake_exe = "../nuget.3.5.0.exe";
 					Information("On Mac downloading 3.5.0 to " + nuget_location);				
-					DownloadFile
-					(					
-						@"https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe",
-						nuget_location
-					);
+					if ( ! FileExists(nuget_location))
+					{
+						DownloadFile
+						(					
+							@"https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe",
+							nuget_location
+						);
+					}
 				}
 				else
 				{
@@ -115,11 +118,14 @@ Task ("nuget-fixes")
 					nuget_location = "./tools/nuget.2.8.6.exe";
 					Information("On Mac downloading 2.8.6 to " + nuget_location);				
 					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
-					DownloadFile
-					(
-						@"https://dist.nuget.org/win-x86-commandline/v2.8.6/nuget.exe",
-						nuget_location
-					);
+					if ( ! FileExists(nuget_location))
+					{
+						DownloadFile
+						(
+							@"https://dist.nuget.org/win-x86-commandline/v2.8.6/nuget.exe",
+							nuget_location
+						);
+					}
 				}
 			}
 		
@@ -145,7 +151,14 @@ RunTarget("nuget-fixes");	// fix nuget problems on MacOSX
 NuGetRestoreSettings nuget_restore_settings = new NuGetRestoreSettings 
 		{ 
 			ToolPath = nuget_tool_path,
-			Verbosity = NuGetVerbosity.Detailed
+			Verbosity = NuGetVerbosity.Detailed,
+		};
+
+NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings 
+		{ 
+			ToolPath = nuget_tool_path,
+			Verbosity = NuGetVerbosity.Detailed,
+			Prerelease = false,
 		};
 
 Task ("clean")
@@ -154,15 +167,32 @@ Task ("clean")
 		() => 
 		{	
 			// note no trailing backslash
-			DeleteDirectories(GetDirectories("./output"), recursive:true);
-			DeleteDirectories(GetDirectories("./source/**/bin"), recursive:true);
-			DeleteDirectories(GetDirectories("./source/**/obj"), recursive:true);
-			DeleteDirectories(GetDirectories("./source/**/Bin"), recursive:true);
-			DeleteDirectories(GetDirectories("./source/**/Obj"), recursive:true);
-			DeleteDirectories(GetDirectories("./samples/**/bin"), recursive:true);
-			DeleteDirectories(GetDirectories("./samples/**/obj"), recursive:true);
-			DeleteDirectories(GetDirectories("./samples/**/Bin"), recursive:true);
-			DeleteDirectories(GetDirectories("./samples/**/Obj"), recursive:true);
+			//DeleteDirectories (GetDirectories("./output"), recursive:true);
+			// OK
+			CleanDirectories("**/obj");
+			CleanDirectories("**/Obj");
+			CleanDirectories("**/bin");
+			CleanDirectories("**/Bin");
+			
+			//CleanDirectories(GetDirectories("**/obj"));
+			//CleanDirectories(GetDirectories("**/Obj"));
+			//CleanDirectories(GetDirectories("**/bin"));
+			//CleanDirectories(GetDirectories("**/Bin"));
+			
+			
+			// OK
+			//DeleteDirectories(GetDirectories("**/obj"), recursive:true);
+			//DeleteDirectories(GetDirectories("**/Obj"), recursive:true);
+			//DeleteDirectories(GetDirectories("**/bin"), recursive:true);
+			//DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
+			
+			// ! OK
+			//DeleteDirectories("**/obj", true);
+			// The best overloaded method match for 
+			//		`CakeBuildScriptImpl.DeleteDirectories(System.Collections.Generic.IEnumerable<Cake.Core.IO.DirectoryPath>, bool)' 
+			// has some invalid arguments
+			//Information("NOGO: DeleteDirectories(\"**/obj\", true);");
+
 		}
 	);
 
@@ -171,9 +201,13 @@ Task ("distclean")
 	.Does 
 	(
 		() => 
-		{	
-			CleanDirectories("./**/packages");
-			CleanDirectories("./**/Components");
+		{				
+			DeleteDirectories(GetDirectories("**/bin"), recursive:true);
+			DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
+			DeleteDirectories(GetDirectories("**/obj"), recursive:true);
+			DeleteDirectories(GetDirectories("**/Obj"), recursive:true);
+			DeleteDirectories(GetDirectories("**/packages"), recursive:true);
+			DeleteDirectories(GetDirectories("**/Components"), recursive:true);
 		}
 	);
 
@@ -203,6 +237,86 @@ Task ("libs")
 		}
 	);
 
+string[] source_solutions = new string[]
+{
+	"./source/Xamarin.Auth-Library.sln",
+};
+
+string[] solutions_for_nuget_tests = new string[]
+{
+	"./samples/Traditional.Standard/references02nuget/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",	
+};
+
+string[] sample_solutions_macosx = new []
+{
+	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	//"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE-MacOSX-Xamarin.Studio.sln", // could not build shared project on CI
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
+};
+
+string[] sample_solutions_windows = new []
+{
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	/*
+	"samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
+	"samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln", 
+	"samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
+	"samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
+	"samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.xxx.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	"samples/Traditional.Standard/references02nuget/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
+	"samples/Traditional.Standard/references02nuget/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	"samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
+	"samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
+	"samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
+	"samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
+	"samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	"samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	"samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8/Demo.sln",
+	"samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8-XA/Demo.sln",
+	"samples/Xamarin.Forms/references01project/Evolve16Labs/04-Securing Local Data/Diary.sln",
+	"samples/Xamarin.Forms/references01project/Evolve16Labs/05-OAuth/ComicBook.sln",
+	"samples/Xamarin.Forms/references01project/Providers/XamarinAuth.XamarinForms.sln",
+	"samples/Xamarin.Forms/references02nuget/04-Securing Local Data/Diary.sln",
+	*/
+};
+
+string[] sample_solutions = 
+			sample_solutions_macosx
+			.Concat(sample_solutions_windows)  // comment out this line if in need
+			.ToArray()
+			;
+
+string[] solutions = 
+			source_solutions
+			.Concat(sample_solutions)  // comment out this line if in need
+			.ToArray()
+			;
+
+
+
+string[] build_configurations =  new []
+{
+	"Debug",
+	"Release",
+};
+
+
 Task ("nuget-restore")
 	.IsDependentOn ("nuget-fixes")
 	.Does 
@@ -213,18 +327,98 @@ Task ("nuget-restore")
 
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
-			NuGetRestore 
-				(
-					"./source/Xamarin.Auth-Library.sln",
-					nuget_restore_settings
-				);
+			if (IsRunningOnWindows())
+			{
+				foreach (string sln in solutions)
+				{
+					if (sln.Length < 200)
+					{
+						Information(" NuGetRestore = {0}", sln);
+						NuGetRestore(sln, nuget_restore_settings); 
+					}
+					else
+					{
+						Information(" NuGetRestore SKIP path too long = {0}", sln);						
+					}
+				};
+			}
+			else
+			{
+				foreach (string sln in solutions)
+				{
+					Information(" NuGetRestore = {0}", sln);					
+					NuGetRestore(sln, nuget_restore_settings); 
+				};
+
+			}
+			
 			NuGetRestore 
 				(
 					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 					nuget_restore_settings
 				);
+			}
+	);
+
+Task ("nuget-update")
+	.IsDependentOn ("nuget-restore")
+	.Does 
+	(
+		() => 
+		{	
+			FilePathCollection files_package_config = GetFiles("./**/packages.config");
+
+			if (IsRunningOnWindows())
+			{
+				foreach(FilePath package_config_file in files_package_config)
+				{
+					if (package_config_file.ToString().Length < 200)
+					{
+						Information("Nuget Update W = " + package_config_file);
+						NuGetUpdate(package_config_file, nuget_update_settings);
+					}
+				}				
+			}
+			else
+			{
+				foreach(FilePath package_config_file in files_package_config)
+				{
+					Information("Nuget Update W = " + package_config_file);
+					NuGetUpdate(package_config_file, nuget_update_settings);
+				}				
+				
+			}
+			return;	
 		}
 	);
+
+Task ("samples-nuget-restore")
+	.Does 
+	(
+		() => 
+		{
+			if (IsRunningOnWindows())
+			{
+				foreach (string sample_solution in sample_solutions)
+				{
+					if (sample_solution.Length < 200)
+					{
+						NuGetRestore(sample_solution, nuget_restore_settings); 
+					}
+				}
+			}
+			else
+			{
+				foreach (string sample_solution in sample_solutions)
+				{
+					NuGetRestore(sample_solution, nuget_restore_settings); 
+				}
+			}
+			
+			return;
+		}
+	);
+	
 
 Task ("libs-macosx")
 	.IsDependentOn ("nuget-fixes")
@@ -403,7 +597,6 @@ Task ("libs-windows")
 					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 					nuget_restore_settings
 				);
-
 
 			if (IsRunningOnWindows ()) 
 			{	
@@ -737,69 +930,6 @@ Task ("libs-windows")
 		}
 	);
 
-string[] sample_solutions_macosx = new []
-{
-	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	//"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE-MacOSX-Xamarin.Studio.sln", // could not build shared project on CI
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
-};
-string[] sample_solutions_windows = new []
-{
-	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln", 
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
-	// "samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.xxx.sln",
-	// "samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	// "samples/Traditional.Standard/references02nuget/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
-	// "samples/Traditional.Standard/references02nuget/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
-	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
-	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
-	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
-	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
-	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	// "samples/Traditional.Standard/references02nuget/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	// "samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8/Demo.sln",
-	// "samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8-XA/Demo.sln",
-	// "samples/Xamarin.Forms/references01project/Evolve16Labs/04-Securing Local Data/Diary.sln",
-	// "samples/Xamarin.Forms/references01project/Evolve16Labs/05-OAuth/ComicBook.sln",
-	// "samples/Xamarin.Forms/references01project/Providers/XamarinAuth.XamarinForms.sln",
-	// "samples/Xamarin.Forms/references02nuget/04-Securing Local Data/Diary.sln",
-};
-
-string[] sample_solutions = 
-			sample_solutions_macosx
-			.Concat(sample_solutions_windows)  // comment out this line if in need
-			.ToArray()
-			;
-
-string[] build_configurations =  new []
-{
-	"Debug",
-	"Release",
-};
-
-Task ("samples-nuget-restore")
-	.Does 
-	(
-		() => 
-		{
-			foreach (string sample_solution in sample_solutions)
-			{
-				NuGetRestore(sample_solution, nuget_restore_settings); 
-			}
-			return;
-		}
-	);
 
 Task ("samples")
 	.Does 
@@ -971,6 +1101,7 @@ Task ("component")
 			CopyFiles ("./component/**/*.xam", "./output");		
 		}
 	);
+
 FilePath GetToolPath (FilePath toolPath)
 {
     var appRoot = Context.Environment.GetApplicationRoot ();
@@ -979,6 +1110,7 @@ FilePath GetToolPath (FilePath toolPath)
 	 {
          return appRootExe;
 	 }
+
     throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
 }
 
