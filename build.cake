@@ -154,15 +154,15 @@ Task ("clean")
 		() => 
 		{	
 			// note no trailing backslash
-			CleanDirectories ("./output");
-			CleanDirectories("./source/**/bin");
-			CleanDirectories("./source/**/obj");
-			CleanDirectories("./source/**/Bin");
-			CleanDirectories("./source/**/Obj");
-			CleanDirectories("./samples/**/bin");
-			CleanDirectories("./samples/**/obj");
-			CleanDirectories("./samples/**/Bin");
-			CleanDirectories("./samples/**/Obj");
+			DeleteDirectories(GetDirectories("./output"), recursive:true);
+			DeleteDirectories(GetDirectories("./source/**/bin"), recursive:true);
+			DeleteDirectories(GetDirectories("./source/**/obj"), recursive:true);
+			DeleteDirectories(GetDirectories("./source/**/Bin"), recursive:true);
+			DeleteDirectories(GetDirectories("./source/**/Obj"), recursive:true);
+			DeleteDirectories(GetDirectories("./samples/**/bin"), recursive:true);
+			DeleteDirectories(GetDirectories("./samples/**/obj"), recursive:true);
+			DeleteDirectories(GetDirectories("./samples/**/Bin"), recursive:true);
+			DeleteDirectories(GetDirectories("./samples/**/Obj"), recursive:true);
 		}
 	);
 
@@ -221,16 +221,6 @@ Task ("nuget-restore")
 			NuGetRestore 
 				(
 					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-					nuget_restore_settings
-				);
-			NuGetRestore 
-				(
-					"./source/XamarinForms-Xamarin.Auth-Library.sln",
-					nuget_restore_settings
-				);
-			NuGetRestore 
-				(
-					"./source/XamarinForms-Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 					nuget_restore_settings
 				);
 		}
@@ -411,18 +401,6 @@ Task ("libs-windows")
 			NuGetRestore 
 				(
 					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-					nuget_restore_settings
-				);
-			Information("nuget restore {0}", "./source/XamarinForms.Auth.sln");
-			NuGetRestore 
-				(
-					"./source/XamarinForms-Xamarin.Auth-Library.sln",
-					nuget_restore_settings
-				);
-			Information("nuget restore {0}", "./source/XamarinForms.Auth-Library-MacOSX-Xamarin.Studio.sln");
-			NuGetRestore 
-				(
-					"./source/XamarinForms-Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 					nuget_restore_settings
 				);
 
