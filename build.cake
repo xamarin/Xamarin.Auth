@@ -443,6 +443,45 @@ Task ("nuget-restore")
 		}
 	);
 
+Task ("nuget-update")
+	.IsDependentOn ("nuget-restore")
+	.Does 
+	(
+		() => 
+		{	
+			if (IsRunningOnWindows())
+			{
+				foreach(string package_config_file in packages_to_restore)
+				{
+					Information("Nuget Update W = " + package_config_file);
+					NuGetUpdate(package_config_file, nuget_update_settings);
+				}
+				
+			}
+			{
+				FilePathCollection files_package_config = GetFiles("./**/package.config");
+				foreach(FilePath file_package_conf in files_package_config)
+				{
+					Information("Nuget Update X = " + files_package_config);
+					NuGetUpdate(file_package_conf, nuget_update_settings);
+				}
+			}
+		}
+	);
+
+Task ("samples-nuget-restore")
+	.Does 
+	(
+		() => 
+		{
+			foreach (string sample_solution in sample_solutions)
+			{
+				NuGetRestore(sample_solution, nuget_restore_settings); 
+			}
+			return;
+		}
+	);
+	
 
 Task ("libs-macosx")
 	.IsDependentOn ("nuget-fixes")
@@ -967,45 +1006,6 @@ Task ("libs-windows")
 		}
 	);
 
-
-Task ("nuget-update")
-	.IsDependentOn ("nuget-restore")
-	.Does 
-	(
-		() => 
-		{	
-			if (IsRunningOnWindows())
-			{
-				foreach(string package_config_file in packages_to_restore)
-				{
-					Information("Nuget Update = " + package_config_file);
-					NuGetUpdate(package_config_file, nuget_update_settings);
-				}
-				
-			}
-			{
-				FilePathCollection files_package_config = GetFiles("./**/package.config");
-				foreach(FilePath file_package_conf in files_package_config)
-				{
-					Information("Nuget Update = " + files_package_config);
-					NuGetUpdate(file_package_conf, nuget_update_settings);
-				}
-			}
-		}
-	);
-
-Task ("samples-nuget-restore")
-	.Does 
-	(
-		() => 
-		{
-			foreach (string sample_solution in sample_solutions)
-			{
-				NuGetRestore(sample_solution, nuget_restore_settings); 
-			}
-			return;
-		}
-	);
 
 Task ("samples")
 	.Does 
