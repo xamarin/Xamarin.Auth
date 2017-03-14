@@ -265,12 +265,6 @@ string[] sample_solutions =
 			.ToArray()
 			;
 
-string[] build_configurations =  new []
-{
-	"Debug",
-	"Release",
-};
-
 string[] solutions = new string[]
 {
 	"./source/Xamarin.Auth-Library.sln",
@@ -319,7 +313,99 @@ string[] solutions_for_nuget_tests = new string[]
 	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",	
 };
 
+string[] packages_source_projects_to_restore = new string[]
+{
+	"./source/Xamarin.Auth.LinkSource/packages.config",
+	"./source/Xamarin.Auth.Portable/packages.config",
+	"./source/Xamarin.Auth.Windows81Universal/packages.config",
+	"./source/Xamarin.Auth.WindowsPhone8/packages.config",
+	"./source/Xamarin.Auth.WindowsPhone81/packages.config",
+	"./source/Xamarin.Auth.WindowsStore81WinRT/packages.config",
+	"./source/Xamarin.Auth.WinRTWindows81/packages.config",
+	"./source/Xamarin.Auth.WinRTWindowsPhone81/packages.config",
+	"./source/Xamarin.Auth.XamarinAndroid/packages.config",
+	"./source/Xamarin.Auth.XamarinIOS/packages.config",
+	"./source/XamarinForms/Xamarin.Auth.XamarinForms/packages.config",
+	"./source/XamarinForms/Xamarin.Auth.XamarinForms.Droid/packages.config",
+	"./source/XamarinForms/Xamarin.Auth.XamarinForms.iOS/packages.config",
+	"./source/XamarinForms/Xamarin.Auth.XamarinForms.WindowsPhone8/packages.config",
+	"./source/XamarinForms/Xamarin.Auth.XamarinForms.WindowsPhone81/packages.config",
+	"./source/XamarinForms/Xamarin.Auth.XamarinForms.WindowsStore81WinRT/packages.config",
+	"./source/Extensions/Xamarin.Auth.Extensions.LinkSource/packages.config",
+	"./source/Extensions/Xamarin.Auth.Extensions.Portable/packages.config",
+	"./source/Extensions/Xamarin.Auth.Extensions.WindowsPhone8/packages.config",
+	"./source/Extensions/Xamarin.Auth.Extensions.WindowsPhone81/packages.config",
+	"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/packages.config",
+	"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/packages.config",
+};
 
+string[] packages_sample_projects_to_restore = new string[]
+{
+	"./samples/Xamarin.Auth.SampleData/packages.config",
+	
+	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.UITests.XamarinAndroid/packages.config",
+	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.UITests.XamarinIOS/packages.config",
+	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinAndroid/packages.config",
+	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinIOS/packages.config",
+	
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.UITests.XamarinAndroid/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.UITests.XamarinIOS/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone8/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone81/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WinRTWindows81/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WinRTWindowsPhone81/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinAndroid/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinIOS/packages.config",
+	
+	"./samples/Traditional.Standard/references01projects/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/packages.config",
+	"./samples/Traditional.Standard/references02nuget/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/packages.config",
+	
+	/*
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/04-Securing Local Data/Diary/Diary.Droid/packages.config",
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/04-Securing Local Data/Diary/Diary.iOS/packages.config",
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/04-Securing Local Data/Diary/Diary.WindowsPhone8Silverlight/packages.config",
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/04-Securing Local Data/Diary.PCL/packages.config",
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/05-OAuth/Droid/packages.config",
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/05-OAuth/iOS/packages.config",
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/05-OAuth/Portable/packages.config",
+	"./samples/Xamarin.Forms/references01project/Evolve16Labs/05-OAuth/WinPhone8/packages.config",
+	"./samples/Xamarin.Forms/references01project/Providers/XamarinAuth/packages.config",
+	"./samples/Xamarin.Forms/references01project/Providers/XamarinAuth.Droid/packages.config",
+	"./samples/Xamarin.Forms/references01project/Providers/XamarinAuth.iOS/packages.config",
+	"./samples/Xamarin.Forms/references01project/Providers/XamarinAuth.WinPhone/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/04-Securing Local Data/Diary/Diary.Droid/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/04-Securing Local Data/Diary/Diary.iOS/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/04-Securing Local Data/Diary/Diary.WindowsPhone8Silverlight/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/04-Securing Local Data/Diary.PCL/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/05-OAuth/Droid/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/05-OAuth/iOS/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/05-OAuth/Portable/packages.config",
+	"./samples/Xamarin.Forms/references02nuget/Evolve16Labs/05-OAuth/WinPhone8/packages.config",
+	
+	"./samples/bugs-triaging/component-2-nuget-migration-ANE/iOS/packages.config",
+	
+	"./samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8/WindowsPhoneSilverlightApp1/packages.config",
+	"./samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8-XA/AndroidApp1/packages.config",
+	"./samples/Traditional.Standard/WindowsPhoneCrashMissingMethod-GetUI/WP8-XA/WindowsPhone8App1/packages.config",
+
+	
+	"./tests/UITests-AcceptanceTests-Traditional-Standard/references01projects/Xamarin.Auth.Sample.XamarinAndroid/packages.config",
+	"./tools/packages.config",
+	*/
+};
+
+string[] packages_to_restore = 
+			packages_source_projects_to_restore
+			.Concat(packages_sample_projects_to_restore)  // comment out this line if in need
+			.ToArray()
+			;
+
+
+string[] build_configurations =  new []
+{
+	"Debug",
+	"Release",
+};
 
 
 Task ("nuget-restore")
@@ -888,11 +974,22 @@ Task ("nuget-update")
 	(
 		() => 
 		{	
-			FilePathCollection files_package_config = GetFiles("./**/package.config");
-			foreach(FilePath file_package_conf in files_package_config)
+			if (IsRunningOnWindows())
 			{
-				Information("Nuget Update = " + files_package_config);
-				NuGetUpdate(file_package_conf, nuget_update_settings);
+				foreach(string package_config_file in packages_to_restore)
+				{
+					Information("Nuget Update = " + package_config_file);
+					NuGetUpdate(package_config_file, nuget_update_settings);
+				}
+				
+			}
+			{
+				FilePathCollection files_package_config = GetFiles("./**/package.config");
+				foreach(FilePath file_package_conf in files_package_config)
+				{
+					Information("Nuget Update = " + files_package_config);
+					NuGetUpdate(file_package_conf, nuget_update_settings);
+				}
 			}
 		}
 	);
