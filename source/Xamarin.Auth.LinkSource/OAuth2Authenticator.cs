@@ -184,7 +184,7 @@ namespace Xamarin.Auth
                             string clientId, string scope, 
                             Uri authorizeUrl, Uri redirectUrl, 
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = true
+                            bool isUsingNativeUI = false
                         )
             : this(redirectUrl)
         {
@@ -259,7 +259,7 @@ namespace Xamarin.Auth
                             string clientId, string clientSecret, string scope, 
                             Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, 
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = true
+                            bool isUsingNativeUI = false
                         )
             : this(redirectUrl, clientSecret, accessTokenUrl)
         {
@@ -305,7 +305,7 @@ namespace Xamarin.Auth
         OAuth2Authenticator
                         (
                             Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null, 
-                            bool isUsingNativeUI = true
+                            bool isUsingNativeUI = false
                         )
             : base(redirectUrl, redirectUrl)
         {

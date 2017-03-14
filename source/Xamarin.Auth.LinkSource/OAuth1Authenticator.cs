@@ -85,7 +85,7 @@ namespace Xamarin.Auth
                             string consumerKey, string consumerSecret, 
                             Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, 
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = true
+                            bool isUsingNativeUI = false
                         )
 		{
 			if (string.IsNullOrEmpty (consumerKey)) {
