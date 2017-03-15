@@ -30,30 +30,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73798C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.Droid", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.Droid\Xamarin.Auth.XamarinForms.Droid.csproj", "{1B702A60-3D89-4183-B251-4A07388DCCB5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS\Xamarin.Auth.XamarinForms.iOS.csproj", "{7666F0AB-7493-49F2-82B0-7D51A0250FC9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS-Classic", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS-Classic\Xamarin.Auth.XamarinForms.iOS-Classic.csproj", "{55214E2D-4FEE-49F6-BB69-5ADC2BD6B8EC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone8", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone8\Xamarin.Auth.XamarinForms.WindowsPhone8.csproj", "{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone81", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone81\Xamarin.Auth.XamarinForms.WindowsPhone81.csproj", "{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsStore81WinRT", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsStore81WinRT\Xamarin.Auth.XamarinForms.WindowsStore81WinRT.csproj", "{9EE3F977-6715-4509-8FE8-B862158AA293}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms", "..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Helpers", "Helpers", "{74D18E15-01C3-403B-95E3-7FCBFAAA4376}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Helpers", "..\..\..\..\source\XamarinForms\Xamarin.Auth.Helpers\Xamarin.Auth.Helpers.csproj", "{2CF4D47E-E4B0-454B-9015-1E76EE30C36E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sample.Data", "Sample.Data", "{1895A8FD-5BC0-46DF-B7F9-F80C0A7FDF64}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.SampleData", "..\..\..\Xamarin.Auth.Sample.Data\Xamarin.Auth.SampleData.csproj", "{AF395E40-6F1E-41E3-BA23-12E134F0D38F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Sample.WinPhone8", ".\Xamarin.Auth.Sample.WinPhone8.csproj", "{83557C1F-639D-4C61-88CF-0C3CF14B7ABC}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU

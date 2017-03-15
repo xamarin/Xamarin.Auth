@@ -421,7 +421,6 @@ Task ("samples-nuget-restore")
 	
 
 Task ("libs-macosx")
-	.IsDependentOn ("nuget-fixes")
 	.IsDependentOn ("nuget-restore")	
 	.Does 
 	(
@@ -563,7 +562,6 @@ Task ("libs-macosx")
 
 
 Task ("libs-windows")
-	.IsDependentOn ("nuget-fixes")
 	.IsDependentOn ("nuget-restore")
 	.Does 
 	(

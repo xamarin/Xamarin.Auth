@@ -31,45 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WinRTWindowsPh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.UniversalWindowsPlatform", "..\..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj", "{2D712AA6-7697-4F4D-B5F1-AA03476F59A7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73798C80-EB18-442B-9ACD-56A863B942E4}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\..\source\.nuget\NuGet.Config = ..\..\..\..\..\source\.nuget\NuGet.Config
-		..\..\..\..\..\source\.nuget\NuGet.exe = ..\..\..\..\..\source\.nuget\NuGet.exe
-		..\..\..\..\..\source\.nuget\NuGet.targets = ..\..\..\..\..\source\.nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.Droid", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.Droid\Xamarin.Auth.XamarinForms.Droid.csproj", "{1B702A60-3D89-4183-B251-4A07388DCCB5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS\Xamarin.Auth.XamarinForms.iOS.csproj", "{7666F0AB-7493-49F2-82B0-7D51A0250FC9}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.iOS-Classic", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.iOS-Classic\Xamarin.Auth.XamarinForms.iOS-Classic.csproj", "{55214E2D-4FEE-49F6-BB69-5ADC2BD6B8EC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone8", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone8\Xamarin.Auth.XamarinForms.WindowsPhone8.csproj", "{C5DD0133-9A66-4489-91C3-745D6ED5FFE5}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinForms.WindowsPhone81", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms.WindowsPhone81\Xamarin.Auth.XamarinForms.WindowsPhone81.csproj", "{D77B034E-C3F0-4DA3-B193-9F4EB2C0CDE2}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\..\source\readme.md = ..\..\..\..\..\source\readme.md
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{C1AFC24F-8A5D-4AAF-938E-C61212111835}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.LinkSource", "..\..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.LinkSource\Xamarin.Auth.Extensions.LinkSource.csproj", "{3EBB5946-5B7E-4EB3-8E3A-4FEE91D69ED6}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.Portable", "..\..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.Portable\Xamarin.Auth.Extensions.Portable.csproj", "{6397C9BB-4FCF-4484-923B-A36093A4253D}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinAndroid", "..\..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinAndroid\Xamarin.Auth.Extensions.XamarinAndroid.csproj", "{FA8B2786-B839-4271-9303-43EE483BCC1F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS", "..\..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinIOS\Xamarin.Auth.Extensions.XamarinIOS.csproj", "{ED88D56E-0677-4735-B083-60A46FA8CB94}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS-Classic", "..\..\..\..\..\source\Extensions\Xamarin.Auth.Extensions.XamarinIOS-Classic\Xamarin.Auth.Extensions.XamarinIOS-Classic.csproj", "{8F5F3994-1BE1-4503-997A-800B764322B2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS-Classic", "..\..\..\..\..\source\Xamarin.Auth.XamarinIOS-Classic\Xamarin.Auth.XamarinIOS-Classic.csproj", "{ABB2C4AF-00FA-405A-960E-CCF409899D09}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

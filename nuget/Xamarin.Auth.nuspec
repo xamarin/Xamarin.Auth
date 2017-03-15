@@ -7,13 +7,6 @@
 		<id>
 			Xamarin.Auth
 		</id>
-		<!--
-		SemVer - Semantic Versioning
-		http://semver.org/
-		-->
-		<version>
-			1.3.2.6
-		</version>
 		<title>
 			Xamarin.Auth
 		</title>
@@ -26,6 +19,16 @@
 		<copyright>
 			Copyright 2013-2017
 		</copyright>
+		<!--
+		SemVer - Semantic Versioning
+		http://semver.org/
+		-->
+		<version>
+			1.3.2.7-alpha01
+		</version>
+		<releaseNotes>
+			NativeUI API tests (Xamarin.Android.Support.CustomTabs as nuget dependency)
+		</releaseNotes>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
 		</licenseUrl>
@@ -79,9 +82,15 @@
 					/>
 		</frameworkAssemblies>
 		<dependencies> 
-		   <group>
+			<!--
+			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
+			-->
+			<group>
 			  <dependency id="PCLCrypto" version="[2.0.147,)"/>
-		   </group>
+			</group>
+			<group targetFramework="MonoAndroid10">
+				<dependency id="Xamarin.Android.Support.CustomTabs" />
+			</group>
 		</dependencies>
 	</metadata>
 	<files>

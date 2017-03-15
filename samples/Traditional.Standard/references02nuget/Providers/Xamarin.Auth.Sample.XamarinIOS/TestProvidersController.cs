@@ -81,7 +81,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                                 requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                                                 authorizeUrl: oauth1.OAuth_UriAuthorization,
                                                 accessTokenUrl: oauth1.OAuth_UriAccessToken,
-                                                callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
+                                                callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
                                                 // Native UI API switch
                                                 // Default - false
                                                 // will be switched to true in the near future 2017-04
@@ -93,7 +93,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                                 //      false   - OLD embedded browser API 
                                                 //              - Android - WebView 
                                                 //              - iOS - UIWebView
-                                                isUsingNativeUI: test_native_ui
+                                                //,isUsingNativeUI: test_native_ui
                                             )
 			{
 				ShowErrors = false,
@@ -143,7 +143,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                                     scope: oauth2.OAuth2_Scope,
                                     authorizeUrl: oauth2.OAuth_UriAuthorization,
-                                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect
                                     // Native UI API switch
                                     // Default - false
                                     // will be switched to true in the near future 2017-04
@@ -155,7 +155,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     //      false   - OLD embedded browser API 
                                     //              - Android - WebView 
                                     //              - iOS - UIWebView
-                                    isUsingNativeUI: test_native_ui
+                                    //,isUsingNativeUI: test_native_ui
                                 )
 				{
 					ShowErrors = false,
@@ -171,7 +171,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     scope: oauth2.OAuth2_Scope,
                                     authorizeUrl: oauth2.OAuth_UriAuthorization,
                                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                                    accessTokenUrl: oauth2.OAuth2_UriRequestToken,
+                                    accessTokenUrl: oauth2.OAuth2_UriRequestToken
                                     // Native UI API switch
                                     // Default - false
                                     // will be switched to true in the near future 2017-04
@@ -183,7 +183,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     //      false   - OLD embedded browser API 
                                     //              - Android - WebView 
                                     //              - iOS - UIWebView
-                                    isUsingNativeUI: test_native_ui
+                                    //,isUsingNativeUI: test_native_ui
                                 )
                 {
                     ShowErrors = false,

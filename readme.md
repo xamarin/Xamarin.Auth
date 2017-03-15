@@ -6,9 +6,40 @@ The valid documentation is still documentation for Component
 *	[./component/Details.md](./component/Details.md)
 *	[./component/License.md](./component/License.md)
 
+## Installation
+
+Xamarin.Auth can be installed in binary form (compiled and packaged)
+or compiled from source.
+ 
+Binary form is deployable as nuget from nuget.org or Xamarin Component 
+from component store:
+
+*	nuget 
+*	Component [UPDATE INPROGRESS]
+
+
 ## Release Notes
 
+Versions are nuget versions.
+
 ### v.1.3.2.6
+
+*	Xamarin.Core (Common)
+	*	fixed stupid error (of course me, who else) where default API was 		
+		new unfinished/untested/undocumented API
+*	Xamarin.Android
+	*	fixed stupid error (of course me, who else) where default API was 		
+		new unfinished/untested/undocumented API
+	*	new parsing token from redirect_urls like localhost and 127.0.0.1
+		*	on Android Xamarin.Auth still raises OnError events, but token 		
+			can be parsed
+*	Xamarin.iOS
+	*	fixed stupid error (of course me, who else) where default API was 		
+		new unfinished/untested/undocumented API
+	*	new parsing token from redirect_urls like localhost and 127.0.0.1
+		*	no OnError, because attempt to load localhost or 127.0.0.1		
+			is caught in catch block.
+			
 
 ### v.1.3.2.5
 
