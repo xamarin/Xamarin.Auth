@@ -118,7 +118,6 @@ namespace Xamarin.Auth.Sample
 
 		private void Auth_Error (object sender, AuthenticatorErrorEventArgs ee)
 		{
-			string title = "OAuth Error";
 			string msg = "";
 
 			StringBuilder sb = new StringBuilder();
@@ -134,7 +133,6 @@ namespace Xamarin.Auth.Sample
 
 		private void Auth_BrowsingCompleted (object sender, EventArgs ee)
 		{
-			string title = "OAuth Browsing Completed";
 			string msg = "";
 
 			StringBuilder sb = new StringBuilder();
@@ -147,7 +145,6 @@ namespace Xamarin.Auth.Sample
 
 		public async void Auth_Completed(object sender, AuthenticatorCompletedEventArgs ee)
 		{
-			string title = "OAuth Results";
 			string msg = "";
 
 			if (!ee.IsAuthenticated)
@@ -170,6 +167,8 @@ namespace Xamarin.Auth.Sample
 					msg = ex.Message;
 				}
 			}
+
+            //ee.Account.Properties;
 
             return;
 		}
