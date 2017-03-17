@@ -41,6 +41,9 @@ namespace Xamarin.Auth
 
 		string requestState;
 		bool reportedForgery = false;
+		string accessTokenName = "access_token";
+
+		Dictionary<string, string> requestParams;
 
 		/// <summary>
 		/// Gets the client identifier.
@@ -87,6 +90,17 @@ namespace Xamarin.Auth
 			get { return this.accessTokenUrl; }
 		}
 
+		public Dictionary<string, string> RequestParameters 
+		{
+			get { return this.requestParams; }
+		}
+
+		public string AccessTokenName
+		{
+			get { return accessTokenName; }
+			set { accessTokenName = value; }
+		}
+
 		/// <summary>
 		/// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
 		/// that authenticates using implicit granting (token).
@@ -125,6 +139,8 @@ namespace Xamarin.Auth
 			this.getUsernameAsync = getUsernameAsync;
 
 			this.accessTokenUrl = null;
+
+			this.requestParams = new Dictionary<string, string>();
 		}
 
 		/// <summary>
@@ -209,17 +225,25 @@ namespace Xamarin.Auth
 		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync ()
 		{
-			var url = new Uri (string.Format (
+			var url = string.Format (
 				"{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
 				authorizeUrl.AbsoluteUri,
 				Uri.EscapeDataString (clientId),
 				Uri.EscapeDataString (RedirectUrl.AbsoluteUri),
 				IsImplicit ? "token" : "code",
 				Uri.EscapeDataString (scope),
-				Uri.EscapeDataString (requestState)));
+				Uri.EscapeDataString (requestState));
+
+			foreach(string key in RequestParameters.Keys)
+			{
+				if ((new [] { "client_id", "redirect_uri", "response_type", "scope", "state" }).Contains(key.ToLower()))
+					throw new NotSupportedException("You may not use RequestParameters to set parameter: " + key);
+
+				url += string.Format("&{0}={1}", Uri.EscapeDataString(key), Uri.EscapeDataString(RequestParameters[key]));
+			}
 
 			var tcs = new TaskCompletionSource<Uri> ();
-			tcs.SetResult (url);
+			tcs.SetResult (new Uri(url));
 			return tcs.Task;
 		}
 
@@ -238,8 +262,9 @@ namespace Xamarin.Auth
 		protected override void OnPageEncountered (Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
 		{
 			var all = new Dictionary<string, string> (query);
-			foreach (var kv in fragment)
-				all [kv.Key] = kv.Value;
+			foreach (var key in fragment.Keys)
+				if (!string.IsNullOrWhiteSpace(key) && !all.ContainsKey(key))
+					all.Add(key, fragment[key]);
 
 			//
 			// Check for forgeries
@@ -275,11 +300,16 @@ namespace Xamarin.Auth
 			//
 			// Look for the access_token
 			//
-			if (fragment.ContainsKey ("access_token")) {
+			if (fragment.ContainsKey (AccessTokenName) || query.ContainsKey(AccessTokenName)) {
 				//
 				// We found an access_token
 				//
-				OnRetrievedAccountProperties (fragment);
+				var result = new Dictionary<string, string>(fragment);
+				foreach(string key in query.Keys)
+					if (!result.ContainsKey(key))
+						result.Add(key, query[key]);
+
+				OnRetrievedAccountProperties (result);
 			} else if (!IsImplicit) {
 				//
 				// Look for the code
@@ -298,7 +328,7 @@ namespace Xamarin.Auth
 					return;
 				}
 			} else {
-				OnError ("Expected access_token in response, but did not receive one.");
+				OnError ("Expected " + AccessTokenName + " in response, but did not receive one.");
 				return;
 			}
 		}
@@ -351,10 +381,10 @@ namespace Xamarin.Auth
 
 				if (data.ContainsKey ("error")) {
 					throw new AuthException ("Error authenticating: " + data ["error"]);
-				} else if (data.ContainsKey ("access_token")) {
+				} else if (data.ContainsKey (AccessTokenName)) {
 					return data;
 				} else {
-					throw new AuthException ("Expected access_token in access token response, but did not receive one.");
+					throw new AuthException ("Expected " + AccessTokenName + " in access token response, but did not receive one.");
 				}
 			});
 		}
