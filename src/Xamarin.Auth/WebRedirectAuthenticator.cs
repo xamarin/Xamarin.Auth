@@ -87,6 +87,13 @@ namespace Xamarin.Auth
 			var fragment = WebEx.FormDecode (url.Fragment);
 
 			OnPageEncountered (url, query, fragment);
+
+			//
+			// Watch for the redirect
+			//
+			if (UrlMatchesRedirect (url)) {
+				OnRedirectPageLoaded (url, query, fragment);
+			}
 		}
 
 		/// <summary>
@@ -138,13 +145,6 @@ namespace Xamarin.Auth
 				}
 				OnError (description);
 				return;
-			}
-
-			//
-			// Watch for the redirect
-			//
-			if (UrlMatchesRedirect (url)) {
-				OnRedirectPageLoaded (url, query, fragment);
 			}
 		}
 
