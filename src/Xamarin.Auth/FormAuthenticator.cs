@@ -127,6 +127,17 @@ namespace Xamarin.Auth
 			i.PutExtra ("StateKey", FormAuthenticatorActivity.StateRepo.Add (state));
 			return i;
 		}
+#elif PLATFORM_WINDOWS_PHONE
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        protected override AuthenticateUIType GetPlatformUI()
+        {
+            throw new NotSupportedException("FormAuthenticator not supported on this platform.");
+        }
 #else
 		/// <summary>
 		/// Gets the UI to present this form.

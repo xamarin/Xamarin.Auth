@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>12.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1461CA9A-61AD-4B45-9AE1-113C0426ABC7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <AssemblyName>Xamarin.Auth.WinPhone</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <NuGetPackageImportStamp>ef760b83</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;PLATFORM_WINDOWS_PHONE;NETFX_CORE;WINDOWS_PHONE_APP</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_PHONE_APP;PLATFORM_WINDOWS_PHONE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Xamarin.Auth\Account.cs">
+      <Link>Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\AccountStore.cs">
+      <Link>AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\AssemblyInfo.cs">
+      <Link>AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\Authenticator.cs">
+      <Link>Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\AuthException.cs">
+      <Link>AuthException.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\ExceptionEx.cs">
+      <Link>ExceptionEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\FormAuthenticator.cs">
+      <Link>FormAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\OAuth.cs">
+      <Link>OAuth.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\OAuth2Authenticator.cs">
+      <Link>OAuth2Authenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\OAuth2Request.cs">
+      <Link>OAuth2Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\Request.cs">
+      <Link>Request.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\Response.cs">
+      <Link>Response.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\System.Json\JavaScriptReader.cs">
+      <Link>System.Json\JavaScriptReader.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\System.Json\JsonArray.cs">
+      <Link>System.Json\JsonArray.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\System.Json\JsonObject.cs">
+      <Link>System.Json\JsonObject.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\System.Json\JsonPrimitive.cs">
+      <Link>System.Json\JsonPrimitive.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\System.Json\JsonType.cs">
+      <Link>System.Json\JsonType.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\System.Json\JsonValue.cs">
+      <Link>System.Json\JsonValue.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\WebAuthenticator.cs">
+      <Link>WebAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\WebEx.cs">
+      <Link>WebEx.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\WebRedirectAuthenticator.cs">
+      <Link>WebRedirectAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth\WebUtilities.cs">
+      <Link>WebUtilities.cs</Link>
+    </Compile>
+    <Compile Include="AuthenticatorControl.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net45+win8+wpa81\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.28\lib\portable-net45+win8+wpa81\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

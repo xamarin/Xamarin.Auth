@@ -32,6 +32,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Reflection;
 
 namespace System.Json
 {
@@ -148,17 +149,18 @@ namespace System.Json
 				if (value == null)
 					return JsonType.String;
 
-				switch (Type.GetTypeCode (value.GetType ())) {
-				case TypeCode.Boolean:
-					return JsonType.Boolean;
-				case TypeCode.Char:
-				case TypeCode.String:
-				case TypeCode.DateTime:
-				case TypeCode.Object: // DateTimeOffset || Guid || TimeSpan || Uri
-					return JsonType.String;
-				default:
-					return JsonType.Number;
-				}
+                switch (value.GetType().FullName)
+                {
+                    case "System.Boolean":
+                        return JsonType.Boolean;
+                    case "System.Char":
+                    case "System.String":
+                    case "System.DateTime":
+                    case "System.Object":
+                        return Json.JsonType.String;
+                    default:
+                        return JsonType.Number;
+                }
 			}
 		}
 
