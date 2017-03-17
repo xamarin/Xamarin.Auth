@@ -188,7 +188,7 @@ namespace Xamarin.Auth
 				{
 					if (ReferenceEquals (x, y))
 						return true;
-					if (ReferenceEquals (x, y) || ReferenceEquals (null, y))
+					if (ReferenceEquals (x, null) || ReferenceEquals (null, y))
 						return false;
 					return x.GetDName().Equals (y.GetDName());
 				}
