@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Android.Content;
+using Android.Text;
 using Android.Views;
 using Android.App;
 using Android.OS;
@@ -141,6 +142,11 @@ namespace Xamarin.Auth
 				var editor = new EditText (this) {
 					Hint = f.Placeholder,
 				};
+				if (f.FieldType == FormAuthenticatorFieldType.Password)
+				{
+					editor.InputType = InputTypes.TextVariationPassword;
+					editor.TransformationMethod = new Android.Text.Method.PasswordTransformationMethod();
+				}
 				row.AddView (editor);
 				fieldEditors [f] = editor;
 
