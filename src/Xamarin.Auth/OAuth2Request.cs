@@ -77,7 +77,7 @@ namespace Xamarin.Auth
 			if (account == null) {
 				throw new ArgumentNullException ("account");
 			}
-			if (!account.Properties.ContainsKey ("access_token")) {
+			if (!account.Properties.ContainsKey (accessTokenParameterName)) {
 				throw new ArgumentException ("OAuth2 account is missing required access_token property.", "account");
 			}
 			if (unauthenticatedUrl == null) {
@@ -87,31 +87,32 @@ namespace Xamarin.Auth
 			var url = unauthenticatedUrl.AbsoluteUri;
 			
 			if (url.Contains ("?")) {
-				url += "&" + accessTokenParameterName + "=" + account.Properties ["access_token"];
+				url += "&" + accessTokenParameterName + "=" + account.Properties [accessTokenParameterName];
 			} else {
-				url += "?" + accessTokenParameterName + "=" + account.Properties ["access_token"];
+				url += "?" + accessTokenParameterName + "=" + account.Properties [accessTokenParameterName];
 			}
 			
 			return new Uri (url);
 		}
 
-		/// <summary>
-		/// Gets an authenticated HTTP Authorization header.
-		/// </summary>
-		/// <returns>
-		/// The authorization header.
-		/// </returns>
-		/// <param name='account'>The <see cref="Account"/> that's been authenticated.</param>
-		public static string GetAuthorizationHeader (Account account)
+	    /// <summary>
+	    /// Gets an authenticated HTTP Authorization header.
+	    /// </summary>
+	    /// <returns>
+	    /// The authorization header.
+	    /// </returns>
+	    /// <param name='account'>The <see cref="Account"/> that's been authenticated.</param>
+	    /// <param name="accessTokenParameterName">The name of the access token parameter.</param>
+	    public static string GetAuthorizationHeader (Account account, string accessTokenParameterName = "access_token")
 		{
 			if (account == null) {
 				throw new ArgumentNullException ("account");
 			}
-			if (!account.Properties.ContainsKey ("access_token")) {
+			if (!account.Properties.ContainsKey (accessTokenParameterName)) {
 				throw new ArgumentException ("OAuth2 account is missing required access_token property.", "account");
 			}
 			
-			return "Bearer " + account.Properties ["access_token"];
+			return "Bearer " + account.Properties [accessTokenParameterName];
 		}
 	}
 }
