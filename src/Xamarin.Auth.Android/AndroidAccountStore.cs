@@ -48,15 +48,13 @@ namespace Xamarin.Auth
 
 			prot = new KeyStore.PasswordProtection (Password);
 
-			try {
+			if (System.IO.File.Exists (System.IO.Path.Combine (context.FilesDir.AbsolutePath, FileName))) {
 				lock (fileLock) {
 					using (var s = context.OpenFileInput (FileName)) {
 						ks.Load (s, Password);
 					}
 				}
-			}
-			catch (FileNotFoundException) {
-				//ks.Load (null, Password);
+			} else {
 				LoadEmptyKeyStore (Password);
 			}
 		}
