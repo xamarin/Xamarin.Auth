@@ -37,6 +37,7 @@ namespace Xamarin.Auth
 		string scope;
 		Uri authorizeUrl;
 		Uri accessTokenUrl;
+		bool sendRedirectUrl;
 		GetUsernameAsyncFunc getUsernameAsync;
 
 		string requestState;
@@ -88,6 +89,16 @@ namespace Xamarin.Auth
 		}
 
 		/// <summary>
+		/// Gets or sets a value indicating whether this <see cref="Xamarin.Auth.OAuth2Authenticator"/> includes the redirect URI when constructing the authorize URI.
+		/// </summary>
+		/// <remarks>>OAuth2 RFC states RedirectUri is optional https://tools.ietf.org/html/rfc6749#section-4.1.1</remarks>
+		/// <value><c>true</c> to send redirect URI; otherwise, <c>false</c>.</value>
+		public bool SendRedirectUrl {
+			get { return this.sendRedirectUrl; }
+			set { this.sendRedirectUrl = value; }
+		}
+
+		/// <summary>
 		/// Initializes a new <see cref="Xamarin.Auth.OAuth2Authenticator"/>
 		/// that authenticates using implicit granting (token).
 		/// </summary>
@@ -125,6 +136,8 @@ namespace Xamarin.Auth
 			this.getUsernameAsync = getUsernameAsync;
 
 			this.accessTokenUrl = null;
+
+			this.sendRedirectUrl = true;
 		}
 
 		/// <summary>
@@ -179,6 +192,8 @@ namespace Xamarin.Auth
 			this.accessTokenUrl = accessTokenUrl;
 
 			this.getUsernameAsync = getUsernameAsync;
+
+			this.sendRedirectUrl = true;
 		}
 
 		OAuth2Authenticator (Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null)
@@ -197,6 +212,8 @@ namespace Xamarin.Auth
 				chars [i] = (char)rand.Next ((int)'a', (int)'z' + 1);
 			}
 			this.requestState = new string (chars);
+
+			this.sendRedirectUrl = true;
 		}
 
 		bool IsImplicit { get { return accessTokenUrl == null; } }
@@ -209,14 +226,19 @@ namespace Xamarin.Auth
 		/// </returns>
 		public override Task<Uri> GetInitialUrlAsync ()
 		{
-			var url = new Uri (string.Format (
-				"{0}?client_id={1}&redirect_uri={2}&response_type={3}&scope={4}&state={5}",
+			StringBuilder builder = new StringBuilder ();
+			builder.AppendFormat ("{0}?client_id={1}&response_type={2}&scope={3}&state={4}",
 				authorizeUrl.AbsoluteUri,
 				Uri.EscapeDataString (clientId),
-				Uri.EscapeDataString (RedirectUrl.AbsoluteUri),
 				IsImplicit ? "token" : "code",
 				Uri.EscapeDataString (scope),
-				Uri.EscapeDataString (requestState)));
+				Uri.EscapeDataString (requestState));
+
+			if (this.sendRedirectUrl) {
+				builder.AppendFormat ("&redirect_uri={0}", Uri.EscapeDataString (RedirectUrl.AbsoluteUri));
+			}
+
+			var url = new Uri (builder.ToString());
 
 			var tcs = new TaskCompletionSource<Uri> ();
 			tcs.SetResult (url);
