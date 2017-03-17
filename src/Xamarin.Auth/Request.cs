@@ -51,10 +51,16 @@ namespace Xamarin.Auth
 
 		/// <summary>
 		/// The parameters of the request. These will be added to the query string of the
-		/// URL for GET requests, encoded as form a parameters for POSTs, and added as
-		/// multipart values if the request uses <see cref="Multiparts"/>.
+		/// URL for GET requests, encoded as form parameters and concatenated with <see cref="Body"/> for POSTs,
+		/// and added as multipart values if the request uses <see cref="Multiparts"/>.
 		/// </summary>
 		public IDictionary<string, string> Parameters { get; protected set; }
+
+		/// <summary>
+		/// The body of the request. Unless <see cref="HasBody"/> is overriden,
+		/// its value will be appended to the form-encoded <see cref="Parameters"/> for POSTs.
+		/// </summary>
+		public virtual string Body { get; set; }
 
 		/// <summary>
 		/// The account that will be used to authenticate this request.
@@ -218,8 +224,8 @@ namespace Xamarin.Auth
 						return new Response ((HttpWebResponse)resTask.Result);
 					}, cancellationToken);
 				}, cancellationToken).Unwrap();
-			} else if (Method == "POST" && Parameters.Count > 0) {
-				var body = Parameters.FormEncode ();
+			} else if (Method == "POST" && HasBody) {
+				var body = GetRawBody ();
 				var bodyData = System.Text.Encoding.UTF8.GetBytes (body);
 				request.ContentLength = bodyData.Length;
 				request.ContentType = "application/x-www-form-urlencoded";
@@ -350,6 +356,24 @@ namespace Xamarin.Auth
 			}
 
 			return request;
+		}
+
+		/// <summary>
+		/// Gets a value indicating whether this <see cref="Xamarin.Auth.Request"/> needs to have a body on POST.
+		/// </summary>
+		protected virtual bool HasBody {
+			get {
+				return Parameters.Count > 0 || !string.IsNullOrWhiteSpace (Body);
+			}
+		}
+
+		/// <summary>
+		/// Returns the request body that will be used for POST if <see cref="HasBody"/> is <c>true</c>.
+		/// By default, it includes form-encoded <see cref="Parameters"/> concatenated with <see cref="Body"/>.
+		/// </summary>
+		public virtual string GetRawBody ()
+		{
+			return Parameters.FormEncode () + Body;
 		}
 	}
 }
