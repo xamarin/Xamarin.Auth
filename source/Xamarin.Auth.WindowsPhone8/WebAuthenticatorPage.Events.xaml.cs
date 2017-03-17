@@ -53,7 +53,7 @@ namespace Xamarin.Auth.WindowsPhone
                 // Pull Request - manually added/fixed
                 //		Marshalled NavigationService.GoBack to UI Thread #94
                 //		https://github.com/xamarin/Xamarin.Auth/pull/94
-                Dispatcher.BeginInvoke
+                new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
                 (
                     () =>
                     {

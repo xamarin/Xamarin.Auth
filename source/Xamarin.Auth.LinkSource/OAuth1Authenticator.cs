@@ -88,6 +88,8 @@ namespace Xamarin.Auth
                             bool isUsingNativeUI = false
                         )
 		{
+            this.IsUsingNativeUI = isUsingNativeUI;
+
 			if (string.IsNullOrEmpty (consumerKey)) {
 				throw new ArgumentException ("consumerKey must be provided", "consumerKey");
 			}
@@ -122,6 +124,7 @@ namespace Xamarin.Auth
 
 			this.HttpWebClientFrameworkType = Auth.HttpWebClientFrameworkType.WebRequest;
 
+            return;
 		}
 
 		/// <summary>

@@ -24,6 +24,6 @@ namespace Xamarin.Auth
         {
             get;
             set;
-        } = true;
+        } = false;
     }
 }

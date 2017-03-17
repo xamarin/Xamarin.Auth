@@ -188,6 +188,8 @@ namespace Xamarin.Auth
                         )
             : this(redirectUrl)
         {
+            this.IsUsingNativeUI = isUsingNativeUI;
+
             if (string.IsNullOrEmpty(clientId))
             {
                 throw new ArgumentException("clientId must be provided", "clientId");
@@ -221,9 +223,6 @@ namespace Xamarin.Auth
             this.requestParams = new Dictionary<string, string>();
             ///---------------------------------------------------------------------------------------
             #endregion
-
-
-            this.IsUsingNativeUI = isUsingNativeUI;
 
             return;
         }
@@ -263,6 +262,8 @@ namespace Xamarin.Auth
                         )
             : this(redirectUrl, clientSecret, accessTokenUrl)
         {
+            this.IsUsingNativeUI = isUsingNativeUI;
+
             if (string.IsNullOrEmpty(clientId))
             {
                 throw new ArgumentException("clientId must be provided", "clientId");
@@ -297,8 +298,6 @@ namespace Xamarin.Auth
 
             this.getUsernameAsync = getUsernameAsync;
 
-            this.IsUsingNativeUI = isUsingNativeUI;
-
             return;
         }
 
@@ -309,6 +308,8 @@ namespace Xamarin.Auth
                         )
             : base(redirectUrl, redirectUrl)
         {
+            this.IsUsingNativeUI = isUsingNativeUI;
+
             if (redirectUrl == null)
             {
                 throw new ArgumentNullException("redirectUrl");
@@ -342,8 +343,6 @@ namespace Xamarin.Auth
                 chars[i] = (char)rand.Next((int)'a', (int)'z' + 1);
             }
             this.requestState = new string(chars);
-
-            this.IsUsingNativeUI = isUsingNativeUI;
 
             return;
         }

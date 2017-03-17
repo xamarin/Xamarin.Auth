@@ -50,7 +50,7 @@ namespace Xamarin.Auth.WindowsPhone
             return;
         }
 
-        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        protected override async void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
         {
             base.OnBackKeyPress(e);
 
@@ -58,7 +58,15 @@ namespace Xamarin.Auth.WindowsPhone
             if (browser.CanGoBack)
             {
                 e.Cancel = true;
-                browser.GoBack();
+                await
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync
+                    (
+                        Windows.UI.Core.CoreDispatcherPriority.Normal,
+                        () =>
+                        {
+                            browser.GoBack();
+                        }
+                    );
             }
             else
             {
