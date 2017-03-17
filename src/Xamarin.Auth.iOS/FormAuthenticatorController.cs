@@ -97,6 +97,16 @@ namespace Xamarin.Auth
 			}
 		}
 
+        public override void ViewDidAppear(bool animated)
+        {
+            base.ViewDidAppear(animated);
+
+            if (authenticator.AllowCancel && authenticator.IsAuthenticated())
+            {
+                authenticator.OnCancelled();
+            }
+        }
+
 		class FormDelegate : UITableViewDelegate
 		{
 			FormAuthenticatorController controller;
