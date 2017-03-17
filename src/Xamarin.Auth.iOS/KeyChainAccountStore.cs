@@ -88,7 +88,11 @@ namespace Xamarin.Auth
 			record.Service = serviceId;
 			record.Account = account.Username;
 			record.Generic = data;
-			record.Accessible = SecAccessible.WhenUnlocked;
+
+			//Changed from WhenUnLocked to allow for 
+			//background and locked screen processing
+			//using Apple Doc recommmended method.
+			record.Accessible = SecAccessible.AfterFirstUnlock;
 
 			statusCode = SecKeyChain.Add (record);
 
