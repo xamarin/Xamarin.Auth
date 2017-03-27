@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata>
         <id>Xamarin.Auth</id>
-        <version>2.0.0.2</version>
+        <version>2.0.0.3</version>
         <title>Xamarin.Auth</title>
         <authors>Xamarin Inc.</authors>
         <owners>Xamarin Inc.</owners>
