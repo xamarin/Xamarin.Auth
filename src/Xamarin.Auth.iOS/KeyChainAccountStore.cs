@@ -95,9 +95,9 @@ namespace Xamarin.Auth
 			record.Service = serviceId;
 			record.Account = account.Username;
 			record.Generic = data;
-			record.Accessible = SecAccessible.WhenUnlocked;
+            record.Accessible = SecAccessible.AfterFirstUnlock; ////THIS IS THE FIX
 
-			statusCode = SecKeyChain.Add (record);
+            statusCode = SecKeyChain.Add (record);
 
 			if (statusCode != SecStatusCode.Success) {
 				throw new Exception ("Could not save account to KeyChain: " + statusCode);
