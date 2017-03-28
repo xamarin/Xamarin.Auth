@@ -25,6 +25,13 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
     ]
     public class MainActivity : ListActivity
     {
+        // Xamarin.Auth API test switch
+        //  true    - Native UI
+        //            Android - [Chrome] Custom Tabs
+        //            iOS - Safari View Controller
+        //  false   - embedded WebViews
+        //            Android - WebView
+        //            iOS - UIWebView
         bool test_native_ui = false;
 
         protected override void OnCreate(Bundle bundle)
@@ -92,6 +99,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             auth.Error += Auth_Error;
             auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
+            //#####################################################################
+            // Xamarin.Auth API - Breaking Change
+            //      old API returned UIKit.UIViewController
+            //Intent ui_intent_as_object = auth.GetUI ();
+            //      new API returns System.Object
             System.Object ui_intent_as_object = auth.GetUI(this);
             if (auth.IsUsingNativeUI == true)
             {
@@ -177,12 +189,29 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             auth.Error += Auth_Error;
             auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
+            //#####################################################################
+            // Xamarin.Auth API - Breaking Change
+            //      old API returned Intent
+            //Intent intent = auth.GetUI ();
+            //      new API returns System.Object
             System.Object intent_as_object = auth.GetUI(this);
             if (auth.IsUsingNativeUI == true)
             {
-                // NEW UPCOMMING API undocumented work in progress
-                // using new Native UI API Chrome Custom Tabs on Android and SFSafariViewController on iOS
-                // on 2014-04-20 google login (and some other providers) will work only with this API
+                //=================================================================
+                // Xamarin.Auth API - Native UI support 
+                //      *   Android - [Chrome] Custom Tabs on Android       
+                //          Android.Support.CustomTabs      
+                //          and 
+                //      *   iOS -  SFSafariViewController     
+                //          SafariServices.SFSafariViewController
+                // on 2014-04-20 google (and some other providers) will work only with this API
+                //  
+                // 2017-03-25 NEW UPCOMMING API undocumented work in progress
+                //
+                //  required part
+                //  add 
+                //     following code
+                // 
                 System.Uri uri_netfx = auth.GetInitialUrlAsync().Result;
                 global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
 
@@ -194,33 +223,6 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 cti = (global::Android.Support.CustomTabs.CustomTabsIntent)intent_as_object;
 
                 cti.LaunchUrl(this, uri_android);
-                /*
-                ctam.CustomTabsServiceConnected += delegate
-                {
-                    //ctam.LaunchUrl(uri_android.ToString());
-
-                    return;
-                };
-                ctam.CustomTabsServiceDisconnected += (name) =>
-                {
-                    return;
-                };
-                ctam.ExtraCallback += (sender, e) =>
-                {
-                    return;
-                };
-                ctam.NavigationEvent += (navigationEvent, extras) =>
-                {
-                    return;
-                };
-                ctam.ExtraCallback += (sender, e) =>
-                {
-                    return;
-                }; 
-                ctam.BindService();
-                // ctam.LaunchUrl(uri_android.ToString(), cti);
-                */
-
             }
             else
             {
