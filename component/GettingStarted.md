@@ -4,12 +4,14 @@ Let's authenticate a user to access Facebook:
 
 ```csharp
 using Xamarin.Auth;
-...
-var auth = new OAuth2Authenticator (
-	clientId: "App ID from https://developers.facebook.com/apps",
-	scope: "",
-	authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
-	redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"));
+// ...
+var auth = new OAuth2Authenticator 
+	(
+		clientId: "App ID from https://developers.facebook.com/apps",
+		scope: "",
+		authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
+		redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html")
+	);
 ```
 
 Facebook uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. 
@@ -18,8 +20,6 @@ authentication services.
 
 Authenticators take a variety of parameters; in this case, the application's ID, its 
 authorization scope, and Facebook's various service locations are required.
-
-
 
 
 ## 2. Authenticate the user
@@ -33,13 +33,16 @@ when the user successfully authenticates or cancels. You can find out if the aut
 succeeded by testing the `IsAuthenticated` property of `eventArgs`:
 
 ```csharp
-auth.Completed += (sender, eventArgs) => {
+auth.Completed += (sender, eventArgs) => 
+{
 	// We presented the UI, so it's up to us to dimiss it on iOS.
 	DismissViewController (true, null);
 
-	if (eventArgs.IsAuthenticated) {
+	if (eventArgs.IsAuthenticated) 
+	{
 		// Use eventArgs.Account to do wonderful things
-	} else {
+	} else 
+	{
 		// The user cancelled
 	}
 };
@@ -70,15 +73,26 @@ the account we retrieved from the `Completed` event. Assuming we're authenticate
 grab the user's info to demonstrate:
 
 ```csharp
-var request = new OAuth2Request ("GET", new Uri ("https://graph.facebook.com/me"), null, eventArgs.Account);
-request.GetResponseAsync().ContinueWith (t => {
-	if (t.IsFaulted)
-		Console.WriteLine ("Error: " + t.Exception.InnerException.Message);
-	else {
-		string json = t.Result.GetResponseText();
-		Console.WriteLine (json);
-	}
-});
+var request = new OAuth2Request 
+					(
+						"GET",
+						 new Uri ("https://graph.facebook.com/me"), 
+						 null, 
+						 eventArgs.Account
+					);
+request.GetResponseAsync().ContinueWith 
+	(
+		t => 
+		{
+			if (t.IsFaulted)
+				Console.WriteLine ("Error: " + t.Exception.InnerException.Message);
+			else 
+			{
+				string json = t.Result.GetResponseText();
+				Console.WriteLine (json);
+			}
+		}
+	);
 ```
 
 
@@ -86,7 +100,8 @@ request.GetResponseAsync().ContinueWith (t => {
 
 Xamarin.Auth securely stores `Account` objects so that you don't always have to reauthenticate 
 the user. The `AccountStore` class is responsible for storing `Account` information, backed by 
-the [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) 
+the 
+[Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) 
 on iOS and a [KeyStore](http://developer.android.com/reference/java/security/KeyStore.html) on 
 Android:
 
@@ -120,8 +135,6 @@ IEnumerable<Account> accounts = AccountStore.Create (this).FindAccountsForServic
 ```
 
 It's that easy.
-
-
 
 
 ## 6. Make your own authenticator

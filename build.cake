@@ -6,28 +6,29 @@ Installing
         Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
         .\build.ps1
 
-	Linux
-
-        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
-        chmod +x ./build.sh && ./build.sh
-
 	OS X
 
         curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
         chmod +x ./build.sh && ./build.sh
 
-Running
+	Linux
+
+        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
+        chmod +x ./build.sh && ./build.sh
+
+Running Cake to Build Xamarin.Auth targets
+
+	Windows
+
+		tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
+		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
+		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
 
 	MacOSX 
 	
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
 		
-	Windows
-
-		tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
-		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
-		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
 */	
 #addin "Cake.Xamarin"
 #addin nuget:?package=Cake.FileHelpers
@@ -1134,5 +1135,8 @@ Task ("ci-windows")
 	;	
 //=================================================================================================
 
+Task ("Default")
+    .IsDependentOn ("nuget")
+	;
 
 RunTarget (TARGET);
