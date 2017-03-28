@@ -6,7 +6,7 @@ Installing
         Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
         .\build.ps1
 
-	OS X
+	Mac OSX 
 
         curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
         chmod +x ./build.sh && ./build.sh
@@ -24,7 +24,7 @@ Running Cake to Build Xamarin.Auth targets
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
 
-	MacOSX 
+	Mac OSX 
 	
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
