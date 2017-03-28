@@ -1,4 +1,6 @@
-## 1. Create and configure an authenticator
+## 1. Initialization
+
+### 1.1. Create and configure an authenticator
 
 Let's authenticate a user to access Facebook:
 
@@ -20,6 +22,8 @@ authentication services.
 
 Authenticators take a variety of parameters; in this case, the application's ID, its 
 authorization scope, and Facebook's various service locations are required.
+
+### 1.2. Setup Authentication Event Handlers
 
 
 ## 2. Authenticate the user

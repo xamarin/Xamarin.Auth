@@ -70,7 +70,6 @@ Shared code accross all platforms:
 Xamarin.Android
 
 ```csharp
-
 	// global::Android.Content.Intent intent_as_object = auth.GetUI(this);
 	System.Object intent_as_object = auth.GetUI(this);
 	if (auth.IsUsingNativeUI == true)
@@ -106,22 +105,108 @@ Xamarin.Android
 Xamarin.iOS
 
 ```csharp
-
-
-	//	old Xamarin.Auth API returned UIViewController
-	//UIViewController ui_intent_as_object = auth.GetUI ();
+	//#####################################################################
+	// Xamarin.Auth API - Breaking Change
+	//      old API returned UIKit.UIViewController
+	//UIViewController ui_controller = auth.GetUI ();
+	//      new API returns System.Object
 	System.Object ui_controller_as_object = auth.GetUI();
 	if (auth.IsUsingNativeUI == true)
 	{
+		//=================================================================
+		// Xamarin.Auth API - Native UI support 
+		//      *   Android - [Chrome] Custom Tabs on Android       
+		//          Android.Support.CustomTabs      
+		//          and 
+		//      *   iOS -  SFSafariViewController     
+		//          SafariServices.SFSafariViewController
+		// on 2014-04-20 google (and some other providers) will work only with this API
+		//  
+		//
+		//  2017-03-25
+		//      NEW UPCOMMING API undocumented work in progress
+		//      soon to be default
+		//      optional API in the future (for backward compatibility)
+		//
+		//  required part
+		//  add 
+		//     following code:
 		SafariServices.SFSafariViewController c = null;
 		c = (SafariServices.SFSafariViewController)ui_controller_as_object;
-		PresentViewController(c, true, null);
+		//  add custom schema (App Linking) handling
+		//    in AppDelegate.cs
+		//         public override bool OpenUrl
+		//                                (
+		//                                    UIApplication application, 
+		//                                    NSUrl url, 
+		//                                    string sourceApplication, 
+		//                                    NSObject annotation
+		//                                )
+		//
+		//  NOTE[s]
+		//  *   custom scheme support only
+		//      xamarinauth://localhost
+		//      xamarin-auth://localhost
+		//      xamarin.auth://localhost
+		//  *   no http[s] scheme support
+		//------------------------------------------------------------
+		// UI customization [OPTIONAL]
+		if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+		{
+			c.PreferredBarTintColor = UIColor.FromRGB(0x34, 0x98, 0xdb);
+			c.PreferredControlTintColor = UIColor.White;
+		}
+		else
+		{
+			c.View.TintColor = UIColor.FromRGB(0x34, 0x98, 0xdb);
+		}
+
+		Action view_controller_customization =
+			() =>
+			{
+				UIColor xamarin_blue = UIColor.FromRGB(0x34, 0x98, 0xdb);
+				c.NavigationController.NavigationBar.TintColor = xamarin_blue;
+			};
+		PresentViewController(c, true, view_controller_customization);
+		//=================================================================
 	}
 	else
 	{
+		//=================================================================
+		// Xamarin.Auth API - embedded browsers support 
+		//     - Android - WebView 
+		//     - iOS - UIWebView
+		//
+		// on 2014-04-20 google (and some other providers) will work only with this API
+		//
+		//  2017-03-25
+		//      soon to be non-default
+		//      optional API in the future (for backward compatibility)
 		UIViewController c = (UIViewController)ui_controller_as_object;
 		PresentViewController(c, true, null);
+		//=================================================================
 	}
+	//#####################################################################
+	
+```
+
+NOTE: 
+Windows platforms currently do NOT support Native UI embedded browser support 
+only. Work in progress.
+
+Universal Windows Platform
+
+```csharp
+```
+
+Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
+
+```csharp
+```
+
+Windows Phone Silverlight 8.x 
+
+```csharp
 ```
 
 It's that easy to authenticate users!
@@ -137,6 +222,15 @@ NOTE: Xamarin Component for new nuget is not ready! 2017-03-28
 
 ### Nuget package
 
+Xamarin.Auth nuget package:
+
+https://www.nuget.org/packages/Xamarin.Auth/
+
+Current Version:
+
+https://www.nuget.org/packages/Xamarin.Auth/1.3.2.7
+
+Xamarin.Auth nuget package specification (nuspec):
 
 ### Project reference
 
