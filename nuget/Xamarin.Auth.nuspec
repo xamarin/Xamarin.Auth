@@ -24,11 +24,10 @@
 		http://semver.org/
 		-->
 		<version>
-			1.3.2.7
+			1.4.0.0
 		</version>
 		<releaseNotes>
-			UWP fixes for back button
-			Android Custom Tabs Nuget Dependency
+			native UI support preview - Custom Tabs and SFSafariViewController
 		</releaseNotes>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
