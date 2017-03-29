@@ -74,10 +74,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
             if (TestProvidersController.Auth2 != null)
             {
+                // call OnSucceeded to trigger OnCompleted event
                 TestProvidersController.Auth2.OnSucceeded(account);
             }
             else if (TestProvidersController.Auth1 != null)
             {
+                // call OnSucceeded to trigger OnCompleted event
                 TestProvidersController.Auth1.OnSucceeded(account);
             }
             else

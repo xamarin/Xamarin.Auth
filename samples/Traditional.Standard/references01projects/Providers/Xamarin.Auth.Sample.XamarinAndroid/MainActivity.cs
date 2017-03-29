@@ -32,13 +32,18 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         //  false   - embedded WebViews
         //            Android - WebView
         //            iOS - UIWebView
-        bool test_native_ui = false;
+        bool test_native_ui = true;
+
+        global::Android.Graphics.Color color_xamarin_blue;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
 
-            ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
+            color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
+
+
+			ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
 
             return;
         }
@@ -68,9 +73,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             return;
         }
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
+        public static OAuth1Authenticator Auth1 = null;
+
+		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
         {
-            OAuth1Authenticator auth = new OAuth1Authenticator
+            Auth1 = new OAuth1Authenticator
                 (
                     consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                     consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
@@ -92,52 +99,93 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     isUsingNativeUI: test_native_ui
                 );
 
-            auth.AllowCancel = oauth1.AllowCancel;
+            Auth1.AllowCancel = oauth1.AllowCancel;
 
             // If authorization succeeds or is canceled, .Completed will be fired.
-            auth.Completed += Auth_Completed;
-            auth.Error += Auth_Error;
-            auth.BrowsingCompleted += Auth_BrowsingCompleted;
+            Auth1.Completed += Auth_Completed;
+            Auth1.Error += Auth_Error;
+            Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
 
             //#####################################################################
             // Xamarin.Auth API - Breaking Change
             //      old API returned UIKit.UIViewController
             //Intent ui_intent_as_object = auth.GetUI ();
             //      new API returns System.Object
-            System.Object ui_intent_as_object = auth.GetUI(this);
-            if (auth.IsUsingNativeUI == true)
+            System.Object ui_intent_builder_as_object = Auth1.GetUI(this);
+            if (Auth1.IsUsingNativeUI == true)
             {
-                // NEW UPCOMMING API undocumented work in progress
-                // using new Native UI API Chrome Custom Tabs on Android and SFSafariViewController on iOS
-                // on 2014-04-20 google login (and some other providers) will work only with this API
-                // Add Android.Support.CustomTabs package 
-                global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
-                cti = (global::Android.Support.CustomTabs.CustomTabsIntent)ui_intent_as_object;
-
+                //=================================================================
+                // Xamarin.Auth API - Native UI support 
+                //      *   Android - [Chrome] Custom Tabs on Android       
+                //          Android.Support.CustomTabs      
+                //          and 
+                //      *   iOS -  SFSafariViewController     
+                //          SafariServices.SFSafariViewController
+                // on 2014-04-20 google (and some other providers) will work only with this API
+                //  
+                //
+                //  2017-03-25
+                //      NEW UPCOMMING API undocumented work in progress
+                //      soon to be default
+                //      optional API in the future (for backward compatibility)
+                //
+                //  required part
+                //  add 
+                //     following code:
+                System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
+				global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
+				global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
+				ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_intent_builder_as_object;
+				//  add custom schema (App Linking) handling
+				//  NOTE[s]
+				//  *   custom scheme support only
+				//      xamarinauth://localhost
+				//      xamarin-auth://localhost
+				//      xamarin.auth://localhost
+				//  *   no http[s] scheme support
+				//------------------------------------------------------------
+				// [OPTIONAL] UI customization
+				// CustomTabsIntent.Builder
+				ctib
+                    .SetToolbarColor(color_xamarin_blue)
+                    .SetShowTitle(true)
+                    .EnableUrlBarHiding()
+                    ;
+                //------------------------------------------------------------
+                // [REQUIRED] launching Custom Tabs
+                global::Android.Support.CustomTabs.CustomTabsIntent ct_intent = ctib.Build();
+                ct_intent.LaunchUrl(this, uri_android);
+                //=================================================================
             }
             else
             {
-                // OLD API undocumented work in progress (soon to be deprecated)
-                // set to false to use old embedded browser API WebView and UIWebView
-                // on 2014-04-20 google login (and some other providers) will NOT work with this API
-                // This will be left as optional API for some devices (wearables) which do not support
-                // Chrome Custom Tabs on Android.
+                //=================================================================
+                // Xamarin.Auth API - embedded browsers support 
+                //     - Android - WebView 
+                //     - iOS - UIWebView
+                //
+                // on 2014-04-20 google (and some other providers) will work only with this API
+                //
+                //  2017-03-25
+                //      soon to be non-default
+                //      optional API in the future (for backward compatibility)
                 global::Android.Content.Intent i = null;
-                i = (global::Android.Content.Intent)ui_intent_as_object;
+                i = (global::Android.Content.Intent)ui_intent_builder_as_object;
                 StartActivity(i);
+                //=================================================================
             }
 
             return;
         }
 
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
-        {
-            OAuth2Authenticator auth = null;
+        public static OAuth2Authenticator Auth2 = null;
 
+		private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
+        {
             if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
             {
-                auth = new OAuth2Authenticator
+                Auth2 = new OAuth2Authenticator
                     (
                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                         scope: oauth2.OAuth2_Scope,
@@ -159,7 +207,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
             else
             {
-                auth = new OAuth2Authenticator
+                Auth2 = new OAuth2Authenticator
                     (
                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                         clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
@@ -182,20 +230,20 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     );
             }
 
-            auth.AllowCancel = oauth2.AllowCancel;
+            Auth2.AllowCancel = oauth2.AllowCancel;
 
             // If authorization succeeds or is canceled, .Completed will be fired.
-            auth.Completed += Auth_Completed;
-            auth.Error += Auth_Error;
-            auth.BrowsingCompleted += Auth_BrowsingCompleted;
+            Auth2.Completed += Auth_Completed;
+            Auth2.Error += Auth_Error;
+            Auth2.BrowsingCompleted += Auth_BrowsingCompleted;
 
             //#####################################################################
             // Xamarin.Auth API - Breaking Change
             //      old API returned Intent
             //Intent intent = auth.GetUI ();
             //      new API returns System.Object
-            System.Object intent_as_object = auth.GetUI(this);
-            if (auth.IsUsingNativeUI == true)
+            System.Object intent_as_object = Auth2.GetUI(this);
+            if (Auth2.IsUsingNativeUI == true)
             {
                 //=================================================================
                 // Xamarin.Auth API - Native UI support 
@@ -212,7 +260,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 //  add 
                 //     following code
                 // 
-                System.Uri uri_netfx = auth.GetInitialUrlAsync().Result;
+                System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
                 global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
 
                 // Add Android.Support.CustomTabs package 

@@ -149,18 +149,20 @@ Task ("nuget-fixes")
 
 RunTarget("nuget-fixes");	// fix nuget problems on MacOSX
 
+// https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference#restore
+// http://cakebuild.net/api/Cake.Common.Tools.NuGet.Restore/NuGetRestoreSettings/
 NuGetRestoreSettings nuget_restore_settings = new NuGetRestoreSettings 
-		{ 
-			ToolPath = nuget_tool_path,
-			Verbosity = NuGetVerbosity.Detailed,
-		};
+	{ 
+		ToolPath = nuget_tool_path,
+		Verbosity = NuGetVerbosity.Detailed,
+	};
 
 NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings 
-		{ 
-			ToolPath = nuget_tool_path,
-			Verbosity = NuGetVerbosity.Detailed,
-			Prerelease = false,
-		};
+	{ 
+		ToolPath = nuget_tool_path,
+		Verbosity = NuGetVerbosity.Detailed,
+		Prerelease = false,
+	};
 
 Task ("clean")
 	.Does 

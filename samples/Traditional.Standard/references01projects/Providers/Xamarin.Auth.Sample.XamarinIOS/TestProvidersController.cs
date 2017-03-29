@@ -30,11 +30,16 @@ namespace Xamarin.Auth.Sample.XamarinIOS
         //            iOS - UIWebView
         bool test_native_ui = true;
 
-        string[] items = Data.TestCases.Keys.ToArray();
+        UIColor color_xamarin_blue;
+
+		string[] items = Data.TestCases.Keys.ToArray();
 
         public TestProvidersController() : base(UITableViewStyle.Plain)
         {
             Title = "OAuth Providers";
+            color_xamarin_blue = UIColor.FromRGB(0x34, 0x98, 0xdb);
+
+            return;
         }
 
         public override nint RowsInSection(UITableView tableview, nint section)
@@ -158,23 +163,24 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //      xamarin.auth://localhost
                 //  *   no http[s] scheme support
                 //------------------------------------------------------------
-                // UI customization [OPTIONAL]
+                // [OPTIONAL] UI customization 
                 if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
                 {
-                    c.PreferredBarTintColor = UIColor.FromRGB(0x34, 0x98, 0xdb);
+                    c.PreferredBarTintColor = color_xamarin_blue;
                     c.PreferredControlTintColor = UIColor.White;
                 }
                 else
                 {
-                    c.View.TintColor = UIColor.FromRGB(0x34, 0x98, 0xdb);
+                    c.View.TintColor = color_xamarin_blue;
                 }
 
                 Action view_controller_customization =
                     () =>
                     {
-                        UIColor xamarin_blue = UIColor.FromRGB(0x34, 0x98, 0xdb);
-                        c.NavigationController.NavigationBar.TintColor = xamarin_blue;
+                        c.NavigationController.NavigationBar.TintColor = color_xamarin_blue;
                     };
+                //------------------------------------------------------------
+                // [REQUIRED] launching SFSafariViewController
                 PresentViewController(c, true, view_controller_customization);
                 //=================================================================
             }
@@ -191,6 +197,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //      soon to be non-default
                 //      optional API in the future (for backward compatibility)
                 UIViewController c = (UIViewController)ui_controller_as_object;
+				//------------------------------------------------------------
+				// [REQUIRED] launching UIViewController with embedded UIWebView
 				PresentViewController(c, true, null);
 				//=================================================================
 			}
@@ -264,7 +272,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             //#####################################################################
             // Xamarin.Auth API - Breaking Change
             //      old API returned UIKit.UIViewController
-            //UIViewController ui_controller = auth.GetUI ();
+            // UIViewController ui_controller = auth.GetUI ();
             //      new API returns System.Object
             System.Object ui_controller_as_object = Auth2.GetUI();
             if (Auth2.IsUsingNativeUI == true)
@@ -306,8 +314,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //      xamarin.auth://localhost
                 //  *   no http[s] scheme support
                 //------------------------------------------------------------
-                // UI customization [OPTIONAL]
-                UIColor color_xamarin_blue = UIColor.FromRGB(0x34, 0x98, 0xdb);
+                // [OPTIONAL] UI customization 
                 if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
                 {
                     c.PreferredBarTintColor = color_xamarin_blue;
@@ -323,6 +330,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                     {
                         //c.NavigationController.NavigationBar.TintColor = color_xamarin_blue;
                     };
+                //------------------------------------------------------------
+                // [REQUIRED] launching SFSafariViewController
                 PresentViewController(c, true, view_controller_customization);
                 //=================================================================
             }
@@ -339,6 +348,8 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //      soon to be non-default
                 //      optional API in the future (for backward compatibility)
                 UIViewController c = (UIViewController)ui_controller_as_object;
+                //------------------------------------------------------------
+                // [REQUIRED] launching UIViewController with embedded UIWebView
                 PresentViewController(c, true, null);
                 //=================================================================
             }
