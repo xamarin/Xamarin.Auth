@@ -70,6 +70,74 @@ var	auth = new OAuth2Authenticator
 Xamarin.Android
 
 ```csharp
+//#####################################################################
+// Xamarin.Auth API - Breaking Change
+//      old API returned UIKit.UIViewController
+//Intent ui_intent_as_object = auth.GetUI ();
+//      new API returns System.Object
+System.Object ui_intent_builder_as_object = Auth1.GetUI(this);
+if (Auth1.IsUsingNativeUI == true)
+{
+	//=================================================================
+	// Xamarin.Auth API - Native UI support 
+	//      *   Android - [Chrome] Custom Tabs on Android       
+	//          Android.Support.CustomTabs      
+	//          and 
+	//      *   iOS -  SFSafariViewController     
+	//          SafariServices.SFSafariViewController
+	// on 2014-04-20 google (and some other providers) will work only with this API
+	//  
+	//
+	//  2017-03-25
+	//      NEW UPCOMMING API undocumented work in progress
+	//      soon to be default
+	//      optional API in the future (for backward compatibility)
+	//
+	//  required part
+	//  add 
+	//     following code:
+	System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
+	global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
+	global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
+	ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_intent_builder_as_object;
+	//  add custom schema (App Linking) handling
+	//  NOTE[s]
+	//  *   custom scheme support only
+	//      xamarinauth://localhost
+	//      xamarin-auth://localhost
+	//      xamarin.auth://localhost
+	//  *   no http[s] scheme support
+	//------------------------------------------------------------
+	// [OPTIONAL] UI customization
+	// CustomTabsIntent.Builder
+	ctib
+		.SetToolbarColor(color_xamarin_blue)
+		.SetShowTitle(true)
+		.EnableUrlBarHiding()
+		;
+	//------------------------------------------------------------
+	// [REQUIRED] launching Custom Tabs
+	global::Android.Support.CustomTabs.CustomTabsIntent ct_intent = ctib.Build();
+	ct_intent.LaunchUrl(this, uri_android);
+	//=================================================================
+}
+else
+{
+	//=================================================================
+	// Xamarin.Auth API - embedded browsers support 
+	//     - Android - WebView 
+	//     - iOS - UIWebView
+	//
+	// on 2014-04-20 google (and some other providers) will work only with this API
+	//
+	//  2017-03-25
+	//      soon to be non-default
+	//      optional API in the future (for backward compatibility)
+	global::Android.Content.Intent i = null;
+	i = (global::Android.Content.Intent)ui_intent_builder_as_object;
+	StartActivity(i);
+	//=================================================================
+}
 ```
 
 Xamarin.iOS
