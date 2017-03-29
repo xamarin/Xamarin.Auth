@@ -12,7 +12,8 @@ var auth = new OAuth2Authenticator
 		clientId: "App ID from https://developers.facebook.com/apps",
 		scope: "",
 		authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
-		redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html")
+		redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"),
+		
 	);
 ```
 
@@ -55,7 +56,15 @@ auth.Completed += (sender, eventArgs) =>
 All the information gathered from a successful authentication is available in 
 `eventArgs.Account`.
 
-Now we're ready to present the login UI from `ViewDidAppear` on iOS:
+Now we're ready to present the login UI 
+
+on Android from Activity `OnCreate`:
+
+```csharp
+PresentViewController (auth.GetUI (this));
+```
+
+on iOS from `ViewDidAppear`:
 
 ```csharp
 PresentViewController (auth.GetUI (), true, null);

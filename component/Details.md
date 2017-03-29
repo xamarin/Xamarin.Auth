@@ -37,7 +37,7 @@ Basic usage steps:
 Shared code accross all platforms:
 
 ```csharp
-	var	auth = new OAuth2Authenticator
+var	auth = new OAuth2Authenticator
 				(
 					clientId: "",
 					scope: oauth2.OAuth2_Scope,
@@ -57,12 +57,12 @@ Shared code accross all platforms:
 					isUsingNativeUI: test_native_ui
 				);
 
-            auth.AllowCancel = oauth2.AllowCancel;
+	auth.AllowCancel = oauth2.AllowCancel;
 
-            // If authorization succeeds or is canceled, .Completed will be fired.
-            auth.Completed += Auth_Completed;
-            auth.Error += Auth_Error;
-            auth.BrowsingCompleted += Auth_BrowsingCompleted;
+	// If authorization succeeds or is canceled, .Completed will be fired.
+	auth.Completed += Auth_Completed;
+	auth.Error += Auth_Error;
+	auth.BrowsingCompleted += Auth_BrowsingCompleted;
 						
 ```
 ### 2. Presenting UI
@@ -70,123 +70,96 @@ Shared code accross all platforms:
 Xamarin.Android
 
 ```csharp
-	// global::Android.Content.Intent intent_as_object = auth.GetUI(this);
-	System.Object intent_as_object = auth.GetUI(this);
-	if (auth.IsUsingNativeUI == true)
-	{
-		// NEW UPCOMMING API undocumented work in progress
-		// using new Native UI API Chrome Custom Tabs on Android and SFSafariViewController on iOS
-		// on 2014-04-20 google login (and some other providers) will work only with this API
-		System.Uri uri_netfx = auth.GetInitialUrlAsync().Result;
-		global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
-
-		// Add Android.Support.CustomTabs package 
-		global::Android.Support.CustomTabs.CustomTabsActivityManager ctam = null;
-		ctam = new global::Android.Support.CustomTabs.CustomTabsActivityManager(this);
-
-		global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
-		cti = (global::Android.Support.CustomTabs.CustomTabsIntent)intent_as_object;
-
-		cti.LaunchUrl(this, uri_android);
-	}
-	else
-	{
-		// OLD API undocumented work in progress (soon to be deprecated)
-		// set to false to use old embedded browser API WebView and UIWebView
-		// on 2014-04-20 google login (and some other providers) will NOT work with this API
-		// This will be left as optional API for some devices (wearables) which do not support
-		// Chrome Custom Tabs on Android.
-		global::Android.Content.Intent i = null;
-		i = (global::Android.Content.Intent)intent_as_object;
-		StartActivity(i);
-	}
 ```
 
 Xamarin.iOS
 
 ```csharp
-	//#####################################################################
-	// Xamarin.Auth API - Breaking Change
-	//      old API returned UIKit.UIViewController
-	//UIViewController ui_controller = auth.GetUI ();
-	//      new API returns System.Object
-	System.Object ui_controller_as_object = auth.GetUI();
-	if (auth.IsUsingNativeUI == true)
+//#####################################################################
+// Xamarin.Auth API - Breaking Change
+//      old API returned UIKit.UIViewController
+// UIViewController ui_controller = auth.GetUI ();
+//      new API returns System.Object
+System.Object ui_controller_as_object = Auth2.GetUI();
+if (Auth2.IsUsingNativeUI == true)
+{
+	//=================================================================
+	// Xamarin.Auth API - Native UI support 
+	//      *   Android - [Chrome] Custom Tabs on Android       
+	//          Android.Support.CustomTabs      
+	//          and 
+	//      *   iOS -  SFSafariViewController     
+	//          SafariServices.SFSafariViewController
+	// on 2014-04-20 google (and some other providers) will work only with this API
+	//  
+	//
+	//  2017-03-25
+	//      NEW UPCOMMING API undocumented work in progress
+	//      soon to be default
+	//      optional API in the future (for backward compatibility)
+	//
+	//  required part
+	//  add 
+	//     following code:
+	SafariServices.SFSafariViewController c = null;
+	c = (SafariServices.SFSafariViewController)ui_controller_as_object;
+	//  add custom schema (App Linking) handling
+	//    in AppDelegate.cs
+	//         public override bool OpenUrl
+	//                                (
+	//                                    UIApplication application, 
+	//                                    NSUrl url, 
+	//                                    string sourceApplication, 
+	//                                    NSObject annotation
+	//                                )
+	//
+	//  NOTE[s]
+	//  *   custom scheme support only
+	//      xamarinauth://localhost
+	//      xamarin-auth://localhost
+	//      xamarin.auth://localhost
+	//  *   no http[s] scheme support
+	//------------------------------------------------------------
+	// [OPTIONAL] UI customization 
+	if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
 	{
-		//=================================================================
-		// Xamarin.Auth API - Native UI support 
-		//      *   Android - [Chrome] Custom Tabs on Android       
-		//          Android.Support.CustomTabs      
-		//          and 
-		//      *   iOS -  SFSafariViewController     
-		//          SafariServices.SFSafariViewController
-		// on 2014-04-20 google (and some other providers) will work only with this API
-		//  
-		//
-		//  2017-03-25
-		//      NEW UPCOMMING API undocumented work in progress
-		//      soon to be default
-		//      optional API in the future (for backward compatibility)
-		//
-		//  required part
-		//  add 
-		//     following code:
-		SafariServices.SFSafariViewController c = null;
-		c = (SafariServices.SFSafariViewController)ui_controller_as_object;
-		//  add custom schema (App Linking) handling
-		//    in AppDelegate.cs
-		//         public override bool OpenUrl
-		//                                (
-		//                                    UIApplication application, 
-		//                                    NSUrl url, 
-		//                                    string sourceApplication, 
-		//                                    NSObject annotation
-		//                                )
-		//
-		//  NOTE[s]
-		//  *   custom scheme support only
-		//      xamarinauth://localhost
-		//      xamarin-auth://localhost
-		//      xamarin.auth://localhost
-		//  *   no http[s] scheme support
-		//------------------------------------------------------------
-		// UI customization [OPTIONAL]
-		if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-		{
-			c.PreferredBarTintColor = UIColor.FromRGB(0x34, 0x98, 0xdb);
-			c.PreferredControlTintColor = UIColor.White;
-		}
-		else
-		{
-			c.View.TintColor = UIColor.FromRGB(0x34, 0x98, 0xdb);
-		}
-
-		Action view_controller_customization =
-			() =>
-			{
-				UIColor xamarin_blue = UIColor.FromRGB(0x34, 0x98, 0xdb);
-				c.NavigationController.NavigationBar.TintColor = xamarin_blue;
-			};
-		PresentViewController(c, true, view_controller_customization);
-		//=================================================================
+		c.PreferredBarTintColor = color_xamarin_blue;
+		c.PreferredControlTintColor = UIColor.White;
 	}
 	else
 	{
-		//=================================================================
-		// Xamarin.Auth API - embedded browsers support 
-		//     - Android - WebView 
-		//     - iOS - UIWebView
-		//
-		// on 2014-04-20 google (and some other providers) will work only with this API
-		//
-		//  2017-03-25
-		//      soon to be non-default
-		//      optional API in the future (for backward compatibility)
-		UIViewController c = (UIViewController)ui_controller_as_object;
-		PresentViewController(c, true, null);
-		//=================================================================
+		c.View.TintColor = color_xamarin_blue;
 	}
-	//#####################################################################
+
+	Action view_controller_customization =
+		() =>
+		{
+			//c.NavigationController.NavigationBar.TintColor = color_xamarin_blue;
+		};
+	//------------------------------------------------------------
+	// [REQUIRED] launching SFSafariViewController
+	PresentViewController(c, true, view_controller_customization);
+	//=================================================================
+}
+else
+{
+	//=================================================================
+	// Xamarin.Auth API - embedded browsers support 
+	//     - Android - WebView 
+	//     - iOS - UIWebView
+	//
+	// on 2014-04-20 google (and some other providers) will work only with this API
+	//
+	//  2017-03-25
+	//      soon to be non-default
+	//      optional API in the future (for backward compatibility)
+	UIViewController c = (UIViewController)ui_controller_as_object;
+	//------------------------------------------------------------
+	// [REQUIRED] launching UIViewController with embedded UIWebView
+	PresentViewController(c, true, null);
+	//=================================================================
+}
+//#####################################################################
 	
 ```
 
@@ -197,20 +170,237 @@ only. Work in progress.
 Universal Windows Platform
 
 ```csharp
+Type page_type = auth.GetUI();
+
+this.Frame.Navigate(page_type, auth);
 ```
 
 Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
 
 ```csharp
+Type page_type = auth.GetUI();
+
+this.Frame.Navigate(page_type, auth);
 ```
 
 Windows Phone Silverlight 8.x 
 
 ```csharp
+Uri uri = auth.GetUI ();
+this.NavigationService.Navigate(uri);
 ```
 
-It's that easy to authenticate users!
+### Native UI support - Parsing URL fragment data
 
+The main reason for introducing Native UI support for Installed Apps (mobile apps)
+is security. Both Android's [Chrome] Custom Tabs and iOS SFSafariViewController
+originate from (share the same codebase) the Google's Chrome browser and Apple's
+Safari web browser. This codebase is constantly updated and fixed.
+Furthemore both Custom Tabs and Safari View Controller have minimal API, so attacking
+surface for potential attacker is smaller. Additionally, Custom Tabs have additional
+features aimed at increasing performance - faster loading and prefetching.
+
+Due to the fact that, it is impossible to obtain loaded URL from Custom Tab or 
+Safari View Controller after redirecting to redirect url (callback) in order to 
+parse OAuth data like auth token, user must use App Linking and custom url schemes
+to intercept callback.
+
+This has some repercusions that http and https schemes will not work anymore, because
+Android and iOS will open default apps for those schemes and those are built in
+browsers (Android Browser and Safari).
+
+	NOTE: 
+	Android docs are showing IntentFilters with http and https schema, but after
+	several attempts to implement this was temporarily abandonded.
+	iOS will most likely open those URLs in browser, except those that were
+	registered with some apps based on host (Maps http://maps.google.com, 
+	YouTube http://www.youtube.com/ etc).
+	
+	Some other schemes like mailto will open on 
+		Android Intent picker to let user choose which Intent/App will handle 
+		scheme
+		iOS 
+
+#### Preparing app for the Native UI support
+	
+For Android app add Xamarin.Android.Support.CustomTabs package through nuget
+package manager.
+
+For iOS apps - NOOP - nothing needs to be done.
+
+#### Adding URL custom schema intercepting utility for parsing
+
+Next step is to define custome scheme[s] the app can handle.
+
+	NOTE:
+	In the samples 
+		xamarinauth
+		xamarin-auth
+		xamarin.auth
+	shemes are used.
+	Do NOT use those schemes, because schemes might be opened by Xamarin.Auth
+	sample app if they were installed (tested before).
+	
+Xamarin.Android 
+
+Add Activity with IntentFilter to catch/intercept URLs
+with user's custom schema:
+
+```csharp
+[Activity(Label = "ActivityCustomUrlSchemeInterceptor")]
+[
+	// App Linking - custom url schemes
+	IntentFilter
+	(
+		actions: new[] { Intent.ActionView },
+		Categories = new[] 
+				{ 
+					Intent.CategoryDefault, 
+					Intent.CategoryBrowsable 
+				},
+		DataSchemes = new[]
+				{
+					"xamarinauth",
+					"xamarin-auth",
+					"xamarin.auth",
+				},
+		DataHost = "localhost"
+	)
+]
+public class ActivityCustomUrlSchemeInterceptor : Activity
+{
+	string message;
+
+	protected override void OnCreate(Bundle savedInstanceState)
+	{
+		base.OnCreate(savedInstanceState);
+
+		// Create your application here
+		global::Android.Net.Uri uri_android = Intent.Data;
+
+
+		System.Uri uri = new Uri(uri_android.ToString());
+		IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+
+		Account account = new Account
+								(
+									"username",
+									new Dictionary<string, string>(fragment)
+								);
+
+		AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
+
+		if (MainActivity.Auth2 != null)
+		{
+			// call OnSucceeded to trigger OnCompleted event
+			MainActivity.Auth2.OnSucceeded(account);
+		}
+		else if (MainActivity.Auth1 != null)
+		{
+			// call OnSucceeded to trigger OnCompleted event
+			MainActivity.Auth1.OnSucceeded(account);
+		}
+		else
+		{
+		}
+
+		this.Finish();
+
+		return;
+	}
+}
+```
+
+IntentFilter attribute will modify AndroidManifest.xml adding following node (user
+could have added this node manually to application node):
+
+```
+    <activity android:label="ActivityCustomUrlSchemeInterceptor" android:name="md5f8c707217af032b51f5ca5f983d46c8c.ActivityCustomUrlSchemeInterceptor">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:host="localhost" />
+        <data android:scheme="xamarinauth" />
+        <data android:scheme="xamarin-auth" />
+        <data android:scheme="xamarin.auth" />
+      </intent-filter>
+    </activity>
+```
+
+Xamarin.iOS
+
+Register custom schemes to Info.plist by opening editor in Advanced tab
+and add schemes in URL types with Role Viewer.
+
+This will result in following XML snippet in Info.plist (again user can add it 
+manually):
+
+```
+    <!--
+        Info.plist
+    -->
+        <key>CFBundleURLTypes</key>
+       <array>
+           <dict>
+               <key>CFBundleURLName</key>
+               <string>com.example.store</string>
+               <key>CFBundleURLTypes</key>
+               <string>Viewer</string>
+               <key>CFBundleURLSchemes</key>
+               <array>
+                   <string>xamarinauth</string>
+                   <string>xamarin-auth</string>
+                   <string>xamarin.auth</string>
+                </array>
+           </dict>
+       </array>
+```
+
+Add code to intercept opening URL with registered custom scheme by implementing
+OpenUrl method override in AppDelegate:
+
+```csharp
+public override bool OpenUrl
+						(
+							UIApplication application,
+							NSUrl url,
+							string sourceApplication,
+							NSObject annotation
+						)
+{
+	System.Uri uri = new Uri(url.AbsoluteString);
+	IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+
+	Account account = new Account
+							(
+								"username",
+								new Dictionary<string, string>(fragment)
+							);
+
+	AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
+
+	if (TestProvidersController.Auth2 != null)
+	{
+		// call OnSucceeded to trigger OnCompleted event
+		TestProvidersController.Auth2.OnSucceeded(account);
+	}
+	else if (TestProvidersController.Auth1 != null)
+	{
+		// call OnSucceeded to trigger OnCompleted event
+		TestProvidersController.Auth1.OnSucceeded(account);
+	}
+	else
+	{
+	}
+
+	return true;
+}
+```
+#### More Information
+	
+https://developer.chrome.com/multidevice/android/customtabs
+	
 ## Installing Xamarin.Auth
 
 Xamarin.Auth can be used (installed) through
