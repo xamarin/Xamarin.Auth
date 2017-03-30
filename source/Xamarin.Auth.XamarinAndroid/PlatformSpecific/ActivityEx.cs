@@ -27,9 +27,14 @@ namespace Xamarin.Utilities.Android
 
 				https://bugzilla.xamarin.com/show_bug.cgi?id=37870
 				https://forums.xamarin.com/discussion/11491/xamarin-auth-alway-throws-exception-on-android
+
+                should be also prevented by checking if the activity is finishing (in that case avoid adding the alert dialog)
 			*/
             try
             {
+                if (activity.IsFinishing)
+                    return;
+
                 var b = new AlertDialog.Builder(activity);
                 b.SetMessage(message);
                 b.SetTitle(title);
