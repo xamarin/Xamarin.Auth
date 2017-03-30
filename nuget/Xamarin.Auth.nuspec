@@ -24,10 +24,11 @@
 		http://semver.org/
 		-->
 		<version>
-			1.4.0.0
+			1.4.0.1
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
+			Android returns CustomTabsIntent.Builder instead of CustomTabsIntent - UI customizations
 		</releaseNotes>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
