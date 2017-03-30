@@ -5,14 +5,14 @@ users via OAuth protocol (OAuth1 and OAuth2).
 
 ## Current version and status
 
-*	nuget version 1.4.0.0	
-	supporting:		
-	*	embedded browsers (Android WebView and iOS UIWebView)	
-		NOTE: this support will be prohibited by some OAuth providers		
-		DEFAULT 2017-03		
-	*	native UI (Android Custom Tabs and iOS Safari View Controller)		
-		must be explicitly setup in Authenticator constructor!	
-		
+*   nuget version 1.4.0.0   
+    supporting:     
+    *   embedded browsers (Android WebView and iOS UIWebView)   
+        NOTE: this support will be prohibited by some OAuth providers       
+        DEFAULT 2017-03     
+    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
+        must be explicitly setup in Authenticator constructor!  
+        
 ## 1. Initialization
 
 
@@ -24,17 +24,17 @@ Let's authenticate a user to access Facebook:
 using Xamarin.Auth;
 // ...
 var auth = new OAuth2Authenticator 
-	(
-		clientId: "App ID from https://developers.facebook.com/apps",
-		scope: "",
-		authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
-		redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"),
-		// switch for new Native UI API
-		//		true = Android Custom Tabs and/or iOS Safari View Controller
-		//		false = embedded browsers used (Android WebView, iOS UIWebView)
-		//	default = false  (not using NEW native UI)
-		isUsingNativeUI: use_native_ui
-	);
+    (
+        clientId: "App ID from https://developers.facebook.com/apps",
+        scope: "",
+        authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
+        redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"),
+        // switch for new Native UI API
+        //      true = Android Custom Tabs and/or iOS Safari View Controller
+        //      false = embedded browsers used (Android WebView, iOS UIWebView)
+        //  default = false  (not using NEW native UI)
+        isUsingNativeUI: use_native_ui
+    );
 ```
 
 Facebook uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. 
@@ -54,17 +54,17 @@ Xamarin.Android
 ```csharp
 auth.Completed += (sender, eventArgs) => 
 {
-	// UI presented, so it's up to us to dimiss it on Android
-	// dismiss Activity with WebView or CustomTabs
-	this.Finish();
+    // UI presented, so it's up to us to dimiss it on Android
+    // dismiss Activity with WebView or CustomTabs
+    this.Finish();
 
-	if (eventArgs.IsAuthenticated) 
-	{
-		// Use eventArgs.Account to do wonderful things
-	} else 
-	{
-		// The user cancelled
-	}
+    if (eventArgs.IsAuthenticated) 
+    {
+        // Use eventArgs.Account to do wonderful things
+    } else 
+    {
+        // The user cancelled
+    }
 };
 ```
 
@@ -73,17 +73,17 @@ Xamarin.iOS
 ```csharp
 auth.Completed += (sender, eventArgs) => 
 {
-	// UI presented, so it's up to us to dimiss it on iOS
-	// dismiss ViewController with UIWebView or SFSafariViewController
-	this.DismissViewController (true, null);
+    // UI presented, so it's up to us to dimiss it on iOS
+    // dismiss ViewController with UIWebView or SFSafariViewController
+    this.DismissViewController (true, null);
 
-	if (eventArgs.IsAuthenticated) 
-	{
-		// Use eventArgs.Account to do wonderful things
-	} else 
-	{
-		// The user cancelled
-	}
+    if (eventArgs.IsAuthenticated) 
+    {
+        // Use eventArgs.Account to do wonderful things
+    } else 
+    {
+        // The user cancelled
+    }
 };
 ```
 
@@ -105,19 +105,19 @@ Now we're ready to present the login UI
 
 The `GetUI` method used to return ("old" - embedded browser API)
 
-*	`UINavigationControllers` on iOS, and 
-*	`Intents` on Android.  
+*   `UINavigationControllers` on iOS, and 
+*   `Intents` on Android.  
 
 for new API (both embedded browsers and Native UI Support) user will need to
 cast object to appropriate type:
 
-*	Android		
-	*	embedded browser WebView - cast to `Intent`		
-	*	native UI - cast to CustomTabsIntent.Builder and call Build() to et Intent	
-*	iOS		
-	*	embedded browser UIWebView - cast to `UIViewController`		
-	*	native UI - cast to `SFSafariViewController`	
-	
+*   Android     
+    *   embedded browser WebView - cast to `Intent`     
+    *   native UI - cast to CustomTabsIntent.Builder and call Build() to et Intent  
+*   iOS     
+    *   embedded browser UIWebView - cast to `UIViewController`     
+    *   native UI - cast to `SFSafariViewController`    
+    
 On Android, user would write the following code to present the UI.
 
 instead of
@@ -166,25 +166,25 @@ grab the user's info to demonstrate:
 
 ```csharp
 var request = new OAuth2Request 
-					(
-						"GET",
-						 new Uri ("https://graph.facebook.com/me"), 
-						 null, 
-						 eventArgs.Account
-					);
+                    (
+                        "GET",
+                         new Uri ("https://graph.facebook.com/me"), 
+                         null, 
+                         eventArgs.Account
+                    );
 request.GetResponseAsync().ContinueWith 
-	(
-		t => 
-		{
-			if (t.IsFaulted)
-				Console.WriteLine ("Error: " + t.Exception.InnerException.Message);
-			else 
-			{
-				string json = t.Result.GetResponseText();
-				Console.WriteLine (json);
-			}
-		}
-	);
+    (
+        t => 
+        {
+            if (t.IsFaulted)
+                Console.WriteLine ("Error: " + t.Exception.InnerException.Message);
+            else 
+            {
+                string json = t.Result.GetResponseText();
+                Console.WriteLine (json);
+            }
+        }
+    );
 ```
 
 
