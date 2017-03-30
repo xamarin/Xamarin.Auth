@@ -1,4 +1,20 @@
+# Xamarin.Auth
+
+Xamarin.Auth is a cross platform library that helps developers authenticate 
+users via OAuth protocol (OAuth1 and OAuth2). 
+
+## Current version and status
+
+*	nuget version 1.4.0.0	
+	supporting:		
+	*	embedded browsers (Android WebView and iOS UIWebView)	
+		NOTE: this support will be prohibited by some OAuth providers		
+		DEFAULT 2017-03		
+	*	native UI (Android Custom Tabs and iOS Safari View Controller)		
+		must be explicitly setup in Authenticator constructor!	
+		
 ## 1. Initialization
+
 
 ### 1.1. Create and configure an authenticator
 
@@ -13,7 +29,11 @@ var auth = new OAuth2Authenticator
 		scope: "",
 		authorizeUrl: new Uri ("https://m.facebook.com/dialog/oauth/"),
 		redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"),
-		
+		// switch for new Native UI API
+		//		true = Android Custom Tabs and/or iOS Safari View Controller
+		//		false = embedded browsers used (Android WebView, iOS UIWebView)
+		//	default = false  (not using NEW native UI)
+		isUsingNativeUI: use_native_ui
 	);
 ```
 
@@ -26,22 +46,17 @@ authorization scope, and Facebook's various service locations are required.
 
 ### 1.2. Setup Authentication Event Handlers
 
+To capture events and information in the OAuth flow simply subscribe to Authenticator
+events (add event handlers):
 
-## 2. Authenticate the user
-
-While authenticators manage their own UI, it's up to you to initially present the 
-authenticator's UI on the screen. This lets you control how the authentication UI is 
-displayed–modally, in navigation controllers, in popovers, etc.
-
-Before we present the UI, we need to start listening to the `Completed` event which fires 
-when the user successfully authenticates or cancels. You can find out if the authentication 
-succeeded by testing the `IsAuthenticated` property of `eventArgs`:
+Xamarin.Android
 
 ```csharp
 auth.Completed += (sender, eventArgs) => 
 {
-	// We presented the UI, so it's up to us to dimiss it on iOS.
-	DismissViewController (true, null);
+	// UI presented, so it's up to us to dimiss it on Android
+	// dismiss Activity with WebView or CustomTabs
+	this.Finish();
 
 	if (eventArgs.IsAuthenticated) 
 	{
@@ -53,30 +68,94 @@ auth.Completed += (sender, eventArgs) =>
 };
 ```
 
+Xamarin.iOS
+
+```csharp
+auth.Completed += (sender, eventArgs) => 
+{
+	// UI presented, so it's up to us to dimiss it on iOS
+	// dismiss ViewController with UIWebView or SFSafariViewController
+	this.DismissViewController (true, null);
+
+	if (eventArgs.IsAuthenticated) 
+	{
+		// Use eventArgs.Account to do wonderful things
+	} else 
+	{
+		// The user cancelled
+	}
+};
+```
+
+## 2. Authenticate the user
+
+While authenticators manage their own UI, it's up to you to initially present the 
+authenticator's UI on the screen. This lets you control how the authentication UI is 
+displayed–modally, in navigation controllers, in popovers, etc.
+
+Before we present the UI, we need to start listening to the `Completed` event which fires 
+when the user successfully authenticates or cancels. You can find out if the authentication 
+succeeded by testing the `IsAuthenticated` property of `eventArgs`:
+
+
 All the information gathered from a successful authentication is available in 
 `eventArgs.Account`.
 
 Now we're ready to present the login UI 
 
-on Android from Activity `OnCreate`:
+The `GetUI` method used to return ("old" - embedded browser API)
 
-```csharp
-PresentViewController (auth.GetUI (this));
-```
+*	`UINavigationControllers` on iOS, and 
+*	`Intents` on Android.  
 
-on iOS from `ViewDidAppear`:
+for new API (both embedded browsers and Native UI Support) user will need to
+cast object to appropriate type:
 
-```csharp
-PresentViewController (auth.GetUI (), true, null);
-```
+*	Android		
+	*	embedded browser WebView - cast to `Intent`		
+	*	native UI - cast to CustomTabsIntent.Builder and call Build() to et Intent	
+*	iOS		
+	*	embedded browser UIWebView - cast to `UIViewController`		
+	*	native UI - cast to `SFSafariViewController`	
+	
+On Android, user would write the following code to present the UI.
 
-The `GetUI` method returns `UINavigationControllers` on iOS, and `Intents` on Android. 
-On Android, we would write the following code to present the UI from `OnCreate`:
+instead of
 
 ```csharp
 StartActivity (auth.GetUI (this));
 ```
 
+use 
+
+```csharp
+StartActivity ((Intent)auth.GetUI (this));
+```
+
+and for Native UI (Custom Tabs):
+
+```csharp
+StartActivity (((CustomTabsIntent.Builder)auth.GetUI).Build() (this));
+```
+
+On iOS, user would present UI in following way (with differences fromold API)
+
+Instead:
+
+```csharp
+PresentViewController (auth.GetUI (this));
+```
+
+for old API just cast object obtanied by GetUI() to `UIViewController`:
+
+```csharp
+PresentViewController ((UIViewController)auth.GetUI (this));
+```
+
+and for new API cast it to `SFSafariViewController`:
+```csharp
+PresentViewController ((SFSafariViewController)auth.GetUI (), true, null);
+```
 
 
 ## 3. Making requests

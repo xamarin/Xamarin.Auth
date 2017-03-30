@@ -1,7 +1,7 @@
 # Details
 
 Xamarin.Auth helps developers authenticate users via standard authentication 
-mechanisms  (e.g. OAuth 1.0 and 2.0), and store user credentials. 
+mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials. 
 It's also straightforward  to add support for non-standard authentication 
 schemes. 
 
@@ -72,10 +72,10 @@ Xamarin.Android
 ```csharp
 //#####################################################################
 // Xamarin.Auth API - Breaking Change
-//      old API returned UIKit.UIViewController
+//      old API returned global::Android.Content.Intent
 //Intent ui_intent_as_object = auth.GetUI ();
 //      new API returns System.Object
-System.Object ui_intent_builder_as_object = Auth1.GetUI(this);
+System.Object ui_object = Auth1.GetUI(this);
 if (Auth1.IsUsingNativeUI == true)
 {
 	//=================================================================
@@ -99,8 +99,12 @@ if (Auth1.IsUsingNativeUI == true)
 	System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
 	global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
 	global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
-	ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_intent_builder_as_object;
+	ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_object;
 	//  add custom schema (App Linking) handling
+	//      1.  add Activity with IntentFilter to the app
+	//          1.1. Define sheme[s] and host[s] in the IntentFilter
+	//          1.2. in Activity's OnCreate extract URL with custom schema from Intent
+	//          1.3. parse OAuth data from URL obtained in 1.2.
 	//  NOTE[s]
 	//  *   custom scheme support only
 	//      xamarinauth://localhost
@@ -115,6 +119,9 @@ if (Auth1.IsUsingNativeUI == true)
 		.SetShowTitle(true)
 		.EnableUrlBarHiding()
 		;
+	// TODO: warmup, prefetching
+	// TODO: menu
+	// TODO: bottom bar
 	//------------------------------------------------------------
 	// [REQUIRED] launching Custom Tabs
 	global::Android.Support.CustomTabs.CustomTabsIntent ct_intent = ctib.Build();
@@ -134,7 +141,7 @@ else
 	//      soon to be non-default
 	//      optional API in the future (for backward compatibility)
 	global::Android.Content.Intent i = null;
-	i = (global::Android.Content.Intent)ui_intent_builder_as_object;
+	i = (global::Android.Content.Intent)ui_object;
 	StartActivity(i);
 	//=================================================================
 }
