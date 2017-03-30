@@ -108,10 +108,10 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             //#####################################################################
             // Xamarin.Auth API - Breaking Change
-            //      old API returned UIKit.UIViewController
+            //      old API returned global::Android.Content.Intent
             //Intent ui_intent_as_object = auth.GetUI ();
             //      new API returns System.Object
-            System.Object ui_intent_builder_as_object = Auth1.GetUI(this);
+            System.Object ui_object = Auth1.GetUI(this);
             if (Auth1.IsUsingNativeUI == true)
             {
                 //=================================================================
@@ -135,8 +135,12 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
 				global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
 				global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
-				ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_intent_builder_as_object;
+				ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_object;
 				//  add custom schema (App Linking) handling
+                //      1.  add Activity with IntentFilter to the app
+                //          1.1. Define sheme[s] and host[s] in the IntentFilter
+                //          1.2. in Activity's OnCreate extract URL with custom schema from Intent
+                //          1.3. parse OAuth data from URL obtained in 1.2.
 				//  NOTE[s]
 				//  *   custom scheme support only
 				//      xamarinauth://localhost
@@ -151,6 +155,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     .SetShowTitle(true)
                     .EnableUrlBarHiding()
                     ;
+                // TODO: warmup, prefetching
+                // TODO: menu
+                // TODO: bottom bar
                 //------------------------------------------------------------
                 // [REQUIRED] launching Custom Tabs
                 global::Android.Support.CustomTabs.CustomTabsIntent ct_intent = ctib.Build();
@@ -170,7 +177,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 //      soon to be non-default
                 //      optional API in the future (for backward compatibility)
                 global::Android.Content.Intent i = null;
-                i = (global::Android.Content.Intent)ui_intent_builder_as_object;
+                i = (global::Android.Content.Intent)ui_object;
                 StartActivity(i);
                 //=================================================================
             }
@@ -239,10 +246,10 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             //#####################################################################
             // Xamarin.Auth API - Breaking Change
-            //      old API returned Intent
-            //Intent intent = auth.GetUI ();
+            //      old API returned global::Android.Content.Intent
+            //Intent ui_intent_as_object = auth.GetUI ();
             //      new API returns System.Object
-            System.Object intent_as_object = Auth2.GetUI(this);
+            System.Object ui_object = Auth2.GetUI(this);
             if (Auth2.IsUsingNativeUI == true)
             {
                 //=================================================================
@@ -254,34 +261,63 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 //          SafariServices.SFSafariViewController
                 // on 2014-04-20 google (and some other providers) will work only with this API
                 //  
-                // 2017-03-25 NEW UPCOMMING API undocumented work in progress
+                //
+                //  2017-03-25
+                //      NEW UPCOMMING API undocumented work in progress
+                //      soon to be default
+                //      optional API in the future (for backward compatibility)
                 //
                 //  required part
                 //  add 
-                //     following code
-                // 
+                //     following code:
                 System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
-                global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
-
-                // Add Android.Support.CustomTabs package 
-                global::Android.Support.CustomTabs.CustomTabsActivityManager ctam = null;
-                ctam = new global::Android.Support.CustomTabs.CustomTabsActivityManager(this);
-
-                global::Android.Support.CustomTabs.CustomTabsIntent cti = null;
-                cti = (global::Android.Support.CustomTabs.CustomTabsIntent)intent_as_object;
-
-                cti.LaunchUrl(this, uri_android);
-            }
+				global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
+				global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
+				ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_object;
+				//  add custom schema (App Linking) handling
+				//      1.  add Activity with IntentFilter to the app
+				//          1.1. Define sheme[s] and host[s] in the IntentFilter
+				//          1.2. in Activity's OnCreate extract URL with custom schema from Intent
+				//          1.3. parse OAuth data from URL obtained in 1.2.
+				//  NOTE[s]
+				//  *   custom scheme support only
+				//      xamarinauth://localhost
+				//      xamarin-auth://localhost
+				//      xamarin.auth://localhost
+				//  *   no http[s] scheme support
+				//------------------------------------------------------------
+				// [OPTIONAL] UI customization
+				// CustomTabsIntent.Builder
+				ctib
+					.SetToolbarColor(color_xamarin_blue)
+					.SetShowTitle(true)
+					.EnableUrlBarHiding()
+					;
+                // TODO: warmup, prefetching
+                // TODO: menu
+                // TODO: bottom bar
+				//------------------------------------------------------------
+				// [REQUIRED] launching Custom Tabs
+				global::Android.Support.CustomTabs.CustomTabsIntent ct_intent = ctib.Build();
+				ct_intent.LaunchUrl(this, uri_android);
+				//=================================================================
+			}
             else
             {
-                // OLD API undocumented work in progress (soon to be deprecated)
-                // set to false to use old embedded browser API WebView and UIWebView
-                // on 2014-04-20 google login (and some other providers) will NOT work with this API
-                // This will be left as optional API for some devices (wearables) which do not support
-                // Chrome Custom Tabs on Android.
+                //=================================================================
+                // Xamarin.Auth API - embedded browsers support 
+                //     - Android - WebView 
+                //     - iOS - UIWebView
+                //
+                // on 2014-04-20 google (and some other providers) will work only with this API
+                //
+                //  2017-03-25
+                //      soon to be non-default
+                //      optional API in the future (for backward compatibility)
                 global::Android.Content.Intent i = null;
-                i = (global::Android.Content.Intent)intent_as_object;
-                StartActivity(i);
+				i = (global::Android.Content.Intent)ui_object;
+				StartActivity(i);
+				//=================================================================
             }
 
             return;
