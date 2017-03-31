@@ -122,6 +122,12 @@ namespace Xamarin.Auth.Helpers
 			get;
 			set;
 		}
+
+        public string HowToMarkDownPrivateSecret
+		{
+			get;
+			set;
+		}
 	}
 }
 

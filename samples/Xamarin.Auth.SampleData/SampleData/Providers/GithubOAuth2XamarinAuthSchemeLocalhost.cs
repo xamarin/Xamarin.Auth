@@ -18,12 +18,6 @@ namespace Xamarin.Auth.SampleData
 
 		partial void SetPublicNonSensitiveData()
 		{
-			HowToMarkDown = 
-@"
-https://github.com/settings/applications
-https://developer.github.com/v3/oauth/#scopes
-https://github.com/settings/developers
-";
 			Description = "Github OAuth2 xamarin-auth://localhost";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = ""; // "", "user",
@@ -33,6 +27,13 @@ https://github.com/settings/developers
 			OAuth_UriCallbackAKARedirect = new Uri("xamarin-auth://localhost");
 			AllowCancel = true;
 
+            HowToMarkDown = 
+@"
+https://github.com/settings/applications
+https://developer.github.com/v3/oauth/#scopes
+https://github.com/settings/developers
+";
+            
 			return;
 		}
 	}

@@ -25,5 +25,22 @@ namespace Xamarin.Auth
             get;
             set;
         } = false;
-    }
+
+
+		protected void ShowErrorForNativeUI(string v)
+		{
+            ShowErrorForNativeUIDebug(v);
+			ShowErrorForNativeUIAlert(v);
+
+            return;
+		}
+
+		protected void ShowErrorForNativeUIDebug(string v)
+		{
+            System.Diagnostics.Debug.WriteLine(v);
+
+			return;
+		}
+
+	}
 }

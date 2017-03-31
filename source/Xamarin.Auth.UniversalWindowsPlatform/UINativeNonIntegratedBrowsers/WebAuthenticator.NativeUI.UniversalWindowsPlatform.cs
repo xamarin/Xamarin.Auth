@@ -1,24 +1,21 @@
 ﻿using System;
 
-using AuthenticateUIType =
-            // global::Android.Support.CustomTabs.CustomTabsIntent
-            System.Object
-            ;
-using UIContext = Android.Content.Context;
+using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
     public partial class WebAuthenticator
     {
- 
-        public delegate AuthenticateUIType PlatformUIMethodDelegate(UIContext context);
-
         /// <summary>
         /// Gets or sets the get platform UIMethod.
         /// Func (delegate) pointing to the method that generates authentication UI
         /// </summary>
         /// <value>The get platform UIM ethod.</value>
-        public event PlatformUIMethodDelegate PlatformUIMethod;
+        public Func<AuthenticateUIType> PlatformUIMethod
+        {
+            get;
+            set;
+        }
 
         /// <summary>
         /// Gets the platform Native UI (Android - [Chrome] Custom Tabs).
@@ -28,25 +25,25 @@ namespace Xamarin.Auth
         /// Android.Support.CustomTabs.CustomTabsIntent
         /// </returns>
         /// <see cref="https://components.xamarin.com/gettingstarted/xamandroidsupportcustomtabs"/>
-        protected AuthenticateUIType GetPlatformUINative(UIContext context)
+        protected virtual AuthenticateUIType GetPlatformUINative()
         {
-            //global::Android.Support.CustomTabs.CustomTabsIntent 
+            throw new NotImplementedException("PCL bite-n-switch");
+
+            System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
+
+            // System.Object
             AuthenticateUIType ui = null;
-            ui = new global::Android.Support.CustomTabs.CustomTabsIntent.Builder().Build();
 
             return ui;
         }
 
-        public WebAuthenticator()
+        public AuthenticateUIType AuthenticationUIPlatformSpecificNative()
         {
-            PlatformUIMethod = AuthenticationUIPlatformSpecificEmbeddedBrowser;
-
-            return;
+            return GetPlatformUINative();
         }
 
-        public AuthenticateUIType AuthenticationUIPlatformSpecificNative(UIContext context)
+        protected void ShowErrorForNativeUIAlert(string v)
         {
-            return GetPlatformUINative(context);
         }
     }
 }

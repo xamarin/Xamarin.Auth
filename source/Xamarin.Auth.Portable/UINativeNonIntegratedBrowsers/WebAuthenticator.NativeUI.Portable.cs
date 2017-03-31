@@ -25,7 +25,7 @@ namespace Xamarin.Auth
         /// Android.Support.CustomTabs.CustomTabsIntent
         /// </returns>
         /// <see cref="https://components.xamarin.com/gettingstarted/xamandroidsupportcustomtabs"/>
-        protected AuthenticateUIType GetPlatformUINative()
+        protected virtual AuthenticateUIType GetPlatformUINative()
         {
             throw new NotImplementedException("PCL bite-n-switch");
 
@@ -42,5 +42,9 @@ namespace Xamarin.Auth
             return GetPlatformUINative();
         }
 
+        protected void ShowErrorForNativeUIAlert(string v)
+        {
+            throw new NotImplementedException("Ups not on Portable");
+        }
     }
 }

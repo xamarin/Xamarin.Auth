@@ -17,7 +17,7 @@ namespace Xamarin.Auth
             set;
         }
 
-        protected AuthenticateUIType GetPlatformUINative()
+        protected virtual AuthenticateUIType GetPlatformUINative()
         {
             System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
             System.Object ui = null;
@@ -30,5 +30,9 @@ namespace Xamarin.Auth
             return GetPlatformUINative();
         }
 
-    }
+		protected void ShowErrorForNativeUIAlert(string v)
+		{
+            
+		}
+	}
 }

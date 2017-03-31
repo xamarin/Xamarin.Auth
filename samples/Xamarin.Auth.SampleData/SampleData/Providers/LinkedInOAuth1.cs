@@ -17,8 +17,16 @@ namespace Xamarin.Auth.SampleData
 
 		partial void SetPublicNonSensitiveData()
 		{
-			HowToMarkDown = 
-@"
+            Description = "LinkedIn OAuth1";
+			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
+			OAuth1_SecretKey_ConsumerSecret_APISecret = "";
+			OAuth1_UriRequestToken = new Uri("https://api.linkedin.com/uas/oauth/requestToken");
+			OAuth_UriAuthorization = new Uri("https://api.linkedin.com/uas/oauth/authorize");
+			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
+			OAuth_UriAccessToken = new Uri("https://api.linkedin.com/uas/oauth/accessToken");
+			AllowCancel = true;
+			HowToMarkDown =
+			@"
 	https://developer.linkedin.com/
 	https://www.linkedin.com/developer/apps/3679273/auth
 	
@@ -44,16 +52,6 @@ namespace Xamarin.Auth.SampleData
 		Default 'Cancel' Redirect URL:
 			http://xamarin.com
 ";
-
-			Description = "LinkedIn OAuth1";
-			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
-			OAuth1_SecretKey_ConsumerSecret_APISecret = "";
-			OAuth1_UriRequestToken = new Uri("https://api.linkedin.com/uas/oauth/requestToken");
-			OAuth_UriAuthorization = new Uri("https://api.linkedin.com/uas/oauth/authorize");
-			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
-			OAuth_UriAccessToken = new Uri("https://api.linkedin.com/uas/oauth/accessToken");
-			AllowCancel = true;
-
 			return;
 		}
 	}
