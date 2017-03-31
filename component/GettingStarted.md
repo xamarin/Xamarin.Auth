@@ -12,7 +12,8 @@ users via OAuth protocol (OAuth1 and OAuth2).
         DEFAULT 2017-03     
     *   native UI (Android Custom Tabs and iOS Safari View Controller)      
         must be explicitly setup in Authenticator constructor!  
-        
+      
+	  
 ## 1. Initialization
 
 

@@ -511,41 +511,73 @@ both on Windows and MacOSX. If working on both platforms Cake script expects
 artifacts to be build forst on Windows and then on MacOSX, so nuget target
 (nuget packaging) will fail if script is executed 
 
-Installing Cake
+#### Installing Cake
 
-Windows
+Installing Cake is pretty easy:
 
-    Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
-    .\build.ps1
+	Windows
 
-Mac OSX 
+		Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
+		.\build.ps1
 
-    curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
-    chmod +x ./build.sh && ./build.sh
+	Mac OSX 
 
-Linux
+		curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
+		chmod +x ./build.sh && ./build.sh
 
-    curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
-    chmod +x ./build.sh && ./build.sh
+	Linux
 
-Running Cake to Build Xamarin.Auth targets
+		curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
+		chmod +x ./build.sh && ./build.sh
 
-Windows
+#### Running Cake to Build Xamarin.Auth targets
 
-    tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
-    tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
-    tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
+Run cake with following command[s] to build libraries and nuget locally.
+For nuget run it 1st on Windows and then on Mac (Xamarin build bots do that
+and expect artifacts from Windows to be ready before packaging).
 
-Mac OSX 
+Running these targets is important for automatic package restore.
 
-    mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
-    mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
+	Windows
 
+		tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
+		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
+		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
+
+	Mac OSX 
+
+		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
+		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
+
+Now, samples based on project references are ready to be used!	
+		
 ### Component
 
 Xamarin.Auth Component support is currently under development. It is "empty shell"
 component, i.e. component that uses nuget package as dependency and contains only
 samples, documentation and artwork.
+
+## Changelog
+
+Nuget Version[s]
+
+*   1.4.0.1   
+	2017-03-30
+    supporting:     
+    *   embedded browsers (Android WebView and iOS UIWebView)   
+        NOTE: this support will be prohibited by some OAuth providers       
+        DEFAULT 2017-03     
+    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
+        must be explicitly setup in Authenticator constructor!  
+*   1.4.0.0   
+	2017-03-30
+    supporting:     
+    *   embedded browsers (Android WebView and iOS UIWebView)   
+        NOTE: this support will be prohibited by some OAuth providers       
+        DEFAULT 2017-03     
+    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
+        must be explicitly setup in Authenticator constructor!  
+
 
 ## Diverse
 
