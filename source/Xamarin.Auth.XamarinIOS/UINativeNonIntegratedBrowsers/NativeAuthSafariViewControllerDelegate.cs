@@ -24,7 +24,7 @@ namespace Xamarin.Auth//.SafariServices
 
         public override void DidCompleteInitialLoad(SFSafariViewController controller, bool didLoadSuccessfully)
         {
-            return;
+			return;
         }
 
 		public override void DidFinish(SFSafariViewController controller)

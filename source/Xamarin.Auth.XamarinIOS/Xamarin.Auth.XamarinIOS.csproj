@@ -166,10 +166,10 @@
     </Compile>
 
 		
-    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
-      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
     </Compile>        
-    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.Native.XamarinIOS.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.XamarinIOS.cs" />
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
     </Compile>
@@ -177,8 +177,11 @@
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
 		
-    <Compile Include="UINativeNonIntegratedBrowsers\NativeAuthSafariViewControllerDelegate.cs" />
     <Compile Include="Plugins\UIThreadRunInvoker.XamarinIOS.cs" />
+    <Compile Include="PlatformSpecific\WebAuthenticatorController.UIWebView.UIWebViewDelegate.cs" />
+    <Compile Include="PlatformSpecific\WebAuthenticatorController.WKWebView.WKWebViewNavigationDelegate.cs" />
+    <Compile Include="PlatformSpecific\WebViewConfiguration.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\NativeAuthSafariViewControllerDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

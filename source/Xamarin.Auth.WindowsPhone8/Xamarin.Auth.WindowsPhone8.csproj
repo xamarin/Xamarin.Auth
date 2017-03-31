@@ -205,8 +205,8 @@
     </Compile>
     <Compile Include="Plugins\UIThreadRunInvoker.WindowsPhone8.cs" />
 
-	<Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
-      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+	<Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
@@ -219,6 +219,7 @@
     <Compile Include="WebAuthenticatorPage.Events.xaml.cs">
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WindowsPhone8.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

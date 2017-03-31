@@ -175,8 +175,8 @@
       <Link>Plugins\UIThreadRunInvoker.Portable.cs</Link>
     </Compile>
 
-    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
-      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
@@ -185,6 +185,7 @@
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
 		
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.Windows81Universal.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PCLCrypto">

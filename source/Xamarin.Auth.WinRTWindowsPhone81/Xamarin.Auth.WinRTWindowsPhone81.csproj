@@ -216,6 +216,7 @@
     <Compile Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticator.WindowsStore81WinRT.cs">
       <Link>WebAuthenticator.WindowsStore81WinRT.cs</Link>
     </Compile>
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WinRTWindowsPhone81.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticatorPage.xaml">
@@ -239,8 +240,8 @@
     </Compile>
     <Compile Include="Plugins\UIThreadRunInvoker.WinRTWindowsPhone81.cs" />
 		
-    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
-      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>

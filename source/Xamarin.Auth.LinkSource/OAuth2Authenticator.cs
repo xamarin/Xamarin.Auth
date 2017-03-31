@@ -181,8 +181,8 @@ namespace Xamarin.Auth
         /// </param>
         public OAuth2Authenticator
                         (
-                            string clientId, string scope, 
-                            Uri authorizeUrl, Uri redirectUrl, 
+                            string clientId, string scope,
+                            Uri authorizeUrl, Uri redirectUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
                             bool isUsingNativeUI = false
                         )
@@ -223,6 +223,14 @@ namespace Xamarin.Auth
             this.requestParams = new Dictionary<string, string>();
             ///---------------------------------------------------------------------------------------
             #endregion
+
+            #if DEBUG
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"OAuth2Authenticator ");
+            sb.AppendLine($"        IsUsingNativeUI = {IsUsingNativeUI}");
+            sb.AppendLine($"        redirectUrl = {redirectUrl}");
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
 
             return;
         }
@@ -365,7 +373,6 @@ namespace Xamarin.Auth
 
             System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
             System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
-
 
             #region
             //---------------------------------------------------------------------------------------
@@ -552,9 +559,10 @@ namespace Xamarin.Auth
         /// <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
         public Task<IDictionary<string, string>> RequestAccessTokenAsync(string code)
         {
-            // mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
+            // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
 
-            var queryValues = new Dictionary<string, string> {
+            var queryValues = new Dictionary<string, string> 
+            {
                 { "grant_type", "authorization_code" },
                 { "code", code },
                 { "redirect_uri", redirectUrl.AbsoluteUri },
@@ -575,7 +583,7 @@ namespace Xamarin.Auth
         /// <returns>The data provided in the response to the access token request.</returns>
         public async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
         {
-            // mc++ changed protected to public for extension methods RefreshToken (Adrian Smith) 
+            // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
             var content = new FormUrlEncodedContent(queryValues);
 
 

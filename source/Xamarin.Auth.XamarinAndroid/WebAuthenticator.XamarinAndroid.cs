@@ -22,7 +22,10 @@ using AuthenticateUIType =
             // Android.Content.Intent
             System.Object
             ;
-using UIContext = Android.Content.Context;
+using UIContext = 
+            //Android.Content.Context
+            Android.App.Activity
+            ;
 
 namespace Xamarin.Auth
 {
@@ -35,17 +38,6 @@ namespace Xamarin.Auth
     public abstract partial class WebAuthenticator
 #endif
     {
-        /// <summary>
-        /// Clears all cookies.
-        /// </summary>
-        /// <seealso cref="ClearCookiesBeforeLogin"/>
-        public static void ClearCookies()
-        {
-            global::Android.Webkit.CookieSyncManager.CreateInstance(global::Android.App.Application.Context);
-            global::Android.Webkit.CookieManager.Instance.RemoveAllCookie();
-        }
-
-
         /// <summary>
         /// Gets the UI for this authenticator.
         /// </summary>
@@ -96,6 +88,19 @@ namespace Xamarin.Auth
         {
             return GetPlatformUIEmbeddedBrowser(context);
         }
-    }
+
+
+        /// <summary>
+        /// Clears all cookies.
+        /// </summary>
+        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        public static void ClearCookies()
+		{
+			global::Android.Webkit.CookieSyncManager.CreateInstance(global::Android.App.Application.Context);
+			global::Android.Webkit.CookieManager.Instance.RemoveAllCookie();
+		}
+
+
+	}
 }
 

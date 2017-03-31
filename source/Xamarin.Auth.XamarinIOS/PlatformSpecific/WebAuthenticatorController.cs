@@ -15,15 +15,18 @@
 //
 using System;
 using System.Threading.Tasks;
+using System.Text;
+
 using Xamarin.Utilities.iOS;
 using Xamarin.Controls;
 
-#if ! __UNIFIED__
+#if !__UNIFIED__
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 #else
 using Foundation;
 using UIKit;
+using WebKit;
 #endif
 
 namespace Xamarin.Auth
@@ -31,11 +34,14 @@ namespace Xamarin.Auth
     /// <summary>
     /// The ViewController that the WebAuthenticator presents to the user.
     /// </summary>
-    internal class WebAuthenticatorController : UIViewController
+    internal partial class WebAuthenticatorController : UIViewController
     {
         protected WebAuthenticator authenticator;
 
-        UIWebView webView;
+        UIWebView ui_web_view;
+        WKWebView wk_web_view;
+        UIView web_view = null;
+
         UIActivityIndicatorView activity;
         UIView authenticatingView;
         ProgressLabel progress;
@@ -46,7 +52,15 @@ namespace Xamarin.Auth
         bool keepTryingAfterError = true;
 
         public WebAuthenticatorController(WebAuthenticator authenticator)
+            : this(authenticator, WebViewConfiguration.IsUsingWKWebView)
         {
+            return;
+        }
+
+        public WebAuthenticatorController(WebAuthenticator authenticator, bool is_using_wkwebview)
+        {
+            WebViewConfiguration.IsUsingWKWebView = is_using_wkwebview;
+
             this.authenticator = authenticator;
 
             authenticator.Error += HandleError;
@@ -55,11 +69,9 @@ namespace Xamarin.Auth
             //
             // Create the UI
             //
-            Title = authenticator.Title;
-
             if (authenticator.AllowCancel)
             {
-                NavigationItem.LeftBarButtonItem = 
+                NavigationItem.LeftBarButtonItem =
                     new UIBarButtonItem
                     (
                         UIBarButtonSystemItem.Cancel,
@@ -82,22 +94,57 @@ namespace Xamarin.Auth
             activity = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(activity);
 
-            webView = new UIWebView(View.Bounds)
+            if (WebViewConfiguration.IsUsingWKWebView == false)
             {
-                Delegate = new WebViewDelegate(this),
-                AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
-            };
-            View.AddSubview(webView);
-            View.BackgroundColor = UIColor.Black;
+                ui_web_view = new UIWebView(View.Bounds)
+                {
+                    Delegate = new UIWebViewDelegate(this),
+                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+                };
+                web_view = ui_web_view;
+                View.AddSubview((UIWebView)web_view);
+            }
+            else
+            {
+                var wk_web_view_configuration = new WebKit.WKWebViewConfiguration();
+
+                if (UIDevice.CurrentDevice.CheckSystemVersion(9, 0))
+                {
+                    wk_web_view_configuration.WebsiteDataStore = WKWebsiteDataStore.NonPersistentDataStore;
+                }
+                    
+                wk_web_view = new WebKit.WKWebView(View.Frame, wk_web_view_configuration)
+                {
+                    UIDelegate = new WKWebViewUIDelegate(),
+                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+                };
+                web_view = wk_web_view;
+                View.AddSubview((WKWebView)web_view);
+            }
+            #if DEBUG
+			authenticator.Title = "Auth " + web_view.GetType().ToString();
+            #endif
+
+			Title = authenticator.Title;
+			View.BackgroundColor = UIColor.Black;
 
             // InvalidOperation - either delegates or events!
-			//this.webView.LoadFinished += WebView_LoadFinished;
-			//
-			// Locate our initial URL
-			//
-			BeginLoadingInitialUrl();
+            //this.webView.LoadFinished += WebView_LoadFinished;
+            //
+            // Locate our initial URL
+            //
+            BeginLoadingInitialUrl();
 
-            return;
+            #if DEBUG
+			StringBuilder sb = new StringBuilder();
+			sb.AppendLine($"WebAuthenticatorController ");
+			sb.AppendLine($"        WebViewConfiguration.IsUsingWKWebView = {WebViewConfiguration.IsUsingWKWebView}");
+			sb.AppendLine($"        authenticator.IsUsingNativeUI         = {authenticator.IsUsingNativeUI}");
+			sb.AppendLine($"        authenticator.Title                   = {authenticator.Title}");
+			System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
+
+			return;
         }
 
         void Cancel()
@@ -122,8 +169,9 @@ namespace Xamarin.Auth
 
                     //
                     // Begin displaying the page
-                    //
-                    LoadInitialUrl(t.Result);
+                    // 
+                    Uri uri = t.Result;
+                    LoadInitialUrl(uri);
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
@@ -134,10 +182,11 @@ namespace Xamarin.Auth
             {
                 progress.StopAnimating();
                 webViewVisible = true;
+
                 UIView.Transition
                             (
                                 fromView: authenticatingView,
-                                toView: webView,
+                                toView: web_view,
                                 duration: TransitionTime,
                                 options: UIViewAnimationOptions.TransitionCrossDissolve,
                                 completion: null
@@ -148,8 +197,17 @@ namespace Xamarin.Auth
             {
                 var request = new NSUrlRequest(new NSUrl(url.AbsoluteUri));
                 NSUrlCache.SharedCache.RemoveCachedResponse(request); // Always try
-                webView.LoadRequest(request);
+                if (WebViewConfiguration.IsUsingWKWebView == false)
+                {
+                    ui_web_view.LoadRequest(request);
+                }
+                else
+                {
+                    wk_web_view.LoadRequest(request);
+				}
             }
+
+            return;
         }
 
         void HandleBrowsingCompleted(object sender, EventArgs e)
@@ -182,7 +240,7 @@ namespace Xamarin.Auth
 
             UIView.Transition
                         (
-                            fromView: webView,
+                            fromView: web_view,
                             toView: authenticatingView,
                             duration: TransitionTime,
                             options: UIViewAnimationOptions.TransitionCrossDissolve,
@@ -234,132 +292,6 @@ namespace Xamarin.Auth
 
             return;
 		}
-
-		protected class WebViewDelegate : UIWebViewDelegate
-        {
-            protected WebAuthenticatorController controller;
-            Uri lastUrl;
-
-
-            public WebViewDelegate(WebAuthenticatorController controller)
-            {
-                this.controller = controller;
-            }
-
-            /// <summary>
-            /// Whether the UIWebView should begin loading data.
-            /// </summary>
-            /// <returns><c>true</c>, if start load was shoulded, <c>false</c> otherwise.</returns>
-            /// <param name="webView">Web view.</param>
-            /// <param name="request">Request.</param>
-            /// <param name="navigationType">Navigation type.</param>
-			public override bool ShouldStartLoad(UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
-            {
-                NSUrl nsUrl = request.Url;
-
-                string msg = null;
-                #if DEBUG
-				msg = String.Format("WebAuthenticatorController.ShouldStartLoad {0}", nsUrl.AbsoluteString);
-				System.Diagnostics.Debug.WriteLine(msg);
-                #endif
-
-                WebRedirectAuthenticator wra = null;
-				wra = (WebRedirectAuthenticator)this.controller.authenticator;
-
-				if (nsUrl != null && !controller.authenticator.HasCompleted)
-                {
-                    Uri url;
-					if (Uri.TryCreate(nsUrl.AbsoluteString, UriKind.Absolute, out url))
-                    {
-						string host = url.Host.ToLower();
-                        string scheme = url.Scheme;
-
-                        #if DEBUG
-						msg = String.Format("WebAuthenticatorController.ShouldStartLoad {0}", url.AbsoluteUri);
-						System.Diagnostics.Debug.WriteLine(msg);
-                        msg = string.Format("                          Host   = {0}", host);
-                        System.Diagnostics.Debug.WriteLine(msg);
-						msg = string.Format("                          Scheme = {0}", scheme);
-						System.Diagnostics.Debug.WriteLine(msg);
-                        #endif
-
-						if (host == "localhost" || host == "127.0.0.1" || host == "::1")
-                        {
-                            wra.IsLoadableRedirectUri = false;
-                            this.controller.DismissViewControllerAsync(true);
-                        }
-                        else
-                        {
-                            wra.IsLoadableRedirectUri = true;
-						}
-
-                        controller.authenticator.OnPageLoading(url);
-                    }
-                }
-
-				return wra.IsLoadableRedirectUri;
-            }
-
-            public override void LoadStarted(UIWebView webView)
-            {
-                controller.activity.StartAnimating();
-
-                webView.UserInteractionEnabled = false;
-            }
-
-            public override void LoadFailed(UIWebView webView, NSError error)
-            {
-				if (error.Domain == "WebKitErrorDomain")
-				{
-                    if (error.Code == 102)
-                    {
-                        // 
-                        // WebViewDelegate.ShouldStartLoad returned false
-                        // localhost, 127.0.0.1, ::1
-                        // TODO: custom uris
-                        // No need to show error - return immediately
-                        return;
-                    }
-				}
-				else if (error.Domain == "NSURLErrorDomain")
-                {
-                    // {The operation couldn’t be completed. (NSURLErrorDomain error -999.)}
-                    if (error.Code == -999)
-                    {
-                        // delegate is getting a "cancelled" (-999) failure, 
-                        //      that might be originated in javascript or 
-                        //      fast clicks!!
-                        //      perhaps even in a UIWebView bug.
-                        return;
-                    }
-                }
-                else 
-
-                controller.activity.StopAnimating();
-
-                webView.UserInteractionEnabled = true;
-
-                controller.authenticator.OnError(error.LocalizedDescription);
-
-                return;
-            }
-
-            public override void LoadingFinished(UIWebView webView)
-            {
-                controller.activity.StopAnimating();
-
-                webView.UserInteractionEnabled = true;
-
-                var url = new Uri(webView.Request.Url.AbsoluteString);
-                if (url != lastUrl && !controller.authenticator.HasCompleted)
-                {
-                    lastUrl = url;
-                    controller.authenticator.OnPageLoaded(url);
-                }
-
-                return;
-            }
-        }
     }
 }
 

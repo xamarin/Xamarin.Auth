@@ -247,8 +247,8 @@
       <Link>Plugins\IRunInvoker.cs</Link>
     </Compile>
     <Compile Include="Plugins\UIThreadRunInvoker.UniversalWindowsPlatform.cs" />
-    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs">
-      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
+      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
@@ -256,6 +256,7 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.UniversalWindowsPlatform.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Xamarin.Auth.rd.xml" />

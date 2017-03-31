@@ -22,6 +22,7 @@ using AuthenticateUIType =
             // UIKit.UIViewController;
             System.Object
             ;
+using System.Text;
 
 namespace Xamarin.Auth
 {
@@ -35,21 +36,6 @@ namespace Xamarin.Auth
 #endif
     {
         /// <summary>
-        /// Clears all cookies.
-        /// </summary>
-        /// <seealso cref="ClearCookiesBeforeLogin"/>
-        public static void ClearCookies()
-        {
-            var store = Foundation.NSHttpCookieStorage.SharedStorage;
-            var cookies = store.Cookies;
-            foreach (var c in cookies)
-            {
-                store.DeleteCookie(c);
-            }
-        }
-
-
-        /// <summary>
         /// Gets the UI for this authenticator.
         /// </summary>
         /// <returns>
@@ -60,6 +46,21 @@ namespace Xamarin.Auth
             System.Object ui = null;
             if (this.IsUsingNativeUI == true)
             {
+                Uri uri = GetInitialUrlAsync().Result;
+                IDictionary<string, string> query_parts = Utilities.WebEx.FormDecode(uri.Query);
+                Uri redirect_uri = new Uri(query_parts["redirect_uri"]);
+                string scheme = redirect_uri.Scheme;
+                if (scheme.StartsWith("http", StringComparison.InvariantCultureIgnoreCase))
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.AppendLine("WARNING");
+                    sb.AppendLine($"Scheme = {scheme}");
+					sb.AppendLine($"Native UI used with http[s] schema!");
+                    sb.AppendLine($"Redirect URL will be loaded in Native UI!");
+					sb.AppendLine($"OAuth Data parsing might fail!");
+
+					ShowErrorForNativeUI(sb.ToString());
+                }
                 ui = GetPlatformUINative();
             }
             else
@@ -81,12 +82,37 @@ namespace Xamarin.Auth
         protected AuthenticateUIType GetPlatformUIEmbeddedBrowser()
         {
             // Embedded Browser - Deprecated
-            UIKit.UINavigationController nc = new UIKit.UINavigationController(new WebAuthenticatorController(this));
+            UIKit.UINavigationController nc = null;
+            nc = new UIKit.UINavigationController(new WebAuthenticatorController(this));
 
             AuthenticateUIType ui = nc;
 
             return ui;
         }
+
+        /// <summary>
+        /// Clears all cookies.
+        /// </summary>
+        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        public static void ClearCookies()
+        {
+            var store = Foundation.NSHttpCookieStorage.SharedStorage;
+            var cookies = store.Cookies;
+            foreach (var c in cookies)
+            {
+                store.DeleteCookie(c);
+            }
+
+            #if DEBUG
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"WebAuthenticator.ClearCookies ");
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
+
+            return;
+        }
+
+
     }
 }
 

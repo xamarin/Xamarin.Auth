@@ -304,7 +304,7 @@ namespace Xamarin.Auth
 
                         sb.AppendLine("SecKeyChain.Add returned : " + statusCode);
                         sb.AppendLine("1. Add Keychain Access Groups to the Entitlements file.");
-                        sb.AppendLine("2. Turne on the Keychain Sharing switch in the Capabilities section in the app.");
+                        sb.AppendLine("2. Turn on the Keychain Sharing switch in the Capabilities section in the app.");
                     }
                     string msg = sb.ToString();
 

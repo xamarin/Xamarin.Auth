@@ -73,19 +73,35 @@ namespace Xamarin.Auth
         /// </param>
         public override void OnPageLoaded(Uri url)
         {
-            var query = WebEx.FormDecode(url.Query);
-            var fragment = WebEx.FormDecode(url.Fragment);
+			IDictionary<string, string> query = WebEx.FormDecode(url.Query);
+			IDictionary<string, string> fragment = WebEx.FormDecode(url.Fragment);
+			this.Query = query;
+			this.Fragment = fragment;
 
-            OnPageEncountered(url, query, fragment);
+			OnPageEncountered(url, query, fragment);
+
+            return;
         }
 
-        /// <summary>
-        /// Event handler called when a new page is being loaded in the web browser.
-        /// </summary>
-        /// <param name='url'>
-        /// The URL of the page.
-        /// </param>
-        public override void OnPageLoading(Uri url)
+        public IDictionary<string, string> Query
+        {
+            get;
+            set;
+        }
+
+		public IDictionary<string, string> Fragment
+		{
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// Event handler called when a new page is being loaded in the web browser.
+		/// </summary>
+		/// <param name='url'>
+		/// The URL of the page.
+		/// </param>
+		public override void OnPageLoading(Uri url)
         {
             var query = WebEx.FormDecode(url.Query);
             var fragment = WebEx.FormDecode(url.Fragment);
