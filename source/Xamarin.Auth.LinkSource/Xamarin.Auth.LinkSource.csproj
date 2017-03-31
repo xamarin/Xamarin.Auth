@@ -113,8 +113,8 @@
     <Compile Include="Evolve16.Labs\AccountManager.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\AuthenticationUI.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\AuthenticationUIType.cs" />
-    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.Native.LinkSource.cs" />
-    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.Native.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.LinkSource.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs" />
     <Compile Include="Plugins\UIThreadRunInvoker.cs" />
     <Compile Include="Plugins\IRunInvoker.cs" />
     <Compile Include="Plugins\UIThreadRunInvoker.LinkSource.cs" />
