@@ -24,11 +24,12 @@
 		http://semver.org/
 		-->
 		<version>
-			1.4.0.1
+			1.4.1.0
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
-			Android returns CustomTabsIntent.Builder instead of CustomTabsIntent - UI customizations
+			Warning Alerts for http[s] schemes used in Native UI
+			Xamarin.IOS embbedded browser - option to use WKWebView
 		</releaseNotes>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
