@@ -14,23 +14,23 @@ using Android.Widget;
 namespace Xamarin.Auth.Sample.XamarinAndroid
 {
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor")]
-	[
+    [
         // App Linking - custom url schemes
         IntentFilter
         (
-		    actions: new[] { Intent.ActionView },
-		    Categories = new[] 
-                    { 
-                        Intent.CategoryDefault, 
-                        Intent.CategoryBrowsable 
+            actions: new[] { Intent.ActionView },
+            Categories = new[]
+                    {
+                        Intent.CategoryDefault,
+                        Intent.CategoryBrowsable
                     },
             DataSchemes = new[]
                     {
                         "xamarinauth",
-						"xamarin-auth",
-						"xamarin.auth",
-					},
-		    DataHost = "localhost"
+                        "xamarin-auth",
+                        "xamarin.auth",
+                    },
+            DataHost = "localhost"
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
@@ -45,34 +45,41 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             global::Android.Net.Uri uri_android = Intent.Data;
 
 
-			System.Uri uri = new Uri(uri_android.ToString());
-			IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+            System.Uri uri = new Uri(uri_android.ToString());
+            IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
 
-			Account account = new Account
-									(
-										"username",
-										new Dictionary<string, string>(fragment)
-									);
+            Account account = new Account
+                                    (
+                                        "username",
+                                        new Dictionary<string, string>(fragment)
+                                    );
 
-			AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
+            AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
 
-			if (MainActivity.Auth2 != null)
-			{
-				// call OnSucceeded to trigger OnCompleted event
-				MainActivity.Auth2.OnSucceeded(account);
-			}
-			else if (MainActivity.Auth1 != null)
-			{
-				// call OnSucceeded to trigger OnCompleted event
-				MainActivity.Auth1.OnSucceeded(account);
-			}
-			else
-			{
-			}
+            if (MainActivity.Auth2 != null)
+            {
+                // call OnSucceeded to trigger OnCompleted event
+                // CHECK: OnSucceeded loads redirect_url in a webview
+                // TODO: stop loading redirect url in OnSucceeded
+                MainActivity.Auth2.OnSucceeded(account);
+            }
+            else if (MainActivity.Auth1 != null)
+            {
+                // call OnSucceeded to trigger OnCompleted event
+                // CHECK: OnSucceeded loads redirect_url in a webview
+                // TODO: stop loading redirect url in OnSucceeded
+                MainActivity.Auth1.OnSucceeded(account);
+            }
+            else
+            {
+            }
 
+            //base.OnBackPressed();
+            //base.OnBackPressed();
+            this.Finish();
             this.Finish();
 
-			return;
-		}
+            return;
+        }
     }
 }
