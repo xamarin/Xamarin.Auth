@@ -61,10 +61,10 @@ namespace Xamarin.Auth
                 NSUrl nsUrl = request.Url;
 
                 string msg = null;
-#if DEBUG
+                #if DEBUG
                 msg = String.Format("WebAuthenticatorController.ShouldStartLoad {0}", nsUrl.AbsoluteString);
                 System.Diagnostics.Debug.WriteLine(msg);
-#endif
+                #endif
 
                 WebRedirectAuthenticator wra = null;
                 wra = (WebRedirectAuthenticator)this.controller.authenticator;
@@ -77,14 +77,14 @@ namespace Xamarin.Auth
                         string host = url.Host.ToLower();
                         string scheme = url.Scheme;
 
-#if DEBUG
+                        #if DEBUG
                         msg = String.Format("WebAuthenticatorController.ShouldStartLoad {0}", url.AbsoluteUri);
                         System.Diagnostics.Debug.WriteLine(msg);
                         msg = string.Format("                          Host   = {0}", host);
                         System.Diagnostics.Debug.WriteLine(msg);
                         msg = string.Format("                          Scheme = {0}", scheme);
                         System.Diagnostics.Debug.WriteLine(msg);
-#endif
+                        #endif
 
                         if (host == "localhost" || host == "127.0.0.1" || host == "::1")
                         {

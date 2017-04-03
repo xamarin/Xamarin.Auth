@@ -52,14 +52,14 @@ namespace Xamarin.Auth
         bool keepTryingAfterError = true;
 
         public WebAuthenticatorController(WebAuthenticator authenticator)
-            : this(authenticator, WebViewConfiguration.IsUsingWKWebView)
+            : this(authenticator, WebViewConfiguration.IOS.IsUsingWKWebView)
         {
             return;
         }
 
         public WebAuthenticatorController(WebAuthenticator authenticator, bool is_using_wkwebview)
         {
-            WebViewConfiguration.IsUsingWKWebView = is_using_wkwebview;
+            WebViewConfiguration.IOS.IsUsingWKWebView = is_using_wkwebview;
 
             this.authenticator = authenticator;
 
@@ -94,7 +94,7 @@ namespace Xamarin.Auth
             activity = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(activity);
 
-            if (WebViewConfiguration.IsUsingWKWebView == false)
+            if (WebViewConfiguration.IOS.IsUsingWKWebView == false)
             {
                 ui_web_view = new UIWebView(View.Bounds)
                 {
@@ -112,11 +112,15 @@ namespace Xamarin.Auth
                 {
                     wk_web_view_configuration.WebsiteDataStore = WKWebsiteDataStore.NonPersistentDataStore;
                 }
-                    
+
                 wk_web_view = new WebKit.WKWebView(View.Frame, wk_web_view_configuration)
                 {
-                    UIDelegate = new WKWebViewUIDelegate(),
+                    UIDelegate = new WKWebViewUIDelegate(this),
+                    NavigationDelegate = new WKWebViewNavigationDelegate(this),
                     AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+                    //  cheating!
+                    //  http://www.useragentstring.com/pages/useragentstring.php?typ=Browser
+                    CustomUserAgent = WebViewConfiguration.IOS.UserAgent,
                 };
                 web_view = wk_web_view;
                 View.AddSubview((WKWebView)web_view);
@@ -138,7 +142,7 @@ namespace Xamarin.Auth
             #if DEBUG
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine($"WebAuthenticatorController ");
-			sb.AppendLine($"        WebViewConfiguration.IsUsingWKWebView = {WebViewConfiguration.IsUsingWKWebView}");
+			sb.AppendLine($"        WebViewConfiguration.IsUsingWKWebView = {WebViewConfiguration.IOS.IsUsingWKWebView}");
 			sb.AppendLine($"        authenticator.IsUsingNativeUI         = {authenticator.IsUsingNativeUI}");
 			sb.AppendLine($"        authenticator.Title                   = {authenticator.Title}");
 			System.Diagnostics.Debug.WriteLine(sb.ToString());
@@ -197,7 +201,7 @@ namespace Xamarin.Auth
             {
                 var request = new NSUrlRequest(new NSUrl(url.AbsoluteUri));
                 NSUrlCache.SharedCache.RemoveCachedResponse(request); // Always try
-                if (WebViewConfiguration.IsUsingWKWebView == false)
+                if (WebViewConfiguration.IOS.IsUsingWKWebView == false)
                 {
                     ui_web_view.LoadRequest(request);
                 }

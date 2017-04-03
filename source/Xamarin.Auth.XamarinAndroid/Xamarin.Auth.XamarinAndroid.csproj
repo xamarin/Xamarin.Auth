@@ -201,6 +201,15 @@
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.XamarinAndroid.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\XamarinAuthCustomUrlSchemeCallbackActivity.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabActivityHelper.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\PackageManagerHelper.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\IConnectionCallback.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\ICustomTabFallback.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\IServiceConnectionCallback.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\ServiceConnection.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabsHelper.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\WebViewActivity.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\WebviewFallback.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -211,6 +220,11 @@
   <ItemGroup>
     <Folder Include="Properties\" />
     <Folder Include="Resources\Values\" />
+    <Folder Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_webview.xml" />
+    <AndroidResource Include="Resources\Values\strings.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
