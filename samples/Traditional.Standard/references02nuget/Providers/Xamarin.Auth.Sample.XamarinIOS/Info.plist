@@ -58,8 +58,7 @@
 			<array>
 				<string>xamarin-auth</string>
 				<string>xamarinauth</string>
-				<string>https</string>
-				<string>New element</string>
+				<string>xamarin.auth</string>
 			</array>
 			<key>CFBundleURLTypes</key>
 			<string>Viewer</string>

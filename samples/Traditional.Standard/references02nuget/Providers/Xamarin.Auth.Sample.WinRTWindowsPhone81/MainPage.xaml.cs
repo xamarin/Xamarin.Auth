@@ -28,10 +28,10 @@ namespace Xamarin.Auth.Sample
 
             this.NavigationCacheMode = NavigationCacheMode.Required;
 
-            provider_list = SampleData.Data.TestCases.Keys.ToArray();
-
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
+
+            return;
         }
 
         /// <summary>

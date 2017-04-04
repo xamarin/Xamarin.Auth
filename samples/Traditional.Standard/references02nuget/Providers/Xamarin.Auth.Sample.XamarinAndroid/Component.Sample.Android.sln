@@ -23,13 +23,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsStore81
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.WindowsPhone81", "..\..\..\..\source\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj", "{18B5054D-6035-40DB-B1AE-3E4FDE8DB6E9}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73798C80-EB18-442B-9ACD-56A863B942E4}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\source\.nuget\NuGet.Config = ..\..\..\source\.nuget\NuGet.Config
-		..\..\..\source\.nuget\NuGet.exe = ..\..\..\source\.nuget\NuGet.exe
-		..\..\..\source\.nuget\NuGet.targets = ..\..\..\source\.nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
 EndProject
 Global
