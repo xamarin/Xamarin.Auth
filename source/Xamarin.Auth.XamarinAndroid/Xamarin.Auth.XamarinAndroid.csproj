@@ -209,7 +209,7 @@
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\ServiceConnection.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabsHelper.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\WebViewActivity.cs" />
-    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\WebviewFallback.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\WebViewFallback.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">

@@ -13,9 +13,14 @@ using Android.Widget;
 
 namespace Xamarin.Auth.Sample.XamarinAndroid
 {
+    //=================================================================
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor")]
+    // Walthrough Step 4
+    //      Intercepting/Catching/Detecting [redirect] url change 
+    //      App Linking / Deep linking - custom url schemes
+    //      
+    // 
     [
-        // App Linking - custom url schemes
         IntentFilter
         (
             actions: new[] { Intent.ActionView },
@@ -34,6 +39,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
+    //=================================================================
     {
         string message;
 
@@ -41,21 +47,32 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
-            global::Android.Net.Uri uri_android = Intent.Data;
 
+            // Create your application here
+
+            //=================================================================
+            // Walthrough Step 4.1
+            //      Parsing intercepted/caught/detected [redirect] url change 
+            global::Android.Net.Uri uri_android = Intent.Data;
 
             System.Uri uri = new Uri(uri_android.ToString());
             IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
 
             Account account = new Account
                                     (
-                                        "username",
+                                        "???",  // whatever
                                         new Dictionary<string, string>(fragment)
                                     );
 
             AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
+            //=================================================================
 
+            //=================================================================
+            // Walthrough Step 5
+            //      Raise/Trigger Events 
+            //          OnCompleted is triggered by OnSucceeded
+            //          OnError
+            //          OnCanceled
             if (MainActivity.Auth2 != null)
             {
                 // call OnSucceeded to trigger OnCompleted event
@@ -72,11 +89,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
             else
             {
+                throw new ArgumentException("OAuth Helper Object not recognized");
             }
+            //=================================================================
 
             //base.OnBackPressed();
-            //base.OnBackPressed();
-            this.Finish();
             this.Finish();
 
             return;
