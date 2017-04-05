@@ -1,5 +1,4 @@
-
-
+# Change Log
 
 *   nuget version 1.4.1.0
 	*	Native UI with checks and Warnings	

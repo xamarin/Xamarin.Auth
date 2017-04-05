@@ -5,6 +5,16 @@ mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials.
 It's also straightforward  to add support for non-standard authentication 
 schemes. 
 
+## Current version and status
+
+*   nuget version 1.4.1.0
+	*	Native UI with checks and Warnings	
+		if http[s] scheme is used
+	*	Xamarin.iOS embedded browser WKWebView support as alternative
+		WKWebView instead of UIWebView	
+
+[Change Log](./ChangeLog.md)		
+	  
 Xamarin.Auth has grown into fully fledged cross platform library supporting:
 
 *   Xamarin.Android
@@ -19,6 +29,16 @@ it is  fairly simple to use it on other platforms.
 
 Recent changes in Xamarin.Auth brought in new functionalities which caused minor
 breaking changes.
+
+## Work in progress and plans
+
+*	[Custom] UserAgent API [NOT RECOMMENDED]	
+	workaround for attempts to fool google and use embedded browsers
+
+## Support
+
+https://xamarinchat.slack.com/messages/C4TD1NHPT/
+	
 
 ## Usage
 

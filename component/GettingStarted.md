@@ -3,18 +3,25 @@
 Xamarin.Auth is a cross platform library that helps developers authenticate 
 users via OAuth protocol (OAuth1 and OAuth2). 
 
-## Current version and status
+OAuth flow (process) is setup in 5 major steps:
 
-*   nuget version 1.4.1.0
-	*	Native UI with checks and Warnings	
-		if http[s] scheme is used
-	*	Xamarin.iOS embedded browser WKWebView support as alternative
-		WKWebView instead of UIWebView	
+1.	Initialization of Authenticator object		
+	preparing all relevant OAuth Data in Authenticator object
+2.	Creating and optionally customising UI		
+3.	Lunching UI and authenticating user
+4.	Detecting/Fetching/Intercepting URL change - redirect url 	
+	and 	
+	parsing	OAuth data from redirect_url
+5.	Triggering Events based on OAuth data 
 
-[Change Log](./ChangeLog.md)		
-	  
+Those steps and (substeps) which will be used in detailed documentation 
+[./Details.md](./Details.md) and WalkThorugh docs for both Android and
+iOS.
+
+
 ## 1. Initialization
 
+Those steps will be 
 
 ### 1.1. Create and configure an authenticator
 
