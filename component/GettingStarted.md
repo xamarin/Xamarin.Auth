@@ -5,14 +5,13 @@ users via OAuth protocol (OAuth1 and OAuth2).
 
 ## Current version and status
 
-*   nuget version 1.4.0.0   
-    supporting:     
-    *   embedded browsers (Android WebView and iOS UIWebView)   
-        NOTE: this support will be prohibited by some OAuth providers       
-        DEFAULT 2017-03     
-    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
-        must be explicitly setup in Authenticator constructor!  
-      
+*   nuget version 1.4.1.0
+	*	Native UI with checks and Warnings	
+		if http[s] scheme is used
+	*	Xamarin.iOS embedded browser WKWebView support as alternative
+		WKWebView instead of UIWebView	
+
+[Change Log](./ChangeLog.md)		
 	  
 ## 1. Initialization
 
@@ -240,3 +239,5 @@ If you want to authenticate against an ostensibly unsupported service, fear not 
 is extensible! It's very easy to create your own authenticators – just derive from any of the 
 existing authenticators and start overriding methods.
 
+
+c
