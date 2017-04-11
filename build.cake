@@ -101,9 +101,9 @@ Task ("nuget-fixes")
 				{
 					// new nuget is needed for UWP!
 					Information("Running on Windows");
-					nuget_location = "./tools/nuget.3.5.0.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.3.5.0.exe";
-					Information("On Mac downloading 3.5.0 to " + nuget_location);				
+					nuget_location = "./tools/nuget.4.1.0.exe";
+					nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
+					Information("On Mac downloading 4.1.0 to " + nuget_location);				
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
@@ -116,9 +116,12 @@ Task ("nuget-fixes")
 				else
 				{
 					Information("Running on MacOSX (non-Windows)");
-					nuget_location = "./tools/nuget.2.8.6.exe";
-					Information("On Mac downloading 2.8.6 to " + nuget_location);				
-					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
+					//nuget_location = "./tools/nuget.2.8.6.exe";
+					//nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
+					//Information("On Mac downloading 2.8.6 to " + nuget_location);				
+					nuget_location = "./tools/nuget.4.1.0.exe";
+					nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
+					Information("On Mac downloading 4.1.0 to " + nuget_location);				
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
@@ -330,6 +333,14 @@ Task ("nuget-restore")
 
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
+			NuGetRestore 
+				(
+					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+					nuget_restore_settings
+				);
+
+			return;
+
 			if (IsRunningOnWindows())
 			{
 				foreach (string sln in solutions)
@@ -352,15 +363,10 @@ Task ("nuget-restore")
 					Information(" NuGetRestore = {0}", sln);					
 					NuGetRestore(sln, nuget_restore_settings); 
 				};
-
 			}
 			
-			NuGetRestore 
-				(
-					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-					nuget_restore_settings
-				);
-			}
+			return;
+		}
 	);
 
 Task ("nuget-update")
@@ -396,6 +402,7 @@ Task ("nuget-update")
 	);
 
 Task ("samples-nuget-restore")
+	.IsDependentOn("nuget-fixes")
 	.Does 
 	(
 		() => 
