@@ -21,8 +21,8 @@ using Xamarin.Utilities;
 
 
 using AuthenticateUIType = 
-            // UIKit.UIViewController;
-            System.Object
+            UIKit.UIViewController
+            //System.Object
             ;
 
 namespace Xamarin.Auth

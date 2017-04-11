@@ -19,8 +19,8 @@ using System.Threading.Tasks;
 using System.Threading;
 
 using AuthenticateUIType =
-            // UIKit.UIViewController;
-            System.Object
+            UIKit.UIViewController
+            //System.Object
             ;
 using System.Text;
 
@@ -43,7 +43,7 @@ namespace Xamarin.Auth
         /// </returns>
         protected override AuthenticateUIType GetPlatformUI()
         {
-            System.Object ui = null;
+            AuthenticateUIType ui = null;
             if (this.IsUsingNativeUI == true)
             {
                 Uri uri = GetInitialUrlAsync().Result;
@@ -55,11 +55,11 @@ namespace Xamarin.Auth
                     StringBuilder sb = new StringBuilder();
                     sb.AppendLine("WARNING");
                     sb.AppendLine($"Scheme = {scheme}");
-					sb.AppendLine($"Native UI used with http[s] schema!");
+                    sb.AppendLine($"Native UI used with http[s] schema!");
                     sb.AppendLine($"Redirect URL will be loaded in Native UI!");
-					sb.AppendLine($"OAuth Data parsing might fail!");
+                    sb.AppendLine($"OAuth Data parsing might fail!");
 
-					ShowErrorForNativeUI(sb.ToString());
+                    ShowErrorForNativeUI(sb.ToString());
                 }
                 ui = GetPlatformUINative();
             }
@@ -103,11 +103,11 @@ namespace Xamarin.Auth
                 store.DeleteCookie(c);
             }
 
-            #if DEBUG
+#if DEBUG
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"WebAuthenticator.ClearCookies ");
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-            #endif
+#endif
 
             return;
         }

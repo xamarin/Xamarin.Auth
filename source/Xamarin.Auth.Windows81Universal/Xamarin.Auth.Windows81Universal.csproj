@@ -201,7 +201,7 @@
       <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Validation">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.13\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
+      <HintPath>..\packages\Validation.2.4.15\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

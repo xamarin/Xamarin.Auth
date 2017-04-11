@@ -10,6 +10,7 @@ using Xamarin.Forms.Xaml;
 namespace Xamarin.Auth.XamarinForms
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
+    //[Forms.Internals.Preserve(AllMembers = true)]
     public partial class PageOAuth : ContentPage
     {
         public PageOAuth()

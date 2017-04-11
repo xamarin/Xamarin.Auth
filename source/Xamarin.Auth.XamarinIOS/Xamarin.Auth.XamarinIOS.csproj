@@ -45,19 +45,19 @@
       <HintPath>..\packages\PCLCrypto.2.0.147\lib\xamarinios10\PCLCrypto.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.Windows.Core">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Windows.Core.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Windows.Core.dll</HintPath>
+      <HintPath>..\packages\PInvoke.Windows.Core.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.Windows.Core.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.Kernel32">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Kernel32.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Kernel32.dll</HintPath>
+      <HintPath>..\packages\PInvoke.Kernel32.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.Kernel32.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.BCrypt">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.BCrypt.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.BCrypt.dll</HintPath>
+      <HintPath>..\packages\PInvoke.BCrypt.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.BCrypt.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.NCrypt">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.NCrypt.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.NCrypt.dll</HintPath>
+      <HintPath>..\packages\PInvoke.NCrypt.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.NCrypt.dll</HintPath>
     </Reference>
     <Reference Include="Validation">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.13\lib\netstandard1.3\Validation.dll</HintPath>
+      <HintPath>..\packages\Validation.2.4.15\lib\netstandard1.3\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +140,7 @@
       <Link>WebUtilities.cs</Link>
     </Compile>
     <Compile Include="Authenticator.XamarinIOS.cs" />
+    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.XamarinIOS.cs" />
     <Compile Include="FormAuthenticator.XamarinIOS.cs" />
     <Compile Include="PlatformSpecific\ACAccountWrapper.cs">
       <SubType>Code</SubType>
@@ -156,19 +157,15 @@
     </Compile>
     <Compile Include="PlatformSpecific\KeyChainAccountStore.Aync.cs" />
     <Compile Include="PlatformSpecific\KeyChainAccountStore.cs" />
-
-		
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\IRunInvoker.cs">
       <Link>Plugins\IRunInvoker.cs</Link>
     </Compile>
-
-		
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
-    </Compile>        
+    </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.XamarinIOS.cs" />
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
@@ -176,12 +173,12 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
-		
     <Compile Include="Plugins\UIThreadRunInvoker.XamarinIOS.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.UIWebView.UIWebViewDelegate.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.WKWebView.WKWebViewNavigationDelegate.cs" />
     <Compile Include="PlatformSpecific\WebViewConfiguration.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\NativeAuthSafariViewControllerDelegate.cs" />
+    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.XamarinIOS.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

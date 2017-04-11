@@ -18,9 +18,11 @@ namespace Xamarin.Auth.Presenters
 		void OnAuthCompleted(object sender, global::Xamarin.Auth.AuthenticatorCompletedEventArgs e)
 		{
 			if (Completed != null)
-				Completed (sender, e);
+            {
+                Completed(sender, e);
+            }
 
-			((Authenticator)sender).Completed -= OnAuthCompleted;
+            ((Authenticator)sender).Completed -= OnAuthCompleted;
 		}
 	}
 }

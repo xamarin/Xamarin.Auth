@@ -20,12 +20,12 @@ using System.Threading;
 using Xamarin.Utilities;
 
 using AuthenticateUIType = 
-            // Android.Content.Intent
-            System.Object
+            Android.Content.Intent
+            //System.Object
             ;
 using UIContext = 
-            //Android.Content.Context
-            Android.App.Activity
+            Android.Content.Context
+            //Android.App.Activity
             ;
 
 namespace Xamarin.Auth

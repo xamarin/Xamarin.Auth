@@ -52,15 +52,15 @@
       <HintPath>..\..\packages\PCLCrypto.2.0.147\lib\xamarinios10\PCLCrypto.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.NCrypt">
-      <HintPath>..\..\packages\PInvoke.NCrypt.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.NCrypt.dll</HintPath>
+      <HintPath>..\..\packages\PInvoke.NCrypt.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.NCrypt.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Validation">
-      <HintPath>..\..\packages\Validation.2.4.13\lib\netstandard1.3\Validation.dll</HintPath>
+      <HintPath>..\..\packages\Validation.2.4.15\lib\netstandard1.3\Validation.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Xamarin.Auth">
-      <HintPath>..\..\packages\Xamarin.Auth.1.3.2.5\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+      <HintPath>..\..\packages\Xamarin.Auth.1.4.1.0\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

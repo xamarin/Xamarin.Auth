@@ -1,12 +1,13 @@
 ﻿using System;
 
 using AuthenticateUIType =
-            // global::Android.Support.CustomTabs.CustomTabsIntent.Builder
-            System.Object
+            Android.Content.Intent
+            //global::Android.Support.CustomTabs.CustomTabsIntent.Builder // not an Intent
+            //System.Object
             ;
 using UIContext =
-            //Android.Content.Context
-            Android.App.Activity
+            Android.Content.Context
+            //Android.App.Activity
             ;
 
 namespace Xamarin.Auth
@@ -20,7 +21,7 @@ namespace Xamarin.Auth
         /// Gets or sets the get platform UIMethod.
         /// Func (delegate) pointing to the method that generates authentication UI
         /// </summary>
-        /// <value>The get platform UIM ethod.</value>
+        /// <value>The get platform UI Method.</value>
         public event PlatformUIMethodDelegate PlatformUIMethod;
 
         global::Android.Graphics.Color color_xamarin_blue;
@@ -35,33 +36,18 @@ namespace Xamarin.Auth
         /// <see cref="https://components.xamarin.com/gettingstarted/xamandroidsupportcustomtabs"/>
         protected virtual AuthenticateUIType GetPlatformUINative(UIContext context)
         {
-            global::Android.Support.CustomTabs.CustomTabsActivityManager ct_mgr = null;
-            global::Android.Support.CustomTabs.CustomTabsIntent.Builder ct_builder = null;
+            System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
+            global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
+            CustomTabsConfiguration.UriAndroidOS = uri_android;
+            AuthenticateUIType ui = new AuthenticateUIType(context, typeof(WebAuthenticatorNativeBrowserActivity));
+            ui.PutExtra("ClearCookies", ClearCookiesBeforeLogin);
+            var state = new WebAuthenticatorActivity.State
+			{
+				Authenticator = this,
+			};
+            ui.PutExtra("StateKey", WebAuthenticatorActivity.StateRepo.Add(state));
 
-            //global::Android.Support.CustomTabs.CustomTabsIntent.Builder 
-            AuthenticateUIType ui = null;
-
-            //global::Android.App.Activity activity = (global::Android.App.Activity)context;
-            ct_mgr = new global::Android.Support.CustomTabs.CustomTabsActivityManager(context);
-            ct_builder = new global::Android.Support.CustomTabs.CustomTabsIntent.Builder(ct_mgr.Session);
-
-
-            // UI customization
-            //      CustomTabsIntent - !OK == NOGO
-            //      CustomTabsIntent.Builder - OK == GO
-            /*
-
-            color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
-
-            ui = new global::Android.Support.CustomTabs.CustomTabsIntent.Builder().Build();
-			ui = ct_builder
-				.SetToolbarColor(color_xamarin_blue)
-				.SetShowTitle(true)
-				.EnableUrlBarHiding()
-				.Build();
-            */
-
-            return ct_builder;
+            return ui;
         }
 
         public WebAuthenticator()

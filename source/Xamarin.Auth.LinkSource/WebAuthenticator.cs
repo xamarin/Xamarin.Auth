@@ -74,6 +74,14 @@ namespace Xamarin.Auth
         /// </param>
         public virtual void OnPageLoading(Uri url)
         {
+            #if DEBUG
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendLine("OnPageLoading Called");
+            sb.AppendLine("     AbsoluteUri  = ").AppendLine(url.AbsoluteUri);
+            sb.AppendLine("     AbsolutePath = ").AppendLine(url.AbsolutePath);
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
+
             return;
         }
 

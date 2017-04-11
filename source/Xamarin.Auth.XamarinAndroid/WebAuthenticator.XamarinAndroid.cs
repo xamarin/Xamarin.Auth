@@ -19,12 +19,12 @@ using System.Threading.Tasks;
 using System.Threading;
 
 using AuthenticateUIType =
-            // Android.Content.Intent
-            System.Object
+            Android.Content.Intent
+            //System.Object
             ;
 using UIContext = 
-            //Android.Content.Context
-            Android.App.Activity
+            Android.Content.Context
+            //Android.App.Activity
             ;
 
 namespace Xamarin.Auth
@@ -46,7 +46,7 @@ namespace Xamarin.Auth
         /// </returns>
         protected override AuthenticateUIType GetPlatformUI(UIContext context)
         {
-            System.Object ui = null;
+            AuthenticateUIType ui = null;
             if (this.IsUsingNativeUI == true)
             {
                 ui = GetPlatformUINative(context);
@@ -70,16 +70,13 @@ namespace Xamarin.Auth
         protected AuthenticateUIType GetPlatformUIEmbeddedBrowser(UIContext context)
         {
             // Embedded Browser - Deprecated
-            global::Android.Content.Intent i = null;
-            i = new global::Android.Content.Intent(context, typeof(WebAuthenticatorActivity));
-            i.PutExtra("ClearCookies", ClearCookiesBeforeLogin);
+            AuthenticateUIType ui = new AuthenticateUIType(context, typeof(WebAuthenticatorActivity));
+            ui.PutExtra("ClearCookies", ClearCookiesBeforeLogin);
             var state = new WebAuthenticatorActivity.State
             {
                 Authenticator = this,
             };
-            i.PutExtra("StateKey", WebAuthenticatorActivity.StateRepo.Add(state));
-
-            AuthenticateUIType ui = i;
+            ui.PutExtra("StateKey", WebAuthenticatorActivity.StateRepo.Add(state));
 
             return ui;
         }

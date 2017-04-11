@@ -1,8 +1,8 @@
 ﻿using System;
 
 using AuthenticateUIType =
-            // SafariServices.SFSafariViewController
-            System.Object
+            SafariServices.SFSafariViewController
+            //System.Object
             ;
 
 namespace Xamarin.Auth

@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.props" Condition="Exists('..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.props')" />
+  <Import Project="..\packages\Xamarin.Build.Download.0.4.3\build\Xamarin.Build.Download.props" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.3\build\Xamarin.Build.Download.props')" />
+  <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.props" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -52,14 +53,14 @@
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Android.Support.Compat">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Android.Support.Compat.25.1.1\lib\MonoAndroid70\Xamarin.Android.Support.Compat.dll</HintPath>
+      <HintPath>..\packages\Xamarin.Android.Support.Compat.25.1.1\lib\MonoAndroid70\Xamarin.Android.Support.Compat.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ModernHttpClient">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
+      <HintPath>..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
     </Reference>
     <Reference Include="OkHttp">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\modernhttpclient.2.4.2\lib\MonoAndroid\OkHttp.dll</HintPath>
+      <HintPath>..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\OkHttp.dll</HintPath>
     </Reference>
     <Reference Include="PCLCrypto">
       <HintPath>..\packages\PCLCrypto.2.0.147\lib\MonoAndroid23\PCLCrypto.dll</HintPath>
@@ -68,19 +69,19 @@
       <HintPath>..\packages\Xamarin.Android.Support.CustomTabs.25.1.1\lib\MonoAndroid70\Xamarin.Android.Support.CustomTabs.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.Windows.Core">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Windows.Core.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Windows.Core.dll</HintPath>
+      <HintPath>..\packages\PInvoke.Windows.Core.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.Windows.Core.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.Kernel32">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.Kernel32.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.Kernel32.dll</HintPath>
+      <HintPath>..\packages\PInvoke.Kernel32.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.Kernel32.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.BCrypt">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.BCrypt.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.BCrypt.dll</HintPath>
+      <HintPath>..\packages\PInvoke.BCrypt.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.BCrypt.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.NCrypt">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\PInvoke.NCrypt.0.4.10\lib\portable-net45+win+wpa81+MonoAndroid10+xamarinios10+MonoTouch10\PInvoke.NCrypt.dll</HintPath>
+      <HintPath>..\packages\PInvoke.NCrypt.0.5.64\lib\portable-net45+win8+wpa81\PInvoke.NCrypt.dll</HintPath>
     </Reference>
     <Reference Include="Validation">
-      <HintPath>..\..\samples\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.13\lib\netstandard1.3\Validation.dll</HintPath>
+      <HintPath>..\packages\Validation.2.4.15\lib\netstandard1.3\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -163,6 +164,7 @@
       <Link>WebUtilities.cs</Link>
     </Compile>
     <Compile Include="Authenticator.XamarinAndroid.cs" />
+    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.XamarinAndroid.cs" />
     <Compile Include="FormAuthenticator.XamarinAndroid.cs" />
     <Compile Include="PlatformSpecific\ActivityEx.cs" />
     <Compile Include="PlatformSpecific\ActivityStateRepository.cs" />
@@ -179,8 +181,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
       <Link>AccountStore.Async.cs</Link>
     </Compile>
-
-
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
@@ -188,8 +188,6 @@
       <Link>Plugins\IRunInvoker.cs</Link>
     </Compile>
     <Compile Include="Plugins\UIThreadRunInvoker.XamarinAndroid.cs" />
-
-		
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
     </Compile>
@@ -210,6 +208,11 @@
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabsHelper.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\WebViewActivity.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\WebViewFallback.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticatorNativeBrowserActivity.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsConfiguration.cs" />
+    <Compile Include="PlatformSpecific\WebAuthenticatorActivity.WebClient.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabsActionsBroadcastReceiver.cs" />
+    <Compile Include="Evolve16.Labs\OAuthLoginPresenter.XamarinAndroid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
@@ -219,12 +222,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Resources\Values\" />
-    <Folder Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_webview.xml" />
     <AndroidResource Include="Resources\Values\strings.xml" />
+    <AndroidResource Include="Resources\drawable\ic_arrow_back.png" />
+    <AndroidResource Include="Resources\anim\slide_in_right.xml" />
+    <AndroidResource Include="Resources\anim\slide_out_left.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_arrow_back.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_arrow_back.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_arrow_back.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_arrow_back.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_arrow_back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
@@ -236,8 +245,9 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />
-  <Import Project="..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Android.Support.Compat.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets" Condition="Exists('..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Android.Support.Compat.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets')" />
-  <Import Project="..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Android.Support.CustomTabs.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.CustomTabs.targets" Condition="Exists('..\..\samples\Traditional.Standard\references01projects\Providers\packages\Xamarin.Android.Support.CustomTabs.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.CustomTabs.targets')" />
+  <Import Project="..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.2\build\Xamarin.Build.Download.targets')" />
+  <Import Project="..\packages\Xamarin.Android.Support.Compat.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Compat.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.CustomTabs.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.CustomTabs.targets" Condition="Exists('..\packages\Xamarin.Android.Support.CustomTabs.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.CustomTabs.targets')" />
+  <Import Project="..\packages\Xamarin.Android.Support.CustomTabs.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.CustomTabs.targets" Condition="Exists('..\packages\Xamarin.Android.Support.CustomTabs.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.CustomTabs.targets')" />
+  <Import Project="..\packages\Xamarin.Build.Download.0.4.3\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.3\build\Xamarin.Build.Download.targets')" />
 </Project>
