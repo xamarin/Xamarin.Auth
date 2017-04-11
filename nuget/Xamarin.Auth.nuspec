@@ -24,14 +24,15 @@
 		http://semver.org/
 		-->
 		<version>
-			1.4.1.0
+			1.5.0-alpha-01
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
-			[Chrome] Custom Tabs UI customization + warmup/prefetching
-			Warning Alerts for http[s] schemes used in Native UI
-			Xamarin.IOS embbedded browser - option to use WKWebView
-			WKWebView - OAuth parsing
+			Xamarin.Forms support for Native UI (Android and iOS)
+			Xamarin.Forms 2 flavors (CustomRenderers and Presenters)
+			API breakage! 
+			No casting needed for old style API for GetUI().
+			New API (Native UI) must cast to get CustomTabs and SFSafariViewController API
 		</releaseNotes>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
