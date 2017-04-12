@@ -21,7 +21,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.5.0-alpha-01
+			1.5.0-alpha-02
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
@@ -61,10 +61,8 @@
 			pcl,
 			android, monoandroid, monodroid, xamarin.android,
 			ios,  monotouch, xamarin.ios
-			<!--
 			plugin for xamarin, plugin,
 			xamarin.forms,
-			-->
 			windows phone, winphone, wp8,
 			wp81
 			windows 8, winrt,

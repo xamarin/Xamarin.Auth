@@ -24,7 +24,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.5.0-alpha-01
+			1.5.0-alpha-02
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
@@ -67,9 +67,9 @@
 			windows 8.1, windows 8.1 winrt, win81
 			windows phone 8.1 winrt, winphone 8.1 winrt, wpa81
 			universal windows platform, uwp, windows 10
-			<!--
 			plugin for xamarin, plugin,
 			xamarin.forms,
+			<!--
 			-->
 		</tags>
 		<frameworkAssemblies>
