@@ -101,9 +101,9 @@ Task ("nuget-fixes")
 				{
 					// new nuget is needed for UWP!
 					Information("Running on Windows");
-					nuget_location = "./tools/nuget.4.1.0.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
-					Information("On Mac downloading 4.1.0 to " + nuget_location);				
+					nuget_location = "./tools/nuget.3.5.0.exe";
+					nuget_location_relative_from_cake_exe = "../nuget.3.5.0.exe";
+					Information("On Mac downloading 3.5.0 to " + nuget_location);				
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
@@ -564,6 +564,67 @@ Task ("libs-macosx")
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
+				
+				
+				
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.dll", 
+						"./output/ios/"
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/pcl/"
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/android/"
+					);
+				//-------------------------------------------------------------------------------------
+				XBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/ios/"
+					);
+				//-------------------------------------------------------------------------------------
+				
 			}
 
 			return;
@@ -932,6 +993,67 @@ Task ("libs-windows")
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
+				
+				
+				
+				//-------------------------------------------------------------------------------------
+				MSBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.dll", 
+						"./output/ios/"
+					);
+				//-------------------------------------------------------------------------------------
+				MSBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/pcl/"
+					);
+				//-------------------------------------------------------------------------------------
+				MSBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/android/"
+					);
+				//-------------------------------------------------------------------------------------
+				MSBuild
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/ios/"
+					);
+				//-------------------------------------------------------------------------------------
+				
 			} 
 
 			return;
@@ -1045,6 +1167,17 @@ Task ("nuget")
 			NuGetPack 
 				(
 					"./nuget/Xamarin.Auth.nuspec", 
+					new NuGetPackSettings 
+					{ 
+						Verbosity = NuGetVerbosity.Detailed,
+						OutputDirectory = "./output/",        
+						BasePath = "./",
+						ToolPath = nuget_tool_path
+					}
+				);                
+			NuGetPack 
+				(
+					"./nuget/Xamarin.Auth.XamarinForms.nuspec", 
 					new NuGetPackSettings 
 					{ 
 						Verbosity = NuGetVerbosity.Detailed,
