@@ -32,13 +32,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         //            iOS - Safari View Controller
         //  false   - embedded WebViews
         //            Android - WebView
-        //            iOS - UIWebView
+        //            iOS - UIWebView or WKWebView
         bool test_native_ui = true;
         //=================================================================
-
-        global::Android.Graphics.Color color_xamarin_blue;
-
-        private const int TOOLBAR_ITEM_ID = 1;
 
         protected override void OnCreate(Bundle bundle)
         {
@@ -52,9 +48,6 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             //  read the docs about pros and cons
             test_native_ui = true;
             //=================================================================
-
-            color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
-
 
             ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
 
@@ -128,16 +121,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     accessTokenUrl: oauth1.OAuth_UriAccessToken,
                     callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
                     // Native UI API switch
-                    // Default - false
-                    // will be switched to true in the near future 2017-04
                     //      true    - NEW native UI support 
-                    //              - Android - Chrome Custom Tabs 
-                    //              - iOS SFSafariViewController
-                    //              - WORK IN PROGRESS
-                    //              - undocumented
-                    //      false   - OLD embedded browser API 
-                    //              - Android - WebView 
-                    //              - iOS - UIWebView
+                    //      false   - OLD embedded browser API [DEFAULT]
+                    // DEFAULT will be switched to true in the near future 2017-04
                     isUsingNativeUI: test_native_ui
                 )
             {
@@ -145,33 +131,10 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             };
             //-------------------------------------------------------------
 
-            //-------------------------------------------------------------
-            // WalkThrough Step 1.1
-            //      setting up Authenticating events
-            if (test_native_ui == true)
-            {
-                //......................................................
-                // redirect URL will be captured/intercepted in the 
-                //          Activity with IntentFilter
-                //          Activity.OnCreate
-                //  here:
-                //  ./ActivityCustomUrlSchemeInterceptor.cs
-                //  NOTE:
-                //  NativeUI will need that Authenticator object is exposed
-                //      via public field or property in order to be used 
-                //......................................................
-            }
-            else
-            {
-
-                //......................................................
-                // If authorization succeeds or is canceled, .Completed will be fired.
-                Auth1.Completed += Auth_Completed;
-                Auth1.Error += Auth_Error;
-                Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
-                //......................................................
-            }
-            //-------------------------------------------------------------
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            Auth1.Completed += Auth_Completed;
+            Auth1.Error += Auth_Error;
+            Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
 
             //#####################################################################
             // WalkThrough Step 2
@@ -180,7 +143,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             //      old API returned global::Android.Content.Intent
             //Intent ui_intent_as_object = auth.GetUI ();
             //      new API returns System.Object
-            System.Object ui_object = Auth1.GetUI(this);
+            global::Android.Content.Intent ui_object = Auth1.GetUI(this);
 
             if (Auth1.IsUsingNativeUI == true)
             {
@@ -205,10 +168,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 //  required part
                 //  add 
                 //     following code:
-                System.Uri uri_netfx = Auth1.GetInitialUrlAsync().Result;
-                global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
-                global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
-                ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_object;
+
                 //  add custom schema (App Linking) handling
                 //      1.  add Activity with IntentFilter to the app
                 //          1.1. Define sheme[s] and host[s] in the IntentFilter
@@ -222,160 +182,17 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 //  *   no http[s] scheme support
                 //------------------------------------------------------------
 
-                //------------------------------------------------------------
-                // WalkThrough Step 2.2
-                //      UI Customisation
-                //      [OPTIONAL] 
-                // CustomTabsIntent.Builder
-                ctib
-                    .SetToolbarColor(color_xamarin_blue)
-                    .SetShowTitle(true)
-                    .EnableUrlBarHiding()
-                    .AddDefaultShareMenuItem()
-                    ;
-
-                global::Android.Graphics.Bitmap icon = null;
-                PendingIntent pi = null;
-                //............................................................
-                // Action Button Bitmap
-                // Generally do not decode bitmaps in the UI thread. 
-                // Decoding it in the UI thread to keep the example short.
-                icon = global::Android.Graphics.BitmapFactory.DecodeResource
-                                                (
-                                                    Resources,
-                                                    global::Android.Resource.Drawable.IcMenuShare
-                                                );
-                string actionLabel = GetString(Resource.String.label_action);
-                pi = CreatePendingIntent(ActionsBroadcastReceiver.ACTION_ACTION_BUTTON);
-                ctib.SetActionButton(icon, actionLabel, pi);
-                //............................................................
-
-                //............................................................
-                // TODO: menu
-                string menuItemTitle = GetString(Resource.String.menu_item_title);
-                PendingIntent pi_menu_item = CreatePendingIntent(ActionsBroadcastReceiver.ACTION_MENU_ITEM);
-                ctib.AddMenuItem(menuItemTitle, pi_menu_item);
-                //............................................................
-
-                //............................................................
-                //Generally you do not want to decode bitmaps in the UI thread. Decoding it in the
-                //UI thread to keep the example short.
-                actionLabel = GetString(Resource.String.label_action);
-                icon = global::Android.Graphics.BitmapFactory.DecodeResource
-                                                    (
-                                                        Resources,
-                                                        global::Android.Resource.Drawable.IcMenuShare
-                                                    );
-                pi = CreatePendingIntent(ActionsBroadcastReceiver.ACTION_TOOLBAR);
-                ctib.AddToolbarItem(TOOLBAR_ITEM_ID, icon, actionLabel, pi);
-                //............................................................
-
-                //............................................................
-                // Custom Back Button Bitmap
-                // Generally do not decode bitmaps in the UI thread. 
-                // Decoding it in the UI thread to keep the example short.
-                ctib.SetCloseButtonIcon
-                            (
-                                global::Android.Graphics.BitmapFactory.DecodeResource
-                                                            (
-                                                                Resources,
-                                                                Resource.Drawable.ic_arrow_back
-                                                            )
-                            );
-                //............................................................
-
-                //............................................................
-                // Animations
-                ctib.SetStartAnimations
-                            (
-                                this,
-                                Resource.Animation.slide_in_right,
-                                Resource.Animation.slide_out_left
-                            );
-                ctib.SetExitAnimations
-                            (
-                                this,
-                                global::Android.Resource.Animation.SlideInLeft,
-                                global::Android.Resource.Animation.SlideOutRight
-                            );
-                //............................................................
-
-
-                //............................................................
-                // TODO: bottom bar
-                //............................................................
-                //------------------------------------------------------------
-
-                //------------------------------------------------------------
-                // WalkThrough Step 2.2
-                //      Optimisations
-                //      [OPTIONAL] [RECOMENDED]
-                //          *   WarmUp, 
-                //          *   Prefetching
-                //
-                global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper ctah = null;
-                ctah = new global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper();
-                bool launchable_uri = ctah.MayLaunchUrl(uri_android, null, null);
-                //------------------------------------------------------------
-
-
-                //------------------------------------------------------------
-                // WalkThrough Step 3
-                //      Launching UI
-                //      [REQUIRED] 
-                global::Android.Support.CustomTabs.CustomTabsIntent cti = ctib.Build();
-                // ensures the intent is not kept in the history stack, which makes
-                // sure navigating away from it will close it
-                cti.Intent.AddFlags(global::Android.Content.ActivityFlags.NoHistory);
-
-                //.......................................................
-                // Launching CustomTabs and url - minimal
-                // cti.LaunchUrl(this, uri_android);
-                //.......................................................
-                // Launching CustomTabs and url - if WarmUp and Prefetching is used
-                ctah.LaunchUrlWithCustomTabsOrFallback
-                                (
-                                    // Activity/Context
-                                    this,
-                                    // CustomTabIntent
-                                    cti,
-                                    uri_android,
-                                    //  Fallback if CustomTabs do not exist
-                                    new global::Android.Support.CustomTabs.Chromium.SharedUtilities.WebViewFallback()
-                                );
-                //------------------------------------------------------------
-
-                //=================================================================
             }
-            else
-            {
-                //=================================================================
-                // WalkThrough Step 2.1
-                //      casting UI object to proper type to work with
-                //
-                // Xamarin.Auth API - embedded browsers support 
-                //     - Android - WebView 
-                //     - iOS - UIWebView or WKWebView
-                //
-                // on 2014-04-20 google (and some other providers) will work only with this API
-                //
-                //  2017-03-25
-                //      soon to be non-default
-                //      optional API in the future (for backward compatibility)
-                //
-                global::Android.Content.Intent i = null;
-                i = (global::Android.Content.Intent)ui_object;
-                //------------------------------------------------------------
-                // WalkThrough Step 3
-                //      Launching UI
-                //      [REQUIRED] 
-                StartActivity(i);
-                //=================================================================
-            }
+
+			//------------------------------------------------------------
+			// WalkThrough Step 3
+			//      Launching UI
+			//      [REQUIRED] 
+			StartActivity(ui_object);
+            //------------------------------------------------------------
 
             return;
         }
-
 
         public static OAuth2Authenticator Auth2 = null;
 
@@ -393,16 +210,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         authorizeUrl: oauth2.OAuth_UriAuthorization,
                         redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
                         // Native UI API switch
-                        // Default - false
-                        // will be switched to true in the near future 2017-04
                         //      true    - NEW native UI support 
-                        //              - Android - Chrome Custom Tabs 
-                        //              - iOS SFSafariViewController
-                        //              - WORK IN PROGRESS
-                        //              - undocumented
-                        //      false   - OLD embedded browser API 
-                        //              - Android - WebView 
-                        //              - iOS - UIWebView
+                        //      false   - OLD embedded browser API [DEFAULT]
+                        // DEFAULT will be switched to true in the near future 2017-04
                         isUsingNativeUI: test_native_ui
                     )
                 {
@@ -424,16 +234,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
                         accessTokenUrl: oauth2.OAuth2_UriRequestToken,
                         // Native UI API switch
-                        // Default - false
-                        // will be switched to true in the near future 2017-04
                         //      true    - NEW native UI support 
-                        //              - Android - Chrome Custom Tabs 
-                        //              - iOS SFSafariViewController
-                        //              - WORK IN PROGRESS
-                        //              - undocumented
-                        //      false   - OLD embedded browser API 
-                        //              - Android - WebView 
-                        //              - iOS - UIWebView
+                        //      false   - OLD embedded browser API [DEFAULT]
+                        // DEFAULT will be switched to true in the near future 2017-04
                         isUsingNativeUI: test_native_ui
                     )
                 {
@@ -443,33 +246,10 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
 
 
-            //-------------------------------------------------------------
-            // WalkThrough Step 1.1
-            //      setting up Authenticating events
-            if (test_native_ui == true)
-            {
-                //......................................................
-                // redirect URL will be captured/intercepted in the 
-                //          Activity with IntentFilter
-                //          Activity.OnCreate
-                //  here:
-                //  ./ActivityCustomUrlSchemeInterceptor.cs
-                //  NOTE:
-                //  NativeUI will need that Authenticator object is exposed
-                //      via public field or property in order to be used 
-                //......................................................
-            }
-            else
-            {
-
-                //......................................................
-                // If authorization succeeds or is canceled, .Completed will be fired.
-                Auth1.Completed += Auth_Completed;
-                Auth1.Error += Auth_Error;
-                Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
-                //......................................................
-            }
-            //-------------------------------------------------------------
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            Auth2.Completed += Auth_Completed;
+            Auth2.Error += Auth_Error;
+            Auth2.BrowsingCompleted += Auth_BrowsingCompleted;
 
             //#####################################################################
             // WalkThrough Step 2
@@ -478,7 +258,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             //      old API returned global::Android.Content.Intent
             //Intent ui_intent_as_object = auth.GetUI ();
             //      new API returns System.Object
-            System.Object ui_object = Auth2.GetUI(this);
+            Intent ui_object = Auth2.GetUI(this);
 
             if (Auth2.IsUsingNativeUI == true)
             {
@@ -503,10 +283,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 //  required part
                 //  add 
                 //     following code:
-                System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
-                global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
-                global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
-                ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_object;
+
+                //------------------------------------------------------------
                 //  add custom schema (App Linking) handling
                 //      1.  add Activity with IntentFilter to the app
                 //          1.1. Define sheme[s] and host[s] in the IntentFilter
@@ -520,159 +298,18 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 //  *   no http[s] scheme support
                 //------------------------------------------------------------
 
-                //------------------------------------------------------------
-                // WalkThrough Step 2.2
-                //      UI Customisation
-                //      [OPTIONAL] 
-                // CustomTabsIntent.Builder
-                ctib
-                    .SetToolbarColor(color_xamarin_blue)
-                    .SetShowTitle(true)
-                    .EnableUrlBarHiding()
-                    .AddDefaultShareMenuItem()
-                    ;
-
-                global::Android.Graphics.Bitmap icon = null;
-                PendingIntent pi = null;
-                //............................................................
-                // Action Button Bitmap
-                // Generally do not decode bitmaps in the UI thread. 
-                // Decoding it in the UI thread to keep the example short.
-                icon = global::Android.Graphics.BitmapFactory.DecodeResource
-                                                (
-                                                    Resources,
-                                                    global::Android.Resource.Drawable.IcMenuShare
-                                                );
-                string actionLabel = GetString(Resource.String.label_action);
-                pi = CreatePendingIntent(ActionsBroadcastReceiver.ACTION_ACTION_BUTTON);
-                ctib.SetActionButton(icon, actionLabel, pi);
-                //............................................................
-
-                //............................................................
-                // TODO: menu
-                string menuItemTitle = GetString(Resource.String.menu_item_title);
-                PendingIntent pi_menu_item = CreatePendingIntent(ActionsBroadcastReceiver.ACTION_MENU_ITEM);
-                ctib.AddMenuItem(menuItemTitle, pi_menu_item);
-                //............................................................
-
-                //............................................................
-                //Generally you do not want to decode bitmaps in the UI thread. Decoding it in the
-                //UI thread to keep the example short.
-                actionLabel = GetString(Resource.String.label_action);
-                icon = global::Android.Graphics.BitmapFactory.DecodeResource
-                                                    (
-                                                        Resources,
-                                                        global::Android.Resource.Drawable.IcMenuShare
-                                                    );
-                pi = CreatePendingIntent(ActionsBroadcastReceiver.ACTION_TOOLBAR);
-                ctib.AddToolbarItem(TOOLBAR_ITEM_ID, icon, actionLabel, pi);
-                //............................................................
-
-                //............................................................
-                // Custom Back Button Bitmap
-                // Generally do not decode bitmaps in the UI thread. 
-                // Decoding it in the UI thread to keep the example short.
-                ctib.SetCloseButtonIcon
-                            (
-                                global::Android.Graphics.BitmapFactory.DecodeResource
-                                                            (
-                                                                Resources,
-                                                                Resource.Drawable.ic_arrow_back
-                                                            )
-                            );
-                //............................................................
-
-                //............................................................
-                // Animations
-                ctib.SetStartAnimations
-                            (
-                                this,
-                                Resource.Animation.slide_in_right,
-                                Resource.Animation.slide_out_left
-                            );
-                ctib.SetExitAnimations
-                            (
-                                this,
-                                global::Android.Resource.Animation.SlideInLeft,
-                                global::Android.Resource.Animation.SlideOutRight
-                            );
-                //............................................................
-
-
-                //............................................................
-                // TODO: bottom bar
-                //............................................................
-                //------------------------------------------------------------
-
-                //------------------------------------------------------------
-                // WalkThrough Step 2.2
-                //      Optimisations
-                //      [OPTIONAL] [RECOMENDED]
-                //          *   WarmUp, 
-                //          *   Prefetching
-                //
-                global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper ctah = null;
-                ctah = new global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper();
-                bool launchable_uri = ctah.MayLaunchUrl(uri_android, null, null);
-                //------------------------------------------------------------
-
-
-                //------------------------------------------------------------
-                // WalkThrough Step 3
-                //      Launching UI
-                //      [REQUIRED] 
-                global::Android.Support.CustomTabs.CustomTabsIntent cti = ctib.Build();
-                // ensures the intent is not kept in the history stack, which makes
-                // sure navigating away from it will close it
-                cti.Intent.AddFlags(global::Android.Content.ActivityFlags.NoHistory);
-
-                //.......................................................
-                // Launching CustomTabs and url - minimal
-                // cti.LaunchUrl(this, uri_android);
-                //.......................................................
-                // Launching CustomTabs and url - if WarmUp and Prefetching is used
-                ctah.LaunchUrlWithCustomTabsOrFallback
-                                (
-                                    // Activity/Context
-                                    this,
-                                    // CustomTabIntent
-                                    cti,
-                                    uri_android,
-                                    //  Fallback if CustomTabs do not exist
-                                    new global::Android.Support.CustomTabs.Chromium.SharedUtilities.WebViewFallback()
-                                );
-                //------------------------------------------------------------
-
-                //=================================================================
             }
-            else
-            {
-                //=================================================================
-                // WalkThrough Step 2.1
-                //      casting UI object to proper type to work with
-                //
-                // Xamarin.Auth API - embedded browsers support 
-                //     - Android - WebView 
-                //     - iOS - UIWebView or WKWebView
-                //
-                // on 2014-04-20 google (and some other providers) will work only with this API
-                //
-                //  2017-03-25
-                //      soon to be non-default
-                //      optional API in the future (for backward compatibility)
-                //
-                global::Android.Content.Intent i = null;
-                i = (global::Android.Content.Intent)ui_object;
-                //------------------------------------------------------------
-                // WalkThrough Step 3
-                //      Launching UI
-                //      [REQUIRED] 
-                StartActivity(i);
-                //=================================================================
-            }
+
+            //------------------------------------------------------------
+            // WalkThrough Step 3
+            //      Launching UI
+            //      [REQUIRED] 
+            StartActivity(ui_object);
+            //------------------------------------------------------------
 
             return;
         }
+
 
 
 
@@ -937,13 +574,6 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             return;
         }
 
-        private PendingIntent CreatePendingIntent(int actionSourceId)
-        {
-            Intent actionIntent = new Intent(this.ApplicationContext, typeof(ActionsBroadcastReceiver));
-            actionIntent.PutExtra(ActionsBroadcastReceiver.KEY_ACTION_SOURCE, actionSourceId);
-
-            return PendingIntent.GetBroadcast(ApplicationContext, actionSourceId, actionIntent, 0);
-        }
     }
 }
 

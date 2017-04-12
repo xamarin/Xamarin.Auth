@@ -4,8 +4,9 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Xamarin.Auth.SampleData;
+using SafariServices;
 
-#if ! __CLASSIC__
+#if !__CLASSIC__
 using Foundation;
 using UIKit;
 #else
@@ -28,7 +29,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
         //            iOS - Safari View Controller
         //  false   - embedded WebViews
         //            Android - WebView
-        //            iOS - UIWebView
+        //            iOS - UIWebView or WKWebView
         bool test_native_ui = false;
         //=================================================================
 
@@ -44,12 +45,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             //  and
             //      Native UI (SFSafariWebView)
             //  read the docs about pros and cons
-            test_native_ui = false;
+            test_native_ui = true;
             //=================================================================
             //  switching between 
             //          UIWebView (default) 
             //      and 
-            //          WKWebView)
+            //          WKWebView
             //  read the docs about pros and cons
             Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView = true;
             //=================================================================
@@ -118,16 +119,11 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                 authorizeUrl: oauth1.OAuth_UriAuthorization,
                                 accessTokenUrl: oauth1.OAuth_UriAccessToken,
                                 callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
-                                // Xamarin.Auth API switch
-                                //      true    - Native UI API NEW - native UI support 
-                                //              - Android - Chrome Custom Tabs 
-                                //              - iOS SFSafariViewController
-                                //              - WORK IN PROGRESS
-                                //              - undocumented
-                                //      false   - OLD embedded browser API 
-                                //              - Android - WebView 
-                                //              - iOS - UIWebView
-                                isUsingNativeUI: test_native_ui
+								// Native UI API switch
+								//      true    - NEW native UI support 
+								//      false   - OLD embedded browser API [DEFAULT]
+								// DEFAULT will be switched to true in the near future 2017-04
+								isUsingNativeUI: test_native_ui
                             )
             {
                 ShowErrors = false,
@@ -135,33 +131,12 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             };
             //-------------------------------------------------------------
 
-            //-------------------------------------------------------------
-            // WalkThrough Step 1.1
-            //      setting up Authenticating events
-            if (test_native_ui == true)
-            {
-                //......................................................
-                // redirect URL will be captured/intercepted in the 
-                //          Activity with IntentFilter
-                //          Activity.OnCreate
-                //  here:
-                //  ./ActivityCustomUrlSchemeInterceptor.cs
-                //  NOTE:
-                //  NativeUI will need that Authenticator object is exposed
-                //      via public field or property in order to be used 
-                //......................................................
-            }
-            else
-            {
 
-                //......................................................
-                // If authorization succeeds or is canceled, .Completed will be fired.
-                Auth1.Completed += Auth_Completed;
-                Auth1.Error += Auth_Error;
-                Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
-                //......................................................
-            }
-            //-------------------------------------------------------------
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            Auth1.Completed += Auth_Completed;
+            Auth1.Error += Auth_Error;
+            Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
+
 
 
             //#####################################################################
@@ -171,7 +146,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             //      old API returned UIKit.UIViewController
             //UIViewController ui_controller = auth.GetUI ();
             //      new API returns System.Object
-            System.Object ui_controller_as_object = Auth1.GetUI();
+            UIViewController ui_object = Auth1.GetUI();
             if (Auth1.IsUsingNativeUI == true)
             {
                 //=================================================================
@@ -196,7 +171,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //  add 
                 //     following code:
                 SafariServices.SFSafariViewController c = null;
-                c = (SafariServices.SFSafariViewController)ui_controller_as_object;
+                c = (SafariServices.SFSafariViewController)ui_object;
                 //  add custom schema (App Linking) handling
                 //    in AppDelegate.cs
                 //         public override bool OpenUrl
@@ -250,9 +225,9 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 // WalkThrough Step 2.1
                 //      casting UI object to proper type to work with
                 //
-                // Xamarin.Auth API - embedded browsers support 
-                //     - Android - WebView 
-                //     - iOS - UIWebView or WKWebView
+                // Xamarin.Auth API - Embedded Browsers support 
+                //     - Android - Intent to start Activity with WebView 
+                //     - iOS - UIViewController with UIWebView or WKWebView
                 //
                 // on 2014-04-20 google (and some other providers) will work only with this API
                 //
@@ -260,14 +235,13 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //      soon to be non-default
                 //      optional API in the future (for backward compatibility)
                 //
-                UIViewController c = (UIViewController)ui_controller_as_object;
                 //------------------------------------------------------------
 
                 //------------------------------------------------------------
                 // WalkThrough Step 3
                 //      Launching UI
                 //      [REQUIRED] 
-                PresentViewController(c, true, null);
+                PresentViewController(ui_object, true, null);
                 //=================================================================
             }
             //#####################################################################
@@ -291,15 +265,10 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     scope: oauth2.OAuth2_Scope,
                                     authorizeUrl: oauth2.OAuth_UriAuthorization,
                                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                                    // Xamarin.Auth API switch
-                                    //      true    - Native UI API NEW - native UI support 
-                                    //              - Android - Chrome Custom Tabs 
-                                    //              - iOS SFSafariViewController
-                                    //              - WORK IN PROGRESS
-                                    //              - undocumented
-                                    //      false   - embedded browser API OLD
-                                    //              - Android - WebView 
-                                    //              - iOS - UIWebView
+                                    // Native UI API switch
+                                    //      true    - NEW native UI support 
+                                    //      false   - OLD embedded browser API [DEFAULT]
+                                    // DEFAULT will be switched to true in the near future 2017-04
                                     isUsingNativeUI: test_native_ui
                                 )
                 {
@@ -322,15 +291,10 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     authorizeUrl: oauth2.OAuth_UriAuthorization,
                                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
                                     accessTokenUrl: oauth2.OAuth2_UriRequestToken,
-                                    // Xamarin.Auth API switch
-                                    //      true    - Native UI API NEW - native UI support 
-                                    //              - Android - Chrome Custom Tabs 
-                                    //              - iOS SFSafariViewController
-                                    //              - WORK IN PROGRESS
-                                    //              - undocumented
-                                    //      false   - embedded browser API OLD
-                                    //              - Android - WebView 
-                                    //              - iOS - UIWebView
+                                    // Native UI API switch
+                                    //      true    - NEW native UI support 
+                                    //      false   - OLD embedded browser API [DEFAULT]
+                                    // DEFAULT will be switched to true in the near future 2017-04
                                     isUsingNativeUI: test_native_ui
                                 )
                 {
@@ -340,34 +304,35 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //-------------------------------------------------------------
             }
 
-            //-------------------------------------------------------------
+
+            // If authorization succeeds or is canceled, .Completed will be fired.
+            Auth2.Completed += Auth_Completed;
+            Auth2.Error += Auth_Error;
+            Auth2.BrowsingCompleted += Auth_BrowsingCompleted;
+
+
+
+            //=================================================================
             // WalkThrough Step 1.1
-            //      setting up Authenticating events
-            if (test_native_ui == true)
-            {
-                //......................................................
-                // redirect URL will be captured/intercepted in the 
-                //          Activity with IntentFilter
-                //          Activity.OnCreate
-                //  here:
-                //  ./ActivityCustomUrlSchemeInterceptor.cs
-                //  NOTE:
-                //  NativeUI will need that Authenticator object is exposed
-                //      via public field or property in order to be used 
-                //......................................................
-            }
-            else
-            {
+            //      Launching UI
+            //      [REQUIRED] 
 
-                //......................................................
-                // If authorization succeeds or is canceled, .Completed will be fired.
-                Auth1.Completed += Auth_Completed;
-                Auth1.Error += Auth_Error;
-                Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
-                //......................................................
-            }
-            //-------------------------------------------------------------
-
+            //  add custom schema (App Linking) handling
+            //    in AppDelegate.cs
+            //         public override bool OpenUrl
+            //                                (
+            //                                    UIApplication application, 
+            //                                    NSUrl url, 
+            //                                    string sourceApplication, 
+            //                                    NSObject annotation
+            //                                )
+            //
+            //  NOTE[s]
+            //  *   custom scheme support only
+            //      xamarinauth://localhost
+            //      xamarin-auth://localhost
+            //      xamarin.auth://localhost
+            //  *   no http[s] scheme support
 
 
             //#####################################################################
@@ -377,7 +342,9 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             //      old API returned UIKit.UIViewController
             // UIViewController ui_controller = auth.GetUI ();
             //      new API returns System.Object
-            System.Object ui_controller_as_object = Auth2.GetUI();
+            UIViewController ui_object = Auth2.GetUI();
+
+
             if (Auth2.IsUsingNativeUI == true)
             {
                 //=================================================================
@@ -401,86 +368,51 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                 //  required part
                 //  add 
                 //     following code:
+
                 SafariServices.SFSafariViewController c = null;
-				c = (SafariServices.SFSafariViewController)ui_controller_as_object;
-				//  add custom schema (App Linking) handling
-				//    in AppDelegate.cs
-				//         public override bool OpenUrl
-				//                                (
-				//                                    UIApplication application, 
-				//                                    NSUrl url, 
-				//                                    string sourceApplication, 
-				//                                    NSObject annotation
-				//                                )
-				//
-				//  NOTE[s]
-				//  *   custom scheme support only
-				//      xamarinauth://localhost
-				//      xamarin-auth://localhost
-				//      xamarin.auth://localhost
-				//  *   no http[s] scheme support
-				//------------------------------------------------------------
+                c = (SafariServices.SFSafariViewController)ui_object;
 
-				//------------------------------------------------------------
-				// WalkThrough Step 2.2
-				//      UI Customisation
-				//      [OPTIONAL] 
-				if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-				{
-					c.PreferredBarTintColor = color_xamarin_blue;
-					c.PreferredControlTintColor = UIColor.White;
-				}
-				else
-				{
-					c.View.TintColor = color_xamarin_blue;
-				}
+                this.UICustomization(c);
 
-				Action view_controller_customization =
-					() =>
-					{
-						c.NavigationController.NavigationBar.TintColor = color_xamarin_blue;
-					};
-				//------------------------------------------------------------
+                //------------------------------------------------------------
+                ui_object = c;
+            }
 
-				//------------------------------------------------------------
-				// WalkThrough Step 3
-				//      Launching UI
-				//      [REQUIRED] 
-				PresentViewController(c, true, view_controller_customization);
-				//------------------------------------------------------------
-				//=================================================================
-			}
+			PresentViewController(ui_object, true, null);
+			//=================================================================
+			//#####################################################################
+
+
+			return;
+        }
+
+        private void UICustomization(SFSafariViewController c)
+        {
+            //------------------------------------------------------------
+            // WalkThrough Step 2.2
+            //      UI Customisation
+            //      [OPTIONAL] 
+            if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+            {
+                c.PreferredBarTintColor = color_xamarin_blue;
+                c.PreferredControlTintColor = UIColor.White;
+            }
             else
             {
-                //=================================================================
-                // WalkThrough Step 2.1
-                //      casting UI object to proper type to work with
-                //
-                // Xamarin.Auth API - embedded browsers support 
-                //     - Android - WebView 
-                //     - iOS - UIWebView or WKWebView
-                //
-                // on 2014-04-20 google (and some other providers) will work only with this API
-                //
-                //  2017-03-25
-                //      soon to be non-default
-                //      optional API in the future (for backward compatibility)
-                //
-                UIViewController c = (UIViewController)ui_controller_as_object;
-				//------------------------------------------------------------
+                c.View.TintColor = color_xamarin_blue;
+            }
 
-				//------------------------------------------------------------
-				// WalkThrough Step 3
-				//      Launching UI
-				//      [REQUIRED] 
-				PresentViewController(c, true, null);
-				//=================================================================
-			}
-            //#####################################################################
-
-
-            return;
-        }
+            Action view_controller_customization =
+                null
+                /*
+                () =>
+                {
+                    c.NavigationController.NavigationBar.TintColor = color_xamarin_blue;
+                }
+                */
+                ;
+			return;
+		}
 
         public void Auth_Completed(object sender, AuthenticatorCompletedEventArgs ee)
         {
@@ -492,7 +424,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                     completionHandler: () => { }
                 );
 
-            #if DEBUG
+#if DEBUG
             string d = null;
             string[] values = ee?.Account?.Properties?.Select(x => x.Key + "=" + x.Value).ToArray();
             if (values != null)
@@ -501,7 +433,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             }
             msg = String.Format("TestProviderController.Auth_Completed {0}", d);
             System.Diagnostics.Debug.WriteLine(msg);
-            #endif
+#endif
 
             if (!ee.IsAuthenticated)
             {

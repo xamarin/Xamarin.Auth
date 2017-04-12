@@ -11,7 +11,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace Xamarin.Auth.Sample.XamarinAndroid
+using Xamarin.Auth;
+using Xamarin.Auth.XamarinForms;
+using Xamarin.Auth.XamarinForms.XamarinAndroid;
+
+namespace Samples.NativeUI.Droid
 {
     //=================================================================
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor")]
@@ -47,6 +51,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnCreate(savedInstanceState);
 
+            // Create your application here
+
             global::Android.Net.Uri uri_android = Intent.Data;
 
             #if DEBUG
@@ -60,9 +66,12 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             Uri uri_netfx = new Uri(uri_android.ToString());
 
             // load redirect_url Page
-            MainActivity.Auth2?.OnPageLoading(uri_netfx);
-            MainActivity.Auth1?.OnPageLoading(uri_netfx);
- 
+            WebAuthenticator wa = 
+                (WebAuthenticator)AuthenticatorPageRenderer.Authenticator;
+
+            wa?.OnPageLoading(uri_netfx);
+
+
             this.Finish();
 
             return;

@@ -68,48 +68,14 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
-            //=================================================================
-            // WalkThrough Step 4.1
-            //      Parsing intercepted/caught/detected [redirect] url change 
-            System.Uri uri = new Uri(url.AbsoluteString);
-            IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            Uri uri_netfx = new Uri(url.AbsoluteString);
 
-            Account account = new Account
-                                    (
-                                        "username",
-                                        new Dictionary<string, string>(fragment)
-                                    );
+            // load redirect_url Page
+            TestProvidersController.Auth2?.OnPageLoading(uri_netfx);
+            TestProvidersController.Auth1?.OnPageLoading(uri_netfx);
 
-            AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
-            //=================================================================
-
-            //=================================================================
-            // WalkThrough Step 5
-            //      Raise/Trigger Events 
-            //          OnCompleted is triggered by OnSucceeded
-            //          OnError
-            //          OnCanceled
-            if (TestProvidersController.Auth2 != null)
-            {
-                // call OnSucceeded to trigger OnCompleted event
-                // CHECK: OnSucceeded loads redirect_url in a webview
-                // TODO: stop loading redirect url in OnSucceeded
-                TestProvidersController.Auth2.OnSucceeded(account);
-            }
-            else if (TestProvidersController.Auth1 != null)
-            {
-                // call OnSucceeded to trigger OnCompleted event
-                // CHECK: OnSucceeded loads redirect_url in a webview
-                // TODO: stop loading redirect url in OnSucceeded
-                TestProvidersController.Auth1.OnSucceeded(account);
-            }
-            else
-            {
-                throw new ArgumentException("OAuth Helper Object not recognized");
-			}
-			//=================================================================
-
-			return true;
+            return true;
         }
 
     }
