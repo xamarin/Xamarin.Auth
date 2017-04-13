@@ -13,9 +13,14 @@ using Android.Widget;
 
 namespace Xamarin.Auth.Sample.XamarinAndroid
 {
+    //=================================================================
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor")]
+    // Walthrough Step 4
+    //      Intercepting/Catching/Detecting [redirect] url change 
+    //      App Linking / Deep linking - custom url schemes
+    //      
+    // 
     [
-        // App Linking - custom url schemes
         IntentFilter
         (
             actions: new[] { Intent.ActionView },
@@ -34,6 +39,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
+    //=================================================================
     {
         string message;
 
@@ -41,42 +47,22 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnCreate(savedInstanceState);
 
-            // Create your application here
             global::Android.Net.Uri uri_android = Intent.Data;
 
+            #if DEBUG
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendLine("ActivityCustomUrlSchemeInterceptor.OnCreate()");
+            sb.Append("     uri_android = ").AppendLine(uri_android.ToString());
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
 
-            System.Uri uri = new Uri(uri_android.ToString());
-            IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            Uri uri_netfx = new Uri(uri_android.ToString());
 
-            Account account = new Account
-                                    (
-                                        "username",
-                                        new Dictionary<string, string>(fragment)
-                                    );
-
-            AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
-
-            if (MainActivity.Auth2 != null)
-            {
-                // call OnSucceeded to trigger OnCompleted event
-                // CHECK: OnSucceeded loads redirect_url in a webview
-                // TODO: stop loading redirect url in OnSucceeded
-                MainActivity.Auth2.OnSucceeded(account);
-            }
-            else if (MainActivity.Auth1 != null)
-            {
-                // call OnSucceeded to trigger OnCompleted event
-                // CHECK: OnSucceeded loads redirect_url in a webview
-                // TODO: stop loading redirect url in OnSucceeded
-                MainActivity.Auth1.OnSucceeded(account);
-            }
-            else
-            {
-            }
-
-            //base.OnBackPressed();
-            //base.OnBackPressed();
-            this.Finish();
+            // load redirect_url Page
+            MainActivity.Auth2?.OnPageLoading(uri_netfx);
+            MainActivity.Auth1?.OnPageLoading(uri_netfx);
+ 
             this.Finish();
 
             return;

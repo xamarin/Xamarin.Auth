@@ -46,6 +46,11 @@ namespace Xamarin.Auth.Sample.XamarinIOS
         ///    </array>
         /// </code>
         /// </example>
+        //=================================================================
+        // WalkThrough Step 4
+        //      Intercepting/Catching/Detecting [redirect] url change 
+        //      App Linking / Deep linking - custom url schemes
+        //      
         public override bool OpenUrl
                                 (
                                     UIApplication application,
@@ -54,37 +59,21 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     NSObject annotation
                                 )
         {
+            #if DEBUG
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendLine("OpenURL Called");
             sb.Append("     url         = ").AppendLine(url.AbsoluteUrl.ToString());
             sb.Append("     application = ").AppendLine(sourceApplication);
             sb.Append("     annotation  = ").AppendLine(annotation?.ToString());
             System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
 
-            System.Uri uri = new Uri(url.AbsoluteString);
-            IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            Uri uri_netfx = new Uri(url.AbsoluteString);
 
-            Account account = new Account
-                                    (
-                                        "username",
-                                        new Dictionary<string, string>(fragment)
-                                    );
-
-            AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
-
-            if (TestProvidersController.Auth2 != null)
-            {
-                // call OnSucceeded to trigger OnCompleted event
-                TestProvidersController.Auth2.OnSucceeded(account);
-            }
-            else if (TestProvidersController.Auth1 != null)
-            {
-                // call OnSucceeded to trigger OnCompleted event
-                TestProvidersController.Auth1.OnSucceeded(account);
-            }
-            else
-            {
-            }
+            // load redirect_url Page
+            TestProvidersController.Auth2?.OnPageLoading(uri_netfx);
+            TestProvidersController.Auth1?.OnPageLoading(uri_netfx);
 
             return true;
         }
