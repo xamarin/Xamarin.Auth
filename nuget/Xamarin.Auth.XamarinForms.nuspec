@@ -5,10 +5,10 @@
     -->
 	<metadata minClientVersion="2.8.1">
 		<id>
-			Xamarin.Auth
+			Xamarin.Auth.XamarinForms
 		</id>
 		<title>
-			Xamarin.Auth
+			Xamarin.Auth.XamarinForms
 		</title>
 		<authors>
 			Xamarin
@@ -107,7 +107,7 @@
 		-->
 		<file
 			src="output/pcl/Xamarin.Auth.XamarinForms.dll"
-			target="lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10/Xamarin.Auth.dll"
+			target="lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 
@@ -116,7 +116,7 @@
 		-->
 		<file
 			src="output/android/Xamarin.Auth.XamarinForms.dll"
-			target="lib/MonoAndroid10/Xamarin.Auth.dll"
+			target="lib/MonoAndroid10/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 
@@ -126,15 +126,15 @@
 		-->
 		<file
 			src="output/ios/Xamarin.Auth.XamarinForms.dll"
-			target="lib/Xamarin.iOS10/Xamarin.Auth.dll"
+			target="lib/Xamarin.iOS10/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 
 		<!--
 			Windows Phone 8 Silverlight
 		<file
-			src="output/wp80/Xamarin.Auth.dll"
-			target="lib/wp8/Xamarin.Auth.dll"
+			src="output/wp80/Xamarin.Auth.XamarinForms.dll"
+			target="lib/wp8/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 		-->
@@ -146,23 +146,23 @@
 			├── Release
 			│   ├── Xamarin.Auth
 			│   │   ├── WebAuthenticatorPage.xaml
-			│   │   └── Xamarin.Auth.xr.xml
-			│   ├── Xamarin.Auth.dll
-			│   ├── Xamarin.Auth.pdb
-			│   └── Xamarin.Auth.pri
+			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
+			│   ├── Xamarin.Auth.XamarinForms.dll
+			│   ├── Xamarin.Auth.XamarinForms.pdb
+			│   └── Xamarin.Auth.XamarinForms.pri
 		<file
-			src="output/wpa81/Xamarin.Auth.dll"
-			target="lib/wpa81/Xamarin.Auth.dll"
+			src="output/wpa81/Xamarin.Auth.XamarinForms.dll"
+			target="lib/wpa81/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 		<file
-			src="output/wpa81/Xamarin.Auth.pdb"
-			target="lib/wpa81/Xamarin.Auth.pdb"
+			src="output/wpa81/Xamarin.Auth.XamarinForms.pdb"
+			target="lib/wpa81/Xamarin.Auth.XamarinForms.pdb"
 			>
 		</file>
 		<file
-			src="output/wpa81/Xamarin.Auth.pri"
-			target="lib/wpa81/Xamarin.Auth.pri"
+			src="output/wpa81/Xamarin.Auth.XamarinForms.pri"
+			target="lib/wpa81/Xamarin.Auth.XamarinForms.pri"
 			>
 		</file>
 		<file
@@ -176,8 +176,8 @@
 			>
 		</file>
 		<file
-			src="output/wpa81/Xamarin.Auth/Xamarin.Auth.xr.xml"
-			target="lib/wpa81/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			src="output/wpa81/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
+			target="lib/wpa81/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
 			>
 		</file>
 		-->
@@ -190,23 +190,23 @@
 			├── Release
 			│   ├── Xamarin.Auth
 			│   │   ├── WebAuthenticatorPage.xaml
-			│   │   └── Xamarin.Auth.xr.xml
-			│   ├── Xamarin.Auth.dll
-			│   ├── Xamarin.Auth.pdb
-			│   └── Xamarin.Auth.pri
+			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
+			│   ├── Xamarin.Auth.XamarinForms.dll
+			│   ├── Xamarin.Auth.XamarinForms.pdb
+			│   └── Xamarin.Auth.XamarinForms.pri
 		<file
-			src="output/win81/Xamarin.Auth.dll"
-			target="lib/win81/Xamarin.Auth.dll"
+			src="output/win81/Xamarin.Auth.XamarinForms.dll"
+			target="lib/win81/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 		<file
-			src="output/win81/Xamarin.Auth.pdb"
-			target="lib/win81/Xamarin.Auth.pdb"
+			src="output/win81/Xamarin.Auth.XamarinForms.pdb"
+			target="lib/win81/Xamarin.Auth.XamarinForms.pdb"
 			>
 		</file>
 		<file
-			src="output/win81/Xamarin.Auth.pri"
-			target="lib/win81/Xamarin.Auth.pri"
+			src="output/win81/Xamarin.Auth.XamarinForms.pri"
+			target="lib/win81/Xamarin.Auth.XamarinForms.pri"
 			>
 		</file>
 		<file
@@ -220,8 +220,8 @@
 			>
 		</file>
 		<file
-			src="output/win81/Xamarin.Auth/Xamarin.Auth.xr.xml"
-			target="lib/win81/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			src="output/win81/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
+			target="lib/win81/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
 			>
 		</file>
 		-->
@@ -234,23 +234,23 @@
 			├── Release
 			│   ├── Xamarin.Auth
 			│   │   ├── WebAuthenticatorPage.xaml
-			│   │   └── Xamarin.Auth.xr.xml
-			│   ├── Xamarin.Auth.dll
-			│   ├── Xamarin.Auth.pdb
-			│   └── Xamarin.Auth.pri
+			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
+			│   ├── Xamarin.Auth.XamarinForms.dll
+			│   ├── Xamarin.Auth.XamarinForms.pdb
+			│   └── Xamarin.Auth.XamarinForms.pri
 		<file
-			src="output/uap10.0/Xamarin.Auth.dll"
-			target="lib/uap10.0/Xamarin.Auth.dll"
+			src="output/uap10.0/Xamarin.Auth.XamarinForms.dll"
+			target="lib/uap10.0/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth.pdb"
-			target="lib/uap10.0/Xamarin.Auth.pdb"
+			src="output/uap10.0/Xamarin.Auth.XamarinForms.pdb"
+			target="lib/uap10.0/Xamarin.Auth.XamarinForms.pdb"
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth.pri"
-			target="lib/uap10.0/Xamarin.Auth.pri"
+			src="output/uap10.0/Xamarin.Auth.XamarinForms.pri"
+			target="lib/uap10.0/Xamarin.Auth.XamarinForms.pri"
 			>
 		</file>
 		<file
@@ -259,8 +259,8 @@
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
-			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
+			src="output/uap10.0/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
+			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
 			>
 		</file>
 		-->
