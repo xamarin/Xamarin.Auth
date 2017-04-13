@@ -116,12 +116,12 @@ Task ("nuget-fixes")
 				else
 				{
 					Information("Running on MacOSX (non-Windows)");
-					//nuget_location = "./tools/nuget.2.8.6.exe";
-					//nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
-					//Information("On Mac downloading 2.8.6 to " + nuget_location);				
-					nuget_location = "./tools/nuget.4.1.0.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
-					Information("On Mac downloading 4.1.0 to " + nuget_location);				
+					nuget_location = "./tools/nuget.3.5.0.exe";
+					nuget_location_relative_from_cake_exe = "../nuget.3.5.0.exe";
+					Information("On Mac downloading 3.5.0 to " + nuget_location);				
+					//nuget_location = "./tools/nuget.4.1.0.exe";
+					//nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
+					//Information("On Mac downloading 4.1.0 to " + nuget_location);				
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
@@ -175,10 +175,10 @@ Task ("clean")
 			// note no trailing backslash
 			//DeleteDirectories (GetDirectories("./output"), recursive:true);
 			// OK
-			CleanDirectories("**/obj");
-			CleanDirectories("**/Obj");
-			CleanDirectories("**/bin");
-			CleanDirectories("**/Bin");
+			//CleanDirectories("**/obj");
+			//CleanDirectories("**/Obj");
+			//CleanDirectories("**/bin");
+			//CleanDirectories("**/Bin");
 			
 			//CleanDirectories(GetDirectories("**/obj"));
 			//CleanDirectories(GetDirectories("**/Obj"));
@@ -187,10 +187,10 @@ Task ("clean")
 			
 			
 			// OK
-			//DeleteDirectories(GetDirectories("**/obj"), recursive:true);
-			//DeleteDirectories(GetDirectories("**/Obj"), recursive:true);
-			//DeleteDirectories(GetDirectories("**/bin"), recursive:true);
-			//DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
+			DeleteDirectories(GetDirectories("**/obj"), recursive:true);
+			DeleteDirectories(GetDirectories("**/Obj"), recursive:true);
+			DeleteDirectories(GetDirectories("**/bin"), recursive:true);
+			DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
 			
 			// ! OK
 			//DeleteDirectories("**/obj", true);
