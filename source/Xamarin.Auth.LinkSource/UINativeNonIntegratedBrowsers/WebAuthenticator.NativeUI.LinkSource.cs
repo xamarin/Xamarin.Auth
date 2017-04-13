@@ -30,9 +30,9 @@ namespace Xamarin.Auth
             return GetPlatformUINative();
         }
 
-		protected void ShowErrorForNativeUIAlert(string v)
-		{
-            
-		}
-	}
+        protected void ShowErrorForNativeUIAlert(string v)
+        {
+
+        }
+    }
 }

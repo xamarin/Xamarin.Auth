@@ -32,12 +32,12 @@ namespace System.Json
     internal enum JsonType
 #else
     public enum JsonType
-#endif 	
-	{
-		String,
-		Number,
-		Object,
-		Array,
-		Boolean,
-	}
+#endif
+    {
+        String,
+        Number,
+        Object,
+        Array,
+        Boolean,
+    }
 }

@@ -44,113 +44,116 @@ namespace System.Json
     {
         object value;
 
-        public JsonPrimitive (bool value)
+        public JsonPrimitive(bool value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (byte value)
+        public JsonPrimitive(byte value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (char value)
+        public JsonPrimitive(char value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (decimal value)
+        public JsonPrimitive(decimal value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (double value)
+        public JsonPrimitive(double value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (float value)
+        public JsonPrimitive(float value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (int value)
+        public JsonPrimitive(int value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (long value)
+        public JsonPrimitive(long value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (sbyte value)
+        public JsonPrimitive(sbyte value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (short value)
+        public JsonPrimitive(short value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (string value)
+        public JsonPrimitive(string value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (DateTime value)
+        public JsonPrimitive(DateTime value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (uint value)
+        public JsonPrimitive(uint value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (ulong value)
+        public JsonPrimitive(ulong value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (ushort value)
+        public JsonPrimitive(ushort value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (DateTimeOffset value)
+        public JsonPrimitive(DateTimeOffset value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (Guid value)
+        public JsonPrimitive(Guid value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (TimeSpan value)
+        public JsonPrimitive(TimeSpan value)
         {
             this.value = value;
         }
 
-        public JsonPrimitive (Uri value)
+        public JsonPrimitive(Uri value)
         {
             this.value = value;
         }
 
-        internal object Value {
+        internal object Value
+        {
             get { return value; }
         }
 
-        public override JsonType JsonType {
-            get {
+        public override JsonType JsonType
+        {
+            get
+            {
                 // FIXME: what should we do for null? Handle it as null so far.
                 if (value == null)
                     return JsonType.String;
 
                 #if !PCL && !PORTABLE && !NETFX_CORE && !WINDOWS_PHONE && !SILVERLIGHT && !WINDOWS_APP && !WINDOWS_PHONE_APP
-                switch (System.Type.GetTypeCode (value.GetType ()))
+                switch (System.Type.GetTypeCode(value.GetType()))
                 {
                     case System.TypeCode.Boolean:
                         return JsonType.Boolean;
@@ -192,42 +195,44 @@ namespace System.Json
             }
         }
 
-        static readonly byte [] true_bytes = Encoding.UTF8.GetBytes ("true");
-        static readonly byte [] false_bytes = Encoding.UTF8.GetBytes ("false");
+        static readonly byte[] true_bytes = Encoding.UTF8.GetBytes("true");
+        static readonly byte[] false_bytes = Encoding.UTF8.GetBytes("false");
 
-        public override void Save (Stream stream)
+        public override void Save(Stream stream)
         {
-            switch (JsonType) {
-            case JsonType.Boolean:
-                if ((bool) value)
-                    stream.Write (true_bytes, 0, 4);
-                else
-                    stream.Write (false_bytes, 0, 5);
-                break;
-            case JsonType.String:
-                stream.WriteByte ((byte) '\"');
-                byte [] bytes = Encoding.UTF8.GetBytes (EscapeString (value.ToString ()));
-                stream.Write (bytes, 0, bytes.Length);
-                stream.WriteByte ((byte) '\"');
-                break;
-            default:
-                bytes = Encoding.UTF8.GetBytes (GetFormattedString ());
-                stream.Write (bytes, 0, bytes.Length);
-                break;
+            switch (JsonType)
+            {
+                case JsonType.Boolean:
+                    if ((bool)value)
+                        stream.Write(true_bytes, 0, 4);
+                    else
+                        stream.Write(false_bytes, 0, 5);
+                    break;
+                case JsonType.String:
+                    stream.WriteByte((byte)'\"');
+                    byte[] bytes = Encoding.UTF8.GetBytes(EscapeString(value.ToString()));
+                    stream.Write(bytes, 0, bytes.Length);
+                    stream.WriteByte((byte)'\"');
+                    break;
+                default:
+                    bytes = Encoding.UTF8.GetBytes(GetFormattedString());
+                    stream.Write(bytes, 0, bytes.Length);
+                    break;
             }
         }
 
-        internal string GetFormattedString ()
+        internal string GetFormattedString()
         {
-            switch (JsonType) {
-            case JsonType.String:
-                if (value is string || value == null)
-                    return (string) value;
-                throw new NotImplementedException ("GetFormattedString from value type " + value.GetType ());
-            case JsonType.Number:
-                return ((IFormattable) value).ToString ("G", NumberFormatInfo.InvariantInfo);
-            default:
-                throw new InvalidOperationException ();
+            switch (JsonType)
+            {
+                case JsonType.String:
+                    if (value is string || value == null)
+                        return (string)value;
+                    throw new NotImplementedException("GetFormattedString from value type " + value.GetType());
+                case JsonType.Number:
+                    return ((IFormattable)value).ToString("G", NumberFormatInfo.InvariantInfo);
+                default:
+                    throw new InvalidOperationException();
             }
         }
     }

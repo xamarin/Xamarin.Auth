@@ -15,22 +15,22 @@
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
 
-	using CustomTabsClient = Android.Support.CustomTabs.CustomTabsClient;
+    using CustomTabsClient = Android.Support.CustomTabs.CustomTabsClient;
 
-	/// <summary>
-	/// Callback for events when connecting and disconnecting from Custom Tabs Service.
-	/// </summary>
-	public interface IServiceConnectionCallback
-	{
-		/// <summary>
-		/// Called when the service is connected. </summary>
-		/// <param name="client"> a CustomTabsClient </param>
-		void OnServiceConnected(CustomTabsClient client);
+    /// <summary>
+    /// Callback for events when connecting and disconnecting from Custom Tabs Service.
+    /// </summary>
+    public interface IServiceConnectionCallback
+    {
+        /// <summary>
+        /// Called when the service is connected. </summary>
+        /// <param name="client"> a CustomTabsClient </param>
+        void OnServiceConnected(CustomTabsClient client);
 
-		/// <summary>
-		/// Called when the service is disconnected.
-		/// </summary>
-		void OnServiceDisconnected();
-	}
+        /// <summary>
+        /// Called when the service is disconnected.
+        /// </summary>
+        void OnServiceDisconnected();
+    }
 
 }

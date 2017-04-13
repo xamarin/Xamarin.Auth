@@ -2,19 +2,19 @@
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// </summary>
+    /// <summary>
+    /// </summary>
 #if XAMARIN_AUTH_INTERNAL
 	internal class OAuth2Authenticator 
 #else
-	public partial class OAuth2Authenticator 
+    public partial class OAuth2Authenticator
 #endif
-	{
-		public HttpWebClientFrameworkType HttpWebClientUsed 
-		{
-			get; 
-			set; 
-		}
-	}
+    {
+        public HttpWebClientFrameworkType HttpWebClientUsed
+        {
+            get;
+            set;
+        }
+    }
 }
 

@@ -6,71 +6,71 @@ using Xamarin.Auth.Cryptography;
 
 namespace Xamarin.Auth.AccountUtilities
 {
-	/// <summary>
-	/// Account manager.
-	/// Evolve16 Training - class from Labs with modifications
-	/// </summary>
-	public class AccountManager
-	{
-		string service_id = "service_id";
-		public string ServiceId
-		{
-			get
-			{
-				return service_id;
-			}
-		}
+    /// <summary>
+    /// Account manager.
+    /// Evolve16 Training - class from Labs with modifications
+    /// </summary>
+    public class AccountManager
+    {
+        string service_id = "service_id";
+        public string ServiceId
+        {
+            get
+            {
+                return service_id;
+            }
+        }
 
-		string key_password = "password";
-		public string KeyPassword
-		{
-			get
-			{
-				return key_password;
-			}
-		}
+        string key_password = "password";
+        public string KeyPassword
+        {
+            get
+            {
+                return key_password;
+            }
+        }
 
-		string key_keymaterial = "keymaterial";
-		public string KeyKeyMaterial
-		{
-			get
-			{
-				return key_keymaterial;
-			}
-		}
+        string key_keymaterial = "keymaterial";
+        public string KeyKeyMaterial
+        {
+            get
+            {
+                return key_keymaterial;
+            }
+        }
 
-		string key_salt = "salt";
-		public string KeySalt
-		{
-			get
-			{
-				return key_salt;
-			}
-		}
+        string key_salt = "salt";
+        public string KeySalt
+        {
+            get
+            {
+                return key_salt;
+            }
+        }
 
-		public AccountManager()
-		{
-		}
+        public AccountManager()
+        {
+        }
 
-		public AccountManager(string serviceid, string map_key_password, string map_key_keymaterial, string map_key_salt)
-		{
-			this.service_id = serviceid;
-			this.key_password = map_key_password;
-			this.key_keymaterial = map_key_keymaterial;
-			this.key_salt = map_key_salt;
+        public AccountManager(string serviceid, string map_key_password, string map_key_keymaterial, string map_key_salt)
+        {
+            this.service_id = serviceid;
+            this.key_password = map_key_password;
+            this.key_keymaterial = map_key_keymaterial;
+            this.key_salt = map_key_salt;
 
-			return;
-		}
+            return;
+        }
 
-		public bool CreateAndSaveAccount (string username, string password)
-		{
+        public bool CreateAndSaveAccount(string username, string password)
+        {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return false;
 
             byte[] salt = CryptoUtilities.Get256BitSalt();
             byte[] hashedPassword = CryptoUtilities.GetHash(CryptoUtilities.StringToByteArray(password), salt);
 
-			AccountStore store = AccountStore.Create ();
+            AccountStore store = AccountStore.Create();
             if (GetAccountFromStore(store, username) != null)
                 return false;
 
@@ -83,14 +83,14 @@ namespace Xamarin.Auth.AccountUtilities
             store.Save(account, service_id);
 
             return true;
-		}
+        }
 
-		public bool LoginToAccount (string username, string password)
-		{
+        public bool LoginToAccount(string username, string password)
+        {
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
                 return false;
-            
-			AccountStore store = AccountStore.Create ();
+
+            AccountStore store = AccountStore.Create();
             Account account = GetAccountFromStore(store, username);
             if (account == null)
                 return false;
@@ -111,20 +111,20 @@ namespace Xamarin.Auth.AccountUtilities
             hashedPassword = CryptoUtilities.GetHash(CryptoUtilities.StringToByteArray(password), salt);
 
             return account.Properties[key_password] == Convert.ToBase64String(hashedPassword);
-		}
-			
-		public Account GetAccount (string username)
-		{
-			return GetAccountFromStore (AccountStore.Create (), username);
-		}
+        }
 
-		Account GetAccountFromStore (AccountStore store, string username)
-		{
-			if (store == null || username == null)
-				return null;
+        public Account GetAccount(string username)
+        {
+            return GetAccountFromStore(AccountStore.Create(), username);
+        }
+
+        Account GetAccountFromStore(AccountStore store, string username)
+        {
+            if (store == null || username == null)
+                return null;
 
             var accounts = store.FindAccountsForService(service_id);
             return accounts.FirstOrDefault(a => a.Username == username);
         }
-	}
+    }
 }

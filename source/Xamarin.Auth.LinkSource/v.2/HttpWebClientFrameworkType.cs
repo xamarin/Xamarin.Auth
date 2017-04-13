@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Auth
 {
-	public enum HttpWebClientFrameworkType
-	{
-		WebRequest,
-		HttpClient
-	}
+    public enum HttpWebClientFrameworkType
+    {
+        WebRequest,
+        HttpClient
+    }
 }
