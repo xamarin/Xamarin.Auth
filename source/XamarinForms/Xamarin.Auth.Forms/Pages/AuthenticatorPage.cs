@@ -23,6 +23,7 @@ namespace Xamarin.Auth.XamarinForms
 
         public void Authentication_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
+            #if DEBUG
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"IsAuthenticated = {e.IsAuthenticated}");
             sb.AppendLine($"Account.User    = {e.Account.Username}");
@@ -34,6 +35,7 @@ namespace Xamarin.Auth.XamarinForms
                     sb.ToString(),
                     "Close"
                 );
+            #endif
 
             return;
         }

@@ -92,10 +92,12 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
                     */
                     custom_tabs_session = custom_tabs_client.NewSession
                                                 (
-                                                    // OnNavigationEventDelegate onNavigationEventHandler,
-                                                    null,
+                                                    // OnNavigationEventDelegate onNavigationEventHandler
+                                                    default(CustomTabsClient.OnNavigationEventDelegate)
+                                                    // not available in 23.3.0
+                                                    // downgraded from 25.1.1. because of Xamarin.Forms support 23.3.0 
                                                     // CustomTabsClient.ExtraCallbackDelegate extraCallbackHandler
-                                                    null
+                                                    //null
                                                 );
                 }
                 return custom_tabs_session;
@@ -108,11 +110,18 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
             set;
         } = null;
 
+        /*
+            not available in 23.3.0
+            downgraded from 25.1.1. because of Xamarin.Forms support 23.3.0 
+        <!--
+            <package id = "Xamarin.Android.Support.CustomTabs" version="23.3.0" targetFramework="monoandroid71" />
+        -->        
         public CustomTabsClient.ExtraCallbackDelegate ExtraCallback
         {
             get;
             set;
         } = null;
+        */
 
         /// <summary>
         /// Register a Callback to be called when connected or disconnected from the Custom Tabs Service. 

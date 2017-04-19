@@ -110,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
-      <Project>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</Project>
+      <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
       <Name>Xamarin.Auth.XamarinAndroid</Name>
     </ProjectReference>
   </ItemGroup>

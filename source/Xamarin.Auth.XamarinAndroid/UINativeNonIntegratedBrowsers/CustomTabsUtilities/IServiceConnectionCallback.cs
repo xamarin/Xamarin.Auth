@@ -15,7 +15,7 @@
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
 
-    using CustomTabsClient = Android.Support.CustomTabs.CustomTabsClient;
+    using CustomTabsClient = global::Android.Support.CustomTabs.CustomTabsClient;
 
     /// <summary>
     /// Callback for events when connecting and disconnecting from Custom Tabs Service.
