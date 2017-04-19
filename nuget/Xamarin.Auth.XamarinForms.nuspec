@@ -24,7 +24,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.5.0-alpha-02
+			1.5.0-alpha-03
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
@@ -89,10 +89,11 @@
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
 			-->
 			<group>
-			  <dependency id="PCLCrypto" version="[2.0.147,)"/>
+			  <dependency id="Xamarin.Forms" version="[2.3,)"/>
+			  <dependency id="Xamarin.Auth" version="[1.5.0,)"/>
 			</group>
 			<group targetFramework="MonoAndroid10">
-				<dependency id="Xamarin.Android.Support.CustomTabs" />
+				<dependency id="Xamarin.Android.Support.CustomTabs" version="[23.3.0]" />
 			</group>
 		</dependencies>
 	</metadata>
