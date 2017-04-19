@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 
 
-using Xamarin.Forms;
+using global::Xamarin.Forms;
 
-using Xamarin.Forms.Platform.WinPhone;
+using global::Xamarin.Forms.Platform.WinPhone;
 
 [assembly:
     //Xamarin.Forms.Platform.WinPhone.ExportRenderer    // mc++ mc#: bug or not??
