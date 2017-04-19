@@ -101,14 +101,14 @@ Task ("nuget-fixes")
 				{
 					// new nuget is needed for UWP!
 					Information("Running on Windows");
-					nuget_location = "./tools/nuget.3.5.0.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.3.5.0.exe";
-					Information("On Mac downloading 3.5.0 to " + nuget_location);				
+					nuget_location = "./tools/nuget.4.1.0.exe";
+					nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
+					Information("On Mac downloading 4.1.0 to " + nuget_location);				
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
 						(					
-							@"https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe",
+							@"https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe",
 							nuget_location
 						);
 					}
@@ -116,9 +116,9 @@ Task ("nuget-fixes")
 				else
 				{
 					Information("Running on MacOSX (non-Windows)");
-					nuget_location = "./tools/nuget.3.5.0.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.3.5.0.exe";
-					Information("On Mac downloading 3.5.0 to " + nuget_location);				
+					nuget_location = "./tools/nuget.2.8.6.exe";
+					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
+					Information("On Mac downloading .2.8.6 to " + nuget_location);				
 					//nuget_location = "./tools/nuget.4.1.0.exe";
 					//nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
 					//Information("On Mac downloading 4.1.0 to " + nuget_location);				
