@@ -8,198 +8,204 @@ using System.Threading.Tasks;
 
 namespace ComicBook
 {
-	public partial class MainPage : ContentPage
-	{
-		const string ServiceId = "ComicBook";
-		const string Scope = "profile";
+    public partial class MainPage : ContentPage
+    {
+        const string ServiceId = "ComicBook";
+        const string Scope = "profile";
 
-		Account account;
-		AccountStore store;
+        Account account;
+        AccountStore store;
 
-		public MainPage ()
-		{
-			InitializeComponent ();
+        public MainPage()
+        {
+            InitializeComponent();
 
-			implicitButton.Clicked += ImplicitButtonClicked;
-			authorizationCodeButton.Clicked += AuthorizationCodeButtonClicked;
-			getProfileButton.Clicked += GetProfileButtonClicked;
-			refreshButton.Clicked += RefreshButtonClicked;
+            implicitButton.Clicked += ImplicitButtonClicked;
+            authorizationCodeButton.Clicked += AuthorizationCodeButtonClicked;
+            getProfileButton.Clicked += GetProfileButtonClicked;
+            refreshButton.Clicked += RefreshButtonClicked;
 
-			store = AccountStore.Create ();
-			account = store.FindAccountsForService (ServiceId).FirstOrDefault ();
+            store = AccountStore.Create();
+            account = store.FindAccountsForService(ServiceId).FirstOrDefault();
 
-			if (account != null)
-			{
-				statusText.Text = "Restored previous session";
-				getProfileButton.IsEnabled = true;
-				refreshButton.IsEnabled = true;
-			}
-		}
+            if (account != null)
+            {
+                statusText.Text = "Restored previous session";
+                getProfileButton.IsEnabled = true;
+                refreshButton.IsEnabled = true;
+            }
+        }
 
-		void ImplicitButtonClicked (object sender, EventArgs e)
-		{
-			var authenticator = new OAuth2Authenticator
-				(
-					ServerInfo.ClientId,
-					Scope,
-					ServerInfo.AuthorizationEndpoint,
-					ServerInfo.RedirectionEndpoint
-				);
+        void ImplicitButtonClicked(object sender, EventArgs e)
+        {
+            var authenticator = new OAuth2Authenticator
+                (
+                    ServerInfo.ClientId,
+                    Scope,
+                    ServerInfo.AuthorizationEndpoint,
+                    ServerInfo.RedirectionEndpoint,
+                    null,
+                    isUsingNativeUI: true
+                );
 
-			authenticator.Completed += OnAuthCompleted;
-			authenticator.Error += OnAuthError;
+            authenticator.Completed += OnAuthCompleted;
+            authenticator.Error += OnAuthError;
 
-			var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-			presenter.Login (authenticator);
-		}
-			
-		void AuthorizationCodeButtonClicked (object sender, EventArgs e)
-		{
-			var authenticator = new OAuth2Authenticator
-				(
-					ServerInfo.ClientId,
-					ServerInfo.ClientSecret,
-					Scope,
-					ServerInfo.AuthorizationEndpoint,
-					ServerInfo.RedirectionEndpoint,
-					ServerInfo.TokenEndpoint
-				);
+            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+            presenter.Login(authenticator);
+        }
 
-			authenticator.Completed += OnAuthCompleted;
-			authenticator.Error     += OnAuthError;
+        void AuthorizationCodeButtonClicked(object sender, EventArgs e)
+        {
+            var authenticator = new OAuth2Authenticator
+                (
+                    ServerInfo.ClientId,
+                    ServerInfo.ClientSecret,
+                    Scope,
+                    ServerInfo.AuthorizationEndpoint,
+                    ServerInfo.RedirectionEndpoint,
+                    ServerInfo.TokenEndpoint,
+                    null,
+                    isUsingNativeUI: true
+                );
 
-			var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
-			presenter.Login (authenticator);
-		}
+            authenticator.Completed += OnAuthCompleted;
+            authenticator.Error += OnAuthError;
 
-		async void GetProfileButtonClicked (object sender, EventArgs e)
-		{
-			try
-			{
-				var request = new OAuth2Request("GET", ServerInfo.ApiEndpoint, null, account);
-				var response = await request.GetResponseAsync();
+            var presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+            presenter.Login(authenticator);
+        }
 
-				var text = response.GetResponseText();
+        async void GetProfileButtonClicked(object sender, EventArgs e)
+        {
+            try
+            {
+                var request = new OAuth2Request("GET", ServerInfo.ApiEndpoint, null, account);
+                var response = await request.GetResponseAsync();
 
-				var json = JObject.Parse(text);
+                var text = response.GetResponseText();
 
-				var name = (string)json["Name"];
-				var email = (string)json["Email"];
-				var imageUrl = (string)json["ImageUrl"];
+                var json = JObject.Parse(text);
 
-				nameText.Text  = name;
-				emailText.Text = email;
+                var name = (string)json["Name"];
+                var email = (string)json["Email"];
+                var imageUrl = (string)json["ImageUrl"];
 
-				var imageRequest = new OAuth2Request("GET", new Uri(imageUrl), null, account);
-				var stream = await (await imageRequest.GetResponseAsync()).GetResponseStreamAsync();
+                nameText.Text = name;
+                emailText.Text = email;
 
-				profileImage.Source = ImageSource.FromStream ( ()=> stream );
+                var imageRequest = new OAuth2Request("GET", new Uri(imageUrl), null, account);
+                var stream = await (await imageRequest.GetResponseAsync()).GetResponseStreamAsync();
 
-				statusText.Text = "Get data succeeded";
-			}
-			catch (Exception x)
-			{
-				getProfileButton.IsEnabled = false;
-				statusText.Text = "Get data failure: " + x.Message + "\r\nHas the access token expired?";
-			}
-		}
+                profileImage.Source = ImageSource.FromStream(() => stream);
 
-		async void RefreshButtonClicked (object sender, EventArgs e)
-		{
-			var refreshToken = account.Properties["refresh_token"];
-			
-			if (string.IsNullOrWhiteSpace(refreshToken))
-				return;
-			
-			var queryValues = new Dictionary<string, string> 
-			{
-				{"refresh_token", refreshToken},
-				{"client_id", ServerInfo.ClientId},
-				{"grant_type", "refresh_token"},
-				{"client_secret", ServerInfo.ClientSecret},
-			};
-			
-			var authenticator = new OAuth2Authenticator
-				(
-					ServerInfo.ClientId,
-					ServerInfo.ClientSecret,
-					"profile",
-					ServerInfo.AuthorizationEndpoint,
-					ServerInfo.RedirectionEndpoint,
-					ServerInfo.TokenEndpoint
-				);
+                statusText.Text = "Get data succeeded";
+            }
+            catch (Exception x)
+            {
+                getProfileButton.IsEnabled = false;
+                statusText.Text = "Get data failure: " + x.Message + "\r\nHas the access token expired?";
+            }
+        }
 
-			try
-			{
-				var result = await authenticator.RequestAccessTokenAsync(queryValues);
+        async void RefreshButtonClicked(object sender, EventArgs e)
+        {
+            var refreshToken = account.Properties["refresh_token"];
 
-				if (result.ContainsKey("access_token"))
-					account.Properties["access_token"] = result["access_token"];
+            if (string.IsNullOrWhiteSpace(refreshToken))
+                return;
 
-				if (result.ContainsKey("refresh_token"))
-					account.Properties["refresh_token"] = result["refresh_token"];
+            var queryValues = new Dictionary<string, string>
+            {
+                {"refresh_token", refreshToken},
+                {"client_id", ServerInfo.ClientId},
+                {"grant_type", "refresh_token"},
+                {"client_secret", ServerInfo.ClientSecret},
+            };
 
-				store.Save(account, ServiceId);
+            var authenticator = new OAuth2Authenticator
+                (
+                    ServerInfo.ClientId,
+                    ServerInfo.ClientSecret,
+                    "profile",
+                    ServerInfo.AuthorizationEndpoint,
+                    ServerInfo.RedirectionEndpoint,
+                    ServerInfo.TokenEndpoint,
+                    null,
+                    isUsingNativeUI: true
+                );
 
-				statusText.Text = "Refresh succeeded";
-			}
-			catch (Exception ex) 
-			{
-				statusText.Text = "Refresh failed " + ex.Message;
-			}
-		}
+            try
+            {
+                var result = await authenticator.RequestAccessTokenAsync(queryValues);
 
-		void OnAuthCompleted (object sender, AuthenticatorCompletedEventArgs e)
-		{
-			var authenticator = sender as OAuth2Authenticator;
+                if (result.ContainsKey("access_token"))
+                    account.Properties["access_token"] = result["access_token"];
 
-			if (authenticator != null) 
-			{
-				authenticator.Completed -= OnAuthCompleted;
-				authenticator.Error 	-= OnAuthError;
-			}
+                if (result.ContainsKey("refresh_token"))
+                    account.Properties["refresh_token"] = result["refresh_token"];
 
-			if (e.IsAuthenticated)
-			{
-				getProfileButton.IsEnabled = true;
+                store.Save(account, ServiceId);
 
-				if (this.account != null)
-					store.Delete (this.account, ServiceId);
+                statusText.Text = "Refresh succeeded";
+            }
+            catch (Exception ex)
+            {
+                statusText.Text = "Refresh failed " + ex.Message;
+            }
+        }
 
-				store.Save(account = e.Account, ServiceId);
+        void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            var authenticator = sender as OAuth2Authenticator;
 
-				getProfileButton.IsEnabled = true;
+            if (authenticator != null)
+            {
+                authenticator.Completed -= OnAuthCompleted;
+                authenticator.Error -= OnAuthError;
+            }
 
-				if (account.Properties.ContainsKey ("expires_in")) 
-				{
-					var expires = int.Parse (account.Properties ["expires_in"]);
-					statusText.Text = "Token lifetime is: " + expires + "s";
-				} 
-				else 
-				{
-					statusText.Text = "Authentication succeeded";
-				}
+            if (e.IsAuthenticated)
+            {
+                getProfileButton.IsEnabled = true;
 
-				if(account.Properties.ContainsKey("refresh_token"))
-					refreshButton.IsEnabled = true;
-			}
-			else
-			{
-				statusText.Text = "Authentication failed";
-			}
-		}
+                if (this.account != null)
+                    store.Delete(this.account, ServiceId);
 
-		void OnAuthError (object sender, AuthenticatorErrorEventArgs e)
-		{
-			var authenticator = sender as OAuth2Authenticator;
+                store.Save(account = e.Account, ServiceId);
 
-			if (authenticator != null) 
-			{
-				authenticator.Completed -= OnAuthCompleted;
-				authenticator.Error 	-= OnAuthError;
-			}
+                getProfileButton.IsEnabled = true;
 
-			statusText.Text = "Authentication error: " + e.Message;
-		}
-	}
+                if (account.Properties.ContainsKey("expires_in"))
+                {
+                    var expires = int.Parse(account.Properties["expires_in"]);
+                    statusText.Text = "Token lifetime is: " + expires + "s";
+                }
+                else
+                {
+                    statusText.Text = "Authentication succeeded";
+                }
+
+                if (account.Properties.ContainsKey("refresh_token"))
+                    refreshButton.IsEnabled = true;
+            }
+            else
+            {
+                statusText.Text = "Authentication failed";
+            }
+        }
+
+        void OnAuthError(object sender, AuthenticatorErrorEventArgs e)
+        {
+            var authenticator = sender as OAuth2Authenticator;
+
+            if (authenticator != null)
+            {
+                authenticator.Completed -= OnAuthCompleted;
+                authenticator.Error -= OnAuthError;
+            }
+
+            statusText.Text = "Authentication error: " + e.Message;
+        }
+    }
 }

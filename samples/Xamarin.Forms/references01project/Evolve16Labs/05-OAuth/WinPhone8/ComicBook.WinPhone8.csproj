@@ -193,10 +193,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
-      <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
-      <Name>Xamarin.Auth.WindowsPhone8</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Portable\ComicBook.csproj">
       <Project>{e26057ec-7ad5-4ad8-8649-fbe60552163d}</Project>
       <Name>ComicBook</Name>
