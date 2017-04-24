@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Xamarin.Auth.XamarinForms
 {
+    [Preserve(AllMembers = true)]
     public class AuthenticatorPage : ContentPage
     {
         public Authenticator Authenticator

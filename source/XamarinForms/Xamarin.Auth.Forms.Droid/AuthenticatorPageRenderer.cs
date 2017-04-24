@@ -13,7 +13,7 @@ using Xamarin.Forms.Platform.Android;
 ]
 namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 {
-    //[global::Android.Runtime.Preserve(AllMembers = true)]
+    [global::Android.Runtime.Preserve(AllMembers = true)]
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.Android.PageRenderer
     {
         protected override void OnElementChanged(ElementChangedEventArgs<Page> e)

@@ -43,6 +43,7 @@
     <Compile Include="Pages\PageOAuth.xaml.cs">
       <DependentUpon>PageOAuth.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PreserveAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

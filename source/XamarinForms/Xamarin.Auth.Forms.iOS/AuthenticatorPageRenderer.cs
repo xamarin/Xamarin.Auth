@@ -12,6 +12,7 @@ using Xamarin.Forms.Platform.iOS;
 ]
 namespace Xamarin.Auth.XamarinForms.XamarinIOS
 {
+    [Preserve(AllMembers = true)]
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.iOS.PageRenderer
     {
         public override void ViewDidAppear(bool animated)
