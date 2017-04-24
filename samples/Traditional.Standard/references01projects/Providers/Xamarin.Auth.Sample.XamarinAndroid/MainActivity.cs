@@ -118,7 +118,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                     requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                     authorizeUrl: oauth1.OAuth_UriAuthorization,
-                    accessTokenUrl: oauth1.OAuth_UriAccessToken,
+                    accessTokenUrl: oauth1.OAuth_UriAccessToken_UriRequestToken,
                     callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
                     // Native UI API switch
                     //      true    - NEW native UI support 
@@ -184,11 +184,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             }
 
-			//------------------------------------------------------------
-			// WalkThrough Step 3
-			//      Launching UI
-			//      [REQUIRED] 
-			StartActivity(ui_object);
+            //------------------------------------------------------------
+            // WalkThrough Step 3
+            //      Launching UI
+            //      [REQUIRED] 
+            StartActivity(ui_object);
             //------------------------------------------------------------
 
             return;
@@ -198,52 +198,88 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
         {
-            if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
+            if
+                (
+                    string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)
+                )
             {
-                //-------------------------------------------------------------
-                // WalkThrough Step 1
-                //      setting up Authenticator object
-                Auth2 = new OAuth2Authenticator
-                    (
-                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                        scope: oauth2.OAuth2_Scope,
-                        authorizeUrl: oauth2.OAuth_UriAuthorization,
-                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                        // Native UI API switch
-                        //      true    - NEW native UI support 
-                        //      false   - OLD embedded browser API [DEFAULT]
-                        // DEFAULT will be switched to true in the near future 2017-04
-                        isUsingNativeUI: test_native_ui
-                    )
+                if (oauth2.OAuth_UriAccessToken_UriRequestToken == null)
                 {
-                    AllowCancel = oauth2.AllowCancel,
-                };
-                //-------------------------------------------------------------
+                    //-------------------------------------------------------------
+                    // WalkThrough Step 1
+                    //      setting up Authenticator object
+                    // Implicit
+                    Auth2 = new OAuth2Authenticator
+                                    (
+                                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                        scope: oauth2.OAuth2_Scope,
+                                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                        // Native UI API switch
+                                        //      true    - NEW native UI support 
+                                        //      false   - OLD embedded browser API [DEFAULT]
+                                        // DEFAULT will be switched to true in the near future 2017-04
+                                        isUsingNativeUI: test_native_ui
+
+                                    )
+                    {
+                        ShowErrors = false,
+                        AllowCancel = oauth2.AllowCancel,
+                    };
+                    //-------------------------------------------------------------
+                }
+                else if (oauth2.OAuth_UriAccessToken_UriRequestToken != null)
+                {
+                    Auth2 = new OAuth2Authenticator
+                                    (
+                                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                        clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+                                        scope: oauth2.OAuth2_Scope,
+                                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                        accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken,
+                                        // Native UI API switch
+                                        //      true    - NEW native UI support 
+                                        //      false   - OLD embedded browser API [DEFAULT]
+                                        // DEFAULT will be switched to true in the near future 2017-04
+                                        isUsingNativeUI: test_native_ui
+
+                                    )
+                    {
+                        ShowErrors = false,
+                        AllowCancel = oauth2.AllowCancel,
+                    };
+                    //-------------------------------------------------------------
+                }
             }
             else
             {
                 //-------------------------------------------------------------
                 // WalkThrough Step 1
                 //      setting up Authenticator object
+                // Explicit
                 Auth2 = new OAuth2Authenticator
-                    (
-                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                        clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
-                        scope: oauth2.OAuth2_Scope,
-                        authorizeUrl: oauth2.OAuth_UriAuthorization,
-                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                        accessTokenUrl: oauth2.OAuth2_UriRequestToken,
-                        // Native UI API switch
-                        //      true    - NEW native UI support 
-                        //      false   - OLD embedded browser API [DEFAULT]
-                        // DEFAULT will be switched to true in the near future 2017-04
-                        isUsingNativeUI: test_native_ui
-                    )
+                                (
+                                    clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                    clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+                                    scope: oauth2.OAuth2_Scope,
+                                    authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                    accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken,
+                                    // Native UI API switch
+                                    //      true    - NEW native UI support 
+                                    //      false   - OLD embedded browser API [DEFAULT]
+                                    // DEFAULT will be switched to true in the near future 2017-04
+                                    isUsingNativeUI: test_native_ui
+
+                                )
                 {
+                    ShowErrors = false,
                     AllowCancel = oauth2.AllowCancel,
                 };
                 //-------------------------------------------------------------
             }
+
 
 
             // If authorization succeeds or is canceled, .Completed will be fired.

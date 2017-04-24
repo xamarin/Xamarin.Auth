@@ -147,7 +147,7 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="TestProvidersController.cs" />
-    <Compile Include="AppDelegate.HandleOpenURL.SchemeCapturing.cs" />
+    <Compile Include="Xamarin.Auth\AppDelegate.HandleOpenURL.SchemeCapturing.cs" />
   </ItemGroup>
   <!--
   ======================================================================================
@@ -172,6 +172,9 @@
       <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
       <Name>Xamarin.Auth.SamplesData</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Xamarin.Auth\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

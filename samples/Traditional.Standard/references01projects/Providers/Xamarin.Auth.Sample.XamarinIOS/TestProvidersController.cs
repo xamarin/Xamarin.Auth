@@ -45,14 +45,14 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             //  and
             //      Native UI (SFSafariWebView)
             //  read the docs about pros and cons
-            test_native_ui = true;
+            test_native_ui = false;
             //=================================================================
             //  switching between 
             //          UIWebView (default) 
             //      and 
             //          WKWebView
             //  read the docs about pros and cons
-            Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView = true;
+            Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView = false;
             //=================================================================
 
 
@@ -117,7 +117,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                 consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                                 requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                                 authorizeUrl: oauth1.OAuth_UriAuthorization,
-                                accessTokenUrl: oauth1.OAuth_UriAccessToken,
+                                accessTokenUrl: oauth1.OAuth_UriAccessToken_UriRequestToken,
                                 callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
 								// Native UI API switch
 								//      true    - NEW native UI support 
@@ -253,29 +253,57 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
         {
-            if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
+            if 
+                (
+                    string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)
+                )
             {
-                //-------------------------------------------------------------
-                // WalkThrough Step 1
-                //      setting up Authenticator object
-                // Implicit
-                Auth2 = new OAuth2Authenticator
-                                (
-                                    clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                                    scope: oauth2.OAuth2_Scope,
-                                    authorizeUrl: oauth2.OAuth_UriAuthorization,
-                                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                                    // Native UI API switch
-                                    //      true    - NEW native UI support 
-                                    //      false   - OLD embedded browser API [DEFAULT]
-                                    // DEFAULT will be switched to true in the near future 2017-04
-                                    isUsingNativeUI: test_native_ui
-                                )
+                if (oauth2.OAuth_UriAccessToken_UriRequestToken == null)
                 {
-                    ShowErrors = false,
-                    AllowCancel = oauth2.AllowCancel,
-                };
-                //-------------------------------------------------------------
+                    //-------------------------------------------------------------
+                    // WalkThrough Step 1
+                    //      setting up Authenticator object
+                    // Implicit
+                    Auth2 = new OAuth2Authenticator
+                                    (
+                                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                        scope: oauth2.OAuth2_Scope,
+                                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                        // Native UI API switch
+                                        //      true    - NEW native UI support 
+                                        //      false   - OLD embedded browser API [DEFAULT]
+                                        // DEFAULT will be switched to true in the near future 2017-04
+                                        isUsingNativeUI: test_native_ui
+                                    )
+                    {
+                        ShowErrors = false,
+                        AllowCancel = oauth2.AllowCancel,
+                    };
+                    //-------------------------------------------------------------
+                }
+                else if (oauth2.OAuth_UriAccessToken_UriRequestToken != null)
+                {
+                    Auth2 = new OAuth2Authenticator
+    								(
+                                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                        clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+                                        scope: oauth2.OAuth2_Scope,
+                                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                        accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken,
+                                        // Native UI API switch
+                                        //      true    - NEW native UI support 
+                                        //      false   - OLD embedded browser API [DEFAULT]
+                                        // DEFAULT will be switched to true in the near future 2017-04
+                                        isUsingNativeUI: test_native_ui
+    								)
+                                {
+                                    ShowErrors = false,
+                                    AllowCancel = oauth2.AllowCancel,
+                                };
+                                //-------------------------------------------------------------
+                }
             }
             else
             {
@@ -290,7 +318,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
                                     scope: oauth2.OAuth2_Scope,
                                     authorizeUrl: oauth2.OAuth_UriAuthorization,
                                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                                    accessTokenUrl: oauth2.OAuth2_UriRequestToken,
+                                    accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken,
                                     // Native UI API switch
                                     //      true    - NEW native UI support 
                                     //      false   - OLD embedded browser API [DEFAULT]
