@@ -61,14 +61,30 @@ namespace Xamarin.Auth
                 NSUrl nsUrl = request.Url;
 
                 string msg = null;
+
+                WebAuthenticator wa = null;
+                WebRedirectAuthenticator wra = null;
+
+                wa = this.controller.authenticator as WebAuthenticator;
+                wra = this.controller.authenticator as WebRedirectAuthenticator;
+
                 #if DEBUG
+                if (wa != null)
+                {
+                    msg = String.Format("WebAuthenticatorController.authenticator as WebAuthenticator");
+                    System.Diagnostics.Debug.WriteLine(msg);
+                }
+                if (wra != null)
+                {
+                    msg = String.Format("WebAuthenticatorController.authenticator as WebRedirectAuthenticator");
+                    System.Diagnostics.Debug.WriteLine(msg);
+                }
+
                 msg = String.Format("WebAuthenticatorController.ShouldStartLoad {0}", nsUrl.AbsoluteString);
                 System.Diagnostics.Debug.WriteLine(msg);
                 #endif
 
-                WebRedirectAuthenticator wra = null;
-                wra = (WebRedirectAuthenticator)this.controller.authenticator;
-
+                bool is_loadable_url = false;
                 if (nsUrl != null && !controller.authenticator.HasCompleted)
                 {
                     Uri url;
@@ -88,19 +104,25 @@ namespace Xamarin.Auth
 
                         if (host == "localhost" || host == "127.0.0.1" || host == "::1")
                         {
-                            wra.IsLoadableRedirectUri = false;
+                            is_loadable_url = false;
                             this.controller.DismissViewControllerAsync(true);
                         }
                         else
                         {
-                            wra.IsLoadableRedirectUri = true;
+                            is_loadable_url = true;
                         }
 
                         controller.authenticator.OnPageLoading(url);
                     }
                 }
 
-                return wra.IsLoadableRedirectUri;
+                if (wra != null)
+                {
+                    wra.IsLoadableRedirectUri = is_loadable_url;
+                    return wra.IsLoadableRedirectUri;
+                }
+
+                return false;
             }
 
             public override void LoadStarted(UIWebView webView)
