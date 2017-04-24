@@ -39,6 +39,18 @@ namespace Xamarin.Auth.SampleData
         {
             TestCases = new Dictionary<string, OAuth>();
 
+            GoogleOAuth2NativeUIAndroid google1 = new GoogleOAuth2NativeUIAndroid();
+            TestCases.Add(google1.Description, google1);
+
+            GoogleOAuth2NativeUIIOS google2 = new GoogleOAuth2NativeUIIOS();
+            TestCases.Add(google2.Description, google2);
+
+            GoogleOAuth2WebApp2015HttpXamarinCom google3 = new GoogleOAuth2WebApp2015HttpXamarinCom();
+            TestCases.Add(google3.Description, google3);
+
+            FitbitOAuth2 fitbit = new FitbitOAuth2();
+            TestCases.Add(fitbit.Description, fitbit);
+
             FacebookOAuth2WWWAppXamarin facebook1 = new FacebookOAuth2WWWAppXamarin();
             TestCases.Add(facebook1.Description, facebook1);
 
@@ -55,19 +67,13 @@ namespace Xamarin.Auth.SampleData
             TestCases.Add(github2.Description, github2);
 
             GithubOAuth2HttpsLocalHost github3 = new GithubOAuth2HttpsLocalHost();
-            TestCases.Add(github3.Description, github3);
+            TestCases.Add(github3.Description, github1);
 
             GithubOAuth2Https127001 github4 = new GithubOAuth2Https127001();
-            TestCases.Add(github4.Description, github4);
+            TestCases.Add(github4.Description, github1);
 
             GithubOAuth2XamarinAuthSchemeLocalhost github5 = new GithubOAuth2XamarinAuthSchemeLocalhost();
-            TestCases.Add(github5.Description, github5);
-
-            GoogleOAuth2 google1 = new GoogleOAuth2();
-            TestCases.Add(google1.Description, google1);
-
-            FitbitOAuth2 fitbit = new FitbitOAuth2();
-            TestCases.Add(fitbit.Description, fitbit);
+            TestCases.Add(github5.Description, github1);
 
             InstagramOAuth2 instagram = new InstagramOAuth2();
             TestCases.Add(instagram.Description, instagram);
@@ -105,13 +111,10 @@ namespace Xamarin.Auth.SampleData
             StackoverflowOAuth2Implicit stackoverflowoauth2implicit = new StackoverflowOAuth2Implicit();
             TestCases.Add(stackoverflowoauth2implicit.Description, stackoverflowoauth2implicit);
 
-            SlackOAuth2 slack1 = new SlackOAuth2();
-            TestCases.Add(slack1.Description, slack1);
+            SlackOAuth2 slack = new SlackOAuth2();
+            TestCases.Add(slack.Description, slack);
 
-			YammerOAuth2 yammer1 = new YammerOAuth2();
-			TestCases.Add(yammer1.Description, yammer1);
-
-			return;
+            return;
         }
     }
 }

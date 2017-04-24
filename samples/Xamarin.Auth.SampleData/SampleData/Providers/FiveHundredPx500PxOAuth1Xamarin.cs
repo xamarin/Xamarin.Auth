@@ -21,10 +21,9 @@ namespace Xamarin.Auth.SampleData
             Description = "500px OAuth1";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth1_SecretKey_ConsumerSecret_APISecret = "";
-			OAuth1_UriRequestToken = new Uri("");
 			OAuth_UriAuthorization = new Uri("");
 			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
-			OAuth_UriAccessToken = new Uri("");
+			OAuth_UriAccessToken_UriRequestToken = new Uri("");
 			AllowCancel = true;
 			HowToMarkDown =
             @"

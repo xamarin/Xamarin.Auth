@@ -20,12 +20,6 @@ namespace Xamarin.Auth.Helpers
 			set;
 		}
 
-		public Uri OAuth2_UriRequestToken
-		{
-			get;
-			set;
-		}
-
 		public virtual void Login ()
 		{			
 		}

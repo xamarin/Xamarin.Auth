@@ -23,7 +23,7 @@ namespace Xamarin.Auth.SampleData
 			OAuth1_UriRequestToken = new Uri("https://api.linkedin.com/uas/oauth/requestToken");
 			OAuth_UriAuthorization = new Uri("https://api.linkedin.com/uas/oauth/authorize");
 			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
-			OAuth_UriAccessToken = new Uri("https://api.linkedin.com/uas/oauth/accessToken");
+			OAuth_UriAccessToken_UriRequestToken = new Uri("https://api.linkedin.com/uas/oauth/accessToken");
 			AllowCancel = true;
 			HowToMarkDown =
 			@"

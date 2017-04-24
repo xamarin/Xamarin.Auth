@@ -27,7 +27,7 @@ namespace Xamarin.Auth.SampleData
 			OAuth1_SecretKey_ConsumerSecret_APISecret = "";
 			OAuth1_UriRequestToken = new Uri("https://api.meetup.com/oauth/request");
 			OAuth_UriAuthorization = new Uri("https://secure.meetup.com/authorize");
-			OAuth_UriAccessToken = new Uri("https://api.meetup.com/oauth/access");
+			OAuth_UriAccessToken_UriRequestToken = new Uri("https://api.meetup.com/oauth/access");
 			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
 			AllowCancel = true;
 						

@@ -54,7 +54,6 @@
     <Compile Include="SampleData\Providers\FacebookOAuth2WWWApp127001.cs" />
     <Compile Include="SampleData\Providers\GithubOAuth2HttpsXamarinCom.cs" />
     <Compile Include="SampleData\Providers\GitLabOAuth2.cs" />
-    <Compile Include="SampleData\Providers\GoogleOAuth2.cs" />
     <Compile Include="SampleData\Providers\InstagramOAuth2.cs" />
     <Compile Include="SampleData\Providers\LinkedInOAuth1.cs" />
     <Compile Include="SampleData\Providers\LinkedInOAuth2.cs" />
@@ -73,32 +72,12 @@
     <Compile Include="SampleData\Providers\FitbitOAuth2.cs" />
     <Compile Include="SampleData\Providers\FiveHundredPx500PxOAuth1Xamarin.cs" />
     <Compile Include="SampleData\Providers\FiveHundredPx500PxOAuth1CustomSchemeLocalhost.cs" />
-    <Compile Include="SampleData\Providers\YammerOAuth2.cs" />
-    <Compile Include="SampleData\Providers\secure\AmazonOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\DropboxOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\FacebookOAuth2WWWApp127001.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\FacebookOAuth2WWWAppLocalhost.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\FacebookOAuth2WWWAppXamarin.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\FitbitOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\GitLabOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\GithubOAuth2HttpXamarinCom.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\GithubOAuth2Https127001.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\GithubOAuth2HttpsLocalHost.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\GithubOAuth2HttpsXamarinCom.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\GithubOAuth2XamarinAuthSchemeLocalhost.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\GoogleOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\InstagramOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\LinkedInOAuth1.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\LinkedInOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\MeetupOAuth1.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\MeetupOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\MicrosoftLiveOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\PaypalOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\SlackOAuth2.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\StackoverflowAuth2Explicit.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\StackoverflowAuth2Implicit.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\TwitterOAuth1.secure.cs" />
-    <Compile Include="SampleData\Providers\secure\YammerOAuth2.secure.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2NativeUIAndroid.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2NativeUIIOS.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2WebApp2015HttpXamarinCom.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SampleData\Providers\secure\*.secure.cs" />
   </ItemGroup>
   <ItemGroup>
     <!--
@@ -111,7 +90,7 @@
       <HintPath>..\Traditional.Standard\references01projects\Providers\packages\PCLCrypto.2.0.147\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\PCLCrypto.dll</HintPath>
     </Reference>
     <Reference Include="Validation">
-      <HintPath>..\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.13\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
+      <HintPath>..\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.15\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -31,9 +31,18 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     },
             DataSchemes = new[]
                     {
-                        "xamarinauth",
-                        "xamarin-auth",
-                        "xamarin.auth",
+                        "com.xamarin.traditional.standard.samples.oauth.providers.android:/oauth2redirect",
+                        "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com",
+                        /*
+                        "urn:ietf:wg:oauth:2.0:oob",
+                        "urn:ietf:wg:oauth:2.0:oob.auto",
+                        "http://localhost:PORT",
+                        "https://localhost:PORT",
+                        "http://127.0.0.1:PORT",
+                        "https://127.0.0.1:PORT",              
+                        "http://[::1]:PORT", 
+                        "https://[::1]:PORT", 
+                        */
                     },
             DataHost = "localhost"
         )
@@ -49,12 +58,12 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             global::Android.Net.Uri uri_android = Intent.Data;
 
-            #if DEBUG
+#if DEBUG
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendLine("ActivityCustomUrlSchemeInterceptor.OnCreate()");
             sb.Append("     uri_android = ").AppendLine(uri_android.ToString());
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-            #endif
+#endif
 
             // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
             Uri uri_netfx = new Uri(uri_android.ToString());
@@ -62,7 +71,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             // load redirect_url Page
             MainActivity.Auth2?.OnPageLoading(uri_netfx);
             MainActivity.Auth1?.OnPageLoading(uri_netfx);
- 
+
             this.Finish();
 
             return;
