@@ -181,8 +181,10 @@ namespace Xamarin.Auth
         /// </param>
         public OAuth2Authenticator
                         (
-                            string clientId, string scope,
-                            Uri authorizeUrl, Uri redirectUrl,
+                            string clientId, 
+                            string scope,
+                            Uri authorizeUrl, 
+                            Uri redirectUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
                             bool isUsingNativeUI = false
                         )
@@ -263,8 +265,12 @@ namespace Xamarin.Auth
         /// </param>
         public OAuth2Authenticator
                         (
-                            string clientId, string clientSecret, string scope, 
-                            Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, 
+                            string clientId, 
+                            string clientSecret, 
+                            string scope, 
+                            Uri authorizeUrl, 
+                            Uri redirectUrl, 
+                            Uri accessTokenUrl, 
                             GetUsernameAsyncFunc getUsernameAsync = null,
                             bool isUsingNativeUI = false
                         )
@@ -280,7 +286,21 @@ namespace Xamarin.Auth
 
             if (string.IsNullOrEmpty(clientSecret))
             {
-                throw new ArgumentException("clientSecret must be provided", "clientSecret");
+                //  Google for Installed Apps (Mobile)
+                //  is Authorization Grant Flow (Explicit)
+                //  2 Step Flow
+                //  2nd step does not send Client Secret (null || Empty)
+                //throw new ArgumentException("clientSecret must be provided", "clientSecret");
+
+                #if DEBUG
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($" ");
+                sb.AppendLine($"        clientSecret   = null || Empty");
+                sb.AppendLine($"        accessTokenUrl = {accessTokenUrl}");
+                sb.AppendLine($"        Google for Installed Apps");
+                sb.AppendLine($"        redirectUrl    = {redirectUrl}");
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                #endif
             }
             this.clientSecret = clientSecret;
 
@@ -311,7 +331,9 @@ namespace Xamarin.Auth
 
         OAuth2Authenticator
                         (
-                            Uri redirectUrl, string clientSecret = null, Uri accessTokenUrl = null, 
+                            Uri redirectUrl, 
+                            string clientSecret = null, 
+                            Uri accessTokenUrl = null, 
                             bool isUsingNativeUI = false
                         )
             : base(redirectUrl, redirectUrl)
@@ -331,7 +353,8 @@ namespace Xamarin.Auth
             ///		https://github.com/xamarin/Xamarin.Auth/pull/59
             ///		this code was already implementing this PR, but PR was not closed		
             /*
-            if (string.IsNullOrEmpty (clientSecret)) {
+            if (string.IsNullOrEmpty (clientSecret)) 
+            {
                 throw new ArgumentException ("clientSecret must be provided", "clientSecret");
             }
             */
@@ -368,11 +391,14 @@ namespace Xamarin.Auth
 				OriginalString property of the Uri object should be used instead of AbsoluteUri
 				otherwise trailing slash is added.
 			*/
-            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
             string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
+
+            #if DEBUG
+            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
 
             System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
             System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
+            #endif
 
             #region
             //---------------------------------------------------------------------------------------
@@ -389,12 +415,12 @@ namespace Xamarin.Auth
                 Uri.EscapeDataString (scope),
                 Uri.EscapeDataString (requestState)));
             */
-            Dictionary<string, string>  query = new Dictionary<string, string> 
+            Dictionary<string, string> query = new Dictionary<string, string>
             {
                 {"client_id", Uri.EscapeDataString (this.clientId)},
                 //mc++ {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
 				{"redirect_uri", Uri.EscapeDataString (oauth_redirect_uri_original)},
-                {"response_type", this.IsImplicit ? Uri.EscapeDataString ("token") : Uri.EscapeDataString ("code")},
+                {"response_type", OAuthFlowResponseTypeVerification()},
                 //---------------------------------------------------------------------------------------
                 /// Pull Request - manually added/fixed
                 ///		Add new property to disable the escaping of scope parameter. #62
@@ -423,6 +449,41 @@ namespace Xamarin.Auth
             //return tcs.Task;
 
             return Task.FromResult(url);
+        }
+
+        /// <summary>
+        /// OAuth flow response type verification
+        /// 1. 
+        /// 
+        /// 
+        ///     https://alexbilbie.com/guide-to-oauth-2-grants/
+        /// 
+        /// </summary>
+        /// <returns>The uth flow response type verification.</returns>
+        /// <see cref=""/>
+        /// <see cref="https://alexbilbie.com/guide-to-oauth-2-grants/"/>
+        /// <see cref=""/>
+        /// <see cref=""/>
+        protected string OAuthFlowResponseTypeVerification()
+        {
+            string response_type = null;
+
+            if (this.IsImplicit)
+            {
+                response_type = Uri.EscapeDataString("token");
+            }
+            else
+            {
+                response_type = Uri.EscapeDataString("code");
+            }
+
+            #if DEBUG
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"        response_type = {response_type}");
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
+
+            return response_type;
         }
 
         #region

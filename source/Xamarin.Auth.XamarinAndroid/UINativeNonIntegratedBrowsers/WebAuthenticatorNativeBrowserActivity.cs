@@ -24,11 +24,15 @@ using Android.Net.Http;
 using Android.Webkit;
 
 using Xamarin.Utilities.Android;
+using Android.Support.CustomTabs;
 
 namespace Xamarin.Auth
 {
     [Activity(Label = "Web Authenticator Native Broswer")]
-    public partial class WebAuthenticatorNativeBrowserActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    public partial class WebAuthenticatorNativeBrowserActivity 
+        : 
+            //global::Android.Accounts.AccountAuthenticatorActivity
+            Activity
     {
         internal class State : Java.Lang.Object
         {
@@ -116,11 +120,8 @@ namespace Xamarin.Auth
             };
             */
 
-            //---------------------------------------------------------------------------------
-            //
             // Build the UI
-            //
-            CustomTabsConfiguration.Initialize(this);
+            //CustomTabsConfiguration.Initialize(this);
 
             //.......................................................
             // Launching CustomTabs and url - minimal
@@ -148,9 +149,9 @@ namespace Xamarin.Auth
             }
             else
             {
-                CustomTabsConfiguration
-                    .CustomTabsIntent
-                        .LaunchUrl(this, CustomTabsConfiguration.UriAndroidOS);
+                // plain CustomTabs no customizations
+                CustomTabsIntent i = new CustomTabsIntent.Builder().Build();
+                i.LaunchUrl(this, CustomTabsConfiguration.UriAndroidOS);
             }
             //.......................................................
             // Launching CustomTabs and url - if WarmUp and Prefetching is used
