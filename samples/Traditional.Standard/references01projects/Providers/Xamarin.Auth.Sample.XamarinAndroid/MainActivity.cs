@@ -54,7 +54,6 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             // [Chrome] Custom Tabs WarmUp and prefetch
             custom_tab_activity_helper = new global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper();
 
-
             return;
         }
 
@@ -109,9 +108,6 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
         {
-            //-------------------------------------------------------------
-            // WalkThrough Step 1
-            //      setting up Authenticator object
             Auth1 = new OAuth1Authenticator
                 (
                     consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -129,67 +125,15 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             {
                 AllowCancel = oauth1.AllowCancel,
             };
-            //-------------------------------------------------------------
 
             // If authorization succeeds or is canceled, .Completed will be fired.
             Auth1.Completed += Auth_Completed;
             Auth1.Error += Auth_Error;
             Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
 
-            //#####################################################################
-            // WalkThrough Step 2
-            //      creating Presenter (UI) for specific platform
-            // Xamarin.Auth API - Breaking Change
-            //      old API returned global::Android.Content.Intent
-            //Intent ui_intent_as_object = auth.GetUI ();
-            //      new API returns System.Object
             global::Android.Content.Intent ui_object = Auth1.GetUI(this);
 
-            if (Auth1.IsUsingNativeUI == true)
-            {
-                //=================================================================
-                // WalkThrough Step 2.1
-                //      casting UI object to proper type to work with
-                //
-                // Xamarin.Auth API - Native UI support 
-                //      *   Android - [Chrome] Custom Tabs on Android       
-                //          Android.Support.CustomTabs      
-                //          and 
-                //      *   iOS -  SFSafariViewController     
-                //          SafariServices.SFSafariViewController
-                // on 2014-04-20 google (and some other providers) will work only with this API
-                //  
-                //
-                //  2017-03-25
-                //      NEW UPCOMMING API undocumented work in progress
-                //      soon to be default
-                //      optional API in the future (for backward compatibility)
-                //
-                //  required part
-                //  add 
-                //     following code:
-
-                //  add custom schema (App Linking) handling
-                //      1.  add Activity with IntentFilter to the app
-                //          1.1. Define sheme[s] and host[s] in the IntentFilter
-                //          1.2. in Activity's OnCreate extract URL with custom schema from Intent
-                //          1.3. parse OAuth data from URL obtained in 1.2.
-                //  NOTE[s]
-                //  *   custom scheme support only
-                //      xamarinauth://localhost
-                //      xamarin-auth://localhost
-                //      xamarin.auth://localhost
-                //  *   no http[s] scheme support
-                //------------------------------------------------------------
-
-            }
-
-            //------------------------------------------------------------
-            // WalkThrough Step 3
-            //      Launching UI
-            //      [REQUIRED] 
             StartActivity(ui_object);
-            //------------------------------------------------------------
 
             return;
         }
@@ -198,17 +142,10 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
         {
-            if
-                (
-                    string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)
-                )
+            if(string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
             {
                 if (oauth2.OAuth_UriAccessToken_UriRequestToken == null)
                 {
-                    //-------------------------------------------------------------
-                    // WalkThrough Step 1
-                    //      setting up Authenticator object
-                    // Implicit
                     Auth2 = new OAuth2Authenticator
                                     (
                                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -226,9 +163,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         ShowErrors = false,
                         AllowCancel = oauth2.AllowCancel,
                     };
-                    //-------------------------------------------------------------
                 }
-                else if (oauth2.OAuth_UriAccessToken_UriRequestToken != null)
+                else //if (oauth2.OAuth_UriAccessToken_UriRequestToken != null)
                 {
                     Auth2 = new OAuth2Authenticator
                                     (
@@ -249,15 +185,10 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         ShowErrors = false,
                         AllowCancel = oauth2.AllowCancel,
                     };
-                    //-------------------------------------------------------------
                 }
             }
             else
             {
-                //-------------------------------------------------------------
-                // WalkThrough Step 1
-                //      setting up Authenticator object
-                // Explicit
                 Auth2 = new OAuth2Authenticator
                                 (
                                     clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -296,52 +227,11 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             //      new API returns System.Object
             Intent ui_object = Auth2.GetUI(this);
 
-            if (Auth2.IsUsingNativeUI == true)
-            {
-                //=================================================================
-                // WalkThrough Step 2.1
-                //      casting UI object to proper type to work with
-                //
-                // Xamarin.Auth API - Native UI support 
-                //      *   Android - [Chrome] Custom Tabs on Android       
-                //          Android.Support.CustomTabs      
-                //          and 
-                //      *   iOS -  SFSafariViewController     
-                //          SafariServices.SFSafariViewController
-                // on 2014-04-20 google (and some other providers) will work only with this API
-                //  
-                //
-                //  2017-03-25
-                //      NEW UPCOMMING API undocumented work in progress
-                //      soon to be default
-                //      optional API in the future (for backward compatibility)
-                //
-                //  required part
-                //  add 
-                //     following code:
-
-                //------------------------------------------------------------
-                //  add custom schema (App Linking) handling
-                //      1.  add Activity with IntentFilter to the app
-                //          1.1. Define sheme[s] and host[s] in the IntentFilter
-                //          1.2. in Activity's OnCreate extract URL with custom schema from Intent
-                //          1.3. parse OAuth data from URL obtained in 1.2.
-                //  NOTE[s]
-                //  *   custom scheme support only
-                //      xamarinauth://localhost
-                //      xamarin-auth://localhost
-                //      xamarin.auth://localhost
-                //  *   no http[s] scheme support
-                //------------------------------------------------------------
-
-            }
-
             //------------------------------------------------------------
             // WalkThrough Step 3
             //      Launching UI
             //      [REQUIRED] 
             StartActivity(ui_object);
-            //------------------------------------------------------------
 
             return;
         }

@@ -31,8 +31,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     },
             DataSchemes = new[]
                     {
-                        "com.xamarin.traditional.standard.samples.oauth.providers.android:/oauth2redirect",
-                        "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com",
+                        "com.xamarin.traditional.standard.samples.oauth.providers.android",
+                        "com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn",
                         /*
                         "urn:ietf:wg:oauth:2.0:oob",
                         "urn:ietf:wg:oauth:2.0:oob.auto",
@@ -44,7 +44,8 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                         "https://[::1]:PORT", 
                         */
                     },
-            DataHost = "localhost"
+            //DataHost = "localhost",
+            DataPath = "/oauth2redirect"
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
