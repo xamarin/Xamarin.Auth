@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>ComicBookPCL</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.xamarin.comicbookpcl</string>
+	<string>com.xamarin.xamarinforms.samples.oauth.evolve16labs.comicbook.ios</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -45,5 +45,7 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>CFBundleName</key>
+	<string>ComicBookPCL</string>
 </dict>
 </plist>

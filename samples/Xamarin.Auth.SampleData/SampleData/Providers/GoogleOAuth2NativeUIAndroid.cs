@@ -19,7 +19,7 @@ namespace Xamarin.Auth.SampleData
         partial void SetPublicNonSensitiveData()
         {
             Description = "Google OAuth2 NativeUI Android";
-            OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
+            OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com";
             OAuth2_Scope = "https://www.googleapis.com/auth/userinfo.email";
             OAuth_UriAuthorization = new Uri("https://accounts.google.com/o/oauth2/auth");
             OAuth_UriAccessToken_UriRequestToken = new Uri("https://www.googleapis.com/oauth2/v4/token");
