@@ -38,7 +38,7 @@ var auth = new OAuth2Authenticator
         redirectUrl: new Uri ("http://www.facebook.com/connect/login_success.html"),
         // switch for new Native UI API
         //      true = Android Custom Tabs and/or iOS Safari View Controller
-        //      false = embedded browsers used (Android WebView, iOS UIWebView)
+        //      false = Embedded Browsers used (Android WebView, iOS UIWebView)
         //  default = false  (not using NEW native UI)
         isUsingNativeUI: use_native_ui
     );
@@ -110,19 +110,19 @@ All the information gathered from a successful authentication is available in
 
 Now we're ready to present the login UI 
 
-The `GetUI` method used to return ("old" - embedded browser API)
+The `GetUI` method used to return ("old" - Embedded Browser API)
 
 *   `UINavigationControllers` on iOS, and 
 *   `Intents` on Android.  
 
-for new API (both embedded browsers and Native UI Support) user will need to
+for new API (both Embedded Browsers and Native UI Support) user will need to
 cast object to appropriate type:
 
 *   Android     
-    *   embedded browser WebView - cast to `Intent`     
+    *   Embedded Browser WebView - cast to `Intent`     
     *   native UI - cast to CustomTabsIntent.Builder and call Build() to et Intent  
 *   iOS     
-    *   embedded browser UIWebView - cast to `UIViewController`     
+    *   Embedded Browser UIWebView - cast to `UIViewController`     
     *   native UI - cast to `SFSafariViewController`    
     
 On Android, user would write the following code to present the UI.

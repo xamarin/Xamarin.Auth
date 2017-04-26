@@ -8,13 +8,13 @@ schemes.
 ## Current version and status
 
 *   nuget version 1.4.1.0
-	*	Native UI with checks and Warnings	
-		if http[s] scheme is used
-	*	Xamarin.iOS embedded browser WKWebView support as alternative
-		WKWebView instead of UIWebView	
+    *   Native UI with checks and Warnings  
+        if http[s] scheme is used
+    *   Xamarin.iOS Embedded Browser WKWebView support as alternative
+        WKWebView instead of UIWebView  
 
-[Change Log](./ChangeLog.md)		
-	  
+[Change Log](./ChangeLog.md)        
+      
 Xamarin.Auth has grown into fully fledged cross platform library supporting:
 
 *   Xamarin.Android
@@ -32,13 +32,13 @@ breaking changes.
 
 ## Work in progress and plans
 
-*	[Custom] UserAgent API [NOT RECOMMENDED]	
-	workaround for attempts to fool google and use embedded browsers
+*   [Custom] UserAgent API [NOT RECOMMENDED]    
+    workaround for attempts to fool google and use Embedded Browsers
 
 ## Support
 
 https://xamarinchat.slack.com/messages/C4TD1NHPT/
-	
+    
 
 ## Usage
 
@@ -48,13 +48,33 @@ Basic usage steps:
     1.  create Authenticator object (OAuth1Authenticator or OAuth2Authenticator)        
         using constructor with required parameters
     2.  setup events (OnCompleted, OnError, OnCanceled, OnBrowsingCompleted)
-2.  Presenting UI 
-    1.  authenticator.GetUI()
-    2.  decorating UI
+2.  preparing UI        
+    1.  authenticator.GetUI()       
+    2.  casting to proper object        
+    3.  decorating UI       
+3.  presenting/launching UI 
+4.  Detecting/Fetching/Intercepting URL change - redirect url   
+    and     
+    parsing OAuth data from redirect_url
+5.  Triggering Events based on OAuth data 
+
+Xamarin.Auth with Embedded Browser API did a lot under the hood for users,
+but with the Native UI steps 4. and 5. must be implemented like for 
+App linking (Deep Linking) in:
+
+1.	Android's Activity with IntentFilter OnCreated.		
+	[TODO add url]		
+2.	iOS' AppDelegate.OpenUrl method
+	[TODO add url]		
+
+User will need to expose Authenticator object via public field or property.
 
 ### 1. Initialization
 
-Shared code accross all platforms:
+In the initialization step Authenticator object will be created according
+to OAuth flow used and user application OAuth server setup.
+
+This code is shared accross all platforms:
 
 ```csharp
 var auth = new OAuth2Authenticator
@@ -64,205 +84,70 @@ var auth = new OAuth2Authenticator
                     authorizeUrl: oauth2.OAuth_UriAuthorization,
                     redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
                     // Native UI API switch
-                    // Default - false
-                    // will be switched to true in the near future 2017-04
-                    //      true    - NEW native UI support 
-                    //              - Android - Chrome Custom Tabs 
-                    //              - iOS SFSafariViewController
-                    //              - WORK IN PROGRESS
-                    //              - undocumented
-                    //      false   - OLD embedded browser API 
-                    //              - Android - WebView 
-                    //              - iOS - UIWebView
+                    //      true    - NEW Native UI support 
+                    //      false   - OLD Embedded Browser API [DEFAULT]
+                    // DEFAULT will be switched to true in the near future 2017-04
                     isUsingNativeUI: test_native_ui
-                );
-
-    auth.AllowCancel = oauth2.AllowCancel;
-
-    // If authorization succeeds or is canceled, .Completed will be fired.
-    auth.Completed += Auth_Completed;
-    auth.Error += Auth_Error;
-    auth.BrowsingCompleted += Auth_BrowsingCompleted;
-                        
+                )
+            {
+                AllowCancel = oauth1.AllowCancel,
+            };                        
 ```
-### 2. Presenting UI
 
-Xamarin.Android
+#### 1.1 Subscribing to Authenticator events
+
+In order to receive OAuth events Authenticator object must subscribe
+to the events.
 
 ```csharp
-//#####################################################################
-// Xamarin.Auth API - Breaking Change
-//      old API returned global::Android.Content.Intent
-//Intent ui_intent_as_object = auth.GetUI ();
-//      new API returns System.Object
-System.Object ui_object = Auth1.GetUI(this);
-if (Auth1.IsUsingNativeUI == true)
+//-------------------------------------------------------------
+// WalkThrough Step 1.1
+//      setting up Authenticating events
+if (auth.IsUsingNativeUI == true)
 {
-    //=================================================================
-    // Xamarin.Auth API - Native UI support 
-    //      *   Android - [Chrome] Custom Tabs on Android       
-    //          Android.Support.CustomTabs      
-    //          and 
-    //      *   iOS -  SFSafariViewController     
-    //          SafariServices.SFSafariViewController
-    // on 2014-04-20 google (and some other providers) will work only with this API
-    //  
-    //
-    //  2017-03-25
-    //      NEW UPCOMMING API undocumented work in progress
-    //      soon to be default
-    //      optional API in the future (for backward compatibility)
-    //
-    //  required part
-    //  add 
-    //     following code:
-    System.Uri uri_netfx = Auth2.GetInitialUrlAsync().Result;
-    global::Android.Net.Uri uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
-    global::Android.Support.CustomTabs.CustomTabsIntent.Builder ctib;
-    ctib = (global::Android.Support.CustomTabs.CustomTabsIntent.Builder)ui_object;
-    //  add custom schema (App Linking) handling
-    //      1.  add Activity with IntentFilter to the app
-    //          1.1. Define sheme[s] and host[s] in the IntentFilter
-    //          1.2. in Activity's OnCreate extract URL with custom schema from Intent
-    //          1.3. parse OAuth data from URL obtained in 1.2.
-    //  NOTE[s]
-    //  *   custom scheme support only
-    //      xamarinauth://localhost
-    //      xamarin-auth://localhost
-    //      xamarin.auth://localhost
-    //  *   no http[s] scheme support
-    //------------------------------------------------------------
-    // [OPTIONAL] UI customization
-    // CustomTabsIntent.Builder
-    ctib
-        .SetToolbarColor(color_xamarin_blue)
-        .SetShowTitle(true)
-        .EnableUrlBarHiding()
-        ;
-    // TODO: warmup, prefetching
-    // TODO: menu
-    // TODO: bottom bar
-    //------------------------------------------------------------
-    // [REQUIRED] launching Custom Tabs
-    global::Android.Support.CustomTabs.CustomTabsIntent ct_intent = ctib.Build();
-    ct_intent.LaunchUrl(this, uri_android);
-    //=================================================================
+	//......................................................
+	// redirect URL will be captured/intercepted in the 
+	//          Activity with IntentFilter OnCreate method
+	//	or
+	//			AppDelegate.OpenUrl method
+	//  NOTE:
+	//  NativeUI will need that Authenticator object is exposed
+	//      via public field or property in order to be used 
+	//......................................................
 }
 else
 {
-    //=================================================================
-    // Xamarin.Auth API - embedded browsers support 
-    //     - Android - WebView 
-    //     - iOS - UIWebView
-    //
-    // on 2014-04-20 google (and some other providers) will work only with this API
-    //
-    //  2017-03-25
-    //      soon to be non-default
-    //      optional API in the future (for backward compatibility)
-    global::Android.Content.Intent i = null;
-    i = (global::Android.Content.Intent)ui_object;
-    StartActivity(i);
-    //=================================================================
+
+	//......................................................
+	// If authorization succeeds or is canceled, .Completed will be fired.
+	auth.Completed += Auth_Completed;
+	auth.Error += Auth_Error;
+	auth.BrowsingCompleted += Auth_BrowsingCompleted;
+	//......................................................
 }
+//-------------------------------------------------------------
 ```
 
-Xamarin.iOS
+### 2. Creating/Preparing UI
+
+Creating UI step will call `GetUI()` method on Authenticator object which
+will return platform specific object to present UI for login.
+
+This code can be shared for all platforms, so Android and iOS code for
+Embedded Browser and Native UI support 
 
 ```csharp
-//#####################################################################
-// Xamarin.Auth API - Breaking Change
-//      old API returned UIKit.UIViewController
-// UIViewController ui_controller = auth.GetUI ();
-//      new API returns System.Object
-System.Object ui_controller_as_object = Auth2.GetUI();
-if (Auth2.IsUsingNativeUI == true)
-{
-    //=================================================================
-    // Xamarin.Auth API - Native UI support 
-    //      *   Android - [Chrome] Custom Tabs on Android       
-    //          Android.Support.CustomTabs      
-    //          and 
-    //      *   iOS -  SFSafariViewController     
-    //          SafariServices.SFSafariViewController
-    // on 2014-04-20 google (and some other providers) will work only with this API
-    //  
-    //
-    //  2017-03-25
-    //      NEW UPCOMMING API undocumented work in progress
-    //      soon to be default
-    //      optional API in the future (for backward compatibility)
-    //
-    //  required part
-    //  add 
-    //     following code:
-    SafariServices.SFSafariViewController c = null;
-    c = (SafariServices.SFSafariViewController)ui_controller_as_object;
-    //  add custom schema (App Linking) handling
-    //    in AppDelegate.cs
-    //         public override bool OpenUrl
-    //                                (
-    //                                    UIApplication application, 
-    //                                    NSUrl url, 
-    //                                    string sourceApplication, 
-    //                                    NSObject annotation
-    //                                )
-    //
-    //  NOTE[s]
-    //  *   custom scheme support only
-    //      xamarinauth://localhost
-    //      xamarin-auth://localhost
-    //      xamarin.auth://localhost
-    //  *   no http[s] scheme support
-    //------------------------------------------------------------
-    // [OPTIONAL] UI customization 
-    if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
-    {
-        c.PreferredBarTintColor = color_xamarin_blue;
-        c.PreferredControlTintColor = UIColor.White;
-    }
-    else
-    {
-        c.View.TintColor = color_xamarin_blue;
-    }
-
-    Action view_controller_customization =
-        () =>
-        {
-            //c.NavigationController.NavigationBar.TintColor = color_xamarin_blue;
-        };
-    //------------------------------------------------------------
-    // [REQUIRED] launching SFSafariViewController
-    PresentViewController(c, true, view_controller_customization);
-    //=================================================================
-}
-else
-{
-    //=================================================================
-    // Xamarin.Auth API - embedded browsers support 
-    //     - Android - WebView 
-    //     - iOS - UIWebView
-    //
-    // on 2014-04-20 google (and some other providers) will work only with this API
-    //
-    //  2017-03-25
-    //      soon to be non-default
-    //      optional API in the future (for backward compatibility)
-    UIViewController c = (UIViewController)ui_controller_as_object;
-    //------------------------------------------------------------
-    // [REQUIRED] launching UIViewController with embedded UIWebView
-    PresentViewController(c, true, null);
-    //=================================================================
-}
-//#####################################################################
-    
+System.Object ui_object = auth.GetUI();
 ```
+
+NOTE: there is still discussion about API and returning object, so
+this might be subject to change.
 
 NOTE: 
 Windows platforms currently do NOT support Native UI embedded browser support 
 only. Work in progress.
 
-Universal Windows Platform
+##### Universal Windows Platform
 
 ```csharp
 Type page_type = auth.GetUI();
@@ -270,7 +155,7 @@ Type page_type = auth.GetUI();
 this.Frame.Navigate(page_type, auth);
 ```
 
-Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
+##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
 
 ```csharp
 Type page_type = auth.GetUI();
@@ -278,12 +163,84 @@ Type page_type = auth.GetUI();
 this.Frame.Navigate(page_type, auth);
 ```
 
-Windows Phone Silverlight 8.x 
+##### Windows Phone Silverlight 8.x 
 
 ```csharp
 Uri uri = auth.GetUI ();
 this.NavigationService.Navigate(uri);
 ```
+
+#### 2.1 UI Customisations
+
+Embedded Browser API has limited API for UI customizations, while
+Native UI API is essentially more complex especially on Android.
+
+##### Xamarin.Android 
+
+Native UI on Android exposes several objects to the end user which 
+enable UI customisations like adding menus, toolbars and performance 
+optimisations like WarmUp (preloading of the browser in the memory) 
+and prefetching (preloading of the web site before rendering).
+
+Those exposed objects from simpler to more complex:
+
+*	CustomTabsIntent object which is enough for simple (basic) launch	
+	of Custom Tabs (System Browser)
+*	CustomTabsIntent.Builder class which is intended for adding menus,	
+	toolbars, backbuttons and more. 	
+	This object is returned by GetUI() on Android 
+*	
+
+```csharp
+```
+
+##### Xamarin.iOS 
+
+Native UI on iOS exposes SFSafariViewController and customizations
+are performed on that object.
+
+
+```csharp
+```
+
+### 3. Presenting/Launching UI
+
+This step will open a page of OAuth provider enabling user to enter the
+credentials and authenticate.
+
+
+NOTE: there is still discussion about API and returning object, so
+this might be subject to change.
+
+##### Xamarin.Android 
+
+```csharp
+```
+
+##### Xamarin.iOS 
+
+```csharp
+```
+
+##### Universal Windows Platform
+
+```csharp
+this.Frame.Navigate(page_type, auth);
+```
+
+##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
+
+```csharp
+this.Frame.Navigate(page_type, auth);
+```
+
+##### Windows Phone Silverlight 8.x 
+
+```csharp
+this.NavigationService.Navigate(uri);
+```
+
+### 4. 
 
 ### Native UI support - Parsing URL fragment data
 
@@ -535,20 +492,20 @@ artifacts to be build forst on Windows and then on MacOSX, so nuget target
 
 Installing Cake is pretty easy:
 
-	Windows
+    Windows
 
-		Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
-		.\build.ps1
+        Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
+        .\build.ps1
 
-	Mac OSX 
+    Mac OSX 
 
-		curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
-		chmod +x ./build.sh && ./build.sh
+        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
+        chmod +x ./build.sh && ./build.sh
 
-	Linux
+    Linux
 
-		curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
-		chmod +x ./build.sh && ./build.sh
+        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
+        chmod +x ./build.sh && ./build.sh
 
 #### Running Cake to Build Xamarin.Auth targets
 
@@ -558,19 +515,19 @@ and expect artifacts from Windows to be ready before packaging).
 
 Running these targets is important for automatic package restore.
 
-	Windows
+    Windows
 
-		tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
-		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
-		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
+        tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
+        tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
+        tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
 
-	Mac OSX 
+    Mac OSX 
 
-		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
-		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
+        mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
+        mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
 
-Now, samples based on project references are ready to be used!	
-		
+Now, samples based on project references are ready to be used!  
+        
 ### Component
 
 Xamarin.Auth Component support is currently under development. It is "empty shell"
@@ -582,17 +539,17 @@ samples, documentation and artwork.
 Nuget Version[s]
 
 *   1.4.0.1   
-	2017-03-30
+    2017-03-30
     supporting:     
-    *   embedded browsers (Android WebView and iOS UIWebView)   
+    *   Embedded Browsers (Android WebView and iOS UIWebView)   
         NOTE: this support will be prohibited by some OAuth providers       
         DEFAULT 2017-03     
     *   native UI (Android Custom Tabs and iOS Safari View Controller)      
         must be explicitly setup in Authenticator constructor!  
 *   1.4.0.0   
-	2017-03-30
+    2017-03-30
     supporting:     
-    *   embedded browsers (Android WebView and iOS UIWebView)   
+    *   Embedded Browsers (Android WebView and iOS UIWebView)   
         NOTE: this support will be prohibited by some OAuth providers       
         DEFAULT 2017-03     
     *   native UI (Android Custom Tabs and iOS Safari View Controller)      

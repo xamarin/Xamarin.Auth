@@ -1,2 +1,0 @@
-# WalkThorugh HowTo Android
-
