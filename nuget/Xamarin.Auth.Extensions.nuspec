@@ -21,7 +21,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.5.0-alpha-09
+			1.5.0-alpha-10
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
