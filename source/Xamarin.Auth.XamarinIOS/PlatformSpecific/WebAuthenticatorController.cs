@@ -96,6 +96,12 @@ namespace Xamarin.Auth
 
             if (WebViewConfiguration.IOS.IsUsingWKWebView == false)
             {
+                #if DEBUG
+                StringBuilder sb1 = new StringBuilder();
+                sb1.Append("Embedded WebView using - UIWebView");
+                System.Diagnostics.Debug.WriteLine(sb1.ToString());
+                #endif
+
                 ui_web_view = new UIWebView(View.Bounds)
                 {
                     Delegate = new UIWebViewDelegate(this),
@@ -106,6 +112,12 @@ namespace Xamarin.Auth
             }
             else
             {
+                #if DEBUG
+                StringBuilder sb1 = new StringBuilder();
+                sb1.Append("Embedded WebView using - WKWebView");
+                System.Diagnostics.Debug.WriteLine(sb1.ToString());
+                #endif
+
                 var wk_web_view_configuration = new WebKit.WKWebViewConfiguration();
 
                 if (UIDevice.CurrentDevice.CheckSystemVersion(9, 0))

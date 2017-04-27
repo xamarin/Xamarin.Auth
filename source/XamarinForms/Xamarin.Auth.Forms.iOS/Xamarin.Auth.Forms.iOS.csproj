@@ -36,10 +36,20 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
+      <Link>IEmbeddedWebViewConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
+      <Link>Pages\AuthenticatorPage.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
+      <Link>PreserveAttribute.cs</Link>
+    </Compile>
     <Compile Include="AuthenticatorPageRenderer.cs" />
     <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="EmbeddedWebViewConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
@@ -88,18 +98,12 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj">
-      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
-      <Name>Xamarin.Auth.Forms</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
       <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
       <Name>Xamarin.Auth.XamarinIOS</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Properties\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="..\..\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\Xamarin.Forms.2.3.3.193\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.4.224\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.4.224\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
   <Import Project="..\..\..\samples\Xamarin.Forms\references01project\NativeUI\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\..\..\samples\Xamarin.Forms\references01project\NativeUI\packages\Xamarin.Forms.2.3.4.231\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
