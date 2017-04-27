@@ -1,5 +1,6 @@
 using System;
 using Android.App;
+using Android.Views;
 
 namespace Xamarin.Utilities.Android
 {
@@ -45,7 +46,7 @@ namespace Xamarin.Utilities.Android
                 var alert = b.Create();
                 alert.Show();
             }
-            catch (Exception ex)
+            catch (WindowManagerBadTokenException ex)
             {
                 string msg = ex.Message;
                 global::Android.Util.Log.Error("Xamarin.Auth", "Error: {0}:{1} - {2}", title, message, msg);
