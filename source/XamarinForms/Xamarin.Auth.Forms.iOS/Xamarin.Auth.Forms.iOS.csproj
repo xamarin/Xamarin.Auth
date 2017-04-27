@@ -49,7 +49,6 @@
     <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="EmbeddedWebViewConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>

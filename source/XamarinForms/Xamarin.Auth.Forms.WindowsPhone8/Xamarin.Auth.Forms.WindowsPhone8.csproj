@@ -87,7 +87,18 @@
   <ItemGroup>
     <Compile Include="FileHelper.cs" />
     <Compile Include="PageLoginRenderer.WindowsPhone8.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
+      <Link>IEmbeddedWebViewConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
+      <Link>Page\AuthenticatorPage.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
+      <Link>PreserveAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="README_FIRST.txt" />

@@ -7,8 +7,8 @@
     <ProjectGuid>{EF012647-F313-4DBF-BA34-F8F6190E4906}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xamarin.Auth.WindowsUWP</RootNamespace>
-    <AssemblyName>Xamarin.Auth.WindowsUWP</AssemblyName>
+    <RootNamespace>Xamarin.Auth.XamarinForms</RootNamespace>
+    <AssemblyName>Xamarin.Auth.XamarinForms</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
@@ -107,8 +107,25 @@
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Xamarin.Auth.WindowsUWP.rd.xml" />
+    <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
+      <Link>IEmbeddedWebViewConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
+      <Link>Page\AuthenticatorPage.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
+      <Link>PreserveAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
+      <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
+      <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
