@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	x:Class="Diary.EditorPage"
+	>
+	<Grid Padding="10">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition Height="auto"/>
+		</Grid.RowDefinitions>
+
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition/>
+			<ColumnDefinition/>
+		</Grid.ColumnDefinitions>
+
+		<Editor x:Name="editorEntry" Grid.ColumnSpan="2" />
+
+		<Button x:Name="btnSave" Text="Save" Grid.Row="1" />
+		<Button x:Name="btnCancel" Text="Cancel" Grid.Row="1" Grid.Column="1" />
+
+	</Grid>
+</ContentPage>
