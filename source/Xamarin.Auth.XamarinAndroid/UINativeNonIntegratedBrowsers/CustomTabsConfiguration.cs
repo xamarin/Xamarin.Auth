@@ -23,9 +23,10 @@ namespace Xamarin.Auth
         {
         }
 
-        public static void Initialize(global::Android.App.Activity activity)
+        public static void Initialize(global::Android.App.Activity a)
         {
-            CustomTabsActivityManager = new CustomTabsActivityManager(activity);
+            activity = a;
+            CustomTabsActivityManager = new CustomTabsActivityManager(a);
             CustomTabsIntentBuilder = new CustomTabsIntent.Builder(CustomTabsActivityManager.Session);
             CustomTabActivityHelper = new CustomTabActivityHelper();
 
@@ -116,9 +117,7 @@ namespace Xamarin.Auth
 
         static global::Android.Graphics.Color color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
 
-        public static void UICustomization
-                            (
-                            )
+        public static void UICustomization()
         {
             //------------------------------------------------------------
             // WalkThrough Step 2.2
@@ -154,9 +153,7 @@ namespace Xamarin.Auth
             // menu
             PendingIntent pi_menu_item = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_MENU_ITEM);
 
-            CustomTabsIntentBuilder
-                .AddMenuItem(MenuItemTitle, pi_menu_item)
-                ;
+            CustomTabsIntentBuilder.AddMenuItem(MenuItemTitle, pi_menu_item);
             //............................................................
 
             //............................................................
@@ -170,9 +167,7 @@ namespace Xamarin.Auth
                                                 );
             pi = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_TOOLBAR);
 
-            CustomTabsIntentBuilder
-                .AddToolbarItem(TOOLBAR_ITEM_ID, icon, ActionLabel, pi)
-                ;
+            CustomTabsIntentBuilder.AddToolbarItem(TOOLBAR_ITEM_ID, icon, ActionLabel, pi);
             //............................................................
 
             //............................................................
@@ -232,15 +227,6 @@ namespace Xamarin.Auth
             CustomTabsIntent
                 .Intent.AddFlags(global::Android.Content.ActivityFlags.NoHistory)
                 ;
-
-            //------------------------------------------------------------
-            // WalkThrough Step 3
-            //      Launching UI
-            //      [REQUIRED] 
-            // ensures the intent is not kept in the history stack, which makes
-            // sure navigating away from it will close it
-
-            //------------------------------------------------------------
 
             return;
         }

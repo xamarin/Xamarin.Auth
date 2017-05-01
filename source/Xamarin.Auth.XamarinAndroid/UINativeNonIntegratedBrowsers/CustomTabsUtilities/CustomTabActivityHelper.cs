@@ -18,6 +18,7 @@ using Android.App;
 using Android.Net;
 using Android.OS;
 using Android.Support.CustomTabs;
+using Android.Widget;
 
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
@@ -47,7 +48,7 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 									ICustomTabFallback fallback
 								)
 		{
-			string packageName = PackageManagerHelper.GetPackageNameToUse(activity, uri.Path);
+			string packageName = PackageManagerHelper.GetPackageNameToUse(activity, uri.ToString());
 
 			//If we cant find a package name, it means theres no browser that supports
 			//Chrome Custom Tabs installed. So, we fallback to the webview
@@ -58,7 +59,7 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 					fallback.OpenUri(activity, uri);
 				}
 			}
-			else
+			//else
 			{
 				custom_tabs_intent.Intent.SetPackage(packageName);
 				custom_tabs_intent.LaunchUrl(activity, uri);
@@ -152,6 +153,13 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 
             if (packageName == null)
             {
+                Toast.MakeText
+                        (
+                            activity, 
+                            "No packages supporting CustomTabs found!", 
+                            ToastLength.Short
+                        ).Show();
+
                 return;
             }
 

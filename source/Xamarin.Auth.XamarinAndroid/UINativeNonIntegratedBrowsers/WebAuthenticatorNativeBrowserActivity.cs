@@ -25,14 +25,21 @@ using Android.Webkit;
 
 using Xamarin.Utilities.Android;
 using Android.Support.CustomTabs;
+using System.Runtime.Remoting.Contexts;
+using System.Linq;
+using Plugin.Threading;
+using Android.Widget;
 
 namespace Xamarin.Auth
 {
-    [Activity(Label = "Web Authenticator Native Broswer")]
-    public partial class WebAuthenticatorNativeBrowserActivity 
-        : 
-            //global::Android.Accounts.AccountAuthenticatorActivity
-            Activity
+    [Activity
+        (
+            Label = "Web Authenticator Native Broswer",
+            NoHistory = true,
+            LaunchMode = global::Android.Content.PM.LaunchMode.SingleTop
+        )
+    ]
+    public partial class WebAuthenticatorNativeBrowserActivity : global::Android.Accounts.AccountAuthenticatorActivity
     {
         internal class State : Java.Lang.Object
         {
@@ -50,27 +57,25 @@ namespace Xamarin.Auth
             //
             // Load the state either from a configuration change or from the intent.
             //
-            /*
+            // *
             state = LastNonConfigurationInstance as State;
             if (state == null && Intent.HasExtra("StateKey"))
             {
                 var stateKey = Intent.GetStringExtra("StateKey");
                 state = StateRepo.Remove(stateKey);
             }
+
             if (state == null)
             {
                 Finish();
                 return;
             }
-            
-            Title = state.Authenticator.Title;
-            */
 
+            //Title = state.Authenticator.Title;
 
             //
             // Watch for completion
             //
-            /*
             state.Authenticator.Completed +=
                 (s, e) =>
                 {
@@ -99,7 +104,7 @@ namespace Xamarin.Auth
                     ///-------------------------------------------------------------------------------------------------
                     #endregion
 
-                    Finish();
+                    CloseCustomTabs();
                 };
 
             state.Authenticator.Error +=
@@ -118,11 +123,10 @@ namespace Xamarin.Auth
                 }
                 BeginLoadingInitialUrl();
             };
-            */
 
             // Build the UI
-            //CustomTabsConfiguration.Initialize(this);
-
+            CustomTabsConfiguration.Initialize(this);
+            CustomTabsConfiguration.UICustomization();
             //.......................................................
             // Launching CustomTabs and url - minimal
             if
@@ -134,23 +138,41 @@ namespace Xamarin.Auth
                     CustomTabsConfiguration.UriAndroidOS != null
                 )
             {
+                CustomTabsConfiguration.CustomTabsIntent
+                    .Intent.AddFlags
+                                (
+                                    global::Android.Content.ActivityFlags.NoHistory
+                                    |
+                                    global::Android.Content.ActivityFlags.SingleTop
+                                    |
+                                    global::Android.Content.ActivityFlags.NewTask
+                                );
+
                 CustomTabsConfiguration
                     .CustomTabActivityHelper
                         .LaunchUrlWithCustomTabsOrFallback
                             (
-    							// Activity/Context
-    							this,
-    							// CustomTabIntent
-    							CustomTabsConfiguration.CustomTabsIntent,
-    							CustomTabsConfiguration.UriAndroidOS,
-    							//  Fallback if CustomTabs do not exist
-    							CustomTabsConfiguration.WebViewFallback
+                                // Activity/Context
+                                this,
+                                // CustomTabIntent
+                                CustomTabsConfiguration.CustomTabsIntent,
+                                CustomTabsConfiguration.UriAndroidOS,
+                                //  Fallback if CustomTabs do not exist
+                                CustomTabsConfiguration.WebViewFallback
                             );
             }
             else
             {
                 // plain CustomTabs no customizations
                 CustomTabsIntent i = new CustomTabsIntent.Builder().Build();
+                i.Intent.AddFlags
+                            (
+                                global::Android.Content.ActivityFlags.NoHistory
+                                |
+                                global::Android.Content.ActivityFlags.SingleTop
+                                |
+                                global::Android.Content.ActivityFlags.NewTask
+                            );
                 i.LaunchUrl(this, CustomTabsConfiguration.UriAndroidOS);
             }
             //.......................................................
@@ -180,6 +202,53 @@ namespace Xamarin.Auth
             return;
         }
 
+        protected static Activity activity = null;
+
+        protected void CloseCustomTabs()
+        {
+            #if DEBUG
+            StringBuilder sb1 = new StringBuilder();
+            sb1.AppendLine($"      CloseCustomTabs");
+            System.Diagnostics.Debug.WriteLine(sb1.ToString());
+            #endif
+
+            //Finish();
+
+            ActivityManager manager = GetSystemService(global::Android.Content.Context.ActivityService) as ActivityManager;
+            List<ActivityManager.RunningAppProcessInfo> processes = manager.RunningAppProcesses.ToList();
+            //List<ActivityManager.RunningTaskInfo> tasks = (manager.Get().ToList();
+
+            foreach (ActivityManager.RunningAppProcessInfo process in processes) 
+            {
+                String name = process.ProcessName;
+                System.Diagnostics.Debug.WriteLine($"      process");
+                System.Diagnostics.Debug.WriteLine($"          .Pid = {process.Pid}");
+                System.Diagnostics.Debug.WriteLine($"          .ProcessName = {process.ProcessName}");
+                if 
+                    (
+                        name.Contains("com.android.browser")
+                    )
+                {
+                    int pid = process.Pid;
+                    Process.KillProcess(pid);
+                }
+
+            }
+
+            /*
+            UIThreadRunInvoker ri = new UIThreadRunInvoker(activity);
+            ri.BeginInvokeOnUIThread
+                    (
+                        () =>
+                        {
+                            string msg = "Close CustomTabs by navigating back to the app";
+                            Toast.MakeText(activity, msg, ToastLength.Short).Show();
+                        }
+                    );
+            */
+            return;
+        }
+
 
 
 
@@ -203,12 +272,10 @@ namespace Xamarin.Auth
         protected override void OnResume()
         {
             base.OnResume();
-            /*
             if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
             {
                 state.Authenticator.OnCancelled();
             }
-            */
 
             this.Finish();
 
@@ -255,12 +322,11 @@ namespace Xamarin.Auth
 
         public override void OnBackPressed()
         {
-            /*
             if (state.Authenticator.AllowCancel)
             {
                 state.Authenticator.OnCancelled();
             }
-            */
+
             this.Finish();
 
             return;

@@ -41,11 +41,11 @@ namespace Xamarin.Auth
             CustomTabsConfiguration.UriAndroidOS = uri_android;
             AuthenticateUIType ui = new AuthenticateUIType(context, typeof(WebAuthenticatorNativeBrowserActivity));
             ui.PutExtra("ClearCookies", ClearCookiesBeforeLogin);
-            var state = new WebAuthenticatorActivity.State
+            var state = new WebAuthenticatorNativeBrowserActivity.State
 			{
 				Authenticator = this,
 			};
-            ui.PutExtra("StateKey", WebAuthenticatorActivity.StateRepo.Add(state));
+            ui.PutExtra("StateKey", WebAuthenticatorNativeBrowserActivity.StateRepo.Add(state));
 
             return ui;
         }
