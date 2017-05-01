@@ -188,5 +188,24 @@ debug.mono.log=all
 # debug.mono.log=gref
 
 
+# http://kenneththorman.blogspot.hr/2014/01/xamarin-mono-android-adb-tracing-debug.html
+
+# Xamarin / Mono: Android adb tracing / debug logging
+# adb shell setprop debug.checkjni 1
+# adb shell setprop debug.mono.env MONO_LOG_LEVEL=info 
+# adb shell setprop debug.mono.log gref,gc 
+
+# And if none of the above helps: 
+
+# adb shell setprop debug.mono.trace N:Your.App.Namespace 
+
+# Undoing
+
+# adb shell setprop debug.checkjni 0
+# adb shell setprop debug.mono.env '' 
+# adb shell setprop debug.mono.log '' 
+# adb shell setprop debug.mono.trace ''
+
+
 
 
