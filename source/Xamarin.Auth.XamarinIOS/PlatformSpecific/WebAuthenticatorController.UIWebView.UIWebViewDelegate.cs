@@ -59,9 +59,16 @@ namespace Xamarin.Auth
             public override bool ShouldStartLoad(UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
             {
                 NSUrl nsUrl = request.Url;
-
+    
                 string msg = null;
 
+                #if DEBUG
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"UIWebViewDelegate.ShouldStartLoad ");
+                sb.AppendLine($"        nsUrl.AbsoluteString = {nsUrl.AbsoluteString}");
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                #endif
+                
                 WebAuthenticator wa = null;
                 WebRedirectAuthenticator wra = null;
 
@@ -118,8 +125,16 @@ namespace Xamarin.Auth
 
                 if (wra != null)
                 {
+                    // TODO: class refactoring
+                    // OAuth2Authenticator is WebRedirectAuthenticator wra
                     wra.IsLoadableRedirectUri = is_loadable_url;
                     return wra.IsLoadableRedirectUri;
+                }
+                else if (wa != null)
+                {
+                    // TODO: class refactoring
+                    // OAuth1Authenticator is WebRedirectAuthenticator wra
+                    return is_loadable_url;
                 }
 
                 return false;
@@ -127,6 +142,12 @@ namespace Xamarin.Auth
 
             public override void LoadStarted(UIWebView webView)
             {
+                #if DEBUG
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"UIWebViewDelegate.LoadStarted ");
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                #endif
+
                 controller.activity.StartAnimating();
 
                 webView.UserInteractionEnabled = false;
@@ -134,6 +155,18 @@ namespace Xamarin.Auth
 
             public override void LoadFailed(UIWebView webView, NSError error)
             {
+                #if DEBUG
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"UIWebViewDelegate.LoadFailed ");
+                sb.AppendLine($"        error.Code   = {error.Code}");
+                sb.AppendLine($"        error.Domain = {error.Domain}");
+                sb.AppendLine($"        error.Domain = {error.LocalizedDescription}");
+                sb.AppendLine($"        error.Domain = {error.LocalizedFailureReason}");
+                sb.AppendLine($"        error.Domain = {error.LocalizedRecoveryOptions}");
+                sb.AppendLine($"        error.Domain = {error.LocalizedRecoverySuggestion}");
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                #endif
+
                 if (error.Domain == "WebKitErrorDomain")
                 {
                     if (error.Code == 102)
