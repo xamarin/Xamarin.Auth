@@ -202,29 +202,49 @@ namespace Xamarin.Auth
             return;
         }
 
-        protected static Activity activity = null;
-
         protected void CloseCustomTabs()
         {
+            UIThreadRunInvoker ri = new UIThreadRunInvoker(this);
+            ri.BeginInvokeOnUIThread
+                    (
+                        () =>
+                        {
+                            StringBuilder sb1 = new StringBuilder();
+                            sb1.AppendLine($"If CustomTabs Login Screen does not close automatically");
+                            sb1.AppendLine($"close CustomTabs by navigating back to the app.");
+                            Toast.MakeText(this, sb1.ToString(), ToastLength.Short).Show();
+                        }
+                    );
+            
             #if DEBUG
-            StringBuilder sb1 = new StringBuilder();
-            sb1.AppendLine($"      CloseCustomTabs");
-            System.Diagnostics.Debug.WriteLine(sb1.ToString());
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"      CloseCustomTabs");
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
-            //Finish();
+            this.Finish();
+            this.CloseCustomTabsProcessKill();
 
+            return;
+        }
+
+        protected void CloseCustomTabsProcessKill()
+        {
+            System.Diagnostics.Debug.WriteLine($"      CloseCustomTabs");
+                  ;
             ActivityManager manager = GetSystemService(global::Android.Content.Context.ActivityService) as ActivityManager;
             List<ActivityManager.RunningAppProcessInfo> processes = manager.RunningAppProcesses.ToList();
             //List<ActivityManager.RunningTaskInfo> tasks = (manager.Get().ToList();
 
-            foreach (ActivityManager.RunningAppProcessInfo process in processes) 
+            foreach (ActivityManager.RunningAppProcessInfo process in processes)
             {
                 String name = process.ProcessName;
+
                 System.Diagnostics.Debug.WriteLine($"      process");
                 System.Diagnostics.Debug.WriteLine($"          .Pid = {process.Pid}");
                 System.Diagnostics.Debug.WriteLine($"          .ProcessName = {process.ProcessName}");
-                if 
+
+                if
                     (
                         name.Contains("com.android.browser")
                     )
@@ -235,17 +255,6 @@ namespace Xamarin.Auth
 
             }
 
-            /*
-            UIThreadRunInvoker ri = new UIThreadRunInvoker(activity);
-            ri.BeginInvokeOnUIThread
-                    (
-                        () =>
-                        {
-                            string msg = "Close CustomTabs by navigating back to the app";
-                            Toast.MakeText(activity, msg, ToastLength.Short).Show();
-                        }
-                    );
-            */
             return;
         }
 
