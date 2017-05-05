@@ -44,7 +44,7 @@ namespace Xamarin.Auth.SampleData
 			OAuth1_SecretKey_ConsumerSecret_APISecret = "";
 			OAuth1_UriRequestToken = new Uri("https://api.twitter.com/oauth/request_token");
 			OAuth_UriAuthorization = new Uri("https://api.twitter.com/oauth/authorize");
-			OAuth_UriCallbackAKARedirect = new Uri("http://xamarin.com");
+			OAuth_UriCallbackAKARedirect = new Uri("http://www.xamarin.com");
 			OAuth_UriAccessToken_UriRequestToken = new Uri("https://api.twitter.com/oauth/access_token");
 			AllowCancel = true;
 
