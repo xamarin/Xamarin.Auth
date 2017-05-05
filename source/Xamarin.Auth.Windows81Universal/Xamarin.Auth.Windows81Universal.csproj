@@ -163,8 +163,6 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
-
-
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
@@ -174,7 +172,6 @@
     <Compile Include="..\Xamarin.Auth.Portable\Plugins\UIThreadRunInvoker.Portable.cs">
       <Link>Plugins\UIThreadRunInvoker.Portable.cs</Link>
     </Compile>
-
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
       <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
     </Compile>
@@ -184,7 +181,8 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
-		
+    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.Windows81Universal.cs" />
+    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.Windows81Universal.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.Windows81Universal.cs" />
   </ItemGroup>
   <ItemGroup>

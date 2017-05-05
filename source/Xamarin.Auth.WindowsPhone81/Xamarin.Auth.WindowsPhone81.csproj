@@ -244,6 +244,8 @@
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WindowsPhone81.cs" />
+    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.WindowsPhone8.cs" />
+    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.WindowsPhone8.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

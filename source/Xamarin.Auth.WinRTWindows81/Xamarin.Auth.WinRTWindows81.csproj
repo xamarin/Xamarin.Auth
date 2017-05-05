@@ -231,6 +231,8 @@
     <Compile Include="PlatformSpecific\WinRTAccountStore.cs" />
     <Compile Include="WebAuthenticator.WindowsStore81WinRT.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WinRTWindows81.cs" />
+    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.WinRTWindows81.cs" />
+    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.WinRTWindows81.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="WebAuthenticatorPage.xaml">

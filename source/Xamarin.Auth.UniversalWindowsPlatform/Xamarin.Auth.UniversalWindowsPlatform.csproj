@@ -257,6 +257,8 @@
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.UniversalWindowsPlatform.cs" />
+    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.UniversalWindowsPlatform.cs" />
+    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.UniversalWindowsPlatform.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Xamarin.Auth.rd.xml" />

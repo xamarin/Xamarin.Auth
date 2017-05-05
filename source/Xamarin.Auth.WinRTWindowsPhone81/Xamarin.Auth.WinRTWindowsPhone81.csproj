@@ -217,6 +217,8 @@
       <Link>WebAuthenticator.WindowsStore81WinRT.cs</Link>
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WinRTWindowsPhone81.cs" />
+    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.WinRTWindowsPhone81.cs" />
+    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.WinRTWindowsPhone81.cs" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticatorPage.xaml">
