@@ -46,7 +46,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             //  and
             //      Native UI ([Chrome] Custom Tabs)
             //  read the docs about pros and cons
-            test_native_ui = true;
+            test_native_ui = false;
             //=================================================================
 
             ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
