@@ -76,7 +76,7 @@ namespace Xamarin.Auth
         {
             #if DEBUG
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            sb.AppendLine("OnPageLoading Called");
+            sb.AppendLine("WebAuthenticator OnPageLoading Called");
             sb.AppendLine("     AbsoluteUri  = ").AppendLine(url.AbsoluteUri);
             sb.AppendLine("     AbsolutePath = ").AppendLine(url.AbsolutePath);
             System.Diagnostics.Debug.WriteLine(sb.ToString());

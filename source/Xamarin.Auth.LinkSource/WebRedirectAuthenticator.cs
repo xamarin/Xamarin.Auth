@@ -103,6 +103,14 @@ namespace Xamarin.Auth
 		/// </param>
 		public override void OnPageLoading(Uri url)
         {
+            #if DEBUG
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            sb.AppendLine("WebRedirectAuthenticator OnPageLoading Called");
+            sb.AppendLine("     AbsoluteUri  = ").AppendLine(url.AbsoluteUri);
+            sb.AppendLine("     AbsolutePath = ").AppendLine(url.AbsolutePath);
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
+
             var query = WebEx.FormDecode(url.Query);
             var fragment = WebEx.FormDecode(url.Fragment);
 

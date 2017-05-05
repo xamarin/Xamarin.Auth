@@ -37,9 +37,16 @@ namespace Xamarin.Auth
     /// OAuth 1.0 authenticator.
     /// </summary>
 #if XAMARIN_AUTH_INTERNAL
-	internal class OAuth1Authenticator : WebAuthenticator
+	internal class OAuth1Authenticator 
+        :
+        : 
+        WebAuthenticator
+        //WebRedirectAuthenticator  //mc++ why not WebRedirectAuthenticator??
 #else
-    public class OAuth1Authenticator : WebAuthenticator
+    public class OAuth1Authenticator 
+        : 
+        WebAuthenticator 
+        //WebRedirectAuthenticator  //mc++ why not WebRedirectAuthenticator??
 #endif
     {
         string consumerKey;
@@ -132,13 +139,13 @@ namespace Xamarin.Auth
 
             this.HttpWebClientFrameworkType = Auth.HttpWebClientFrameworkType.WebRequest;
 
-#if DEBUG
+            #if DEBUG
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"OAuth2Authenticator ");
+            sb.AppendLine($"OAuth1Authenticator ");
             sb.AppendLine($"        IsUsingNativeUI = {IsUsingNativeUI}");
             sb.AppendLine($"        callbackUrl = {callbackUrl}");
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-#endif
+            #endif
 
             return;
         }
@@ -215,13 +222,25 @@ namespace Xamarin.Auth
         /// </param>
         public override void OnPageLoaded(Uri url)
         {
-            if (url.Host == callbackUrl.Host && url.AbsolutePath == callbackUrl.AbsolutePath)
+            if (
+                    url.Authority == callbackUrl.Authority
+                    //url.Host == callbackUrl.Host 
+                    && 
+                    url.AbsolutePath == callbackUrl.AbsolutePath
+                )
             {
-
                 var query = url.Query;
                 var r = WebEx.FormDecode(query);
 
                 r.TryGetValue("oauth_verifier", out verifier);
+
+                #if DEBUG
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"OAuth1Authenticator.OnPageLoaded ");
+                sb.AppendLine($"        url = {url.AbsoluteUri}");
+                sb.AppendLine($"        oauth_verifier = {verifier}");
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                #endif
 
                 GetAccessTokenAsync().ContinueWith(getTokenTask =>
                 {
@@ -235,16 +254,42 @@ namespace Xamarin.Auth
                     }
                 }, TaskContinuationOptions.NotOnRanToCompletion);
             }
+            else
+            {
+                // http[s]://www.xamarin.com != http[s]://xamarin.com
+                #if DEBUG
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"OAuth1Authenticator.OnPageLoaded ");
+                sb.AppendLine($"        mc++ fix");
+                sb.AppendLine($"        url         = {url.AbsoluteUri}");
+                sb.AppendLine($"        callbackUrl = {callbackUrl.AbsoluteUri}");
+                sb.AppendLine($"        oauth_verifier = {verifier}");
+                System.Diagnostics.Debug.WriteLine(sb.ToString());
+                #endif
+            }
+
+            return;
         }
 
         Task GetAccessTokenAsync()
         {
-            var requestParams = new Dictionary<string, string> {
+            #if DEBUG
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine($"OAuth1Authenticator.GetAccessTokenAsync ");
+            sb.AppendLine($"        token = {token}");
+            System.Diagnostics.Debug.WriteLine(sb.ToString());
+            #endif
+
+            var requestParams = new Dictionary<string, string>
+            {
                 { "oauth_token", token }
             };
 
             if (verifier != null)
+            {
                 requestParams["oauth_verifier"] = verifier;
+                System.Diagnostics.Debug.WriteLine($"        verifier = {verifier}");
+            }
 
             var req = OAuth1.CreateRequest(
                 "GET",
@@ -261,6 +306,7 @@ namespace Xamarin.Auth
                     var content = respTask.Result.GetResponseText();
 
                     var accountProperties = WebEx.FormDecode(content);
+
                     accountProperties["oauth_consumer_key"] = consumerKey;
                     accountProperties["oauth_consumer_secret"] = consumerSecret;
 
