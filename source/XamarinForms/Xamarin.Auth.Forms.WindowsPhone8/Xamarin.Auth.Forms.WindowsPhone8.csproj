@@ -87,6 +87,7 @@
   <ItemGroup>
     <Compile Include="FileHelper.cs" />
     <Compile Include="PageLoginRenderer.WindowsPhone8.cs" />
+		
     <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
       <Link>IEmbeddedWebViewConfiguration.cs</Link>
     </Compile>

@@ -85,7 +85,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
+      <Link>IEmbeddedWebViewConfiguration.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
+      <Link>Pages\AuthenticatorPage.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
+      <Link>PreserveAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
+    <Compile Include="AuthenticatorPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="README_FIRST.txt" />
