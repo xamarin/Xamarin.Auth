@@ -1,4 +1,5 @@
 /*
+#########################################################################################
 Installing
 
 	Windows
@@ -29,9 +30,18 @@ Running Cake to Build Xamarin.Auth targets
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
 		
+#########################################################################################
 */	
 #addin "Cake.Xamarin"
 #addin nuget:?package=Cake.FileHelpers
+/*
+-----------------------------------------------------------------------------------------
+	choco install -y gitlink
+	
+//#addin nuget:?package=GitLink&prerelease
+
+-----------------------------------------------------------------------------------------
+*/
 
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
@@ -448,7 +458,7 @@ Task ("libs-macosx")
 						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 						c => 
 						{
-							c.SetConfiguration("Release");
+							c.SetConfiguration("Debug");
 						}
 					);
 				XBuild 
@@ -456,7 +466,7 @@ Task ("libs-macosx")
 						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 						c => 
 						{
-							c.SetConfiguration("Debug");
+							c.SetConfiguration("Release");
 						}
 					);
 				//-------------------------------------------------------------------------------------
@@ -466,14 +476,6 @@ Task ("libs-macosx")
 						c => 
 						{
 							c.SetConfiguration("Release");
-						}
-					);
-				XBuild
-					(
-						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Debug");
 						}
 					);
 				//-------------------------------------------------------------------------------------
@@ -490,6 +492,11 @@ Task ("libs-macosx")
 						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
 						"./output/pcl/"
 					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
+						"./output/pcl/"
+					);
 				//-------------------------------------------------------------------------------------
 				XBuild
 					(
@@ -504,6 +511,11 @@ Task ("libs-macosx")
 						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
 						"./output/android/"
 					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
+						"./output/android/"
+					);
 				//-------------------------------------------------------------------------------------
 				XBuild
 					(
@@ -516,6 +528,11 @@ Task ("libs-macosx")
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+						"./output/iOS/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
 						"./output/iOS/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -535,6 +552,11 @@ Task ("libs-macosx")
 						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
 						"./output/pcl/"
 					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb", 
+						"./output/pcl/"
+					);
 				//-------------------------------------------------------------------------------------
 				XBuild
 					(
@@ -549,6 +571,11 @@ Task ("libs-macosx")
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
 						"./output/android/"
 					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb", 
+						"./output/android/"
+					);
 				//-------------------------------------------------------------------------------------
 				XBuild
 					(
@@ -561,6 +588,11 @@ Task ("libs-macosx")
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
+						"./output/ios/"
+					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb", 
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -581,6 +613,11 @@ Task ("libs-macosx")
 						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.dll", 
 						"./output/ios/"
 					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.pdb", 
+						"./output/ios/"
+					);
 				//-------------------------------------------------------------------------------------
 				XBuild
 					(
@@ -593,6 +630,11 @@ Task ("libs-macosx")
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/pcl/"
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -609,6 +651,11 @@ Task ("libs-macosx")
 						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
 						"./output/android/"
 					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+						"./output/android/"
+					);
 				//-------------------------------------------------------------------------------------
 				XBuild
 					(
@@ -621,6 +668,11 @@ Task ("libs-macosx")
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/ios/"
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb", 
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -734,6 +786,11 @@ Task ("libs-windows")
 						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
 						"./output/pcl/"
 					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
+						"./output/pcl/"
+					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -748,6 +805,11 @@ Task ("libs-windows")
 						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
 						"./output/android/"
 					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
+						"./output/android/"
+					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -760,6 +822,11 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+						"./output/ios/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -777,6 +844,11 @@ Task ("libs-windows")
 						"./source/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.dll", 
 						"./output/wp80/"
 					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.pdb", 
+						"./output/wp80/"
+					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -790,6 +862,11 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.dll", 
+						"./output/wp81/"
+					);
+				CopyFiles
+					(
+						"./source/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.pdb", 
 						"./output/wp81/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -964,6 +1041,11 @@ Task ("libs-windows")
 						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
 						"./output/pcl/"
 					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb", 
+						"./output/pcl/"
+					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -978,6 +1060,11 @@ Task ("libs-windows")
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
 						"./output/android/"
 					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb", 
+						"./output/android/"
+					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -990,6 +1077,11 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
+						"./output/ios/"
+					);
+				CopyFiles
+					(
+						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb", 
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -1010,6 +1102,11 @@ Task ("libs-windows")
 						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.dll", 
 						"./output/ios/"
 					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.pdb", 
+						"./output/ios/"
+					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -1022,6 +1119,11 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/pcl/"
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -1038,6 +1140,11 @@ Task ("libs-windows")
 						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
 						"./output/android/"
 					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+						"./output/android/"
+					);
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -1050,6 +1157,11 @@ Task ("libs-windows")
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
+						"./output/ios/"
+					);
+				CopyFiles
+					(
+						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb", 
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -1155,15 +1267,24 @@ Task ("nuget")
 			if 
 			(
 				! FileExists("./output/wp80/Xamarin.Auth.dll")
+				||
+				! FileExists("./output/wp81/Xamarin.Auth.dll")
+				||
+				! FileExists("./output/win81/Xamarin.Auth.dll")
+				||
+				! FileExists("./output/wpa81/Xamarin.Auth.dll")
+				||
+				! FileExists("./output/uap10.0/Xamarin.Auth.dll")
 			)
 			{
 				string msg =
-				"Missing dll artifacts"
+				"Missing Windows dll artifacts"
 				+ System.Environment.NewLine +
 				"Please, build on Windows first!";
 
 				throw new System.ArgumentNullException(msg);
 			}
+			
 			NuGetPack 
 				(
 					"./nuget/Xamarin.Auth.nuspec", 
@@ -1172,7 +1293,8 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						ToolPath = nuget_tool_path
+						ToolPath = nuget_tool_path,
+						Symbols = true
 					}
 				);                
 			NuGetPack 
@@ -1183,7 +1305,8 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						ToolPath = nuget_tool_path
+						ToolPath = nuget_tool_path,
+						Symbols = true
 					}
 				);                
 			NuGetPack 
@@ -1194,7 +1317,8 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						ToolPath = nuget_tool_path
+						ToolPath = nuget_tool_path,
+						Symbols = true
 					}
 				);                
 		}
