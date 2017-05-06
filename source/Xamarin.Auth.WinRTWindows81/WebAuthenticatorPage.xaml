@@ -12,10 +12,12 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+        <!--
         <Button 
             Grid.Row="0" Content="Back" HorizontalAlignment="Left" VerticalAlignment="Top" 
             Click="Button_Click"
             />
+        -->
             <WebView 
                 Grid.Row="1" x:Name="browser"/>
 
