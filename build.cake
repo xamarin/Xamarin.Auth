@@ -38,10 +38,9 @@ Running Cake to Build Xamarin.Auth targets
 -----------------------------------------------------------------------------------------
 	choco install -y gitlink
 	
-//#addin nuget:?package=GitLink&prerelease
-
 -----------------------------------------------------------------------------------------
 */
+#tool "nuget:?package=gitlink"
 
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
