@@ -37,7 +37,7 @@ namespace Xamarin.Auth
             string msg = 
                 LibraryUtilities.MessageNotImplementedException
                 + System.Environment.NewLine +
-				"Cannot save account in Portable profile - bite-and-switch error."
+				"Cannot save account in Portable profile - bait-and-switch error."
 				+	System.Environment.NewLine +
 				"Please file a bug in https://bugzilla.xamarin.com"
 				;
