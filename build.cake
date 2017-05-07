@@ -30,6 +30,14 @@ Running Cake to Build Xamarin.Auth targets
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
 		
+NuGet Publish patterns
+
+		BEFORE PASTING:
+		NOTE: ** / 
+		** /output/Xamarin.Auth.1.5.0-alpha-12.nupkg,
+		** /output/Xamarin.Auth.XamarinForms.1.5.0-alpha-12.nupkg,
+		** /output/Xamarin.Auth.Extensions.1.5.0-alpha-12.nupkg
+		
 #########################################################################################
 */	
 #addin "Cake.Xamarin"
@@ -40,7 +48,7 @@ Running Cake to Build Xamarin.Auth targets
 	
 -----------------------------------------------------------------------------------------
 */
-#tool "nuget:?package=gitlink"
+#tool nuget:?package=gitlink
 
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
@@ -160,6 +168,34 @@ Task ("nuget-fixes")
 	);
 
 RunTarget("nuget-fixes");	// fix nuget problems on MacOSX
+
+string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
+
+Action<string> GitLinkAction = 
+	(solution_file_name) 
+		=>
+		{
+			GitLink
+			(
+				"./", 
+				new GitLinkSettings() 
+				{
+					RepositoryUrl = github_repo_url,
+					SolutionFileName = solution_file_name,
+				
+					// nb: I would love to set this to `treatErrorsAsWarnings` which defaults to `false` 
+					// but GitLink trips over Akavache.Tests :/
+					// Handling project 'Akavache.Tests'
+					// No pdb file found for 'Akavache.Tests', is project built in 'Release' mode with 
+					// pdb files enabled? 
+					// Expected file is 'C:\Dropbox\OSS\akavache\Akavache\src\Akavache.Tests\Akavache.Tests.pdb'
+					ErrorsAsWarnings = true, 
+				}
+			);
+		};
+
+
+
 
 // https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference#restore
 // http://cakebuild.net/api/Cake.Common.Tools.NuGet.Restore/NuGetRestoreSettings/
@@ -468,6 +504,9 @@ Task ("libs-macosx")
 							c.SetConfiguration("Release");
 						}
 					);
+					
+				GitLinkAction("./source/Xamarin.Auth-Library.sln");
+
 				//-------------------------------------------------------------------------------------
 				XBuild
 					(
@@ -754,6 +793,10 @@ Task ("libs-windows")
 							c.SetConfiguration("Release");
 						}
 					);
+					
+				GitLinkAction("./source/Xamarin.Auth-Library.sln");
+				GitLinkAction("./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
+
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(

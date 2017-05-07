@@ -1,4 +1,11 @@
+# Visual Studio nuget installation gitlink
 
+gitlink is supposed to be installed to solution
+
+
+
+
+## Wrong - project installation
 
 
     Get-Project Xamarin.Auth.LinkSource                 | Install-Package gitlink

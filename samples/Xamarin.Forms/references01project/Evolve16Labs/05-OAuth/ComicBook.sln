@@ -11,6 +11,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.Droid", "Droid\Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.WinPhone8", "WinPhone8\ComicBook.WinPhone8.csproj", "{FA18975E-C17F-4A81-BE25-1BA6FDB6BD15}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.WinRTWinPhone81", "WinRTWinPhone81\ComicBook.WinRTWinPhone81.csproj", "{8EFDA755-4F26-4C76-98D5-93C560ABE4F3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.WinRTWindows81", "WinRTWindows81\ComicBook.WinRTWindows81.csproj", "{7B9AEA4A-B1F3-4160-A2ED-47634E147FC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.UniversalWindowsPlatform", "UniversalWindowsPlatform\ComicBook.UniversalWindowsPlatform.csproj", "{1B97AFA8-DFBC-49D8-870C-277DB466964A}"
+EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source-Xamarin.Auth-library", "source-Xamarin.Auth-library", "{62174407-0AA3-49BC-ACE5-BF9B4B707952}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.LinkSource", "..\..\..\..\..\source\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
@@ -65,12 +71,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.WinRTWindows81", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindows81\Xamarin.Auth.Forms.WinRTWindows81.csproj", "{9EE3F977-6715-4509-8FE8-B862158AA293}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.WinRTWindowsPhone81", "..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindowsPhone81\Xamarin.Auth.Forms.WinRTWindowsPhone81.csproj", "{73188683-2FCC-4AEE-8A30-E30E1532D6CF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.WinRTWinPhone81", "ComicBook.WinRTWinPhone81\ComicBook.WinRTWinPhone81.csproj", "{8EFDA755-4F26-4C76-98D5-93C560ABE4F3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.WinRTWindows81", "ComicBook.WinRTWindows81\ComicBook.WinRTWindows81.csproj", "{7B9AEA4A-B1F3-4160-A2ED-47634E147FC7}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ComicBook.UniversalWindowsPlatform", "ComicBook.UniversalWindowsPlatform\ComicBook.UniversalWindowsPlatform.csproj", "{1B97AFA8-DFBC-49D8-870C-277DB466964A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
