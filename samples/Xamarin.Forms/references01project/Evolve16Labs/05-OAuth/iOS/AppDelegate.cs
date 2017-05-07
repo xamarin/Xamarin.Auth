@@ -15,7 +15,6 @@ namespace ComicBook.iOS
             global::Xamarin.Forms.Forms.Init();
             global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
 
-
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
