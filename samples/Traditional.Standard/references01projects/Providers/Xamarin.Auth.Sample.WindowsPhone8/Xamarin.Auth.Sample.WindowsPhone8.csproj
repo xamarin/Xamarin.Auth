@@ -150,6 +150,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
+      <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
+      <Name>Xamarin.Auth.WindowsPhone8</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
       <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
       <Name>Xamarin.Auth.SamplesData</Name>

@@ -25,18 +25,20 @@ namespace Xamarin.Auth.Sample
 			string provider = si;
 
 			Xamarin.Auth.Helpers.OAuth auth;
-			if (!Data.TestCases.TryGetValue (provider, out auth)) {
+			if (!Data.TestCases.TryGetValue (provider, out auth))
+            {
 				MessageBox.Show("Unknown OAuth Provider!");
 			}
-			if (auth is Xamarin.Auth.Helpers.OAuth1) {
+			if (auth is Xamarin.Auth.Helpers.OAuth1)
+            {
 				Authenticate (auth as Xamarin.Auth.Helpers.OAuth1);
-			} else {
+			} else
+            {
 				Authenticate (auth as Xamarin.Auth.Helpers.OAuth2);
 			}
 			var list = Data.TestCases;
 
-			return;
-
+            return;
 		}
 
 		private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
@@ -47,7 +49,7 @@ namespace Xamarin.Auth.Sample
 					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
 					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
 					authorizeUrl: oauth1.OAuth_UriAuthorization,
-					accessTokenUrl: oauth1.OAuth_UriAccessToken,
+					accessTokenUrl: oauth1.OAuth_UriAccessToken_UriRequestToken,
 					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
 				);
 
@@ -59,6 +61,8 @@ namespace Xamarin.Auth.Sample
 			auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
 			Uri uri = auth.GetUI ();
+            // For Xamarin.Forms refactoring
+            Microsoft.Phone.Controls.PhoneApplicationPage this_page = this;
             this.NavigationService.Navigate(uri);
 
 			return;
@@ -68,7 +72,7 @@ namespace Xamarin.Auth.Sample
 		{
 			OAuth2Authenticator auth = null;
 
-			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
+			if (oauth2.OAuth_UriAccessToken_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) {
 				auth = new OAuth2Authenticator (
 					clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
 					scope: oauth2.OAuth2_Scope,
@@ -82,8 +86,8 @@ namespace Xamarin.Auth.Sample
 					scope: oauth2.OAuth2_Scope,
 					authorizeUrl: oauth2.OAuth_UriAuthorization,
 					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-					accessTokenUrl: oauth2.OAuth2_UriRequestToken
-				);
+					accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken
+                );
 			}
 
 			auth.AllowCancel = oauth2.AllowCancel;
@@ -94,7 +98,9 @@ namespace Xamarin.Auth.Sample
 			auth.BrowsingCompleted += Auth_BrowsingCompleted;
 
             Uri uri = auth.GetUI();
-            this.NavigationService.Navigate(uri);
+            // For Xamarin.Forms refactoring
+            Microsoft.Phone.Controls.PhoneApplicationPage this_page = this;
+            this_page.NavigationService.Navigate(uri);
 
             return;
 		}
