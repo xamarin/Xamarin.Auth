@@ -8,53 +8,78 @@ using Xamarin.Forms.Platform.WinPhone;
     ExportRenderer
         (
             typeof(Xamarin.Auth.XamarinForms.AuthenticatorPage),
-            typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.AuthenticatorPageRenderer)
+            typeof(Xamarin.Auth.XamarinForms.WindowsPhone8.AuthenticatorPageRenderer)
         )
 ]
-namespace Xamarin.Auth.XamarinForms.XamarinAndroid
+namespace Xamarin.Auth.XamarinForms.WindowsPhone8
 {
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.WinPhone.PageRenderer
     {
-        protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
+        protected Xamarin.Auth.Authenticator Authenticator = null;
+        protected Xamarin.Auth.XamarinForms.AuthenticatorPage authenticator_page = null;
+
+        protected override async void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Page> e)
         {
-            base.OnElementChanged(e);
+            try
+            {
+                base.OnElementChanged(e);
 
-            authenticator_page = (AuthenticatorPage)base.Element;
+                System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer.OnElementChanged");
 
-            Authenticator = authenticator_page.Authenticator;
-            Authenticator.Completed += Authentication_Completed;
-            Authenticator.Error += Authentication_Error;
+                if (e == null)
+                    System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: e = {null}");
+                else
+                {
+                    if (e.NewElement == null)
+                        System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: e.NewElement = {null}");
+                    if (e.OldElement == null)
+                        System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: e.OldElement = {null}");
+                }
 
-            System.Uri ui_object = Authenticator.GetUI();
+                if (Element == null)
+                    System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: Element is {null}");
+                else
+                    System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: Element is " + Element);
 
-            //activity.StartActivity(ui_object);
+                if (Control == null)
+                    System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: Control is {null}");
+                else
+                    System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: Control is " + Control);
+
+                if (Control == null)
+                {
+                    authenticator_page = (AuthenticatorPage)base.Element;
+
+                    Authenticator.Completed -= Authenticator_Completed;
+                    Authenticator.Completed += Authenticator_Completed;
+                    Authenticator.Error -= Authenticator_Error;
+                    Authenticator.Error += Authenticator_Error;
+
+                    Uri page_uri = Authenticator.GetUI();
+                    Microsoft.Phone.Controls.PhoneApplicationPage this_page = null;
+                    this_page.NavigationService.Navigate(page_uri);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Xamarin.Auth.AuthException("WindowsPhone OnElementChanged");
+            }
 
             return;
         }
 
-        public static Authenticator Authenticator = null;
-        public AuthenticatorPage authenticator_page = null;
-
-        protected void Authentication_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        private async void Authenticator_Error(object sender, AuthenticatorErrorEventArgs e)
         {
-            authenticator_page.Authentication_Completed(sender, e);
+            System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: In WindowsPhone Authenticator_Error");
 
             return;
         }
 
-        protected void Authentication_Error(object sender, AuthenticatorErrorEventArgs e)
+        private async void Authenticator_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
-            authenticator_page.Authentication_Error(sender, e);
-
-            return;
+            System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: In WindowsPhone Authenticator_Completed");
         }
 
-        protected void Authentication_BrowsingCompleted(object sender, EventArgs e)
-        {
-            authenticator_page.Authentication_BrowsingCompleted(sender, e);
-
-            return;
-        }
     }
 }
 

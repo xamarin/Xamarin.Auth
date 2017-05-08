@@ -16,6 +16,9 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
     [global::Android.Runtime.Preserve(AllMembers = true)]
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.Android.PageRenderer
     {
+        protected Xamarin.Auth.Authenticator Authenticator = null;
+        protected Xamarin.Auth.XamarinForms.AuthenticatorPage authenticator_page = null;
+
         protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
         {
             base.OnElementChanged(e);
@@ -36,9 +39,6 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
 
             return;
         }
-
-        public static Authenticator Authenticator = null;
-        public AuthenticatorPage authenticator_page = null;
 
         protected void Authentication_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {

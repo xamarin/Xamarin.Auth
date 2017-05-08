@@ -85,12 +85,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AuthenticatorPageRenderer.cs" />
     <Compile Include="FileHelper.cs" />
-    <Compile Include="PageLoginRenderer.WindowsPhone8.cs" />
-		
-    <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
-      <Link>IEmbeddedWebViewConfiguration.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
       <Link>Page\AuthenticatorPage.cs</Link>
     </Compile>
@@ -151,10 +147,6 @@
     <ProjectReference Include="..\..\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
       <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
       <Name>Xamarin.Auth.WindowsPhone8</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj">
-      <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
-      <Name>Xamarin.Auth.Forms</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

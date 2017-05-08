@@ -7,8 +7,13 @@
         {
             authenticator.Completed += AuthenticatorCompleted;
 
-            //rootViewController = UIKit.UIApplication.SharedApplication.KeyWindow.RootViewController;
-            //rootViewController.PresentViewController(authenticator.GetUI(), true, null);
+            System.Type page_type = authenticator.GetUI();
+
+            Windows.UI.Xaml.Controls.Frame root_frame = null;
+            root_frame = Windows.UI.Xaml.Window.Current.Content as Windows.UI.Xaml.Controls.Frame;
+            root_frame.Navigate(page_type, authenticator);
+
+            return;
         }
 
         void AuthenticatorCompleted(object sender, AuthenticatorCompletedEventArgs e)

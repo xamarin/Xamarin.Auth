@@ -15,8 +15,8 @@ namespace Xamarin.Auth.XamarinForms.UniversalWindowsPlatform
 {
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.UWP.PageRenderer
     {
-        private Xamarin.Auth.Authenticator _authenticator;
-        private Windows.UI.Xaml.Controls.Frame _frame;
+        private Xamarin.Auth.Authenticator authenticator;
+        private Windows.UI.Xaml.Controls.Frame frame;
 
         protected override void Dispose(bool disposing)
         {
@@ -24,20 +24,20 @@ namespace Xamarin.Auth.XamarinForms.UniversalWindowsPlatform
             {
                 if (disposing)
                 {
-                    if (_frame != null)
+                    if (frame != null)
                     {
-                        _frame.NavigationFailed -= Frame_NavigationFailed;
-                        _frame.Navigated -= Frame_Navigated;
-                        _frame.Navigating -= Frame_Navigating;
-                        _frame.NavigationStopped -= Frame_NavigationStopped;
-                        _frame = null;
+                        frame.NavigationFailed -= Frame_NavigationFailed;
+                        frame.Navigated -= Frame_Navigated;
+                        frame.Navigating -= Frame_Navigating;
+                        frame.NavigationStopped -= Frame_NavigationStopped;
+                        frame = null;
                     }
 
-                    if (_authenticator != null)
+                    if (authenticator != null)
                     {
-                        _authenticator.Completed -= Authenticator_Completed;
-                        _authenticator.Error -= Authenticator_Error;
-                        _authenticator = null;
+                        authenticator.Completed -= Authenticator_Completed;
+                        authenticator.Error -= Authenticator_Error;
+                        authenticator = null;
                     }
                 }
             }
@@ -81,30 +81,30 @@ namespace Xamarin.Auth.XamarinForms.UniversalWindowsPlatform
                 {
                     WindowsPage windowsPage = new WindowsPage();
 
-                    _frame = windowsPage.Frame;
-                    if (_frame == null)
+                    frame = windowsPage.Frame;
+                    if (frame == null)
                     {
-                        _frame = new Windows.UI.Xaml.Controls.Frame
+                        frame = new Windows.UI.Xaml.Controls.Frame
                         {
                             Language = global::Windows.Globalization.ApplicationLanguages.Languages[0]
                         };
 
-                        _frame.NavigationFailed += Frame_NavigationFailed;
-                        _frame.Navigated += Frame_Navigated;
-                        _frame.Navigating += Frame_Navigating;
-                        _frame.NavigationStopped += Frame_NavigationStopped;
+                        frame.NavigationFailed += Frame_NavigationFailed;
+                        frame.Navigated += Frame_Navigated;
+                        frame.Navigating += Frame_Navigating;
+                        frame.NavigationStopped += Frame_NavigationStopped;
 
-                        windowsPage.Content = _frame;
+                        windowsPage.Content = frame;
                         SetNativeControl(windowsPage);
                     }
 
-                    _authenticator.Completed -= Authenticator_Completed;
-                    _authenticator.Completed += Authenticator_Completed;
-                    _authenticator.Error -= Authenticator_Error;
-                    _authenticator.Error += Authenticator_Error;
+                    authenticator.Completed -= Authenticator_Completed;
+                    authenticator.Completed += Authenticator_Completed;
+                    authenticator.Error -= Authenticator_Error;
+                    authenticator.Error += Authenticator_Error;
 
-                    Type pageType = _authenticator.GetUI();
-                    _frame.Navigate(pageType, _authenticator);
+                    Type pageType = authenticator.GetUI();
+                    frame.Navigate(pageType, authenticator);
                     Windows.UI.Xaml.Window.Current.Activate();
                 }
             }

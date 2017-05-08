@@ -108,9 +108,6 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Xamarin.Auth.WindowsUWP.rd.xml" />
-    <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
-      <Link>IEmbeddedWebViewConfiguration.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
       <Link>Page\AuthenticatorPage.cs</Link>
     </Compile>
