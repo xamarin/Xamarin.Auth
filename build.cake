@@ -174,7 +174,12 @@ string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 Action<string> GitLinkAction = 
 	(solution_file_name) 
 		=>
-		{
+		{ 
+			if (! IsRunningOnWindows())
+			{
+				// GitLink still has issues on macosx
+				return;
+			}
 			GitLink
 			(
 				"./", 
