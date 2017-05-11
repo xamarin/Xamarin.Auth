@@ -1,7 +1,7 @@
 ﻿using Xamarin.Auth;
 using Xamarin.Auth.Presenters;
 
-namespace Xamarin.Auth.Presenters.UniversalWindowsPlatform
+namespace Xamarin.Auth.Presenters.UWP
 {
     public static class AuthenticationConfiguration
     {

@@ -1,4 +1,4 @@
-﻿namespace Xamarin.Auth.Presenters.WinRTWindows81
+﻿namespace Xamarin.Auth.Presenters.WinRT
 {
     public class PlatformOAuthLoginPresenter
     {
