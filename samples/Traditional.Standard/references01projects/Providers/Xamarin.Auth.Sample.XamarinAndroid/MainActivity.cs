@@ -51,6 +51,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
 
+            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
             // [Chrome] Custom Tabs WarmUp and prefetch
             custom_tab_activity_helper = new global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper();
 
@@ -88,6 +89,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnStart();
 
+            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
             // [Chrome] Custom Tabs WarmUp and prefetch
             custom_tab_activity_helper.BindCustomTabsService(this);
 
@@ -98,6 +100,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnStop();
 
+            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
             // [Chrome] Custom Tabs WarmUp and prefetch
             custom_tab_activity_helper.UnbindCustomTabsService(this);
 
@@ -108,6 +111,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
         {
+            // Step 1.1 Create and configure an Authenticator
             Auth1 = new OAuth1Authenticator
                 (
                     consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -126,13 +130,22 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 AllowCancel = oauth1.AllowCancel,
             };
 
+            // Step 1.2 Setup Authentication Event Handlers
             // If authorization succeeds or is canceled, .Completed will be fired.
             Auth1.Completed += Auth_Completed;
             Auth1.Error += Auth_Error;
             Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
 
+            // Step 2.1 Creating Login UI
             global::Android.Content.Intent ui_object = Auth1.GetUI(this);
 
+            if (Auth2.IsUsingNativeUI == true)
+            {
+                // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
+                // In order to access CustomTabs API 
+            }
+
+            // Step 3 Present/Launch the Login UI
             StartActivity(ui_object);
 
             return;
@@ -146,6 +159,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             {
                 if (oauth2.OAuth_UriAccessToken_UriRequestToken == null)
                 {
+                    // Step 1.1 Create and configure an Authenticator
                     Auth2 = new OAuth2Authenticator
                                     (
                                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -166,6 +180,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 }
                 else //if (oauth2.OAuth_UriAccessToken_UriRequestToken != null)
                 {
+                    // Step 1.1 Create and configure an Authenticator                        
                     Auth2 = new OAuth2Authenticator
                                     (
                                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -189,6 +204,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
             else
             {
+                // Step 1.1 Create and configure an Authenticator
                 Auth2 = new OAuth2Authenticator
                                 (
                                     clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -208,29 +224,25 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                     ShowErrors = false,
                     AllowCancel = oauth2.AllowCancel,
                 };
-                //-------------------------------------------------------------
             }
 
 
-
+            // Step 1.2 Setup Authentication Event Handlers
             // If authorization succeeds or is canceled, .Completed will be fired.
             Auth2.Completed += Auth_Completed;
             Auth2.Error += Auth_Error;
             Auth2.BrowsingCompleted += Auth_BrowsingCompleted;
 
-            //#####################################################################
-            // WalkThrough Step 2
-            //      creating Presenter (UI) for specific platform
-            // Xamarin.Auth API - Breaking Change
-            //      old API returned global::Android.Content.Intent
-            //Intent ui_intent_as_object = auth.GetUI ();
-            //      new API returns System.Object
-            Intent ui_object = Auth2.GetUI(this);
+            // Step 2.1 Creating Login UI 
+            global::Android.Content.Intent ui_object = Auth2.GetUI(this);
 
-            //------------------------------------------------------------
-            // WalkThrough Step 3
-            //      Launching UI
-            //      [REQUIRED] 
+            if (Auth2.IsUsingNativeUI == true)
+            {
+                // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
+                // In order to access CustomTabs API 
+            }
+
+            // Step 3 Present/Launch the Login UI
             StartActivity(ui_object);
 
             return;
