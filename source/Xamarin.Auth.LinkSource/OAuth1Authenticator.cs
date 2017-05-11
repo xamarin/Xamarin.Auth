@@ -97,7 +97,7 @@ namespace Xamarin.Auth
                             bool isUsingNativeUI = false
                         )
         {
-            this.IsUsingNativeUI = isUsingNativeUI;
+            this.is_using_native_ui = isUsingNativeUI;
 
             if (string.IsNullOrEmpty(consumerKey))
             {

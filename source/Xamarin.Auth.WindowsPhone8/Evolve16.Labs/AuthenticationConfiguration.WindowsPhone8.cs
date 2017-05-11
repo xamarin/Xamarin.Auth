@@ -1,7 +1,7 @@
 ﻿using Xamarin.Auth;
 using Xamarin.Auth.Presenters;
 
-namespace Xamarin.Auth.Presenters.WindowsPhone
+namespace Xamarin.Auth.Presenters.WinPhone
 {
     public static class AuthenticationConfiguration
     {

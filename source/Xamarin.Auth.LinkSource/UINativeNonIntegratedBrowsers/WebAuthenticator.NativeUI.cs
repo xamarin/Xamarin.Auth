@@ -23,9 +23,9 @@ namespace Xamarin.Auth
         public bool IsUsingNativeUI
         {
             get;
-            set;
         } = false;
 
+        protected bool is_using_native_ui = false;
 
         protected void ShowErrorForNativeUI(string v)
         {
