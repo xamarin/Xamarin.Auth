@@ -1,4 +1,47 @@
-# Server Setup OAuth Provider Google 
+# Google Setup
+
+WORK IN PROGRESS - CONSTRUCTION_SITE/BAUSTELLE
+
+https://developers.google.com/identity/protocols/OAuth2InstalledApp#choosingredirecturi
+https://developers.google.com/identity/protocols/OAuth2InstalledApp#request-parameter-redirect_uri
+
+
+https://developers.google.com/api-client-library/python/auth/installed-app#Configuring%20the%20client%20object
+
+The URI urn:ietf:wg:oauth:2.0:oob is a special URI used to identify out-of-browser 
+applications, i.e. non-web applications (desktop, mobile, command line, etc.).
+
+When you create the credentials in the APIs Console, make sure you select 
+"Installed Application" as the application type and the redirect URI will automatically 
+be set as 
+
+    urn:ietf:wg:oauth:2.0:oob
+
+and prevent the "redirect_uri_mismatch" when making a request.
+
+    com.xamarin.xamarin-auth-test:/oauth2redirect
+
+'redirect_uri' value of the Token request need to be the same as the 'redirect_uri' value 
+of the Authorization request.
+
+must have the 'Platform' set to 'Native (Windows Mobile, Blackberry, desktop, devices, and more)' 
+when registering your app in the Google Cloud Console, otherwise, it will not let you use 
+'urn:ietf:wg:oauth:2.0:oob' as the redirect URI.
+
+
+
+
+Turns out the above code is correct. My issue was with setting the custom url scheme in my 
+info.plist. The url scheme needs to be the bundle id only(i.e. com.example.myexample). 
+I had the ':/oauth2callback' appended to the end of it, which is incorrect.
+
+
+https://plus.google.com/+NaveenAgarwal/posts/AztHNnQh7w6
+
+
+https://github.com/doorkeeper-gem/doorkeeper/issues/514
+
+
 
 
 	Technology = Traditional.Standard

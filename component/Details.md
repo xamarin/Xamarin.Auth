@@ -1,25 +1,48 @@
 # Details
 
-Xamarin.Auth helps developers authenticate users via standard authentication 
-mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials. 
-It's also straightforward  to add support for non-standard authentication 
-schemes. 
+[![Components-Mono.Posix][7]][8]
+
+[7]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix/badge/icon
+[8]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix
+
+Xamarin.Auth helps developers authenticate users via standard authentication mechanisms 
+(e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add 
+support for non-standard authentication schemes. 
 
 ## Current version and status
 
-*   nuget version 1.4.1.0
-    *   Native UI with checks and Warnings  
-        if http[s] scheme is used
+*   nuget version 1.5.0
+    *   Native UI (CustomTabs on Android and SFSafariViewController on iOS)
+	*	Xamarin.Forms support	
+		*	Xamarin.Android (tested)	
+		*	Xamarin.iOS (tested)
+		*	Windows platforms (tests in progress)	
     *   Xamarin.iOS Embedded Browser WKWebView support as alternative
         WKWebView instead of UIWebView  
 
-[Change Log](./ChangeLog.md)        
-      
+		
+[Change Log](./details/change-log.md)        
+
+### Status
+
+CI servers:
+
+*	MacOSX builds
+
+	https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/
+	
+
+*	Windows builds		
+
+	https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/
+    
+	
+	
 Xamarin.Auth has grown into fully fledged cross platform library supporting:
 
 *   Xamarin.Android
 *   Xamarin.iOS (Unified only, Classic Support is removed)
-*   Windows Phone Silverlight 8 and 8.1
+*   Windows Phone Silverlight 8 (8.1 redundant)
 *   Windows Store 8.1 WinRT
 *   Windows Phone 8.1 WinRT
 *   Universal Windows Platform (UWP)
@@ -28,56 +51,176 @@ The library is cross-platform, so once user learns how to use it on one platform
 it is  fairly simple to use it on other platforms.
 
 Recent changes in Xamarin.Auth brought in new functionalities which caused minor
-breaking changes.
+breaking changes. Version 1.4.x broke `GetUI()` API, because it returned `System.Object`	
+instead of `Intent` on Android and `UIViewController` on iOS. Efforts to add Xamarin.Forms
+support led to more refactoring and pushing functionality deeper into Xamarin.Auth, so
+version 1.5.0 reverted `GetUI()` API to original flavor returning UI object for each 
+platform.
+
+So, in version 1.5.0 `GetUI()` returns
+
+*	on Android:
+
+	*	`Android.Content.Intent` for embedded WebViews and NativeUI
+	
+*	on iOS: 
+
+	*	`UIKit.UIViewController` for embedded WebViews and
+	
+	*	`SafariServices.SFSafariViewController` for Native UI
+	
+
+
+[TODO API design and breaking changes]
 
 ## Work in progress and plans
 
-*   [Custom] UserAgent API [NOT RECOMMENDED]    
-    workaround for attempts to fool google and use Embedded Browsers
 
-## Support
+*   Xamarin.Forms Windows support	     
+*	more samples
+	*	Azure AD B2C
+	*	Azure ADAL
+	*	Flickr
+*	restructuring samples
+*   UserAgent API     
+	[DEPRECATED] [NOT RECOMMENDED] ToS violations
+    workaround for attempts to fake UserAgent for Embedded Browsers to fool	
+	Google
+
+## Support 
+
+If there is need for real-time support use Xamarin Chat (community slack team) and go to
+\#xamarin-auth-social channel where help from experienced users can be obtained.
+For all users without account for community slack team, please, go to self-invite link
+first.
+
+### Github
+
+Issues
+
+Samples (with nuget references) from the repo separated for faster development:
+
+https://github.com/moljac/Xamarin.Auth.Samples.NugetReferences/
+
+
+### Xamarin Forums
+
+https://forums.xamarin.com/search?search=auth
+
+https://forums.xamarin.com/search?search=xamarin.auth
+
+### Stackoverflow
+
+http://stackoverflow.com/search?q=xamarin.auth
+
+### Xamarin Chat - Community Slack Team (xamarin-auth-social room)
+
+For those that need real-time help (hand-in-hand leading through implementation) the 
+best option is to use community slack channel. There are numerous people that have
+implemented Xamarin.Auth with Native UI and maintainers/developers of the library.
 
 https://xamarinchat.slack.com/messages/C4TD1NHPT/
     
+For those without Xamarin Chat account please visit this page and generate 
+self-invitation:
 
-## Usage
+https://xamarinchat.herokuapp.com/
 
-Basic usage steps:
 
-1.  Initialization 
-    1.  create Authenticator object (OAuth1Authenticator or OAuth2Authenticator)        
-        using constructor with required parameters
-    2.  setup events (OnCompleted, OnError, OnCanceled, OnBrowsingCompleted)
-2.  preparing UI        
-    1.  authenticator.GetUI()       
-    2.  casting to proper object        
-    3.  decorating UI       
-3.  presenting/launching UI 
-4.  Detecting/Fetching/Intercepting URL change - redirect url   
-    and     
-    parsing OAuth data from redirect_url
-5.  Triggering Events based on OAuth data 
+## OAuth 
 
-Xamarin.Auth with Embedded Browser API did a lot under the hood for users,
-but with the Native UI steps 4. and 5. must be implemented like for 
-App linking (Deep Linking) in:
+OAuth flow (process) is setup in 4 major steps:
+
+0.  **Server side setup for OAuth service provider** 
+
+	To name some:
+	
+	1.	Google
+	
+		Google introduced mandatory use of Native UI for security reasons because	
+		Android CustomTabs and iOS SFSafariViewController are based on Chrome and	
+		Safari code-bases thus thoroughly tested and regulary updated. Moreover 	
+		Native UI (System Browsers) have reduced API, so malicious users have less	
+		possibilities to retrieve and use sensitive data.
+		
+		[Google](./details/setup-server-side-oauth-providers/google.md)
+	
+	2.	Facebook
+	
+		[Facebook](./details/setup-server-side-oauth-providers/facebook.md)
+
+	3.	Microsoft
+	
+		[Microsoft](./details/setup-server-side-oauth-providers/microsoft.md)
+	
+	4.	Fitbit	
+		
+		Fitbit is good for testing, because it allows arbitrary values for		
+		redirect_url.
+		
+		[Fitbit](./details/setup-server-side-oauth-providers/fitbit.md)
+		
+	5.
+
+1.  **Client side initialization of Authenticator object**
+      
+    This step prepares all relevant OAuth Data in Authenticator object (client_id,
+	redirect_url, client_secret, OAuth provider's endpoints etc)
+
+2.  **Creating and optionally customising UI**      
+
+3.  **Presenting/Launching UI and authenticating user**	
+
+	1.	Detecting/Fetching/Intercepting URL change - redirect_url and  
+
+		This substep, often called "App Linking" or "Deep Linking", is needed for 
+		NativeUI and requires a custom scheme registration for the redirect_url  
+		intercepting mechanism.
+
+    2.	Parsing OAuth data from redirect_url
+
+		In order to obtain OAuth data returned redirect_url must be parsed and the	
+		best way is to let Xamarin.Auth do it automatically by parsing redirect_url 
+		
+	3.	Triggering Events based on OAuth data 
+	
+		Parsing subsytem of the Authenticator will parse OAuth data and raise	
+		appropriate events based on returned data
+
+4.  **Using identity** 
+
+	1.	Using protected resources (making calls)	
+	
+	2.	Saving account info
+	
+	3.	Retrieving account info
+	
+	
+Xamarin.Auth with Embedded Browser API does a lot under the hood for users, but with 
+the Native UI step 3.1 Deep Linking must be manually implemented by the user.
+
 
 1.	Android's Activity with IntentFilter OnCreated.		
+
 	[TODO add url]		
+
 2.	iOS' AppDelegate.OpenUrl method
+
 	[TODO add url]		
 
 User will need to expose Authenticator object via public field or property.
 
 ### 1. Initialization
 
-In the initialization step Authenticator object will be created according
-to OAuth flow used and user application OAuth server setup.
+#### 1.1 Creating and configuring an Authenticator
+
+The server side setup of the OAuth provider defines OAuth flow used which again
+defines which Authenticator constructor will be used.
 
 This code is shared accross all platforms:
 
 ```csharp
-var auth = new OAuth2Authenticator
+OAuth2Authenticator auth = new OAuth2Authenticator
                 (
                     clientId: "",
                     scope: oauth2.OAuth2_Scope,
@@ -94,51 +237,66 @@ var auth = new OAuth2Authenticator
             };                        
 ```
 
+[TODO Link to code]
+
+
 #### 1.1 Subscribing to Authenticator events
 
-In order to receive OAuth events Authenticator object must subscribe
-to the events.
+In order to receive OAuth events Authenticator object must subscribe to the 
+events.
 
 ```csharp
-//-------------------------------------------------------------
-// WalkThrough Step 1.1
-//      setting up Authenticating events
-if (auth.IsUsingNativeUI == true)
-{
-	//......................................................
-	// redirect URL will be captured/intercepted in the 
-	//          Activity with IntentFilter OnCreate method
-	//	or
-	//			AppDelegate.OpenUrl method
-	//  NOTE:
-	//  NativeUI will need that Authenticator object is exposed
-	//      via public field or property in order to be used 
-	//......................................................
-}
-else
-{
-
-	//......................................................
-	// If authorization succeeds or is canceled, .Completed will be fired.
-	auth.Completed += Auth_Completed;
-	auth.Error += Auth_Error;
-	auth.BrowsingCompleted += Auth_BrowsingCompleted;
-	//......................................................
-}
-//-------------------------------------------------------------
+Auth1.Completed += Auth_Completed;
+Auth1.Error += Auth_Error;
+Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
 ```
 
+[TODO Link to code]
+
+In those events user can close the Login UI or perform further actions, based on
+event raised (Completed or Error) and information which can be extracted from
+EventArgs.
+
+The Authenticator object has three events: 
+
+*	Completed - which is fired when an Authentication is successful, 
+*	Error - which is fired if the Authentication fails, and 
+*	BrowsingCompleted which is fired when when the browser window is closed 
+
+User will need to subscribe to these event in order to work with the data received 
+from the authentication response.
+
+
 ### 2. Creating/Preparing UI
+
+#### 2.1 Creating Login UI
 
 Creating UI step will call `GetUI()` method on Authenticator object which
 will return platform specific object to present UI for login.
 
-This code can be shared for all platforms, so Android and iOS code for
-Embedded Browser and Native UI support 
+This code cannot be shared for most of the platforms, because it returns platform
+specific objects.
 
+On Android:
+	
 ```csharp
-System.Object ui_object = auth.GetUI();
+// Step 2.1 Creating Login UI 
+Android.Content.Intent ui_object = Auth1.GetUI(this);
 ```
+
+[TODO Link to code]
+
+On iOS:
+	
+```csharp
+// Step 2.1 Creating Login UI 
+UIKit.UIViewController ui_object = Auth1.GetUI();
+```
+
+[TODO Link to code]
+
+for new API (both Embedded Browsers and Native UI Support) user will need to
+cast object to appropriate type:
 
 NOTE: there is still discussion about API and returning object, so
 this might be subject to change.
@@ -147,30 +305,39 @@ NOTE:
 Windows platforms currently do NOT support Native UI embedded browser support 
 only. Work in progress.
 
-##### Universal Windows Platform
+On Windows - Universal Windows Platform
 
 ```csharp
+// Step 2.1 Creating Login UI 
 Type page_type = auth.GetUI();
 
 this.Frame.Navigate(page_type, auth);
 ```
 
-##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
+[TODO Link to code]
+
+
+On Windows - WinRT - Windows Store 8.1 and Windows Phone 8.1
 
 ```csharp
-Type page_type = auth.GetUI();
-
-this.Frame.Navigate(page_type, auth);
+// Step 2.1 Creating Login UI 
+System.Type page_type = auth.GetUI();
 ```
 
-##### Windows Phone Silverlight 8.x 
+[TODO Link to code]
+
+
+On Windows Phone Silverlight 8.x 
 
 ```csharp
-Uri uri = auth.GetUI ();
-this.NavigationService.Navigate(uri);
+// Step 2.1 Creating Login UI 
+System.Uri uri = auth.GetUI ();
 ```
 
-#### 2.1 UI Customisations
+[TODO Link to code]
+
+
+#### 2.2 Customizing the UI - Native UI [OPTIONAL]
 
 Embedded Browser API has limited API for UI customizations, while
 Native UI API is essentially more complex especially on Android.
@@ -189,10 +356,13 @@ Those exposed objects from simpler to more complex:
 *	CustomTabsIntent.Builder class which is intended for adding menus,	
 	toolbars, backbuttons and more. 	
 	This object is returned by GetUI() on Android 
-*	
 
 ```csharp
 ```
+
+[TODO Link to code]
+
+[TODO finish API and more info]
 
 ##### Xamarin.iOS 
 
@@ -203,7 +373,10 @@ are performed on that object.
 ```csharp
 ```
 
-### 3. Presenting/Launching UI
+[TODO Link to code]
+
+
+### 3 Present/Launch the Login UI
 
 This step will open a page of OAuth provider enabling user to enter the
 credentials and authenticate.
@@ -215,11 +388,15 @@ this might be subject to change.
 ##### Xamarin.Android 
 
 ```csharp
+// Step 3 Present/Launch the Login UI
+StartActivity(ui_object);
 ```
 
 ##### Xamarin.iOS 
 
 ```csharp
+// Step 3 Present/Launch the Login UI
+PresentViewController(ui_object, true, null);
 ```
 
 ##### Universal Windows Platform
@@ -228,17 +405,24 @@ this might be subject to change.
 this.Frame.Navigate(page_type, auth);
 ```
 
+[TODO Link to code]
+
+
 ##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
 
 ```csharp
 this.Frame.Navigate(page_type, auth);
 ```
 
+[TODO Link to code]
+
 ##### Windows Phone Silverlight 8.x 
 
 ```csharp
 this.NavigationService.Navigate(uri);
 ```
+
+[TODO Link to code]
 
 ### 4. 
 
@@ -363,6 +547,9 @@ public class ActivityCustomUrlSchemeInterceptor : Activity
 }
 ```
 
+[TODO Link to code]
+
+
 IntentFilter attribute will modify AndroidManifest.xml adding following node (user
 could have added this node manually to application node):
 
@@ -379,6 +566,8 @@ could have added this node manually to application node):
       </intent-filter>
     </activity>
 ```
+
+[TODO Link to code]
 
 Xamarin.iOS
 
@@ -408,6 +597,17 @@ manually):
            </dict>
        </array>
 ```
+
+[TODO Link to code]
+
+
+NOTE:
+When editing Info.plist take care if it is auto-opened in the generic plist editor.
+Generic plist editor shows "CFBundleURLSchemes" as simple "URL Schemes"
+If user is using the plist editor to create the values and type in URL Schemes, 
+it won't convert that to CFBundleURLSchemes.
+Switching to the xml editor and user will be able to see the difference.
+
 
 Add code to intercept opening URL with registered custom scheme by implementing
 OpenUrl method override in AppDelegate:
@@ -449,6 +649,10 @@ public override bool OpenUrl
     return true;
 }
 ```
+
+[TODO Link to code]
+
+
 #### More Information
     
 https://developer.chrome.com/multidevice/android/customtabs
@@ -485,7 +689,7 @@ internal rules and recommendations.
 Xamarin.Auth Cake script file is slightly modified to enable community members
 willing to help to compile Xamarin.Auth from source. Compilation is possible
 both on Windows and MacOSX. If working on both platforms Cake script expects
-artifacts to be build forst on Windows and then on MacOSX, so nuget target
+artifacts to be build first on Windows and then on MacOSX, so nuget target
 (nuget packaging) will fail if script is executed 
 
 #### Installing Cake
@@ -534,26 +738,6 @@ Xamarin.Auth Component support is currently under development. It is "empty shel
 component, i.e. component that uses nuget package as dependency and contains only
 samples, documentation and artwork.
 
-## Changelog
-
-Nuget Version[s]
-
-*   1.4.0.1   
-    2017-03-30
-    supporting:     
-    *   Embedded Browsers (Android WebView and iOS UIWebView)   
-        NOTE: this support will be prohibited by some OAuth providers       
-        DEFAULT 2017-03     
-    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
-        must be explicitly setup in Authenticator constructor!  
-*   1.4.0.0   
-    2017-03-30
-    supporting:     
-    *   Embedded Browsers (Android WebView and iOS UIWebView)   
-        NOTE: this support will be prohibited by some OAuth providers       
-        DEFAULT 2017-03     
-    *   native UI (Android Custom Tabs and iOS Safari View Controller)      
-        must be explicitly setup in Authenticator constructor!  
 
 
 ## Diverse
