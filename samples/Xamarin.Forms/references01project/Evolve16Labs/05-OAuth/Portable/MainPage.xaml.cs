@@ -301,6 +301,8 @@ namespace ComicBook
             Picker p = sender as Picker;
 
             string implementation = ((string)p.SelectedItem);
+            if (string.IsNullOrEmpty(implementation))
+                return;
 
             if (implementation == "Presenters (Dependency Service/Injection)")
             {
