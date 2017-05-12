@@ -2,11 +2,18 @@
 #########################################################################################
 Installing
 
-	Windows
-
+	Windows - powershell
+		
         Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
         .\build.ps1
 
+	Windows - cmd.exe prompt	
+	
+        powershell ^
+			Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
+        powershell ^
+			.\build.ps1
+	
 	Mac OSX 
 
         curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
@@ -85,6 +92,16 @@ Task ("nuget-fixes")
 				Xamarin CI MacOSX bot uses central cake folder
 					.Contains("Components-Generic-Build-Mac/CI/tools/Cake");
 			*/
+
+			if (IsRunningOnWindows())
+			{
+				DownloadFile
+				(					
+					@"https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe",
+					"../nuget.exe"
+				);
+				
+			}
 			nuget_tool_path = GetToolPath ("../nuget.exe");
 			cake_tool_path = GetToolPath ("./Cake.exe");
 

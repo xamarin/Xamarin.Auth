@@ -87,14 +87,13 @@ So, in version 1.5.0 `GetUI()` returns
 
 ## Support 
 
-### Documentation - Github Wiki pages
-
-
-
 If there is need for real-time support use Xamarin Chat (community slack team) and go to
 \#xamarin-auth-social channel where help from experienced users can be obtained.
 For all users without account for community slack team, please, go to self-invite link
 first.
+
+### Documentation - Github Wiki pages
+
 
 ### Github
 
@@ -197,24 +196,27 @@ OAuth flow (process) is setup in 4 major steps:
 	
 	3.	Retrieving account info
 	
-	
+
 Xamarin.Auth with Embedded Browser API does a lot under the hood for users, but with 
-the Native UI step 3.1 Deep Linking must be manually implemented by the user.
+the Native UI step 3.1 Deep Linking (App linking) must be manually implemented by the 
+user.
 
 
-1.	Android's Activity with IntentFilter OnCreated.		
+## Xamarin.Auth usage 
 
-	[TODO add url]		
+Xamarin.Auth covers 2 Xamarin technologies - traditional/standard (Xamarin.Android, 
+Xamarin.iOS) and Xamarin.Forms. The library implements nuget "bait and switch" 
+technology.	
 
-2.	iOS' AppDelegate.OpenUrl method
+### Usage Xamarin Traditional (Standard)
 
-	[TODO add url]		
+Design of the library is aimed to reduce platform differences, but this is not possible
+in all cases (most methods in Android API need Context as a parameter), so user must
+be familiar with platform concepts and details. 
 
-User will need to expose Authenticator object via public field or property.
+#### 1. Initialization
 
-### 1. Initialization
-
-#### 1.1 Creating and configuring an Authenticator
+##### 1.1 Creating and configuring an Authenticator
 
 The server side setup of the OAuth provider defines OAuth flow used which again
 defines which Authenticator constructor will be used.
@@ -242,7 +244,7 @@ OAuth2Authenticator auth = new OAuth2Authenticator
 [TODO Link to code]
 
 
-#### 1.1 Subscribing to Authenticator events
+##### 1.1 Subscribing to Authenticator events
 
 In order to receive OAuth events Authenticator object must subscribe to the 
 events.
@@ -269,9 +271,9 @@ User will need to subscribe to these event in order to work with the data receiv
 from the authentication response.
 
 
-### 2. Creating/Preparing UI
+#### 2. Creating/Preparing UI
 
-#### 2.1 Creating Login UI
+##### 2.1 Creating Login UI
 
 Creating UI step will call `GetUI()` method on Authenticator object which
 will return platform specific object to present UI for login.
@@ -339,17 +341,17 @@ System.Uri uri = auth.GetUI ();
 [TODO Link to code]
 
 
-#### 2.2 Customizing the UI - Native UI [OPTIONAL]
+##### 2.2 Customizing the UI - Native UI [OPTIONAL]
 
 Embedded Browser API has limited API for UI customizations, while
 Native UI API is essentially more complex especially on Android.
 
-##### Xamarin.Android 
+**Xamarin.Android**
 
-Native UI on Android exposes several objects to the end user which 
-enable UI customisations like adding menus, toolbars and performance 
-optimisations like WarmUp (preloading of the browser in the memory) 
-and prefetching (preloading of the web site before rendering).
+Native UI on Android exposes several objects to the end user which enable UI 
+customisations like adding menus, toolbars and performance optimisations like 
+WarmUp (preloading of the browser in the memory) and prefetching (preloading 
+of the web site before rendering).
 
 Those exposed objects from simpler to more complex:
 
@@ -366,11 +368,10 @@ Those exposed objects from simpler to more complex:
 
 [TODO finish API and more info]
 
-##### Xamarin.iOS 
+**Xamarin.iOS**
 
-Native UI on iOS exposes SFSafariViewController and customizations
-are performed on that object.
-
+Native UI on iOS exposes SFSafariViewController and customizations are performed 
+through the API of that object.
 
 ```csharp
 ```
@@ -378,7 +379,7 @@ are performed on that object.
 [TODO Link to code]
 
 
-### 3 Present/Launch the Login UI
+#### 3 Present/Launch the Login UI
 
 This step will open a page of OAuth provider enabling user to enter the
 credentials and authenticate.
@@ -387,21 +388,21 @@ credentials and authenticate.
 NOTE: there is still discussion about API and returning object, so
 this might be subject to change.
 
-##### Xamarin.Android 
+**Xamarin.Android**
 
 ```csharp
 // Step 3 Present/Launch the Login UI
 StartActivity(ui_object);
 ```
 
-##### Xamarin.iOS 
+**Xamarin.iOS**
 
 ```csharp
 // Step 3 Present/Launch the Login UI
 PresentViewController(ui_object, true, null);
 ```
 
-##### Universal Windows Platform
+**Windows - Universal Windows Platform**
 
 ```csharp
 this.Frame.Navigate(page_type, auth);
@@ -410,7 +411,7 @@ this.Frame.Navigate(page_type, auth);
 [TODO Link to code]
 
 
-##### Windows Store 8.1 WinRT and Windows Phone 8.1 WinRT
+**Windows - WinRT - Windows Store 8.1 Windows Phone 8.1**
 
 ```csharp
 this.Frame.Navigate(page_type, auth);
@@ -418,7 +419,7 @@ this.Frame.Navigate(page_type, auth);
 
 [TODO Link to code]
 
-##### Windows Phone Silverlight 8.x 
+**Windows Phone Silverlight 8.x**
 
 ```csharp
 this.NavigationService.Navigate(uri);
@@ -426,9 +427,7 @@ this.NavigationService.Navigate(uri);
 
 [TODO Link to code]
 
-### 4. 
-
-### Native UI support - Parsing URL fragment data
+#### 3.2 Native UI support - Parsing URL fragment data
 
 The main reason for introducing Native UI support for Installed Apps (mobile apps)
 is security. Both Android's [Chrome] Custom Tabs and iOS SFSafariViewController
@@ -459,14 +458,41 @@ browsers (Android Browser and Safari).
         scheme
         iOS 
 
-#### Preparing app for the Native UI support
+		
+To enable Native UI support 3 steps are neccessary:
+
+1.	add references to external utilities that implement NativeUI usually 	
+	nuget packages.
+	
+	This step is neccessary for Android only, because CustomTabs implementation
+	is in `Xamarin.Android.Support.CustomTabs` nuget. `SafariServices` are part
+	of newer iOS operating systems.
+	
+2.	register custom scheme at OS level
+
+	Operating system needs to know which application will open particular custom	
+	url scheme. This concept is called App or Deep Linking. On Android this 
+	registration is done via url handling Activity's IntentFilter and on iOS via
+	
+3.	implement platform specific code that intercepts redirect_url with custom scheme
+
+	On Android Activity handles opening Url with custom scheme and this Activity
+	was registered at OS level thorugh IntentFilter in step 2. On iOS user is 
+	supposed to implement `OpenUrl` in the `AppDelegate` class.
+	When browser tries to open Url with custom scheme and the browser itself is not
+	registered to open that scheme it will raise event on OS level and OS will check
+	application registrations for that specific scheme. If the application is found
+	url will be passed to `Activity`'s `OnCreate()` and/or `AppDelegate`'s `OpenUrl()`.
+	
+
+##### Preparing app for the Native UI support
     
 For Android app add Xamarin.Android.Support.CustomTabs package through nuget
 package manager.
 
 For iOS apps - NOOP - nothing needs to be done.
 
-#### Adding URL custom schema intercepting utility for parsing
+Adding URL custom schema intercepting utility for parsing
 
 Next step is to define custome scheme[s] the app can handle.
 
@@ -485,66 +511,54 @@ Add Activity with IntentFilter to catch/intercept URLs
 with user's custom schema:
 
 ```csharp
-[Activity(Label = "ActivityCustomUrlSchemeInterceptor")]
-[
-    // App Linking - custom url schemes
-    IntentFilter
-    (
-        actions: new[] { Intent.ActionView },
-        Categories = new[] 
-                { 
-                    Intent.CategoryDefault, 
-                    Intent.CategoryBrowsable 
-                },
-        DataSchemes = new[]
-                {
-                    "xamarinauth",
-                    "xamarin-auth",
-                    "xamarin.auth",
-                },
-        DataHost = "localhost"
-    )
-]
-public class ActivityCustomUrlSchemeInterceptor : Activity
-{
-    string message;
-
-    protected override void OnCreate(Bundle savedInstanceState)
+    [Activity(Label = "ActivityCustomUrlSchemeInterceptor", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [
+        IntentFilter
+        (
+            actions: new[] { Intent.ActionView },
+            Categories = new[]
+                    {
+                        Intent.CategoryDefault,
+                        Intent.CategoryBrowsable
+                    },
+            DataSchemes = new[]
+                    {
+                        "com.xamarin.traditional.standard.samples.oauth.providers.android",
+                        /*
+                        "com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn",
+                        "urn:ietf:wg:oauth:2.0:oob",
+                        "urn:ietf:wg:oauth:2.0:oob.auto",
+                        "http://localhost:PORT",
+                        "https://localhost:PORT",
+                        "http://127.0.0.1:PORT",
+                        "https://127.0.0.1:PORT",              
+                        "http://[::1]:PORT", 
+                        "https://[::1]:PORT", 
+                        */
+                    },
+            //DataHost = "localhost",
+            DataPath = "/oauth2redirect"
+        )
+    ]
+    public class ActivityCustomUrlSchemeInterceptor : Activity
     {
-        base.OnCreate(savedInstanceState);
+        string message;
 
-        // Create your application here
-        global::Android.Net.Uri uri_android = Intent.Data;
-
-
-        System.Uri uri = new Uri(uri_android.ToString());
-        IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
-
-        Account account = new Account
-                                (
-                                    "username",
-                                    new Dictionary<string, string>(fragment)
-                                );
-
-        AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
-
-        if (MainActivity.Auth2 != null)
+        protected override void OnCreate(Bundle savedInstanceState)
         {
-            // call OnSucceeded to trigger OnCompleted event
-            MainActivity.Auth2.OnSucceeded(account);
-        }
-        else if (MainActivity.Auth1 != null)
-        {
-            // call OnSucceeded to trigger OnCompleted event
-            MainActivity.Auth1.OnSucceeded(account);
-        }
-        else
-        {
-        }
+            base.OnCreate(savedInstanceState);
 
-        this.Finish();
+            // Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+            Uri uri_netfx = new Uri(uri_android.ToString());
 
-        return;
+			// load redirect_url Page (send it back to Xamarin.Auth)
+			//	for Url parsing and raising Complete or Error events
+            AuthenticationState.Authenticator.OnPageLoading(uri_netfx);
+
+            this.Finish();
+
+            return;
+        }
     }
 }
 ```
@@ -576,28 +590,26 @@ Xamarin.iOS
 Register custom schemes to Info.plist by opening editor in Advanced tab
 and add schemes in URL types with Role Viewer.
 
-This will result in following XML snippet in Info.plist (again user can add it 
-manually):
+This will result in following Info.plist snippet:
 
-```
-    <!--
-        Info.plist
-    -->
-        <key>CFBundleURLTypes</key>
-       <array>
-           <dict>
-               <key>CFBundleURLName</key>
-               <string>com.example.store</string>
-               <key>CFBundleURLTypes</key>
-               <string>Viewer</string>
-               <key>CFBundleURLSchemes</key>
-               <array>
-                   <string>xamarinauth</string>
-                   <string>xamarin-auth</string>
-                   <string>xamarin.auth</string>
-                </array>
-           </dict>
-       </array>
+```xml
+<!--
+	Info.plist
+-->
+<key>CFBundleURLTypes</key>
+<array>
+	<dict>
+		<key>CFBundleURLName</key>
+		<string>Xamarin.Auth Google OAuth</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+			<string>com.xamarin.traditional.standard.samples.oauth.providers.ios</string>
+			<string>com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh</string>
+		</array>
+		<key>CFBundleURLTypes</key>
+		<string>Viewer</string>
+	</dict>
+</array>
 ```
 
 [TODO Link to code]
@@ -605,7 +617,7 @@ manually):
 
 NOTE:
 When editing Info.plist take care if it is auto-opened in the generic plist editor.
-Generic plist editor shows "CFBundleURLSchemes" as simple "URL Schemes"
+Generic plist editor shows "CFBundleURLSchemes" as simple "URL Schemes".
 If user is using the plist editor to create the values and type in URL Schemes, 
 it won't convert that to CFBundleURLSchemes.
 Switching to the xml editor and user will be able to see the difference.
@@ -616,45 +628,45 @@ OpenUrl method override in AppDelegate:
 
 ```csharp
 public override bool OpenUrl
-                        (
-                            UIApplication application,
-                            NSUrl url,
-                            string sourceApplication,
-                            NSObject annotation
-                        )
+		(
+			UIApplication application,
+			NSUrl url,
+			string sourceApplication,
+			NSObject annotation
+		)
 {
-    System.Uri uri = new Uri(url.AbsoluteString);
-    IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+	// Convert iOS NSUrl to C#/netxf/BCL System.Uri - common API
+	Uri uri_netfx = new Uri(url.AbsoluteString);
 
-    Account account = new Account
-                            (
-                                "username",
-                                new Dictionary<string, string>(fragment)
-                            );
+	// load redirect_url Page (send it back to Xamarin.Auth)
+	//	for Url parsing and raising Complete or Error events
+	AuthenticationState.Authenticator.OnPageLoading(uri_netfx);
 
-    AuthenticatorCompletedEventArgs args_completed = new AuthenticatorCompletedEventArgs(account);
-
-    if (TestProvidersController.Auth2 != null)
-    {
-        // call OnSucceeded to trigger OnCompleted event
-        TestProvidersController.Auth2.OnSucceeded(account);
-    }
-    else if (TestProvidersController.Auth1 != null)
-    {
-        // call OnSucceeded to trigger OnCompleted event
-        TestProvidersController.Auth1.OnSucceeded(account);
-    }
-    else
-    {
-    }
-
-    return true;
+	return true;
 }
 ```
 
 [TODO Link to code]
 
+### 4 Using identity
 
+## Xamarin.Forms support
+
+Since version 1.5.0 Xamarin.Auth has built in support for Xamarin.Forms with 2 
+different implementations:
+
+*	with platform specific Presenters (Dependency Service, Dependency Injection)	
+
+	This implementation has no dependencies on Xamarin.Forms, so it is in Xamarn.Auth	
+	nuget package.
+	
+*	with Custom Renderers 
+
+	This implementation dependens on Xamarin.Forms, so it is in separate nuget 
+	package - Xamarn.Auth.XamarinForms	
+	
+
+	
 #### More Information
     
 https://developer.chrome.com/multidevice/android/customtabs
