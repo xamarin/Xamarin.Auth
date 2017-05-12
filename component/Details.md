@@ -648,9 +648,12 @@ public override bool OpenUrl
 
 [TODO Link to code]
 
-### 4 Using identity
+#### 4 Using identity
 
-## Xamarin.Forms support
+[TODO]
+
+
+### Usage Xamarin.Forms
 
 Since version 1.5.0 Xamarin.Auth has built in support for Xamarin.Forms with 2 
 different implementations:
@@ -665,6 +668,238 @@ different implementations:
 	This implementation dependens on Xamarin.Forms, so it is in separate nuget 
 	package - Xamarn.Auth.XamarinForms	
 	
+Most of the important code is placed in portable class library (PCL) or shared 
+project.
+
+This includes:
+
+1.	initialization of the Authenticator object 
+
+	This step involves construction of the object and subscribing to the events.
+	
+2.	Launching UI screen
+
+	UI can be launched via Custom Renderers or platform Presenters.
+	
+3.	Using identity (obtained OAuth) data
+
+
+#### 1. Initialization
+
+Initialization is almost the same like for Traditional/Standard, except platform
+specific cases when required (different client_id for different apps).
+
+
+##### 1.1 Creating and configuring an Authenticator
+
+Creating Authenticator object in PCL:
+
+```csharp
+authenticator
+	 = new Xamarin.Auth.OAuth2Authenticator
+	 (
+		 clientId:
+			 new Func<string>
+				(
+					 () =>
+					 {
+						 string retval_client_id = "oops something is wrong!";
+
+						 // some people are sending the same AppID for google and other providers
+						 // not sure, but google (and others) might check AppID for Native/Installed apps
+						 // Android and iOS against UserAgent in request from 
+						 // CustomTabs and SFSafariViewContorller
+						 // TODO: send deliberately wrong AppID and note behaviour for the future
+						 // fitbit does not care - server side setup is quite liberal
+						 switch (Xamarin.Forms.Device.RuntimePlatform)
+						 {
+							 case "Android":
+								 retval_client_id = "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com";
+								 break;
+							 case "iOS":
+								 retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
+								 break;
+							 case "Windows":
+								 retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
+								 break;
+						 }
+						 return retval_client_id;
+					 }
+			   ).Invoke(),
+		 clientSecret: null,   // null or ""
+		 authorizeUrl: new Uri("https://accounts.google.com/o/oauth2/auth"),
+		 accessTokenUrl: new Uri("https://www.googleapis.com/oauth2/v4/token"),
+		 redirectUrl:
+			 new Func<Uri>
+				(
+					 () =>
+					 {
+
+						 string uri = null;
+
+						 // some people are sending the same AppID for google and other providers
+						 // not sure, but google (and others) might check AppID for Native/Installed apps
+						 // Android and iOS against UserAgent in request from 
+						 // CustomTabs and SFSafariViewContorller
+						 // TODO: send deliberately wrong AppID and note behaviour for the future
+						 // fitbit does not care - server side setup is quite liberal
+						 switch (Xamarin.Forms.Device.RuntimePlatform)
+						 {
+							 case "Android":
+								 uri =
+									 "com.xamarin.traditional.standard.samples.oauth.providers.android:/oauth2redirect"
+									 //"com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn:/oauth2redirect"
+									 ;
+								 break;
+							 case "iOS":
+								 uri =
+									 "com.xamarin.traditional.standard.samples.oauth.providers.ios:/oauth2redirect"
+									 //"com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh:/oauth2redirect"
+									 ;
+								 break;
+							 case "Windows":
+								 uri =
+									 "com.xamarin.traditional.standard.samples.oauth.providers.ios:/oauth2redirect"
+									 //"com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh:/oauth2redirect"
+									 ;
+								 break;
+						 }
+
+						 return new Uri(uri);
+					 }
+				 ).Invoke(),
+		 scope:
+					  //"profile"
+					  "https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/plus.login"
+					  ,
+		 getUsernameAsync: null,
+		 isUsingNativeUI: native_ui
+	 )
+	 {
+		 AllowCancel = true,
+	 };
+```
+
+[TODO Link to code]
+
+
+##### 1.2 Subscribing to Authenticator events
+
+```csharp
+authenticator.Completed +=
+	(s, ea) =>
+		{
+			StringBuilder sb = new StringBuilder();
+
+			if (ea.Account != null && ea.Account.Properties != null)
+			{
+				sb.Append("Token = ").AppendLine($"{ea.Account.Properties["access_token"]}");
+			}
+			else
+			{
+				sb.Append("Not authenticated ").AppendLine($"Account.Properties does not exist");
+			}
+
+			DisplayAlert
+					(
+						"Authentication Results",
+						sb.ToString(),
+						"OK"
+					);
+
+			return;
+		};
+
+authenticator.Error +=
+	(s, ea) =>
+		{
+			StringBuilder sb = new StringBuilder();
+			sb.Append("Error = ").AppendLine($"{ea.Message}");
+
+			DisplayAlert
+					(
+						"Authentication Error",
+						sb.ToString(),
+						"OK"
+					);
+			return;
+		};
+
+```
+
+[TODO Link to code]
+
+
+#### 2. Creating/Preparing UI
+
+##### 2.1 Creating Login UI
+
+Creating UI will be performed in PCL  
+
+*	for Custom Renderers user must create  `AuthenticatorPage` object
+
+*	for Presenters user must create OAuthLoginPresenter object
+
+ must be created and on its instance 
+	method `Login(authenticator)` must be called. This method calls platform code.
+
+
+##### 2.2 Customizing the UI - Native UI [OPTIONAL]
+
+Customizing UI must be performed in platform specific projects with platform specific
+API
+
+On Android in `MainActivity.OnCreate()`:
+
+```csharp
+Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
+```
+
+[TODO Link to code]
+
+
+On iOS in `AppDelegate.FinishedLaunching()`: 
+
+```csharp
+Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
+```
+
+[TODO Link to code]
+
+
+[TODO Windows]
+
+[TODO customization]
+
+
+#### 3 Present/Launch the Login UI
+
+*	for Custom Renderers user must Navigate to `AuthenticatorPage` object
+
+	Implementation is hidden in Custom Renderers inplatformspecific code
+	
+*	for Presenters user must call `Login(authenticator)` method on 
+	`OAuthLoginPresenter` object
+
+	This method calls platform specific code.
+
+```csharp
+if (forms_implementation_renderers)
+{
+	// Renderers Implementaion
+	Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+}
+else
+{
+	// Presenters Implementation
+	Xamarin.Auth.Presenters.OAuthLoginPresenter presenter = null;
+	presenter = new Xamarin.Auth.Presenters.OAuthLoginPresenter();
+	presenter.Login(authenticator);
+}
+
+```
+
+[TODO Link to code]
 
 	
 #### More Information
