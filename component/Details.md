@@ -1,9 +1,9 @@
 # Details
 
-[![Components-Mono.Posix][7]][8]
+[![Components-XamarinAuth][7]][8]
 
-[7]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix/badge/icon
-[8]: https://jenkins.mono-project.com/view/Components/job/Components-Mono.Posix
+[7]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/badge/icon
+[8]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
 
 Xamarin.Auth helps developers authenticate users via standard authentication mechanisms 
 (e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add 
@@ -31,12 +31,10 @@ CI servers:
 
 	https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/
 	
-
 *	Windows builds		
 
 	https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/
     
-	
 	
 Xamarin.Auth has grown into fully fledged cross platform library supporting:
 
@@ -88,6 +86,10 @@ So, in version 1.5.0 `GetUI()` returns
 	Google
 
 ## Support 
+
+### Documentation - Github Wiki pages
+
+
 
 If there is need for real-time support use Xamarin Chat (community slack team) and go to
 \#xamarin-auth-social channel where help from experienced users can be obtained.
