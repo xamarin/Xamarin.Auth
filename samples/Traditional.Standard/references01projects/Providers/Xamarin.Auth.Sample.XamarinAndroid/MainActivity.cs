@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
@@ -111,7 +111,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
         {
-            // Step 1.1 Create and configure an Authenticator
+            // Step 1.1 Creating and configuring an Authenticator
             Auth1 = new OAuth1Authenticator
                 (
                     consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -130,7 +130,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 AllowCancel = oauth1.AllowCancel,
             };
 
-            // Step 1.2 Setup Authentication Event Handlers
+            // Step 1.2 Subscribing to Authenticator events
             // If authorization succeeds or is canceled, .Completed will be fired.
             Auth1.Completed += Auth_Completed;
             Auth1.Error += Auth_Error;
@@ -159,7 +159,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             {
                 if (oauth2.OAuth_UriAccessToken_UriRequestToken == null)
                 {
-                    // Step 1.1 Create and configure an Authenticator
+                    // Step 1.1 Creating and configuring an Authenticator
                     Auth2 = new OAuth2Authenticator
                                     (
                                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -180,7 +180,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
                 }
                 else //if (oauth2.OAuth_UriAccessToken_UriRequestToken != null)
                 {
-                    // Step 1.1 Create and configure an Authenticator                        
+                    // Step 1.1 Creating and configuring an Authenticator                        
                     Auth2 = new OAuth2Authenticator
                                     (
                                         clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -204,7 +204,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
             else
             {
-                // Step 1.1 Create and configure an Authenticator
+                // Step 1.1 Creating and configuring an Authenticator
                 Auth2 = new OAuth2Authenticator
                                 (
                                     clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
@@ -227,7 +227,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             }
 
 
-            // Step 1.2 Setup Authentication Event Handlers
+            // Step 1.2 Subscribing to Authenticator events
             // If authorization succeeds or is canceled, .Completed will be fired.
             Auth2.Completed += Auth_Completed;
             Auth2.Error += Auth_Error;
@@ -359,6 +359,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void AccountStoreTests(object authenticator, AuthenticatorCompletedEventArgs ee)
         {
+            // Step 4.2 Store the account
             AccountStore account_store = AccountStore.Create(this);
             account_store.Save(ee.Account, provider);
 
@@ -366,6 +367,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             // Android
             // https://kb.xamarin.com/agent/case/225411
             // cannot reproduce 
+            // Step 4.3 Retrieve stored accounts
             Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
             if (null != account1)
             {

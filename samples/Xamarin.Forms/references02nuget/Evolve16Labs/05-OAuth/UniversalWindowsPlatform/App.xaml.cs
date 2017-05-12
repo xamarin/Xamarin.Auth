@@ -57,6 +57,8 @@ namespace ComicBook.UniversalWindowsPlatform
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 Xamarin.Forms.Forms.Init(e); // requires the `e` parameter
+                global::Xamarin.Auth.Presenters.UniversalWindowsPlatform.AuthenticationConfiguration.Init();
+
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {

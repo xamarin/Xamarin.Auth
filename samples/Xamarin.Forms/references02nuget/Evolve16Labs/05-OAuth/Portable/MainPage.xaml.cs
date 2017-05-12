@@ -27,7 +27,7 @@ namespace ComicBook
             authorizationCodeButton.Clicked += AuthorizationCodeButtonClicked;
             getProfileButton.Clicked += GetProfileButtonClicked;
             refreshButton.Clicked += RefreshButtonClicked;
-
+            /*
             store = AccountStore.Create();
             account = store.FindAccountsForService(ServiceId).FirstOrDefault();
 
@@ -37,7 +37,7 @@ namespace ComicBook
                 getProfileButton.IsEnabled = true;
                 refreshButton.IsEnabled = true;
             }
-
+            */
             this.BindingContext = this;
 
             this.pickerUIFrameworks.SelectedIndex = 0;
@@ -380,6 +380,9 @@ namespace ComicBook
                                          case "iOS":
                                              retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
                                              break;
+                                         case "Windows":
+                                             retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
+                                             break;
                                      }
                                      return retval_client_id;
                                  }
@@ -410,6 +413,12 @@ namespace ComicBook
                                                  ;
                                              break;
                                          case "iOS":
+                                             uri =
+                                                 "com.xamarin.traditional.standard.samples.oauth.providers.ios:/oauth2redirect"
+                                                 //"com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh:/oauth2redirect"
+                                                 ;
+                                             break;
+                                         case "Windows":
                                              uri =
                                                  "com.xamarin.traditional.standard.samples.oauth.providers.ios:/oauth2redirect"
                                                  //"com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh:/oauth2redirect"
