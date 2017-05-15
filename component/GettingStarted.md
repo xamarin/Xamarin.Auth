@@ -3,7 +3,9 @@
 Xamarin.Auth is a cross platform library that helps developers authenticate 
 users via OAuth protocol (OAuth1 and OAuth2). 
 
-OAuth flow (process) is setup in 4 major steps:
+OAuth flow (process) with Xamarin.Auth is set up in 5 steps with 1 step performed 
+on OAuth provider's server side (portal, console) and 4 steps performed in the 
+client (application).
 
 0.  Server side setup for OAuth service provider (Google, Facebook)
 
@@ -39,8 +41,7 @@ OAuth flow (process) is setup in 4 major steps:
 	
 	3.	Retrieving account info
   
-Those steps and (substeps) which will be used in detailed documentation 
-[./Details.md](./Details.md).
+Those steps and (substeps) which will be used in detailed documentation.
 
 
 ## 0 Server Side 
@@ -77,16 +78,14 @@ In general there are 2 common types of "apps", "projects" or "credentials":
     Xamarin.Auth implements requirements for native/installed apps since nuget version 1.4.0, 
     but the API was broken (`GetUI()` returned `System.Object`, so cast was necessary).
 
-Server side setup details will be explained in separate document 
-
-(./details/setup-server-side-oauth-provider.md)[./details/setup-server-side-oauth-provider.md]  
+Server side setup details is explained in separate documents in Xamarin.Auth repository. 
 
 
 
 ## 1 Client Side Initialization
 
-Client (mobile) application initialization is based on Oauth Grant (flow) in use which is determined 
-by OAuth  provider and it's server side setup.
+Client (mobile) application initialization is based on Oauth Grant (flow) in use which is 
+determined by OAuth  provider and it's server side setup.
 
 Initialization is performed thorugh `Authenticator` constructors for:
 
@@ -99,7 +98,6 @@ With parameters:
     *   authorizeUrl        
     *   redirectUrl     
     
-[TODO Link to code]
     
 ### OAuth2 Authorization Code Grant flow 
 
@@ -112,11 +110,9 @@ With parameters:
     *   redirectUrl 	
     *   accessTokenUrl	
 
-[TODO Link to code]
-    
-    
-More about OAuth can be found here: [./details/oauth.md](./details/oauth.md).
-
+OAuth details and how Xamarin.Auth implements OAuth is described in documentation in
+Xamarin.Auth repo.
+	
 ### 1.1 Create and configure an Authenticator
 
 Let's authenticate a user to access Facebook which uses OAuth2 Implicit flow:
@@ -137,8 +133,6 @@ OAuth2Authenticator auth = new OAuth2Authenticator
         isUsingNativeUI: use_native_ui
     );
 ```
-
-[TODO Link to code]
 
 Facebook uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. 
 Authenticators are responsible for managing the user interface and communicating with 
@@ -172,9 +166,6 @@ auth.Completed += (sender, eventArgs) =>
 };
 ```
 
-[TODO Link to code]
-
-
 Xamarin.iOS
 
 ```csharp
@@ -193,8 +184,6 @@ auth.Completed += (sender, eventArgs) =>
     }
 };
 ```
-
-[TODO Link to code]
 
 ## 2. Create Login UI and authenticate user
 
@@ -228,15 +217,11 @@ Android:
 global::Android.Content.Intent ui_object = Auth1.GetUI(this);
 ```
 
-[TODO Link to code]
-
 iOS:
 
 ```csharp
 UIKit.UIViewController ui_object = Auth1.GetUI();
 ```
-
-[TODO Link to code]
 
 ### 2.2 Customizing the UI - Native UI [OPTIONAL]
 
@@ -257,8 +242,6 @@ StartActivity (ui_object);  // ui_object is Android.Content.Intent
 StartActivity (auth.GetUI (this));
 ```
 
-[TODO Link to code]
-
 On iOS, one would present UI in following way (with differences fromold API)
 
 ```csharp
@@ -267,7 +250,6 @@ PresentViewController(ui_object, true, null);
 PresentViewController (auth.GetUI ());
 ```
 
-[TODO Link to code]
 
 On Windows [TODO] 
 
@@ -305,8 +287,6 @@ request.GetResponseAsync().ContinueWith
     );
 ```
 
-[TODO Link to code]
-
 
 ### 4.2 Store the account
 
@@ -324,8 +304,6 @@ Creating `AccountStore` on Android:
 AccountStore.Create (this).Save (eventArgs.Account, "Facebook");
 ```
 
-[TODO Link to code]
-
 
 Creating `AccountStore` on iOS:
 
@@ -333,8 +311,6 @@ Creating `AccountStore` on iOS:
 // On iOS:
 AccountStore.Create ().Save (eventArgs.Account, "Facebook");
 ```
-
-[TODO Link to code]
 
 
 Saved Accounts are uniquely identified using a key composed of the account's 
@@ -357,8 +333,6 @@ Retrieving accounts on Android:
 IEnumerable<Account> accounts = AccountStore.Create (this).FindAccountsForService ("Facebook");
 ```
 
-[TODO Link to code]
-
 
 Retrieving accounts on iOS:
 
@@ -367,12 +341,7 @@ Retrieving accounts on iOS:
 IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Facebook");
 ```
 
-[TODO Link to code]
-
-
 It's that easy.
-
-Windows [TODO]
 
 ## Extending Xamarin.Auth - Make customized Authenticator
 
@@ -395,4 +364,5 @@ from component store:
 *	nuget 
 *	Component [UPDATE INPROGRESS]
 
-Details: [./details/installation-and-compilation.md](./details/installation-and-compilation.md)
+More details about how to compile Xamarin.Auth library and samples can be found in the docs
+in repository on github.
