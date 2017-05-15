@@ -13,13 +13,13 @@ client (application).
     This step prepares all relevant OAuth Data in Authenticator object (client_id,
 	redirect_url, client_secret, OAuth provider's endpoints etc)
 
-2.  Creating and optionally customising UI      
+2.  Creating and optionally customizing UI      
 
 3.  Presenting/Lunching UI and authenticating user	
 
 	1.	Detecting/Fetching/Intercepting URL change - redirect_url and  
 
-		This substep is step needed for NativeUI and requires that custom scheme
+		This sub-step is step needed for NativeUI and requires that custom scheme
 		registration together for redirect_url intercepting mechanism. This step	
 		is actually App Linking (Deep Linking) concept in mobile applications.
 
@@ -30,38 +30,35 @@ client (application).
 		
 	3.	Triggering Events based on OAuth data 
 	
-		Parsing subsytem of the Authenticator will parse OAuth data and raise	
+		Parsing subsystem of the Authenticator will parse OAuth data and raise	
 		appropriate events based on returned data
 
 4.  Using identity 
 
-	1.	Using protected resources (making calls)	
+	1.	Using protected resources (making calls)
 	
 	2.	Saving account info
 	
 	3.	Retrieving account info
   
-Those steps and (substeps) which will be used in detailed documentation.
+Those steps and (sub-steps) which will be used in detailed documentation.
 
 
 ## 0 Server Side 
 
 Server side setup of the particular OAuth provider like Google, Facebook or Microsoft Live
-is the source of misunderstandings and errors. This setup differs from provider to provider,
-especially nomenclature (naming).
-
-In general there are 2 common types of "apps", "projects" or "credentials":
+differs from provider to provider, especially nomenclature (naming).  In general there are 2 common types of "apps", "projects" or "credentials":
 
 1.  Server or Web Application
 
-    Server (Fitbit naming) or Web (Google and Facebook terms) application is considered to be 
+    A server (Fitbit naming) or Web (Google and Facebook terms) application is considered to be 
     secure, i.e. client_secret is secure and can be stored and not easily accessed/retrieved 
     by malicious user.
     
     Server/Web app uses http[s] schemes for redirect_url, because it loads real web page 
     (url-authority can be localhost or real hostname like http://xamarin.com).
     
-    Xamarin.Auth prior to version 1.4.0 used to support only http[s] url-scheme with real   
+    Xamarin.Auth, prior to version 1.4.0, only supported http[s] url-scheme with real   
     url-authority (existing host, no localhost) and arbitrary url-path. 
     
 2.  Native or Installed (mobile or desktop) apps    
@@ -74,9 +71,6 @@ In general there are 2 common types of "apps", "projects" or "credentials":
     
     Xamarin Components Team is working on the doc with minimal info for common used providers 
     and how to setup server side.
-    
-    Xamarin.Auth implements requirements for native/installed apps since nuget version 1.4.0, 
-    but the API was broken (`GetUI()` returned `System.Object`, so cast was necessary).
 
 Server side setup details is explained in separate documents in Xamarin.Auth repository. 
 
@@ -84,10 +78,10 @@ Server side setup details is explained in separate documents in Xamarin.Auth rep
 
 ## 1 Client Side Initialization
 
-Client (mobile) application initialization is based on Oauth Grant (flow) in use which is 
-determined by OAuth  provider and it's server side setup.
+Client (mobile) application initialization is based on OAuth Grant (flow) in use which is 
+determined by OAuth provider and it's server side setup.
 
-Initialization is performed thorugh `Authenticator` constructors for:
+Initialization is performed through `Authenticator` constructors for:
 
 ### OAuth2 Implicit Grant flow 
 
@@ -105,7 +99,7 @@ With parameters:
 
     *   clientId   	
     *   clientSecret	
-	*	scope       
+    *	 scope       
     *   authorizeUrl  	      
     *   redirectUrl 	
     *   accessTokenUrl	
@@ -143,6 +137,13 @@ authorization scope, and Facebook's various service locations are required.
 
 
 ### 1.2 Setup Authentication Event Handlers
+
+Before the UI is presented, user needs to start listening to the `Completed` event which fires 
+when the user successfully authenticates or cancels. One can find out if the authentication 
+succeeded by testing the `IsAuthenticated` property of `eventArgs`:
+
+All the information gathered from a successful authentication is available in 
+`eventArgs.Account`.
 
 To capture events and information in the OAuth flow simply subscribe to Authenticator
 events (add event handlers):
@@ -192,13 +193,6 @@ it's up to user to initially present the authenticator's UI on the screen. This 
 control how the authentication UI is displayed - modally, in navigation controllers, in 
 popovers, etc.
 
-Before the UI is presented, user needs to start listening to the `Completed` event which fires 
-when the user successfully authenticates or cancels. One can find out if the authentication 
-succeeded by testing the `IsAuthenticated` property of `eventArgs`:
-
-All the information gathered from a successful authentication is available in 
-`eventArgs.Account`.
-
 ### 2.1 Creating Login UI 
 
 Now, the login UI can be obtained using `GetUI()` method and afterwards login screen is 
@@ -232,7 +226,7 @@ API can be accessed (more in Details).
 
 ## 3 Present/Launch the Login UI
 
-This step is platform specific and it is almost impossible to share it accross platforms.
+This step is platform specific and it is almost impossible to share it across platforms.
 
 On Android, user would write the following code to present the UI.
 
@@ -251,14 +245,11 @@ PresentViewController (auth.GetUI ());
 ```
 
 
-On Windows [TODO] 
-
-
 ## 4 Using identity 
 
 ### 4.1 Making requests to protected resources
 
-With obtained access_token (identity) user can now access protected ressources.
+With obtained access_token (identity) user can now access protected resources.
 
 Since Facebook is an OAuth2 service, user can make requests with `OAuth2Request` providing 
 the account retrieved from the `Completed` event. Assuming user is authenticated, it is possible     
@@ -290,7 +281,7 @@ request.GetResponseAsync().ContinueWith
 
 ### 4.2 Store the account
 
-Xamarin.Auth securely stores `Account` objects so that users don't always have to reauthenticate 
+Xamarin.Auth securely stores `Account` objects so that users don't always have to re-authenticate 
 the user. The `AccountStore` class is responsible for storing `Account` information, backed by 
 the 
 [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) 
@@ -324,7 +315,7 @@ object.
 
 ## 4.3 Retrieve stored accounts
 
-Fetching all `Account` objects stored for a given service is possible with follwoing API:
+Fetching all `Account` objects stored for a given service is possible with following API:
 
 Retrieving accounts on Android:
 
@@ -358,11 +349,11 @@ existing authenticators and start overriding methods.
 Xamarin.Auth can be installed in binary form (compiled and packaged)
 or compiled from source.
  
-Binary form is deployable as nuget from nuget.org or Xamarin Component 
+Binary form is deployable as a NuGet from nuget.org or Xamarin Component 
 from component store:
 
-*	nuget 
-*	Component [UPDATE INPROGRESS]
+*	NuGet 
+*	Component [UPDATE IN PROGRESS]
 
 More details about how to compile Xamarin.Auth library and samples can be found in the docs
-in repository on github.
+in repository on GitHub.
