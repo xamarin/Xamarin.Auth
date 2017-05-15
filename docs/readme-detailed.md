@@ -21,7 +21,7 @@ support for non-standard authentication schemes.
         WKWebView instead of UIWebView  
 
 		
-[Change Log](./details/change-log.md)        
+[Change Log](./docs/details/change-log.md)        
 
 ### Status
 
@@ -569,18 +569,18 @@ with user's custom schema:
 IntentFilter attribute will modify AndroidManifest.xml adding following node (user
 could have added this node manually to application node):
 
-```
-    <activity android:label="ActivityCustomUrlSchemeInterceptor" android:name="md5f8c707217af032b51f5ca5f983d46c8c.ActivityCustomUrlSchemeInterceptor">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:host="localhost" />
-        <data android:scheme="xamarinauth" />
-        <data android:scheme="xamarin-auth" />
-        <data android:scheme="xamarin.auth" />
-      </intent-filter>
-    </activity>
+```xml
+<activity android:label="ActivityCustomUrlSchemeInterceptor" android:name="md5f8c707217af032b51f5ca5f983d46c8c.ActivityCustomUrlSchemeInterceptor">
+  <intent-filter>
+	<action android:name="android.intent.action.VIEW" />
+	<category android:name="android.intent.category.DEFAULT" />
+	<category android:name="android.intent.category.BROWSABLE" />
+	<data android:host="localhost" />
+	<data android:scheme="xamarinauth" />
+	<data android:scheme="xamarin-auth" />
+	<data android:scheme="xamarin.auth" />
+  </intent-filter>
+</activity>
 ```
 
 [TODO Link to code]
