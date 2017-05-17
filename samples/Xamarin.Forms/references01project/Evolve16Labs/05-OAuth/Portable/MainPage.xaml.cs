@@ -479,6 +479,7 @@ namespace ComicBook
                         return;
                     };
 
+            // after initialization (creation and event subscribing) exposing local object 
             AuthenticationState.Authenticator = authenticator;
 
             if (forms_implementation_renderers)
