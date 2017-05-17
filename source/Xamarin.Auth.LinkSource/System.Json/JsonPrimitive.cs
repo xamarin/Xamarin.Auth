@@ -31,6 +31,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Reflection;
 using System.Text;
 
 
@@ -152,8 +153,7 @@ namespace System.Json
                 if (value == null)
                     return JsonType.String;
 
-                #if !PCL && !PORTABLE && !NETFX_CORE && !WINDOWS_PHONE && !SILVERLIGHT && !WINDOWS_APP && !WINDOWS_PHONE_APP
-                switch (System.Type.GetTypeCode(value.GetType()))
+                switch (value.GetType().GetTypeCode())
                 {
                     case System.TypeCode.Boolean:
                         return JsonType.Boolean;
@@ -165,33 +165,6 @@ namespace System.Json
                     default:
                         return JsonType.Number;
                 }
-                #elif SILVERLIGHT && WINDOWS_PHONE && !WINDOWS_PHONE_81
-                switch (System.Type.GetTypeCode(value.GetType()))
-                {
-                    case System.TypeCode.Boolean:
-                        return JsonType.Boolean;
-                    case System.TypeCode.Char:
-                    case System.TypeCode.String:
-                    case System.TypeCode.DateTime:
-                    case System.TypeCode.Object: // DateTimeOffset || Guid || TimeSpan || Uri
-                        return JsonType.String;
-                    default:
-                        return JsonType.Number;
-                }
-                #else
-                switch (Core.Type.GetTypeCode(value.GetType()))
-                {
-                    case System.TypeCode.Boolean:
-                        return JsonType.Boolean;
-                    case System.TypeCode.Char:
-                    case System.TypeCode.String:
-                    case System.TypeCode.DateTime:
-                    case System.TypeCode.Object: // DateTimeOffset || Guid || TimeSpan || Uri
-                        return JsonType.String;
-                    default:
-                        return JsonType.Number;
-                }
-                #endif
             }
         }
 

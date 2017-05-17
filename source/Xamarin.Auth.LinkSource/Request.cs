@@ -252,7 +252,7 @@ namespace Xamarin.Auth
 
             if (Parameters.Count > 0 && Method != "POST")
             {
-                #if !PORTABLE
+                #if !PORTABLE && !NETFX_CORE
                 var head = Url.AbsoluteUri.Contains('?') ? "&" : "?";
                 #else
 				var head = Url.AbsoluteUri.Contains("?") ? "&" : "?";

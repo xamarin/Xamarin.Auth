@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>15fd0f5a-54bc-482b-b4d4-33c575733ecf</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Xamarin.Auth.Windows.LinkSource</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)AccountStore.WindowsStore81WinRT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authenticator.WindowsStore81WinRT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)DataProtectionExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evolve16.Labs\AuthenticationConfiguration.Windows81Universal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evolve16.Labs\OAuthPlatformPresenter.WinRTWindows81.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlatformSpecific\WinRTAccountStore.Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PlatformSpecific\WinRTAccountStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugins\UIThreadRunInvoker.UniversalWindowsPlatform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.Windows81Universal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebAuthenticator.WindowsStore81WinRT.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebAuthenticatorPage.cs" />
+  </ItemGroup>
+</Project>

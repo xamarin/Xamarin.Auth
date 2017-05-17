@@ -1,7 +1,6 @@
 ﻿{
   "dependencies": {
-    "Microsoft.Bcl.Build": "1.0.21",
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
     "PCLCrypto": "2.0.147"
   },
   "frameworks": {

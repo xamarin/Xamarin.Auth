@@ -8,10 +8,10 @@ using Xamarin.Forms.Platform.WinRT;
     ExportRenderer
         (
             typeof(Xamarin.Auth.XamarinForms.AuthenticatorPage),
-            typeof(Xamarin.Auth.XamarinForms.XamarinAndroid.AuthenticatorPageRenderer)
+            typeof(Xamarin.Auth.XamarinForms.WinRT.AuthenticatorPageRenderer)
         )
 ]
-namespace Xamarin.Auth.XamarinForms.XamarinAndroid
+namespace Xamarin.Auth.XamarinForms.WinRT
 {
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.WinRT.PageRenderer
     {

@@ -66,7 +66,7 @@ namespace Xamarin.Auth
 
         protected AuthenticateUIType GetPlatformUIEmbeddedBrowser()
         {
-            throw new NotImplementedException("PCL bite-n-switch");
+            throw new NotImplementedException("PCL bait-and-switch");
 
             System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
 
