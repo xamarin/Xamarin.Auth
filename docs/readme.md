@@ -17,7 +17,7 @@ client (application).
 
 3.  Presenting/Lunching UI and authenticating user	
 
-	1.	Detecting/Fetching/Intercepting URL change - redirect_url and  
+	1.	Detecting/Fetching/Intercepting URL change (redirect_url)  
 
 		This sub-step is step needed for NativeUI and requires that custom scheme
 		registration together for redirect_url intercepting mechanism. This step	
@@ -30,41 +30,35 @@ client (application).
 		
 	3.	Triggering Events based on OAuth data 
 	
-		Parsing subsytem of the Authenticator will parse OAuth data and raise	
+		Parsing subsystem of the Authenticator will parse OAuth data and raise	
 		appropriate events based on returned data
 
 4.  Using identity 
 
-	1.	Using protected resources (making calls)	
+	1.	Using protected resources (making calls)
 	
 	2.	Saving account info
 	
 	3.	Retrieving account info
   
-
-  
-Those steps and (sub-steps) which will be used in detailed documentation. 
-See [./Details.md](./Details.md).
+Those steps and (sub-steps) which will be used in detailed documentation.
 
 
 ## 0 Server Side 
 
 Server side setup of the particular OAuth provider like Google, Facebook or Microsoft Live
-is the source of misunderstandings and errors. This setup differs from provider to provider,
-especially nomenclature (naming).
-
-In general there are 2 common types of "apps", "projects" or "credentials":
+differs from provider to provider, especially nomenclature (naming).  In general there are 2 common types of "apps", "projects" or "credentials":
 
 1.  Server or Web Application
 
-    Server (Fitbit naming) or Web (Google and Facebook terms) application is considered to be 
+    A server (Fitbit naming) or Web (Google and Facebook terms) application is considered to be 
     secure, i.e. client_secret is secure and can be stored and not easily accessed/retrieved 
     by malicious user.
     
     Server/Web app uses http[s] schemes for redirect_url, because it loads real web page 
     (url-authority can be localhost or real hostname like http://xamarin.com).
     
-    Xamarin.Auth prior to version 1.4.0 used to support only http[s] url-scheme with real   
+    Xamarin.Auth, prior to version 1.4.0, only supported http[s] url-scheme with real   
     url-authority (existing host, no localhost) and arbitrary url-path. 
     
 2.  Native or Installed (mobile or desktop) apps    
@@ -77,19 +71,15 @@ In general there are 2 common types of "apps", "projects" or "credentials":
     
     Xamarin Components Team is working on the doc with minimal info for common used providers 
     and how to setup server side.
-    
-    Xamarin.Auth implements requirements for native/installed apps since NuGet version 1.4.0, 
-    but the API was broken (`GetUI()` returned `System.Object`, so cast was necessary).
 
 Server side setup details is explained in separate documents in Xamarin.Auth repository. 
-See (./details/setup-server-side-oauth-provider.md)[./details/setup-server-side-oauth-provider.md].  
 
 
 
 ## 1 Client Side Initialization
 
-Client (mobile) application initialization is based on Oauth Grant (flow) in use which is determined 
-by OAuth  provider and it's server side setup.
+Client (mobile) application initialization is based on OAuth Grant (flow) in use which is 
+determined by OAuth provider and it's server side setup.
 
 Initialization is performed through `Authenticator` constructors for:
 
@@ -102,7 +92,6 @@ With parameters:
     *   authorizeUrl        
     *   redirectUrl     
     
-[TODO Link to code]
     
 ### OAuth2 Authorization Code Grant flow 
 
@@ -110,19 +99,14 @@ With parameters:
 
     *   clientId   	
     *   clientSecret	
-	*	scope       
+    *   scope       
     *   authorizeUrl  	      
     *   redirectUrl 	
     *   accessTokenUrl	
 
-[TODO Link to code]
-    
-    
 OAuth details and how Xamarin.Auth implements OAuth is described in documentation in
 Xamarin.Auth repo.
-See [./details/oauth.md](./details/oauth.md)
-
-
+	
 ### 1.1 Create and configure an Authenticator
 
 Let's authenticate a user to access Facebook which uses OAuth2 Implicit flow:
@@ -144,8 +128,6 @@ OAuth2Authenticator auth = new OAuth2Authenticator
     );
 ```
 
-[TODO Link to code]
-
 Facebook uses OAuth 2.0 authentication, so we create an `OAuth2Authenticator`. 
 Authenticators are responsible for managing the user interface and communicating with 
 authentication services.
@@ -155,6 +137,13 @@ authorization scope, and Facebook's various service locations are required.
 
 
 ### 1.2 Setup Authentication Event Handlers
+
+Before the UI is presented, user needs to start listening to the `Completed` event which fires 
+when the user successfully authenticates or cancels. One can find out if the authentication 
+succeeded by testing the `IsAuthenticated` property of `eventArgs`:
+
+All the information gathered from a successful authentication is available in 
+`eventArgs.Account`.
 
 To capture events and information in the OAuth flow simply subscribe to Authenticator
 events (add event handlers):
@@ -178,9 +167,6 @@ auth.Completed += (sender, eventArgs) =>
 };
 ```
 
-[TODO Link to code]
-
-
 Xamarin.iOS
 
 ```csharp
@@ -200,21 +186,12 @@ auth.Completed += (sender, eventArgs) =>
 };
 ```
 
-[TODO Link to code]
-
 ## 2. Create Login UI and authenticate user
 
 Creating/Launching UI is platform specific and while authenticators manage their own UI, 
 it's up to user to initially present the authenticator's UI on the screen. This lets one 
 control how the authentication UI is displayed - modally, in navigation controllers, in 
 popovers, etc.
-
-Before the UI is presented, user needs to start listening to the `Completed` event which fires 
-when the user successfully authenticates or cancels. One can find out if the authentication 
-succeeded by testing the `IsAuthenticated` property of `eventArgs`:
-
-All the information gathered from a successful authentication is available in 
-`eventArgs.Account`.
 
 ### 2.1 Creating Login UI 
 
@@ -234,15 +211,11 @@ Android:
 global::Android.Content.Intent ui_object = Auth1.GetUI(this);
 ```
 
-[TODO Link to code]
-
 iOS:
 
 ```csharp
 UIKit.UIViewController ui_object = Auth1.GetUI();
 ```
-
-[TODO Link to code]
 
 ### 2.2 Customizing the UI - Native UI [OPTIONAL]
 
@@ -251,7 +224,7 @@ SFSafariViewController on iOS) there is extra step needed - cast to appropriate 
 API can be accessed (more in Details).
 
 
-## 3 Presenting/Lunching UI and authenticating user
+## 3 Present/Launch the Login UI
 
 This step is platform specific and it is almost impossible to share it across platforms.
 
@@ -263,8 +236,6 @@ StartActivity (ui_object);  // ui_object is Android.Content.Intent
 StartActivity (auth.GetUI (this));
 ```
 
-[TODO Link to code]
-
 On iOS, one would present UI in following way (with differences from old API)
 
 ```csharp
@@ -273,9 +244,6 @@ PresentViewController(ui_object, true, null);
 PresentViewController (auth.GetUI ());
 ```
 
-[TODO Link to code]
-
-On Windows [TODO] 
 
 ### 3.1 Detecting/Fetching/Intercepting URL change (redirect_url)
 
@@ -482,8 +450,6 @@ public class ActivityCustomUrlSchemeInterceptor : Activity
 }
 ```
 
-[TODO link to the code]
-
 On iOS these steps are performed in `AppDelegate.OpenUrl()` method:
 
 ```csharp
@@ -507,9 +473,6 @@ public partial class AppDelegate
     }
 }
 ```
-
-[TODO link to the code]
-
 
 
 ## 4 Using identity 
@@ -545,12 +508,10 @@ request.GetResponseAsync().ContinueWith
     );
 ```
 
-[TODO Link to code]
-
 
 ### 4.2 Store the account
 
-Xamarin.Auth securely stores `Account` objects so that users don't always have to reauthenticate 
+Xamarin.Auth securely stores `Account` objects so that users don't always have to re-authenticate 
 the user. The `AccountStore` class is responsible for storing `Account` information, backed by 
 the 
 [Keychain](https://developer.apple.com/library/ios/#documentation/security/Reference/keychainservices/Reference/reference.html) 
@@ -564,8 +525,6 @@ Creating `AccountStore` on Android:
 AccountStore.Create (this).Save (eventArgs.Account, "Facebook");
 ```
 
-[TODO Link to code]
-
 
 Creating `AccountStore` on iOS:
 
@@ -573,8 +532,6 @@ Creating `AccountStore` on iOS:
 // On iOS:
 AccountStore.Create ().Save (eventArgs.Account, "Facebook");
 ```
-
-[TODO Link to code]
 
 
 Saved Accounts are uniquely identified using a key composed of the account's 
@@ -588,7 +545,7 @@ object.
 
 ## 4.3 Retrieve stored accounts
 
-Fetching all `Account` objects stored for a given service is possible with follwoing API:
+Fetching all `Account` objects stored for a given service is possible with following API:
 
 Retrieving accounts on Android:
 
@@ -596,8 +553,6 @@ Retrieving accounts on Android:
 // On Android:
 IEnumerable<Account> accounts = AccountStore.Create (this).FindAccountsForService ("Facebook");
 ```
-
-[TODO Link to code]
 
 
 Retrieving accounts on iOS:
@@ -607,12 +562,7 @@ Retrieving accounts on iOS:
 IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Facebook");
 ```
 
-[TODO Link to code]
-
-
 It's that easy.
-
-Windows [TODO]
 
 ## Extending Xamarin.Auth - Make customized Authenticator
 
@@ -629,13 +579,11 @@ existing authenticators and start overriding methods.
 Xamarin.Auth can be installed in binary form (compiled and packaged)
 or compiled from source.
  
-Binary form is deployable as Nu from nuget.org or Xamarin Component 
+Binary form is deployable as a NuGet from nuget.org or Xamarin Component 
 from component store:
 
-*	nuget 
-*	Component [UPDATE INPROGRESS]
-
+*	NuGet 
+*	Component [UPDATE IN PROGRESS]
 
 More details about how to compile Xamarin.Auth library and samples can be found in the docs
-in repository on github.
-See [./details/installation-and-compilation.md](./details/installation-and-compilation.md).
+in repository on GitHub.
