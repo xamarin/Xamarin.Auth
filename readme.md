@@ -99,7 +99,7 @@ With parameters:
 
     *   clientId   	
     *   clientSecret	
-    *	 scope       
+    *   scope       
     *   authorizeUrl  	      
     *   redirectUrl 	
     *   accessTokenUrl	
