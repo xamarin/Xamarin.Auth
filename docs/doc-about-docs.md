@@ -1,5 +1,8 @@
 # Doc about Docs
 
+Maintenance docs to reduce effort. Github flavored markdown does not have
+include file option, so information about the docs is kept this way.
+
 There are sets of docs:
 
 *	Component Docs
@@ -18,12 +21,19 @@ There are sets of docs:
 	
 	*	readme.md
 	
+		links to code removed and copied to  
 		(../docs/GettingStarted.md)[../component/GettingStarted.md]
 		
-	*	readme.details.md
+	*	readme-detailed.md
 	
-		(../component/Details.md)[../component/Details.md]		
+		Details about implementation and providers and technology. 
+		
+		Not copied. 
+		
+	*	readme-repo-root.md
 
-*	github repository (root) ./readme.md
+		General info + appended (../component/Details.md)[../component/Details.md]
+		
+		(../readme.md)[../readme.md]
 
-	*	
+		(./readme-repo-root.md)[../readme-repo-root.md]

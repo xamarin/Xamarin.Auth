@@ -1,4 +1,4 @@
-# Details
+# Xamarin.Auth Details
 
 WORK IN PROGRESS
 
