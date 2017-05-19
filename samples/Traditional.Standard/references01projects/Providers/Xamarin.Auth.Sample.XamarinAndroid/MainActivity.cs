@@ -46,7 +46,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             //  and
             //      Native UI ([Chrome] Custom Tabs)
             //  read the docs about pros and cons
-            test_native_ui = false;
+            test_native_ui = true;
             //=================================================================
 
             ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
@@ -240,6 +240,15 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             {
                 // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
                 // In order to access CustomTabs API 
+                Xamarin.Auth.CustomTabsConfiguration.AreAnimationsUsed = true;
+                Xamarin.Auth.CustomTabsConfiguration.IsShowTitleUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsUrlBarHidingUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsCloseButtonIconUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsActionButtonUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsActionBarToolbarIconUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsDefaultShareMenuItemUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.MenuItemTitle = null;
+                Xamarin.Auth.CustomTabsConfiguration.ToolbarColor = global::Android.Graphics.Color.Orange;
             }
 
             // Step 3 Present/Launch the Login UI
