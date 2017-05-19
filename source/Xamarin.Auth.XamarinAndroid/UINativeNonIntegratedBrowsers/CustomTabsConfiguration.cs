@@ -21,7 +21,12 @@ namespace Xamarin.Auth
     {
         static CustomTabsConfiguration()
         {
+            color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
+
+            return;
         }
+
+        static global::Android.Graphics.Color? color_xamarin_blue = null;
 
         public static void Initialize(global::Android.App.Activity a)
         {
@@ -95,11 +100,7 @@ namespace Xamarin.Auth
             }
         }
 
-        public static WebViewFallback WebViewFallback
-        {
-            get;
-            set;
-        }
+
 
         public static string ActionLabel
         {
@@ -111,121 +112,248 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        } = "Action Label";
+        } = "Menu Item Title";
 
-        private const int TOOLBAR_ITEM_ID = 1;
+        public static global::Android.Graphics.Color ToolbarColor
+        {
+            get;
+        	set;
+        }
 
-        static global::Android.Graphics.Color color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
+        public static bool IsShowTitleUsed
+        {
+        	get;
+        	set;
+        }  = true;
+
+        public static bool IsUrlBarHidingUsed
+        {
+        	get;
+        	set;
+        }  = true;
+
+        public static bool IsDefaultShareMenuItemUsed
+        {
+        	get;
+        	set;
+        }  = true;
+
+        public static global::Android.Graphics.Bitmap ActionButtonIconBitmap
+        {
+        	get;
+        	set;
+        }
+
+        public static bool IsActionButtonUsed
+        {
+        	get;
+        	set;
+        }  = true;
+
+        public static bool IsActionBarToolbarIconUsed
+        {
+        	get;
+        	set;
+        }  = true;
+
+        public static global::Android.Graphics.Bitmap ActionBarToolbarIconBitmap
+        {
+        	get;
+        	set;
+        }
+
+        public static bool IsCloseButtonIconUsed
+        {
+        	get;
+        	set;
+        }  = true;
+
+        public static bool AreAnimationsUsed
+        {
+            get;
+            set;
+        } = true;
+
+        public static WebViewFallback WebViewFallback
+        {
+        	get;
+        	set;
+        }
+
+
+
 
         public static void UICustomization()
         {
-            //------------------------------------------------------------
-            // WalkThrough Step 2.2
-            //      UI Customisation
-            //      [OPTIONAL] 
-            // CustomTabsIntent.Builder
+            /*
             CustomTabsIntentBuilder
-                .SetToolbarColor(color_xamarin_blue)
-                .SetShowTitle(true)
-                .EnableUrlBarHiding()
-                .AddDefaultShareMenuItem()
-                ;
+            	.SetToolbarColor(color_xamarin_blue)
+            	.SetShowTitle(true)
+            	.EnableUrlBarHiding()
+            	.AddDefaultShareMenuItem()
+            	;
+            */
 
-            global::Android.Graphics.Bitmap icon = null;
-            PendingIntent pi = null;
-            //............................................................
-            // Action Button Bitmap
-            // Generally do not decode bitmaps in the UI thread. 
-            // Decoding it in the UI thread to keep the example short.
-            icon = global::Android.Graphics.BitmapFactory.DecodeResource
-                                            (
-                                                activity.Resources,
-                                                global::Android.Resource.Drawable.IcMenuShare
-                                            );
-            pi = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_ACTION_BUTTON);
+            if (ToolbarColor != null)
+            {
+                CustomTabsIntentBuilder
+                    .SetToolbarColor(ToolbarColor)
+                        ;
+            }
+            if (IsShowTitleUsed == true)
+            {
+                CustomTabsIntentBuilder
+                    .SetShowTitle(true)
+                    ;
+            }
+            if (IsUrlBarHidingUsed == true)
+            {
+                CustomTabsIntentBuilder
+                    .EnableUrlBarHiding()
+                    ;
+            }
+            if (IsDefaultShareMenuItemUsed == true)
+            {
+                CustomTabsIntentBuilder
+                    .AddDefaultShareMenuItem()
+                    ;
+            }
 
-            CustomTabsIntentBuilder
-                .SetActionButton(icon, ActionLabel, pi)
-                ;
-            //............................................................
 
-            //............................................................
-            // menu
-            PendingIntent pi_menu_item = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_MENU_ITEM);
-
-            CustomTabsIntentBuilder.AddMenuItem(MenuItemTitle, pi_menu_item);
-            //............................................................
-
-            //............................................................
-            // Action Label Toolbar
-            // Generally do not decode bitmaps in the UI thread. 
-            // Decoding it in the UI thread to keep the example short.
-            icon = global::Android.Graphics.BitmapFactory.DecodeResource
+            if (IsActionButtonUsed == true)
+            {
+                PendingIntent pi = null;
+                //............................................................
+                // Action Button Bitmap
+                // Generally do not decode bitmaps in the UI thread. 
+                // Decoding it in the UI thread to keep the example short.
+                ActionButtonIconBitmap = global::Android.Graphics.BitmapFactory.DecodeResource
                                                 (
                                                     activity.Resources,
                                                     global::Android.Resource.Drawable.IcMenuShare
                                                 );
-            pi = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_TOOLBAR);
+                pi = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_ACTION_BUTTON);
 
-            CustomTabsIntentBuilder.AddToolbarItem(TOOLBAR_ITEM_ID, icon, ActionLabel, pi);
+                CustomTabsIntentBuilder
+                    .SetActionButton(ActionButtonIconBitmap, ActionLabel, pi)
+                    ;
+
+                // TODO: ufff leaks? 
+                // ActionButtonIconBitmap = null;
+                // pi = null;
+            }
+
+
+            //............................................................
+            // menu
+            if (!string.IsNullOrEmpty(MenuItemTitle))
+            {
+                PendingIntent pi_menu_item = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_MENU_ITEM);
+                CustomTabsIntentBuilder.AddMenuItem(MenuItemTitle, pi_menu_item);
+
+                // TODO: ufff leaks? 
+                // ActionButtonIconBitmap = null;
+                // pi_menu_item = null;
+            }
             //............................................................
 
-            //............................................................
-            // Custom Back Button Bitmap
-            // Generally do not decode bitmaps in the UI thread. 
-            // Decoding it in the UI thread to keep the example short.
-            CustomTabsIntentBuilder
-                .SetCloseButtonIcon
-                    (
-                        global::Android.Graphics.BitmapFactory.DecodeResource
+
+            int TOOLBAR_ITEM_ID = 1;
+
+            if (IsActionBarToolbarIconUsed == true)
+            {
+                //............................................................
+                // Action Label Toolbar
+                // Generally do not decode bitmaps in the UI thread. 
+                // Decoding it in the UI thread to keep the example short.
+                ActionBarToolbarIconBitmap = global::Android.Graphics.BitmapFactory.DecodeResource
                                                     (
                                                         activity.Resources,
-                                                        Resource.Drawable.ic_arrow_back
-                                                    )
-                    );
-            //............................................................
+                                                        global::Android.Resource.Drawable.IcMenuShare
+                                                    );
+                PendingIntent pi = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_ACTION_BUTTON);
+                pi = CreatePendingIntent(CustomTabsActionsBroadcastReceiver.ACTION_TOOLBAR);
 
-            //............................................................
-            // Animations
-            CustomTabsIntentBuilder
-                .SetStartAnimations
+                CustomTabsIntentBuilder.AddToolbarItem(TOOLBAR_ITEM_ID, ActionBarToolbarIconBitmap, ActionLabel, pi);
+                //............................................................
+
+                // TODO: ufff leaks? 
+                // ActionBarToolbarIconBitmap = null;
+                // pi = null;
+
+            }
+
+            if (IsCloseButtonIconUsed == true)
+            {
+                //............................................................
+                // Custom Back Button Bitmap
+                // Generally do not decode bitmaps in the UI thread. 
+                // Decoding it in the UI thread to keep the example short.
+                CustomTabsIntentBuilder
+                    .SetCloseButtonIcon
                         (
-                            activity,
-                            Resource.Animation.slide_in_right,
-                            Resource.Animation.slide_out_left
-                        )
-                .SetExitAnimations
-                        (
-                            activity,
-                            global::Android.Resource.Animation.SlideInLeft,
-                            global::Android.Resource.Animation.SlideOutRight
+                            global::Android.Graphics.BitmapFactory.DecodeResource
+                                                        (
+                                                            activity.Resources,
+                                                            Resource.Drawable.ic_arrow_back
+                                                        )
                         );
-            //............................................................
+                //............................................................
+            }
 
+            if (AreAnimationsUsed == true)
+            {
+                //............................................................
+                // Animations
+                CustomTabsIntentBuilder
+                    .SetStartAnimations
+                            (
+                                activity,
+                                Resource.Animation.slide_in_right,
+                                Resource.Animation.slide_out_left
+                            )
+                    .SetExitAnimations
+                            (
+                                activity,
+                                global::Android.Resource.Animation.SlideInLeft,
+                                global::Android.Resource.Animation.SlideOutRight
+                            );
+                //............................................................
+            }
 
             //............................................................
             // TODO: bottom bar
             //............................................................
             //------------------------------------------------------------
 
-            //------------------------------------------------------------
-            // WalkThrough Step 2.2
-            //      Optimisations
-            //      [OPTIONAL] [RECOMENDED]
-            //          *   WarmUp, 
-            //          *   Prefetching
-            //
-            bool launchable_uri = CustomTabActivityHelper.MayLaunchUrl
-                                        (
-                                            UriAndroidOS,
-                                            null,
-                                            null
-                                        );
+            if (UriAndroidOS != null)
+            {
+                //------------------------------------------------------------
+                //      Optimisations
+                //      [OPTIONAL] [RECOMENDED]
+                //          *   WarmUp, 
+                //          *   Prefetching
+                //
+                bool launchable_uri = CustomTabActivityHelper.MayLaunchUrl
+                                            (
+                                                UriAndroidOS,
+                                                null,
+                                                null
+                                            );
+            }
+
             //------------------------------------------------------------
             //  CustomTabsIntent property getter will call 
             //      CustomTabsIntent.Builder.Build() internally
             CustomTabsIntent
-                .Intent.AddFlags(global::Android.Content.ActivityFlags.NoHistory)
+                .Intent.AddFlags
+                        (
+                            global::Android.Content.ActivityFlags.NoHistory
+                            |
+                            global::Android.Content.ActivityFlags.SingleTop
+                            |
+                            global::Android.Content.ActivityFlags.NewTask
+                        )
                 ;
 
             return;
