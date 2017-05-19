@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{B77004E3-0D8D-4120-B05C-AF789EC02256}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Xamarin.Auth.ANE</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Xamarin.Auth.ANE.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AccountProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAccountProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LeanKitAccount.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OrganizationLink.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AuthorizationType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IApplicationSettings.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ObjectSerializer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ImageUrlUtility.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UserContext.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)User.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)RoleType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)EnumHelper.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ApplicationSettings.cs" />
+  </ItemGroup>
+</Project>

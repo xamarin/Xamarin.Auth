@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EDE30D4F-FC0D-458A-A358-A745FC138DF3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="GitLink, Version=2.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\gitlink.2.4.1\lib\net45\GitLink.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Net.Http.WebRequest" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Net.Http.Primitives">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Extensions">
+      <HintPath>..\packages\Microsoft.Net.Http.2.2.29\lib\net45\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="PCLCrypto">
+      <HintPath>..\packages\PCLCrypto.2.0.147\lib\net45\PCLCrypto.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.Windows.Core">
+      <HintPath>..\packages\PInvoke.Windows.Core.0.5.64\lib\net20\PInvoke.Windows.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.Kernel32">
+      <HintPath>..\packages\PInvoke.Kernel32.0.5.64\lib\net40\PInvoke.Kernel32.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.BCrypt">
+      <HintPath>..\packages\PInvoke.BCrypt.0.5.64\lib\net40\PInvoke.BCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="PInvoke.NCrypt">
+      <HintPath>..\packages\PInvoke.NCrypt.0.5.64\lib\net40\PInvoke.NCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation">
+      <HintPath>..\packages\Validation.2.4.15\lib\net45\Validation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="AccountResult.cs" />
+    <Compile Include="AccountStore.cs" />
+    <Compile Include="AccountStore.netfx.cs" />
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Authenticator.cs" />
+    <Compile Include="AuthenticatorCompletedEventArgs.cs" />
+    <Compile Include="AuthenticatorErrorEventArgs.cs" />
+    <Compile Include="AuthException.cs" />
+    <Compile Include="Evolve16.Labs\OAuthLoginPresenter.cs" />
+    <Compile Include="Evolve16.Labs\Security\CryptoUtilities.cs" />
+    <Compile Include="LibraryUtilities.cs" />
+    <Compile Include="PlatformSpecific\FileHelper.cs" />
+    <Compile Include="System.Json\JavaScriptReader.cs" />
+    <Compile Include="System.Json\JsonArray.cs" />
+    <Compile Include="System.Json\JsonObject.cs" />
+    <Compile Include="System.Json\JsonPrimitive.cs" />
+    <Compile Include="System.Json\JsonType.cs" />
+    <Compile Include="System.Json\JsonValue.cs" />
+    <Compile Include="System\Decimal.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="System\DecimalExtensions.cs" />
+    <Compile Include="v.2\HttpWebClientFrameworkType.cs" />
+    <Compile Include="ExceptionEx.cs" />
+    <Compile Include="FormAuthenticator.cs" />
+    <Compile Include="OAuth1.cs" />
+    <Compile Include="OAuth1Authenticator.cs" />
+    <Compile Include="OAuth1Request.cs" />
+    <Compile Include="OAuth2Authenticator.cs" />
+    <Compile Include="OAuth2Request.cs" />
+    <Compile Include="Request.cs" />
+    <Compile Include="Response.cs" />
+    <Compile Include="WebAuthenticator.cs" />
+    <Compile Include="WebAuthenticator.Portable.cs" />
+    <Compile Include="WebEx.cs" />
+    <Compile Include="WebRedirectAuthenticator.cs" />
+    <Compile Include="WebUtilities.cs" />
+    <Compile Include="v.2\OAuth2Authenticator.HttpClient.cs" />
+    <Compile Include="Authenticator.Portable.cs" />
+    <Compile Include="AccountStore.Async.cs">
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Evolve16.Labs\AccountManager.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\AuthenticationUI.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\AuthenticationUIType.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.LinkSource.cs" />
+    <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs" />
+    <Compile Include="Plugins\UIThreadRunInvoker.cs" />
+    <Compile Include="Plugins\IRunInvoker.cs" />
+    <Compile Include="Plugins\UIThreadRunInvoker.LinkSource.cs" />
+    <Compile Include="AccountStoreException.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
+  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>10.0</MinimumVisualStudioVersion>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Xamarin.Auth.SamplesData</RootNamespace>
+    <AssemblyName>Xamarin.Auth.SamplesData</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- A reference to the entire .NET Framework is automatically included -->
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="SampleData\Providers\00-readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\OAuth.cs" />
+    <Compile Include="Helpers\OAuth1.cs" />
+    <Compile Include="Helpers\OAuth2.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleData\Data.cs" />
+    <Compile Include="SampleData\Providers\AmazonOAuth2.cs" />
+    <Compile Include="SampleData\Providers\DropboxOAuth2.cs" />
+    <Compile Include="SampleData\Providers\FacebookOAuth2WWWAppXamarin.cs" />
+    <Compile Include="SampleData\Providers\FacebookOAuth2WWWAppLocalhost.cs" />
+    <Compile Include="SampleData\Providers\FacebookOAuth2WWWApp127001.cs" />
+    <Compile Include="SampleData\Providers\GithubOAuth2HttpsXamarinCom.cs" />
+    <Compile Include="SampleData\Providers\GitLabOAuth2.cs" />
+    <Compile Include="SampleData\Providers\InstagramOAuth2.cs" />
+    <Compile Include="SampleData\Providers\LinkedInOAuth1.cs" />
+    <Compile Include="SampleData\Providers\LinkedInOAuth2.cs" />
+    <Compile Include="SampleData\Providers\MeetupOAuth1.cs" />
+    <Compile Include="SampleData\Providers\MeetupOAuth2.cs" />
+    <Compile Include="SampleData\Providers\MicrosoftLiveOAuth2.cs" />
+    <Compile Include="SampleData\Providers\PaypalOAuth2.cs" />
+    <Compile Include="SampleData\Providers\StackoverflowOAuth2Explicit.cs" />
+    <Compile Include="SampleData\Providers\StackoverflowOAuth2Implicit.cs" />
+    <Compile Include="SampleData\Providers\TwitterOAuth1.cs" />
+    <Compile Include="SampleData\Providers\SlackOAuth2.cs" />
+    <Compile Include="SampleData\Providers\GithubOAuth2HttpXamarinCom.cs" />
+    <Compile Include="SampleData\Providers\GithubOAuth2Https127001.cs" />
+    <Compile Include="SampleData\Providers\GithubOAuth2HttpsLocalHost.cs" />
+    <Compile Include="SampleData\Providers\GithubOAuth2XamarinAuthSchemeLocalhost.cs" />
+    <Compile Include="SampleData\Providers\FitbitOAuth2.cs" />
+    <Compile Include="SampleData\Providers\FiveHundredPx500PxOAuth1Xamarin.cs" />
+    <Compile Include="SampleData\Providers\FiveHundredPx500PxOAuth1CustomSchemeLocalhost.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2NativeUIAndroid.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2NativeUIIOS.cs" />
+    <Compile Include="SampleData\Providers\GoogleOAuth2WebApp2015HttpXamarinCom.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="SampleData\Providers\secure\*.secure.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--
+	Secure stuff protected by gitgnore
+	-->
+    <None Include="SampleData\Providers\secure\.gitignore" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="PCLCrypto">
+      <HintPath>..\Traditional.Standard\references01projects\Providers\packages\PCLCrypto.2.0.147\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\PCLCrypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation">
+      <HintPath>..\Traditional.Standard\references01projects\Providers\packages\Validation.2.4.15\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
+      <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
+      <Name>Xamarin.Auth.Portable</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <Import Project="..\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
