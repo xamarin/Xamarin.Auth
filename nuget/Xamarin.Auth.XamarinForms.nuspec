@@ -89,10 +89,6 @@
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
 			-->
 			<group>
-			<!--
-			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
-			-->
-			<group>
 				<dependency id="Microsoft.Bcl.Build" version="1.0.21" />
 				<dependency id="Xamarin.Forms" version="[2.3,)"/>
 				<dependency id="Xamarin.Auth" version="[1.4.1,)"/>
