@@ -1,4 +1,4 @@
-# Xamarin.Auth
+# Xamarin.Auth readme.md
 
 Xamarin.Auth is a cross platform library that helps developers authenticate 
 users via OAuth protocol (OAuth1 and OAuth2). 
