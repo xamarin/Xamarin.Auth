@@ -21,7 +21,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.5.0-alpha-16
+			1.5.0
 		</version>
 		<releaseNotes>
 			native UI support preview - Custom Tabs and SFSafariViewController
@@ -69,7 +69,13 @@
             windows, universal, platform, windows universal platform, uwp
 		</tags>
         <dependencies>
-            <dependency id="Xamarin.Auth" version="[1.4.1,)"/>
+			<!--
+			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
+			-->
+			<group>
+				<dependency id="Microsoft.Bcl.Build" version="1.0.21" />
+            	<dependency id="Xamarin.Auth" version="[1.4.1,)"/>
+			</group>
         </dependencies>
 	</metadata>
 	<files>
