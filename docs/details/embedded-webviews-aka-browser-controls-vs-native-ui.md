@@ -8,6 +8,143 @@ that use Embedded WebViews (Browser Controls on Windows platforms) for security 
 https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html
 
 
+The document is available here:
+
+https://developers.google.com/identity/protocols/OAuth2InstalledApp#request-parameter-redirect_uri
+
+NOTE: 2017-05-20 The document it is changing day by day a lot of information not available 2-3
+weeks ago have made it to the doc.
+
+## TL;DR
+
+Few facts for Google:
+
+*   Google generates custom scheme[s] for `redirect_url` 
+
+    *   based on app info which is provided to Google in developer console:
+
+        *   Android package name (from AndroidManifest.xml)     
+
+            In Visual Studio and Xamarin.Studio go to 
+            
+            Android App +/ Project Options/Properties +/ Android Application +/ Package name
+
+            and copy the value for Package name (something like `com.xamarin.comicbook`)
+
+        *   iOS Bundle Identifier
+        
+            iOS App +/ Open Info.plist +/ Identity +/ Bundle Identifier
+
+            and copy the value for Bundle Identifier (something like `com.xamarin.comicbook`)
+
+### Facebook
+
+https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow
+
+Security
+    Server IP Whitelist
+
+    App requests using the app secret must originate from these IP addresses.
+    Update Settings IP Whitelist
+
+    App Settings can only be updated from these IP addresses.
+
+    Require App Secret
+    Only allow calls from a server and require app secret or app secret proof for all API calls.
+
+Facebook login
+
+    Settings
+
+    Client OAuth Settings
+YesNo
+Client OAuth Login
+Enables the standard OAuth client token flow. Secure your application and prevent abuse by locking down which token redirect URIs are allowed with the options below. Disable globally if not used.
+
+https://developers.facebook.com/docs/facebook-login/security/#surfacearea
+
+Disable Client OAuth Login if your app does not use it. Client OAuth Login is the global on-off switch for using OAuth client token flows. If your app does not use any client OAuth flows, which include Facebook login SDKs, you should disable this flow. Note, though, that you can't request permissions for an access token if you have Client OAuth Login disabled. This setting is found in the Products > Facebook Login > Settings section.
+
+
+YesNo   Web OAuth Login
+Enables web based OAuth client login for building custom login flows.
+
+https://developers.facebook.com/docs/facebook-login/security/#surfacearea
+
+Disable Web OAuth Flow or Specify a Redirect Whitelist. Web OAuth Login settings enables any OAuth client token flows that use the Facebook web login dialog to return tokens to your own website. This setting is in the Products > Facebook Login > Settings section. Disable this setting if you are not building a custom web login flow or using the Facebook Login SDK on the web.
+
+When this setting is enabled you are required to specify a list of OAuth redirect URLs. Specify an exhaustive set of app URLs that are the only valid redirect URLs for your app for returning access tokens and codes from the OAuth flow.
+
+
+
+
+YesNo
+Force Web OAuth Reauthentication
+When on, prompts people to enter their Facebook password in order to log in on the web.
+
+
+YesNo
+Embedded Browser OAuth Login
+Enables browser control redirect uri for OAuth client login.
+
+### iOS
+
+1. Download and Install the Facebook SDK for iOS
+
+    No need. Xamarin.Auth is used.
+
+2. Add Login Kit to your Xcode Project
+
+    Not needed.
+
+3. Add your Bundle Identifier
+
+Bundle ID
+You can change your bundle identifier in the future via the iOS section on the settings page.
+com.xamarin.comicbook.iosRemove
+
+4. Enable Single Sign On for Your App
+
+Enable Single Sign On
+Enable single sign on for your app by setting Single Sign On to Yes below.
+YesNo
+Single Sign On
+Will launch from iOS Notifications
+
+5. Configure Your info.plist
+
+ Configure Your info.plist
+Find the .plist file in the Supporting Files folder in your Xcode Project.
+Right-click your .plist file and choose "Open As Source Code".
+Copy and paste the following XML snippet into the body of your file ( <dict>...</dict>).
+
+
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+  <key>CFBundleURLSchemes</key>
+  <array>
+    <string>fb1889013594699403</string>
+  </array>
+  </dict>
+</array>
+<key>FacebookAppID</key>
+<string>1889013594699403</string>
+<key>FacebookDisplayName</key>
+<string>Xamarin.Auth.Native.ComicBk</string>
+
+
+6. Connect App Delegate
+
+
+
+
+
+## Detailed Recap
+
+To recap and add some information not available in the doc. Some information is scattered in 
+sample repos on github and in other docs.
+
 The key point of Native UI is security, though Google mentions USability too. Web app (or some call 
 it Server app) is considered to be secure. Namely it takes more to get to the filesystem of the 
 server (well maintained) than to some random user smartphone - and to retrieve app id and `client_secret` 
