@@ -1,6 +1,6 @@
 %YAML 1.2
 ---
-version: 1.3.1.1
+version: 1.5.0.0
 name: Xamarin.Auth
 id: xamarin.auth
 publisher: Xamarin
@@ -40,12 +40,12 @@ no_build: true
 is_shell: true
 packages:
   android:
-    - Xamarin.Auth, Version=1.3.1.1
+    - Xamarin.Auth, Version=1.5.0.0
   ios-unified:
-    - Xamarin.Auth, Version=1.3.1.1
+    - Xamarin.Auth, Version=1.5.0.0
   ios:
-    - Xamarin.Auth, Version=1.3.1.1
+    - Xamarin.Auth, Version=1.5.0.0
 local-nuget-repo: ../output/
 samples:
   - name: Android Sample
-    path: ../samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Sample.XamarinAndroid.sln
+    path: ../samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln
