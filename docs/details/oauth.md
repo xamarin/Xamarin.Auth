@@ -1,10 +1,5 @@
 # OAuth in Xamarin.Auth
 
-2 cordova plugins though to make it work on Ionic / Cordova.
-
-SafariViewController - https://github.com/EddyVerbruggen/cordova-plugin-safariviewcontroller32 (this plugin also handles opening the URL in chrome tabs on Android).
-CustomURLScheme - https://github.com/EddyVerbruggen/Custom-URL-scheme23 (this handles the second part of the handshake which hands back the control to your application after completing in safari).
-
 
 https://tools.ietf.org/html/draft-ietf-oauth-native-apps-10
 http://wiki.oauth.net/w/page/27249271/OAuth%202%20for%20Native%20Apps
@@ -14,6 +9,11 @@ https://www.oauth.com/oauth2-servers/redirect-uris/redirect-uris-native-apps/
 https://aaronparecki.com/oauth-2-simplified/
 https://developer.chrome.com/extensions/tut_oauth
 http://rasmustc.com/blog/Custom-Facebook-Authentication-with-webapi/
+
+## Libraries implementing OAuth 
+
+https://oauth.net/code/
+
 
 ## Advanced reading (Standards/RFCs)
 
@@ -28,6 +28,12 @@ https://tools.ietf.org/html/draft-ietf-oauth-native-apps-10
 http://ngiriraj.com/socialMedia/oauthlogin/
 
 https://github.com/googlesamples/oauth-apps-for-windows
+
+## Videos
+
+### Server
+
+https://www.youtube.com/watch?v=hnFW65ErJSY
 
 
 ## CustomTabs
