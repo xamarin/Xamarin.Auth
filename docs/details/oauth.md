@@ -4,6 +4,8 @@
 https://tools.ietf.org/html/draft-ietf-oauth-native-apps-10
 http://wiki.oauth.net/w/page/27249271/OAuth%202%20for%20Native%20Apps
 https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html
+
+https://www.oauth.com/
 https://www.oauth.com/oauth2-servers/redirect-uris/redirect-uris-native-apps/
 
 https://aaronparecki.com/oauth-2-simplified/

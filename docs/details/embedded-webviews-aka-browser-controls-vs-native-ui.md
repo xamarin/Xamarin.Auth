@@ -2,11 +2,52 @@
 
 embedded-webviews-aka-browser-controls-vs-native-ui.md
 
+## TL;DR - Embedded WebViews vs Native UI
+
+*   Embedded WebViews have bigger API surface 
+
+    Bigger API surface means more opportunities for malicious software/users, from ability
+    to decompile application, to ability to read loaded URL, manipulate cache and cookies.
+
+*   Embedded WebViews have seamless UX
+
+    Embedded WebViews usage does not leave application and launches external system browser,
+    meaning user stays in the application.
+
+*   Embedded WebViews do not require advanced programming techniques
+
+    Leaving application to perform authentication in external browser means the callback
+    (return to the application) from browser must be implemented. The only and proper 
+    technique for that is called "Deep App Linking" (or just Deep Linking or App Linking).
+    This technique is everything, but trivial, because developer needs to register callback
+    custom schemes and implement scheme intercepting which is platform specific.
+
+*   Native UI has 'reduced API surface'
+
+    'Reduced API surface' means that in most cases (most meaning **all** - for Android CustomTabs
+    and iOS SFSafariWebView) developer is not able to:
+    
+    *   retrieve URL loaded in the (system, external) browser
+
+    *   manipulate Cookies and Cache 
+
+*   Native UI is based on maintained codebase of system browser
+
+    *   Android - Chromium/Chrome browser
+    *   iOS - Safari browser
+
+*   Native UI is regularly updated by system updates (browser updates)
+
+*   Native UI utilizes browser identity (password/account) management (built-in or as plugin)
+
+
+## Details 
+
+
 In 2016-08 (2016-06-22) on Google's develoers' blog Google announced ban for OAuth implementations
 that use Embedded WebViews (Browser Controls on Windows platforms) for security reasons.
 
 https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html
-
 
 The document is available here:
 
@@ -14,6 +55,13 @@ https://developers.google.com/identity/protocols/OAuth2InstalledApp#request-para
 
 NOTE: 2017-05-20 The document it is changing day by day a lot of information not available 2-3
 weeks ago have made it to the doc.
+
+## Remarks
+
+### `redirect_url`
+
+
+
 
 ## TL;DR
 
@@ -77,7 +125,6 @@ When this setting is enabled you are required to specify a list of OAuth redirec
 
 
 
-
 YesNo
 Force Web OAuth Reauthentication
 When on, prompts people to enter their Facebook password in order to log in on the web.
@@ -86,6 +133,14 @@ When on, prompts people to enter their Facebook password in order to log in on t
 YesNo
 Embedded Browser OAuth Login
 Enables browser control redirect uri for OAuth client login.
+
+Disable embedded browser OAuth flow if your app does not use it. Some desktop and mobile native apps authenticate users by doing the OAuth client flow inside an embedded webview. If your app does not do this, then disable the setting in Products > Facebook Login > Settings section.
+
+
+https://github.com/tschellenbach/Django-facebook/issues/376
+
+
+
 
 ### iOS
 
