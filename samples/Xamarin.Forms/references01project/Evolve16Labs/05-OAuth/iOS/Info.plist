@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>ComicBookPCL</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.xamarin.comicbookpcl</string>
+	<string>com.xamarin.comicbook.ios</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
 	<key>CFBundleVersion</key>
@@ -56,6 +56,7 @@
 			<array>
 				<string>com.xamarin.traditional.standard.samples.oauth.providers.ios</string>
 				<string>com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh</string>
+				<string>fb1889013594699403</string>
 			</array>
 			<key>CFBundleURLTypes</key>
 			<string>Viewer</string>

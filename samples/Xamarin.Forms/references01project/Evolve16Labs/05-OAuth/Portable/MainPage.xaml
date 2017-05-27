@@ -32,20 +32,22 @@
                     <Picker 
                         x:Name="pickerUIFrameworks" 
                         ItemsSource="{Binding UIFrameworks}" 
-                        SelectedIndexChanged="pickerUIFrameworks_SelectedIndexChanged"
                         />
                     <Picker 
                         x:Name="pickerFormsImplementations" 
                         ItemsSource="{Binding FormsImplementations}" 
-                        SelectedIndex="{Binding pickerFormsImplementations_SelectedIndex}"
                         />
 
+                    <Picker 
+                        x:Name="pickerNavigationType" 
+                        ItemsSource="{Binding NavigationTypes}" 
+                        />
+                    
                     <OnPlatform x:TypeArguments="View">
                         <OnPlatform.iOS>
                             <Picker
                                x:Name="pickerViews"
                                ItemsSource="{Binding Views}"
-                               SelectedIndex="{Binding pickerViews_SelectedIndex}"
                                />
                         </OnPlatform.iOS>
                         <OnPlatform.Android>
@@ -61,6 +63,10 @@
                         Text="Google OAuth" 
                         />
 
+                    <Button 
+                        x:Name="buttonFacebook" 
+                        Text="Facebook OAuth" 
+                        />
     				
     			</StackLayout>
     		</ScrollView>
