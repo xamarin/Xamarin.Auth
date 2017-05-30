@@ -35,7 +35,7 @@ namespace ComicBook
                     {
                         "com.xamarin.traditional.standard.samples.oauth.providers.android",
                         "com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn",
-                        "fb1889013594699403://localhost/path",
+                        "fb1889013594699403",
                         /*
                         "urn:ietf:wg:oauth:2.0:oob",
                         "urn:ietf:wg:oauth:2.0:oob.auto",
@@ -48,7 +48,15 @@ namespace ComicBook
                         */
                     },
             //DataHost = "localhost",
-            DataPath = "/oauth2redirect"
+            DataHosts = new []
+					{	
+						"localhost",
+						"authorize",
+					},
+            DataPaths = new []
+					{
+						"/oauth2redirect",
+					}
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity

@@ -34,8 +34,9 @@ namespace ComicBook
             DataSchemes = new[]
                     {
                         "com.xamarin.traditional.standard.samples.oauth.providers.android",
-                        /*
                         "com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn",
+                        "fb1889013594699403://localhost/path",
+                        /*
                         "urn:ietf:wg:oauth:2.0:oob",
                         "urn:ietf:wg:oauth:2.0:oob.auto",
                         "http://localhost:PORT",
