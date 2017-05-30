@@ -123,6 +123,7 @@
     <Compile Include="Plugins\IRunInvoker.cs" />
     <Compile Include="Plugins\UIThreadRunInvoker.LinkSource.cs" />
     <Compile Include="AccountStoreException.cs" />
+    <Compile Include="Providers\Google\NativeUIAuthenticator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -130,6 +131,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Providers\Google\" />
+    <Folder Include="Providers\Facebook\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />

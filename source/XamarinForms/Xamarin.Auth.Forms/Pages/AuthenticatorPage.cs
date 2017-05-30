@@ -17,6 +17,16 @@ namespace Xamarin.Auth.XamarinForms
         public AuthenticatorPage()
             : base()
         {
+            this.Title = "Authenticator Page";
+
+            return;
+        }
+
+        public AuthenticatorPage(Authenticator a)
+            : this()
+        {
+            this.Authenticator = a;
+
             return;
         }
 
@@ -43,6 +53,7 @@ namespace Xamarin.Auth.XamarinForms
 
         public void Authentication_Error(object sender, AuthenticatorErrorEventArgs e)
         {
+            #if DEBUG
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"Message   = {e.Message}");
 
@@ -52,6 +63,7 @@ namespace Xamarin.Auth.XamarinForms
 					sb.ToString(),
                     "Close"
                 );
+            #endif
 
             return;
         }
@@ -75,6 +87,11 @@ namespace Xamarin.Auth.XamarinForms
                 was_shown = true;
             }
  
+            return;
+        }
+
+        protected override void OnDisappearing()
+        {
             return;
         }
     }

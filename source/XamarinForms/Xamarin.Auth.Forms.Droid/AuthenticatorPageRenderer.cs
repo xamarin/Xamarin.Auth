@@ -40,6 +40,7 @@ namespace Xamarin.Auth.XamarinForms.XamarinAndroid
             return;
         }
 
+
         protected void Authentication_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
             authenticator_page.Authentication_Completed(sender, e);

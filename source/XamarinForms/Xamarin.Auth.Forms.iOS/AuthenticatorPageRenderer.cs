@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Xamarin.Forms;
 using Xamarin.Forms.Platform.iOS;
+using SafariServices;
+using UIKit;
 
 [assembly:
     ExportRenderer
@@ -15,27 +17,52 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
     [Preserve(AllMembers = true)]
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.iOS.PageRenderer
     {
+        bool renderer_was_shown = false;
+        bool oauth_was_shown = false;
+
+        UIKit.UIViewController uiviewcontorller = null;
+
         public override void ViewDidAppear(bool animated)
         {
-            if (!was_shown)
+            if (oauth_was_shown)
             {
-                was_shown = true;
+				// close Xamarin.Auth.XamarinForms.AuthenticatorPage
+				this.DismissViewController
+                        (
+                            true,
+							async delegate
+                            {
+                                return;
+                            }
+                       );
+            }
+            
+            if (!renderer_was_shown)
+            { 
+                renderer_was_shown = true;
 
                 base.ViewDidAppear(animated);
+
                 authenticator_page = (AuthenticatorPage)base.Element;
 
                 Authenticator = authenticator_page.Authenticator;
                 Authenticator.Completed += Authentication_Completed;
                 Authenticator.Error += Authentication_Error;
 
-    			PresentViewController(Authenticator.GetUI(), true, null);
+                uiviewcontorller = Authenticator.GetUI();
+                PresentViewController
+                    (
+                        uiviewcontorller, 
+                        true, 
+                        () =>
+                        {
+                            oauth_was_shown = true;
+                        }
+                    );
             }
-
 
             return;
         }
-
-        bool was_shown = false;
 
         /*
         protected override void OnElementChanged(VisualElementChangedEventArgs e)
@@ -71,6 +98,15 @@ namespace Xamarin.Auth.XamarinForms.XamarinIOS
         protected void Authentication_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
             authenticator_page.Authentication_Completed(sender, e);
+
+            this.DismissViewController
+                    (
+                        true,
+						async delegate
+                        {
+                            return;
+                        }
+                   );
 
             return;
         }

@@ -209,10 +209,12 @@ namespace Xamarin.Auth
                     (
                         () =>
                         {
-                            StringBuilder sb1 = new StringBuilder();
-                            sb1.AppendLine($"If CustomTabs Login Screen does not close automatically");
-                            sb1.AppendLine($"close CustomTabs by navigating back to the app.");
-                            Toast.MakeText(this, sb1.ToString(), ToastLength.Short).Show();
+                            string msg = CustomTabsConfiguration.CustomTabsClosingMessage;
+
+                            if (msg != null)
+                            {
+                                Toast.MakeText(this, msg, ToastLength.Short).Show();
+                            }
                         }
                     );
             

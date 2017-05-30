@@ -23,6 +23,12 @@ namespace Xamarin.Auth
         {
             color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
 
+            CustomTabsClosingMessage =
+                        "If CustomTabs Login Screen does not close automatically"
+                        + System.Environment.NewLine +
+                        "close CustomTabs by navigating back to the app."
+                        ;
+
             return;
         }
 
@@ -100,7 +106,11 @@ namespace Xamarin.Auth
             }
         }
 
-
+        public static string CustomTabsClosingMessage
+        {
+        	get;
+        	set;
+        }
 
         public static string ActionLabel
         {
