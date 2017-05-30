@@ -98,7 +98,7 @@ Task ("nuget-fixes")
 				DownloadFile
 				(					
 					@"https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe",
-					"../nuget.exe"
+					"./tools/nuget.exe"
 				);
 				
 			}
