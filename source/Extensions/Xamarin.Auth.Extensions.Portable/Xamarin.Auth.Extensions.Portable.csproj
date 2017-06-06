@@ -6,7 +6,7 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{6397C9BB-4FCF-4484-923B-A36093A4253D}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <RootNamespace>Xamarin.Auth.Extensions</RootNamespace>
     <AssemblyName>Xamarin.Auth.Extensions</AssemblyName>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>

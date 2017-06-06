@@ -6,7 +6,7 @@
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <ProjectGuid>{ED88D56E-0677-4735-B083-60A46FA8CB94}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <RootNamespace>Xamarin.Auth.Extensions</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Xamarin.Auth.Extensions</AssemblyName>
     <NuGetPackageImportStamp>
