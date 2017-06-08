@@ -263,6 +263,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Providers\Google\" />
+    <Folder Include="Providers\Facebook\" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Google\NativeUIAuthenticator.cs">
+      <Link>Providers\Google\NativeUIAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Facebook\NativeUIAuthenticator.cs">
+      <Link>Providers\Facebook\NativeUIAuthenticator.cs</Link>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">
       <HintPath>..\packages\PCLCrypto.2.0.147\lib\portable-win81+wpa81\PCLCrypto.dll</HintPath>
       <Private>True</Private>

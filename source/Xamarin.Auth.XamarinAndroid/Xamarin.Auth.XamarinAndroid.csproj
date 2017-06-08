@@ -275,6 +275,18 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Providers\Google\" />
+    <Folder Include="Providers\Facebook\" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Google\NativeUIAuthenticator.cs">
+      <Link>Providers\Google\NativeUIAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Facebook\NativeUIAuthenticator.cs">
+      <Link>Providers\Facebook\NativeUIAuthenticator.cs</Link>
+    </Compile>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

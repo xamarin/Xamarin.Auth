@@ -279,6 +279,18 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Providers\Google\" />
+    <Folder Include="Providers\Facebook\" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Google\NativeUIAuthenticator.cs">
+      <Link>Providers\Google\NativeUIAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Facebook\NativeUIAuthenticator.cs">
+      <Link>Providers\Facebook\NativeUIAuthenticator.cs</Link>
+    </Compile>
+  </ItemGroup>
   <!--
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>

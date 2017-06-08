@@ -175,6 +175,19 @@
     <Folder Include="UINativeNonIntegratedBrowsers\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Providers\" />
+    <Folder Include="Providers\Google\" />
+    <Folder Include="Providers\Facebook\" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Google\NativeUIAuthenticator.cs">
+      <Link>Providers\Google\NativeUIAuthenticator.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Providers\Facebook\NativeUIAuthenticator.cs">
+      <Link>Providers\Facebook\NativeUIAuthenticator.cs</Link>
+    </Compile>
+  </ItemGroup>
+	
+  <ItemGroup>
     <Reference Include="ModernHttpClient">
       <HintPath>..\packages\modernhttpclient.2.4.2\lib\Portable-Net45+WinRT45+WP8+WPA81\ModernHttpClient.dll</HintPath>
     </Reference>
