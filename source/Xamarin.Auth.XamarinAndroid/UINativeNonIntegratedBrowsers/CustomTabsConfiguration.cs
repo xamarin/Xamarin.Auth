@@ -190,11 +190,22 @@ namespace Xamarin.Auth
         	set;
         }
 
-
-
+        public static global::Android.Content.ActivityFlags ActivityFlags
+        {
+            get;
+            set;
+        }
 
         public static void UICustomization()
         {
+            ActivityFlags = 
+                    global::Android.Content.ActivityFlags.NoHistory
+                    |
+                    global::Android.Content.ActivityFlags.SingleTop
+                    |
+                    global::Android.Content.ActivityFlags.NewTask
+                    ;
+
             /*
             CustomTabsIntentBuilder
             	.SetToolbarColor(color_xamarin_blue)
@@ -355,16 +366,7 @@ namespace Xamarin.Auth
             //------------------------------------------------------------
             //  CustomTabsIntent property getter will call 
             //      CustomTabsIntent.Builder.Build() internally
-            CustomTabsIntent
-                .Intent.AddFlags
-                        (
-                            global::Android.Content.ActivityFlags.NoHistory
-                            |
-                            global::Android.Content.ActivityFlags.SingleTop
-                            |
-                            global::Android.Content.ActivityFlags.NewTask
-                        )
-                ;
+            CustomTabsIntent.Intent.AddFlags(ActivityFlags);
 
             return;
         }

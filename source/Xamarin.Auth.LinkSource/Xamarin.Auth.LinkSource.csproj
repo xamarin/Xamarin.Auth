@@ -123,7 +123,6 @@
     <Compile Include="Plugins\IRunInvoker.cs" />
     <Compile Include="Plugins\UIThreadRunInvoker.LinkSource.cs" />
     <Compile Include="AccountStoreException.cs" />
-    <Compile Include="Providers\Google\NativeUIAuthenticator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

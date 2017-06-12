@@ -138,15 +138,9 @@ namespace Xamarin.Auth
                     CustomTabsConfiguration.UriAndroidOS != null
                 )
             {
-                CustomTabsConfiguration.CustomTabsIntent
-                    .Intent.AddFlags
-                                (
-                                    global::Android.Content.ActivityFlags.NoHistory
-                                    |
-                                    global::Android.Content.ActivityFlags.SingleTop
-                                    |
-                                    global::Android.Content.ActivityFlags.NewTask
-                                );
+                CustomTabsConfiguration
+                    .CustomTabsIntent
+                    .Intent.AddFlags(CustomTabsConfiguration.ActivityFlags);
 
                 CustomTabsConfiguration
                     .CustomTabActivityHelper
@@ -165,14 +159,8 @@ namespace Xamarin.Auth
             {
                 // plain CustomTabs no customizations
                 CustomTabsIntent i = new CustomTabsIntent.Builder().Build();
-                i.Intent.AddFlags
-                            (
-                                global::Android.Content.ActivityFlags.NoHistory
-                                |
-                                global::Android.Content.ActivityFlags.SingleTop
-                                |
-                                global::Android.Content.ActivityFlags.NewTask
-                            );
+                i.Intent.AddFlags(CustomTabsConfiguration.ActivityFlags);
+
                 i.LaunchUrl(this, CustomTabsConfiguration.UriAndroidOS);
             }
             //.......................................................
