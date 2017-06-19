@@ -69,8 +69,6 @@ namespace Xamarin.Auth
                         UnknownToastText
                         ;
             }
-
-            return "Something is wrong?!?!";
         }
 
         public static string ActionButtonToastText

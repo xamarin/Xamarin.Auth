@@ -125,10 +125,15 @@ namespace Xamarin.Auth
             webView = new WebView(this)
             {
                 Id = 42,
+
             };
+            webView.Settings.UserAgentString = WebViewConfiguration.Android.UserAgent;
+            Client web_view_client = new Client(this);  // UserAgent set in the class
+                
             webView.Settings.JavaScriptEnabled = true;
-            webView.SetWebViewClient(new Client(this));
+            webView.SetWebViewClient(web_view_client);
             SetContentView(webView);
+
             //---------------------------------------------------------------------------------
 
             //

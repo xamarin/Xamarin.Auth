@@ -234,7 +234,6 @@
       <DependentUpon>AndroidAccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.XamarinAndroid.cs" />
-    <Compile Include="UINativeNonIntegratedBrowsers\XamarinAuthCustomUrlSchemeCallbackActivity.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabActivityHelper.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\PackageManagerHelper.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\IConnectionCallback.cs" />
@@ -249,6 +248,7 @@
     <Compile Include="PlatformSpecific\WebAuthenticatorActivity.WebClient.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabsActionsBroadcastReceiver.cs" />
     <Compile Include="Evolve16.Labs\OAuthLoginPresenter.XamarinAndroid.cs" />
+    <Compile Include="PlatformSpecific\WebViewConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

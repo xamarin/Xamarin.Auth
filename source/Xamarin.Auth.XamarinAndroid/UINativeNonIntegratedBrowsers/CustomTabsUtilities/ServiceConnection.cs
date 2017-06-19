@@ -53,6 +53,8 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 			{
 				connectionCallback.OnServiceDisconnected();
 			}
+
+            return;
 		}
 	}
 

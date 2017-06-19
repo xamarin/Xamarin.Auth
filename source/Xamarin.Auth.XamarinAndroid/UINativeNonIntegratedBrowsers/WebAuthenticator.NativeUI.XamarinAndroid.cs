@@ -24,8 +24,6 @@ namespace Xamarin.Auth
         /// <value>The get platform UI Method.</value>
         public event PlatformUIMethodDelegate PlatformUIMethod;
 
-        global::Android.Graphics.Color color_xamarin_blue;
-
         /// <summary>
         /// Gets the platform Native UI (Android - [Chrome] Custom Tabs).
         /// </summary>

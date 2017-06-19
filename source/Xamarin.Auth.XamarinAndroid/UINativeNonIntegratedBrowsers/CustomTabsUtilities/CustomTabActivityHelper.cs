@@ -101,6 +101,7 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
                                                     //null
                                                 );
                 }
+
                 return custom_tabs_session;
             }
         }

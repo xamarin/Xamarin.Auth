@@ -190,10 +190,31 @@ namespace Xamarin.Auth
         	set;
         }
 
+        public static bool IsWarmUpUsed
+        {
+        	get;
+        	set;
+        }
+
+        public static bool IsPrefetchUsed
+        {
+        	get;
+        	set;
+        }
+
+        private static global::Android.Content.ActivityFlags activity_flags;
         public static global::Android.Content.ActivityFlags ActivityFlags
         {
-            get;
-            set;
+            get
+            {
+                return activity_flags;
+            }
+            set
+            {
+                activity_flags = value;
+
+                return;
+            }
         }
 
         public static void UICustomization()

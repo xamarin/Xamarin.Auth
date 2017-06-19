@@ -322,6 +322,8 @@ namespace Xamarin.Auth
                     return HttpMethod.Trace;
                 case "OPTIONS":
                     return HttpMethod.Options;
+                case "PATCH":
+                    return new HttpMethod("PATCH");
                 default:
                     throw new ArgumentException("method");
             }

@@ -45,7 +45,7 @@ namespace Xamarin.Auth
 		/// Clears all cookies.
 		/// </summary>
 		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public static void ClearCookies()
+		public new static void ClearCookies()
 		{
             throw new NotImplementedException(LibraryUtilities.MessageNotImplementedException);
 		}
@@ -68,12 +68,12 @@ namespace Xamarin.Auth
         {
             throw new NotImplementedException("PCL bite-n-switch");
 
-            System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
+            // System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
 
             // System.Object
-            AuthenticateUIType ui = null;
+            // AuthenticateUIType ui = null;
 
-            return ui;
+            // return ui;
         }
 
         public AuthenticateUIType AuthenticationUIPlatformSpecificEmbeddedBrowser()

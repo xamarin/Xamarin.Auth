@@ -213,7 +213,7 @@ namespace Xamarin.Auth
             #endif
 
             this.Finish();
-            this.CloseCustomTabsProcessKill();
+            //this.CloseCustomTabsProcessKill();
 
             return;
         }
