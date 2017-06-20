@@ -7,10 +7,7 @@
     <ProjectGuid>{ED88D56E-0677-4735-B083-60A46FA8CB94}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Xamarin.Auth.Extensions</RootNamespace>
-    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Xamarin.Auth.Extensions</AssemblyName>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -61,15 +58,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Properties\" />
     <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\Xamarin.Auth.Extensions.LinkSource\OAuth2AuthenticatorExtensions.cs">
-      <Link>OAuth2AuthenticatorExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Extensions.LinkSource\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -83,5 +73,6 @@
       <IsWatchApp>false</IsWatchApp>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\Xamarin.Auth.Extensions.LinkSource\Xamarin.Auth.Extensions.LinkSource.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -7,7 +7,6 @@
     <ProjectGuid>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Xamarin.Auth</RootNamespace>
-    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Xamarin.Auth</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -61,84 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
-      <Link>Account.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
-      <Link>AccountResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
-      <Link>AccountStore.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
-      <Link>AccountStoreException.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
-      <Link>AssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Authenticator.cs">
-      <Link>Authenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AuthenticatorCompletedEventArgs.cs">
-      <Link>AuthenticatorCompletedEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AuthenticatorErrorEventArgs.cs">
-      <Link>AuthenticatorErrorEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
-      <Link>AuthException.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
-      <Link>Evolve16.Labs\AccountManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
-      <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
-      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
-      <Link>ExceptionEx.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\FormAuthenticator.cs">
-      <Link>FormAuthenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1.cs">
-      <Link>OAuth1.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1Authenticator.cs">
-      <Link>OAuth1Authenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth1Request.cs">
-      <Link>OAuth1Request.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth2Authenticator.cs">
-      <Link>OAuth2Authenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth2Request.cs">
-      <Link>OAuth2Request.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Request.cs">
-      <Link>Request.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Response.cs">
-      <Link>Response.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\v.2\HttpWebClientFrameworkType.cs">
-      <Link>v.2\HttpWebClientFrameworkType.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\WebAuthenticator.cs">
-      <Link>WebAuthenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\WebEx.cs">
-      <Link>WebEx.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\WebRedirectAuthenticator.cs">
-      <Link>WebRedirectAuthenticator.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
-      <Link>WebUtilities.cs</Link>
-    </Compile>
     <Compile Include="Authenticator.XamarinIOS.cs" />
     <Compile Include="Evolve16.Labs\AuthenticationConfiguration.XamarinIOS.cs" />
     <Compile Include="FormAuthenticator.XamarinIOS.cs" />
@@ -152,27 +73,9 @@
     <Compile Include="PlatformSpecific\WebAuthenticatorController.cs" />
     <Compile Include="WebAuthenticator.XamarinIOS.cs" />
     <Compile Include="AccountStore.XamarinIOS.cs" />
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
-      <Link>AccountStore.Async.cs</Link>
-    </Compile>
     <Compile Include="PlatformSpecific\KeyChainAccountStore.Aync.cs" />
     <Compile Include="PlatformSpecific\KeyChainAccountStore.cs" />
-    <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
-      <Link>Plugins\UIThreadRunInvoker.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\IRunInvoker.cs">
-      <Link>Plugins\IRunInvoker.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs">
-      <Link>UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs</Link>
-    </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.XamarinIOS.cs" />
-    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUI.cs">
-      <Link>UINativeNonIntegratedBrowsers\AuthenticationUI.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
-      <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
-    </Compile>
     <Compile Include="Plugins\UIThreadRunInvoker.XamarinIOS.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.UIWebView.UIWebViewDelegate.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.WKWebView.WKWebViewNavigationDelegate.cs" />
@@ -187,6 +90,7 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
+  <Import Project="..\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

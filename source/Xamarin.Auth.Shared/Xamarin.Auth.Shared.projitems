@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>8ef0ab11-2369-4d88-a703-5cb98ce9e7a2</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Xamarin.Auth.LinkSource</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Providers\Facebook\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Providers\Google\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Account.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AccountResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AccountStore.Async.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AccountStore.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AccountStoreException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Authenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AuthenticatorCompletedEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AuthenticatorErrorEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)AuthException.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evolve16.Labs\AccountManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evolve16.Labs\OAuthLoginPresenter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Evolve16.Labs\Security\CryptoUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExceptionEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FormAuthenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)LibraryUtilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OAuth1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OAuth1Authenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OAuth1Request.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OAuth2Authenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)OAuth2Request.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugins\IRunInvoker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Plugins\UIThreadRunInvoker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Request.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Response.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System.Json\JavaScriptReader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System.Json\JsonArray.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System.Json\JsonObject.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System.Json\JsonPrimitive.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System.Json\JsonType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System.Json\JsonValue.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\Decimal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)System\DecimalExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UINativeNonIntegratedBrowsers\AuthenticationUI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UINativeNonIntegratedBrowsers\AuthenticationUIType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)v.2\HttpWebClientFrameworkType.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)v.2\OAuth2Authenticator.HttpClient.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebAuthenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebEx.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebRedirectAuthenticator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)WebUtilities.cs" />
+  </ItemGroup>
+</Project>
