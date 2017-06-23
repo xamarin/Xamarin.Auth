@@ -127,6 +127,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj">
+      <Project>{ef012647-f313-4dbf-ba34-f8f6190e4906}</Project>
+      <Name>Xamarin.Auth.Forms.UniversalWindowsPlatform</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Portable\ComicBook.csproj">
       <Project>{e26057ec-7ad5-4ad8-8649-fbe60552163d}</Project>
       <Name>ComicBook</Name>

@@ -13,7 +13,18 @@ namespace ComicBook.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
+
+            //-----------------------------------------------------------------------------------------------
+            // Xamarin.Auth initialization
+
+            // Presenters Initialization
             global::Xamarin.Auth.Presenters.XamarinIOS.AuthenticationConfiguration.Init();
+
+            // User-Agent tweaks for Embedded WebViews (UIWebView and WKWebView)
+            global::Xamarin.Auth.WebViewConfiguration.IOS.UserAgent = "moljac++";
+
+            //-----------------------------------------------------------------------------------------------
+
 
             LoadApplication(new App());
 

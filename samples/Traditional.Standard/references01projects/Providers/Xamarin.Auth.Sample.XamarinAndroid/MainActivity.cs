@@ -10,7 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-using Xamarin.Auth.SampleData;
+using global::Xamarin.Auth;
 
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 
@@ -51,14 +51,12 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
 
-            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
-            // [Chrome] Custom Tabs WarmUp and prefetch
-            custom_tab_activity_helper = new global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper();
+            InitializeNativeUICustomTabs();
 
             return;
         }
 
-        string[] provider_list = Data.TestCases.Keys.ToArray();
+        string[] provider_list = ProviderSamples.Data.TestCases.Keys.ToArray();
 
         string provider = null;
 
@@ -66,18 +64,18 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             provider = provider_list[position];
 
-            Xamarin.Auth.Helpers.OAuth auth;
-            if (!Data.TestCases.TryGetValue(provider, out auth))
+            Xamarin.Auth.ProviderSamples.Helpers.OAuth auth;
+            if (!ProviderSamples.Data.TestCases.TryGetValue(provider, out auth))
             {
                 Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
             }
-            if (auth is Xamarin.Auth.Helpers.OAuth1)
+            if (auth is Xamarin.Auth.ProviderSamples.Helpers.OAuth1)
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth1);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth1);
             }
             else
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth2);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth2);
             }
 
             return;
@@ -107,9 +105,56 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             return;
         }
 
+
+        protected void InitializeNativeUICustomTabs()
+        {
+            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
+            // [Chrome] Custom Tabs WarmUp and prefetch
+            custom_tab_activity_helper = new global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper();
+
+            //-----------------------------------------------------------------------------------------------
+            // Xamarin.Auth initialization
+
+            // User-Agent tweaks for Embedded WebViews (UIWebView and WKWebView)
+            global::Xamarin.Auth.WebViewConfiguration.Android.UserAgent = "moljac++";
+
+            // Xamarin.Auth CustomTabs Initialization/Customisation
+            global::Xamarin.Auth.CustomTabsConfiguration.ActionLabel = null;
+            global::Xamarin.Auth.CustomTabsConfiguration.MenuItemTitle = null;
+            global::Xamarin.Auth.CustomTabsConfiguration.AreAnimationsUsed = true;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsShowTitleUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsUrlBarHidingUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsCloseButtonIconUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsActionButtonUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsActionBarToolbarIconUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsDefaultShareMenuItemUsed = false;
+
+            global::Android.Graphics.Color color_xamarin_blue;
+            color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
+            global::Xamarin.Auth.CustomTabsConfiguration.ToolbarColor = color_xamarin_blue;
+
+
+            // ActivityFlags for tweaking closing of CustomTabs
+            // please report findings!
+            global::Xamarin.Auth.CustomTabsConfiguration.
+               ActivityFlags =
+                    global::Android.Content.ActivityFlags.NoHistory
+                    |
+                    global::Android.Content.ActivityFlags.SingleTop
+                    |
+                    global::Android.Content.ActivityFlags.NewTask
+                    ;
+
+            global::Xamarin.Auth.CustomTabsConfiguration.IsWarmUpUsed = true;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsPrefetchUsed = true;
+            //-----------------------------------------------------------------------------------------------
+
+            return;
+        }
+
         public static OAuth1Authenticator Auth1 = null;
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth1 oauth1)
         {
             // Step 1.1 Creating and configuring an Authenticator
             Auth1 = new OAuth1Authenticator
@@ -153,9 +198,9 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         public static OAuth2Authenticator Auth2 = null;
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth2 oauth2)
         {
-            if(string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
+            if (string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
             {
                 if (oauth2.OAuth_UriAccessToken_UriRequestToken == null)
                 {

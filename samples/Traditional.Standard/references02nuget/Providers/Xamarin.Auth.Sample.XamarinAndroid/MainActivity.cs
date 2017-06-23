@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 
-using Xamarin.Auth.SampleData;
+using global::Xamarin.Auth;
 
 [assembly: UsesPermission(Android.Manifest.Permission.Internet)]
 
@@ -51,14 +51,50 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
             ListAdapter = new ArrayAdapter<String>(this, global::Android.Resource.Layout.SimpleListItem1, provider_list);
 
+            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
             // [Chrome] Custom Tabs WarmUp and prefetch
             custom_tab_activity_helper = new global::Android.Support.CustomTabs.Chromium.SharedUtilities.CustomTabActivityHelper();
 
+            //-----------------------------------------------------------------------------------------------
+            // Xamarin.Auth initialization
 
+            // User-Agent tweaks for Embedded WebViews (UIWebView and WKWebView)
+            global::Xamarin.Auth.WebViewConfiguration.Android.UserAgent = "moljac++";
+
+            // Xamarin.Auth CustomTabs Initialization/Customisation
+            global::Xamarin.Auth.CustomTabsConfiguration.ActionLabel = null;
+            global::Xamarin.Auth.CustomTabsConfiguration.MenuItemTitle = null;
+            global::Xamarin.Auth.CustomTabsConfiguration.AreAnimationsUsed = true;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsShowTitleUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsUrlBarHidingUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsCloseButtonIconUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsActionButtonUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsActionBarToolbarIconUsed = false;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsDefaultShareMenuItemUsed = false;
+
+            global::Android.Graphics.Color color_xamarin_blue;
+            color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
+            global::Xamarin.Auth.CustomTabsConfiguration.ToolbarColor = color_xamarin_blue;
+
+
+            // ActivityFlags for tweaking closing of CustomTabs
+            // please report findings!
+            global::Xamarin.Auth.CustomTabsConfiguration.
+			   ActivityFlags = 
+                    global::Android.Content.ActivityFlags.NoHistory
+                    |
+                    global::Android.Content.ActivityFlags.SingleTop
+                    |
+                    global::Android.Content.ActivityFlags.NewTask
+                    ;
+
+            global::Xamarin.Auth.CustomTabsConfiguration.IsWarmUpUsed = true;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsPrefetchUsed = true;
+            //-----------------------------------------------------------------------------------------------
             return;
         }
 
-        string[] provider_list = Data.TestCases.Keys.ToArray();
+        string[] provider_list = ProviderSamples.Data.TestCases.Keys.ToArray();
 
         string provider = null;
 
@@ -66,18 +102,18 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             provider = provider_list[position];
 
-            Xamarin.Auth.Helpers.OAuth auth;
-            if (!Data.TestCases.TryGetValue(provider, out auth))
+            Xamarin.Auth.ProviderSamples.Helpers.OAuth auth;
+            if (!ProviderSamples.Data.TestCases.TryGetValue(provider, out auth))
             {
                 Toast.MakeText(this, "Unknown OAuth Provider!", ToastLength.Long);
             }
-            if (auth is Xamarin.Auth.Helpers.OAuth1)
+            if (auth is Xamarin.Auth.ProviderSamples.Helpers.OAuth1)
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth1);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth1);
             }
             else
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth2);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth2);
             }
 
             return;
@@ -89,6 +125,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnStart();
 
+            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
             // [Chrome] Custom Tabs WarmUp and prefetch
             custom_tab_activity_helper.BindCustomTabsService(this);
 
@@ -99,6 +136,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
         {
             base.OnStop();
 
+            // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
             // [Chrome] Custom Tabs WarmUp and prefetch
             custom_tab_activity_helper.UnbindCustomTabsService(this);
 
@@ -107,18 +145,16 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         public static OAuth1Authenticator Auth1 = null;
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth1 oauth1)
         {
-            //-------------------------------------------------------------
-            // WalkThrough Step 1
-            //      setting up Authenticator object
+            // Step 1.1 Creating and configuring an Authenticator
             Auth1 = new OAuth1Authenticator
                 (
                     consumerKey: oauth1.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
                     consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
                     requestTokenUrl: oauth1.OAuth1_UriRequestToken,
                     authorizeUrl: oauth1.OAuth_UriAuthorization,
-                    accessTokenUrl: oauth1.OAuth_UriAccessToken,
+                    accessTokenUrl: oauth1.OAuth_UriAccessToken_UriRequestToken,
                     callbackUrl: oauth1.OAuth_UriCallbackAKARedirect,
                     // Native UI API switch
                     //      true    - NEW native UI support 
@@ -129,183 +165,130 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             {
                 AllowCancel = oauth1.AllowCancel,
             };
-            //-------------------------------------------------------------
 
+            // Step 1.2 Subscribing to Authenticator events
             // If authorization succeeds or is canceled, .Completed will be fired.
             Auth1.Completed += Auth_Completed;
             Auth1.Error += Auth_Error;
             Auth1.BrowsingCompleted += Auth_BrowsingCompleted;
 
-            //#####################################################################
-            // WalkThrough Step 2
-            //      creating Presenter (UI) for specific platform
-            // Xamarin.Auth API - Breaking Change
-            //      old API returned global::Android.Content.Intent
-            //Intent ui_intent_as_object = auth.GetUI ();
-            //      new API returns System.Object
+            // Step 2.1 Creating Login UI
             global::Android.Content.Intent ui_object = Auth1.GetUI(this);
 
-            if (Auth1.IsUsingNativeUI == true)
+            if (Auth2.IsUsingNativeUI == true)
             {
-                //=================================================================
-                // WalkThrough Step 2.1
-                //      casting UI object to proper type to work with
-                //
-                // Xamarin.Auth API - Native UI support 
-                //      *   Android - [Chrome] Custom Tabs on Android       
-                //          Android.Support.CustomTabs      
-                //          and 
-                //      *   iOS -  SFSafariViewController     
-                //          SafariServices.SFSafariViewController
-                // on 2014-04-20 google (and some other providers) will work only with this API
-                //  
-                //
-                //  2017-03-25
-                //      NEW UPCOMMING API undocumented work in progress
-                //      soon to be default
-                //      optional API in the future (for backward compatibility)
-                //
-                //  required part
-                //  add 
-                //     following code:
-
-                //  add custom schema (App Linking) handling
-                //      1.  add Activity with IntentFilter to the app
-                //          1.1. Define sheme[s] and host[s] in the IntentFilter
-                //          1.2. in Activity's OnCreate extract URL with custom schema from Intent
-                //          1.3. parse OAuth data from URL obtained in 1.2.
-                //  NOTE[s]
-                //  *   custom scheme support only
-                //      xamarinauth://localhost
-                //      xamarin-auth://localhost
-                //      xamarin.auth://localhost
-                //  *   no http[s] scheme support
-                //------------------------------------------------------------
-
+                // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
+                // In order to access CustomTabs API 
             }
 
-			//------------------------------------------------------------
-			// WalkThrough Step 3
-			//      Launching UI
-			//      [REQUIRED] 
-			StartActivity(ui_object);
-            //------------------------------------------------------------
+            // Step 3 Present/Launch the Login UI
+            StartActivity(ui_object);
 
             return;
         }
 
         public static OAuth2Authenticator Auth2 = null;
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth2 oauth2)
         {
-            if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
+            if(string.IsNullOrEmpty(oauth2.OAuth_SecretKey_ConsumerSecret_APISecret))
             {
-                //-------------------------------------------------------------
-                // WalkThrough Step 1
-                //      setting up Authenticator object
-                Auth2 = new OAuth2Authenticator
-                    (
-                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                        scope: oauth2.OAuth2_Scope,
-                        authorizeUrl: oauth2.OAuth_UriAuthorization,
-                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                        // Native UI API switch
-                        //      true    - NEW native UI support 
-                        //      false   - OLD embedded browser API [DEFAULT]
-                        // DEFAULT will be switched to true in the near future 2017-04
-                        isUsingNativeUI: test_native_ui
-                    )
+                if (oauth2.OAuth_UriAccessToken_UriRequestToken == null)
                 {
-                    AllowCancel = oauth2.AllowCancel,
-                };
-                //-------------------------------------------------------------
+                    // Step 1.1 Creating and configuring an Authenticator
+                    Auth2 = new OAuth2Authenticator
+                                    (
+                                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                        scope: oauth2.OAuth2_Scope,
+                                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                        // Native UI API switch
+                                        //      true    - NEW native UI support 
+                                        //      false   - OLD embedded browser API [DEFAULT]
+                                        // DEFAULT will be switched to true in the near future 2017-04
+                                        isUsingNativeUI: test_native_ui
+
+                                    )
+                    {
+                        ShowErrors = false,
+                        AllowCancel = oauth2.AllowCancel,
+                    };
+                }
+                else //if (oauth2.OAuth_UriAccessToken_UriRequestToken != null)
+                {
+                    // Step 1.1 Creating and configuring an Authenticator                        
+                    Auth2 = new OAuth2Authenticator
+                                    (
+                                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                        clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+                                        scope: oauth2.OAuth2_Scope,
+                                        authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                        accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken,
+                                        // Native UI API switch
+                                        //      true    - NEW native UI support 
+                                        //      false   - OLD embedded browser API [DEFAULT]
+                                        // DEFAULT will be switched to true in the near future 2017-04
+                                        isUsingNativeUI: test_native_ui
+
+                                    )
+                    {
+                        ShowErrors = false,
+                        AllowCancel = oauth2.AllowCancel,
+                    };
+                }
             }
             else
             {
-                //-------------------------------------------------------------
-                // WalkThrough Step 1
-                //      setting up Authenticator object
+                // Step 1.1 Creating and configuring an Authenticator
                 Auth2 = new OAuth2Authenticator
-                    (
-                        clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
-                        clientSecret: "93e7f486b09bd1af4c38913cfaacbf8a384a50d2",
-                        scope: oauth2.OAuth2_Scope,
-                        authorizeUrl: oauth2.OAuth_UriAuthorization,
-                        redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-                        accessTokenUrl: oauth2.OAuth2_UriRequestToken,
-                        // Native UI API switch
-                        //      true    - NEW native UI support 
-                        //      false   - OLD embedded browser API [DEFAULT]
-                        // DEFAULT will be switched to true in the near future 2017-04
-                        isUsingNativeUI: test_native_ui
-                    )
+                                (
+                                    clientId: oauth2.OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer,
+                                    clientSecret: oauth2.OAuth_SecretKey_ConsumerSecret_APISecret,
+                                    scope: oauth2.OAuth2_Scope,
+                                    authorizeUrl: oauth2.OAuth_UriAuthorization,
+                                    redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
+                                    accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken,
+                                    // Native UI API switch
+                                    //      true    - NEW native UI support 
+                                    //      false   - OLD embedded browser API [DEFAULT]
+                                    // DEFAULT will be switched to true in the near future 2017-04
+                                    isUsingNativeUI: test_native_ui
+
+                                )
                 {
+                    ShowErrors = false,
                     AllowCancel = oauth2.AllowCancel,
                 };
-                //-------------------------------------------------------------
             }
 
 
+            // Step 1.2 Subscribing to Authenticator events
             // If authorization succeeds or is canceled, .Completed will be fired.
             Auth2.Completed += Auth_Completed;
             Auth2.Error += Auth_Error;
             Auth2.BrowsingCompleted += Auth_BrowsingCompleted;
 
-            //#####################################################################
-            // WalkThrough Step 2
-            //      creating Presenter (UI) for specific platform
-            // Xamarin.Auth API - Breaking Change
-            //      old API returned global::Android.Content.Intent
-            //Intent ui_intent_as_object = auth.GetUI ();
-            //      new API returns System.Object
-            Intent ui_object = Auth2.GetUI(this);
+            // Step 2.1 Creating Login UI 
+            global::Android.Content.Intent ui_object = Auth2.GetUI(this);
 
             if (Auth2.IsUsingNativeUI == true)
             {
-                //=================================================================
-                // WalkThrough Step 2.1
-                //      casting UI object to proper type to work with
-                //
-                // Xamarin.Auth API - Native UI support 
-                //      *   Android - [Chrome] Custom Tabs on Android       
-                //          Android.Support.CustomTabs      
-                //          and 
-                //      *   iOS -  SFSafariViewController     
-                //          SafariServices.SFSafariViewController
-                // on 2014-04-20 google (and some other providers) will work only with this API
-                //  
-                //
-                //  2017-03-25
-                //      NEW UPCOMMING API undocumented work in progress
-                //      soon to be default
-                //      optional API in the future (for backward compatibility)
-                //
-                //  required part
-                //  add 
-                //     following code:
-
-                //------------------------------------------------------------
-                //  add custom schema (App Linking) handling
-                //      1.  add Activity with IntentFilter to the app
-                //          1.1. Define sheme[s] and host[s] in the IntentFilter
-                //          1.2. in Activity's OnCreate extract URL with custom schema from Intent
-                //          1.3. parse OAuth data from URL obtained in 1.2.
-                //  NOTE[s]
-                //  *   custom scheme support only
-                //      xamarinauth://localhost
-                //      xamarin-auth://localhost
-                //      xamarin.auth://localhost
-                //  *   no http[s] scheme support
-                //------------------------------------------------------------
-
+                // Step 2.2 Customizing the UI - Native UI [OPTIONAL]
+                // In order to access CustomTabs API 
+                Xamarin.Auth.CustomTabsConfiguration.AreAnimationsUsed = true;
+                Xamarin.Auth.CustomTabsConfiguration.IsShowTitleUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsUrlBarHidingUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsCloseButtonIconUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsActionButtonUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsActionBarToolbarIconUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.IsDefaultShareMenuItemUsed = false;
+                Xamarin.Auth.CustomTabsConfiguration.MenuItemTitle = null;
+                Xamarin.Auth.CustomTabsConfiguration.ToolbarColor = global::Android.Graphics.Color.Orange;
             }
 
-            //------------------------------------------------------------
-            // WalkThrough Step 3
-            //      Launching UI
-            //      [REQUIRED] 
+            // Step 3 Present/Launch the Login UI
             StartActivity(ui_object);
-            //------------------------------------------------------------
 
             return;
         }
@@ -421,6 +404,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
 
         private void AccountStoreTests(object authenticator, AuthenticatorCompletedEventArgs ee)
         {
+            // Step 4.2 Store the account
             AccountStore account_store = AccountStore.Create(this);
             account_store.Save(ee.Account, provider);
 
@@ -428,6 +412,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             // Android
             // https://kb.xamarin.com/agent/case/225411
             // cannot reproduce 
+            // Step 4.3 Retrieve stored accounts
             Account account1 = account_store.FindAccountsForService(provider).FirstOrDefault();
             if (null != account1)
             {

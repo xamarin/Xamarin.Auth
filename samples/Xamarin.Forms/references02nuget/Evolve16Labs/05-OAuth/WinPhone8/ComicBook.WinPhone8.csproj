@@ -184,14 +184,6 @@
       <HintPath>..\packages\Validation.2.4.15\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Xamarin.Auth, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0-alpha-12\lib\wp8\Xamarin.Auth.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Xamarin.Auth.XamarinForms, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Xamarin.Auth.XamarinForms.1.5.0-alpha-13\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.XamarinForms.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Xamarin.Forms.2.3.4.231\lib\WP80\Xamarin.Forms.Core.dll</HintPath>
       <Private>True</Private>
@@ -210,6 +202,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
+      <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
+      <Name>Xamarin.Auth.WindowsPhone8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WindowsPhone8\Xamarin.Auth.Forms.WindowsPhone8.csproj">
+      <Project>{c5dd0133-9a66-4489-91c3-745d6ed5ffe5}</Project>
+      <Name>Xamarin.Auth.Forms.WindowsPhone8</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>Xamarin.Auth.Forms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Portable\ComicBook.csproj">
       <Project>{e26057ec-7ad5-4ad8-8649-fbe60552163d}</Project>
       <Name>ComicBook</Name>

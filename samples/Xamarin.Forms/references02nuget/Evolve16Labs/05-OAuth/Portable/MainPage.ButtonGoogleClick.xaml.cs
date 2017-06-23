@@ -22,39 +22,39 @@ namespace ComicBook
                      clientId:
                          new Func<string>
                             (
-                                 () =>
-                                 {
-                                     string retval_client_id = "oops something is wrong!";
+                                () =>
+                                {
+                                    string retval_client_id = "oops something is wrong!";
 
-                                     // some people are sending the same AppID for google and other providers
-                                     // not sure, but google (and others) might check AppID for Native/Installed apps
-                                     // Android and iOS against UserAgent in request from 
-                                     // CustomTabs and SFSafariViewContorller
-                                     // TODO: send deliberately wrong AppID and note behaviour for the future
-                                     // fitbit does not care - server side setup is quite liberal
-                                     switch (Xamarin.Forms.Device.RuntimePlatform)
-                                     {
-                                         case "Android":
-                                             retval_client_id = "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com";
-                                             break;
-                                         case "iOS":
-                                             retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
-                                             break;
-                                         case "Windows":
-                                             retval_client_id = "1093596514437-t7ocfv5tqaskkd53llpfi3dtdvk4t35h.apps.googleusercontent.com";
-                                             break;
-                                     }
-                                     return retval_client_id;
-                                 }
+                                    // some people are sending the same AppID for google and other providers
+                                    // not sure, but google (and others) might check AppID for Native/Installed apps
+                                    // Android and iOS against UserAgent in request from 
+                                    // CustomTabs and SFSafariViewContorller
+                                    // TODO: send deliberately wrong AppID and note behaviour for the future
+                                    // fitbit does not care - server side setup is quite liberal
+                                    switch (Xamarin.Forms.Device.RuntimePlatform)
+                                    {
+                                        case "Android":
+                                            retval_client_id = "1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn.apps.googleusercontent.com";
+                                            break;
+                                        case "iOS":
+                                            retval_client_id = "1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh.apps.googleusercontent.com";
+                                            break;
+                                        case "Windows":
+                                            retval_client_id = "1093596514437-t7ocfv5tqaskkd53llpfi3dtdvk4t35h.apps.googleusercontent.com";
+                                            break;
+                                    }
+                                    return retval_client_id;
+                                }
                            ).Invoke(),
-                     clientSecret: null,   // null or ""
-                     authorizeUrl: new Uri("https://accounts.google.com/o/oauth2/auth"),
-                     accessTokenUrl: new Uri("https://www.googleapis.com/oauth2/v4/token"),
-                     redirectUrl:
-                         new Func<Uri>
+                    clientSecret: null,   // null or ""
+                    authorizeUrl: new Uri("http://www.whatsmyua.info/"), //Uri("https://accounts.google.com/o/oauth2/auth"),
+                    accessTokenUrl: new Uri("https://www.googleapis.com/oauth2/v4/token"),
+                    redirectUrl:
+                        new Func<Uri>
                             (
-                                 () =>
-                                 {
+                                () =>
+                                {
 
                                      string uri = null;
 

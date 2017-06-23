@@ -152,24 +152,14 @@
     <Compile Include="TestProvidersController.cs" />
     <Compile Include="Xamarin.Auth\AppDelegate.HandleOpenURL.SchemeCapturing.cs" />
   </ItemGroup>
-  <!--
-  ======================================================================================
-  Classes with partial methods 
-  		*.secure.cs
-  			actual secure/secrt/private data in partial methods
-  -->
   <ItemGroup>
-    <Compile Include="..\..\..\Xamarin.Auth.Sample.Data\SampleData\Providers\*.secure.cs">
-      <Link>SampleData\Providers\*.secure.cs</Link>
-    </Compile>
-  </ItemGroup>
-  <!--
-  ======================================================================================
-  -->
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
+    <ProjectReference Include="..\..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
       <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
-      <Name>Xamarin.Auth.SamplesData</Name>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
+      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
+      <Name>Xamarin.Auth.XamarinIOS</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

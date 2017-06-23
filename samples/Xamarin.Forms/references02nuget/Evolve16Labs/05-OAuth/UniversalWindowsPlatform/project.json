@@ -1,8 +1,6 @@
 ﻿{
   "dependencies": {
-    "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.3",
-    "Xamarin.Auth": "1.5.0-alpha-13",
-    "Xamarin.Auth.XamarinForms": "1.5.0-alpha-13",
+    "Microsoft.NETCore.UniversalWindowsPlatform": "5.1.0",
     "Xamarin.Forms": "2.3.4.231"
   },
   "frameworks": {

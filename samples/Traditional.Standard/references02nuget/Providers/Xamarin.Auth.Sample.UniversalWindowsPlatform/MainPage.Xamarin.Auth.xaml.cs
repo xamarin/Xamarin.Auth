@@ -52,7 +52,7 @@ namespace Xamarin.Auth.Sample
 					consumerSecret: oauth1.OAuth1_SecretKey_ConsumerSecret_APISecret,
 					requestTokenUrl: oauth1.OAuth1_UriRequestToken,
 					authorizeUrl: oauth1.OAuth_UriAuthorization,
-					accessTokenUrl: oauth1.OAuth_UriAccessToken,
+					accessTokenUrl: oauth1.OAuth_UriAccessToken_UriRequestToken,
 					callbackUrl: oauth1.OAuth_UriCallbackAKARedirect
 				);
 
@@ -67,7 +67,8 @@ namespace Xamarin.Auth.Sample
             Type page_type = auth.GetUI();
 
             //(System.Windows.Application.Current.RootVisual as PhoneApplicationFrame).Navigate(uri);
-            this.Frame.Navigate(page_type, auth);
+            Windows.UI.Xaml.Controls.Page this_page = this;
+            this_page.Frame.Navigate(page_type, auth);
 
             return;
 		}
@@ -76,7 +77,7 @@ namespace Xamarin.Auth.Sample
 		{
 			OAuth2Authenticator auth = null;
 
-			if (oauth2.OAuth2_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) 
+			if (oauth2.OAuth_UriAccessToken_UriRequestToken == null || string.IsNullOrEmpty (oauth2.OAuth_SecretKey_ConsumerSecret_APISecret)) 
             {
 				auth = new OAuth2Authenticator 
                 (
@@ -95,7 +96,7 @@ namespace Xamarin.Auth.Sample
 					scope: oauth2.OAuth2_Scope,
 					authorizeUrl: oauth2.OAuth_UriAuthorization,
 					redirectUrl: oauth2.OAuth_UriCallbackAKARedirect,
-					accessTokenUrl: oauth2.OAuth2_UriRequestToken
+					accessTokenUrl: oauth2.OAuth_UriAccessToken_UriRequestToken
 				);
 			}
 

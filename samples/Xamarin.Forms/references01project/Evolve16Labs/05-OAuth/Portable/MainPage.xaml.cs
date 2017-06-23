@@ -58,6 +58,8 @@ namespace ComicBook
 
             buttonGoogle.Clicked += ButtonGoogle_Clicked;
             buttonFacebook.Clicked += ButtonFacebook_Clicked;
+            buttonLinkedIn.Clicked += ButtonLinkedIn_Clicked;
+            buttonMeetUp.Clicked += ButtonMeetUp_Clicked;
 
             return;
         }
@@ -264,8 +266,8 @@ namespace ComicBook
 
         List<string> _UIFrameworks = new List<string>()
         {
-            "Native UI (Custom Tabs or SFSafariViewController",
             "Embedded WebView",
+            "Native UI (Custom Tabs or SFSafariViewController",
         };
 
         bool native_ui = true;

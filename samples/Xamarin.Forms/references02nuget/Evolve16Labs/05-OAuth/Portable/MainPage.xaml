@@ -68,6 +68,15 @@
                         Text="Facebook OAuth" 
                         />
     				
+                    <Button 
+                        x:Name="buttonLinkedIn" 
+                        Text="LinkedIn OAuth" 
+                        />
+					
+                    <Button 
+                        x:Name="buttonMeetUp" 
+                        Text="MeetUp OAuth" 
+                        />
     			</StackLayout>
     		</ScrollView>
     		<Label x:Name="statusText" Grid.Row="1" HorizontalTextAlignment="Center" />

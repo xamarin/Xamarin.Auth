@@ -15,13 +15,7 @@ using Android.Content.PM;
 
 namespace ComicBook
 {
-    //=================================================================
     [Activity(Label = "ActivityCustomUrlSchemeInterceptor", NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
-    // Walthrough Step 4
-    //      Intercepting/Catching/Detecting [redirect] url change 
-    //      App Linking / Deep linking - custom url schemes
-    //      
-    // 
     [
         IntentFilter
         (
@@ -36,6 +30,7 @@ namespace ComicBook
                         "com.xamarin.traditional.standard.samples.oauth.providers.android",
                         "com.googleusercontent.apps.1093596514437-d3rpjj7clslhdg3uv365qpodsl5tq4fn",
                         "fb1889013594699403",
+                        "xamarin-auth",
                         /*
                         "urn:ietf:wg:oauth:2.0:oob",
                         "urn:ietf:wg:oauth:2.0:oob.auto",
@@ -51,17 +46,19 @@ namespace ComicBook
             DataHosts = new []
 					{	
 						"localhost",
-						"authorize",
+						"authorize",                // Facebook in fb1889013594699403://authorize 
 					},
             DataPaths = new []
 					{
-						"/oauth2redirect",
-					}
+                        "/",                        // Facebook
+						"/oauth2redirect",          // Google
+                        "/oauth2redirectpath",      // MeetUp
+					},
+            AutoVerify = true
         )
     ]
     public class ActivityCustomUrlSchemeInterceptor : Activity
-    //=================================================================
-    {
+     {
         string message;
 
         protected override void OnCreate(Bundle savedInstanceState)

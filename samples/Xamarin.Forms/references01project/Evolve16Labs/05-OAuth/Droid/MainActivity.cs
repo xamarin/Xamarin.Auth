@@ -17,8 +17,17 @@ namespace ComicBook
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
+
+            //-----------------------------------------------------------------------------------------------
+            // Xamarin.Auth initialization
+
+            // Presenters Initialization
             global::Xamarin.Auth.Presenters.XamarinAndroid.AuthenticationConfiguration.Init(this, bundle);
 
+            // User-Agent tweaks for Embedded WebViews (UIWebView and WKWebView)
+            global::Xamarin.Auth.WebViewConfiguration.Android.UserAgent = "moljac++";
+
+            // Xamarin.Auth CustomTabs Initialization/Customisation
             global::Xamarin.Auth.CustomTabsConfiguration.ActionLabel = null;
             global::Xamarin.Auth.CustomTabsConfiguration.MenuItemTitle = null;
             global::Xamarin.Auth.CustomTabsConfiguration.AreAnimationsUsed = true;
@@ -32,6 +41,25 @@ namespace ComicBook
             global::Android.Graphics.Color color_xamarin_blue;
             color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
             global::Xamarin.Auth.CustomTabsConfiguration.ToolbarColor = color_xamarin_blue;
+
+
+            // ActivityFlags for tweaking closing of CustomTabs
+            // please report findings!
+            global::Xamarin.Auth.CustomTabsConfiguration.
+               ActivityFlags = 
+                    global::Android.Content.ActivityFlags.NoHistory
+                    |
+                    global::Android.Content.ActivityFlags.SingleTop
+                    |
+                    global::Android.Content.ActivityFlags.NewTask
+                    ;
+
+            global::Xamarin.Auth.CustomTabsConfiguration.IsWarmUpUsed = true;
+            global::Xamarin.Auth.CustomTabsConfiguration.IsPrefetchUsed = true;
+
+
+
+            //-----------------------------------------------------------------------------------------------
 
             LoadApplication(new App());
         }

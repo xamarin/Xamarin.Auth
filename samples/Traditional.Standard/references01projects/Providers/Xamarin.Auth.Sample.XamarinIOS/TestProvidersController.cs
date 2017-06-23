@@ -3,7 +3,7 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Xamarin.Auth.SampleData;
+using Xamarin.Auth.ProviderSamples;
 using SafariServices;
 
 #if !__CLASSIC__
@@ -86,19 +86,19 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
             provider = items[indexPath.Row];
 
-            Xamarin.Auth.Helpers.OAuth auth;
+            Xamarin.Auth.ProviderSamples.Helpers.OAuth auth;
             if (!Data.TestCases.TryGetValue(provider, out auth))
             {
                 UIAlertView alert = new UIAlertView("Error", "Unknown OAuth Provider!", null, "Ok", null);
                 alert.Show();
             }
-            if (auth is Xamarin.Auth.Helpers.OAuth1)
+            if (auth is Xamarin.Auth.ProviderSamples.Helpers.OAuth1)
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth1);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth1);
             }
             else
             {
-                Authenticate(auth as Xamarin.Auth.Helpers.OAuth2);
+                Authenticate(auth as Xamarin.Auth.ProviderSamples.Helpers.OAuth2);
             }
         }
 
@@ -106,7 +106,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
         public static OAuth1Authenticator Auth1 = null;
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth1 oauth1)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth1 oauth1)
         {
             // Step 1.1 Creating and configuring an Authenticator
             Auth1 = new OAuth1Authenticator
@@ -193,7 +193,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
         public static OAuth2Authenticator Auth2 = null;
 
-        private void Authenticate(Xamarin.Auth.Helpers.OAuth2 oauth2)
+        private void Authenticate(Xamarin.Auth.ProviderSamples.Helpers.OAuth2 oauth2)
         {
             if
                 (
@@ -339,7 +339,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             return;
         }
 
-        public void Auth_Completed(object sender, AuthenticatorCompletedEventArgs ee)
+        public void Auth_Completed(object sender, Xamarin.Auth.AuthenticatorCompletedEventArgs ee)
         {
             string title = "Event Auth Completed";
             string msg = null;

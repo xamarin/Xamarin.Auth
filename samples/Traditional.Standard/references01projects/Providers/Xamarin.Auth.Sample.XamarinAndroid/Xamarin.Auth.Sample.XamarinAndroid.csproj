@@ -85,6 +85,8 @@
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Xamarin.Auth\ActivityCustomUrlSchemeInterceptor.cs" />
+    <Compile Include="Xamarin.Auth\MeetUp\ActivityCustomUrlSchemeInterceptor.cs" />
+    <Compile Include="Xamarin.Auth\Facebook\ActivityCustomUrlSchemeInterceptor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -110,9 +112,9 @@
     <Content Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
+    <ProjectReference Include="..\..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
       <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
-      <Name>Xamarin.Auth.SamplesData</Name>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
       <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
@@ -123,6 +125,8 @@
     <Folder Include="CustomTabsUtilities\" />
     <Folder Include="Resources\drawable\" />
     <Folder Include="Xamarin.Auth\" />
+    <Folder Include="Xamarin.Auth\MeetUp\" />
+    <Folder Include="Xamarin.Auth\Facebook\" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />

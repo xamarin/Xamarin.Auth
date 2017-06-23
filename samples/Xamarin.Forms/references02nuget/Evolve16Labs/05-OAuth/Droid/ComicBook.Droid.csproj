@@ -170,14 +170,6 @@
       <Project>{E26057EC-7AD5-4AD8-8649-FBE60552163D}</Project>
       <Name>ComicBook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj">
-      <Project>{1B702A60-3D89-4183-B251-4A07388DCCB5}</Project>
-      <Name>Xamarin.Auth.Forms.Droid</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
-      <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-      <Name>Xamarin.Auth.XamarinAndroid</Name>
-    </ProjectReference>
   </ItemGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

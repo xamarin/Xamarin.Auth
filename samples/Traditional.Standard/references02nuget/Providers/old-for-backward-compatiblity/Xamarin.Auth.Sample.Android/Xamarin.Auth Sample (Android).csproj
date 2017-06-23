@@ -79,9 +79,9 @@
     <AndroidResource Include="Resources\drawable\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
-      <Project>{D46E20A0-DBA9-49A5-B45E-CE4664850445}</Project>
-      <Name>Xamarin.Auth.XamarinAndroid</Name>
+    <ProjectReference Include="..\..\..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
+      <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

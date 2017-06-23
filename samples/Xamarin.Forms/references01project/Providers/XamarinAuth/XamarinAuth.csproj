@@ -78,13 +78,9 @@
       <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
       <Name>Xamarin.Auth.Portable</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.XamarinForms\Xamarin.Auth.XamarinForms.csproj">
-      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
-      <Name>Xamarin.Auth.XamarinForms</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\Xamarin.Auth.SampleData\Xamarin.Auth.SamplesData.csproj">
-      <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
-      <Name>Xamarin.Auth.SamplesData</Name>
+    <ProjectReference Include="..\..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
+      <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

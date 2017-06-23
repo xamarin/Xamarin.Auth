@@ -140,14 +140,6 @@
       <Project>{E26057EC-7AD5-4AD8-8649-FBE60552163D}</Project>
       <Name>ComicBook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj">
-      <Project>{7666F0AB-7493-49F2-82B0-7D51A0250FC9}</Project>
-      <Name>Xamarin.Auth.Forms.iOS</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
-      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
-      <Name>Xamarin.Auth.XamarinIOS</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

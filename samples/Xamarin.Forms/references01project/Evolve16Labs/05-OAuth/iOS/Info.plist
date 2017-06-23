@@ -57,6 +57,7 @@
 				<string>com.xamarin.traditional.standard.samples.oauth.providers.ios</string>
 				<string>com.googleusercontent.apps.1093596514437-cajdhnien8cpenof8rrdlphdrboo56jh</string>
 				<string>fb1889013594699403</string>
+				<string>xamarin-auth</string>
 			</array>
 			<key>CFBundleURLTypes</key>
 			<string>Viewer</string>
