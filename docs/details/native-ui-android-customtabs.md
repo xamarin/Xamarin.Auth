@@ -1,9 +1,5 @@
 # Android CustomTabs (Chrome Custom Tabs)
 
-https://developer.chrome.com/multidevice/android/customtabs
-https://medium.com/google-developers/best-practices-for-custom-tabs-5700e55143ee
-https://www.captechconsulting.com/blogs/an-introduction-to-chrome-custom-tabs-for-android
-
 ## Features
 
 *   possible to save up to 700 ms when opening a link with the CustomTabs by 
@@ -60,3 +56,34 @@ https://developer.android.com/reference/android/support/customtabs/CustomTabsSes
 ## Prefetching
 
 https://groups.google.com/a/chromium.org/forum/#!topic/prerender/OlOYzPhcL78
+
+
+## Troubleshooting
+
+Testing IntentFilter and Activity with 
+
+1.	adb
+
+```		
+	export REDIRECT_URI="xamarin-auth://localhost/oauth2redirect"	
+	adb shell am start -W \
+		-a android.intent.action.VIEW \
+		-c android.intent.category.DEFAULT \
+		-d $REDIRECT_URI		
+```	
+
+2.	html
+
+```html
+<html>
+	<href a="xamarin-auth://localhost/oauth2redirect">Test Custom Scheme</href>
+</html>
+```	
+
+## References
+
+*	https://developer.android.com/reference/android/support/customtabs/package-summary.html
+*	https://developer.chrome.com/multidevice/android/customtabs
+*	https://medium.com/google-developers/best-practices-for-custom-tabs-5700e55143ee
+*	https://www.captechconsulting.com/blogs/an-introduction-to-chrome-custom-tabs-for-android
+
