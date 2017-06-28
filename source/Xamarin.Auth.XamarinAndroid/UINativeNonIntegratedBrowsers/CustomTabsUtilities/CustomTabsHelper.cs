@@ -23,43 +23,46 @@ using Android.Util;
 
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
-
-	/// <summary>
-	/// Helper class for Custom Tabs.
-	/// </summary>
-	public partial class CustomTabsHelper
-	{
+    /// <summary>
+    /// Helper class for Custom Tabs.
+    /// </summary>
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal partial class CustomTabsHelper
+    #else
+    public partial class CustomTabsHelper
+    #endif
+    {
         public static string CustomTabsHelperAndroidLogTag
-		{
-			get;
+        {
+            get;
             set;
-		} = "CustomTabsHelper";
+        } = "CustomTabsHelper";
 
         public static string CustomTabsHelperUri
-		{
-			get;
+        {
+            get;
             set;
-		} = "http://xamarin.com";
+        } = "http://xamarin.com";
 
 
-		private CustomTabsHelper()
-		{
-		}
+        private CustomTabsHelper()
+        {
+        }
 
-		public static void AddKeepAliveExtra(Context context, Intent intent)
-		{
+        public static void AddKeepAliveExtra(Context context, Intent intent)
+        {
             //JAVA TO C# CONVERTER WARNING: The .NET Type.FullName property will not always yield results identical 
             // to the Java Class.getCanonicalName method:
-			Intent keepAliveIntent = (new Intent()).SetClassName(context.PackageName, typeof(KeepAliveService).FullName);
-			intent.PutExtra
+            Intent keepAliveIntent = (new Intent()).SetClassName(context.PackageName, typeof(KeepAliveService).FullName);
+            intent.PutExtra
                     (
-                      PackageManagerHelper.CustomTabsExtraKeepAlive, 
+                      PackageManagerHelper.CustomTabsExtraKeepAlive,
                       keepAliveIntent
                      );
 
             return;
-		}
+        }
 
-	}
+    }
 
 }

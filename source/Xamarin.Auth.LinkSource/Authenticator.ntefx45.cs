@@ -37,28 +37,28 @@ using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// A process and user interface to authenticate a user.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
+    /// <summary>
+    /// A process and user interface to authenticate a user.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class Authenticator
-#else
-	public abstract partial class Authenticator
-#endif
-	{
-		public AuthenticateUIType GetUI ()
-		{
-			return GetPlatformUI ();
-		}
+    #else
+    public abstract partial class Authenticator
+    #endif
+    {
+        public AuthenticateUIType GetUI()
+        {
+            return GetPlatformUI();
+        }
 
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected abstract AuthenticateUIType GetPlatformUI ();
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        protected abstract AuthenticateUIType GetPlatformUI();
 
-	}
+    }
 }
 

@@ -20,15 +20,15 @@ using System.Threading;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that displays a web page.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class WebAuthenticator
-#else
-	public partial class LibraryUtilities 
-#endif
-	{
+    /// <summary>
+    /// An authenticator that displays a web page.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class LibraryUtilities 
+    #else
+    public partial class LibraryUtilities
+    #endif
+    {
         public static readonly string MessageNotImplementedException =
             @"
 Portable Bait And Switch is nuget feature, so the package must be installed in all project.
@@ -36,6 +36,6 @@ Portable Bait And Switch is nuget feature, so the package must be installed in a
 NotImplementedException will indicate that Portable Code from PCL is used and not Platform Specific
 implementation. Please check whether platform specific Assembly is properly installed.
              ";
-	}
+    }
 }
 

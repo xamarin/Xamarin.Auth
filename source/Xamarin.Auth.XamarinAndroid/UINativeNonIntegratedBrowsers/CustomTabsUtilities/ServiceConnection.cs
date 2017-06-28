@@ -15,47 +15,51 @@
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
 
-	using ComponentName = Android.Content.ComponentName;
-	using CustomTabsClient = Android.Support.CustomTabs.CustomTabsClient;
-	using CustomTabsServiceConnection = Android.Support.CustomTabs.CustomTabsServiceConnection;
+    using ComponentName = Android.Content.ComponentName;
+    using CustomTabsClient = Android.Support.CustomTabs.CustomTabsClient;
+    using CustomTabsServiceConnection = Android.Support.CustomTabs.CustomTabsServiceConnection;
 
-	/// <summary>
-	/// Implementation for the CustomTabsServiceConnection that avoids leaking the
-	/// ServiceConnectionCallback
-	/// </summary>
-	public class ServiceConnection : CustomTabsServiceConnection
-	{
-		// A weak reference to the ServiceConnectionCallback to avoid leaking it.
-		private System.WeakReference<IServiceConnectionCallback> mConnectionCallback;
+    /// <summary>
+    /// Implementation for the CustomTabsServiceConnection that avoids leaking the
+    /// ServiceConnectionCallback
+    /// </summary>
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal class ServiceConnection : CustomTabsServiceConnection
+    #else
+    public class ServiceConnection : CustomTabsServiceConnection
+    #endif
+    {
+        // A weak reference to the ServiceConnectionCallback to avoid leaking it.
+        private System.WeakReference<IServiceConnectionCallback> mConnectionCallback;
 
-		public ServiceConnection(IServiceConnectionCallback connectionCallback)
-		{
-			mConnectionCallback = new System.WeakReference<IServiceConnectionCallback>(connectionCallback);
-		}
+        public ServiceConnection(IServiceConnectionCallback connectionCallback)
+        {
+            mConnectionCallback = new System.WeakReference<IServiceConnectionCallback>(connectionCallback);
+        }
 
-		public override void OnCustomTabsServiceConnected(ComponentName name, CustomTabsClient client)
-		{
+        public override void OnCustomTabsServiceConnected(ComponentName name, CustomTabsClient client)
+        {
             IServiceConnectionCallback connectionCallback = null; //mConnectionCallback.Get();
             mConnectionCallback.TryGetTarget(out connectionCallback);//.Get();
 
-			if (connectionCallback != null)
-			{
-				connectionCallback.OnServiceConnected(client);
-			}
-		}
+            if (connectionCallback != null)
+            {
+                connectionCallback.OnServiceConnected(client);
+            }
+        }
 
-		public override void OnServiceDisconnected(ComponentName name)
-		{
+        public override void OnServiceDisconnected(ComponentName name)
+        {
             IServiceConnectionCallback connectionCallback = null; // mConnectionCallback.Get();
             mConnectionCallback.TryGetTarget(out connectionCallback);
 
-			if (connectionCallback != null)
-			{
-				connectionCallback.OnServiceDisconnected();
-			}
+            if (connectionCallback != null)
+            {
+                connectionCallback.OnServiceDisconnected();
+            }
 
             return;
-		}
-	}
+        }
+    }
 
 }

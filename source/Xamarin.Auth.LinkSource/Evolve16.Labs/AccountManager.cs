@@ -10,7 +10,11 @@ namespace Xamarin.Auth.AccountUtilities
     /// Account manager.
     /// Evolve16 Training - class from Labs with modifications
     /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+    internal class AccountManager
+    #else
     public class AccountManager
+    #endif
     {
         string service_id = "service_id";
         public string ServiceId

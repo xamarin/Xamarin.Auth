@@ -1,7 +1,11 @@
 ﻿namespace Xamarin.Auth.Presenters.XamarinIOS
 {
-	public class PlatformOAuthLoginPresenter
-	{
+    #if XAMARIN_AUTH_INTERNAL
+    internal class PlatformOAuthLoginPresenter
+    #else
+    public class PlatformOAuthLoginPresenter
+    #endif	
+    {
 		UIKit.UIViewController rootViewController;
 
 		public void Login (Authenticator authenticator)

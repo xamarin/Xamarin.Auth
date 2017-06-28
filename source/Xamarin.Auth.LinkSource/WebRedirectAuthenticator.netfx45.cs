@@ -22,19 +22,19 @@ using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that displays web pages until a given "redirect" page is encountered. It then
-	/// returns an account with the fragment on that URL.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class WebRedirectAuthenticator : WebAuthenticator
-#else
-	public partial class WebRedirectAuthenticator : WebAuthenticator
-#endif
-	{
-		protected override AuthenticateUIType GetPlatformUI ()
-		{
-			throw new NotImplementedException();
-		}
-	}
+    /// <summary>
+    /// An authenticator that displays web pages until a given "redirect" page is encountered. It then
+    /// returns an account with the fragment on that URL.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+	internal partial class WebRedirectAuthenticator : WebAuthenticator
+    #else
+    public partial class WebRedirectAuthenticator : WebAuthenticator
+    #endif
+    {
+        protected override AuthenticateUIType GetPlatformUI()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

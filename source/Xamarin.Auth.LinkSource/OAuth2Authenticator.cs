@@ -28,11 +28,11 @@ namespace Xamarin.Auth
     /// <summary>
     /// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-    internal class OAuth2Authenticator : WebRedirectAuthenticator
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class OAuth2Authenticator : WebRedirectAuthenticator
+    #else
     public partial class OAuth2Authenticator : WebRedirectAuthenticator
-#endif
+    #endif
     {
         string clientId;
         string clientSecret;

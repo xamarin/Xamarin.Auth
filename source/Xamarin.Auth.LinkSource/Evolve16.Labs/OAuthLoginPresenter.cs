@@ -2,7 +2,11 @@
 
 namespace Xamarin.Auth.Presenters
 {
+    #if XAMARIN_AUTH_INTERNAL
+    internal class OAuthLoginPresenter
+    #else
     public class OAuthLoginPresenter
+	#endif
     {
         public event EventHandler<AuthenticatorCompletedEventArgs> Completed;
 

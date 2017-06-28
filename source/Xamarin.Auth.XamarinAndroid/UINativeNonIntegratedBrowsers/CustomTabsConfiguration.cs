@@ -146,7 +146,7 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static global::Android.Graphics.Bitmap ActionButtonIconBitmap
         {
@@ -158,13 +158,13 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static bool IsActionBarToolbarIconUsed
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static global::Android.Graphics.Bitmap ActionBarToolbarIconBitmap
         {
@@ -176,7 +176,7 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static bool AreAnimationsUsed
         {
@@ -188,7 +188,7 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        }
+        } = new WebViewFallback();
 
         public static bool IsWarmUpUsed
         {
@@ -203,6 +203,11 @@ namespace Xamarin.Auth
         }
 
         private static global::Android.Content.ActivityFlags activity_flags;
+
+        /// <summary>
+        /// ActivityFlags for launching WebAuthenticatorNativeBrowserActivity
+        /// </summary>
+        /// <value>The activity flags.</value>
         public static global::Android.Content.ActivityFlags ActivityFlags
         {
             get
@@ -225,6 +230,8 @@ namespace Xamarin.Auth
                     global::Android.Content.ActivityFlags.SingleTop
                     |
                     global::Android.Content.ActivityFlags.NewTask
+                    |
+                    global::Android.Content.ActivityFlags.ClearTop
                     ;
 
             /*

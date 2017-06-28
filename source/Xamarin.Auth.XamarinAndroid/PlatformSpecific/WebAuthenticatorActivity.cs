@@ -26,15 +26,15 @@ using System.Text;
 namespace Xamarin.Auth
 {
     [Activity(Label = "Web Authenticator")]
-#if XAMARIN_AUTH_INTERNAL
-	internal class WebAuthenticatorActivity : Activity
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    #else
     /// Pull Request - manually added/fixed
     ///		Marshalled NavigationService.GoBack to UI Thread #94
     ///		https://github.com/xamarin/Xamarin.Auth/pull/88
     //public class WebAuthenticatorActivity : Activity
     public partial class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
-#endif
+    #endif
     {
         WebView webView;
 

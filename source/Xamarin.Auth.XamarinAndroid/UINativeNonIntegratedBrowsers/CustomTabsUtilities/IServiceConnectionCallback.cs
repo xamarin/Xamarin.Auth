@@ -20,7 +20,11 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
     /// <summary>
     /// Callback for events when connecting and disconnecting from Custom Tabs Service.
     /// </summary>
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal interface IServiceConnectionCallback
+    #else
     public interface IServiceConnectionCallback
+    #endif
     {
         /// <summary>
         /// Called when the service is connected. </summary>

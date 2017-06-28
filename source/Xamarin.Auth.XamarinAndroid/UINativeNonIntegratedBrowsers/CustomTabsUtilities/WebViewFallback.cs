@@ -19,20 +19,42 @@ using Android.Support.CustomTabs.Chromium.SharedUtilities;
 
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
-
-	/// <summary>
-	/// A Fallback that opens a Webview when Custom Tabs is not available
-	/// </summary>
-	public class WebViewFallback : ICustomTabFallback
-	{
-		public void OpenUri(Activity activity, Uri uri)
-		{
-			Intent intent = new Intent(activity, typeof(Xamarin.Auth.WebViewActivity));
-			intent.PutExtra(Xamarin.Auth.WebViewActivity.EXTRA_URL, uri.ToString());
-			activity.StartActivity(intent);
+    /// <summary>
+    /// A Fallback that opens a Webview when Custom Tabs is not available
+    /// </summary>
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal partial class WebViewFallback : ICustomTabFallback
+    #else
+    public partial class WebViewFallback : ICustomTabFallback
+    #endif
+    {
+        public void OpenUri(Activity activity, Uri uri)
+        {
+            //OpenUriSimple(activity, uri);
+            OpenUriXamarinAuthWebViewActivity(activity, uri);
 
             return;
-		}
-	}
+        }
+
+        protected void OpenUriSimple(Activity activity, Uri uri)
+        {
+            Intent intent = new Intent(Intent.ActionView);
+            intent.SetData(uri);
+            activity.StartActivity(intent);
+
+            return;
+        }
+
+
+        protected void OpenUriXamarinAuthWebViewActivity(Activity activity, Uri uri)
+        {
+            Intent intent = new Intent(activity, typeof(Xamarin.Auth.WebViewActivity));
+            intent.PutExtra(Xamarin.Auth.WebViewActivity.EXTRA_URL, uri.ToString());
+            activity.StartActivity(intent);
+
+            return;
+        }
+
+    }
 
 }

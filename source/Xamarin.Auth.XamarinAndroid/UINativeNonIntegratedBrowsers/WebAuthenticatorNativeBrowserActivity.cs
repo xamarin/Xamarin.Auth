@@ -15,31 +15,30 @@
 //
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Text;
+using System.Linq;
 
 using Android.OS;
 using Android.App;
-using Android.Net.Http;
-using Android.Webkit;
-
-using Xamarin.Utilities.Android;
-using Android.Support.CustomTabs;
-using System.Runtime.Remoting.Contexts;
-using System.Linq;
-using Plugin.Threading;
 using Android.Widget;
+using Android.Support.CustomTabs;
+using Xamarin.Utilities.Android;
+
+using Plugin.Threading;
 
 namespace Xamarin.Auth
 {
     [Activity
         (
             Label = "Web Authenticator Native Broswer",
-            NoHistory = true,
+            // NoHistory = true,
             LaunchMode = global::Android.Content.PM.LaunchMode.SingleTop
         )
     ]
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class WebAuthenticatorNativeBrowserActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    #else
     public partial class WebAuthenticatorNativeBrowserActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    #endif
     {
         internal class State : Java.Lang.Object
         {
@@ -53,6 +52,8 @@ namespace Xamarin.Auth
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
+
+            LaunchCunstomTabsWithUrl = LaunchCunstomTabsWithUrlDefault;
 
             //
             // Load the state either from a configuration change or from the intent.
@@ -127,6 +128,39 @@ namespace Xamarin.Auth
             // Build the UI
             CustomTabsConfiguration.Initialize(this);
             CustomTabsConfiguration.UICustomization();
+
+            LaunchCunstomTabsWithUrl();
+            LaunchCunstomTabsWithUrlAzureMobileServiceClientTeamCode();
+
+            return;
+        }
+
+        public Action LaunchCunstomTabsWithUrl
+        {
+            get;
+            set;
+        }
+
+        private void LaunchCunstomTabsWithUrlAzureMobileServiceClientTeamCode()
+        {
+            CustomTabsConfiguration
+                .CustomTabActivityHelper
+                    .LaunchUrlWithCustomTabsOrFallback
+                        (
+                            // Activity/Context
+                            this,
+                            // CustomTabIntent
+                            CustomTabsConfiguration.CustomTabsIntent,
+                            CustomTabsConfiguration.UriAndroidOS,
+                            //  Fallback if CustomTabs do not exist
+                            CustomTabsConfiguration.WebViewFallback
+                        );
+
+            return;
+        }
+
+        public void LaunchCunstomTabsWithUrlDefault()
+        {
             //.......................................................
             // Launching CustomTabs and url - minimal
             if
@@ -148,10 +182,10 @@ namespace Xamarin.Auth
                             (
                                 // Activity/Context
                                 this,
-                                // CustomTabIntent
+                                // CustomTabInten
                                 CustomTabsConfiguration.CustomTabsIntent,
                                 CustomTabsConfiguration.UriAndroidOS,
-                                //  Fallback if CustomTabs do not exist
+                                //  Fallback if CustomTabs do not exis
                                 CustomTabsConfiguration.WebViewFallback
                             );
             }
@@ -190,6 +224,41 @@ namespace Xamarin.Auth
             return;
         }
 
+        private bool customTabsShown = false;
+
+        protected override void OnPause()
+        {
+            base.OnPause();
+            customTabsShown = true;
+
+            return;
+        }
+
+        #region
+        ///-------------------------------------------------------------------------------------------------
+        /// Pull Request - manually added/fixed
+        ///     Added IsAuthenticated check #88
+        ///     https://github.com/xamarin/Xamarin.Auth/pull/88
+        protected override void OnResume()
+        {
+            base.OnResume();
+            if
+                (
+                    state.Authenticator.AllowCancel
+                    &&
+                    // mc++ state.Authenticator.IsAuthenticated()   // Azure Mobile Services Client fix
+                    customTabsShown                                 // Azure Mobile Services Client fix
+                )
+            {
+                state.Authenticator.OnCancelled();
+            }
+
+            customTabsShown = false;
+
+            return;
+        }
+        ///-------------------------------------------------------------------------------------------------
+        #endregion
         protected void CloseCustomTabs()
         {
             UIThreadRunInvoker ri = new UIThreadRunInvoker(this);
@@ -205,12 +274,12 @@ namespace Xamarin.Auth
                             }
                         }
                     );
-            
-            #if DEBUG
-            StringBuilder sb = new StringBuilder();
+
+#if DEBUG
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendLine($"      CloseCustomTabs");
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-            #endif
+#endif
 
             this.Finish();
             //this.CloseCustomTabsProcessKill();
@@ -221,7 +290,7 @@ namespace Xamarin.Auth
         protected void CloseCustomTabsProcessKill()
         {
             System.Diagnostics.Debug.WriteLine($"      CloseCustomTabs");
-                  ;
+            ;
             ActivityManager manager = GetSystemService(global::Android.Content.Context.ActivityService) as ActivityManager;
             List<ActivityManager.RunningAppProcessInfo> processes = manager.RunningAppProcesses.ToList();
             //List<ActivityManager.RunningTaskInfo> tasks = (manager.Get().ToList();
@@ -255,51 +324,6 @@ namespace Xamarin.Auth
 
 
 
-
-
-
-
-
-
-
-
-        #region
-        ///-------------------------------------------------------------------------------------------------
-        /// Pull Request - manually added/fixed
-        ///		Added IsAuthenticated check #88
-        ///		https://github.com/xamarin/Xamarin.Auth/pull/88
-        protected override void OnResume()
-        {
-            base.OnResume();
-            if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
-            {
-                state.Authenticator.OnCancelled();
-            }
-
-            this.Finish();
-
-            return;
-        }
-        ///-------------------------------------------------------------------------------------------------
-        #endregion
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         void BeginLoadingInitialUrl()
         {
             state.Authenticator.GetInitialUrlAsync().ContinueWith(t =>
@@ -316,7 +340,7 @@ namespace Xamarin.Auth
                 {
                     //TODO: webView.LoadUrl(t.Result.AbsoluteUri);
                 }
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
         }
 
         public override void OnBackPressed()

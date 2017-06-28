@@ -27,27 +27,26 @@ namespace Xamarin.Auth
     /// Type of method used to fetch the username of an account
     /// after it has been successfully authenticated.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal delegate Task<string> GetUsernameAsyncFunc (IDictionary<string, string> accountProperties);
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal delegate Task<string> GetUsernameAsyncFunc (IDictionary<string, string> accountProperties);
+    #else
     public delegate Task<string> GetUsernameAsyncFunc(IDictionary<string, string> accountProperties);
-#endif
+    #endif
 
     /// <summary>
     /// OAuth 1.0 authenticator.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class OAuth1Authenticator 
-        :
+    #if XAMARIN_AUTH_INTERNAL
+    internal class OAuth1Authenticator 
         : 
         WebAuthenticator
         //WebRedirectAuthenticator  //mc++ why not WebRedirectAuthenticator??
-#else
-    public class OAuth1Authenticator 
-        : 
-        WebAuthenticator 
+    #else
+    public class OAuth1Authenticator
+        :
+        WebAuthenticator
         //WebRedirectAuthenticator  //mc++ why not WebRedirectAuthenticator??
-#endif
+    #endif
     {
         string consumerKey;
         string consumerSecret;
@@ -225,7 +224,7 @@ namespace Xamarin.Auth
             if (
                     url.Authority == callbackUrl.Authority
                     //url.Host == callbackUrl.Host 
-                    && 
+                    &&
                     url.AbsolutePath == callbackUrl.AbsolutePath
                 )
             {

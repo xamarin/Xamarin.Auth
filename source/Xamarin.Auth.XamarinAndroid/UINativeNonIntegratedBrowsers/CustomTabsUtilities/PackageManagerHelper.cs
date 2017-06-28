@@ -9,7 +9,11 @@ using System.Text;
 
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal class PackageManagerHelper
+    #else
     public class PackageManagerHelper
+	#endif
     {
         /*
         internal const string STABLE_PACKAGE = "com.android.chrome";

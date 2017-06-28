@@ -14,7 +14,11 @@ using Android.Widget;
 namespace Xamarin.Auth
 {
     [BroadcastReceiver]
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal class CustomTabsActionsBroadcastReceiver : BroadcastReceiver
+    #else
     public class CustomTabsActionsBroadcastReceiver : BroadcastReceiver
+    #endif
     {
         public override void OnReceive(Context context, Intent intent)
         {
@@ -49,22 +53,22 @@ namespace Xamarin.Auth
             switch (actionId)
             {
                 case ACTION_ACTION_BUTTON:
-                    return 
+                    return
                         //context.GetString(Resource.String.action_button_toast_text, url)
                         ActionButtonToastText
                         ;
                 case ACTION_MENU_ITEM:
-                    return 
+                    return
                         //context.GetString(Resource.String.menu_item_toast_text, url)
                         MenuItemToastText
                         ;
                 case ACTION_TOOLBAR:
-                    return 
+                    return
                         //context.GetString(Resource.String.toolbar_toast_text, url)
                         ToolBarToastText
                         ;
                 default:
-                    return 
+                    return
                         //context.GetString(Resource.String.unknown_toast_text, url)
                         UnknownToastText
                         ;
