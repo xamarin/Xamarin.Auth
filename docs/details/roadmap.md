@@ -1,5 +1,7 @@
 # Xamarin.Auth Roadmap 
 
+This doc is subject to discussion (personal roadmap based on user feedback):
+
 1.	Xamarin.Auth Custom Parameters		
 
 	https://stackoverflow.com/questions/40787981/c-sharp-xamarin-ios-add-a-nonce-to-xamarin-auth-request/44792934#44792934
