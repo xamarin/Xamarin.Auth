@@ -27,11 +27,15 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 	TODO -  more links
 	
 	Some provider samples:
+
+	*Azure Active Directory*
 	
 	https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-oauth-code
 	
+	Authorization Code leg/step:
+	
 	| Parameter name   |      Type             |  Description                           |
-	|------------------|:---------------------:|---------------------------------------:|
+	|------------------|:----------------------|------------------------------------------------|
 	| `client_id`      |  required-standard    | app id assigned by registration portal |
 	| `response_type`  |  required-standard    | `code` for authorization flow          |
 	| `scope`          |  required-standard    | scope user consents                    |
@@ -43,6 +47,42 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 	| `domain_hint`    |  optional             |                                        |
 	
 		
+	Token leg/step:
+	
+	| Parameter name   |      Type             |  Description                                |
+	|------------------|:----------------------|------------------------------------------------|
+	| `client_id`      |  required-standard    | app id assigned by registration portal      |
+	| `grant_type`     |  required-standard    | `refresh_token`                             |
+	| `scope`          |  required-standard    | scope user consents                    |
+	| `code`           |  recommended-standard | endpoint for sending responses         |
+	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
+	| `client_secret`  |  standard             | required for web apps, not for native       |
+
+	TODO: state?? check??
+	
+	Refresh Token leg/step:
+	
+	| Parameter name   |      Type             |  Description                                |
+	|------------------|:----------------------|------------------------------------------------|
+	| `client_id`      |  required-standard    | app id assigned by registration portal         |
+	| `grant_type`     |  required-standard    | `authorization_code` for authorization flow    |
+	| `scope`          |  required-standard    | scope user consents                            |
+	| `refresh_token`  |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
+	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
+	| `client_secret`  |  standard             | required for web apps, not for native       |
+	
+	*Google*
+	
+	https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-oauth-code
+	
+	Authorization Code leg/step:
+	
+	| Parameter name   |      Type             |  Description                           |
+	|------------------|:----------------------|------------------------------------------------|
+	| `client_id`      |  required-standard    | app id assigned by registration portal |
+	| `response_type`  |  required-standard    | `code` for authorization flow          |
+	
+	
 	2.	`refresh_token`
 	
 		currently in Xamarin.Auth.Extensions based on University team suggestion:
