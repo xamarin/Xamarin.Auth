@@ -28,49 +28,6 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 	
 	Some provider samples:
 
-	*Azure Active Directory*
-	
-	https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-oauth-code
-	
-	Authorization Code leg/step:
-	
-	| Parameter name   |      Type             |  Description                           |
-	|------------------|:----------------------|------------------------------------------------|
-	| `client_id`      |  required-standard    | app id assigned by registration portal |
-	| `response_type`  |  required-standard    | `code` for authorization flow          |
-	| `scope`          |  required-standard    | scope user consents                    |
-	| `redirect_uri`   |  recommended-standard | endpoint for sending responses         |
-	| `state`          |  recommended-standard | random string to prevent XSS forgery   |
-	| `response_mode`  |  custom               |                                        |
-	| `prompt`         |  optional             |                                        |
-	| `login_hint`     |  optional             |                                        |
-	| `domain_hint`    |  optional             |                                        |
-	
-		
-	Token leg/step:
-	
-	| Parameter name   |      Type             |  Description                                |
-	|--------------------------|-----------------------|------------------------------------------------|
-	| `client_id`      |  required-standard    | app id assigned by registration portal      |
-	| `grant_type`     |  required-standard    | `refresh_token`                             |
-	| `scope`          |  required-standard    | scope user consents                    |
-	| `code`           |  recommended-standard | endpoint for sending responses         |
-	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
-	| `client_secret`  |  standard             | required for web apps, not for native       |
-
-	TODO: state?? check??
-	
-	Refresh Token leg/step:
-	
-	| Parameter name   |      Type             |  Description                                |
-	|--------------------------|-----------------------|------------------------------------------------|
-	| `client_id`      |  required-standard    | app id assigned by registration portal         |
-	| `grant_type`     |  required-standard    | `authorization_code` for authorization flow    |
-	| `scope`          |  required-standard    | scope user consents                            |
-	| `refresh_token`  |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
-	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
-	| `client_secret`  |  standard             | required for web apps, not for native       |
-	
 	*Google*
 	
 	https://developers.google.com/identity/protocols/OAuth2InstalledApp#request-parameter-redirect_uri
@@ -114,6 +71,55 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 	| `grant_type`     |  required-standard    | `authorization_code` for authorization flow    |
 
 	TODO: ??? no `redirect_url` and `scope` ???
+	
+	*Azure Active Directory*
+	
+	https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-oauth-code
+	
+	Authorization Code leg/step:
+	
+	| Parameter name   |      Type             |  Description                           |
+	|------------------|:----------------------|------------------------------------------------|
+	| `client_id`      |  required-standard    | app id assigned by registration portal |
+	| `response_type`  |  required-standard    | `code` for authorization flow          |
+	| `scope`          |  required-standard    | scope user consents                    |
+	| `redirect_uri`   |  recommended-standard | endpoint for sending responses         |
+	| `state`          |  recommended-standard | random string to prevent XSS forgery   |
+	| `response_mode`  |  custom               |                                        |
+	| `prompt`         |  optional             |                                        |
+	| `login_hint`     |  optional             |                                        |
+	| `domain_hint`    |  optional             |                                        |
+	
+		
+	Token leg/step:
+	
+	| Parameter name   |      Type             |  Description                                |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `client_id`      |  required-standard    | app id assigned by registration portal      |
+	| `grant_type`     |  required-standard    | `refresh_token`                             |
+	| `scope`          |  required-standard    | scope user consents                    |
+	| `code`           |  recommended-standard | endpoint for sending responses         |
+	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
+	| `client_secret`  |  standard             | required for web apps, not for native       |
+
+	TODO: state?? check??
+	
+	Refresh Token leg/step:
+	
+	| Parameter name   |      Type             |  Description                                |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `client_id`      |  required-standard    | app id assigned by registration portal         |
+	| `grant_type`     |  required-standard    | `authorization_code` for authorization flow    |
+	| `scope`          |  required-standard    | scope user consents                            |
+	| `refresh_token`  |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
+	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
+	| `client_secret`  |  standard             | required for web apps, not for native       |
+	
+	*Azure Active Directory B2C*
+
+	https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-reference-oauth-code
+	https://github.com/Azure-Samples/active-directory-b2c-xamarin-native
+	
 	
 	
 	
