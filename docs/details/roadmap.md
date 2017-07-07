@@ -28,94 +28,126 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 	
 	Some provider samples:
 
-	*Google*
+	**Google**
 	
-	https://developers.google.com/identity/protocols/OAuth2InstalledApp#request-parameter-redirect_uri
+	https://developers.google.com/identity/protocols/OAuth2InstalledApp
 	
 	Authorization Code leg/step:
 	
-	| Parameter name           |      Type             |  Description                           |
+	| Parameter name           |      Type             |  Description                                   |
 	|--------------------------|-----------------------|------------------------------------------------|
-	| `client_id`              |  required-standard    | app id assigned by registration portal |
-	| `redirect_uri`           |  required-standard    | endpoint for sending responses         |
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `redirect_uri`           |  required-standard    | endpoint for sending responses                 |
 	| `response_type`          |  required-standard    | `code` for authorization flow installed apps   |
-	| `scope`                  |  required-standard    | scope user consents                    |
-	| `state`                  |  recommended-standard | random string to prevent XSS forgery   |
-	| `code_challenge_method`  |  custom               |                                        |
-	| `code_challenge`         |  optional             |                                        |
-	| `login_hint`     |  optional             |                                        |
+	| `scope`                  |  required-standard    | scope user consents                            |
+	| `state`                  |  recommended-standard | random string to prevent XSS forgery           |
+	| `code_challenge_method`  |  optional-custom      |                                                |
+	| `code_challenge`         |  optional-custom      |                                                |
+	| `login_hint`             |  optional-custom      |                                                |
 
 	
 	TODO: `redirect_url` reqired by Google and recommended by Azure Active Directory ?????
 
 	Token leg/step:
 	
-	| Parameter name   |      Type             |  Description                                |
+	| Parameter name           |      Type             |  Description                                   |
 	|--------------------------|-----------------------|------------------------------------------------|
-	| `code`           |  recommended-standard | endpoint for sending responses         |
-	| `client_id`      |  required-standard    | app id assigned by registration portal      |
-	| `client_secret`  |  standard             | required for web apps, not for native       |
-	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
-	| `grant_type`     |  required-standard    | `authorization_code`                             |
-	| `code_verifier`  |  required-standard    | scope user consents                    |
+	| `code`                   |  recommended-standard | endpoint for sending responses                 |
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `client_secret`          |  standard             | required for web apps, not for native          |
+	| `redirect_uri`           |  recommended-standard | random string to prevent XSS forgery           |
+	| `grant_type`             |  required-standard    | `authorization_code`                           |
+	| `code_verifier`          |  required-standard    | scope user consents                            |
 
 	TODO: ??? no `scope` parameter??
 
 	Refresh Token leg/step:
 	
-	| Parameter name   |      Type             |  Description                                |
+	| Parameter name           |      Type             |  Description                                   |
 	|--------------------------|-----------------------|------------------------------------------------|
-	| `refresh_token`  |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
-	| `client_id`      |  required-standard    | app id assigned by registration portal         |
-	| `client_secret`  |  standard             | required for web apps, not for native       |
-	| `grant_type`     |  required-standard    | `authorization_code` for authorization flow    |
+	| `refresh_token`          |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `client_secret`          |  standard             | required for web apps, not for native          |
+	| `grant_type`             |  required-standard    | `authorization_code` for authorization flow    |
 
 	TODO: ??? no `redirect_url` and `scope` ???
+
+	**Google OpenId**
 	
-	*Azure Active Directory*
+	https://developers.google.com/identity/protocols/OpenIDConnect
+	
+	Authorization Code leg/step:
+	
+	| Parameter name           |      Type             |  Description                                   |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `response_type`          |  required-standard    | `code` for authorization flow installed apps   |
+	| `scope`                  |  required-standard    | scope user consents                            |
+	| `redirect_uri`           |  required-standard    | endpoint for sending responses                 |
+	| `state`                  |  recommended-standard | random string to prevent XSS forgery           |
+	| `prompt`                 |  optional-custom      |                                                |
+	| `display`                |  optional-custom      |                                                |
+	| `login_hint`             |  optional-custom      |                                                |
+	| `access_type`            |  optional-custom      |                                                |
+	| `include_granted_scopes` |  optional-custom      |                                                |
+	| `openid.realm`           |  optional-custom      |                                                |
+	| `hd`                     |  optional-custom      |                                                |
+	
+	Token leg/step:
+	
+	| Parameter name           |      Type             |  Description                                   |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `code`                   |  recommended-standard | endpoint for sending responses                 |
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `client_secret`          |  standard             | required for web apps, not for native          |
+	| `redirect_uri`           |  recommended-standard | random string to prevent XSS forgery           |
+	| `grant_type`             |  required-standard    | `authorization_code`                           |
+	
+	
+	**Azure Active Directory**
 	
 	https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-oauth-code
 	
 	Authorization Code leg/step:
 	
-	| Parameter name   |      Type             |  Description                           |
-	|------------------|:----------------------|------------------------------------------------|
-	| `client_id`      |  required-standard    | app id assigned by registration portal |
-	| `response_type`  |  required-standard    | `code` for authorization flow          |
-	| `scope`          |  required-standard    | scope user consents                    |
-	| `redirect_uri`   |  recommended-standard | endpoint for sending responses         |
-	| `state`          |  recommended-standard | random string to prevent XSS forgery   |
-	| `response_mode`  |  custom               |                                        |
-	| `prompt`         |  optional             |                                        |
-	| `login_hint`     |  optional             |                                        |
-	| `domain_hint`    |  optional             |                                        |
+	| Parameter name           |      Type             |  Description                                   |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `response_type`          |  required-standard    | `code` for authorization flow                  |
+	| `scope`                  |  required-standard    | scope user consents                            |
+	| `redirect_uri`           |  recommended-standard | endpoint for sending responses                 |
+	| `state`                  |  recommended-standard | random string to prevent XSS forgery           |
+	| `response_mode`          |  optional-custom      |                                                |
+	| `prompt`                 |  optional-custom      |                                                |
+	| `login_hint`             |  optional-custom      |                                                |
+	| `domain_hint`            |  optional-custom      |                                                |
 	
 		
 	Token leg/step:
 	
-	| Parameter name   |      Type             |  Description                                |
+	| Parameter name           |      Type             |  Description                                           |
 	|--------------------------|-----------------------|------------------------------------------------|
-	| `client_id`      |  required-standard    | app id assigned by registration portal      |
-	| `grant_type`     |  required-standard    | `refresh_token`                             |
-	| `scope`          |  required-standard    | scope user consents                    |
-	| `code`           |  recommended-standard | endpoint for sending responses         |
-	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
-	| `client_secret`  |  standard             | required for web apps, not for native       |
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `grant_type`             |  required-standard    | `refresh_token`                                |
+	| `scope`                  |  required-standard    | scope user consents                            |
+	| `code`                   |  recommended-standard | endpoint for sending responses                 |
+	| `redirect_uri`           |  recommended-standard | random string to prevent XSS forgery           |
+	| `client_secret`          |  standard             | required for web apps, not for native          |
 
 	TODO: state?? check??
 	
 	Refresh Token leg/step:
 	
-	| Parameter name   |      Type             |  Description                                |
+	| Parameter name           |      Type             |  Description                                   |
 	|--------------------------|-----------------------|------------------------------------------------|
-	| `client_id`      |  required-standard    | app id assigned by registration portal         |
-	| `grant_type`     |  required-standard    | `authorization_code` for authorization flow    |
-	| `scope`          |  required-standard    | scope user consents                            |
-	| `refresh_token`  |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
-	| `redirect_uri`   |  recommended-standard | random string to prevent XSS forgery   |
-	| `client_secret`  |  standard             | required for web apps, not for native       |
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `grant_type`             |  required-standard    | `authorization_code` for authorization flow    |
+	| `scope`                  |  required-standard    | scope user consents                            |
+	| `refresh_token`          |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
+	| `redirect_uri`           |  recommended-standard | random string to prevent XSS forgery           |
+	| `client_secret`          |  standard             | required for web apps, not for native          |
 	
-	*Azure Active Directory B2C*
+	**Azure Active Directory B2C**
 
 	https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-reference-oauth-code
 	https://github.com/Azure-Samples/active-directory-b2c-xamarin-native
