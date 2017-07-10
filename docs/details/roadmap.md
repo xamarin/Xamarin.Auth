@@ -121,8 +121,7 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 	| `prompt`                 |  optional-custom      |                                                |
 	| `login_hint`             |  optional-custom      |                                                |
 	| `domain_hint`            |  optional-custom      |                                                |
-	
-		
+			
 	Token leg/step:
 	
 	| Parameter name           |      Type             |  Description                                           |
@@ -152,8 +151,45 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 	https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-reference-oauth-code
 	https://github.com/Azure-Samples/active-directory-b2c-xamarin-native
 	
+	Authorization Code leg/step:
+	
+	| Parameter name           |      Type             |  Description                                   |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `response_type`          |  required-standard    | `code` for authorization flow                  |
+	| `redirect_uri`           |  recommended-standard | endpoint for sending responses                 |
+	| `scope`                  |  required-standard    | scope user consents                            |
+	| `response_mode`          |  optional-custom      |                                                |
+	| `state`                  |  recommended-standard | random string to prevent XSS forgery           |
+	| `p`                      |  required             |                                                |
+	| `prompt`                 |  optional-custom      |                                                |
 	
 	
+	Token leg/step:
+	
+	| Parameter name           |      Type             |  Description                                           |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `client_id`              |  required-standard    | app id assigned by registration portal         |
+	| `grant_type`             |  required-standard    | `refresh_token`                                |
+	| `scope`                  |  recommended          | scope user consents                            |
+	| `code`                   |  required-standard    | endpoint for sending responses                 |
+	| `redirect_uri`           |  required-standard    | random string to prevent XSS forgery           |
+	| `p`                      |  required             | required for web apps, not for native          |
+	
+	NOTE: `client_secret` not required? `p` required?
+
+	Refresh Token leg/step:
+	
+	| Parameter name           |      Type             |  Description                                   |
+	|--------------------------|-----------------------|------------------------------------------------|
+	| `client_id`              |  recommended-standard | app id assigned by registration portal         |
+	| `grant_type`             |  required-standard    | `authorization_code` for authorization flow    |
+	| `scope`                  |  recommended-standard | scope user consents                            |
+	| `redirect_uri`           |  optional-standard    | random string to prevent XSS forgery           |
+	| `refresh_token`          |  required-standard    | `refresh_token` obtained in Token 2nd leg/step |
+	| `p`                      |  required             | required for web apps, not for native          |
+	
+	NOTE: `redirect_url` recommended??
 	
 	2.	`refresh_token`
 	
