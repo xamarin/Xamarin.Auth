@@ -120,12 +120,15 @@ Task ("nuget-fixes")
 				Information("NOT Running on Xamarin CI MacOSX bot");
 			}
 
+			string version = null;
+			
 			if (runs_on_xamarin_ci_macosx_bot)
 			{
 				Information("Running on Xamarin CI MacOSX bot");
 				
-				nuget_location = "../../tools/nuget.2.8.6.exe";
-				nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
+				version = "2.8.6";
+				nuget_location = $"../../tools/nuget.{version}.exe";
+				nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
 				
 				Information("nuget_location = {0} ", nuget_location);
 			}
@@ -135,14 +138,15 @@ Task ("nuget-fixes")
 				{
 					// new nuget is needed for UWP!
 					Information("Running on Windows");
-					nuget_location = "./tools/nuget.4.1.0.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
-					Information("On Mac downloading 4.1.0 to " + nuget_location);				
+					version = "4.1.0";
+					nuget_location = $"./tools/nuget.{version}.exe";
+					nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
+					Information($"On Mac downloading {version} to " + nuget_location);				
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
 						(					
-							@"https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe",
+							$"https://dist.nuget.org/win-x86-commandline/v{version}/nuget.exe",
 							nuget_location
 						);
 					}
@@ -150,17 +154,18 @@ Task ("nuget-fixes")
 				else
 				{
 					Information("Running on MacOSX (non-Windows)");
-					nuget_location = "./tools/nuget.2.8.6.exe";
-					nuget_location_relative_from_cake_exe = "../nuget.2.8.6.exe";
-					Information("On Mac downloading .2.8.6 to " + nuget_location);				
-					//nuget_location = "./tools/nuget.4.1.0.exe";
-					//nuget_location_relative_from_cake_exe = "../nuget.4.1.0.exe";
-					//Information("On Mac downloading 4.1.0 to " + nuget_location);				
+					version = 
+								//"2.8.6"
+								"4.1.0"
+								;
+					nuget_location = $"./tools/nuget.{version}.exe";
+					nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
+					Information($"On Mac downloading {version} to " + nuget_location);				
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
 						(
-							@"https://dist.nuget.org/win-x86-commandline/v2.8.6/nuget.exe",
+							$"https://dist.nuget.org/win-x86-commandline/v{version}/nuget.exe",
 							nuget_location
 						);
 					}
@@ -323,22 +328,22 @@ string[] solutions_for_nuget_tests = new string[]
 	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
 	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
 	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",	
 };
 
 string[] sample_solutions_macosx = new []
 {
-	"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	//"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	//"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE-MacOSX-Xamarin.Studio.sln", // could not build shared project on CI
 	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
 };
 
 string[] sample_solutions_windows = new []
 {
 	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	//"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	/*
 	"samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
 	"samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln", 
@@ -510,27 +515,33 @@ Task ("libs-macosx")
 
 			if ( ! IsRunningOnWindows() )
 			{
-				XBuild 
+				MSBuild 
 					(
 						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 						c => 
 						{
-							c.SetConfiguration("Debug");
+							c
+								.SetConfiguration("Debug")
+								.WithProperty("DefineConstants", "")
+								;
 						}
 					);
-				XBuild 
+				MSBuild 
 					(
 						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 						c => 
 						{
-							c.SetConfiguration("Release");
+							c
+								.SetConfiguration("Debug")
+								.WithProperty("DefineConstants", "XAMARIN_AUTH_INTERNAL")
+								;
 						}
 					);
 					
 				GitLinkAction("./source/Xamarin.Auth-Library.sln");
 
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
 						c => 
@@ -539,7 +550,7 @@ Task ("libs-macosx")
 						}
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj", 
 						c => 
@@ -558,7 +569,7 @@ Task ("libs-macosx")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
 						c => 
@@ -577,7 +588,7 @@ Task ("libs-macosx")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
 						c => 
@@ -599,7 +610,7 @@ Task ("libs-macosx")
 
 
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj", 
 						c => 
@@ -618,7 +629,7 @@ Task ("libs-macosx")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj", 
 						c => 
@@ -637,7 +648,7 @@ Task ("libs-macosx")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj", 
 						c => 
@@ -660,7 +671,7 @@ Task ("libs-macosx")
 				
 				
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
 						c => 
@@ -679,7 +690,7 @@ Task ("libs-macosx")
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
 						c => 
@@ -698,7 +709,7 @@ Task ("libs-macosx")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj", 
 						c => 
@@ -717,7 +728,7 @@ Task ("libs-macosx")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj", 
 						c => 
@@ -1274,7 +1285,7 @@ Task ("samples-macosx")
 					}
 					else
 					{
-						XBuild
+						MSBuild
 							(
 								sample_solution, 
 								c => 
@@ -1306,7 +1317,7 @@ Task ("samples-windows")
 					}
 					else
 					{
-						XBuild
+						MSBuild
 							(
 								sample_solution, 
 								c => 
