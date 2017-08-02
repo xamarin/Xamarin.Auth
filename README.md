@@ -146,7 +146,7 @@ https://xamarinchat.herokuapp.com/
 
 http://stackoverflow.com/search?q=xamarin.auth
 
-Suggestion: use Xamarin formus or even better Community Slack channel. SO moderation
+Suggestion: use Xamarin forums or even better Community Slack channel. SO moderation
 policies make answering very difficult (pasting links and demanding that the person
 providing the answer to search for duplicates).
 
@@ -169,7 +169,7 @@ client (application).
 
 2.  Creating and optionally customizing UI      
 
-3.  Presenting/Lunching UI and authenticating user	
+3.  Presenting/Launching UI and authenticating user	
 
 	1.	Detecting/Fetching/Intercepting URL change (redirect_url)  
 
