@@ -47,8 +47,9 @@ NuGet Publish patterns
 		
 #########################################################################################
 */	
-#addin "Cake.Xamarin"
-#addin nuget:?package=Cake.FileHelpers
+#addin nuget:?package=Cake.Xamarin.Build&version=2.0.18
+#addin nuget:?package=Cake.Xamarin&version=1.3.0.15
+#addin nuget:?package=Cake.FileHelpers&version=1.0.4
 /*
 -----------------------------------------------------------------------------------------
 	choco install -y gitlink
@@ -1479,5 +1480,14 @@ Task ("ci-windows")
 Task ("Default")
     .IsDependentOn ("nuget")
 	;
+
+// Print out environment variables to console
+var ENV_VARS = EnvironmentVariables ();
+Information ("Environment Variables: {0}", "");
+foreach (var ev in ENV_VARS)
+	Information ("\t{0} = {1}", ev.Key, ev.Value);
+
+// From Cake.Xamarin.Build, dumps out versions of things
+LogSystemInfo ();
 
 RunTarget (TARGET);
