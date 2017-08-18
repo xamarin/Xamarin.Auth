@@ -128,8 +128,8 @@ Task ("nuget-fixes")
 				Information("Running on Xamarin CI MacOSX bot");
 				
 				version = "2.8.6";
-				nuget_location = $"../../tools/nuget.{version}.exe";
-				nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
+				nuget_location = string.Format ("../../tools/nuget.{0}.exe", version);
+				nuget_location_relative_from_cake_exe = string.Format ("../nuget.{0}.exe", version);
 				
 				Information("nuget_location = {0} ", nuget_location);
 			}
@@ -140,14 +140,14 @@ Task ("nuget-fixes")
 					// new nuget is needed for UWP!
 					Information("Running on Windows");
 					version = "4.1.0";
-					nuget_location = $"./tools/nuget.{version}.exe";
-					nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
-					Information($"On Mac downloading {version} to " + nuget_location);				
+					nuget_location = string.Format ("./tools/nuget.{0}.exe", version);
+					nuget_location_relative_from_cake_exe = string.Format ("../nuget.{0}.exe", version);
+					Information(string.Format ("On Mac downloading {0} to " + nuget_location, version));
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
 						(					
-							$"https://dist.nuget.org/win-x86-commandline/v{version}/nuget.exe",
+							string.Format ("https://dist.nuget.org/win-x86-commandline/v{0}/nuget.exe", version),
 							nuget_location
 						);
 					}
@@ -159,14 +159,14 @@ Task ("nuget-fixes")
 								//"2.8.6"
 								"4.1.0"
 								;
-					nuget_location = $"./tools/nuget.{version}.exe";
-					nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
-					Information($"On Mac downloading {version} to " + nuget_location);				
+					nuget_location = string.Format ("./tools/nuget.{0}.exe", version);
+					nuget_location_relative_from_cake_exe = string.Format ("../nuget.{0}.exe", version);
+					Information(string.Format ("On Mac downloading {0} to " + nuget_location, version));
 					if ( ! FileExists(nuget_location))
 					{
 						DownloadFile
 						(
-							$"https://dist.nuget.org/win-x86-commandline/v{version}/nuget.exe",
+							string.Format ("https://dist.nuget.org/win-x86-commandline/v{0}/nuget.exe", version),
 							nuget_location
 						);
 					}
