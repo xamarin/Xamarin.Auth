@@ -26,7 +26,7 @@ using System.Text;
 namespace Xamarin.Auth
 {
     #if XAMARIN_AUTH_INTERNAL
-        internal partial class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    internal partial class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
     #else
     public partial class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
 	#endif

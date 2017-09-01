@@ -29,11 +29,11 @@ using Android.Text;
 namespace Xamarin.Auth
 {
     [Activity(Label = "Web Authenticator")]
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
 	internal class FormAuthenticatorActivity : Activity
-#else
+    #else
     public class FormAuthenticatorActivity : Activity
-#endif
+    #endif
     {
         Button signIn;
         ProgressBar progress;

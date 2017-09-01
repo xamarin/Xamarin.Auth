@@ -38,11 +38,11 @@ using JsonPairEnumerable = System.Collections.Generic.IEnumerable<System.Collect
 
 namespace System.Json
 {
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
     internal class JsonObject : JsonValue, IDictionary<string, JsonValue>, ICollection<JsonPair>
-#else
+    #else
     public class JsonObject : JsonValue, IDictionary<string, JsonValue>, ICollection<JsonPair>
-#endif
+    #endif
     {
         Dictionary<string, JsonValue> map;
 
