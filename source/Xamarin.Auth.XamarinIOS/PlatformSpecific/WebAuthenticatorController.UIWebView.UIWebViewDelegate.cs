@@ -193,8 +193,9 @@ namespace Xamarin.Auth
                     }
                 }
                 else
-
+                {
                     controller.activity.StopAnimating();
+                }
 
                 webView.UserInteractionEnabled = true;
 

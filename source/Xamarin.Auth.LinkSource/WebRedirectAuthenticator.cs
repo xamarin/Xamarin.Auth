@@ -25,11 +25,11 @@ namespace Xamarin.Auth
     /// An authenticator that displays web pages until a given "redirect" page is encountered. It then
     /// returns an account with the fragment on that URL.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class WebRedirectAuthenticator : WebAuthenticator
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal class WebRedirectAuthenticator : WebAuthenticator
+    #else
     public class WebRedirectAuthenticator : WebAuthenticator
-#endif
+    #endif
     {
         Uri initialUrl;
         Uri redirectUrl;

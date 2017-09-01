@@ -23,11 +23,11 @@ namespace Xamarin.Auth
     /// Accounts are stored using a service ID and the username of the account
     /// as a primary key.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
     internal abstract class AccountStore
-#else
+    #else
     public abstract partial class AccountStore
-#endif
+    #endif
     {
         /// <summary>
         /// Create an account store.

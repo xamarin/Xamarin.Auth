@@ -4,7 +4,11 @@ using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
-    public partial class WebAuthenticator
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class WebAuthenticator
+    #else
+    public abstract partial class WebAuthenticator
+	#endif
     {
         /// <summary>
         /// Gets or sets the get platform UIMethod.

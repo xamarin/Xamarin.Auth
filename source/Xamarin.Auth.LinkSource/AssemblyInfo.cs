@@ -40,4 +40,7 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
+[assembly: InternalsVisibleTo("Xamarin.Auth.XamarinForms")]
+[assembly: InternalsVisibleTo("Xamarin.Auth.Extensions")]
+
 [assembly: InternalsVisibleTo ("XamarinAuthiOSTest")]

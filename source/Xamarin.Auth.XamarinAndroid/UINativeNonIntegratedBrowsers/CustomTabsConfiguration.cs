@@ -17,7 +17,11 @@ namespace Xamarin.Auth
     /// or
     ///     Parcellable (Android serialization aimed to increase performance)
     /// </summary>
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal static partial class CustomTabsConfiguration
+    #else
     public static partial class CustomTabsConfiguration
+    #endif
     {
         static CustomTabsConfiguration()
         {

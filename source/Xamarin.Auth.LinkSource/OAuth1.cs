@@ -26,102 +26,106 @@ using Xamarin.Utilities;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// A collection of utility functions for signing OAuth 1.0 requests.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal static class OAuth1
-#else
-	public static class OAuth1
-#endif
-	{
-		/// <summary>
-		/// Encodes a string according to: http://tools.ietf.org/html/rfc5849#section-3.6
-		/// </summary>
-		/// <returns>
-		/// The encoded string.
-		/// </returns>
-		/// <param name='unencoded'>
-		/// The string to encode.
-		/// </param>
-		public static string EncodeString (string unencoded)
-		{
-			var utf8 = Encoding.UTF8.GetBytes (unencoded);
-			var sb = new StringBuilder ();
+    /// <summary>
+    /// A collection of utility functions for signing OAuth 1.0 requests.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+    internal static class OAuth1
+    #else
+    public static class OAuth1
+    #endif
+    {
+        /// <summary>
+        /// Encodes a string according to: http://tools.ietf.org/html/rfc5849#section-3.6
+        /// </summary>
+        /// <returns>
+        /// The encoded string.
+        /// </returns>
+        /// <param name='unencoded'>
+        /// The string to encode.
+        /// </param>
+        public static string EncodeString(string unencoded)
+        {
+            var utf8 = Encoding.UTF8.GetBytes(unencoded);
+            var sb = new StringBuilder();
 
-			for (var i = 0; i < utf8.Length; i++) {
-				var v = utf8[i];
-				if ((0x41 <= v && v <= 0x5A) || (0x61 <= v && v <= 0x7A) || (0x30 <= v && v <= 0x39) ||
-				    v == 0x2D || v == 0x2E || v == 0x5F || v == 0x7E) {
-					sb.Append ((char)v);
-				}
-				else {
-					sb.AppendFormat (CultureInfo.InvariantCulture, "%{0:X2}", v);
-				}
-			}
+            for (var i = 0; i < utf8.Length; i++)
+            {
+                var v = utf8[i];
+                if ((0x41 <= v && v <= 0x5A) || (0x61 <= v && v <= 0x7A) || (0x30 <= v && v <= 0x39) ||
+                    v == 0x2D || v == 0x2E || v == 0x5F || v == 0x7E)
+                {
+                    sb.Append((char)v);
+                }
+                else
+                {
+                    sb.AppendFormat(CultureInfo.InvariantCulture, "%{0:X2}", v);
+                }
+            }
 
-			return sb.ToString ();
-		}
+            return sb.ToString();
+        }
 
-		/// <summary>
-		/// Gets the signature base string according to: http://tools.ietf.org/html/rfc5849#section-3.4.1
-		/// </summary>
-		/// <returns>
-		/// The signature base string.
-		/// </returns>
-		/// <param name='method'>
-		/// HTTP request method.
-		/// </param>
-		/// <param name='uri'>
-		/// The request resource URI.
-		/// </param>
-		/// <param name='parameters'>
-		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-		/// </param>
-		public static string GetBaseString (string method, Uri uri, IDictionary<string, string> parameters)
-		{
-			var baseBuilder = new StringBuilder ();
-			baseBuilder.Append (method);
-			baseBuilder.Append ("&");
-			baseBuilder.Append (EncodeString (uri.AbsoluteUri));
-			baseBuilder.Append ("&");
-			var head = "";
-			foreach (var key in parameters.Keys.OrderBy (x => x)) {
-				var p = head + EncodeString (key) + "=" + EncodeString (parameters[key]);
-				baseBuilder.Append (EncodeString (p));
-				head = "&";
-			}
-			return baseBuilder.ToString ();
-		}
+        /// <summary>
+        /// Gets the signature base string according to: http://tools.ietf.org/html/rfc5849#section-3.4.1
+        /// </summary>
+        /// <returns>
+        /// The signature base string.
+        /// </returns>
+        /// <param name='method'>
+        /// HTTP request method.
+        /// </param>
+        /// <param name='uri'>
+        /// The request resource URI.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+        /// </param>
+        public static string GetBaseString(string method, Uri uri, IDictionary<string, string> parameters)
+        {
+            var baseBuilder = new StringBuilder();
+            baseBuilder.Append(method);
+            baseBuilder.Append("&");
+            baseBuilder.Append(EncodeString(uri.AbsoluteUri));
+            baseBuilder.Append("&");
+            var head = "";
+            foreach (var key in parameters.Keys.OrderBy(x => x))
+            {
+                var p = head + EncodeString(key) + "=" + EncodeString(parameters[key]);
+                baseBuilder.Append(EncodeString(p));
+                head = "&";
+            }
+            return baseBuilder.ToString();
+        }
 
-		/// <summary>
-		/// Gets the signature of a request according to: http://tools.ietf.org/html/rfc5849#section-3.4
-		/// </summary>
-		/// <returns>
-		/// The signature.
-		/// </returns>
-		/// <param name='method'>
-		/// HTTP request method.
-		/// </param>
-		/// <param name='uri'>
-		/// The request resource URI.
-		/// </param>
-		/// <param name='parameters'>
-		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-		/// </param>
-		/// <param name='consumerSecret'>
-		/// Consumer secret.
-		/// </param>
-		/// <param name='tokenSecret'>
-		/// Token secret.
-		/// </param>
-		public static string GetSignature (string method, Uri uri, IDictionary<string, string> parameters, string consumerSecret, string tokenSecret)
-		{
-# if ! PORTABLE && ! NETFX_CORE
-			var baseString = GetBaseString (method, uri, parameters);
-			var key = EncodeString (consumerSecret) + "&" + EncodeString (tokenSecret);
-			var hashAlgo = new HMACSHA1 (Encoding.UTF8.GetBytes (key));
-			var hash = hashAlgo.ComputeHash (Encoding.UTF8.GetBytes (baseString));
+        /// <summary>
+        /// Gets the signature of a request according to: http://tools.ietf.org/html/rfc5849#section-3.4
+        /// </summary>
+        /// <returns>
+        /// The signature.
+        /// </returns>
+        /// <param name='method'>
+        /// HTTP request method.
+        /// </param>
+        /// <param name='uri'>
+        /// The request resource URI.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+        /// </param>
+        /// <param name='consumerSecret'>
+        /// Consumer secret.
+        /// </param>
+        /// <param name='tokenSecret'>
+        /// Token secret.
+        /// </param>
+        public static string GetSignature(string method, Uri uri, IDictionary<string, string> parameters, string consumerSecret, string tokenSecret)
+        {
+#if !PORTABLE && !NETFX_CORE
+            var baseString = GetBaseString(method, uri, parameters);
+            var key = EncodeString(consumerSecret) + "&" + EncodeString(tokenSecret);
+            var hashAlgo = new HMACSHA1(Encoding.UTF8.GetBytes(key));
+            var hash = hashAlgo.ComputeHash(Encoding.UTF8.GetBytes(baseString));
 #else
 			var hash = new byte[] { };
 			string msg = 
@@ -132,110 +136,112 @@ namespace Xamarin.Auth
 				";
 			System.Diagnostics.Debug.WriteLine("Xamarin.Auth: " + msg);
 #endif
-			var sig = Convert.ToBase64String (hash);
-			return sig;
-		}
+            var sig = Convert.ToBase64String(hash);
+            return sig;
+        }
 
-		static Dictionary<string, string> MixInOAuthParameters (string method, Uri url, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
-		{
-			var ps = new Dictionary<string, string> (parameters);
-			
-			var nonce = new Random ().Next ().ToString ();
-			var timestamp = ((int)(DateTime.UtcNow - new DateTime (1970, 1, 1)).TotalSeconds).ToString ();
+        static Dictionary<string, string> MixInOAuthParameters(string method, Uri url, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
+        {
+            var ps = new Dictionary<string, string>(parameters);
 
-			ps ["oauth_nonce"] = nonce;
-			ps ["oauth_timestamp"] = timestamp;
-			ps ["oauth_version"] = "1.0";
-			ps ["oauth_consumer_key"] = consumerKey;
-			ps ["oauth_signature_method"] = "HMAC-SHA1";
-			
-			var sig = GetSignature (method, url, ps, consumerSecret, tokenSecret);
-			ps ["oauth_signature"] = sig;
+            var nonce = new Random().Next().ToString();
+            var timestamp = ((int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds).ToString();
 
-			return ps;
-		}
+            ps["oauth_nonce"] = nonce;
+            ps["oauth_timestamp"] = timestamp;
+            ps["oauth_version"] = "1.0";
+            ps["oauth_consumer_key"] = consumerKey;
+            ps["oauth_signature_method"] = "HMAC-SHA1";
 
-		/// <summary>
-		/// Creates an OAuth 1.0 signed request.
-		/// </summary>
-		/// <returns>
-		/// The request.
-		/// </returns>
-		/// <param name='method'>
-		/// HTTP request method.
-		/// </param>
-		/// <param name='uri'>
-		/// The request resource URI.
-		/// </param>
-		/// <param name='parameters'>
-		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-		/// </param>
-		/// <param name='consumerKey'>
-		/// Consumer key.
-		/// </param>
-		/// <param name='consumerSecret'>
-		/// Consumer secret.
-		/// </param>
-		/// <param name='tokenSecret'>
-		/// Token secret.
-		/// </param>
-		public static WebRequest CreateRequest (string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
-		{
-			var ps = MixInOAuthParameters (method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
+            var sig = GetSignature(method, url, ps, consumerSecret, tokenSecret);
+            ps["oauth_signature"] = sig;
 
-			var realUrl = uri.AbsoluteUri + "?" + ps.FormEncode ();
+            return ps;
+        }
 
-			var req = (HttpWebRequest)WebRequest.Create (realUrl);
-			req.Method = method;
-			return req;
-		}
+        /// <summary>
+        /// Creates an OAuth 1.0 signed request.
+        /// </summary>
+        /// <returns>
+        /// The request.
+        /// </returns>
+        /// <param name='method'>
+        /// HTTP request method.
+        /// </param>
+        /// <param name='uri'>
+        /// The request resource URI.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+        /// </param>
+        /// <param name='consumerKey'>
+        /// Consumer key.
+        /// </param>
+        /// <param name='consumerSecret'>
+        /// Consumer secret.
+        /// </param>
+        /// <param name='tokenSecret'>
+        /// Token secret.
+        /// </param>
+        public static WebRequest CreateRequest(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
+        {
+            var ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
 
-		/// <summary>
-		/// Gets the authorization header for a signed request.
-		/// </summary>
-		/// <returns>
-		/// The authorization header.
-		/// </returns>
-		/// <param name='method'>
-		/// HTTP request method.
-		/// </param>
-		/// <param name='uri'>
-		/// The request resource URI.
-		/// </param>
-		/// <param name='parameters'>
-		/// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-		/// </param>
-		/// <param name='consumerKey'>
-		/// Consumer key.
-		/// </param>
-		/// <param name='consumerSecret'>
-		/// Consumer secret.
-		/// </param>
-		/// <param name='token'>
-		/// Token.
-		/// </param>
-		/// <param name='tokenSecret'>
-		/// Token secret.
-		/// </param>
-		public static string GetAuthorizationHeader (string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string token, string tokenSecret)
-		{
-			var ps = new Dictionary<string, string> (parameters);
-			ps["oauth_token"] = token;
-			ps = MixInOAuthParameters (method, uri, ps, consumerKey, consumerSecret, tokenSecret);
+            var realUrl = uri.AbsoluteUri + "?" + ps.FormEncode();
 
-			var sb = new StringBuilder ();
+            var req = (HttpWebRequest)WebRequest.Create(realUrl);
+            req.Method = method;
+            return req;
+        }
 
-			var head = "";
-			foreach (var p in ps) {
-				if (p.Key.StartsWith ("oauth_")) {
-					sb.Append (head);
-					sb.AppendFormat ("{0}=\"{1}\"", EncodeString (p.Key), EncodeString (p.Value));
-					head = ",";
-				}
-			}
+        /// <summary>
+        /// Gets the authorization header for a signed request.
+        /// </summary>
+        /// <returns>
+        /// The authorization header.
+        /// </returns>
+        /// <param name='method'>
+        /// HTTP request method.
+        /// </param>
+        /// <param name='uri'>
+        /// The request resource URI.
+        /// </param>
+        /// <param name='parameters'>
+        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
+        /// </param>
+        /// <param name='consumerKey'>
+        /// Consumer key.
+        /// </param>
+        /// <param name='consumerSecret'>
+        /// Consumer secret.
+        /// </param>
+        /// <param name='token'>
+        /// Token.
+        /// </param>
+        /// <param name='tokenSecret'>
+        /// Token secret.
+        /// </param>
+        public static string GetAuthorizationHeader(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string token, string tokenSecret)
+        {
+            var ps = new Dictionary<string, string>(parameters);
+            ps["oauth_token"] = token;
+            ps = MixInOAuthParameters(method, uri, ps, consumerKey, consumerSecret, tokenSecret);
 
-			return sb.ToString ();
-		}
-	}
+            var sb = new StringBuilder();
+
+            var head = "";
+            foreach (var p in ps)
+            {
+                if (p.Key.StartsWith("oauth_"))
+                {
+                    sb.Append(head);
+                    sb.AppendFormat("{0}=\"{1}\"", EncodeString(p.Key), EncodeString(p.Value));
+                    head = ",";
+                }
+            }
+
+            return sb.ToString();
+        }
+    }
 }
 

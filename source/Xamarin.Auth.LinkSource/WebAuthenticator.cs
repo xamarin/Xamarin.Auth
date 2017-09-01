@@ -40,11 +40,11 @@ namespace Xamarin.Auth
     /// <summary>
     /// An authenticator that displays a web page.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class WebAuthenticator : Authenticator
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class WebAuthenticator : Authenticator
+    #else
     public abstract partial class WebAuthenticator : Authenticator
-#endif
+    #endif
     {
         /// <summary>
         /// Gets or sets whether to automatically clear cookies before logging in.

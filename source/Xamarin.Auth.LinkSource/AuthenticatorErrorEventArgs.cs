@@ -12,7 +12,7 @@ namespace Xamarin.Auth
     /// Authenticator error event arguments.
     /// </summary>
     #if XAMARIN_AUTH_INTERNAL
-	internal class AuthenticatorErrorEventArgs : EventArgs
+    internal class AuthenticatorErrorEventArgs : EventArgs
     #else
     public class AuthenticatorErrorEventArgs : EventArgs
     #endif

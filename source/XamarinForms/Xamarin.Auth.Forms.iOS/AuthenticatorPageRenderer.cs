@@ -15,7 +15,11 @@ using UIKit;
 namespace Xamarin.Auth.XamarinForms.XamarinIOS
 {
     [Preserve(AllMembers = true)]
+    #if XAMARIN_AUTH_INTERNAL
+    internal class AuthenticatorPageRenderer : Xamarin.Forms.Platform.iOS.PageRenderer
+    #else
     public class AuthenticatorPageRenderer : Xamarin.Forms.Platform.iOS.PageRenderer
+    #endif
     {
         bool renderer_was_shown = false;
         bool oauth_was_shown = false;

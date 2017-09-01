@@ -11,9 +11,9 @@ namespace Xamarin.Auth
     /// <see cref="https://github.com/GoogleChrome/custom-tabs-client/tree/master/demos/src/main/java/org/chromium/customtabsdemos"/>
     /// <see cref="https://developer.chrome.com/multidevice/android/customtabs"/>
     #if XAMARIN_AUTH_INTERNAL
-    internal partial class WebAuthenticator
+    internal abstract partial class WebAuthenticator
     #else
-    public partial class WebAuthenticator
+    public abstract partial class WebAuthenticator
 	#endif
     {
         /// <summary>

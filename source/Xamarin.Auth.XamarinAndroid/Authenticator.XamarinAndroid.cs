@@ -19,34 +19,34 @@ using System.Threading.Tasks;
 using System.Threading;
 using Xamarin.Utilities;
 
-using AuthenticateUIType = 
+using AuthenticateUIType =
             Android.Content.Intent
             //System.Object
             ;
-using UIContext = 
+using UIContext =
             Android.Content.Context
             //Android.App.Activity
             ;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// A process and user interface to authenticate a user.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class Authenticator
-#else
-	public abstract partial class Authenticator
-#endif
-	{
-		UIContext context;
-		public AuthenticateUIType GetUI(UIContext context)
-		{
-			this.context = context;
-			return GetPlatformUI(context);
-		}
+    /// <summary>
+    /// A process and user interface to authenticate a user.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class Authenticator
+    #else
+    public abstract partial class Authenticator
+    #endif
+    {
+        UIContext context;
+        public AuthenticateUIType GetUI(UIContext context)
+        {
+            this.context = context;
+            return GetPlatformUI(context);
+        }
 
-		protected abstract AuthenticateUIType GetPlatformUI(UIContext context);
-	}
+        protected abstract AuthenticateUIType GetPlatformUI(UIContext context);
+    }
 }
 

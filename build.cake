@@ -58,8 +58,9 @@ Build with preprocessor parameters:
 
 #########################################################################################
 */	
-#addin "Cake.Xamarin"
-#addin nuget:?package=Cake.FileHelpers
+#addin nuget:?package=Cake.Xamarin.Build&version=2.0.18
+#addin nuget:?package=Cake.Xamarin&version=1.3.0.15
+#addin nuget:?package=Cake.FileHelpers&version=1.0.4
 /*
 -----------------------------------------------------------------------------------------
 	choco install -y gitlink
@@ -68,10 +69,12 @@ Build with preprocessor parameters:
 */
 #tool nuget:?package=gitlink
 
+Verbosity verbosity = Verbosity.Diagnostic;
+
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
 FilePath nuget_tool_path = null;
-//FilePath cake_tool_path = null;
+FilePath cake_tool_path = null;
 
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 
@@ -660,8 +663,19 @@ Task ("libs-macosx")
 		}
 	);
 
-
 Task ("libs-windows")
+	.IsDependentOn ("libs-windows-solutions")
+	.IsDependentOn ("libs-windows-projects")
+	.Does 
+	(
+		() => 
+		{				
+
+			return;
+		}
+	);
+
+Task ("libs-windows-filesystem")
 	.IsDependentOn ("nuget-restore")
 	.Does 
 	(
@@ -679,49 +693,142 @@ Task ("libs-windows")
 			CreateDirectory ("./output/win81/Xamarin.Auth/");
 			CreateDirectory ("./output/uap10.0/");
 			CreateDirectory ("./output/uap10.0/Xamarin.Auth/");
-			
-			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
+		}
+	);
 
+Task ("libs-windows-solutions")
+	.IsDependentOn ("nuget-restore")
+	.IsDependentOn ("libs-windows-filesystem")
+	.Does 
+	(
+		() => 
+		{	
 			if (IsRunningOnWindows ()) 
 			{	
 				MSBuild 
 					(
 						"./source/Xamarin.Auth-Library.sln",
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release")
-							.SetPlatformTarget(PlatformTarget.x86);
+							Verbosity = verbosity,
+							/*
+							Using Visual Studio 2015 tooling
+
+							Fix for 
+
+							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+							(Build target) (1) -> (CoreCompile target) ->
+							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+							error MSB6004: 
+							The specified task executable location 
+							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
+							*/
+							ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Release",
+							/*
+							Fix for 
+
+							  C:\Program Files (x86)\MSBuild\Microsoft\WindowsPhone\v8.0\Microsoft.WindowsPhone.v8.0.Overrides.targets(15,9)
+							  error : 
+							  Building Windows Phone application using MSBuild 64 bit is not supported. 
+							  If you are using TFS build definitions, change the MSBuild platform to x86.
+							*/
+							PlatformTarget = PlatformTarget.x86,
 						}
 					);
 				MSBuild 
 					(
 						"./source/Xamarin.Auth-Library.sln",
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Debug")
-							.SetPlatformTarget(PlatformTarget.x86);
+							Verbosity = verbosity,
+							/*
+							Using Visual Studio 2015 tooling
+
+							Fix for 
+
+							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+							(Build target) (1) -> (CoreCompile target) ->
+							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+							error MSB6004: 
+							The specified task executable location 
+							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
+							*/
+							ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Debug",
+							/*
+							Fix for 
+							
+							  C:\Program Files (x86)\MSBuild\Microsoft\WindowsPhone\v8.0\Microsoft.WindowsPhone.v8.0.Overrides.targets(15,9)
+							  error : 
+							  Building Windows Phone application using MSBuild 64 bit is not supported. 
+							  If you are using TFS build definitions, change the MSBuild platform to x86.
+							*/
+							PlatformTarget = PlatformTarget.x86,
 						}
 					);
 				MSBuild 
 					(
 						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Debug");
+							Verbosity = verbosity,
+							/*
+							Using Visual Studio 2015 tooling
+
+							Fix for 
+
+							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+							(Build target) (1) -> (CoreCompile target) ->
+							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+							error MSB6004: 
+							The specified task executable location 
+							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
+							*/
+							ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Debug",
 						}
 					);
 				MSBuild 
 					(
 						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release");
+							Verbosity = verbosity,
+							/*
+							Using Visual Studio 2015 tooling
+
+							Fix for 
+
+							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+							(Build target) (1) -> (CoreCompile target) ->
+							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+							error MSB6004: 
+							The specified task executable location 
+							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
+							*/
+							ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Release",
 						}
 					);
 					
 				GitLinkAction("./source/Xamarin.Auth-Library.sln");
 				GitLinkAction("./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
 
+				return;
+			} 
+		}
+	);
+
+Task ("libs-windows-projects")
+	.IsDependentOn ("nuget-restore")
+	.IsDependentOn ("libs-windows-filesystem")
+	.Does 
+	(
+		() => 
+		{	
+			if (IsRunningOnWindows ()) 
+			{	
 				//-------------------------------------------------------------------------------------
 				MSBuild
 					(
@@ -800,10 +907,12 @@ Task ("libs-windows")
 				MSBuild
 					(
 						"./source/Xamarin.Auth.WindowsPhone8/Xamarin.Auth.WindowsPhone8.csproj", 
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release")
-							.SetPlatformTarget(PlatformTarget.x86);
+							Verbosity = verbosity,
+							ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Release",
+							PlatformTarget = PlatformTarget.x86,
 						}
 					);
 				CopyFiles
@@ -820,10 +929,12 @@ Task ("libs-windows")
 				MSBuild
 					(
 						"./source/Xamarin.Auth.WindowsPhone81/Xamarin.Auth.WindowsPhone81.csproj", 
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release")
-							.SetPlatformTarget(PlatformTarget.x86);
+							Verbosity = verbosity,
+							ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Release",
+							PlatformTarget = PlatformTarget.x86,
 						}
 					);
 				CopyFiles
@@ -1132,12 +1243,13 @@ Task ("libs-windows")
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
-				
-			} 
+			}
 
 			return;
 		}
 	);
+
+
 
 
 Task ("samples")
@@ -1371,5 +1483,14 @@ Task ("ci-windows")
 Task ("Default")
     .IsDependentOn ("nuget")
 	;
+
+// Print out environment variables to console
+var ENV_VARS = EnvironmentVariables ();
+Information ("Environment Variables: {0}", "");
+foreach (var ev in ENV_VARS)
+	Information ("\t{0} = {1}", ev.Key, ev.Value);
+
+// From Cake.Xamarin.Build, dumps out versions of things
+LogSystemInfo ();
 
 RunTarget (TARGET);

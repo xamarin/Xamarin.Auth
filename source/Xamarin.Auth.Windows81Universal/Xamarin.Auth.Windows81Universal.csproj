@@ -213,5 +213,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Import Project="..\..\samples\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\samples\Traditional.Standard\references01projects\Providers\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
 </Project>

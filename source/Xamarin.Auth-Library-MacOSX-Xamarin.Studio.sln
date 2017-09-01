@@ -11,13 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73798C80-EB18-442B-9ACD-56A863B942E4}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms", "XamarinForms\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"

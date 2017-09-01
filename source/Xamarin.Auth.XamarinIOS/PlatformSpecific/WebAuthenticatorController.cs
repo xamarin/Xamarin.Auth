@@ -130,10 +130,15 @@ namespace Xamarin.Auth
                     UIDelegate = new WKWebViewUIDelegate(this),
                     NavigationDelegate = new WKWebViewNavigationDelegate(this),
                     AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+                };
+
+                if (UIDevice.CurrentDevice.CheckSystemVersion(9,0))
+                {
                     //  cheating!
                     //  http://www.useragentstring.com/pages/useragentstring.php?typ=Browser
-                    CustomUserAgent = WebViewConfiguration.IOS.UserAgent,
-                };
+                    wk_web_view.CustomUserAgent = WebViewConfiguration.IOS.UserAgent;
+                }
+
                 web_view = wk_web_view;
                 View.AddSubview((WKWebView)web_view);
             }

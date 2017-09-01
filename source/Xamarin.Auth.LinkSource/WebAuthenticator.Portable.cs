@@ -22,23 +22,23 @@ using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that displays a web page.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
+    /// <summary>
+    /// An authenticator that displays a web page.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class WebAuthenticator
-#else
-	public abstract partial class WebAuthenticator 
-#endif
-	{
-		protected override AuthenticateUIType GetPlatformUI()
-		{
+    #else
+    public abstract partial class WebAuthenticator
+    #endif
+    {
+        protected override AuthenticateUIType GetPlatformUI()
+        {
             AuthenticateUIType ui = null;
 
             ui = PlatformUIMethod();
 
             return ui;
-		}
+        }
 
         protected AuthenticateUIType GetPlatformUIEmbeddedBrowser()
         {

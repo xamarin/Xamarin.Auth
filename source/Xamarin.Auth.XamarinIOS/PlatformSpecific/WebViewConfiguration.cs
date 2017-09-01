@@ -72,6 +72,10 @@ namespace Xamarin.Auth
                 useragent_uiwebview = wv.EvaluateJavascript("navigator.userAgent");
                 wv = null;
 
+                #if DEBUG
+                System.Diagnostics.Debug.WriteLine($"User-Agent API useragent_uiwebview = {useragent_uiwebview}");
+                #endif
+
                 return;
             }
 
@@ -86,7 +90,7 @@ namespace Xamarin.Auth
                 WebKit.WKWebView wkwv = new WebKit.WKWebView(CoreGraphics.CGRect.Empty, wkconf);
 
                 // TODO: WKWebKit UserAgent JavaScript handler not triggered from JavaScript
-                WebKit.WKJavascriptEvaluationResult handler = 
+                WebKit.WKJavascriptEvaluationResult handler =
                     (NSObject result, NSError err) =>
                         {
                             app_name_wkwebview = null;
@@ -98,7 +102,9 @@ namespace Xamarin.Auth
                             }
                             if (result != null)
                             {
-                                System.Console.WriteLine(result);
+                                #if DEBUG
+                                System.Diagnostics.Debug.WriteLine($"User-Agent API result");
+                                #endif
                             }
 
                             return;
@@ -107,11 +113,15 @@ namespace Xamarin.Auth
                 // case sensitive stuff:
                 //      navigator.* 
                 // few SO posts with Pascal case will not work!
-                wkwv.EvaluateJavaScript((NSString) "navigator.appName", handler);
-                wkwv.EvaluateJavaScript((NSString) "navigator.userAgent", handler);
+                wkwv.EvaluateJavaScript((NSString)"navigator.appName", handler);
+                wkwv.EvaluateJavaScript((NSString)"navigator.userAgent", handler);
 
                 wkwv.LoadHtmlString("<html></html>", null);
 
+                #if DEBUG
+                System.Diagnostics.Debug.WriteLine($"User-Agent API useragent_wkwebview = {useragent_wkwebview}");
+                #endif
+                      
                 return;
             }
 
@@ -124,7 +134,7 @@ namespace Xamarin.Auth
 
             static void SetDefaultUserAgent()
             {
-                // set default useragent
+                // set default useragent for UIWebView and WkWebView
                 NSDictionary dictionary = NSDictionary.FromObjectAndKey
                                                             (
                                                                 NSObject.FromObject(UserAgent),

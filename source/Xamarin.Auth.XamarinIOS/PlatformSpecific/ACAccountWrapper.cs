@@ -14,6 +14,7 @@
 //    limitations under the License.
 //
 using System;
+
 #if ! __UNIFIED__
 using MonoTouch.Accounts;
 #else
@@ -22,11 +23,11 @@ using Accounts;
 
 namespace Xamarin.Auth
 {
-#if XAMARIN_AUTH_INTERNAL
-	internal class ACAccountWrapper : Account
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal class ACAccountWrapper : Account
+    #else
     public class ACAccountWrapper : Account
-#endif
+    #endif
     {
         /// <summary>
         /// The store that this account came from. We need to keep this reference to prevent the
