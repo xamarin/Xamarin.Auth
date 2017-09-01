@@ -45,6 +45,17 @@ NuGet Publish patterns
 		** /output/Xamarin.Auth.XamarinForms.1.5.0-alpha-12.nupkg,
 		** /output/Xamarin.Auth.Extensions.1.5.0-alpha-12.nupkg
 		
+Build with preprocessor parameters:
+			
+	%3B = ';'	
+
+    /Library/Frameworks/Mono.framework/Commands/msbuild \
+        /target:ReBuild \
+        "/p:DefineConstants=XAMARIN_AUTH_INTERNAL%3BXAMARIN_CUSTOM_TABS_INTERNAL" \
+        /verbosity:minimal \
+        /consoleloggerparameters:ShowCommandLine \
+        ./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln 
+
 #########################################################################################
 */	
 #addin "Cake.Xamarin"
@@ -60,143 +71,26 @@ NuGet Publish patterns
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 
 FilePath nuget_tool_path = null;
-FilePath cake_tool_path = null;
-
-Task ("nuget-fixes")
-	.Does 
-	(
-		() => 
-		{
-			/*
-				2016-12-19
-				Fixing nuget 3.4.4 on windows - parsing solution file
-				
-				2016-09
-				Temporary fix for nuget bug MSBuild.exe autodetection on MacOSX and Linux
-
-				This target will be removed in the future! 
-
-				Executing: /Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/tools/Cake/../
-				nuget.exe restore "/Users/builder/Jenkins/workspace/Components-Generic-Build-Mac/CI/Xamarin.Auth/source/source/Xamarin.Auth-Library.sln" -Verbosity detailed -NonInteractive
-				MSBuild auto-detection: using msbuild version '4.0' from '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5'. 
-				Use option -MSBuildVersion to force nuget to use a specific version of MSBuild.
-				MSBuild P2P timeout [ms]: 120000
-				System.AggregateException: One or more errors occurred. 
-				---> 
-				NuGet.CommandLineException: MsBuild.exe does not exist at '/Library/Frameworks/Mono.framework/Versions/4.4.1/lib/mono/4.5/msbuild.exe'.
-			
-				NuGet Version: 3.4.4.1321
-
-				https://dist.nuget.org/index.html
-
-				Xamarin CI MacOSX bot uses central cake folder
-					.Contains("Components-Generic-Build-Mac/CI/tools/Cake");
-			*/
-
-			if (IsRunningOnWindows())
-			{
-				DownloadFile
-				(					
-					@"https://dist.nuget.org/win-x86-commandline/v4.1.0/nuget.exe",
-					"./tools/nuget.exe"
-				);
-				
-			}
-			nuget_tool_path = GetToolPath ("../nuget.exe");
-			cake_tool_path = GetToolPath ("./Cake.exe");
-
-			bool runs_on_xamarin_ci_macosx_bot = false;
-			string path_xamarin_ci_macosx_bot = "Components-Generic-Build-Mac/CI/tools/Cake"; 
-
-			string nuget_location = null;
-			string nuget_location_relative_from_cake_exe = null;
-			
-			if (cake_tool_path.ToString().Contains(path_xamarin_ci_macosx_bot))
-			{
-				runs_on_xamarin_ci_macosx_bot = true;
-			}
-			else
-			{
-				Information("NOT Running on Xamarin CI MacOSX bot");
-			}
-
-			string version = null;
-			
-			if (runs_on_xamarin_ci_macosx_bot)
-			{
-				Information("Running on Xamarin CI MacOSX bot");
-				
-				version = "2.8.6";
-				nuget_location = $"../../tools/nuget.{version}.exe";
-				nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
-				
-				Information("nuget_location = {0} ", nuget_location);
-			}
-			else
-			{
-				if (IsRunningOnWindows())
-				{
-					// new nuget is needed for UWP!
-					Information("Running on Windows");
-					version = "4.1.0";
-					nuget_location = $"./tools/nuget.{version}.exe";
-					nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
-					Information($"On Mac downloading {version} to " + nuget_location);				
-					if ( ! FileExists(nuget_location))
-					{
-						DownloadFile
-						(					
-							$"https://dist.nuget.org/win-x86-commandline/v{version}/nuget.exe",
-							nuget_location
-						);
-					}
-				}
-				else
-				{
-					Information("Running on MacOSX (non-Windows)");
-					version = 
-								//"2.8.6"
-								"4.1.0"
-								;
-					nuget_location = $"./tools/nuget.{version}.exe";
-					nuget_location_relative_from_cake_exe = $"../nuget.{version}.exe";
-					Information($"On Mac downloading {version} to " + nuget_location);				
-					if ( ! FileExists(nuget_location))
-					{
-						DownloadFile
-						(
-							$"https://dist.nuget.org/win-x86-commandline/v{version}/nuget.exe",
-							nuget_location
-						);
-					}
-				}
-			}
-		
-			DirectoryPath path01 = MakeAbsolute(Directory("./"));
-			string path02 = System.IO.Directory.GetCurrentDirectory();
-			string path03 = Environment.CurrentDirectory;
-			// Cake - WorkingDirectory??
-			Information("path01         = {0} ", path01);
-			Information("path02         = {0} ", path02);
-			Information("path03         = {0} ", path03);
-			Information("cake_tool_path = {0} ", cake_tool_path);
-			
-			nuget_tool_path = GetToolPath (nuget_location_relative_from_cake_exe);
-
-			Information("nuget_tool_path = {0}", nuget_tool_path);
-
-			return;
-		}
-	);
-
-RunTarget("nuget-fixes");	// fix nuget problems on MacOSX
+//FilePath cake_tool_path = null;
 
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
+
+Action<string> InfomationFancy = 
+	(text) 
+		=>
+		{
+			Console.BackgroundColor = ConsoleColor.Cyan;
+			Console.ForegroundColor = ConsoleColor.Yellow;			
+			Console.WriteLine(text);
+			Console.ResetColor();
+		};
 
 Action<string> GitLinkAction = 
 	(solution_file_name) 
 		=>
 		{ 
+			return;
+			
 			if (! IsRunningOnWindows())
 			{
 				// GitLink still has issues on macosx
@@ -305,7 +199,6 @@ Task ("package")
 	;	
 
 Task ("libs")
-	.IsDependentOn ("nuget-fixes")
 	.IsDependentOn ("libs-macosx")	
 	.IsDependentOn ("libs-windows")	
 	.Does 
@@ -323,28 +216,28 @@ string[] source_solutions = new string[]
 string[] solutions_for_nuget_tests = new string[]
 {
 	"./samples/Traditional.Standard/references02nuget/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.Android/Xamarin.Auth.Sample.Android.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",	
+	//"./samples/Traditional.Standard/references02nuget/Providers/old-for-backward-compatiblity/Xamarin.Auth.Sample.iOS/Xamarin.Auth.Sample.iOS.sln",
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone8/Component.Sample.WinPhone8.sln",
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.WindowsPhone81/Component.Sample.WinPhone81.sln",
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinAndroid/Component.Sample.Android.sln",
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Sample.XamarinIOS/Component.Sample.IOS.sln",
 	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",	
 };
 
-string[] sample_solutions_macosx = new []
+string[] sample_solutions_macosx = new string[]
 {
+	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
 	//"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	//"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE-MacOSX-Xamarin.Studio.sln", // could not build shared project on CI
-	"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
 	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
 };
 
-string[] sample_solutions_windows = new []
+string[] sample_solutions_windows = new string[]
 {
-	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	//"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	/*
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	"samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
 	"samples/bugs-triaging/component-2-nuget-migration-ANE/ANE.sln",
 	"samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln", 
 	"samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
@@ -387,32 +280,32 @@ string[] solutions =
 			;
 
 
-
 string[] build_configurations =  new []
 {
 	"Debug",
 	"Release",
 };
 
+string[] defines = new []
+{
+	"",
+	"\"__UNIFIED__%3BXAMARIN_AUTH_INTERNAL%3BXAMARIN_CUSTOM_TABS_INTERNAL\"",
+};
 
 Task ("nuget-restore")
-	.IsDependentOn ("nuget-fixes")
 	.Does 
 	(
 		() => 
 		{	
-			//RunTarget("nuget-fixes");
-
+			InfomationFancy("nuget-restore");
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
-			NuGetRestore 
-				(
-					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-					nuget_restore_settings
-				);
-
-			return;
-
+			//NuGetRestore 
+			//	(
+			//		"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+			//		nuget_restore_settings
+			//	);
+			
 			if (IsRunningOnWindows())
 			{
 				foreach (string sln in solutions)
@@ -473,8 +366,8 @@ Task ("nuget-update")
 		}
 	);
 
+
 Task ("samples-nuget-restore")
-	.IsDependentOn("nuget-fixes")
 	.Does 
 	(
 		() => 
@@ -501,6 +394,7 @@ Task ("samples-nuget-restore")
 		}
 	);
 	
+string solution_or_project = null;
 
 Task ("libs-macosx")
 	.IsDependentOn ("nuget-restore")	
@@ -515,32 +409,44 @@ Task ("libs-macosx")
 
 			if ( ! IsRunningOnWindows() )
 			{
-				MSBuild 
-					(
-						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-						c => 
-						{
-							c
-								.SetConfiguration("Debug")
-								.WithProperty("DefineConstants", "")
-								;
-						}
-					);
-				MSBuild 
-					(
-						"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-						c => 
-						{
-							c
-								.SetConfiguration("Debug")
-								.WithProperty("DefineConstants", "XAMARIN_AUTH_INTERNAL")
-								;
-						}
-					);
+				foreach (string build_configuration in build_configurations)
+				{
+					foreach (string define in defines)
+					{
+						solution_or_project = "./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
+						InfomationFancy("Solution/Project = " + solution_or_project);
+						InfomationFancy("Configuration    = " + build_configuration);
+						InfomationFancy("Define           = " + define);
 					
-				GitLinkAction("./source/Xamarin.Auth-Library.sln");
+						string define_actual = define;
+						if 
+						(
+							string.IsNullOrEmpty(define)
+							&&
+							solution_or_project.Contains("XamarinIOS")
+						)
+						{
+							define_actual = "__UNIFIED__";
+						}
 
+						MSBuild 
+							(
+								solution_or_project,
+								c => 
+								{
+									c
+										.SetConfiguration(build_configuration)
+										.SetVerbosity(Verbosity.Diagnostic)
+										.WithProperty("DefineConstants", define_actual)
+										.WithProperty("consoleloggerparameters", "ShowCommandLine")
+										;
+								}
+							);
+					}
+				}
+				//GitLinkAction("./source/Xamarin.Auth-Library.sln");
 				//-------------------------------------------------------------------------------------
+				
 				MSBuild
 					(
 						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
@@ -773,22 +679,8 @@ Task ("libs-windows")
 			CreateDirectory ("./output/win81/Xamarin.Auth/");
 			CreateDirectory ("./output/uap10.0/");
 			CreateDirectory ("./output/uap10.0/Xamarin.Auth/");
-
 			
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
-
-			Information("nuget restore {0}", "./source/Xamarin.Auth-Library.sln");
-			NuGetRestore 
-				(
-					"./source/Xamarin.Auth-Library.sln",
-					nuget_restore_settings
-				);
-			Information("nuget restore {0}", "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
-			NuGetRestore 
-				(
-					"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-					nuget_restore_settings
-				);
 
 			if (IsRunningOnWindows ()) 
 			{	
