@@ -16,8 +16,11 @@ Installing
 	
 	Mac OSX 
 
-        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx
-        chmod +x ./build.sh && ./build.sh
+        rm -fr tools/; mkdir ./tools/ ; \
+        cp cake.packages.config ./tools/packages.config ; \
+        curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/osx ; \
+        chmod +x ./build.sh ;
+        ./build.sh
 
 	Linux
 
@@ -82,8 +85,8 @@ Action<string> InfomationFancy =
 	(text) 
 		=>
 		{
-			Console.BackgroundColor = ConsoleColor.Cyan;
-			Console.ForegroundColor = ConsoleColor.Yellow;			
+			Console.BackgroundColor = ConsoleColor.Yellow;
+			Console.ForegroundColor = ConsoleColor.Blue;			
 			Console.WriteLine(text);
 			Console.ResetColor();
 		};
@@ -214,6 +217,7 @@ Task ("libs")
 string[] source_solutions = new string[]
 {
 	"./source/Xamarin.Auth-Library.sln",
+	"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
 };
 
 string[] solutions_for_nuget_tests = new string[]
@@ -399,8 +403,7 @@ Task ("samples-nuget-restore")
 	
 string solution_or_project = null;
 
-Task ("libs-macosx")
-	.IsDependentOn ("nuget-restore")	
+Task ("libs-macosx-filesystem")
 	.Does 
 	(
 		() => 
@@ -410,17 +413,99 @@ Task ("libs-macosx")
 			CreateDirectory ("./output/android/");
 			CreateDirectory ("./output/ios/");
 
+			return;
+		}
+	);
+
+Task ("libs-macosx")
+	.IsDependentOn ("libs-macosx-solutions")
+	.IsDependentOn ("libs-macosx-projects")
+	.Does 
+	(
+		() => 
+		{
+			return;
+		}
+	);
+
+
+Task ("libs-macosx-solutions")
+	.IsDependentOn ("nuget-restore")
+	.IsDependentOn ("libs-macosx-filesystem")
+	.Does 
+	(
+		() => 
+		{	
 			if ( ! IsRunningOnWindows() )
 			{
+				foreach(string sln_prj in source_solutions)
+				{
+					solution_or_project = sln_prj;
+
+					foreach (string build_configuration in build_configurations)
+					{
+						foreach (string define in defines)
+						{
+							string define_actual = define;
+							if 
+							(
+								string.IsNullOrEmpty(define)
+								&&
+								solution_or_project.Contains("XamarinIOS")
+							)
+							{
+								define_actual = "__UNIFIED__";
+							}
+
+							InfomationFancy("Solution/Project = " + solution_or_project);
+							InfomationFancy("Configuration    = " + build_configuration);
+							InfomationFancy("Define           = " + define);
+							InfomationFancy("Define (actual)  = " + define_actual);
+						
+							if (solution_or_project.Contains("Xamarin.Auth-Library.sln"))
+							{
+								// WindowsPhone 8 projects cannot be compiled with XBuild
+								continue;
+							}
+							XBuild 
+								(
+									solution_or_project,
+									c => 
+									{
+										c
+											.SetConfiguration(build_configuration)
+											.SetVerbosity(verbosity)
+											//.WithProperty("DefineConstants", define_actual)
+											//.WithProperty("consoleloggerparameters", "ShowCommandLine")
+											;
+									}
+								);
+
+						}
+					}
+				}
+			} // if ( ! IsRunningOnWindows() )
+
+			return;
+		}
+	);
+
+Task ("libs-macosx-projects")
+	.IsDependentOn ("nuget-restore")
+	.IsDependentOn ("libs-macosx-filesystem")
+	.Does 
+	(
+		() => 
+		{	
+			if ( ! IsRunningOnWindows() )
+			{
+				//-------------------------------------------------------------------------------------
+				solution_or_project = "./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj";
+
 				foreach (string build_configuration in build_configurations)
 				{
 					foreach (string define in defines)
 					{
-						solution_or_project = "./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
-						InfomationFancy("Solution/Project = " + solution_or_project);
-						InfomationFancy("Configuration    = " + build_configuration);
-						InfomationFancy("Define           = " + define);
-					
 						string define_actual = define;
 						if 
 						(
@@ -432,34 +517,28 @@ Task ("libs-macosx")
 							define_actual = "__UNIFIED__";
 						}
 
-						MSBuild 
+						InfomationFancy("Solution/Project = " + solution_or_project);
+						InfomationFancy("Configuration    = " + build_configuration);
+						InfomationFancy("Define           = " + define);
+						InfomationFancy("Define (actual)  = " + define_actual);
+
+						XBuild
 							(
 								solution_or_project,
 								c => 
 								{
 									c
 										.SetConfiguration(build_configuration)
-										.SetVerbosity(Verbosity.Diagnostic)
-										.WithProperty("DefineConstants", define_actual)
-										.WithProperty("consoleloggerparameters", "ShowCommandLine")
+										.SetVerbosity(verbosity)
+										//.WithProperty("DefineConstants", define_actual)
+										//.WithProperty("consoleloggerparameters", "ShowCommandLine")
 										;
 								}
 							);
 					}
 				}
-				//GitLinkAction("./source/Xamarin.Auth-Library.sln");
 				//-------------------------------------------------------------------------------------
-				
-				MSBuild
-					(
-						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj", 
 						c => 
@@ -478,7 +557,7 @@ Task ("libs-macosx")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
 						c => 
@@ -497,7 +576,7 @@ Task ("libs-macosx")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
 						c => 
@@ -519,7 +598,7 @@ Task ("libs-macosx")
 
 
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj", 
 						c => 
@@ -538,7 +617,7 @@ Task ("libs-macosx")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj", 
 						c => 
@@ -557,7 +636,15 @@ Task ("libs-macosx")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
+					(
+						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				XBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj", 
 						c => 
@@ -580,7 +667,7 @@ Task ("libs-macosx")
 				
 				
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
 						c => 
@@ -599,7 +686,7 @@ Task ("libs-macosx")
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
 						c => 
@@ -618,7 +705,7 @@ Task ("libs-macosx")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj", 
 						c => 
@@ -637,7 +724,15 @@ Task ("libs-macosx")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
+				XBuild
+					(
+						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
+						c => 
+						{
+							c.SetConfiguration("Release");
+						}
+					);
+				XBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj", 
 						c => 
@@ -656,12 +751,15 @@ Task ("libs-macosx")
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
-				
-			}
+			} // if ( ! IsRunningOnWindows() )
 
 			return;
 		}
 	);
+
+
+
+
 
 Task ("libs-windows")
 	.IsDependentOn ("libs-windows-solutions")
@@ -787,6 +885,7 @@ Task ("libs-windows-solutions")
 							*/
 							ToolVersion = MSBuildToolVersion.VS2015,
 							Configuration = "Debug",
+							PlatformTarget = PlatformTarget.x86,
 						}
 					);
 				MSBuild 
@@ -809,8 +908,11 @@ Task ("libs-windows-solutions")
 							*/
 							ToolVersion = MSBuildToolVersion.VS2015,
 							Configuration = "Release",
+							PlatformTarget = PlatformTarget.x86,
 						}
 					);
+
+				
 					
 				GitLinkAction("./source/Xamarin.Auth-Library.sln");
 				GitLinkAction("./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
@@ -869,9 +971,23 @@ Task ("libs-windows-projects")
 				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release");
+							Verbosity = verbosity,
+							/*
+							Using Visual Studio 2015 tooling
+
+							Fix for 
+
+							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+							(Build target) (1) -> (CoreCompile target) ->
+							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+							error MSB6004: 
+							The specified task executable location 
+							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
+							*/
+							ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Release",
 						}
 					);
 				CopyFiles
