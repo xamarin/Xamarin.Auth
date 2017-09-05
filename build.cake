@@ -61,8 +61,8 @@ Build with preprocessor parameters:
 
 #########################################################################################
 */	
-#addin nuget:?package=Cake.Xamarin.Build&version=2.0.18
 #addin nuget:?package=Cake.Xamarin&version=1.3.0.15
+#addin nuget:?package=Cake.Xamarin.Build&version=2.0.22
 #addin nuget:?package=Cake.FileHelpers&version=1.0.4
 /*
 -----------------------------------------------------------------------------------------
@@ -467,7 +467,7 @@ Task ("libs-macosx-solutions")
 								// WindowsPhone 8 projects cannot be compiled with XBuild
 								continue;
 							}
-							XBuild 
+							MSBuild 
 								(
 									solution_or_project,
 									c => 
@@ -522,7 +522,7 @@ Task ("libs-macosx-projects")
 						InfomationFancy("Define           = " + define);
 						InfomationFancy("Define (actual)  = " + define_actual);
 
-						XBuild
+						MSBuild
 							(
 								solution_or_project,
 								c => 
@@ -538,7 +538,7 @@ Task ("libs-macosx-projects")
 					}
 				}
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj", 
 						c => 
@@ -557,7 +557,7 @@ Task ("libs-macosx-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
 						c => 
@@ -576,7 +576,7 @@ Task ("libs-macosx-projects")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
 						c => 
@@ -598,7 +598,7 @@ Task ("libs-macosx-projects")
 
 
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj", 
 						c => 
@@ -617,7 +617,7 @@ Task ("libs-macosx-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj", 
 						c => 
@@ -636,7 +636,7 @@ Task ("libs-macosx-projects")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
 						c => 
@@ -644,7 +644,7 @@ Task ("libs-macosx-projects")
 							c.SetConfiguration("Release");
 						}
 					);
-				XBuild
+				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj", 
 						c => 
@@ -667,7 +667,7 @@ Task ("libs-macosx-projects")
 				
 				
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
 						c => 
@@ -686,7 +686,7 @@ Task ("libs-macosx-projects")
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
 						c => 
@@ -705,7 +705,7 @@ Task ("libs-macosx-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj", 
 						c => 
@@ -724,7 +724,7 @@ Task ("libs-macosx-projects")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				XBuild
+				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
 						c => 
@@ -732,7 +732,7 @@ Task ("libs-macosx-projects")
 							c.SetConfiguration("Release");
 						}
 					);
-				XBuild
+				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj", 
 						c => 
@@ -986,7 +986,7 @@ Task ("libs-windows-projects")
 							The specified task executable location 
 							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
 							*/
-							ToolVersion = MSBuildToolVersion.VS2015,
+							//ToolVersion = MSBuildToolVersion.VS2015,
 							Configuration = "Release",
 						}
 					);
@@ -1004,9 +1004,23 @@ Task ("libs-windows-projects")
 				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release");
+							Verbosity = verbosity,
+							/*
+							Using Visual Studio 2015 tooling
+
+							Fix for 
+
+							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+							(Build target) (1) -> (CoreCompile target) ->
+							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+							error MSB6004: 
+							The specified task executable location 
+							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
+							*/
+							//ToolVersion = MSBuildToolVersion.VS2015,
+							Configuration = "Release",
 						}
 					);
 				CopyFiles
