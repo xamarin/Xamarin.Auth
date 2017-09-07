@@ -77,6 +77,8 @@ provides secure browser experience through:
 ## References
 
 
+*	https://developer.apple.com/documentation/safariservices/sfsafariviewcontroller
 *	https://developer.apple.com/videos/play/wwdc2015/504/
 *	https://developer.apple.com/videos/play/wwdc2017/225/
+*	http://developer.outbrain.com/ios-best-practices-for-opening-a-web-page-within-an-app/
 			
