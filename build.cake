@@ -61,9 +61,21 @@ Build with preprocessor parameters:
 
 #########################################################################################
 */	
+Action<string> InformationFancy = 
+	(text) 
+		=>
+		{
+			Console.BackgroundColor = ConsoleColor.Yellow;
+			Console.ForegroundColor = ConsoleColor.Blue;			
+			Console.WriteLine(text);
+			Console.ResetColor();
+		};
+
 #addin nuget:?package=Cake.Xamarin&version=1.3.0.15
 #addin nuget:?package=Cake.Xamarin.Build&version=2.0.22
 #addin nuget:?package=Cake.FileHelpers&version=1.0.4
+#tool nuget:?package=vswhere
+
 /*
 -----------------------------------------------------------------------------------------
 	choco install -y gitlink
@@ -81,15 +93,6 @@ FilePath cake_tool_path = null;
 
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 
-Action<string> InfomationFancy = 
-	(text) 
-		=>
-		{
-			Console.BackgroundColor = ConsoleColor.Yellow;
-			Console.ForegroundColor = ConsoleColor.Blue;			
-			Console.WriteLine(text);
-			Console.ResetColor();
-		};
 
 Action<string> GitLinkAction = 
 	(solution_file_name) 
@@ -304,7 +307,7 @@ Task ("nuget-restore")
 	(
 		() => 
 		{	
-			InfomationFancy("nuget-restore");
+			InformationFancy("nuget-restore");
 			Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
 			//NuGetRestore 
@@ -457,10 +460,10 @@ Task ("libs-macosx-solutions")
 								define_actual = "__UNIFIED__";
 							}
 
-							InfomationFancy("Solution/Project = " + solution_or_project);
-							InfomationFancy("Configuration    = " + build_configuration);
-							InfomationFancy("Define           = " + define);
-							InfomationFancy("Define (actual)  = " + define_actual);
+							InformationFancy("Solution/Project = " + solution_or_project);
+							InformationFancy("Configuration    = " + build_configuration);
+							InformationFancy("Define           = " + define);
+							InformationFancy("Define (actual)  = " + define_actual);
 						
 							if (solution_or_project.Contains("Xamarin.Auth-Library.sln"))
 							{
@@ -517,10 +520,10 @@ Task ("libs-macosx-projects")
 							define_actual = "__UNIFIED__";
 						}
 
-						InfomationFancy("Solution/Project = " + solution_or_project);
-						InfomationFancy("Configuration    = " + build_configuration);
-						InfomationFancy("Define           = " + define);
-						InfomationFancy("Define (actual)  = " + define_actual);
+						InformationFancy("Solution/Project = " + solution_or_project);
+						InformationFancy("Configuration    = " + build_configuration);
+						InformationFancy("Define           = " + define);
+						InformationFancy("Define (actual)  = " + define_actual);
 
 						MSBuild
 							(
@@ -760,6 +763,8 @@ Task ("libs-macosx-projects")
 
 
 
+DirectoryPath vsLatest = null;
+FilePath msBuildPathX64 = null;
 
 Task ("libs-windows")
 	.IsDependentOn ("libs-windows-solutions")
@@ -767,8 +772,32 @@ Task ("libs-windows")
 	.Does 
 	(
 		() => 
-		{				
+		{
+			return;
+		}
+	);
 
+Task ("libs-windows-tooling")
+	.Does 
+	(
+		() => 
+		{	
+			if (IsRunningOnWindows ()) 
+			{	
+				vsLatest  = VSWhereLatest();
+				msBuildPathX64 = 
+					(vsLatest==null)
+					? null
+					: vsLatest.CombineWithFilePath("./MSBuild/15.0/Bin/amd64/MSBuild.exe")
+					;
+
+				InformationFancy("msBuildPathX64       = " + msBuildPathX64);
+
+				// FIX csc path is invalid 
+				msBuildPathX64 = "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin/MSBuild.exe";
+				InformationFancy("msBuildPathX64 FIXED = " + msBuildPathX64);
+			}
+			
 			return;
 		}
 	);
@@ -778,7 +807,7 @@ Task ("libs-windows-filesystem")
 	.Does 
 	(
 		() => 
-		{	
+		{				
 			CreateDirectory ("./output/");
 			CreateDirectory ("./output/pcl/");
 			CreateDirectory ("./output/android/");
@@ -797,6 +826,7 @@ Task ("libs-windows-filesystem")
 Task ("libs-windows-solutions")
 	.IsDependentOn ("nuget-restore")
 	.IsDependentOn ("libs-windows-filesystem")
+	.IsDependentOn ("libs-windows-tooling")
 	.Does 
 	(
 		() => 
@@ -925,6 +955,7 @@ Task ("libs-windows-solutions")
 Task ("libs-windows-projects")
 	.IsDependentOn ("nuget-restore")
 	.IsDependentOn ("libs-windows-filesystem")
+	.IsDependentOn ("libs-windows-tooling")
 	.Does 
 	(
 		() => 
@@ -986,7 +1017,6 @@ Task ("libs-windows-projects")
 							The specified task executable location 
 							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
 							*/
-							//ToolVersion = MSBuildToolVersion.VS2015,
 							Configuration = "Release",
 						}
 					);
@@ -1001,26 +1031,15 @@ Task ("libs-windows-projects")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
+				InformationFancy("msBuildPathX64 = " + msBuildPathX64);
 				MSBuild
 					(
 						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
 						new MSBuildSettings 
 						{
-							Verbosity = verbosity,
-							/*
-							Using Visual Studio 2015 tooling
-
-							Fix for 
-
-							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
-							(Build target) (1) -> (CoreCompile target) ->
-							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
-							error MSB6004: 
-							The specified task executable location 
-							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
-							*/
-							//ToolVersion = MSBuildToolVersion.VS2015,
 							Configuration = "Release",
+							Verbosity = verbosity,
+							ToolPath = msBuildPathX64,
 						}
 					);
 				CopyFiles
@@ -1277,9 +1296,11 @@ Task ("libs-windows-projects")
 				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj", 
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release");
+							Configuration = "Release",
+							Verbosity = verbosity,
+							ToolPath = msBuildPathX64,
 						}
 					);
 				CopyFiles
@@ -1357,9 +1378,11 @@ Task ("libs-windows-projects")
 				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj", 
-						c => 
+						new MSBuildSettings 
 						{
-							c.SetConfiguration("Release");
+							Configuration = "Release",
+							Verbosity = verbosity,
+							ToolPath = msBuildPathX64,
 						}
 					);
 				CopyFiles
