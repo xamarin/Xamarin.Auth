@@ -6,10 +6,9 @@ support for non-standard authentication schemes.
 
 ## Current version and status
 
-|--------------------------|-----------------------------------------------|
 | Mac OSX Builds           |  [![Components-XamarinAuth][23]][21]          |
 | Windows Builds           |  [![Components-XamarinAuth-Windows][24][22]   |
-|--------------------------|-----------------------------------------------|
+
 
 [21]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
 [22]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/
