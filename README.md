@@ -7,9 +7,10 @@ support for non-standard authentication schemes.
 ## Current version and status
 
 
-|--------------------------|-----------------------------------------------|
-| Mac OSX Builds           |  [![Components-XamarinAuth][23]][21]          |
-| Windows Builds           |  [![Components-XamarinAuth-Windows][24]][22]  |
+| Builds (Bot)               |  Status                                         |
+|:--------------------------:|:-----------------------------------------------:|
+| Mac OSX                    |  [![Components-XamarinAuth][23]][21]            |
+| Windows                    |  [![Components-XamarinAuth-Windows][24]][22]    |
 
 
 
