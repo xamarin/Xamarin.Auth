@@ -146,19 +146,19 @@ Xamarin.Forms sample
   msbuild Choose When ProjectReference Reference Include
   -->
   <ItemGroup>
-	<ProjectReference 
-		Include="..\..\..\..\source\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj"
-		Condition="exists('..\..\..\..\source\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj')"
+    <ProjectReference 
+		Include="..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj" 
+		Condition="exists('..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')"
 		>
-	  <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-		<Name>Xamarin.Auth.WindowsPhone81</Name>
-	</ProjectReference>
-	<Reference 
-		Include="Xamarin.Auth"
-		Condition="! exists('..\..\..\..\source\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj')"
+      <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
+      <Name>Xamarin.Auth.XamarinAndroid</Name>
+    </ProjectReference>
+    <Reference 
+		Include="Xamarin.Auth" 
+		Condition="! exists('..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')"
 		>
-	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.dll</HintPath>
-	</Reference>
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
