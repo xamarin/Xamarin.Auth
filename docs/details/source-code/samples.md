@@ -109,34 +109,12 @@ After adding those snippets do following steps:
 	it may be necessary to move nuget reference around (it might be inserted at 
 	the bottom)
 
-### Portable
+### Xamarin Traditional/Standard Platform[s]
 
-Xamarin.Forms sample
+Xamarin Traditional/Standard platform[s] (Xamarin.Android and Xamarin.iOS) samples
+will have only references to platform specific projects or nugets.
 
-```xml
-  <!--
-  ==================================================================================================
-  If projects for references can be found use ProjectReferences otherwise use NuGet references
-  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
-  msbuild Choose When ProjectReference Reference Include
-  -->
-  <ItemGroup>
-	<ProjectReference 
-		Include="..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj"
-		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj')"
-		>
-      <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
-      <Name>Xamarin.Auth.Portable</Name>
-      <Private>False</Private>
-	</ProjectReference>
-  </ItemGroup>
-  <!--
-  If projects for references can be found use ProjectReferences otherwise use NuGet references
-  ==================================================================================================
-  -->
-```
-
-### Xamarin.Android 
+#### Xamarin.Android 
 
 ```xml
   <!--
@@ -166,7 +144,7 @@ Xamarin.Forms sample
   -->
 ```
 
-### Xamarin.IOS 
+#### Xamarin.IOS 
 
 ```xml
   <!--
@@ -196,7 +174,7 @@ Xamarin.Forms sample
   -->
 ```
 
-### Universal Windows Platform UWP
+#### Universal Windows Platform UWP
 
 ```xml
   <!--
@@ -220,7 +198,7 @@ Xamarin.Forms sample
   -->
 ```
 
-### Windows Phone WinRT 8.1
+#### Windows Phone WinRT 8.1
 
 ```xml
   <!--
@@ -250,7 +228,7 @@ Xamarin.Forms sample
   -->
 ```
 	
-### Windows WinRT 8.1
+#### Windows WinRT 8.1
 
 ```xml
   <!--
@@ -280,7 +258,7 @@ Xamarin.Forms sample
   -->
 ```
 
-### Windows Phone 8.1 Silverlight
+#### Windows Phone 8.1 Silverlight
 
 ```xml
   <!--
@@ -310,7 +288,7 @@ Xamarin.Forms sample
   -->
 ```
 	
-### Windows Phone 8 Silverlight
+#### Windows Phone 8 Silverlight
 
 ```xml
   <!--
@@ -339,6 +317,57 @@ Xamarin.Forms sample
   ==================================================================================================
   -->
 ```	
+### Xamarin.Forms samples
+
+Xamarin.Forms samples using Presenters implementations will have only references to 
+platform specific projects or nugets (like Traditional/Standard), while samples based
+on Xamarin.Forms Custom Renderers need additonal Xamarin.Auth.Forms references - again
+project or nuget.
+
+#### Portable
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj"
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj')"
+		>
+      <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
+      <Name>Xamarin.Auth.Portable</Name>
+      <Private>False</Private>
+	</ProjectReference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj"
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj')"
+		>
+      <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
+      <Name>Xamarin.Auth.Portable</Name>
+      <Private>False</Private>
+	</ProjectReference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+```
  
 ## Future work
 
