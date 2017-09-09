@@ -109,6 +109,33 @@ After adding those snippets do following steps:
 	it may be necessary to move nuget reference around (it might be inserted at 
 	the bottom)
 
+### Portable
+
+Xamarin.Forms sample
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj"
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj')"
+		>
+      <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
+      <Name>Xamarin.Auth.Portable</Name>
+      <Private>False</Private>
+	</ProjectReference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+```
+
 ### Xamarin.Android 
 
 ```xml
