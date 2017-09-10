@@ -184,11 +184,17 @@ will have only references to platform specific projects or nugets.
   msbuild Choose When ProjectReference Reference Include
   -->
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj" Condition="exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+    <ProjectReference 
+		Include="..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj" 
+		Condition="exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')"
+		>
       <Project>{2D712AA6-7697-4F4D-B5F1-AA03476F59A7}</Project>
       <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
     </ProjectReference>
-    <Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+    <Reference 
+		Include="Xamarin.Auth" 
+		Condition="! exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')"
+		>
       <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -368,6 +374,335 @@ project or nuget.
   ==================================================================================================
   -->
 ```
+ 
+#### Xamarin.Android
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+    <ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj" 
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')"
+		>
+      <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
+      <Name>Xamarin.Auth.XamarinAndroid</Name>
+    </ProjectReference>
+    <Reference 
+		Include="Xamarin.Auth.XamarinAndroid" 
+		Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')"
+		>
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj"
+		Condition="exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj')"
+		>
+      <Project>{1B702A60-3D89-4183-B251-4A07388DCCB5}</Project>
+      <Name>Xamarin.Auth.Forms.Droid</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth"
+		Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.Forms.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+```
+
+#### Xamarin.IOS
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+    <ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj')"
+		>
+      <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
+      <Name>Xamarin.Auth.XamarinIOS</Name>
+    </ProjectReference>
+    <Reference 
+		Include="Xamarin.Auth" 
+		Condition="!exists('..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj')"
+		>
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj"
+		Condition="exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj')"
+		>
+      <Project>{7666F0AB-7493-49F2-82B0-7D51A0250FC9}</Project>
+      <Name>Xamarin.Auth.Forms.iOS</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth"
+		Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\Xamarin.iOS10\Xamarin.Auth.Forms.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+``` 
+ 
+ #### Universal Windows Platform UWP
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+    <ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj" 
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')"
+		>
+      <Project>{2D712AA6-7697-4F4D-B5F1-AA03476F59A7}</Project>
+      <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
+    </ProjectReference>
+    <Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+    <ProjectReference 
+		Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj" 
+		Condition="exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj')"
+		>
+      <Project>{ef012647-f313-4dbf-ba34-f8f6190e4906}</Project>
+      <Name>Xamarin.Auth.Forms.UniversalWindowsPlatform</Name>
+    </ProjectReference>
+    <Reference Include="Xamarin.Auth.Forms" Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj')">
+      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.Forms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->    
+```
+ 
+#### Windows Phone WinRT 8.1
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj"
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj')"
+		>
+	  <Project>{D07C6FC6-6860-495C-9BC8-0F731C74AE2F}</Project>
+		<Name>Xamarin.Auth.WinRTWindowsPhone81</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth"
+		Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wpa81\Xamarin.Auth.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindowsPhone81\Xamarin.Auth.Forms.WinRTWindowsPhone81.csproj"
+		Condition="exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindowsPhone81\Xamarin.Auth.Forms.WinRTWindowsPhone81.csproj')"
+		>
+	  <Project>{73188683-2fcc-4aee-8a30-e30e1532d6cf}</Project>
+		<Name>Xamarin.Auth.Forms.WinRTWindowsPhone81</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth"
+		Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindowsPhone81\Xamarin.Auth.Forms.WinRTWindowsPhone81.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wpa81\Xamarin.Auth.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
+```
+
+
+#### Windows WinRT 8.1
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj"
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj')"
+		>
+	  <Project>{C4202AC1-1027-4737-8215-16182421E342}</Project>
+		<Name>Xamarin.Auth.WinRTWindows81</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth"
+		Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\win81\Xamarin.Auth.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindows81\Xamarin.Auth.Forms.WinRTWindows81.csproj"
+		Condition="exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindows81\Xamarin.Auth.Forms.WinRTWindows81.csproj')"
+		>
+	  <Project>{9ee3f977-6715-4509-8fe8-b862158aa293}</Project>
+		<Name>Xamarin.Auth.Forms.WinRTWindows81</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth"
+		Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WinRTWindows81\Xamarin.Auth.Forms.WinRTWindows81.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\win81\Xamarin.Auth.Forms.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+```
+
+#### Windows Phone 8.x Silverlight
+
+```xml
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj"
+		Condition="exists('..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj')"
+		>
+	  <Project>{08470E0D-EB43-4E07-92F4-020DF019F628}</Project>
+		<Name>Xamarin.Auth.WindowsPhone8</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth"
+		Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <ItemGroup>
+	<ProjectReference 
+		Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WindowsPhone8\Xamarin.Auth.Forms.WindowsPhone8.csproj"
+		Condition="exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WindowsPhone8\Xamarin.Auth.Forms.WindowsPhone8.csproj')"
+		>
+	  <Project>{c5dd0133-9a66-4489-91c3-745d6ed5ffe5}</Project>
+		<Name>Xamarin.Auth.Forms.WindowsPhone8</Name>
+	</ProjectReference>
+	<Reference 
+		Include="Xamarin.Auth.Forms"
+		Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WindowsPhone8\Xamarin.Auth.Forms.WindowsPhone8.csproj')"
+		>
+	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.Forms.dll</HintPath>
+	</Reference>
+  </ItemGroup>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
+```
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
 ## Future work
 
