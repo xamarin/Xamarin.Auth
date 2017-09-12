@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:local="clr-namespace:ComicBook;assembly=ComicBookPCL"
+	x:Class="ComicBook.ProvidersSamplesPage"
+	>
+    <ContentPage.Padding>
+        <OnPlatform 
+            x:TypeArguments="Thickness" 
+            iOS="0, 20, 0, 0" 
+            WinPhone="20,20,20,20" 
+            >
+        </OnPlatform>
+    </ContentPage.Padding>
+	<ContentPage.Content>
+		<StackLayout>
+			<Button x:Name="buttonGoogle" Text="Google OAuth" />
+			<Button x:Name="buttonFacebook" Text="Facebook OAuth" />
+			<Button x:Name="buttonLinkedIn" Text="LinkedIn OAuth" />
+			<Button x:Name="buttonMeetUp" Text="MeetUp OAuth" />
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>

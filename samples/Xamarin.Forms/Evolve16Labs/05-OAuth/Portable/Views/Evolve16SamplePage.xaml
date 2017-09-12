@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+	xmlns:local="clr-namespace:ComicBook;assembly=ComicBook" 
+	x:Class="ComicBook.Evolve16SamplePage"
+	>
+    <ContentPage.Padding>
+        <OnPlatform 
+            x:TypeArguments="Thickness" 
+            iOS="0, 20, 0, 0" 
+            WinPhone="20,20,20,20" 
+            >
+        </OnPlatform>
+    </ContentPage.Padding>
+	<ContentPage.Content>
+		<StackLayout>
+			<Button x:Name="implicitButton" Text="Implicit flow" />
+			<Button x:Name="authorizationCodeButton" Text="Authorization Code flow" />
+			<Button x:Name="getProfileButton" Text="Get your profile data" IsEnabled="false" />
+			<Button x:Name="refreshButton" Text="Refresh Tokens" IsEnabled="false" />
+			<Label x:Name="nameText" Text="" HorizontalTextAlignment="Center" />
+			<Label x:Name="emailText" Text="" HorizontalTextAlignment="Center" />
+			<Image x:Name="profileImage" WidthRequest="300" HeightRequest="200" />
+			<Label x:Name="statusText" Grid.Row="1" HorizontalTextAlignment="Center" />
+		</StackLayout>
+	</ContentPage.Content>
+</ContentPage>
