@@ -106,21 +106,6 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
-      <Link>Account.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
-      <Link>AccountResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
-      <Link>AccountStore.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
-      <Link>AccountStore.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
-      <Link>AccountStoreException.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -136,14 +121,8 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
-      <Link>Evolve16.Labs\AccountManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
-      <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
-      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Presenters\OAuthLoginPresenter.cs">
+      <Link>Presenters\OAuthLoginPresenter.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
@@ -223,16 +202,37 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
-    <Compile Include="AccountStore.WindowsStore81WinRT.cs" />
     <Compile Include="Authenticator.WindowsStore81WinRT.cs" />
     <Compile Include="DataProtectionExtensions.cs" />
     <Compile Include="PlatformSpecific\FileHelper.cs" />
-    <Compile Include="PlatformSpecific\WinRTAccountStore.Async.cs" />
-    <Compile Include="PlatformSpecific\WinRTAccountStore.cs" />
     <Compile Include="WebAuthenticator.WindowsStore81WinRT.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WinRTWindows81.cs" />
-    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.WinRTWindows81.cs" />
-    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.WinRTWindows81.cs" />
+    <Compile Include="Presenters\AuthenticationConfiguration.WinRTWindows81.cs" />
+    <Compile Include="Presenters\OAuthPlatformPresenter.WinRTWindows81.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\Account.cs">
+      <Link>AccountStore\Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
+      <Link>AccountStore\AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.cs">
+      <Link>AccountStore\AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.Async.cs">
+      <Link>AccountStore\AccountStore.Async.cs</Link>
+    </Compile>
+    <Compile Include="AccountStore\AccountStore.WindowsStore81WinRT.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStoreException.cs">
+      <Link>AccountStore\AccountStoreException.cs</Link>
+    </Compile>
+    <Compile Include="AccountStore\WinRTAccountStore.cs" />
+    <Compile Include="AccountStore\WinRTAccountStore.Async.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
+      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
+      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="WebAuthenticatorPage.xaml">
@@ -290,6 +290,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AccountStore\" />
+    <Folder Include="AccountStore\CryptoAccountManager\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

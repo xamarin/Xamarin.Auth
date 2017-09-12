@@ -55,7 +55,7 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public override Task<Uri> GetInitialUrlAsync()
+        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null)
         {
             // mc++ optimized by Mark Smith
             //var tcs = new TaskCompletionSource<Uri> ();

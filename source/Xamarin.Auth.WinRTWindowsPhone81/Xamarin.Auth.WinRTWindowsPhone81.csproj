@@ -81,21 +81,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
-      <Link>Account.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
-      <Link>AccountResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
-      <Link>AccountStore.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
-      <Link>AccountStore.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
-      <Link>AccountStoreException.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -111,14 +96,8 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
-      <Link>Evolve16.Labs\AccountManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
-      <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
-      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Presenters\OAuthLoginPresenter.cs">
+      <Link>Presenters\OAuthLoginPresenter.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
@@ -198,27 +177,48 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\TypeCode.cs">
       <Link>System\TypeCode.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.WinRTWindows81\AccountStore.WindowsStore81WinRT.cs">
-      <Link>AccountStore.WindowsStore81WinRT.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.WinRTWindows81\Authenticator.WindowsStore81WinRT.cs">
       <Link>Authenticator.WindowsStore81WinRT.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.WinRTWindows81\DataProtectionExtensions.cs">
       <Link>DataProtectionExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.WinRTWindows81\PlatformSpecific\WinRTAccountStore.Async.cs">
-      <Link>PlatformSpecific\WinRTAccountStore.Async.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.WinRTWindows81\PlatformSpecific\WinRTAccountStore.cs">
-      <Link>PlatformSpecific\WinRTAccountStore.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticator.WindowsStore81WinRT.cs">
       <Link>WebAuthenticator.WindowsStore81WinRT.cs</Link>
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WinRTWindowsPhone81.cs" />
-    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.WinRTWindowsPhone81.cs" />
-    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.WinRTWindowsPhone81.cs" />
+    <Compile Include="Presenters\AuthenticationConfiguration.WinRTWindowsPhone81.cs" />
+    <Compile Include="Presenters\OAuthPlatformPresenter.WinRTWindowsPhone81.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\Account.cs">
+      <Link>AccountStore\Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
+      <Link>AccountStore\AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.cs">
+      <Link>AccountStore\AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.Async.cs">
+      <Link>AccountStore\AccountStore.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.WinRTWindows81\AccountStore\AccountStore.WindowsStore81WinRT.cs">
+      <Link>AccountStore\AccountStore.WindowsStore81WinRT.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStoreException.cs">
+      <Link>AccountStore\AccountStoreException.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.WinRTWindows81\AccountStore\WinRTAccountStore.cs">
+      <Link>AccountStore\WinRTAccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.WinRTWindows81\AccountStore\WinRTAccountStore.Async.cs">
+      <Link>AccountStore\WinRTAccountStore.Async.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
+      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
+      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="..\Xamarin.Auth.WinRTWindows81\WebAuthenticatorPage.xaml">
@@ -283,6 +283,10 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   -->
+  <ItemGroup>
+    <Folder Include="AccountStore\" />
+    <Folder Include="AccountStore\CryptoAccountManager\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>

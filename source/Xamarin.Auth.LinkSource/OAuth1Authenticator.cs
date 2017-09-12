@@ -155,12 +155,29 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public override Task<Uri> GetInitialUrlAsync()
+        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null)
         {
             /*
-			 	mc++
-				OriginalString property of the Uri object should be used instead of AbsoluteUri
-				otherwise trailing slash is added.
+                mc++
+                OriginalString property of the Uri object should be used instead of AbsoluteUri
+
+                otherwise trailing slash is added.
+
+                string[] uris = new string[]
+                {
+                    "http://xamarin.com/",
+                    "http://xamarin.com",
+                };
+                foreach (string u in uris)
+                {
+                    uri = new Uri(u);
+                    Console.WriteLine("uri.AbsoluteUri = " + uri.AbsoluteUri);
+                    Console.WriteLine("uri.OriginalString = " + uri.OriginalString);
+                }
+
+                The problem is whether to send original string to be compared with registered
+                redirect_url on the authorization server od "correct" url (AblsoluteUrl) with
+                slash
 			*/
             string oauth_callback_uri_absolute = callbackUrl.AbsoluteUri;
             string oauth_callback_uri_original = callbackUrl.OriginalString;

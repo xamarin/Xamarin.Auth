@@ -63,18 +63,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
-      <Link>Account.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
-      <Link>AccountResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
-      <Link>AccountStore.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
-      <Link>AccountStoreException.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -90,14 +78,8 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
-      <Link>Evolve16.Labs\AccountManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
-      <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
-      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Presenters\OAuthLoginPresenter.cs">
+      <Link>Presenters\OAuthLoginPresenter.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
@@ -142,23 +124,14 @@
       <Link>WebUtilities.cs</Link>
     </Compile>
     <Compile Include="Authenticator.XamarinIOS.cs" />
-    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.XamarinIOS.cs" />
+    <Compile Include="Presenters\AuthenticationConfiguration.XamarinIOS.cs" />
     <Compile Include="FormAuthenticator.XamarinIOS.cs" />
-    <Compile Include="PlatformSpecific\ACAccountWrapper.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="PlatformSpecific\FileHelper.cs" />
     <Compile Include="PlatformSpecific\FormAuthenticatorController.cs" />
     <Compile Include="PlatformSpecific\ProgressLabel.cs" />
     <Compile Include="PlatformSpecific\UIViewControllerEx.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.cs" />
     <Compile Include="WebAuthenticator.XamarinIOS.cs" />
-    <Compile Include="AccountStore.XamarinIOS.cs" />
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
-      <Link>AccountStore.Async.cs</Link>
-    </Compile>
-    <Compile Include="PlatformSpecific\KeyChainAccountStore.Aync.cs" />
-    <Compile Include="PlatformSpecific\KeyChainAccountStore.cs" />
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
@@ -180,14 +153,43 @@
     <Compile Include="PlatformSpecific\WebAuthenticatorController.WKWebView.WKWebViewNavigationDelegate.cs" />
     <Compile Include="PlatformSpecific\WebViewConfiguration.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\NativeAuthSafariViewControllerDelegate.cs" />
-    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.XamarinIOS.cs" />
+    <Compile Include="Presenters\OAuthPlatformPresenter.XamarinIOS.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\SafariViewControllerConfiguration.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\Account.cs">
+      <Link>AccountStore\Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
+      <Link>AccountStore\AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.cs">
+      <Link>AccountStore\AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.Async.cs">
+      <Link>AccountStore\AccountStore.Async.cs</Link>
+    </Compile>
+    <Compile Include="AccountStore\AccountStore.XamarinIOS.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStoreException.cs">
+      <Link>AccountStore\AccountStoreException.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
+      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
+      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
+    </Compile>
+    <Compile Include="AccountStore\ACAccountWrapper.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="AccountStore\KeyChainAccountStore.cs" />
+    <Compile Include="AccountStore\KeyChainAccountStore.Aync.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="AccountStore\" />
+    <Folder Include="AccountStore\CryptoAccountManager\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />

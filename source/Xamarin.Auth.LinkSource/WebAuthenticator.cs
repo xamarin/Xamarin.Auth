@@ -62,7 +62,7 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public abstract Task<Uri> GetInitialUrlAsync();
+        public abstract Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null);
 
         /// <summary>
         /// Event handler called when a new page is being loaded in the web browser.
