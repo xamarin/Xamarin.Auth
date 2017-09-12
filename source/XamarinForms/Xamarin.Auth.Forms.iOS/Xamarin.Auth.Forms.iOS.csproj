@@ -50,6 +50,7 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AuthenticatorPageRenderer.cs" />
+    <Compile Include="EmbeddedWebViewConfiguration.cs" />
   </ItemGroup>
   <ItemGroup>
   </ItemGroup>
