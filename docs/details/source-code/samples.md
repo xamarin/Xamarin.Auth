@@ -658,8 +658,8 @@ project or nuget.
 	  <Project>{08470E0D-EB43-4E07-92F4-020DF019F628}</Project>
 		<Name>Xamarin.Auth.WindowsPhone8</Name>
 	</ProjectReference>
-	<Reference 
 		Include="Xamarin.Auth"
+	<Reference 
 		Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj')"
 		>
 	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.dll</HintPath>
