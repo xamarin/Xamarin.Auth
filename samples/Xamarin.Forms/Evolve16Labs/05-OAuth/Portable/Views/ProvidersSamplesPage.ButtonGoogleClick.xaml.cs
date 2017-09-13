@@ -150,5 +150,14 @@ namespace ComicBook
             return;
         }
 
+        protected void Handle_ItemTapped(object sender, Xamarin.Forms.ItemTappedEventArgs e)
+        {
+            return;
+        }
+
+        protected void Handle_ItemSelected(object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+            return;
+        }
     }
 }

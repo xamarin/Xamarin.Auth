@@ -14,11 +14,19 @@
         </OnPlatform>
     </ContentPage.Padding>
 	<ContentPage.Content>
+		
 		<StackLayout>
 			<Button x:Name="buttonGoogle" Text="Google OAuth" />
 			<Button x:Name="buttonFacebook" Text="Facebook OAuth" />
 			<Button x:Name="buttonLinkedIn" Text="LinkedIn OAuth" />
 			<Button x:Name="buttonMeetUp" Text="MeetUp OAuth" />
+            <ListView
+                x:Name="listViewProviders" SeparatorVisibility="Default"
+                BindingContext="{Binding Providers}"
+				ItemTapped="Handle_ItemTapped"
+				ItemSelected="Handle_ItemSelected"
+                >
+            </ListView>
 		</StackLayout>
 	</ContentPage.Content>
 </ContentPage>

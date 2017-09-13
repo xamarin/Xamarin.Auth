@@ -9,6 +9,14 @@ namespace ComicBook
     {
         protected Xamarin.Auth.WebAuthenticator authenticator = null;
 
+        List<string> Providers = new List<string>()
+        {
+            "Google",
+            "FaceBook",
+            "MeetUp",
+            "LinkedIn",
+        };
+
         public ProvidersSamplesPage()
         {
             InitializeComponent();
@@ -17,6 +25,11 @@ namespace ComicBook
             buttonFacebook.Clicked += ButtonFacebook_Clicked;
             buttonLinkedIn.Clicked += ButtonLinkedIn_Clicked;
             buttonMeetUp.Clicked += ButtonMeetUp_Clicked;
+
+            BindingContext = this;
+            listViewProviders.ItemsSource = Providers;
+            listViewProviders.ItemTapped += Handle_ItemTapped;
+            listViewProviders.ItemSelected += Handle_ItemSelected;
 
             return;
         }
