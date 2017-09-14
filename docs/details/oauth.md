@@ -17,10 +17,23 @@
 
 ### Authorization Grant Types
 
-*	Authorization Code
+*	Authorization Code 
+
+	2 steps
+	
+	1.	Authorization [Enpoint] Request/Response
+	
+	2.	Token [Endpoint] Request/Response
+	
+	
 *	Implicit
+
+	1 step
+	
 *	Resource Owner Password Credentials
+
 *	Client Credentials
+
 
 ### Endpoints
 
@@ -45,6 +58,15 @@
 	*	http://tutorials.jenkov.com/oauth2/
 	*	http://rasmustc.com/blog/Custom-Facebook-Authentication-with-webapi/
 
+## Authorization Server
+
+
+## Diverse 
+
+https://github.com/IdentityModel/AuthorizationServer
+https://github.com/IdentityModel/IdentityModel.AspNetCore.OAuth2Introspection
+https://github.com/IdentityModel/IdentityModel.AspNetCore.ScopeValidation
+https://github.com/IdentityModel/IdentityModel.Owin.ClaimsTransformation
 
 ### Advanced reading (Standards/RFCs)
 
