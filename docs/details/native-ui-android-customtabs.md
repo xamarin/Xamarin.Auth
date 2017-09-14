@@ -86,4 +86,4 @@ Testing IntentFilter and Activity with
 *	https://developer.chrome.com/multidevice/android/customtabs
 *	https://medium.com/google-developers/best-practices-for-custom-tabs-5700e55143ee
 *	https://www.captechconsulting.com/blogs/an-introduction-to-chrome-custom-tabs-for-android
-
+*	https://segunfamisa.com/posts/chrome-custom-tabs
