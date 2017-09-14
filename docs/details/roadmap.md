@@ -5,6 +5,7 @@ This doc is subject to discussion (personal roadmap based on user feedback):
 ## 1 OAuth features (`refresh_token`, other grant flow implementations)
 
 ###	1.1	Custom Parameters		
+
 	
 https://stackoverflow.com/questions/40787981/c-sharp-xamarin-ios-add-a-nonce-to-xamarin-auth-request/44792934#44792934
 
@@ -241,8 +242,60 @@ For error conditions, a status code 400 is returned along with an error code.
 	
 ###	4.2	Native UI Details		
 	
-## 5 Identity (OAuth) Service provider samples
+## 5 Oauth and Identity (OpenId) Service provider samples
 
+### OAuth
+
+RequestParameters
+
+### OpenId
+
+1.	Google Identity Provider
+
+	https://developers.google.com/identity/protocols/OpenIDConnect#authenticatingtheuser
+	
+	JSON Discovery Metadata
+	
+	https://accounts.google.com/.well-known/openid-configuration
+	
+
+2.	Microsoft 
+
+	https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-protocols-openid-connect-code
+	
+	JSON Discovery Metadata
+	
+	https://login.microsoftonline.com/fabrikamb2c.onmicrosoft.com/v2.0/.well-known/openid-configuration
+	
+3.	Yahoo
+
+	https://developer.yahoo.com/oauth2/guide/openid_connect/
+	
+	JSON Discovery Metadata
+	
+	https://login.yahoo.com/.well-known/openid-configuration	
+
+4.	PayPal
+
+	https://developer.paypal.com/docs/integration/direct/identity/log-in-with-paypal/
+
+	JSON Discovery Metadata
+	
+	https://www.paypalobjects.com/.well-known/openid-configuration
+	
+5.	Amazon
+
+	https://images-na.ssl-images-amazon.com/images/G/01/lwa/dev/docs/website-developer-guide._TTH_.pdf
+	
+6.	SalesForce
+
+	https://login.salesforce.com/
+	
+	JSON Discovery Metadata
+	
+	https://login.salesforce.com/.well-known/openid-configuration
+	
+	
 ## 6 Custom Tabs API refactoring and improvements	
 	
 ## 7 Component packaging		
