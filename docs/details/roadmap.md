@@ -295,6 +295,22 @@ RequestParameters
 	
 	https://login.salesforce.com/.well-known/openid-configuration
 	
+7.	IdentityServer
+
+	https://demo.identityserver.io/
+	
+	JSON Discovery Metadata
+	
+	https://demo.identityserver.io/.well-known/openid-configuration
+	
+More links
+
+http://openid.net/developers/specs/
+https://stackoverflow.com/questions/22501565/list-of-openid-connect-providers
+https://stackoverflow.com/questions/1116743/where-can-i-find-a-list-of-openid-provider-urls
+http://www.digitalenginesoftware.com/blog/archives/24-OpenID-Provider-URL-Formatting.html
+http://web.archive.org/web/20091230182837/http://spreadopenid.org/provider-comparison
+
 	
 ## 6 Custom Tabs API refactoring and improvements	
 	
