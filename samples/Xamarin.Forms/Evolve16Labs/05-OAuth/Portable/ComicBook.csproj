@@ -44,21 +44,6 @@
     <Compile Include="Views\MasterPage.xaml.cs">
       <DependentUpon>MasterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ProvidersSamplesPage.ButtonGoogleClick.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProvidersSamplesPage.ButtonFacebookClick.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProvidersSamplesPage.ButtonLinkedInClick.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProvidersSamplesPage.ButtonMeetUpClick.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\ProvidersSamplesPage.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
@@ -68,6 +53,21 @@
       <DependentUpon>UserAgentTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PageHelpers.cs" />
+    <Compile Include="Views\Samples\ProvidersSamplesPage.Google.xaml.cs">
+      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Samples\ProvidersSamplesPage.Facebook.xaml.cs">
+      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Samples\ProvidersSamplesPage.LinkedIn.xaml.cs">
+      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Samples\ProvidersSamplesPage.MeetUp.xaml.cs">
+      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Samples\ProvidersSamplesPage.xaml.cs">
+      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.0.49\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
@@ -102,13 +102,13 @@
     <EmbeddedResource Include="Views\MasterPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\ProvidersSamplesPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
     <EmbeddedResource Include="Views\SettingsPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\UserAgentTestPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Samples\ProvidersSamplesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
@@ -133,6 +133,11 @@
     <Reference Include="Xamarin.Auth.Portable" Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj')">
 	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Auth.dll</HintPath>
     </Reference>
+    <ProjectReference Include="..\..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
+      <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
+      <Private>False</Private>
+    </ProjectReference>
   </ItemGroup>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
@@ -162,6 +167,7 @@
     <Folder Include="Views\" />
     <Folder Include="Models\" />
     <Folder Include="Models\Xamarin.Auth\" />
+    <Folder Include="Views\Samples\" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />
