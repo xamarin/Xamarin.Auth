@@ -17,6 +17,8 @@ namespace Xamarin.Auth.ProviderSamples
 
         partial void SetPublicNonSensitiveData()
         {
+            ProviderName = "Google";
+            OrderUI = "1";
             Description = "Google OAuth2 NativeUI iOS";
             OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
             OAuth2_Scope = "https://www.googleapis.com/auth/userinfo.email";

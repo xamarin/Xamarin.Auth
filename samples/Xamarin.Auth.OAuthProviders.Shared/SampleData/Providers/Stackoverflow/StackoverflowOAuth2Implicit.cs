@@ -17,6 +17,9 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Stackoverflow";
+            OrderUI = "4";
+            Description = "Stackoverflow OAuth2 Implicit";
 			HowToMarkDown = 
 @"
 Application management (dashboard)
@@ -73,7 +76,6 @@ private_info - access full history of a user's private actions on the site 2.1
 
 
 ";
-			Description = "Stackoverflow OAuth2 Implicit";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = ""; // "", "read_inbox", "no_expiry", "write_access", ""
 			OAuth_UriAuthorization = new Uri("https://stackexchange.com/oauth/dialog");

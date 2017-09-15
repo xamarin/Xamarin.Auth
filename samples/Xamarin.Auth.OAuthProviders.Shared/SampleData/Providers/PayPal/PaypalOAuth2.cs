@@ -17,6 +17,8 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Paypal";
+            OrderUI = "4";
 			HowToMarkDown = 
 			@"
 			";

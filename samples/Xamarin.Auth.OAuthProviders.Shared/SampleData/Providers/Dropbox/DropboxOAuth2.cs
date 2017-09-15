@@ -18,10 +18,12 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Dropbox";
+            OrderUI = "5";
+            Description = "Dropbox OAuth2";
 			HowToMarkDown = 
 			@"
 			";
-			Description = "Dropbox OAuth2";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = "";
 			OAuth_UriAuthorization = new Uri("https://www.dropbox.com/1/oauth2/authorize");

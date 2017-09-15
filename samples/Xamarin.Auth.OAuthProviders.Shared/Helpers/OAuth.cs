@@ -61,6 +61,18 @@ namespace Xamarin.Auth.ProviderSamples.Helpers
         {
         }
 
+        public string OrderUI
+        {
+            get;
+            set;
+        }
+
+        public string ProviderName
+        {
+        	get;
+        	set;
+        }
+
         public string Description
         {
             get;

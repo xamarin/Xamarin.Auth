@@ -17,6 +17,9 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Slack";
+            OrderUI = "3";
+            Description = "Slack OAuth2";
 			HowToMarkDown = 
 			@"
 https://api.slack.com/docs/oauth
@@ -27,7 +30,6 @@ https://slack.com/oauth/authorize
 https://api.slack.com/docs/oauth-scopes
 
 			";
-			Description = "Slack OAuth2";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = "users:read"; // 
 			OAuth_UriAuthorization = new Uri("https://slack.com/oauth/authorize");

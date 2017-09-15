@@ -17,6 +17,9 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Twitter";
+            OrderUI = "2";
+            Description = "Twitter OAuth1";
 			HowToMarkDown = 
 @"
 	https://dev.twitter.com/
@@ -38,7 +41,6 @@ namespace Xamarin.Auth.ProviderSamples
 		Authorize URL				https://api.twitter.com/oauth/authorize
 		Access token URL			https://api.twitter.com/oauth/access_token
 ";
-			Description = "Twitter OAuth1";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth1_SecretKey_ConsumerSecret_APISecret = "";
 			OAuth1_UriRequestToken = new Uri("https://api.twitter.com/oauth/request_token");

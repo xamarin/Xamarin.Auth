@@ -17,6 +17,8 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Instagram";
+            OrderUI = "4";
 			Description = "Instagram OAuth2";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = "basic";

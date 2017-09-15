@@ -17,6 +17,8 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Github";
+            OrderUI = "4";
 			HowToMarkDown =
             @"
 http://doc.gitlab.com/ce/integration/oauth_provider.html

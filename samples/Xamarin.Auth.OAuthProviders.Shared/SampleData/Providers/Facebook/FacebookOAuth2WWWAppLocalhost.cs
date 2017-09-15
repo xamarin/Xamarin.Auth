@@ -18,6 +18,8 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Facebook";
+            OrderUI = "2";
             Description = "Facebook OAuth2 WWW App Type Callbackurl http[s]://localhost/";
             OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
             OAuth2_Scope = ""; // "", "basic", "email",

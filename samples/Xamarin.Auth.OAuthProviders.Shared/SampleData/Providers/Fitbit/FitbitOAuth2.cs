@@ -18,6 +18,8 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Fitbit";
+            OrderUI = "5";
             Description = "Fitbit OAuth2";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = "profile"; // 

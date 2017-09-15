@@ -17,6 +17,8 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "LinkedIn";
+            OrderUI = "4";
             Description = "LinkedIn OAuth1";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth1_SecretKey_ConsumerSecret_APISecret = "";

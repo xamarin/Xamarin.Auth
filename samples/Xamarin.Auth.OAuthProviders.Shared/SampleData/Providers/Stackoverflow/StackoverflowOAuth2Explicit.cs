@@ -17,6 +17,9 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "Stackoverflow";
+            OrderUI = "4";
+            Description = "Stackoverflow OAuth2 Explicit";
 			HowToMarkDown = 
 @"
 Application management (dashboard)
@@ -44,7 +47,9 @@ The explicit OAuth 2.0 flow consists of the following steps:
 		code - from the previous step
 		redirect_uri - must be the same as the provided in the first step
 		This request is responded to with either an error (HTTP status code 400) 
-		or an access token of the form access_token=...&expires=1234. expires will only be set if scope does not include no_expiry, the use of which is strongly advised against unless your app truly needs perpetual access.
+		or an access token of the form access_token=...&expires=1234. expires will only be set if 
+        scope does not include no_expiry, the use of which is strongly advised against unless 
+        your app truly needs perpetual access.
 
 The implicit OAuth 2.0 flow consists of the following steps:
 
@@ -71,7 +76,6 @@ no_expiry - access_token's with this scope do not expire
 write_access - perform write operations as a user 2.1
 private_info - access full history of a user's private actions on the site 2.1
 ";
-			Description = "Stackoverflow OAuth2 Explicit";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = ""; // "", "basic", "email",
 			OAuth_SecretKey_ConsumerSecret_APISecret = "";

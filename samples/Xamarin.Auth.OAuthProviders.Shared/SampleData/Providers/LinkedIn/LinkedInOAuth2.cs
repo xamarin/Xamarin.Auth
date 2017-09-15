@@ -17,6 +17,9 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "LinkedIn";
+            OrderUI = "4";
+            Description = "LinkedIn OAuth2";
 			HowToMarkDown = 
 @"
 	https://developer.linkedin.com/
@@ -45,7 +48,6 @@ namespace Xamarin.Auth.ProviderSamples
 		Default 'Cancel' Redirect URL:
 			http://xamarin.com
 ";
-			Description = "LinkedIn OAuth2";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth2_Scope = "r_basicprofile";
 			OAuth_UriCallbackAKARedirect = new Uri("https://xamarin.com/");

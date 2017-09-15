@@ -114,17 +114,11 @@
   msbuild Choose When ProjectReference Reference Include
   -->
   <ItemGroup>
-	<ProjectReference 
-		Include="..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj"
-		Condition="exists('..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj')"
-		>
+	<ProjectReference Include="..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj" Condition="exists('..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj')">
 	  <Project>{c4202ac1-1027-4737-8215-16182421e342}</Project>
 		<Name>Xamarin.Auth.WinRTWindows81</Name>
 	</ProjectReference>
-	<Reference 
-		Include="Xamarin.Auth"
-		Condition="! exists('..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj')"
-		>
+	<Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\source\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj')">
 	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\win81\Xamarin.Auth.dll</HintPath>
 	</Reference>
   </ItemGroup>

@@ -17,11 +17,12 @@ namespace Xamarin.Auth.ProviderSamples
 
 		partial void SetPublicNonSensitiveData()
 		{
+            ProviderName = "MeetUp";
+            OrderUI = "4";
+            Description = "MeetUp OAuth1";
 			HowToMarkDown = 
 			@"
 			";
-			Description = "Meetup OAuth1";
-			Description = "Meetup OAuth1";
 			OAuth_IdApplication_IdAPI_KeyAPI_IdClient_IdCustomer = "";
 			OAuth1_SecretKey_ConsumerSecret_APISecret = "";
 			OAuth1_UriRequestToken = new Uri("https://api.meetup.com/oauth/request");
