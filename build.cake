@@ -237,10 +237,8 @@ string[] solutions_for_nuget_tests = new string[]
 
 string[] sample_solutions_macosx = new string[]
 {
-	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	//"./samples/Traditional.Standard/references01projects/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	//"./samples/bugs-triaging/component-2-nuget-migration-ANE/ANE-MacOSX-Xamarin.Studio.sln", // could not build shared project on CI
-	//"./samples/Traditional.Standard/references02nuget/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",	
+	//"./samples/Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	//"./samples/Xamarin.Forms/Evolve16Labs/05-OAuth/ComicBook.sln", 
 };
 
 string[] sample_solutions_windows = new string[]
@@ -406,6 +404,73 @@ Task ("samples-nuget-restore")
 	
 string solution_or_project = null;
 
+
+Action<string, string[], string[]> BuildLoop = 
+(
+	sln_prj, 	// solution or project to be compiled
+	cfgs,		// build configuration Debug | Release
+	defs		// defines for compilation	
+) 
+	=>
+{
+	if 
+	(
+		solution_or_project.Contains("Xamarin.Auth-Library.sln")
+		||
+		! solution_or_project.Contains("MacOSX")
+	)
+	{
+		// WindowsPhone 8 projects cannot be compiled with XBuild
+		return;
+	}
+
+	foreach (string build_configuration in cfgs)
+	{
+		foreach (string define in defs)
+		{
+			string define_actual = define;
+			if 
+			(
+				string.IsNullOrEmpty(define)
+				&&
+				solution_or_project.Contains("XamarinIOS")
+			)
+			{
+				define_actual = "__UNIFIED__";
+			}
+
+			InformationFancy("Solution/Project = " + sln_prj);
+			InformationFancy("Configuration    = " + build_configuration);
+			InformationFancy("Define           = " + define);
+			InformationFancy("Define (actual)  = " + define_actual);
+
+			MSBuild
+				(
+					sln_prj,
+					c => 
+					{
+						c
+							.SetConfiguration(build_configuration)
+							.SetVerbosity(verbosity)
+							.WithProperty("DefineConstants", define_actual)
+							.WithProperty("consoleloggerparameters", "ShowCommandLine")
+							;
+					}
+				);
+		}
+	}
+	return;
+};
+
+
+
+
+
+
+
+
+
+
 Task ("libs-macosx-filesystem")
 	.Does 
 	(
@@ -445,49 +510,9 @@ Task ("libs-macosx-solutions")
 				{
 					solution_or_project = sln_prj;
 
-					foreach (string build_configuration in build_configurations)
-					{
-						foreach (string define in defines)
-						{
-							string define_actual = define;
-							if 
-							(
-								string.IsNullOrEmpty(define)
-								&&
-								solution_or_project.Contains("XamarinIOS")
-							)
-							{
-								define_actual = "__UNIFIED__";
-							}
-
-							InformationFancy("Solution/Project = " + solution_or_project);
-							InformationFancy("Configuration    = " + build_configuration);
-							InformationFancy("Define           = " + define);
-							InformationFancy("Define (actual)  = " + define_actual);
-						
-							if (solution_or_project.Contains("Xamarin.Auth-Library.sln"))
-							{
-								// WindowsPhone 8 projects cannot be compiled with XBuild
-								continue;
-							}
-							MSBuild 
-								(
-									solution_or_project,
-									c => 
-									{
-										c
-											.SetConfiguration(build_configuration)
-											.SetVerbosity(verbosity)
-											//.WithProperty("DefineConstants", define_actual)
-											//.WithProperty("consoleloggerparameters", "ShowCommandLine")
-											;
-									}
-								);
-
-						}
-					}
+					BuildLoop(solution_or_project, build_configurations, defines);
 				}
-			} // if ( ! IsRunningOnWindows() )
+			} 
 
 			return;
 		}
@@ -504,51 +529,12 @@ Task ("libs-macosx-projects")
 			{
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
 
-				foreach (string build_configuration in build_configurations)
-				{
-					foreach (string define in defines)
-					{
-						string define_actual = define;
-						if 
-						(
-							string.IsNullOrEmpty(define)
-							&&
-							solution_or_project.Contains("XamarinIOS")
-						)
-						{
-							define_actual = "__UNIFIED__";
-						}
-
-						InformationFancy("Solution/Project = " + solution_or_project);
-						InformationFancy("Configuration    = " + build_configuration);
-						InformationFancy("Define           = " + define);
-						InformationFancy("Define (actual)  = " + define_actual);
-
-						MSBuild
-							(
-								solution_or_project,
-								c => 
-								{
-									c
-										.SetConfiguration(build_configuration)
-										.SetVerbosity(verbosity)
-										//.WithProperty("DefineConstants", define_actual)
-										//.WithProperty("consoleloggerparameters", "ShowCommandLine")
-										;
-								}
-							);
-					}
-				}
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";					
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
@@ -560,14 +546,9 @@ Task ("libs-macosx-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
@@ -579,14 +560,9 @@ Task ("libs-macosx-projects")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
@@ -601,14 +577,9 @@ Task ("libs-macosx-projects")
 
 
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
@@ -620,14 +591,9 @@ Task ("libs-macosx-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
@@ -639,14 +605,9 @@ Task ("libs-macosx-projects")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				MSBuild
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj", 
@@ -670,33 +631,9 @@ Task ("libs-macosx-projects")
 				
 				
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.dll", 
-						"./output/ios/"
-					);
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.pdb", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
@@ -708,14 +645,9 @@ Task ("libs-macosx-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
@@ -727,14 +659,9 @@ Task ("libs-macosx-projects")
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				MSBuild
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj", 
@@ -963,31 +890,13 @@ Task ("libs-windows-projects")
 			if (IsRunningOnWindows ()) 
 			{	
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Debug");
-						}
-					);
-				MSBuild
-					(
-						"./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
@@ -999,27 +908,9 @@ Task ("libs-windows-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj", 
-						new MSBuildSettings 
-						{
-							Verbosity = verbosity,
-							/*
-							Using Visual Studio 2015 tooling
+				solution_or_project = "./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
 
-							Fix for 
-
-							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
-							(Build target) (1) -> (CoreCompile target) ->
-							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
-							error MSB6004: 
-							The specified task executable location 
-							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
-							*/
-							Configuration = "Release",
-						}
-					);
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
@@ -1109,14 +1000,9 @@ Task ("libs-windows-projects")
 					│   ├── Xamarin.Auth.pdb
 					│   └── Xamarin.Auth.pri
 				*/
-				MSBuild
-					(
-						"./source/Xamarin.Auth.WinRTWindows81/Xamarin.Auth.WinRTWindows81.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.WinRTWindows81/Xamarin.Auth.WinRTWindows81.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.dll", 
@@ -1160,14 +1046,9 @@ Task ("libs-windows-projects")
 					│   ├── Xamarin.Auth.pdb
 					│   └── Xamarin.Auth.pri
 				*/
-				MSBuild
-					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/Xamarin.Auth.WinRTWindowsPhone81.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.WinRTWindowsPhone81/Xamarin.Auth.WinRTWindowsPhone81.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.dll", 
@@ -1210,14 +1091,9 @@ Task ("libs-windows-projects")
 					│   ├── Xamarin.Auth.pdb
 					│   └── Xamarin.Auth.pri
 				*/
-				MSBuild
-					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.dll", 
@@ -1255,14 +1131,9 @@ Task ("libs-windows-projects")
 
 
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
@@ -1274,14 +1145,9 @@ Task ("libs-windows-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
@@ -1318,33 +1184,9 @@ Task ("libs-windows-projects")
 				
 				
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.dll", 
-						"./output/ios/"
-					);
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.Forms.pdb", 
-						"./output/ios/"
-					);
-				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
@@ -1356,14 +1198,9 @@ Task ("libs-windows-projects")
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				MSBuild
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj", 
-						c => 
-						{
-							c.SetConfiguration("Release");
-						}
-					);
+				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj";
+				BuildLoop(solution_or_project, build_configurations, defines);
+
 				CopyFiles
 					(
 						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
