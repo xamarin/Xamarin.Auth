@@ -12,7 +12,11 @@ If you are using NativeUI (SafariViewController and [Chrome] Custom Tabs) check
 3.	on Android there have been reports that AntiVirus software might block
 	IntentFilters
 	
-	
+```bash
+	adb shell am start \
+		-a android.intent.action.VIEW \
+		-d "com.googleusercontent.apps.<your-android-app-id>:/oauth2redirect"
+```	
 
 ## The "LinkAssemblies" task failed unexpectedly - Failed to resolve - LaunchUrl
 
