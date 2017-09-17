@@ -1,5 +1,7 @@
 # Xamarin.Auth readme-detailed.md
 
+## Introduction
+
 Xamarin.Auth is a cross platform library that helps developers authenticate 
 users via OAuth protocol (OAuth1 and OAuth2). 
 
@@ -9,7 +11,8 @@ client (application).
 
 0.  Server side setup for OAuth service provider (Google, Facebook)
 
-1.  Client side initialization of Authenticator object      
+1.  Client side initialization of Authenticator object
+      
     This step prepares all relevant OAuth Data in Authenticator object (client_id,
 	redirect_url, client_secret, OAuth provider's endpoints etc)
 
@@ -43,20 +46,43 @@ client (application).
   
 Those steps and (sub-steps) which will be used in detailed documentation.
 
+Xamarin.Auth is implemented for following platforms
+
+*	Xamarin.Android
+*	Xamarin.iOS
+*	Universal Windows Platform (UWP)
+*	Windows 8.1 WinRT
+*	Windows Phone 8.1 WinRT
+*	Windows Phone 8 Silverlght
+
+
+### Introduction - Details
+
+Xamarin.Auth implements OAuth protocols/frameworks - OAuth1 and OAuth2. OAuth2 framework
+is not completely implemented and it implements 
+
+*	OAuth2 Authorization Code flow
+*	OAuth2 Implicit flow
+
+Xamarin.Components Team is currently working on PKCE (pixie) flow and other flows, as well
+as extensions to enable easier use for protocols like OpenID (OpenID Connect) which includes
+support for custom request parameters.
+
 
 ## 0 Server Side 
 
 Server side setup of the particular OAuth provider like Google, Facebook or Microsoft Live
-differs from provider to provider, especially nomenclature (naming).  In general there are 2 common types of "apps", "projects" or "credentials":
+differs from provider to provider, especially nomenclature (naming).  In general there are 
+2 common types of "apps", "projects" or "credentials":
 
 1.  Server or Web Application
 
-    A server (Fitbit naming) or Web (Google and Facebook terms) application is considered to be 
-    secure, i.e. client_secret is secure and can be stored and not easily accessed/retrieved 
-    by malicious user.
+    A server (Fitbit naming) or Web (Google and Facebook terms) application is considered 
+	to be secure, i.e. `client_secret` is secure and can be stored and not easily 
+	accessed/retrieved by malicious user.
     
-    Server/Web app uses http[s] schemes for redirect_url, because it loads real web page 
-    (url-authority can be localhost or real hostname like http://xamarin.com).
+    Server/Web app uses http[s] schemes for `redirect_url`, because it loads real web 
+	page (url-authority can be localhost or real hostname like http://xamarin.com).
     
     Xamarin.Auth, prior to version 1.4.0, only supported http[s] url-scheme with real   
     url-authority (existing host, no localhost) and arbitrary url-path. 
@@ -65,12 +91,13 @@ differs from provider to provider, especially nomenclature (naming).  In general
     
     This group is usually divided into Android, iOS, Chrome (javascript) and other (.net)   
     subtypes. Each subtype can have different setup. In most cases developer must submit    
-    for Android package id with SHA1 key and for iOS BundleID. Custom schemes can be predefined 
-    (generated) by provider (Google or Facebook) or defined by user (Fitbit). Generated schemes     
-    are usually based on data submitted (package id, bundle id).
+    for Android package id with SHA1 key and for iOS BundleID. Custom schemes can be 
+	predefined (generated) by provider (Google or Facebook) or defined by user (Fitbit). 
+	Generated schemes are usually based on data submitted (package id, bundle id).
     
-    Xamarin Components Team is working on the doc with minimal info for common used providers 
-    and how to setup server side.
+    Some OAuth providers do not allow arbitrary custom schemes to be used for `redirect-url`.
+	Xamarin Components Team is working on the doc with minimal info for common used 
+	providers and how to setup server side.
 
 Server side setup details is explained in separate documents in Xamarin.Auth repository. 
 
