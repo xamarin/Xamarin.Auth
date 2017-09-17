@@ -84,22 +84,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
-      <Link>Account.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
-      <Link>AccountResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
-      <Link>AccountStore.Async.cs</Link>
-      <DependentUpon>AccountStore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
-      <Link>AccountStore.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
-      <Link>AccountStoreException.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -115,14 +99,8 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
-      <Link>Evolve16.Labs\AccountManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
-      <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
-      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
+    <Compile Include="..\Xamarin.Auth.LinkSource\Presenters\OAuthLoginPresenter.cs">
+      <Link>Presenters\OAuthLoginPresenter.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
@@ -184,7 +162,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
-    <Compile Include="AccountStore.WindowsPhone.cs" />
     <Compile Include="Authenticator.WindowsPhone.cs" />
     <Compile Include="FormAuthenticator.WindowsPhone.cs" />
     <Compile Include="PlatformSpecific\FileHelper.cs" />
@@ -192,10 +169,6 @@
     <Compile Include="WebAuthenticatorPage.xaml.cs">
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="PlatformSpecific\WPAccountStore.Async.cs">
-      <DependentUpon>WPAccountStore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="PlatformSpecific\WPAccountStore.cs" />
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
@@ -216,11 +189,37 @@
       <DependentUpon>WebAuthenticatorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.WindowsPhone8.cs" />
-    <Compile Include="Evolve16.Labs\AuthenticationConfiguration.WindowsPhone8.cs" />
-    <Compile Include="Evolve16.Labs\OAuthPlatformPresenter.WindowsPhone8.cs" />
+    <Compile Include="Presenters\AuthenticationConfiguration.WindowsPhone8.cs" />
+    <Compile Include="Presenters\OAuthPlatformPresenter.WindowsPhone8.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\Account.cs">
+      <Link>AccountStore\Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
+      <Link>AccountStore\AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.cs">
+      <Link>AccountStore\AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.Async.cs">
+      <Link>AccountStore\AccountStore.Async.cs</Link>
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStoreException.cs">
+      <Link>AccountStore\AccountStoreException.cs</Link>
+    </Compile>
+    <Compile Include="AccountStore\AccountStore.WindowsPhone.cs" />
+    <Compile Include="AccountStore\WPAccountStore.cs" />
+    <Compile Include="AccountStore\WPAccountStore.Async.cs">
+      <DependentUpon>WPAccountStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
+      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
+      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -250,6 +249,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AccountStore\" />
+    <Folder Include="AccountStore\CryptoAccountManager\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).CSharp.targets" />

@@ -16,5 +16,12 @@ namespace Xamarin.Auth.XamarinForms
             get;
             set;
         }
+
+        string UserAgent
+        {
+        	get;
+        	set;
+        }
+
     }
 }

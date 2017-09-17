@@ -11,7 +11,7 @@
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -71,17 +71,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
-    <Compile Include="AccountResult.cs" />
-    <Compile Include="AccountStore.cs" />
-    <Compile Include="AccountStore.netfx.cs" />
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="Authenticator.cs" />
     <Compile Include="AuthenticatorCompletedEventArgs.cs" />
     <Compile Include="AuthenticatorErrorEventArgs.cs" />
     <Compile Include="AuthException.cs" />
-    <Compile Include="Evolve16.Labs\OAuthLoginPresenter.cs" />
-    <Compile Include="Evolve16.Labs\Security\CryptoUtilities.cs" />
+    <Compile Include="Presenters\OAuthLoginPresenter.cs" />
     <Compile Include="LibraryUtilities.cs" />
     <Compile Include="PlatformSpecific\FileHelper.cs" />
     <Compile Include="System.Json\JavaScriptReader.cs" />
@@ -105,16 +100,11 @@
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="WebAuthenticator.cs" />
-    <Compile Include="WebAuthenticator.Portable.cs" />
     <Compile Include="WebEx.cs" />
     <Compile Include="WebRedirectAuthenticator.cs" />
     <Compile Include="WebUtilities.cs" />
     <Compile Include="v.2\OAuth2Authenticator.HttpClient.cs" />
     <Compile Include="Authenticator.Portable.cs" />
-    <Compile Include="AccountStore.Async.cs">
-      <DependentUpon>AccountStore.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Evolve16.Labs\AccountManager.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\AuthenticationUI.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\AuthenticationUIType.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.LinkSource.cs" />
@@ -122,22 +112,33 @@
     <Compile Include="Plugins\UIThreadRunInvoker.cs" />
     <Compile Include="Plugins\IRunInvoker.cs" />
     <Compile Include="Plugins\UIThreadRunInvoker.LinkSource.cs" />
-    <Compile Include="AccountStoreException.cs" />
+    <Compile Include="WebAuthenticator.Portable.cs" />
+    <Compile Include="AccountStore\AccountResult.cs" />
+    <Compile Include="AccountStore\AccountStore.cs" />
+    <Compile Include="AccountStore\AccountStore.Async.cs">
+      <DependentUpon>AccountStore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AccountStore\AccountStore.netfx.cs" />
+    <Compile Include="AccountStore\AccountStoreException.cs" />
+    <Compile Include="AccountStore\Account.cs" />
+    <Compile Include="AccountStore\CryptoAccountManager\CryptoUtilities.cs" />
+    <Compile Include="AccountStore\CryptoAccountManager\AccountManager.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="Providers\" />
-    <Folder Include="Providers\Google\" />
     <Folder Include="Providers\Facebook\" />
+    <Folder Include="Providers\Google\" />
+    <Folder Include="AccountStore\" />
+    <Folder Include="AccountStore\CryptoAccountManager\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="UINativeNonIntegratedBrowsers\custom-scheme-test.html" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
-  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

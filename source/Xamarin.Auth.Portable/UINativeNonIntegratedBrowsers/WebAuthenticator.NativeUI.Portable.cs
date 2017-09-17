@@ -4,7 +4,11 @@ using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
-    public partial class WebAuthenticator
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class WebAuthenticator
+    #else
+    public abstract partial class WebAuthenticator
+	#endif
     {
         /// <summary>
         /// Gets or sets the get platform UIMethod.
@@ -29,12 +33,12 @@ namespace Xamarin.Auth
         {
             throw new NotImplementedException("PCL bite-n-switch");
 
-            System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
+            // System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
 
             // System.Object
-            AuthenticateUIType ui = null;
+            // AuthenticateUIType ui = null;
 
-            return ui;
+            // return ui;
         }
 
         public AuthenticateUIType AuthenticationUIPlatformSpecificNative()

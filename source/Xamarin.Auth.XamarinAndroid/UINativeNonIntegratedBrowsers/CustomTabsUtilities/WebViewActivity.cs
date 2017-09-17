@@ -19,54 +19,62 @@ using Android.Webkit;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// This Activity is used as a fallback when there is no browser installed that supports
-	/// Chrome Custom Tabs
+    /// <summary>
+    /// This Activity is used as a fallback when there is no browser installed that supports
+    /// Chrome Custom Tabs
     /// 
     /// c# Attributes derived from
     ///          ./OriginalPortedFiles/AndroidManifest.xml 
-	/// </summary>
+    /// </summary>
     [
         Activity
         (
             Label = "@string/title_activity_webview",
-Theme = "@android:style/Theme.DeviceDefault"		)
+            Theme = "@android:style/Theme.DeviceDefault"
+        )
     ]
-	//TODO: [MetaData("android.support.PARENT_ACTIVITY", Value = ".DemoListActivity")]
-	public class WebViewActivity 
-            :
-               Activity
-               //V7.App.AppCompatActivity
+    //TODO: [MetaData("android.support.PARENT_ACTIVITY", Value = ".DemoListActivity")]
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal class WebViewActivity
+		:
+		   Activity
+		   //V7.App.AppCompatActivity
+    #else
+    public class WebViewActivity
+        :
+           Activity
+            //V7.App.AppCompatActivity
+    #endif
     {
-		public const string EXTRA_URL = "extra.url";
+        public const string EXTRA_URL = "extra.url";
 
-		protected override void OnCreate(Bundle savedInstanceState)
-		{
-			base.OnCreate(savedInstanceState);
+        protected override void OnCreate(Bundle savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.activity_webview);
-			string url = Intent.GetStringExtra(EXTRA_URL);
-			WebView webView = FindViewById<WebView>(Resource.Id.webview);
+            string url = Intent.GetStringExtra(EXTRA_URL);
+            WebView webView = FindViewById<WebView>(Resource.Id.webview);
             webView.SetWebViewClient(new WebViewClient());
-			WebSettings webSettings = webView.Settings;
-			webSettings.JavaScriptEnabled = true;
-			Title = url;
+            WebSettings webSettings = webView.Settings;
+            webSettings.JavaScriptEnabled = true;
+            Title = url;
             //SupportActionBar.SetDisplayHomeAsUpEnabled(true);
             webView.LoadUrl(url);
 
             return;
-		}
+        }
 
-		public override bool OnOptionsItemSelected(IMenuItem item)
-		{
-			switch (item.ItemId)
-			{
-				// Respond to the action bar's Up/Home button
-				case global::Android.Resource.Id.Home:
-					Finish();
-					return true;
-			}
-			return base.OnOptionsItemSelected(item);
-		}
-	}
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                // Respond to the action bar's Up/Home button
+                case global::Android.Resource.Id.Home:
+                    Finish();
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
+        }
+    }
 
 }

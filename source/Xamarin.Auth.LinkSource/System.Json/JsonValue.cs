@@ -39,11 +39,11 @@ using JsonPair = System.Collections.Generic.KeyValuePair<string, System.Json.Jso
 
 namespace System.Json
 {
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
     internal abstract class JsonValue : IEnumerable
-#else
+    #else
     public abstract class JsonValue : IEnumerable
-#endif
+    #endif
     {
         public static JsonValue Load(Stream stream)
         {

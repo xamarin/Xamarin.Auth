@@ -6,11 +6,18 @@ support for non-standard authentication schemes.
 
 ## Current version and status
 
-[![Components-XamarinAuth][7]][8]
 
-[7]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/badge/icon
-[8]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
+| Builds (Bot)               |  Status                                         |
+|:--------------------------:|:-----------------------------------------------:|
+| Mac OSX                    |  [![Components-XamarinAuth][23]][21]            |
+| Windows                    |  [![Components-XamarinAuth-Windows][24]][22]    |
 
+
+
+[21]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
+[22]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/
+[23]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/badge/icon
+[24]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/badge/icon
 
 *   nuget version 1.5.0
     *   Native UI (CustomTabs on Android and SFSafariViewController on iOS)
@@ -146,7 +153,7 @@ https://xamarinchat.herokuapp.com/
 
 http://stackoverflow.com/search?q=xamarin.auth
 
-Suggestion: use Xamarin formus or even better Community Slack channel. SO moderation
+Suggestion: use Xamarin forums or even better Community Slack channel. SO moderation
 policies make answering very difficult (pasting links and demanding that the person
 providing the answer to search for duplicates).
 
@@ -169,7 +176,7 @@ client (application).
 
 2.  Creating and optionally customizing UI      
 
-3.  Presenting/Lunching UI and authenticating user	
+3.  Presenting/Launching UI and authenticating user	
 
 	1.	Detecting/Fetching/Intercepting URL change (redirect_url)  
 

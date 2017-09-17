@@ -12,7 +12,7 @@ namespace Plugin.Threading
             throw new NotSupportedException("Calling on Main UI Thread from undefined platform not supported");
             #endif
 
-            return;
+            //return;
         }
     }
 }

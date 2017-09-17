@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TabbedPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:local="clr-namespace:ComicBook;assembly=ComicBookPCL"
+	x:Class="ComicBook.ProvidersSamplesPage"
+	>
+	<ContentPage
+		Title="Providers"
+		>
+        <ContentPage.Padding>
+            <OnPlatform 
+                x:TypeArguments="Thickness" 
+                iOS="0, 20, 0, 0" 
+                WinPhone="20,20,20,20" 
+                >
+            </OnPlatform>
+        </ContentPage.Padding>
+        <ContentPage.Content>       
+            <StackLayout>
+                <ListView
+                    x:Name="listViewProviders" 
+                    SeparatorVisibility="Default"
+                    BindingContext="{Binding Providers}"
+                    >
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+	</ContentPage>
+    <ContentPage
+        Title="Provider Test Cases"
+        >
+        <ContentPage.Content>       
+            <StackLayout>
+                <ListView
+                    x:Name="listViewProviderSamples" 
+                    SeparatorVisibility="Default"
+                    BindingContext="{Binding ProviderSamples}"
+                    >
+                </ListView>
+            </StackLayout>
+        </ContentPage.Content>
+	</ContentPage>
+</TabbedPage>

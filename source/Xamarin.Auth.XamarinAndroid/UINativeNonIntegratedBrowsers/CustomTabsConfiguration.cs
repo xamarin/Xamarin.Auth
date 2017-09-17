@@ -17,7 +17,11 @@ namespace Xamarin.Auth
     /// or
     ///     Parcellable (Android serialization aimed to increase performance)
     /// </summary>
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal static partial class CustomTabsConfiguration
+    #else
     public static partial class CustomTabsConfiguration
+    #endif
     {
         static CustomTabsConfiguration()
         {
@@ -146,7 +150,7 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static global::Android.Graphics.Bitmap ActionButtonIconBitmap
         {
@@ -158,13 +162,13 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static bool IsActionBarToolbarIconUsed
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static global::Android.Graphics.Bitmap ActionBarToolbarIconBitmap
         {
@@ -176,7 +180,7 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
-        }  = true;
+        } = true;
 
         public static bool AreAnimationsUsed
         {
@@ -188,12 +192,38 @@ namespace Xamarin.Auth
         {
         	get;
         	set;
+        } = new WebViewFallback();
+
+        public static bool IsWarmUpUsed
+        {
+        	get;
+        	set;
         }
 
+        public static bool IsPrefetchUsed
+        {
+        	get;
+        	set;
+        }
+
+        private static global::Android.Content.ActivityFlags activity_flags;
+
+        /// <summary>
+        /// ActivityFlags for launching WebAuthenticatorNativeBrowserActivity
+        /// </summary>
+        /// <value>The activity flags.</value>
         public static global::Android.Content.ActivityFlags ActivityFlags
         {
-            get;
-            set;
+            get
+            {
+                return activity_flags;
+            }
+            set
+            {
+                activity_flags = value;
+
+                return;
+            }
         }
 
         public static void UICustomization()
@@ -204,6 +234,8 @@ namespace Xamarin.Auth
                     global::Android.Content.ActivityFlags.SingleTop
                     |
                     global::Android.Content.ActivityFlags.NewTask
+                    |
+                    global::Android.Content.ActivityFlags.ClearTop
                     ;
 
             /*

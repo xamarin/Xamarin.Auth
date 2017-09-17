@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:local="clr-namespace:ComicBook;assembly=ComicBookPCL"
+	x:Class="ComicBook.UserAgentTestPage"
+	>
+    <ContentPage.Content>
+		<StackLayout>
+            <Label
+                FontAttributes="Bold"
+                TextColor="Red"
+                >
+				NOTE:
+            </Label>
+            <Label
+                TextColor="Red"
+				>
+                Using this API might violate OAuth service provider's TOS!
+            </Label>
+            <Label
+				FontAttributes="Bold"
+                TextColor="Red"
+                >
+                Xamarin/Microsoft are not responsible if this API is used.
+            </Label>
+            <Label
+                TextColor="Purple"
+                >
+                UserAgent customization works only with embedded WebViews!
+            </Label>
+			<Label>
+				UserAgent (Custom):
+			</Label>
+			<Entry
+				x:Name="entryUserAgent">
+			</Entry>
+            <Button
+                x:Name="buttonTestUserAgent"
+                Text="Test User Agent with Authenticator"
+				>
+            </Button>
+		</StackLayout>
+    </ContentPage.Content>
+</ContentPage>

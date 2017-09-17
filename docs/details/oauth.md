@@ -1,23 +1,74 @@
 # OAuth in Xamarin.Auth
 
+## Definition
 
-https://tools.ietf.org/html/draft-ietf-oauth-native-apps-10
-http://wiki.oauth.net/w/page/27249271/OAuth%202%20for%20Native%20Apps
-https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html
+*	open authorization protocol 	
+	[Jenkov]
+*	delegation protocol 
+	[]
+	
 
-https://www.oauth.com/
-https://www.oauth.com/oauth2-servers/redirect-uris/redirect-uris-native-apps/
+### Roles
 
-https://aaronparecki.com/oauth-2-simplified/
-https://developer.chrome.com/extensions/tut_oauth
-http://rasmustc.com/blog/Custom-Facebook-Authentication-with-webapi/
+*	Resource Owner
+*	Protected Resource on Resource Server
+*	Client Application
+*	Authorization Server
 
-## Libraries implementing OAuth 
+### Authorization Grant Types
 
-https://oauth.net/code/
+*	Authorization Code 
+
+	2 steps
+	
+	1.	Authorization [Enpoint] Request/Response
+	
+	2.	Token [Endpoint] Request/Response
+	
+	
+*	Implicit
+
+	1 step
+	
+*	Resource Owner Password Credentials
+
+*	Client Credentials
 
 
-## Advanced reading (Standards/RFCs)
+### Endpoints
+
+*	Authorization Endpoint 
+*	Token Endpoint
+*	Redirection Endpoint (`redirect_url`)
+
+
+## References
+
+*	https://tools.ietf.org/html/draft-ietf-oauth-native-apps-10
+*	http://wiki.oauth.net/w/page/27249271/OAuth%202%20for%20Native%20Apps
+*	https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html
+*	https://www.iana.org/assignments/oauth-parameters/oauth-parameters.xhtml
+*	https://www.oauth.com/
+*	https://www.oauth.com/oauth2-servers/redirect-uris/redirect-uris-native-apps/
+*	http://wiki.oauth.net/w/page/27249271/OAuth%202%20for%20Native%20Apps
+*	tutorials
+
+	*	https://aaronparecki.com/oauth-2-simplified/
+	*	https://developer.chrome.com/extensions/tut_oauth
+	*	http://tutorials.jenkov.com/oauth2/
+	*	http://rasmustc.com/blog/Custom-Facebook-Authentication-with-webapi/
+
+## Authorization Server
+
+
+## Diverse 
+
+https://github.com/IdentityModel/AuthorizationServer
+https://github.com/IdentityModel/IdentityModel.AspNetCore.OAuth2Introspection
+https://github.com/IdentityModel/IdentityModel.AspNetCore.ScopeValidation
+https://github.com/IdentityModel/IdentityModel.Owin.ClaimsTransformation
+
+### Advanced reading (Standards/RFCs)
 
 https://tools.ietf.org/html/rfc6749
 https://tools.ietf.org/html/rfc6750
@@ -25,18 +76,20 @@ https://tools.ietf.org/html/rfc6819
 https://tools.ietf.org/html/rfc7636
 https://tools.ietf.org/html/draft-ietf-oauth-native-apps-10
 
-## Samples
+### Libraries implementing OAuth 
 
-http://ngiriraj.com/socialMedia/oauthlogin/
+https://oauth.net/code/
 
-https://github.com/googlesamples/oauth-apps-for-windows
+### Samples
 
-## Videos
+*	http://ngiriraj.com/socialMedia/oauthlogin/
+*	https://github.com/googlesamples/oauth-apps-for-windows
+
+### Videos
 
 ### Server
 
 https://www.youtube.com/watch?v=hnFW65ErJSY
-
 
 ## CustomTabs
 

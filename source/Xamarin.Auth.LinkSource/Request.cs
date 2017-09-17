@@ -31,11 +31,11 @@ namespace Xamarin.Auth
     /// An HTTP web request that provides a convenient way to make authenticated
     /// requests using account objects obtained from an authenticator.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class Request
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal class Request
+    #else
     public class Request
-#endif
+    #endif
     {
         HttpRequestMessage request;
 
@@ -322,6 +322,8 @@ namespace Xamarin.Auth
                     return HttpMethod.Trace;
                 case "OPTIONS":
                     return HttpMethod.Options;
+                case "PATCH":
+                    return new HttpMethod("PATCH");
                 default:
                     throw new ArgumentException("method");
             }

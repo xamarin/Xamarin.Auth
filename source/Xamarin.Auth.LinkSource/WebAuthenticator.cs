@@ -40,11 +40,11 @@ namespace Xamarin.Auth
     /// <summary>
     /// An authenticator that displays a web page.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class WebAuthenticator : Authenticator
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class WebAuthenticator : Authenticator
+    #else
     public abstract partial class WebAuthenticator : Authenticator
-#endif
+    #endif
     {
         /// <summary>
         /// Gets or sets whether to automatically clear cookies before logging in.
@@ -62,7 +62,7 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public abstract Task<Uri> GetInitialUrlAsync();
+        public abstract Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null);
 
         /// <summary>
         /// Event handler called when a new page is being loaded in the web browser.

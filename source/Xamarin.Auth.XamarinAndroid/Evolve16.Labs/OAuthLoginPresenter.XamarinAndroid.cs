@@ -1,10 +1,14 @@
 ﻿namespace Xamarin.Auth.Presenters.XamarinAndroid
 {
-	public class PlatformOAuthLoginPresenter 
-	{
-		public void Login (Authenticator authenticator)
-		{
-			AuthenticationConfiguration.Context.StartActivity (authenticator.GetUI(AuthenticationConfiguration.Context));
-		}
-	}
+    #if XAMARIN_AUTH_INTERNAL
+    internal class PlatformOAuthLoginPresenter
+    #else
+    public class PlatformOAuthLoginPresenter
+    #endif
+    {
+        public void Login(Authenticator authenticator)
+        {
+            AuthenticationConfiguration.Context.StartActivity(authenticator.GetUI(AuthenticationConfiguration.Context));
+        }
+    }
 }

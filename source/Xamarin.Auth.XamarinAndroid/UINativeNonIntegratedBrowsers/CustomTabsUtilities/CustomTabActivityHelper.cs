@@ -17,8 +17,9 @@ using System.Collections.Generic;
 using Android.App;
 using Android.Net;
 using Android.OS;
-using Android.Support.CustomTabs;
 using Android.Widget;
+
+using Android.Support.CustomTabs;
 
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 {
@@ -26,53 +27,57 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
     /// This is a helper class to manage the connection from Activity to the CustomTabs 
     /// Service.
     /// </summary>
+    #if XAMARIN_CUSTOM_TABS_INTERNAL
+    internal partial class CustomTabActivityHelper : Java.Lang.Object, IServiceConnectionCallback
+    #else
     public partial class CustomTabActivityHelper : Java.Lang.Object, IServiceConnectionCallback
+    #endif
     {
         private CustomTabsSession custom_tabs_session;
         private CustomTabsClient custom_tabs_client;
         private CustomTabsServiceConnection custom_tabs_service_connection;
         private IConnectionCallback connection_callback;
 
-		/// <summary>
-		/// Opens the URL on a Custom Tab if possible. Otherwise fallsback to opening it on a WebView.
-		/// </summary>
-		/// <param name="activity"> The host activity. </param>
-		/// <param name="custom_tabs_intent"> a CustomTabsIntent to be used if Custom Tabs is available. </param>
-		/// <param name="uri"> the Uri to be opened. </param>
-		/// <param name="fallback"> a CustomTabFallback to be used if Custom Tabs is not available. </param>
-		public /*static*/ void LaunchUrlWithCustomTabsOrFallback
-								(
-									Activity activity,
-									CustomTabsIntent custom_tabs_intent,
-									Uri uri,
-									ICustomTabFallback fallback
-								)
-		{
-			string packageName = PackageManagerHelper.GetPackageNameToUse(activity, uri.ToString());
+        /// <summary>
+        /// Opens the URL on a Custom Tab if possible. Otherwise fallsback to opening it on a WebView.
+        /// </summary>
+        /// <param name="activity"> The host activity. </param>
+        /// <param name="custom_tabs_intent"> a CustomTabsIntent to be used if Custom Tabs is available. </param>
+        /// <param name="uri"> the Uri to be opened. </param>
+        /// <param name="fallback"> a CustomTabFallback to be used if Custom Tabs is not available. </param>
+        public /*static*/ void LaunchUrlWithCustomTabsOrFallback
+                                (
+                                    Activity activity,
+                                    CustomTabsIntent custom_tabs_intent,
+                                    Uri uri,
+                                    ICustomTabFallback fallback
+                                )
+        {
+            string packageName = PackageManagerHelper.GetPackageNameToUse(activity, uri.ToString());
 
-			//If we cant find a package name, it means theres no browser that supports
-			//Chrome Custom Tabs installed. So, we fallback to the webview
-			if (packageName == null)
-			{
-				if (fallback != null)
-				{
-					fallback.OpenUri(activity, uri);
-				}
-			}
-			//else
-			{
-				custom_tabs_intent.Intent.SetPackage(packageName);
-				custom_tabs_intent.LaunchUrl(activity, uri);
-			}
+            //If we cant find a package name, it means theres no browser that supports
+            //Chrome Custom Tabs installed. So, we fallback to the webview
+            if (packageName == null)
+            {
+                if (fallback != null)
+                {
+                    fallback.OpenUri(activity, uri);
+                }
+            }
+            else
+            {
+                custom_tabs_intent.Intent.SetPackage(packageName);
+                custom_tabs_intent.LaunchUrl(activity, uri);
+            }
 
-			return;
-		}
+            return;
+        }
 
-		/// <summary>
-		/// Creates or retrieves an exiting CustomTabsSession.
-		/// </summary>
-		/// <returns> a CustomTabsSession. </returns>
-		public virtual CustomTabsSession Session
+        /// <summary>
+        /// Creates or retrieves an exiting CustomTabsSession.
+        /// </summary>
+        /// <returns> a CustomTabsSession. </returns>
+        public virtual CustomTabsSession Session
         {
             get
             {
@@ -95,12 +100,13 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
                                                 (
                                                     // OnNavigationEventDelegate onNavigationEventHandler
                                                     default(CustomTabsClient.OnNavigationEventDelegate)
-                                                    // not available in 23.3.0
-                                                    // downgraded from 25.1.1. because of Xamarin.Forms support 23.3.0 
-                                                    // CustomTabsClient.ExtraCallbackDelegate extraCallbackHandler
-                                                    //null
+                                                // not available in 23.3.0
+                                                // downgraded from 25.1.1. because of Xamarin.Forms support 23.3.0 
+                                                // CustomTabsClient.ExtraCallbackDelegate extraCallbackHandler
+                                                //null
                                                 );
                 }
+
                 return custom_tabs_session;
             }
         }
@@ -155,8 +161,8 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
             {
                 Toast.MakeText
                         (
-                            activity, 
-                            "No packages supporting CustomTabs found!", 
+                            activity,
+                            "No packages supporting CustomTabs found!",
                             ToastLength.Short
                         ).Show();
 

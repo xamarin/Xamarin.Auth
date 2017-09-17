@@ -32,28 +32,28 @@ using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that displays a web page.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class WebAuthenticator
-#else
-	public abstract partial class Authenticator 
-#endif
-	{
-		/// <summary>
-		/// Clears all cookies.
-		/// </summary>
-		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public async static void ClearCookies()
-		{
+    /// <summary>
+    /// An authenticator that displays a web page.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class Authenticator
+    #else
+    public abstract partial class Authenticator
+    #endif
+    {
+        /// <summary>
+        /// Clears all cookies.
+        /// </summary>
+        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        public async static void ClearCookies()
+        {
             throw new NotImplementedException(LibraryUtilities.MessageNotImplementedException);
         }
 
         protected virtual AuthenticateUIType GetPlatformUI()
-		{
+        {
             throw new NotImplementedException(LibraryUtilities.MessageNotImplementedException);
         }
-	}
+    }
 }
 

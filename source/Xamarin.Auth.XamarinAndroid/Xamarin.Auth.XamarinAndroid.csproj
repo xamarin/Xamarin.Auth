@@ -24,14 +24,14 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidLinkMode>None</AndroidLinkMode>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -121,18 +121,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\System.Json\JsonValue.cs">
       <Link>System.Json\JsonValue.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Account.cs">
-      <Link>Account.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountResult.cs">
-      <Link>AccountResult.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.cs">
-      <Link>AccountStore.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStoreException.cs">
-      <Link>AccountStoreException.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AssemblyInfo.cs">
       <Link>AssemblyInfo.cs</Link>
     </Compile>
@@ -148,14 +136,8 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AuthException.cs">
       <Link>AuthException.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\AccountManager.cs">
-      <Link>Evolve16.Labs\AccountManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\OAuthLoginPresenter.cs">
+    <Compile Include="..\Xamarin.Auth.LinkSource\Presenters\OAuthLoginPresenter.cs">
       <Link>Evolve16.Labs\OAuthLoginPresenter.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\Evolve16.Labs\Security\CryptoUtilities.cs">
-      <Link>Evolve16.Labs\Security\CryptoUtilities.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\ExceptionEx.cs">
       <Link>ExceptionEx.cs</Link>
@@ -199,9 +181,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore.Async.cs">
-      <Link>AccountStore.Async.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\Plugins\UIThreadRunInvoker.cs">
       <Link>Plugins\UIThreadRunInvoker.cs</Link>
     </Compile>
@@ -229,12 +208,10 @@
     <Compile Include="PlatformSpecific\WebAuthenticatorActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="WebAuthenticator.XamarinAndroid.cs" />
-    <Compile Include="AccountStore.XamarinAndroid.cs" />
     <Compile Include="PlatformSpecific\AndroidAccountStore.Async.cs">
       <DependentUpon>AndroidAccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.XamarinAndroid.cs" />
-    <Compile Include="UINativeNonIntegratedBrowsers\XamarinAuthCustomUrlSchemeCallbackActivity.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabActivityHelper.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\PackageManagerHelper.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\IConnectionCallback.cs" />
@@ -249,9 +226,31 @@
     <Compile Include="PlatformSpecific\WebAuthenticatorActivity.WebClient.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabsActionsBroadcastReceiver.cs" />
     <Compile Include="Evolve16.Labs\OAuthLoginPresenter.XamarinAndroid.cs" />
+    <Compile Include="PlatformSpecific\WebViewConfiguration.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\Account.cs">
+      <Link>AccountStore\Account.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
+      <Link>AccountStore\AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.cs">
+      <Link>AccountStore\AccountStore.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.Async.cs">
+      <Link>AccountStore\AccountStore.Async.cs</Link>
+    </Compile>
+    <Compile Include="AccountStore\AccountStore.XamarinAndroid.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStoreException.cs">
+      <Link>AccountStore\AccountStoreException.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
+      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
+      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
@@ -259,6 +258,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="AccountStore\" />
+    <Folder Include="AccountStore\CryptoAccountManager\" />
+    <Folder Include="Evolve16.Labs\Security\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\activity_webview.xml" />
@@ -278,15 +280,7 @@
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
-  <Import Project="..\packages\Xamarin.Build.Download.0.4.4-beta1\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.4-beta1\build\Xamarin.Build.Download.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.Compat.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Compat.25.1.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets')" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Xamarin.Build.Download.0.4.4\build\Xamarin.Build.Download.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Build.Download.0.4.4\build\Xamarin.Build.Download.props'))" />
-    <Error Condition="!Exists('..\packages\Xamarin.Build.Download.0.4.4\build\Xamarin.Build.Download.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Xamarin.Build.Download.0.4.4\build\Xamarin.Build.Download.targets'))" />
-  </Target>
   <Import Project="..\packages\Xamarin.Build.Download.0.4.4\build\Xamarin.Build.Download.targets" Condition="Exists('..\packages\Xamarin.Build.Download.0.4.4\build\Xamarin.Build.Download.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.Annotations.25.3.1\build\MonoAndroid70\Xamarin.Android.Support.Annotations.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Annotations.25.3.1\build\MonoAndroid70\Xamarin.Android.Support.Annotations.targets')" />
   <Import Project="..\packages\Xamarin.Android.Support.Compat.25.3.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets" Condition="Exists('..\packages\Xamarin.Android.Support.Compat.25.3.1\build\MonoAndroid70\Xamarin.Android.Support.Compat.targets')" />

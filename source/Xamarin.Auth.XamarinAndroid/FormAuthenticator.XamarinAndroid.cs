@@ -23,38 +23,38 @@ using AuthenticateUIType =
             Android.Content.Intent
             //System.Object
             ;
-using UIContext = 
+using UIContext =
             Android.Content.Context
             //Android.App.Activity
             ;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that presents a form to the user.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class FormAuthenticator : Authenticator
-#else
-	public abstract partial class FormAuthenticator : Authenticator
-#endif
-	{
-		/// <summary>
-		/// Gets the UI to present this form.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI(UIContext context)
-		{
-			var i = new global::Android.Content.Intent(context, typeof(FormAuthenticatorActivity));
-			var state = new FormAuthenticatorActivity.State
-			{
-				Authenticator = this,
-			};
-			i.PutExtra("StateKey", FormAuthenticatorActivity.StateRepo.Add(state));
-			return i;
-		}
-	}
+    /// <summary>
+    /// An authenticator that presents a form to the user.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class FormAuthenticator : Authenticator
+    #else
+    public abstract partial class FormAuthenticator : Authenticator
+    #endif
+    {
+        /// <summary>
+        /// Gets the UI to present this form.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        protected override AuthenticateUIType GetPlatformUI(UIContext context)
+        {
+            var i = new global::Android.Content.Intent(context, typeof(FormAuthenticatorActivity));
+            var state = new FormAuthenticatorActivity.State
+            {
+                Authenticator = this,
+            };
+            i.PutExtra("StateKey", FormAuthenticatorActivity.StateRepo.Add(state));
+            return i;
+        }
+    }
 }
 

@@ -25,11 +25,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// An authenticator that presents a form to the user.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class FormAuthenticator : Authenticator
-#else
+    #else
 	public abstract partial class FormAuthenticator : Authenticator
-#endif
+    #endif
 	{
 	}
 }

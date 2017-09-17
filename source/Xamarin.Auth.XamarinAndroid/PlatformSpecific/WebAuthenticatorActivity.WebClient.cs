@@ -25,7 +25,11 @@ using System.Text;
 
 namespace Xamarin.Auth
 {
-    public partial class WebAuthenticatorActivity
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    #else
+    public partial class WebAuthenticatorActivity : global::Android.Accounts.AccountAuthenticatorActivity
+	#endif
     {
         class Client : WebViewClient
         {
@@ -38,41 +42,44 @@ namespace Xamarin.Auth
                 this.activity = activity;
             }
 
+            [Obsolete]
             public override bool ShouldOverrideUrlLoading(WebView view, string url)
             {
+                view.Settings.UserAgentString = WebViewConfiguration.Android.UserAgent;
+                
                 string scheme = null;
                 string host = null;
 
-                scheme =
-                    global::Android.Net.Uri.Parse(url).Scheme
-                    ;
-                host =
-                    global::Android.Net.Uri.Parse(url).Host
-                    ;
+                scheme = global::Android.Net.Uri.Parse(url).Scheme;
+                host = global::Android.Net.Uri.Parse(url).Host;
 
                 activity.state.Authenticator.Host = host;
                 activity.state.Authenticator.Scheme = scheme;
 
+                #if DEBUG
                 StringBuilder sb = new StringBuilder();
                 sb.Append("Xamarin.Auth.Android.WebAuthenticatorActivity").AppendLine("");
                 sb.Append("             Scheme = ").AppendLine(scheme);
                 sb.Append("             Host   = ").AppendLine(host);
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
+                #endif
+
+                bool should_override = false;
 
                 if (url != null && scheme == "http" /*url.StartsWith("http://")*/)
                 {
-                    return false;
+                    should_override = false;
                 }
                 else if (url != null && scheme == "https" /*url.StartsWith("https://")*/)
                 {
-                    return false;
+                    should_override = false;
                 }
                 else
                 {
-                    return true;
+                    should_override = true;
                 }
 
-                return false;
+                return should_override;
             }
             /// <summary>
             /// On the page started.
@@ -82,16 +89,24 @@ namespace Xamarin.Auth
             /// <param name="favicon">Favicon.</param>
             public override void OnPageStarted(WebView view, string url, global::Android.Graphics.Bitmap favicon)
             {
+                view.Settings.UserAgentString = WebViewConfiguration.Android.UserAgent;
+
                 var uri = new Uri(url);
                 activity.state.Authenticator.OnPageLoading(uri);
                 activity.BeginProgress(uri.Authority);
+
+                return;
             }
 
             public override void OnPageFinished(WebView view, string url)
             {
+                view.Settings.UserAgentString = WebViewConfiguration.Android.UserAgent;
+
                 var uri = new Uri(url);
                 activity.state.Authenticator.OnPageLoaded(uri);
                 activity.EndProgress();
+
+                return;
             }
 
             class SslCertificateEqualityComparer

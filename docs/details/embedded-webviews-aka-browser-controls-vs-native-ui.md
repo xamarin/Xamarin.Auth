@@ -2,6 +2,7 @@
 
 embedded-webviews-aka-browser-controls-vs-native-ui.md
 
+
 ## TL;DR - Embedded WebViews vs Native UI
 
 *   Embedded WebViews have bigger API surface 
@@ -24,8 +25,8 @@ embedded-webviews-aka-browser-controls-vs-native-ui.md
 
 *   Native UI has 'reduced API surface'
 
-    'Reduced API surface' means that in most cases (most meaning **all** - for Android CustomTabs
-    and iOS SFSafariWebView) developer is not able to:
+    'Reduced API surface' means that in most cases (most meaning **all** - for Android 
+	CustomTabs and iOS SFSafariWebView) developer is **not** able to:
     
     *   retrieve URL loaded in the (system, external) browser
 
@@ -41,6 +42,33 @@ embedded-webviews-aka-browser-controls-vs-native-ui.md
 *   Native UI utilizes browser identity (password/account) management (built-in or as plugin)
 
 
+## Native external system browser
+
+*	Pros
+	*	security
+		*	proven codebase
+		*	regular system updates
+	*	use of browser features and API
+		*	use of system 
+			*	account store (might be implemented as plugin/extension)
+			*	cookie store, so it is able to take advantage of active sessions
+			*	chrome which can display important security information about loaded 
+				page
+		* 	plugins/extensions	
+*	Cons		
+	*	external process - app logic is leaving app and switching to system browser
+		*	custom schemes used	
+			*	additional coding needed		
+			*	debugging could be non-trivial	
+	*	version problems (browser versions)		
+	*	fragmentation (Android)		
+		4 versions of Chrome Browser, Opera, Firefox, Samsung browsers that support 		
+		CustomTabs
+			
+
+
+## 
+		
 ## Details 
 
 

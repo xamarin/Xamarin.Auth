@@ -25,11 +25,11 @@ namespace Xamarin.Auth
     /// An authenticator that displays web pages until a given "redirect" page is encountered. It then
     /// returns an account with the fragment on that URL.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal class WebRedirectAuthenticator : WebAuthenticator
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal class WebRedirectAuthenticator : WebAuthenticator
+    #else
     public class WebRedirectAuthenticator : WebAuthenticator
-#endif
+    #endif
     {
         Uri initialUrl;
         Uri redirectUrl;
@@ -55,7 +55,7 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public override Task<Uri> GetInitialUrlAsync()
+        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null)
         {
             // mc++ optimized by Mark Smith
             //var tcs = new TaskCompletionSource<Uri> ();
@@ -78,7 +78,11 @@ namespace Xamarin.Auth
 			this.Query = query;
 			this.Fragment = fragment;
 
-			OnPageEncountered(url, query, fragment);
+
+            if (ShouldEncounterOnPageLoaded)
+            {
+                OnPageEncountered(url, query, fragment);
+            }
 
             return;
         }
@@ -116,8 +120,10 @@ namespace Xamarin.Auth
 
             // mc++
             // TODO: schemas
-            OnPageEncountered(url, query, fragment);
-
+            if (ShouldEncounterOnPageLoading)
+            {
+                OnPageEncountered(url, query, fragment);
+            }
             return;
         }
 
@@ -224,6 +230,28 @@ namespace Xamarin.Auth
             get;
             set;
         } = false;
+
+
+		/// <summary>
+		/// Sets a value indicating whether OnPageEncountered gets fired during OnPageLoading.
+		/// </summary>       
+		/// <value><c>true</c> if OnPageEncountered should be fired in OnPageLoading; otherwise, <c>false</c>.</value>
+		public bool ShouldEncounterOnPageLoading
+        {
+            get;
+            set;
+        } = true;
+
+
+		/// <summary>
+		/// Sets a value indicating whether OnPageEncountered gets fired during OnPageLoaded.
+		/// </summary>       
+		/// <value><c>true</c> if OnPageEncountered should be fired in OnPageLoaded; otherwise, <c>false</c>.</value>
+		public bool ShouldEncounterOnPageLoaded
+        {
+            get;
+            set;
+        } = true;
 
     }
 }

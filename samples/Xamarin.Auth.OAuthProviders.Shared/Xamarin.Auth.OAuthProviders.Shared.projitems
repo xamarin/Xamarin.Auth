@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{EF3879F7-C359-4FED-94E2-E2E5AAF8C1F4}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Xamarin.Auth.OAuthProviders.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\OAuth.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\OAuth1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Helpers\OAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Amazon\AmazonOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Dropbox\DropboxOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Facebook\FacebookOAuth2WWWApp127001.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Facebook\FacebookOAuth2WWWAppLocalhost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Facebook\FacebookOAuth2WWWAppXamarin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Fitbit\FitbitOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\FiveHundredPx\FiveHundredPx500PxOAuth1CustomSchemeLocalhost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\FiveHundredPx\FiveHundredPx500PxOAuth1Xamarin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Github\GithubOAuth2Https127001.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Github\GithubOAuth2HttpsLocalHost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Github\GithubOAuth2HttpsXamarinCom.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Github\GithubOAuth2HttpXamarinCom.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Github\GithubOAuth2XamarinAuthSchemeLocalhost.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\GitLab\GitLabOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Google\GoogleOAuth2NativeUIAndroid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Google\GoogleOAuth2NativeUIIOS.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Google\GoogleOAuth2WebApp2015HttpXamarinCom.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\instagram\InstagramOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\LinkedIn\LinkedInOAuth1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\LinkedIn\LinkedInOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\MeetUp\MeetupOAuth1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\MeetUp\MeetupOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Microsoft\MicrosoftLiveOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\PayPal\PaypalOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Slack\SlackOAuth2.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Stackoverflow\StackoverflowOAuth2Explicit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Stackoverflow\StackoverflowOAuth2Implicit.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Twitter\TwitterOAuth1.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Data.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)SampleData\Providers\00-readme.md" />
+  </ItemGroup>
+</Project>

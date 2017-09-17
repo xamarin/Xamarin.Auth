@@ -12,7 +12,11 @@ using UIContext =
 
 namespace Xamarin.Auth
 {
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class WebAuthenticator
+    #else
     public partial class WebAuthenticator
+    #endif
     {
 
         public delegate AuthenticateUIType PlatformUIMethodDelegate(UIContext context);
@@ -23,8 +27,6 @@ namespace Xamarin.Auth
         /// </summary>
         /// <value>The get platform UI Method.</value>
         public event PlatformUIMethodDelegate PlatformUIMethod;
-
-        global::Android.Graphics.Color color_xamarin_blue;
 
         /// <summary>
         /// Gets the platform Native UI (Android - [Chrome] Custom Tabs).

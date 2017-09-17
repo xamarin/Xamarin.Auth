@@ -6,12 +6,21 @@ using SafariServices;
 
 namespace Xamarin.Auth//.SafariServices
 {
-	public partial class NativeAuthSafariViewControllerDelegate 
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class NativeAuthSafariViewControllerDelegate
         :
-			global::SafariServices.SFSafariViewControllerDelegate
-            // to mimic SFSafariViewController
-            //UIKit.UIViewController,
-            //global::SafariServices.ISFSafariViewControllerDelegate
+        global::SafariServices.SFSafariViewControllerDelegate
+        // to mimic SFSafariViewController
+        //UIKit.UIViewController,
+        //global::SafariServices.ISFSafariViewControllerDelegate
+    #else
+    public partial class NativeAuthSafariViewControllerDelegate
+        :
+        global::SafariServices.SFSafariViewControllerDelegate
+        // to mimic SFSafariViewController
+        //UIKit.UIViewController,
+        //global::SafariServices.ISFSafariViewControllerDelegate
+    #endif
     {
         WebAuthenticator authenticator = null;
 
@@ -29,6 +38,11 @@ namespace Xamarin.Auth//.SafariServices
 
 		public override void DidFinish(SFSafariViewController controller)
         {
+            if (authenticator.AllowCancel)
+            {
+                authenticator.OnCancelled();
+            }
+
 			return;
 		}
 

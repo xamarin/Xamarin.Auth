@@ -66,6 +66,7 @@ namespace Xamarin.Auth
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"UIWebViewDelegate.ShouldStartLoad ");
                 sb.AppendLine($"        nsUrl.AbsoluteString = {nsUrl.AbsoluteString}");
+                sb.AppendLine($"        WebViewConfiguration.IOS.UserAgent = {WebViewConfiguration.IOS.UserAgent}");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
                 #endif
                 
@@ -192,8 +193,9 @@ namespace Xamarin.Auth
                     }
                 }
                 else
-
+                {
                     controller.activity.StopAnimating();
+                }
 
                 webView.UserInteractionEnabled = true;
 

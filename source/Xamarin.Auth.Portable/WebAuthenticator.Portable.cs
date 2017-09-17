@@ -32,35 +32,35 @@ using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth
 {
-	/// <summary>
-	/// An authenticator that displays a web page.
-	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
-	internal abstract partial class WebAuthenticator
-#else
-	public abstract partial class WebAuthenticator 
-#endif
-	{
-		/// <summary>
-		/// Clears all cookies.
-		/// </summary>
-		/// <seealso cref="ClearCookiesBeforeLogin"/>
-		public static void ClearCookies()
-		{
+    /// <summary>
+    /// An authenticator that displays a web page.
+    /// </summary>
+    #if XAMARIN_AUTH_INTERNAL
+    internal abstract partial class WebAuthenticator
+    #else
+    public abstract partial class WebAuthenticator
+    #endif
+    {
+        /// <summary>
+        /// Clears all cookies.
+        /// </summary>
+        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        public new static void ClearCookies()
+        {
             throw new NotImplementedException(LibraryUtilities.MessageNotImplementedException);
-		}
+        }
 
-		/// <summary>
-		/// Gets the UI for this authenticator.
-		/// </summary>
-		/// <returns>
-		/// The UI that needs to be presented.
-		/// </returns>
-		protected override AuthenticateUIType GetPlatformUI()
-		{
+        /// <summary>
+        /// Gets the UI for this authenticator.
+        /// </summary>
+        /// <returns>
+        /// The UI that needs to be presented.
+        /// </returns>
+        protected override AuthenticateUIType GetPlatformUI()
+        {
             // System.Object
             AuthenticateUIType ui = PlatformUIMethod();
- 
+
             return ui;
         }
 
@@ -68,12 +68,12 @@ namespace Xamarin.Auth
         {
             throw new NotImplementedException("PCL bite-n-switch");
 
-            System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
+            // System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
 
             // System.Object
-            AuthenticateUIType ui = null;
+            // AuthenticateUIType ui = null;
 
-            return ui;
+            // return ui;
         }
 
         public AuthenticateUIType AuthenticationUIPlatformSpecificEmbeddedBrowser()

@@ -40,11 +40,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// An authenticator that presents a form to the user.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
 	internal abstract partial class FormAuthenticator : Authenticator
-#else
+    #else
 	public abstract partial class FormAuthenticator : Authenticator
-#endif
+    #endif
 	{
 		/// <summary>
 		/// The fields that need to be filled in by the user in order to authenticate.
@@ -101,7 +101,7 @@ namespace Xamarin.Auth
 		/// </param>
 		public abstract Task<Account> SignInAsync (CancellationToken cancellationToken);
 
-#if __IOS__
+        #if __IOS__
 		/// <summary>
 		/// Gets the UI to present this form.
 		/// </summary>
@@ -112,7 +112,7 @@ namespace Xamarin.Auth
 		//{
 		//	return new MonoTouch.UIKit.UINavigationController (new FormAuthenticatorController (this));
 		//}
-#elif __ANDROID__
+        #elif __ANDROID__
 		/// <summary>
 		/// Gets the UI to present this form.
 		/// </summary>
@@ -128,7 +128,7 @@ namespace Xamarin.Auth
 		//	i.PutExtra ("StateKey", FormAuthenticatorActivity.StateRepo.Add (state));
 		//	return i;
 		//}
-#else
+        #else
 		/// <summary>
 		/// Gets the UI to present this form.
 		/// </summary>
@@ -139,17 +139,17 @@ namespace Xamarin.Auth
 		//{
 		//	throw new NotSupportedException ("FormAuthenticator not supported on this platform.");
 		//}
-#endif
+    #endif
 	}
 
 	/// <summary>
 	/// Account credential form field.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
 	internal class FormAuthenticatorField
-#else
+    #else
 	public class FormAuthenticatorField
-#endif
+    #endif
 	{
 		/// <summary>
 		/// A key used to identify this field.
@@ -239,11 +239,11 @@ namespace Xamarin.Auth
 	/// <summary>
 	/// The display type of a credential field.
 	/// </summary>
-#if XAMARIN_AUTH_INTERNAL
+    #if XAMARIN_AUTH_INTERNAL
 	internal enum FormAuthenticatorFieldType
-#else
+    #else
 	public enum FormAuthenticatorFieldType
-#endif
+    #endif
 	{
 		/// <summary>
 		/// The field is plain text.

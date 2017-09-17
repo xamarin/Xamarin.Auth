@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage 
+	xmlns="http://xamarin.com/schemas/2014/forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
+    xmlns:local="clr-namespace:ComicBook;assembly=ComicBookPCL"
+	x:Class="ComicBook.SettingsPage"
+	>
+    <ContentPage.Padding>
+        <OnPlatform 
+            x:TypeArguments="Thickness" 
+            iOS="0, 20, 0, 0" 
+            WinPhone="20,20,20,20" 
+            >
+        </OnPlatform>
+    </ContentPage.Padding>
+    <ContentPage.Content>
+    <ScrollView>
+        <Grid Padding="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <ScrollView>
+				<StackLayout>
+                    <!--
+                    -->
+                    <Picker 
+                        x:Name="pickerUIFrameworks" 
+                        ItemsSource="{Binding UIFrameworks}" 
+                        />
+                    <Picker 
+                        x:Name="pickerFormsImplementations" 
+                        ItemsSource="{Binding FormsImplementations}" 
+                        />
+
+                    <Picker 
+                        x:Name="pickerNavigationType" 
+                        ItemsSource="{Binding NavigationTypes}" 
+                        />
+                    
+                    <OnPlatform x:TypeArguments="View">
+                        <OnPlatform.iOS>
+                            <Picker
+                               x:Name="pickerViews"
+                               ItemsSource="{Binding Views}"
+                               />
+                        </OnPlatform.iOS>
+                        <OnPlatform.Android>
+                            <Label Text="Android" />
+                        </OnPlatform.Android>
+                        <OnPlatform.WinPhone>
+                            <Label Text="Windows" />
+                        </OnPlatform.WinPhone>
+                    </OnPlatform>                    
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

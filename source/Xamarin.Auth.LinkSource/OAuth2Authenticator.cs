@@ -28,11 +28,11 @@ namespace Xamarin.Auth
     /// <summary>
     /// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-    internal class OAuth2Authenticator : WebRedirectAuthenticator
-#else
+    #if XAMARIN_AUTH_INTERNAL
+    internal partial class OAuth2Authenticator : WebRedirectAuthenticator
+    #else
     public partial class OAuth2Authenticator : WebRedirectAuthenticator
-#endif
+    #endif
     {
         string clientId;
         string clientSecret;
@@ -114,7 +114,6 @@ namespace Xamarin.Auth
                 this.accessTokenUrl = value;
             }
         }
-
         ///---------------------------------------------------------------------------------------
         #endregion
 
@@ -147,7 +146,7 @@ namespace Xamarin.Auth
             }
         }
 
-        bool IsImplicit
+        protected bool IsImplicitFlow
         {
             get
             {
@@ -155,6 +154,29 @@ namespace Xamarin.Auth
             }
         }
 
+        protected bool IsAuthorizationCodeFlow
+        {
+        	get
+        	{
+                return
+                    accessTokenUrl != null                      // AccessToken url is defined
+                    &&
+                    ! string.IsNullOrWhiteSpace(clientSecret)   // Client Secret is defined
+                    ;
+        	}
+        }
+
+        protected bool IsProofKeyCodeExchange
+        {
+        	get
+        	{
+        		return
+        			accessTokenUrl != null                    // AccessToken url is defined
+        			&&
+        			string.IsNullOrWhiteSpace(clientSecret)   // Client Secret is not defined
+        			;
+        	}
+        }
         ///---------------------------------------------------------------------------------------
         #endregion
 
@@ -378,13 +400,15 @@ namespace Xamarin.Auth
             return;
         }
 
+        Dictionary<string, string> query = null;
+
         /// <summary>
         /// Method that returns the initial URL to be displayed in the web browser.
         /// </summary>
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public override Task<Uri> GetInitialUrlAsync()
+        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null)
         {
             /*
 			 	mc++
@@ -415,22 +439,29 @@ namespace Xamarin.Auth
                 Uri.EscapeDataString (scope),
                 Uri.EscapeDataString (requestState)));
             */
-            Dictionary<string, string> query = new Dictionary<string, string>
+            if (null == query_parameters)
             {
-                {"client_id", Uri.EscapeDataString (this.clientId)},
-                //mc++ {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
-				{"redirect_uri", Uri.EscapeDataString (oauth_redirect_uri_original)},
-                {"response_type", OAuthFlowResponseTypeVerification()},
-                //---------------------------------------------------------------------------------------
-                /// Pull Request - manually added/fixed
-                ///		Add new property to disable the escaping of scope parameter. #62
-                ///		https://github.com/xamarin/Xamarin.Auth/pull/62
-                //Uri.EscapeDataString (scope),
-                //{"scope", this.scope},
-                {"scope", DoNotEscapeScope ? this.scope : Uri.EscapeDataString (this.scope)},
-                //---------------------------------------------------------------------------------------
-                {"state",Uri.EscapeDataString (this.requestState)}
-            };
+                query = new Dictionary<string, string>
+                {
+                    {"client_id", Uri.EscapeDataString (this.clientId)},
+                    //mc++ {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
+    				{"redirect_uri", Uri.EscapeDataString (oauth_redirect_uri_original)},
+                    {"response_type", OAuthFlowResponseTypeVerification()},
+                    //---------------------------------------------------------------------------------------
+                    /// Pull Request - manually added/fixed
+                    ///		Add new property to disable the escaping of scope parameter. #62
+                    ///		https://github.com/xamarin/Xamarin.Auth/pull/62
+                    //Uri.EscapeDataString (scope),
+                    //{"scope", this.scope},
+                    {"scope", DoNotEscapeScope ? this.scope : Uri.EscapeDataString (this.scope)},
+                    //---------------------------------------------------------------------------------------
+                    {"state",Uri.EscapeDataString (this.requestState)}
+                };
+            }
+            else
+            {
+                query = query_parameters;
+            }
 
             OnCreatingInitialUrl(query);
 
@@ -468,13 +499,19 @@ namespace Xamarin.Auth
         {
             string response_type = null;
 
-            if (this.IsImplicit)
+            if (this.IsImplicitFlow)
             {
                 response_type = Uri.EscapeDataString("token");
             }
-            else
+            else if (this.IsAuthorizationCodeFlow)
             {
                 response_type = Uri.EscapeDataString("code");
+            }
+            else if (this.IsProofKeyCodeExchange)
+            {
+            }
+            else
+            {
             }
 
             #if DEBUG
@@ -563,7 +600,7 @@ namespace Xamarin.Auth
                 //
                 OnRetrievedAccountProperties(fragment);
             }
-            else if (!IsImplicit)
+            else if (!IsImplicitFlow)
             {
                 //
                 // Look for the code

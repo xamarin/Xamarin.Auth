@@ -96,47 +96,33 @@ namespace Xamarin.Auth
 
             if (WebViewConfiguration.IOS.IsUsingWKWebView == false)
             {
+                // UIWebView
+
                 #if DEBUG
                 StringBuilder sb1 = new StringBuilder();
                 sb1.Append("Embedded WebView using - UIWebView");
                 System.Diagnostics.Debug.WriteLine(sb1.ToString());
                 #endif
 
-                ui_web_view = new UIWebView(View.Bounds)
-                {
-                    Delegate = new UIWebViewDelegate(this),
-                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
-                };
-                web_view = ui_web_view;
-                View.AddSubview((UIWebView)web_view);
-            }
+                web_view = PrepareUIWebView();
+
+                this.View.AddSubview((UIWebView)web_view);
+             }
             else
             {
+                // WKWebView - availabilty and fallback is done in PrepareWKWebView()
+
                 #if DEBUG
                 StringBuilder sb1 = new StringBuilder();
                 sb1.Append("Embedded WebView using - WKWebView");
                 System.Diagnostics.Debug.WriteLine(sb1.ToString());
                 #endif
 
-                var wk_web_view_configuration = new WebKit.WKWebViewConfiguration();
+                web_view = PrepareWKWebView();
 
-                if (UIDevice.CurrentDevice.CheckSystemVersion(9, 0))
-                {
-                    wk_web_view_configuration.WebsiteDataStore = WKWebsiteDataStore.NonPersistentDataStore;
-                }
-
-                wk_web_view = new WebKit.WKWebView(View.Frame, wk_web_view_configuration)
-                {
-                    UIDelegate = new WKWebViewUIDelegate(this),
-                    NavigationDelegate = new WKWebViewNavigationDelegate(this),
-                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
-                    //  cheating!
-                    //  http://www.useragentstring.com/pages/useragentstring.php?typ=Browser
-                    CustomUserAgent = WebViewConfiguration.IOS.UserAgent,
-                };
-                web_view = wk_web_view;
-                View.AddSubview((WKWebView)web_view);
+                this.View.AddSubview((WKWebView)web_view);
             }
+
             #if DEBUG
 			authenticator.Title = "Auth " + web_view.GetType().ToString();
             #endif
@@ -161,6 +147,69 @@ namespace Xamarin.Auth
             #endif
 
 			return;
+        }
+
+        protected UIView PrepareUIWebView()
+        {
+            ui_web_view = new UIWebView(View.Bounds)
+            {
+                Delegate = new UIWebViewDelegate(this),
+                AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+            };
+            web_view = ui_web_view;
+            View.AddSubview((UIWebView)web_view);
+
+            return web_view;
+        }
+
+        protected UIView PrepareWKWebView()
+        {
+            WebKit.WKWebViewConfiguration wk_web_view_configuration = null;
+
+            if
+                (
+                    ObjCRuntime.Class.GetHandle("WKWebView") != IntPtr.Zero
+                    &&
+                    UIDevice.CurrentDevice.CheckSystemVersion(8, 0)
+                )
+            {
+                wk_web_view_configuration = new WebKit.WKWebViewConfiguration();
+
+                if (UIDevice.CurrentDevice.CheckSystemVersion(9, 0))
+                {
+                    wk_web_view_configuration.WebsiteDataStore = WKWebsiteDataStore.NonPersistentDataStore;
+                }
+
+                wk_web_view = new WebKit.WKWebView(View.Frame, wk_web_view_configuration)
+                {
+                    UIDelegate = new WKWebViewUIDelegate(this),
+                    NavigationDelegate = new WKWebViewNavigationDelegate(this),
+                    AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+                };
+
+                if (UIDevice.CurrentDevice.CheckSystemVersion(9, 0))
+                {
+                    //  cheating!
+                    //  http://www.useragentstring.com/pages/useragentstring.php?typ=Browser
+                    wk_web_view.CustomUserAgent = WebViewConfiguration.IOS.UserAgent;
+                }
+
+                web_view = wk_web_view;
+            }
+            else
+            {
+                // Fallback to Embedded WebView
+                StringBuilder msg = new StringBuilder();
+                msg.AppendLine("WKWebView not available!");
+                msg.AppendLine("Fallback to UIWebView");
+
+				this.ShowErrorForNativeUIAlert(msg.ToString());
+
+                web_view = PrepareUIWebView();
+            }
+
+
+            return web_view;
         }
 
         void Cancel()
@@ -313,6 +362,27 @@ namespace Xamarin.Auth
 
             return;
 		}
+
+        protected void ShowErrorForNativeUIAlert(string v)
+        {
+        	new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
+        						(
+        							() =>
+        							{
+        								UIKit.UIAlertView alert = null;
+        								alert = new UIKit.UIAlertView
+        												(
+        													"WARNING",
+        													v,
+        													null,
+        													"Ok",
+        													null
+        												);
+        								alert.Show();
+        							}
+        						);
+        	return;
+        }
     }
 }
 
