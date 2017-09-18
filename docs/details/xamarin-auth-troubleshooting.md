@@ -1,7 +1,22 @@
 # Xamarin.Auth Troubleshooting 
 
-## App 
+## Control does not return to the app after login
 
+If you are using NativeUI (SafariViewController and [Chrome] Custom Tabs) check 
+
+1.	schema for `redirect_url` should not be http[s] schema!
+
+	
+2.	app-linking (deep-linking) implementation 
+
+3.	on Android there have been reports that AntiVirus software might block
+	IntentFilters
+	
+```bash
+	adb shell am start \
+		-a android.intent.action.VIEW \
+		-d "com.googleusercontent.apps.<your-android-app-id>:/oauth2redirect"
+```	
 
 ## The "LinkAssemblies" task failed unexpectedly - Failed to resolve - LaunchUrl
 
