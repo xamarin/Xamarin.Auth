@@ -39,13 +39,15 @@ namespace Xamarin.Auth
     #if XAMARIN_AUTH_INTERNAL
     internal class OAuth1Authenticator 
         : 
-        WebAuthenticator
-        //WebRedirectAuthenticator  //mc++ why not WebRedirectAuthenticator??
+        //WebAuthenticator
+        WebRedirectAuthenticator        //mc++ changed in 1.5.0.4 on 2017-09-15
+                                        // OAuth2Authenticator inherits from WebRedirectAuthenticator
     #else
     public class OAuth1Authenticator
         :
-        WebAuthenticator
-        //WebRedirectAuthenticator  //mc++ why not WebRedirectAuthenticator??
+        //WebAuthenticator              
+        WebRedirectAuthenticator        //mc++ changed in 1.5.0.4 on 2017-09-15
+                                        // OAuth2Authenticator inherits from WebRedirectAuthenticator
     #endif
     {
         string consumerKey;
@@ -90,11 +92,16 @@ namespace Xamarin.Auth
         /// </param>
         public OAuth1Authenticator
                         (
-                            string consumerKey, string consumerSecret,
-                            Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl,
+                            string consumerKey, 
+                            string consumerSecret,
+                            Uri requestTokenUrl, 
+                            Uri authorizeUrl, 
+                            Uri accessTokenUrl, 
+                            Uri callbackUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
                             bool isUsingNativeUI = false
                         )
+            : base(authorizeUrl, callbackUrl)
         {
             this.is_using_native_ui = isUsingNativeUI;
 
@@ -296,55 +303,62 @@ namespace Xamarin.Auth
             System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
-            var requestParams = new Dictionary<string, string>
+            RequestParameters = new Dictionary<string, string>
             {
                 { "oauth_token", token }
             };
 
             if (verifier != null)
             {
-                requestParams["oauth_verifier"] = verifier;
+                RequestParameters["oauth_verifier"] = verifier;
                 System.Diagnostics.Debug.WriteLine($"        verifier = {verifier}");
             }
 
-            var req = OAuth1.CreateRequest(
+            var req = OAuth1.CreateRequest
+                (
                 "GET",
                 accessTokenUrl,
-                requestParams,
+                request_parameters,
                 consumerKey,
                 consumerSecret,
-                tokenSecret);
+                tokenSecret
+               );
 
             if (this.HttpWebClientFrameworkType == HttpWebClientFrameworkType.WebRequest)
             {
-                return req.GetResponseAsync().ContinueWith(respTask =>
-                {
-                    var content = respTask.Result.GetResponseText();
+                WebResponse response = req.GetResponseAsync().Result;
 
-                    var accountProperties = WebEx.FormDecode(content);
+                return req.GetResponseAsync().ContinueWith
+                            (
+                                respTask =>
+                                    {
+                                        var content = respTask.Result.GetResponseText();
 
-                    accountProperties["oauth_consumer_key"] = consumerKey;
-                    accountProperties["oauth_consumer_secret"] = consumerSecret;
+                                        var accountProperties = WebEx.FormDecode(content);
 
-                    if (getUsernameAsync != null)
-                    {
-                        getUsernameAsync(accountProperties).ContinueWith(uTask =>
-                        {
-                            if (uTask.IsFaulted)
-                            {
-                                OnError(uTask.Exception);
-                            }
-                            else
-                            {
-                                OnSucceeded(uTask.Result, accountProperties);
-                            }
-                        });
-                    }
-                    else
-                    {
-                        OnSucceeded("", accountProperties);
-                    }
-                });
+                                        accountProperties["oauth_consumer_key"] = consumerKey;
+                                        accountProperties["oauth_consumer_secret"] = consumerSecret;
+
+                                        if (getUsernameAsync != null)
+                                        {
+                                            getUsernameAsync(accountProperties).ContinueWith(uTask =>
+                                            {
+                                                if (uTask.IsFaulted)
+                                                {
+                                                    OnError(uTask.Exception);
+                                                }
+                                                else
+                                                {
+                                                    OnSucceeded(uTask.Result, accountProperties);
+                                                }
+                                            });
+                                        }
+                                        else
+                                        {
+                                            OnSucceeded("", accountProperties);
+                                        }
+                                    }
+                            );
             }
             else if (this.HttpWebClientFrameworkType == HttpWebClientFrameworkType.HttpClient)
             {

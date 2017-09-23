@@ -22,17 +22,18 @@ using System.Collections.Generic;
 using Xamarin.Utilities;
 using System.Net;
 using System.Text;
+using System.Runtime.CompilerServices;
 
 namespace Xamarin.Auth
 {
     /// <summary>
     /// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
     /// </summary>
-    #if XAMARIN_AUTH_INTERNAL
+#if XAMARIN_AUTH_INTERNAL
     internal partial class OAuth2Authenticator : WebRedirectAuthenticator
-    #else
+#else
     public partial class OAuth2Authenticator : WebRedirectAuthenticator
-    #endif
+#endif
     {
         string clientId;
         string clientSecret;
@@ -42,7 +43,59 @@ namespace Xamarin.Auth
         Uri accessTokenUrl;
         GetUsernameAsyncFunc getUsernameAsync;
 
-        string requestState;
+
+        #region     State
+        //---------------------------------------------------------------------------------------
+        /// <summary>
+        /// Gets the state.
+        /// OAuth2 random state string
+        /// </summary>
+        /// <value>The state.</value>
+        public string State
+        {
+            get
+            {
+                return request_state;
+            }
+        }
+        string request_state;
+
+        public ulong StateStringLength
+        {
+            get;
+            set;
+        } = 16;
+
+        /// <summary>
+        /// Gets or sets the OAuth2 random state generator func.
+        /// </summary>
+        /// <value>
+        /// The OA uth2 random state generator func.
+        /// </value>
+        public Func<ulong, string> OAuth2RandomStateGeneratorFunc
+        {
+            get;
+            set;
+        }
+
+        public string GenerateOAuth2StateRandom(ulong number_of_characters = 16)
+        {
+            //
+            // Generate a unique state string to check for forgeries
+            //
+            var chars = new char[number_of_characters];
+            var rand = new Random();
+            for (var i = 0; i < chars.Length; i++)
+            {
+                chars[i] = (char)rand.Next((int)'a', (int)'z' + 1);
+            }
+            string state_string = new string(chars);
+
+            return state_string;
+        }
+        //---------------------------------------------------------------------------------------
+        #endregion  State
+
         bool reportedForgery = false;
 
         #region
@@ -52,16 +105,6 @@ namespace Xamarin.Auth
         ///		https://github.com/xamarin/Xamarin.Auth/pull/91
         ///		
         string accessTokenName = "access_token";
-        Dictionary<string, string> requestParams;
-
-
-        public Dictionary<string, string> RequestParameters
-        {
-            get
-            {
-                return this.requestParams;
-            }
-        }
 
         public string AccessTokenName
         {
@@ -156,26 +199,26 @@ namespace Xamarin.Auth
 
         protected bool IsAuthorizationCodeFlow
         {
-        	get
-        	{
+            get
+            {
                 return
                     accessTokenUrl != null                      // AccessToken url is defined
                     &&
-                    ! string.IsNullOrWhiteSpace(clientSecret)   // Client Secret is defined
+                    !string.IsNullOrWhiteSpace(clientSecret)   // Client Secret is defined
                     ;
-        	}
+            }
         }
 
-        protected bool IsProofKeyCodeExchange
+        protected bool IsProofKeyCodeForExchange
         {
-        	get
-        	{
-        		return
-        			accessTokenUrl != null                    // AccessToken url is defined
-        			&&
-        			string.IsNullOrWhiteSpace(clientSecret)   // Client Secret is not defined
-        			;
-        	}
+            get
+            {
+                return
+                    accessTokenUrl != null                    // AccessToken url is defined
+                    &&
+                    string.IsNullOrWhiteSpace(clientSecret)   // Client Secret is not defined
+                    ;
+            }
         }
         ///---------------------------------------------------------------------------------------
         #endregion
@@ -203,9 +246,9 @@ namespace Xamarin.Auth
         /// </param>
         public OAuth2Authenticator
                         (
-                            string clientId, 
+                            string clientId,
                             string scope,
-                            Uri authorizeUrl, 
+                            Uri authorizeUrl,
                             Uri redirectUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
                             bool isUsingNativeUI = false
@@ -244,17 +287,17 @@ namespace Xamarin.Auth
             ///		OAuth2Authenticator changes to work with joind.in OAuth #91
             ///		https://github.com/xamarin/Xamarin.Auth/pull/91
             ///		
-            this.requestParams = new Dictionary<string, string>();
+            this.RequestParameters = new Dictionary<string, string>();
             ///---------------------------------------------------------------------------------------
             #endregion
 
-            #if DEBUG
+#if DEBUG
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"OAuth2Authenticator ");
             sb.AppendLine($"        IsUsingNativeUI = {IsUsingNativeUI}");
             sb.AppendLine($"        redirectUrl = {redirectUrl}");
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-            #endif
+#endif
 
             return;
         }
@@ -287,12 +330,12 @@ namespace Xamarin.Auth
         /// </param>
         public OAuth2Authenticator
                         (
-                            string clientId, 
-                            string clientSecret, 
-                            string scope, 
-                            Uri authorizeUrl, 
-                            Uri redirectUrl, 
-                            Uri accessTokenUrl, 
+                            string clientId,
+                            string clientSecret,
+                            string scope,
+                            Uri authorizeUrl,
+                            Uri redirectUrl,
+                            Uri accessTokenUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
                             bool isUsingNativeUI = false
                         )
@@ -314,7 +357,7 @@ namespace Xamarin.Auth
                 //  2nd step does not send Client Secret (null || Empty)
                 //throw new ArgumentException("clientSecret must be provided", "clientSecret");
 
-                #if DEBUG
+#if DEBUG
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($" ");
                 sb.AppendLine($"        clientSecret   = null || Empty");
@@ -322,7 +365,7 @@ namespace Xamarin.Auth
                 sb.AppendLine($"        Google for Installed Apps");
                 sb.AppendLine($"        redirectUrl    = {redirectUrl}");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
-                #endif
+#endif
             }
             this.clientSecret = clientSecret;
 
@@ -351,16 +394,17 @@ namespace Xamarin.Auth
             return;
         }
 
-        OAuth2Authenticator
+        private OAuth2Authenticator
                         (
-                            Uri redirectUrl, 
-                            string clientSecret = null, 
-                            Uri accessTokenUrl = null, 
+                            Uri redirectUrl,
+                            string clientSecret = null,
+                            Uri accessTokenUrl = null,
                             bool isUsingNativeUI = false
                         )
             : base(redirectUrl, redirectUrl)
         {
             this.is_using_native_ui = isUsingNativeUI;
+            this.OAuth2RandomStateGeneratorFunc = GenerateOAuth2StateRandom;
 
             if (redirectUrl == null)
             {
@@ -386,21 +430,11 @@ namespace Xamarin.Auth
 
             this.accessTokenUrl = accessTokenUrl;
 
-            //
-            // Generate a unique state string to check for forgeries
-            //
-            var chars = new char[16];
-            var rand = new Random();
-            for (var i = 0; i < chars.Length; i++)
-            {
-                chars[i] = (char)rand.Next((int)'a', (int)'z' + 1);
-            }
-            this.requestState = new string(chars);
+            this.request_state = OAuth2RandomStateGeneratorFunc(16);
 
             return;
         }
 
-        Dictionary<string, string> query = null;
 
         /// <summary>
         /// Method that returns the initial URL to be displayed in the web browser.
@@ -408,7 +442,7 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null)
+        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> custom_query_parameters = null)
         {
             /*
 			 	mc++
@@ -439,37 +473,16 @@ namespace Xamarin.Auth
                 Uri.EscapeDataString (scope),
                 Uri.EscapeDataString (requestState)));
             */
-            if (null == query_parameters)
-            {
-                query = new Dictionary<string, string>
-                {
-                    {"client_id", Uri.EscapeDataString (this.clientId)},
-                    //mc++ {"redirect_uri", Uri.EscapeDataString (this.redirectUrl.AbsoluteUri)},
-    				{"redirect_uri", Uri.EscapeDataString (oauth_redirect_uri_original)},
-                    {"response_type", OAuthFlowResponseTypeVerification()},
-                    //---------------------------------------------------------------------------------------
-                    /// Pull Request - manually added/fixed
-                    ///		Add new property to disable the escaping of scope parameter. #62
-                    ///		https://github.com/xamarin/Xamarin.Auth/pull/62
-                    //Uri.EscapeDataString (scope),
-                    //{"scope", this.scope},
-                    {"scope", DoNotEscapeScope ? this.scope : Uri.EscapeDataString (this.scope)},
-                    //---------------------------------------------------------------------------------------
-                    {"state",Uri.EscapeDataString (this.requestState)}
-                };
-            }
-            else
-            {
-                query = query_parameters;
-            }
 
-            OnCreatingInitialUrl(query);
+            RequestParameters = CreateRequestQueryParameters(custom_query_parameters);
+
+            OnCreatingInitialUrl(RequestParameters);
 
             // already escaped manually merged PRs 62 and 57
             //string queryString = string.Join ("&", query.Select (i => i.Key + "=" + Uri.EscapeDataString (i.Value)));
-            string queryString = string.Join("&", query.Select(i => i.Key + "=" + i.Value));
+            string queryString = string.Join("&", RequestParameters.Select(i => i.Key + "=" + i.Value));
 
-            var url = string.IsNullOrEmpty(queryString) ? this.authorizeUrl : new Uri(this.authorizeUrl.AbsoluteUri + "?" + queryString);
+            Uri url = string.IsNullOrEmpty(queryString) ? this.authorizeUrl : new Uri(this.authorizeUrl.AbsoluteUri + "?" + queryString);
             //---------------------------------------------------------------------------------------
             #endregion
 
@@ -480,6 +493,109 @@ namespace Xamarin.Auth
             //return tcs.Task;
 
             return Task.FromResult(url);
+        }
+
+        public Dictionary<string, string> CreateRequestQueryParameters
+                                                (
+                                                    Dictionary<string, string> custom_query_parameters = null
+                                                )
+        {
+            Dictionary<string, string> oauth_request_query_parameters = null;
+
+            oauth_request_query_parameters = new Dictionary<string, string>();
+
+            //--------------------------------------------------------------------------------------- 
+            string cid = this.clientId;
+            if (IsUriEncodedDataString(this.clientId) == false)
+            {
+                cid = Uri.EscapeDataString(this.clientId);
+            }
+            oauth_request_query_parameters.Add("client_id", cid);
+            //--------------------------------------------------------------------------------------- 
+
+            //--------------------------------------------------------------------------------------- 
+            string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
+            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
+            if (this.redirectUrl != null)
+            {
+                oauth_request_query_parameters.Add
+                                                (
+                                                    "redirect_uri",
+                                                    Uri.EscapeDataString(oauth_redirect_uri_original)
+                                                );
+            }
+            //---------------------------------------------------------------------------------------
+
+            //---------------------------------------------------------------------------------------
+            /// Pull Request - manually added/fixed
+            ///     Add new property to disable the escaping of scope parameter. #62
+            ///     https://github.com/xamarin/Xamarin.Auth/pull/62
+            //Uri.EscapeDataString (scope),
+            //{"scope", this.scope},
+            //{"scope", DoNotEscapeScope? this.scope : Uri.EscapeDataString (this.scope)},
+
+            string scope = this.scope;
+            if (DoNotEscapeScope == true)
+            {
+                // NOOP
+            }
+            else
+            {
+                if (IsUriEncodedDataString(scope) == false)
+                {
+                    scope = Uri.EscapeDataString(this.scope);
+                }
+            }
+            oauth_request_query_parameters.Add("scope", scope);
+            //---------------------------------------------------------------------------------------
+
+            //---------------------------------------------------------------------------------------
+            string response_type = OAuthFlowResponseTypeVerification();
+            oauth_request_query_parameters.Add("response_type", response_type);
+            //--------------------------------------------------------------------------------------
+
+            //---------------------------------------------------------------------------------------
+            string state = this.OAuth2RandomStateGeneratorFunc(this.StateStringLength);
+            if (IsUriEncodedDataString(state) == false)
+            {
+                state = Uri.EscapeDataString(this.request_state);
+            }
+            oauth_request_query_parameters.Add("state", state);
+            //---------------------------------------------------------------------------------------
+
+            #if DEBUG
+            System.Diagnostics.Debug.WriteLine("OAuth Query Parameters DEFAULT:");
+            foreach (KeyValuePair<string, string> kvp in oauth_request_query_parameters)
+            {
+                System.Diagnostics.Debug.WriteLine($"      [{kvp.Key}] = {kvp.Value}");
+            }
+            #endif
+
+            //---------------------------------------------------------------------------------------
+            if (custom_query_parameters != null)
+            {
+                foreach (KeyValuePair<string, string> kvp in custom_query_parameters)
+                {
+                    string k = kvp.Key;
+                    string v = kvp.Value;
+
+                    if (IsUriEncodedDataString(v) == false)
+                    {
+                        v = Uri.EscapeDataString(v);
+                    }
+                    oauth_request_query_parameters[k] = v;
+                }
+            }
+
+            #if DEBUG
+            System.Diagnostics.Debug.WriteLine("OAuth Query Parameters CUSTOMIZED:");
+            foreach (KeyValuePair<string, string> kvp in oauth_request_query_parameters)
+            {
+                System.Diagnostics.Debug.WriteLine($"      [{kvp.Key}] = {kvp.Value}");
+            }
+            #endif
+            //---------------------------------------------------------------------------------------
+            return oauth_request_query_parameters;
         }
 
         /// <summary>
@@ -507,7 +623,7 @@ namespace Xamarin.Auth
             {
                 response_type = Uri.EscapeDataString("code");
             }
-            else if (this.IsProofKeyCodeExchange)
+            else if (this.IsProofKeyCodeForExchange)
             {
             }
             else
@@ -560,7 +676,7 @@ namespace Xamarin.Auth
             //
             if (all.ContainsKey("state"))
             {
-                if (all["state"] != requestState && !reportedForgery)
+                if (all["state"] != request_state && !reportedForgery)
                 {
                     reportedForgery = true;
                     OnError("Invalid state from server. Possible forgery!");
@@ -621,7 +737,7 @@ namespace Xamarin.Auth
                                     {
                                         OnRetrievedAccountProperties(task.Result);
                                     }
-                                }, 
+                                },
                                 TaskScheduler.FromCurrentSynchronizationContext()
                             );
                 }

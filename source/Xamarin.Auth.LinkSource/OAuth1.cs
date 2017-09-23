@@ -135,8 +135,9 @@ namespace Xamarin.Auth
 					Get-Project Xamarin.Auth.Portable | Install-Package System.Security.Cryptography.Hashing.Algorithms -Pre
 				";
 			System.Diagnostics.Debug.WriteLine("Xamarin.Auth: " + msg);
-#endif
+            #endif
             var sig = Convert.ToBase64String(hash);
+
             return sig;
         }
 
@@ -185,12 +186,16 @@ namespace Xamarin.Auth
         /// </param>
         public static WebRequest CreateRequest(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
         {
-            var ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
+            Dictionary<string, string> ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
 
-            var realUrl = uri.AbsoluteUri + "?" + ps.FormEncode();
+            string realUrl = uri.AbsoluteUri + "?" + ps.FormEncode();
 
-            var req = (HttpWebRequest)WebRequest.Create(realUrl);
+            HttpWebRequest req = 
+                    // (HttpWebRequest)WebRequest.Create(realUrl)   // WebRequest - no go for .NetStandard 1.6
+                    HttpWebRequest.CreateHttp(realUrl)
+                    ;
             req.Method = method;
+
             return req;
         }
 

@@ -47,6 +47,8 @@ namespace Xamarin.Auth
         {
             this.initialUrl = initialUrl;
             this.redirectUrl = redirectUrl;
+
+            return;
         }
 
         /// <summary>
@@ -55,7 +57,7 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null)
+        public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> custom_query_parameters = null)
         {
             // mc++ optimized by Mark Smith
             //var tcs = new TaskCompletionSource<Uri> ();

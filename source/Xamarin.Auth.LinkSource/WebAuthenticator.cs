@@ -62,7 +62,8 @@ namespace Xamarin.Auth
         /// <returns>
         /// A task that will return the initial URL.
         /// </returns>
-        public abstract Task<Uri> GetInitialUrlAsync(Dictionary<string, string> query_parameters = null);
+        /// <param name="custom_query_parameters">Custom Query parameters</param>
+        public abstract Task<Uri> GetInitialUrlAsync(Dictionary<string, string> custom_query_parameters = null);
 
         /// <summary>
         /// Event handler called when a new page is being loaded in the web browser.
@@ -146,6 +147,42 @@ namespace Xamarin.Auth
             set;
         }
 
+        protected Dictionary<string, string> request_parameters;
+
+        /// <summary>
+        /// Gets or sets the request parameters.
+        /// Request Parameters for OAuth and OpenId parameters
+        /// </summary>
+        /// <value>The request parameters.</value>
+        public Dictionary<string, string> RequestParameters
+        {
+        	get
+        	{
+        		return this.request_parameters;
+        	}
+            set
+            {
+                request_parameters = value;
+
+                return;
+			}
+
+        }
+
+        public bool IsUriEncodedDataString(string s)
+        {
+        	if
+        		(
+        			s.Equals(Uri.EscapeDataString(s))
+        			&&
+        			Uri.IsWellFormedUriString(s, UriKind.RelativeOrAbsolute)
+        		)
+        	{
+        		return true;
+        	}
+
+        	return false;
+        }
     }
 }
 

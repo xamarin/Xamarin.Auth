@@ -249,7 +249,7 @@ namespace System.Runtime.Serialization.Json
                 if (fdigits == 0)
                     throw JsonError("Invalid JSON numeric literal; extra dot");
             }
-            #if PORTABLE || NETFX_CORE
+            #if PORTABLE || NETFX_CORE || NETSTANDARD1_6
 			frac = Core.Decimal.Round (frac, fdigits);
             #else
             frac = Decimal.Round(frac, fdigits);

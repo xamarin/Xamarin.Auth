@@ -36,11 +36,6 @@ using System.Linq;
 //using AuthenticateUIType = System.Object;
 //#endif
 //--------------------------------------------------------------------
-#if PORTABLE
-using AuthenticateUIType = System.Object;
-#else
-using AuthenticateUIType = System.Object;
-#endif
 
 namespace Xamarin.Auth
 {

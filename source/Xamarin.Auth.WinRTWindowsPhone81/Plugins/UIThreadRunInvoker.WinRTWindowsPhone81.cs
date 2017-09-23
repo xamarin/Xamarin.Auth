@@ -8,7 +8,8 @@ namespace Plugin.Threading
         {
             #if NETFX_CORE && WINDOWS_PHONE       // Windows Phone WinRT 8.1
             // using Windows.ApplicationModel.Core;
-            var dispatcher = CoreApplication.MainView.CoreWindow.Dispatcher;
+            var dispatcher = 
+                Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher;
             dispatcher.RunAsync
                              (
                                 Windows.UI.Core.CoreDispatcherPriority.Normal,

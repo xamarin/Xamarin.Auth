@@ -34,8 +34,7 @@ namespace System.Reflection
 
 		public static TypeCode GetTypeCode(this Type type)
 		{
-#if NETFX_CORE || PCL
-
+            #if NETFX_CORE || PCL
 			if (type == null)
 			{
 				return TypeCode.Empty;
@@ -49,9 +48,9 @@ namespace System.Reflection
 
 			return result;
 
-#else
-				return Type.GetTypeCode(type);
-#endif
+            #else
+			return Type.GetTypeCode(type);
+            #endif
 		}
 	}
 }

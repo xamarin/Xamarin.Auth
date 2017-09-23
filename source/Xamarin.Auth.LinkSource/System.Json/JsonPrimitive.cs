@@ -152,7 +152,7 @@ namespace System.Json
                 if (value == null)
                     return JsonType.String;
 
-                #if !PCL && !PORTABLE && !NETFX_CORE && !WINDOWS_PHONE && !SILVERLIGHT && !WINDOWS_APP && !WINDOWS_PHONE_APP
+                #if !PCL && !PORTABLE && !NETFX_CORE && !WINDOWS_PHONE && !SILVERLIGHT && !WINDOWS_APP && !WINDOWS_PHONE_APP && !NETSTANDARD1_6
                 switch (System.Type.GetTypeCode(value.GetType()))
                 {
                     case System.TypeCode.Boolean:

@@ -28,6 +28,8 @@ using AuthenticateUIType = MonoTouch.UIKit.UIViewController;
 using AuthenticateUIType = System.Uri;
 #elif PORTABLE
 using AuthenticateUIType = System.Object;
+#elif NETSTANDARD1_6
+using AuthenticateUIType = System.Object;
 #endif
 
 namespace Xamarin.Auth
