@@ -21,7 +21,11 @@ using System.Text;
 
 using Xamarin.Utilities;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// Type of method used to fetch the username of an account

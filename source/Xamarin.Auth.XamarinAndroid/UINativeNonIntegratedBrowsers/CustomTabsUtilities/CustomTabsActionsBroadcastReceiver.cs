@@ -11,7 +11,11 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     [BroadcastReceiver]
     #if XAMARIN_CUSTOM_TABS_INTERNAL

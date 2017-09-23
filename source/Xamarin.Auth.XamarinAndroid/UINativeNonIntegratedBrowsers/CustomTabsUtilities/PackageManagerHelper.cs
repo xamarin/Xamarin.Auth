@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
 using Android.Content;
 using Android.Content.PM;
 using Android.Util;
 using Android.Text;
-using System.Text;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
+#else
+namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
+#endif
 {
     #if XAMARIN_CUSTOM_TABS_INTERNAL
     internal class PackageManagerHelper

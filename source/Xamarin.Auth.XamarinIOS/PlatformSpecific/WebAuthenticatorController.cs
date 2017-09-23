@@ -17,9 +17,6 @@ using System;
 using System.Threading.Tasks;
 using System.Text;
 
-using Xamarin.Utilities.iOS;
-using Xamarin.Controls;
-
 #if !__UNIFIED__
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -29,7 +26,19 @@ using UIKit;
 using WebKit;
 #endif
 
+#if ! AZURE_MOBILE_SERVICES
+using Xamarin.Utilities.iOS;
+using Xamarin.Controls;
+#else
+using Xamarin.Utilities._MobileServices.iOS;
+using Xamarin.Controls._MobileServices;
+#endif
+
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// The ViewController that the WebAuthenticator presents to the user.

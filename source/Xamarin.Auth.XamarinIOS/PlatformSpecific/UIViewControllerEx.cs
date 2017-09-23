@@ -23,7 +23,11 @@ using Foundation;
 using UIKit;
 #endif
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Utilities.iOS
+#else
+namespace Xamarin.Utilities._MobileServices.iOS
+#endif
 {
     public static class UIViewControllerEx
     {

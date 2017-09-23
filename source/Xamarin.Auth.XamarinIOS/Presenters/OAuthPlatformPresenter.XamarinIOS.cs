@@ -1,4 +1,8 @@
-﻿namespace Xamarin.Auth.Presenters.XamarinIOS
+﻿#if ! AZURE_MOBILE_SERVICES
+namespace Xamarin.Auth.Presenters.XamarinIOS
+#else
+namespace Xamarin.Auth._MobileServices.Presenters.XamarinIOS
+#endif
 {
     #if XAMARIN_AUTH_INTERNAL
     internal class PlatformOAuthLoginPresenter

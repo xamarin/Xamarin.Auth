@@ -17,7 +17,11 @@ using Android.OS;
 using Android.Views;
 using Android.Webkit;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// This Activity is used as a fallback when there is no browser installed that supports

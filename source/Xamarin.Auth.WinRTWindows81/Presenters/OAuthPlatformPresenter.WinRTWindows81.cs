@@ -1,4 +1,8 @@
-﻿namespace Xamarin.Auth.Presenters.WinRT
+﻿#if !AZURE_MOBILE_SERVICES
+namespace Xamarin.Auth.Presenters.WinRT
+#else
+namespace Xamarin.Auth._MobileServices.Presenters.WinRT
+#endif
 {
     public class PlatformOAuthLoginPresenter
     {

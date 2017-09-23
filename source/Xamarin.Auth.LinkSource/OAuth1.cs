@@ -24,7 +24,11 @@ using System.Net;
 using System.Globalization;
 using Xamarin.Utilities;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// A collection of utility functions for signing OAuth 1.0 requests.

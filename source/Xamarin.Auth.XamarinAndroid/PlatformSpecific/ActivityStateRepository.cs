@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Utilities.Android
+#else
+namespace Xamarin.Utilities._MobileServices.Android
+#endif
 {
     /// <summary>
     /// Object to make passing non serializable objects to Activities easier

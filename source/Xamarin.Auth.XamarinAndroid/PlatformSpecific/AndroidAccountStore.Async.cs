@@ -24,7 +24,11 @@ using Android.Content;
 using Android.Runtime;
 using System.Threading.Tasks;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// AccountStore that uses a KeyStore of PrivateKeys protected by a fixed password

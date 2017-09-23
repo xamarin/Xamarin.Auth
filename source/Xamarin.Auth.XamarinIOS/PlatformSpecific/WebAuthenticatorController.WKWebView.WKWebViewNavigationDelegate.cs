@@ -16,9 +16,6 @@
 using System;
 using System.Threading.Tasks;
 using System.Text;
-
-using Xamarin.Utilities.iOS;
-using Xamarin.Controls;
 using System.Collections.Generic;
 
 #if !__UNIFIED__
@@ -30,7 +27,19 @@ using UIKit;
 using WebKit;
 #endif
 
+#if ! AZURE_MOBILE_SERVICES
+using Xamarin.Utilities.iOS;
+using Xamarin.Controls;
+#else
+using Xamarin.Utilities._MobileServices.iOS;
+using Xamarin.Controls._MobileServices;
+#endif
+
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     internal partial class WebAuthenticatorController
     {
@@ -110,7 +119,7 @@ namespace Xamarin.Auth
                         fragment.Contains("error")
                     )
                 {
-                    IDictionary<string, string> fragments = Utilities.WebEx.FormDecode(uri.Fragment);
+                    IDictionary<string, string> fragments = WebEx.FormDecode(uri.Fragment);
 
                     Account account = new Account
                                             (
@@ -176,7 +185,7 @@ namespace Xamarin.Auth
                     // NSUrl url_ios = webView.Url; // old URL
                     string url_redirect = error.UserInfo[new NSString("NSErrorFailingURLKey")].ToString();
                     System.Uri uri = new Uri(url_redirect);
-                    IDictionary<string, string> fragment = Utilities.WebEx.FormDecode(uri.Fragment);
+                    IDictionary<string, string> fragment = WebEx.FormDecode(uri.Fragment);
 
                     Account account = new Account
                                             (

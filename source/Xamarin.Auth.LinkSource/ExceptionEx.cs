@@ -15,7 +15,11 @@
 //
 using System;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Utilities
+#else
+namespace Xamarin.Utilities._MobileServices
+#endif
 {
 	public static class ExceptionEx
 	{

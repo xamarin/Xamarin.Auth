@@ -1,4 +1,8 @@
-﻿namespace Xamarin.Auth.Presenters.WinPhone
+﻿#if !AZURE_MOBILE_SERVICES
+namespace Xamarin.Auth.Presenters.WinPhone
+#else
+namespace Xamarin.Auth._MobileServices.Presenters.WinPhone
+#endif
 {
     public class PlatformOAuthLoginPresenter
     {

@@ -24,7 +24,11 @@ using AuthenticateUIType =
             //System.Object
             ;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
 	/// <summary>
 	/// An authenticator that presents a form to the user.
