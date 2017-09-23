@@ -10,7 +10,9 @@ If you are using NativeUI (SafariViewController and [Chrome] Custom Tabs) check
 2.	app-linking (deep-linking) implementation 
 
 3.	on Android there have been reports that AntiVirus software might block
-	IntentFilters
+	IntentFilters.
+	
+	Reported by 
 	
 ```bash
 	adb shell am start \
@@ -51,3 +53,25 @@ Xamarin.Auth lowest pinned) versionWhen Xamarin.Forms support was added to Xamar
 Xamarin.Android.Support libraries were pinned to 23.0.0 version in Xamarin.Forms.
 
 
+## Detecting Cancellation in CustomTabs on Android
+
+Xamarin.Auth [curerntly] cannot handle certain events in CustomTabs, because there is no
+such API provided from CustomTabs. Though this issue is under investigation for possible
+solutions!
+
+References/link for similar issue:
+
+1.	AppAuth
+
+	https://github.com/openid/AppAuth-Android/issues/102
+	\#102 Detecting user initiated closing of the authorization flow. 
+
+	https://github.com/openid/AppAuth-Android/pull/109
+	\#109 Use an intermediary activity to manage the authorization flow 
+	
+2.	StackOverflow
+
+	https://stackoverflow.com/questions/41010017/callback-on-dismiss-of-chrome-custom-tabs
+	
+	
+	
