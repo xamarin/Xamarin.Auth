@@ -39,6 +39,31 @@ From github
 
 > Confirm linker issues with Xamarin.Auth 1.5.0.3 + Xamarin.Android.Support.CustomTabs 23.4.0.1:
 
+From MatkovIvan:
+
+https://github.com/Azure/azure-mobile-apps-net-client/issues/361#issuecomment-315353068
+
+
+In Xamarin.Android.Support.CustomTabs version 23.3.0:
+
+	[Register("launchUrl", "(Landroid/app/Activity;Landroid/net/Uri;)V", "")]
+	public void LaunchUrl(Activity context, Uri url);
+
+In Xamarin.Android.Support.CustomTabs version 25.3.1:
+
+	[Register("launchUrl", "(Landroid/content/Context;Landroid/net/Uri;)V", "")]
+	public void LaunchUrl(Context context, Uri url);
+
+There is no info about it in change logs, since this is auto-generated from java code. 
+But in Azure Mobile Client case this is breaking change.
+
+This issue inherited from Xamarin.Auth. It uses CustomTabsIntent::LaunchUrl directly instead 
+of CustomTabsActivityManager despite documentation of custom tabs.
+
+PR to Azure Mobile Client Xamarin.Auth fork to fix this: 
+
+https://github.com/Azure/azure-mobile-services-xamarin-auth#11
+
 ### Analysis
 
 TODO
