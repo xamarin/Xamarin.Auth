@@ -68,6 +68,8 @@ References/link for similar issue:
 
 	https://github.com/openid/AppAuth-Android/pull/109
 	\#109 Use an intermediary activity to manage the authorization flow 
+
+	https://codelabs.developers.google.com/codelabs/appauth-android-codelab/#0
 	
 2.	StackOverflow
 
