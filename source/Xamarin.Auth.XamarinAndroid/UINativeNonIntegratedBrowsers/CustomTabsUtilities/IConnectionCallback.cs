@@ -1,6 +1,10 @@
 ﻿using System;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
+#else
+namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
+#endif
 {
     /// <summary>
     /// A Callback for when the service is connected or disconnected. Use those callbacks to

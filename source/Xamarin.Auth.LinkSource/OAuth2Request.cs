@@ -17,7 +17,11 @@ using System;
 using System.Collections.Generic;
 using Xamarin.Auth;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// Request that is authenticated using an account retrieved from an <see cref="OAuth2Authenticator"/>.

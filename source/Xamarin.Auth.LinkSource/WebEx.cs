@@ -23,7 +23,11 @@ using System.Linq;
 using System.Globalization;
 using System.Json;
 
-namespace Xamarin.Utilities
+#if ! AZURE_MOBILE_SERVICES
+namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     public static class WebEx
     {

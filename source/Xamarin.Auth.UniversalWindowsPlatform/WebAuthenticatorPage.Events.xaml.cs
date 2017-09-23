@@ -13,7 +13,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     public sealed partial class WebAuthenticatorPage
     {

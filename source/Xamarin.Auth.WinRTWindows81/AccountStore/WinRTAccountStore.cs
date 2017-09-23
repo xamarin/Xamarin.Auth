@@ -23,7 +23,11 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using System.Runtime.InteropServices.WindowsRuntime;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth.WinRT
+#else
+namespace Xamarin.Auth._MobileServices.WinRT
+#endif
 {
     internal partial class WinRTAccountStore : AccountStore
     {

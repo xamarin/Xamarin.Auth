@@ -23,7 +23,11 @@ using System.Threading.Tasks;
 using Xamarin.Utilities.Android;
 using System.Text;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     [Activity(Label = "Web Authenticator")]
     #if XAMARIN_AUTH_INTERNAL

@@ -2,7 +2,11 @@ using System;
 using Android.App;
 using Android.Views;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Utilities.Android
+#else
+namespace Xamarin.Utilities._MobileServices.Android
+#endif
 {
     public static class ActivityEx
     {

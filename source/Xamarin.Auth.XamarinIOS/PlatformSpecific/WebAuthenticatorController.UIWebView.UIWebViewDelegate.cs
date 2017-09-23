@@ -17,9 +17,6 @@ using System;
 using System.Threading.Tasks;
 using System.Text;
 
-using Xamarin.Utilities.iOS;
-using Xamarin.Controls;
-
 #if !__UNIFIED__
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -29,12 +26,24 @@ using UIKit;
 using WebKit;
 #endif
 
+#if ! AZURE_MOBILE_SERVICES
+using Xamarin.Utilities.iOS;
+using Xamarin.Controls;
+#else
+using Xamarin.Utilities._MobileServices.iOS;
+using Xamarin.Controls._MobileServices;
+#endif
+
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     internal partial class WebAuthenticatorController
     {
         //==============================================================================================================
-        #region     UIWebView
+#region     UIWebView
         /// <summary>
         /// UIWebView UIWebViewDelegate
         /// </summary>
@@ -62,13 +71,13 @@ namespace Xamarin.Auth
     
                 string msg = null;
 
-                #if DEBUG
+#if DEBUG
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"UIWebViewDelegate.ShouldStartLoad ");
                 sb.AppendLine($"        nsUrl.AbsoluteString = {nsUrl.AbsoluteString}");
                 sb.AppendLine($"        WebViewConfiguration.IOS.UserAgent = {WebViewConfiguration.IOS.UserAgent}");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
-                #endif
+#endif
                 
                 WebAuthenticator wa = null;
                 WebRedirectAuthenticator wra = null;
@@ -76,7 +85,7 @@ namespace Xamarin.Auth
                 wa = this.controller.authenticator as WebAuthenticator;
                 wra = this.controller.authenticator as WebRedirectAuthenticator;
 
-                #if DEBUG
+#if DEBUG
                 if (wa != null)
                 {
                     msg = String.Format("WebAuthenticatorController.authenticator as WebAuthenticator");
@@ -90,7 +99,7 @@ namespace Xamarin.Auth
 
                 msg = String.Format("WebAuthenticatorController.ShouldStartLoad {0}", nsUrl.AbsoluteString);
                 System.Diagnostics.Debug.WriteLine(msg);
-                #endif
+#endif
 
                 bool is_loadable_url = false;
                 if (nsUrl != null && !controller.authenticator.HasCompleted)
@@ -101,14 +110,14 @@ namespace Xamarin.Auth
                         string host = url.Host.ToLower();
                         string scheme = url.Scheme;
 
-                        #if DEBUG
+#if DEBUG
                         msg = String.Format("WebAuthenticatorController.ShouldStartLoad {0}", url.AbsoluteUri);
                         System.Diagnostics.Debug.WriteLine(msg);
                         msg = string.Format("                          Host   = {0}", host);
                         System.Diagnostics.Debug.WriteLine(msg);
                         msg = string.Format("                          Scheme = {0}", scheme);
                         System.Diagnostics.Debug.WriteLine(msg);
-                        #endif
+#endif
 
                         if (host == "localhost" || host == "127.0.0.1" || host == "::1")
                         {
@@ -143,11 +152,11 @@ namespace Xamarin.Auth
 
             public override void LoadStarted(UIWebView webView)
             {
-                #if DEBUG
+#if DEBUG
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"UIWebViewDelegate.LoadStarted ");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
-                #endif
+#endif
 
                 controller.activity.StartAnimating();
 
@@ -156,7 +165,7 @@ namespace Xamarin.Auth
 
             public override void LoadFailed(UIWebView webView, NSError error)
             {
-                #if DEBUG
+#if DEBUG
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"UIWebViewDelegate.LoadFailed ");
                 sb.AppendLine($"        error.Code   = {error.Code}");
@@ -166,7 +175,7 @@ namespace Xamarin.Auth
                 sb.AppendLine($"        error.Domain = {error.LocalizedRecoveryOptions}");
                 sb.AppendLine($"        error.Domain = {error.LocalizedRecoverySuggestion}");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
-                #endif
+#endif
 
                 if (error.Domain == "WebKitErrorDomain")
                 {
@@ -220,7 +229,7 @@ namespace Xamarin.Auth
                 return;
             }
         }
-        #endregion  UIWebView
+#endregion  UIWebView
         //==============================================================================================================
     }
 }

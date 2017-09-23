@@ -7,7 +7,11 @@ using MonoTouch.UIKit;
 using UIKit;
 #endif
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Controls
+#else
+namespace Xamarin.Controls._MobileServices
+#endif
 {
     internal class ProgressLabel : UIView
     {
@@ -32,20 +36,20 @@ namespace Xamarin.Controls
                 TextColor = UIColor.White,
                 Font = UIFont.BoldSystemFontOfSize(20),
                 BackgroundColor = UIColor.Clear,
-                #if !__UNIFIED__
+#if !__UNIFIED__
 				Frame = new RectangleF (25, 0, Frame.Width - 25, 44),
-                #else
+#else
                 Frame = new CoreGraphics.CGRect(25, 0, Frame.Width - 25, 44),
-                #endif
+#endif
             };
             AddSubview(label);
 
             var f = Frame;
-            #if !__UNIFIED__
+#if !__UNIFIED__
 			f.Width = label.Frame.X + label.StringSize (label.Text, label.Font).Width;
-            #else
+#else
             f.Width = label.Frame.X + UIStringDrawing.StringSize(label.Text, label.Font).Width;
-            #endif
+#endif
             Frame = f;
         }
 

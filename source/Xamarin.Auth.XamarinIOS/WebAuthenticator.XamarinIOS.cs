@@ -24,16 +24,26 @@ using AuthenticateUIType =
             ;
 using System.Text;
 
+#if !AZURE_MOBILE_SERVICES
+using Xamarin.Auth;
+#else
+using Xamarin.Auth._MobileServices;
+#endif
+
+#if !AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// An authenticator that displays a web page.
     /// </summary>
-    #if XAMARIN_AUTH_INTERNAL
+#if XAMARIN_AUTH_INTERNAL
     internal abstract partial class WebAuthenticator
-    #else
+#else
     public abstract partial class WebAuthenticator
-    #endif
+#endif
     {
         /// <summary>
         /// Gets the UI for this authenticator.
@@ -47,7 +57,7 @@ namespace Xamarin.Auth
             if (this.IsUsingNativeUI == true)
             {
                 Uri uri = GetInitialUrlAsync().Result;
-                IDictionary<string, string> query_parts = Utilities.WebEx.FormDecode(uri.Query);
+                IDictionary<string, string> query_parts = WebEx.FormDecode(uri.Query);
                 Uri redirect_uri = new Uri(query_parts["redirect_uri"]);
                 string scheme = redirect_uri.Scheme;
                 if (scheme.StartsWith("http", StringComparison.InvariantCultureIgnoreCase))

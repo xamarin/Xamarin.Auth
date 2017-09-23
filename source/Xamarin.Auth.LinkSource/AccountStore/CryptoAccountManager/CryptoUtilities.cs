@@ -3,7 +3,11 @@ using System.Text;
 
 using PCLCrypto;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth.Cryptography
+#else
+namespace Xamarin.Auth._MobileServices.Cryptography
+#endif
 {
     public static class CryptoUtilities
     {

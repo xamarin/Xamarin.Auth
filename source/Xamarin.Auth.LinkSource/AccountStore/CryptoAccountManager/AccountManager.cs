@@ -1,10 +1,19 @@
 ﻿using System;
 using System.Linq;
 
+#if ! AZURE_MOBILE_SERVICES
 using Xamarin.Auth;
 using Xamarin.Auth.Cryptography;
+#else
+using Xamarin.Auth._MobileServices;
+using Xamarin.Auth._MobileServices.Cryptography;
+#endif
 
+#if !AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth.AccountUtilities
+#else
+namespace Xamarin.Auth._MobileServices.AccountUtilities
+#endif
 {
     /// <summary>
     /// Account manager.

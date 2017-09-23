@@ -10,7 +10,11 @@ using UIContext =
             //Android.App.Activity
             ;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     #if XAMARIN_AUTH_INTERNAL
     internal partial class WebAuthenticator

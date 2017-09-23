@@ -17,7 +17,11 @@ using Android.Content;
 using Android.Net;
 using Android.Support.CustomTabs.Chromium.SharedUtilities;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
+#else
+namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
+#endif
 {
     /// <summary>
     /// A Fallback that opens a Webview when Custom Tabs is not available

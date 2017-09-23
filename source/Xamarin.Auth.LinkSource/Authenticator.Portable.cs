@@ -2,12 +2,17 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
+
 using Xamarin.Utilities;
 
 
 using AuthenticateUIType = System.Object;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// A process and user interface to authenticate a user.

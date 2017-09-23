@@ -21,7 +21,11 @@ using Android.Widget;
 
 using Android.Support.CustomTabs;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
+#else
+namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
+#endif
 {
     /// <summary>
     /// This is a helper class to manage the connection from Activity to the CustomTabs 

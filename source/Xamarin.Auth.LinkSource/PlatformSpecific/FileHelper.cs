@@ -1,6 +1,10 @@
 ﻿using System;
 
-namespace Diary.iOS
+#if ! AZURE_MOBILE_SERVICES
+namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     public static class FileHelper
     {

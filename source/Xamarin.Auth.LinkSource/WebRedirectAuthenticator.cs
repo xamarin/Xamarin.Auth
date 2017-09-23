@@ -19,7 +19,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Utilities;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// An authenticator that displays web pages until a given "redirect" page is encountered. It then

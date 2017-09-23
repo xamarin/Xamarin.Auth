@@ -42,7 +42,11 @@ using AuthenticateUIType = System.Object;
 using AuthenticateUIType = System.Object;
 #endif
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// A process and user interface to authenticate a user.
@@ -90,7 +94,7 @@ namespace Xamarin.Auth
         public bool HasCompleted { get; private set; }
 
 
-        #region
+#region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		IgnoreErrorsWhenCompleted #58
@@ -102,7 +106,7 @@ namespace Xamarin.Auth
         /// <value><c>true</c> to raise the <see cref="Error" event/> , <c>false</c> to do nothing.</value>
         protected bool IgnoreErrorsWhenCompleted { get; set; }
         //---------------------------------------------------------------------------------------
-        #endregion
+#endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Xamarin.Auth.Authenticator"/> class.
@@ -113,16 +117,16 @@ namespace Xamarin.Auth
             HasCompleted = false;
             AllowCancel = true;
             ShowErrors = true;
-            #region
+#region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		IgnoreErrorsWhenCompleted #58
             ///		https://github.com/xamarin/Xamarin.Auth/pull/58
             IgnoreErrorsWhenCompleted = false;
             //---------------------------------------------------------------------------------------
-            #endregion
+#endregion
 
-            #region
+#region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		Added IsAuthenticated check #88
@@ -130,12 +134,12 @@ namespace Xamarin.Auth
             ///		
             IsAuthenticated = () => false;
             //---------------------------------------------------------------------------------------
-            #endregion
+#endregion
 
             return;
         }
 
-        #if __ANDROID__
+#if __ANDROID__
 		//UIContext context;
 		//public AuthenticateUIType GetUI (UIContext context)
 		//{
@@ -143,7 +147,7 @@ namespace Xamarin.Auth
 		//	return GetPlatformUI (context);
 		//}
 		//protected abstract AuthenticateUIType GetPlatformUI (UIContext context);
-        #else
+#else
         /// <summary>
         /// Gets the UI for this authenticator.
         /// </summary>
@@ -162,7 +166,7 @@ namespace Xamarin.Auth
         /// The UI that needs to be presented.
         /// </returns>
         //protected abstract AuthenticateUIType GetPlatformUI ();
-        #endif
+#endif
 
         /// <summary>
         /// Implementations must call this function when they have successfully authenticated.
@@ -174,11 +178,11 @@ namespace Xamarin.Auth
         {
             string msg = null;
 
-            #if DEBUG
+#if DEBUG
             string d = string.Join("  ;  ", account.Properties.Select(x => x.Key + "=" + x.Value));
             msg = String.Format("Authenticator.OnSucceded {0}", d);
             System.Diagnostics.Debug.WriteLine(msg);
-            #endif
+#endif
 
             if (HasCompleted)
             {
@@ -187,11 +191,11 @@ namespace Xamarin.Auth
 
             HasCompleted = true;
 
-            #if !__ANDROID__
+#if !__ANDROID__
             Plugin.Threading.UIThreadRunInvoker ri = new Plugin.Threading.UIThreadRunInvoker();
-            #else
+#else
             Plugin.Threading.UIThreadRunInvoker ri = new Plugin.Threading.UIThreadRunInvoker(this.context);
-            #endif
+#endif
             ri.BeginInvokeOnUIThread
             (
                 delegate
@@ -241,11 +245,11 @@ namespace Xamarin.Auth
 
             HasCompleted = true;
 
-            #if !__ANDROID__
+#if !__ANDROID__
             new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
-            #else
+#else
             new Plugin.Threading.UIThreadRunInvoker(this.context).BeginInvokeOnUIThread
-            #endif
+#endif
                 (
                     delegate
                     {
@@ -266,11 +270,11 @@ namespace Xamarin.Auth
         /// </param>
         public void OnError(string message)
         {
-            #if !__ANDROID__
+#if !__ANDROID__
             new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
-            #else
+#else
             new Plugin.Threading.UIThreadRunInvoker(this.context).BeginInvokeOnUIThread
-            #endif
+#endif
                 (
                     delegate 
                     {
@@ -294,7 +298,7 @@ namespace Xamarin.Auth
         /// </param>
         public void OnError(Exception exception)
         {
-            #region
+#region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		IgnoreErrorsWhenCompleted #58
@@ -309,12 +313,12 @@ namespace Xamarin.Auth
 			*/
             RaiseErrorEvent(new AuthenticatorErrorEventArgs(exception));
             //---------------------------------------------------------------------------------------
-            #endregion
+#endregion
 
             return;
         }
 
-        #region
+#region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		IgnoreErrorsWhenCompleted #58
@@ -323,11 +327,11 @@ namespace Xamarin.Auth
         {
             if (!(HasCompleted && IgnoreErrorsWhenCompleted))
             {
-                #if !__ANDROID__
+#if !__ANDROID__
                 new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
-                #else
+#else
                 new Plugin.Threading.UIThreadRunInvoker(this.context).BeginInvokeOnUIThread
-                #endif
+#endif
                         (
                                 delegate
                             {
@@ -343,10 +347,10 @@ namespace Xamarin.Auth
             return;
         }
         //---------------------------------------------------------------------------------------
-        #endregion
+#endregion
 
 
-        #region
+#region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		Added IsAuthenticated check #88
@@ -362,7 +366,7 @@ namespace Xamarin.Auth
         /// </summary>
         public Func<Account, AccountResult> GetAccountResult { get; set; }
         //---------------------------------------------------------------------------------------
-        #endregion
+#endregion
 
     }
 

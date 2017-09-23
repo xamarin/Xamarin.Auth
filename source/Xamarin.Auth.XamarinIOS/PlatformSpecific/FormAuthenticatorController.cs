@@ -26,10 +26,20 @@ using MonoTouch.Foundation;
 using UIKit;
 using Foundation;
 #endif
+
+#if ! AZURE_MOBILE_SERVICES
 using Xamarin.Controls;
 using Xamarin.Utilities.iOS;
+#else
+using Xamarin.Controls._MobileServices;
+using Xamarin.Utilities._MobileServices.iOS;
+#endif
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     internal class FormAuthenticatorController : UITableViewController
     {
@@ -115,7 +125,7 @@ namespace Xamarin.Auth
             return;
         }
 
-        #region
+#region
         ///-------------------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		Added IsAuthenticated check #88
@@ -132,7 +142,7 @@ namespace Xamarin.Auth
             return;
         }
         ///-------------------------------------------------------------------------------------------------
-        #endregion
+#endregion
 
         class FormDelegate : UITableViewDelegate
         {
@@ -188,7 +198,7 @@ namespace Xamarin.Auth
 
                 var cellSize = Frame.Size;
 
-                #if !__UNIFIED__
+#if !__UNIFIED__
 				TextField = new UITextField 
                                 (
                                     new RectangleF 
@@ -196,7 +206,7 @@ namespace Xamarin.Auth
 					                            fieldXPosition, (cellSize.Height - h)/2, 
 					                            cellSize.Width - fieldXPosition - 12, h)
                                             ) 
-                #else
+#else
                 TextField = new UITextField
                                 (
                                     new CoreGraphics.CGRect
@@ -205,7 +215,7 @@ namespace Xamarin.Auth
                                                 cellSize.Width - fieldXPosition - 12, h
                                             )
                                 )
-                #endif
+#endif
                 {
                     Font = FieldFont,
                     Placeholder = field.Placeholder,
@@ -250,20 +260,20 @@ namespace Xamarin.Auth
                 this.controller = controller;
             }
 
-            #if !__UNIFIED__
+#if !__UNIFIED__
 			public override int NumberOfSections (UITableView tableView)
-            #else
+#else
             public override nint NumberOfSections(UITableView tableView)
-            #endif
+#endif
             {
                 return 2 + (controller.authenticator.CreateAccountLink != null ? 1 : 0);
             }
 
-            #if !__UNIFIED__
+#if !__UNIFIED__
 			public override int RowsInSection (UITableView tableView, int section)
-            #else
+#else
             public override nint RowsInSection(UITableView tableView, nint section)
-            #endif
+#endif
             {
                 if (section == 0)
                 {
@@ -315,22 +325,22 @@ namespace Xamarin.Auth
                         var fieldXPosition = controller
                             .authenticator
                             .Fields
-                            #if !__UNIFIED__
+#if !__UNIFIED__
 							.Select (f => tableView.StringSize (f.Title, FieldCell.LabelFont).Width)
-                            #else
+#else
                             .Select(f => UIKit.UIStringDrawing.StringSize(f.Title, FieldCell.LabelFont).Width)
-                            #endif
+#endif
                             .Max();
                         fieldXPosition += 36;
 
                         fieldCells = controller
                             .authenticator
                             .Fields
-                            #if !__UNIFIED__
+#if !__UNIFIED__
 							.Select (f => new FieldCell (f, fieldXPosition, SelectNext))
-                            #else
+#else
                             .Select(f => new FieldCell(f, fieldXPosition, SelectNext))
-                            #endif
+#endif
                             .ToArray();
                     }
 

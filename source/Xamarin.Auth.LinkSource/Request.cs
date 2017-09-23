@@ -25,7 +25,11 @@ using System.Text;
 using System.Threading;
 using Xamarin.Utilities;
 
+#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
+#else
+namespace Xamarin.Auth._MobileServices
+#endif
 {
     /// <summary>
     /// An HTTP web request that provides a convenient way to make authenticated
