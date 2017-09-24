@@ -10,8 +10,7 @@ namespace Xamarin.Auth._MobileServices
     {
         public static string GetLocalStoragePath()
         {
-            string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string libFolder = System.IO.Path.Combine(docFolder, "..", "Library", "Databases");
+            string libFolder = null;
 
             if (!System.IO.Directory.Exists(libFolder))
             {
