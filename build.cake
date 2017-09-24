@@ -485,90 +485,125 @@ Task ("samples-nuget-restore")
 string solution_or_project = null;
 
 Action<string,  MSBuildSettings> BuildLoop = 
-(
-	sln_prj, 			// solution or project to be compiled
-	msbuild_settings	// msbuild customization settings
-) 
-	=>
-{
-	if (sln_prj == "Xamarin.Auth-Library.sln")
-	{
-		/*
-			2017-09
-			Failing on Mac because of: 
-			
-				*	Uinversal Windows Platofrm
-				*	WinRT (Windows and Windows Phone)
-				*	WindowsPhone Silverlight
-				*	.NET Standard
-				
-			Failing on Windows in Visual Studio 2015 because of:
-			
-				*	.NET Standard
-				
-			Failing on Windows in Visual Studio 2017 because of:
-			
-				*	WinRT (Windows and Windows Phone)
-				*	WindowsPhone Silverlight
-		*/
-		return;
-	}
-	
-	if 
 	(
-		IsRunningOnWindows() == false
-		&&
-		(
-			sln_prj.Contains("VS2015.sln")
-			||
-			sln_prj.Contains("VS2017.sln")
-		)
-	)
+		sln_prj, 			// solution or project to be compiled
+		msbuild_settings	// msbuild customization settings
+	) 
+	=>
 	{
-		/*
-			2017-09
-			Failing on Mac because of: 
-			
-				*	Uinversal Windows Platofrm
-				*	WinRT (Windows and Windows Phone)
-				*	WindowsPhone Silverlight
-				*	.NET Standard
+		if (sln_prj.Contains("Xamarin.Auth-Library.sln"))
+		{
+			/*
+				2017-09
+				Failing on Mac because of: 
 				
-		*/		
+					*	Uinversal Windows Platofrm
+					*	WinRT (Windows and Windows Phone)
+					*	WindowsPhone Silverlight
+					*	.NET Standard
+					
+				Failing on Windows in Visual Studio 2015 because of:
+				
+					*	.NET Standard
+					
+				Failing on Windows in Visual Studio 2017 because of:
+				
+					*	WinRT (Windows and Windows Phone)
+					*	WindowsPhone Silverlight
+			*/
+			return;
+		}
+		
+		if 
+		(
+			IsRunningOnWindows() == false
+			&&
+			(
+				sln_prj.Contains("VS2015.sln")
+				||
+				sln_prj.Contains("VS2017.sln")
+			)
+		)
+		{
+			/*
+				2017-09
+				Failing on Mac because of: 
+				
+					*	Uinversal Windows Platofrm
+					*	WinRT (Windows and Windows Phone)
+					*	WindowsPhone Silverlight
+					*	.NET Standard
+					
+			*/		
+			return;
+		}
+
+		foreach (string build_configuration in build_configurations)
+		{
+			InformationFancy($"Solution/Project = {sln_prj}");
+			InformationFancy($"Configuration    = {build_configuration}");
+
+			msbuild_settings.Verbosity = verbosity;
+			msbuild_settings.Configuration = build_configuration;
+			msbuild_settings.WithProperty
+								(
+									"consoleloggerparameters", 
+									"ShowCommandLine"
+								);
+
+			if (sln_prj.Contains(".csproj"))
+			{
+				// NO OP - MSBuildToolVersion is set before calling
+			}
+			else if (sln_prj.Contains("VS2015.sln"))
+			{
+				/*
+				Using Visual Studio 2015 tooling
+
+				Fix for 
+
+				source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+				(Build target) (1) -> (CoreCompile target) ->
+				C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+				error MSB6004: 
+				The specified task executable location 
+				"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
+				*/
+				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
+				/*
+				Fix for 
+
+				  C:\Program Files (x86)\MSBuild\Microsoft\WindowsPhone\v8.0\Microsoft.WindowsPhone.v8.0.Overrides.targets(15,9)
+				  error : 
+				  Building Windows Phone application using MSBuild 64 bit is not supported. 
+				  If you are using TFS build definitions, change the MSBuild platform to x86.
+				*/
+				msbuild_settings.PlatformTarget = PlatformTarget.x86;
+			}
+			else if(sln_prj.Contains("VS2017.sln"))
+			{
+				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
+				/*
+				C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets 
+				error MSB6004: 
+				The specified task executable location 
+					"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" 
+				is invalid. [X:\x.a-m\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj]
+				*/
+				msbuild_settings.ToolPath = msBuildPathX64;	
+			}		
+			else if(sln_prj.Contains("MacOSX-Xamarin.Studio.sln"))
+			{
+				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
+				msbuild_settings.ToolPath = msBuildPathX64;	
+			}		
+
+
+			MSBuild(sln_prj,msbuild_settings);
+		}
+
 		return;
-	}
-
-	foreach (string build_configuration in build_configurations)
-	{
-		InformationFancy($"Solution		   = {sln_prj}");
-		InformationFancy($"Configuration   = {build_configuration}");
-
-		msbuild_settings.Verbosity = verbosity;
-		msbuild_settings.Configuration = build_configuration;
-		msbuild_settings.WithProperty
-							(
-								"consoleloggerparameters", 
-								"ShowCommandLine"
-							);
-
-		if (sln_prj.Contains(".csproj"))
-		{
-			// NO OP - MSBuildToolVersion is set before calling
-		}
-		else if (sln_prj.Contains("VS2015.sln"))
-		{
-			msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
-		}
-		else if(sln_prj.Contains("VS2017.sln"))
-		{
-			msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
-		}		
-
-		MSBuild(sln_prj,msbuild_settings);
-	}
-
-	return;
-};
+	};
 
 
 Task ("libs-macosx-filesystem")
@@ -991,35 +1026,14 @@ Task ("libs-windows-solutions")
 			{	
 				foreach(string sln_prj in source_solutions)
 				{
-					BuildLoop
-					(
-						sln_prj, 
-						new MSBuildSettings
-						{
-							/*
-							Using Visual Studio 2015 tooling
-
-							Fix for 
-
-							source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
-							(Build target) (1) -> (CoreCompile target) ->
-							C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
-							error MSB6004: 
-							The specified task executable location 
-							"C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
-							*/
-							ToolVersion = MSBuildToolVersion.VS2015,
-							/*
-							Fix for 
-
-							  C:\Program Files (x86)\MSBuild\Microsoft\WindowsPhone\v8.0\Microsoft.WindowsPhone.v8.0.Overrides.targets(15,9)
-							  error : 
-							  Building Windows Phone application using MSBuild 64 bit is not supported. 
-							  If you are using TFS build definitions, change the MSBuild platform to x86.
-							*/
-							PlatformTarget = PlatformTarget.x86,
-						}
-					);
+					if (sln_prj.Contains("Xamarin.Auth-Library.sln"))
+					{
+						// Xamarin.Auth-Library.sln contains all projects
+						// cannot be built xplatform
+						
+						continue;
+					}
+					BuildLoop(sln_prj, new MSBuildSettings{});
 				}
 			
 				GitLinkAction("./source/Xamarin.Auth-Library.sln");

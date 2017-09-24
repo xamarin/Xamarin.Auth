@@ -14,7 +14,6 @@ support for non-standard authentication schemes.
 |							 |  
 
 [![NuGet](https://img.shields.io/nuget/dt/Xamarin.Auth.svg)](https://www.nuget.org/packages/Xamarin.Auth)
-
 [![NuGet Pre Release](https://img.shields.io/nuget/vpre/Xamarin.Auth.svg)](https://www.nuget.org/packages/Xamarin.Auth)
 
 
