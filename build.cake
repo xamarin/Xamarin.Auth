@@ -77,8 +77,10 @@ Action<string> InformationFancy =
 		};
 
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
+var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "minimal")));
 
 Verbosity verbosity = Verbosity.Minimal;
+
 
 
 FilePath nuget_tool_path = null;
@@ -228,6 +230,8 @@ Task ("libs-custom")
 		{	
 			is_using_custom_defines = true;
 			RunTarget("libs");
+
+			return;
 		}
 	);
 //---------------------------------------------------------------
@@ -236,6 +240,8 @@ string[] source_solutions = new string[]
 {
 	"./source/Xamarin.Auth-Library.sln",
 	"./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+	"./source/Xamarin.Auth-Library-VS2015.sln",
+	"./source/Xamarin.Auth-Library-VS2017.sln",
 };
 
 string[] solutions_for_nuget_tests = new string[]
@@ -281,8 +287,16 @@ string[] build_configurations =  new []
 	"Release",
 };
 
+//---------------------------------------------------------------------------------------
 /*
-Passing custom 
+Custome preprocessor defines
+used by some projects (Azure Mobile Services) 
+
+when passing preprocessor defines/constants through commandline all required defines
+must be specified on commandline (even DEBUG for Debug configurations).
+
+NOTE - there is deviation in Xamarin.Android behaviour which appends Android default
+constants (like __ANDROID__) and even some non-standard ones (like __MOBILE__)
 */
 Dictionary<string,List<string>> defines = new Dictionary<string,List<string> > 
 {
@@ -306,6 +320,7 @@ Dictionary<string,List<string>> defines = new Dictionary<string,List<string> >
 		{
 			"XAMARIN_AUTH_INTERNAL", 
 			"XAMARIN_CUSTOM_TABS_INTERNAL",
+			"AZURE_MOBILE_SERVICES",
 		}
 	},	
 	{ 
@@ -387,6 +402,7 @@ Dictionary<string,List<string>> defines = new Dictionary<string,List<string> >
 		}
 	},	
 };
+//---------------------------------------------------------------------------------------
 
 string define = null;
 
@@ -475,52 +491,80 @@ Action<string,  MSBuildSettings> BuildLoop =
 ) 
 	=>
 {
+	if (sln_prj == "Xamarin.Auth-Library.sln")
+	{
+		/*
+			2017-09
+			Failing on Mac because of: 
+			
+				*	Uinversal Windows Platofrm
+				*	WinRT (Windows and Windows Phone)
+				*	WindowsPhone Silverlight
+				*	.NET Standard
+				
+			Failing on Windows in Visual Studio 2015 because of:
+			
+				*	.NET Standard
+				
+			Failing on Windows in Visual Studio 2017 because of:
+			
+				*	WinRT (Windows and Windows Phone)
+				*	WindowsPhone Silverlight
+		*/
+		return;
+	}
+	
 	if 
 	(
 		IsRunningOnWindows() == false
 		&&
-		sln_prj.Contains("Xamarin.Auth-Library.sln")
+		(
+			sln_prj.Contains("VS2015.sln")
+			||
+			sln_prj.Contains("VS2017.sln")
+		)
 	)
 	{
-		// WindowsPhone 8 projects cannot be compiled with XBuild
+		/*
+			2017-09
+			Failing on Mac because of: 
+			
+				*	Uinversal Windows Platofrm
+				*	WinRT (Windows and Windows Phone)
+				*	WindowsPhone Silverlight
+				*	.NET Standard
+				
+		*/		
 		return;
 	}
 
 	foreach (string build_configuration in build_configurations)
 	{
-		if (sln_prj.Contains(".sln"))
+		InformationFancy($"Solution		   = {sln_prj}");
+		InformationFancy($"Configuration   = {build_configuration}");
+
+		msbuild_settings.Verbosity = verbosity;
+		msbuild_settings.Configuration = build_configuration;
+		msbuild_settings.WithProperty
+							(
+								"consoleloggerparameters", 
+								"ShowCommandLine"
+							);
+
+		if (sln_prj.Contains(".csproj"))
 		{
-			InformationFancy($"Solution		   = {sln_prj}");
-			InformationFancy($"Configuration   = {build_configuration}");
-
-			msbuild_settings.Verbosity = verbosity;
-			msbuild_settings.Configuration = build_configuration;
-			msbuild_settings.WithProperty
-								(
-									"consoleloggerparameters", 
-									"ShowCommandLine"
-								);
-
-			MSBuild(sln_prj,msbuild_settings);
+			// NO OP - MSBuildToolVersion is set before calling
 		}
-		else
+		else if (sln_prj.Contains("VS2015.sln"))
 		{
-			//foreach (string define in defs)
-			{
-				InformationFancy($"Project          = {sln_prj}");
-				InformationFancy($"Configuration    = {build_configuration}");
-
-				msbuild_settings.Verbosity = verbosity;
-				msbuild_settings.Configuration = build_configuration;
-				msbuild_settings.WithProperty
-									(
-										"consoleloggerparameters", 
-										"ShowCommandLine"
-									);
-
-				MSBuild(sln_prj,msbuild_settings);
-			}
+			msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
 		}
+		else if(sln_prj.Contains("VS2017.sln"))
+		{
+			msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
+		}		
+
+		MSBuild(sln_prj,msbuild_settings);
 	}
 
 	return;
@@ -1248,6 +1292,7 @@ Task ("libs-windows-projects")
 					solution_or_project, 
 					new MSBuildSettings
 					{
+						ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("DefineConstants", define)
 				);
 
@@ -1307,6 +1352,15 @@ Task ("libs-windows-projects")
 					solution_or_project, 
 					new MSBuildSettings
 					{
+						ToolVersion = MSBuildToolVersion.VS2015,
+					}.WithProperty("DefineConstants", define)
+				);
+				BuildLoop
+				(
+					solution_or_project, 
+					new MSBuildSettings
+					{
+						ToolVersion = MSBuildToolVersion.VS2017,
 					}.WithProperty("DefineConstants", define)
 				);
 
@@ -1758,9 +1812,52 @@ Task ("ci-windows")
 	;	
 //=================================================================================================
 
-Task ("Default")
-    .IsDependentOn ("nuget")
-	;
+Task("Default")
+    .Does
+	(
+		() =>
+		{
+			Information($"Arguments: ");
+			Information($"\t\t TARGET: " + TARGET);
+			Information($"\t\t VERBOSITY: " + VERBOSITY);
+
+			Information($"Usage: " + Environment.NewLine);
+			Information($"-v | --verbosity | --Verbosity ");
+			Information($"-t | --target | --Target ");
+			Information($"		Target task to be executed:");
+			Information($"			libs			-	compile source (libs only");
+			Information($"			libs-custom");
+			Information($"			clean");
+			Information($"			distclean");
+			Information($"			rebuild");
+			Information($"			build");
+			Information($"			package");
+			Information($"			nuget-restore");
+			Information($"			nuget-update");
+			Information($"			source-nuget-restore	- ");
+			Information($"			samples-nuget-restore	-");
+			Information($"			libs-macosx-filesystem	-");
+			Information($"			libs-macosx				- ");
+			Information($"			libs-macosx-solutions");
+			Information($"			libs-macosx-projects");
+			Information($"			libs-windows");
+			Information($"			libs-windows-tooling");
+			Information($"			libs-windows-filesystem");
+			Information($"			libs-windows-solutions");
+			Information($"			libs-windows-projects");
+			Information($"			samples");
+			Information($"			samples-macosx");
+			Information($"			samples-windows");
+			Information($"			nuget");
+			Information($"			externals");
+			Information($"			component");
+			
+			//verbosity = (VERBOSITY == null) : 
+
+			RunTarget("nuget");
+		}
+	);
+
 
 // Print out environment variables to console
 var ENV_VARS = EnvironmentVariables ();
