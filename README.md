@@ -11,7 +11,11 @@ support for non-standard authentication schemes.
 |:--------------------------:|:-----------------------------------------------:|
 | Mac OSX                    |  [![Components-XamarinAuth][23]][21]            |
 | Windows                    |  [![Components-XamarinAuth-Windows][24]][22]    |
+|							 |  
 
+[![NuGet](https://img.shields.io/nuget/dt/Xamarin.Auth.svg)](https://www.nuget.org/packages/Xamarin.Auth)
+
+[![NuGet Pre Release](https://img.shields.io/nuget/vpre/Xamarin.Auth.svg)](https://www.nuget.org/packages/Xamarin.Auth)
 
 
 [21]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
