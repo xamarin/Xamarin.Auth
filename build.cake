@@ -51,9 +51,9 @@ NuGet Publish patterns
 
 #########################################################################################
 */	
+#addin nuget:?package=Cake.FileHelpers&version=1.0.4
 #addin nuget:?package=Cake.Xamarin&version=1.3.0.15
 #addin nuget:?package=Cake.Xamarin.Build&version=2.0.22
-#addin nuget:?package=Cake.FileHelpers&version=1.0.4
 #tool nuget:?package=vswhere
 
 /*
