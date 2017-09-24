@@ -11,7 +11,6 @@ namespace Xamarin.Auth.Presenters.WinRT
 #else
 namespace Xamarin.Auth._MobileServices.Presenters.WinRT
 #endif
-namespace Xamarin.Auth
 {
     public static class AuthenticationConfiguration
     {
