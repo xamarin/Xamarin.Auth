@@ -81,7 +81,9 @@ var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "mi
 
 Verbosity verbosity = Verbosity.Minimal;
 
-
+// stuff needed for fixes!
+DirectoryPath vsLatest = null;
+FilePath msBuildPathX64 = null;
 
 FilePath nuget_tool_path = null;
 FilePath cake_tool_path = null;
@@ -953,9 +955,6 @@ Task ("libs-macosx-projects")
 		}
 	);
 
-
-DirectoryPath vsLatest = null;
-FilePath msBuildPathX64 = null;
 
 Task ("libs-windows")
 	.IsDependentOn ("libs-windows-projects")
