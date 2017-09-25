@@ -344,7 +344,7 @@ Dictionary<string,List<string>> defines = new Dictionary<string,List<string> >
 			"__ANDROID_17__", "__ANDROID_18__", "__ANDROID_19__", "__ANDROID_20__", "__ANDROID_21__",
 			"__ANDROID_22__", "__ANDROID_23__", "__ANDROID_24__", "__ANDROID_25__", "__ANDROID_26__",
 			"__MOBILE__",			// Xamarin Legacy
-			"PLATFOROM_ANDROID",	// Xamarin.Auth Legacy
+			"PLATFORM_ANDROID",	// Xamarin.Auth Legacy
 		}
 	},	
 	{ 
@@ -354,7 +354,7 @@ Dictionary<string,List<string>> defines = new Dictionary<string,List<string> >
 			"__IOS__",
 			"__UNIFIED__",
 			"___MOBILE__",
-			"PLATFOROM_IOS",		// Xamarin.Auth Legacy
+			"PLATFORM_IOS",		// Xamarin.Auth Legacy
 		}
 	},	
 	{ 
