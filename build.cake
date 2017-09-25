@@ -1124,6 +1124,7 @@ Task ("libs-windows-projects")
 						(C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
 						*/
 						ToolPath = msBuildPathX64,
+						ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("DefineConstants", define)
 				);
 
@@ -1474,6 +1475,7 @@ Task ("libs-windows-projects")
 						(C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
 						*/
 						ToolPath = msBuildPathX64,
+						ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("DefineConstants", define)
 				);
 
@@ -1572,6 +1574,7 @@ Task ("libs-windows-projects")
 						(C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
 						*/
 						ToolPath = msBuildPathX64,
+						ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("DefineConstants", define)
 				);
 
