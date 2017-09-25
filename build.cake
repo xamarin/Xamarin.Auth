@@ -77,9 +77,9 @@ Action<string> InformationFancy =
 		};
 
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
-var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "minimal")));
+var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
 
-Verbosity verbosity = Verbosity.Minimal;
+Verbosity verbosity = Verbosity.Diagnostic;
 
 // stuff needed for fixes!
 DirectoryPath vsLatest = null;
