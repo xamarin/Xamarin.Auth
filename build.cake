@@ -1115,6 +1115,15 @@ Task ("libs-windows-projects")
 					solution_or_project, 
 					new MSBuildSettings
 					{
+						/*
+						C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Xamarin\Android\Xamarin.Android.Common.targets
+						error : 
+						Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed. 
+						Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android 
+						project to target an API version that is installed. 
+						(C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
+						*/
+						ToolPath = msBuildPathX64,
 					}.WithProperty("DefineConstants", define)
 				);
 
@@ -1456,6 +1465,15 @@ Task ("libs-windows-projects")
 					solution_or_project, 
 					new MSBuildSettings
 					{
+						/*
+						C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Xamarin\Android\Xamarin.Android.Common.targets
+						error : 
+						Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed. 
+						Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android 
+						project to target an API version that is installed. 
+						(C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
+						*/
+						ToolPath = msBuildPathX64,
 					}.WithProperty("DefineConstants", define)
 				);
 
@@ -1483,7 +1501,7 @@ Task ("libs-windows-projects")
 				(
 					solution_or_project, 
 					new MSBuildSettings
-					{
+					{						
 						ToolPath = msBuildPathX64,
 					}.WithProperty("DefineConstants", define)
 				);
@@ -1545,6 +1563,15 @@ Task ("libs-windows-projects")
 					solution_or_project, 
 					new MSBuildSettings
 					{
+						/*
+						C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Xamarin\Android\Xamarin.Android.Common.targets
+						error : 
+						Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed. 
+						Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android 
+						project to target an API version that is installed. 
+						(C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
+						*/
+						ToolPath = msBuildPathX64,
 					}.WithProperty("DefineConstants", define)
 				);
 
