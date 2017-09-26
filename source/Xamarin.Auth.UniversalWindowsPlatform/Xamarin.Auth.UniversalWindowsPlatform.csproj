@@ -16,6 +16,15 @@
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+	<!--
+	Fix for:
+	Your project.json doesn't list 'win' as a targeted runtime. You should add 
+	'"win": { }' inside your "runtimes" section in your project.json, and then re-run 
+	NuGet restore.
+	
+	https://github.com/Microsoft/msbuild/issues/394
+	-->
+	<ResolveNuGetPackages>false</ResolveNuGetPackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
