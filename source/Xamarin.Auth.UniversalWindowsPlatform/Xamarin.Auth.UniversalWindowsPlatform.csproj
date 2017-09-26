@@ -25,6 +25,7 @@
 	https://github.com/Microsoft/msbuild/issues/394
 	-->
 	<ResolveNuGetPackages>false</ResolveNuGetPackages>
+	<CopyNuGetImplementations>false</CopyNuGetImplementations>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
