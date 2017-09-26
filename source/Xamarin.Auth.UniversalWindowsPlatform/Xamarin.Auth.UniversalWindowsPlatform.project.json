@@ -1,4 +1,7 @@
 ﻿{
+  "frameworks": {
+    "uap10.0": {}
+  },
   "runtimes": 
   {
 	"win10": { },
