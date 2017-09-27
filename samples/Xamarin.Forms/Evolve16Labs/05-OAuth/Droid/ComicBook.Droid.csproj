@@ -170,22 +170,41 @@
       <Project>{E26057EC-7AD5-4AD8-8649-FBE60552163D}</Project>
       <Name>ComicBook</Name>
     </ProjectReference>
-  </ItemGroup>
-  <!--
-  ==================================================================================================
-  If projects for references can be found use ProjectReferences otherwise use NuGet references
-  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
-  msbuild Choose When ProjectReference Reference Include
-  -->
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj" Condition="exists('..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
-      <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-      <Name>Xamarin.Auth.XamarinAndroid</Name>
+    <ProjectReference Include="..\..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
+      <Project>{D94B6FF7-FAA3-46AB-837A-0FA9328BA221}</Project>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
     </ProjectReference>
-    <Reference Include="Xamarin.Auth.XamarinAndroid" Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
-    </Reference>
   </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference 
+            Include="Xamarin.Auth.XamarinAndroid  NuGet Bait-n-Switch"
+            >
+              <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+              <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference 
+                Include="..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj" 
+                >
+          <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
+          <Name>Xamarin.Auth.XamarinAndroid Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose> 	
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================
@@ -196,15 +215,30 @@
   http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
   msbuild Choose When ProjectReference Reference Include
   -->
-  <ItemGroup>
-	<ProjectReference Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj" Condition="exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj')">
-      <Project>{1B702A60-3D89-4183-B251-4A07388DCCB5}</Project>
-      <Name>Xamarin.Auth.Forms.Droid</Name>
-	</ProjectReference>
-	<Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj')">
-	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.Forms.dll</HintPath>
-	</Reference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference 
+            Include="Xamarin.Auth.Forms.XamarinAndroid  NuGet Bait-n-Switch"
+            >
+              <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.Forms.dll</HintPath>
+              <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference 
+                Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj" 
+                >
+          <Project>{1B702A60-3D89-4183-B251-4A07388DCCB5}</Project>
+          <Name>Xamarin.Auth.Forms.XamarinAndroid Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose> 
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================
