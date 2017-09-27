@@ -7,12 +7,16 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+    <StackPanel 
+        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+        Orientation="Vertical"
+        >
+        <Button x:Name="buttonBack">Back</Button>
         <ListBox 
             Name="itemList" 
             ItemsSource="{Binding}"
             Tapped="itemList_Tap"
             >
         </ListBox>
-    </Grid>
+    </StackPanel>
 </Page>

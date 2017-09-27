@@ -17,6 +17,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth Sample (Androi
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "source-Xamarin.Auth-Library", "source-Xamarin.Auth-Library", "{218CF8CD-BBDA-411D-BC05-4E1BB9B8E695}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73798C80-EB18-442B-9ACD-56A863B942E4}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\..\source\.nuget\NuGet.Config = ..\..\..\..\source\.nuget\NuGet.Config
+		..\..\..\..\source\.nuget\NuGet.exe = ..\..\..\..\source\.nuget\NuGet.exe
+		..\..\..\..\source\.nuget\NuGet.targets = ..\..\..\..\source\.nuget\NuGet.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
+    ProjectSection(SolutionItems) = preProject
+        ..\..\..\..\source\readme.md = ..\..\..\..\source\readme.md
+    EndProjectSection
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.LinkSource", "..\..\..\..\source\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Portable", "..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj", "{87580927-9F8E-42AE-BDFE-35F95ABF17D8}"
@@ -25,13 +37,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{73798C80-EB18-442B-9ACD-56A863B942E4}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\source\.nuget\NuGet.Config = ..\..\..\..\source\.nuget\NuGet.Config
-		..\..\..\..\source\.nuget\NuGet.exe = ..\..\..\..\source\.nuget\NuGet.exe
-		..\..\..\..\source\.nuget\NuGet.targets = ..\..\..\..\source\.nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms", "..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj", "{67F9D3A8-F71E-4428-913F-C37AE82CDB24}"
@@ -39,11 +44,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.Droid", "..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj", "{1B702A60-3D89-4183-B251-4A07388DCCB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.iOS", "..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj", "{7666F0AB-7493-49F2-82B0-7D51A0250FC9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\..\source\readme.md = ..\..\..\..\source\readme.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{C1AFC24F-8A5D-4AAF-938E-C61212111835}"
 EndProject

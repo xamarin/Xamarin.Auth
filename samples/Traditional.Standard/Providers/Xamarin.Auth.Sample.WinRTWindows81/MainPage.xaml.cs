@@ -26,10 +26,15 @@ namespace Xamarin.Auth.Sample
         {
             this.InitializeComponent();
 
+            this.NavigationCacheMode = NavigationCacheMode.Enabled;
+
             itemList.ItemsSource = null;
             itemList.ItemsSource = provider_list;
-
+            buttonBack.Click += ButtonBack_Click;
         }
 
+        private void ButtonBack_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }

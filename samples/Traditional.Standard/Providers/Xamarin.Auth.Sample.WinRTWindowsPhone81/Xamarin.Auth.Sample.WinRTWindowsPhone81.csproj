@@ -82,7 +82,7 @@
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <ProjectReference Include="..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
       <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
-      <Name>Xamarin.Auth.SamplesData</Name>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <!--
@@ -91,15 +91,26 @@
   http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
   msbuild Choose When ProjectReference Reference Include
   -->
-  <ItemGroup>
-	<ProjectReference Include="..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj" Condition="exists('..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj')">
-	  <Project>{d07c6fc6-6860-495c-9bc8-0f731c74ae2f}</Project>
-		<Name>Xamarin.Auth.WinRTWindowsPhone81</Name>
-	</ProjectReference>
-	<Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj')">
-	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wpa81\Xamarin.Auth.dll</HintPath>
-	</Reference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="! exists('..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wpa81\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.WinRTWindowsPhone81 NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj">
+          <Project>{d07c6fc6-6860-495c-9bc8-0f731c74ae2f}</Project>
+          <Name>Xamarin.Auth.WinRTWindowsPhone81</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================

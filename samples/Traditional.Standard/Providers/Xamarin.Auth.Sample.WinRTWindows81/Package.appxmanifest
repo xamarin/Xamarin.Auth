@@ -18,9 +18,17 @@
       <m2:VisualElements DisplayName="Xamarin.Auth.Sample.WinRTWindows81" Square150x150Logo="Assets\Logo.png" Square30x30Logo="Assets\SmallLogo.png" Description="Xamarin.Auth.Sample.WinRTWindows81" ForegroundText="light" BackgroundColor="#464646">
         <m2:SplashScreen Image="Assets\SplashScreen.png" />
       </m2:VisualElements>
+
+      <Extensions>
+        <Extension Category="windows.protocol">
+          <Protocol Name="xamarin-auth"/>
+        </Extension>
+      </Extensions>
+      
     </Application>
   </Applications>
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
+  
 </Package>

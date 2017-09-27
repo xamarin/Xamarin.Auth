@@ -1,10 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  IgnorableNamespaces="uap mp">
+  xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  IgnorableNamespaces="uap uap2 uap3 mp">
 
   <Identity
     Name="dfe2f642-dddc-4662-8812-5af0e521ee62"
@@ -46,4 +47,19 @@
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
+
+
+  <Extensions>
+    <uap3:Extension Category="windows.appUriHandler">
+      <uap3:AppUriHandler>
+        <uap3:Scheme Name="xmarin-auth" />
+      </uap3:AppUriHandler>
+    </uap3:Extension>
+    <uap:Extension Category="windows.protocol">
+      <uap:Protocol Name="xmarin-auth">
+        <uap:DisplayName>Test OAuth App</uap:DisplayName>
+      </uap:Protocol>
+    </uap:Extension>
+    
+  </Extensions>
 </Package>

@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.10586.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10240.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -89,14 +89,14 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <Content Include="ApplicationInsights.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <None Include="packages.config" />
     <None Include="project.json" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="App.Xamarin.Auth.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainPage.Xamarin.Auth.xaml.cs">
@@ -139,15 +139,26 @@
   http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
   msbuild Choose When ProjectReference Reference Include
   -->
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj" Condition="exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
-      <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
-      <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
-    </ProjectReference>
-    <Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="! exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.UniversalWindowsPlatform NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
+          <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
+          <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================
@@ -167,7 +178,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
       <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
-      <Name>Xamarin.Auth.SamplesData</Name>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
       <Private>False</Private>
     </ProjectReference>
   </ItemGroup>

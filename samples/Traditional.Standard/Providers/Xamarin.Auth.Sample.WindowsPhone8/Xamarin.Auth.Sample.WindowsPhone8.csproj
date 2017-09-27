@@ -152,7 +152,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Xamarin.Auth.OAuthProviders.Portable\Xamarin.Auth.OAuthProviders.Portable.csproj">
       <Project>{d94b6ff7-faa3-46ab-837a-0fa9328ba221}</Project>
-      <Name>Xamarin.Auth.SamplesData</Name>
+      <Name>Xamarin.Auth.OAuthProviders.Portable</Name>
     </ProjectReference>
   </ItemGroup>
   <!--
@@ -161,15 +161,26 @@
   http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
   msbuild Choose When ProjectReference Reference Include
   -->
-  <ItemGroup>
-	<ProjectReference Include="..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj" Condition="exists('..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj')">
-	  <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
-		<Name>Xamarin.Auth.WindowsPhone8</Name>
-	</ProjectReference>
-	<Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj')">
-	  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.dll</HintPath>
-	</Reference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="! exists('..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
+          <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
+          <Name>Xamarin.Auth.WindowsPhone8</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================

@@ -123,15 +123,26 @@
   http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
   msbuild Choose When ProjectReference Reference Include
   -->
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj" Condition="exists('..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
-      <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-      <Name>Xamarin.Auth.XamarinAndroid</Name>
-    </ProjectReference>
-    <Reference Include="Xamarin.Auth" Condition="! exists('..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
-      <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="! exists('..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
+          <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
+          <Name>Xamarin.Auth.XamarinAndroid</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================
@@ -139,9 +150,6 @@
   <ItemGroup>
     <Folder Include="CustomTabsUtilities\" />
     <Folder Include="Resources\drawable\" />
-    <Folder Include="Xamarin.Auth\" />
-    <Folder Include="Xamarin.Auth\MeetUp\" />
-    <Folder Include="Xamarin.Auth\Facebook\" />
   </ItemGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
