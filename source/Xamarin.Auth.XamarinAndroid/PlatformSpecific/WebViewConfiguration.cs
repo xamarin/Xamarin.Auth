@@ -23,8 +23,6 @@ namespace Xamarin.Auth._MobileServices
                 set;
             }
 
-            static string user_agent_default = null;
-
             static Android()
             {
                 UserAgent = (new WebView(global::Android.App.Application.Context)).Settings.UserAgentString;

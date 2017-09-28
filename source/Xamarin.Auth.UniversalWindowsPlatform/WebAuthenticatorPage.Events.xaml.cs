@@ -52,7 +52,19 @@ namespace Xamarin.Auth._MobileServices
 
             System.Diagnostics.Debug.WriteLine("Browser_NavigationStarting uri_navigated = " + uri_navigated.OriginalString);
 
-            this.authenticator.OnPageLoading(uri_navigated);
+
+
+            // Warning CS1998  This async method lacks 'await' operators and will run 
+            // synchronously.Consider using the 'await' operator to await non - blocking API calls, or 
+            // 'await Task.Run(...)' to do CPU - bound work on a background thread.	
+            System.Threading.Tasks.Task t = null;
+            t = System.Threading.Tasks.Task.Run
+                                        (
+                                            () => 
+                                            {
+                                                this.authenticator.OnPageLoading(uri_navigated);
+                                            }
+                                        );
 
             return;
         }

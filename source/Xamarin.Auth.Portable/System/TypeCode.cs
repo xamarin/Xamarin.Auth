@@ -1,12 +1,16 @@
-﻿using System;
+﻿#define UINVERSAL_WINDOWS_PLATFORM 
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace System
 {
-	public enum TypeCode
+    #if !WINDOWS_UWP
+    public enum TypeCode
 	{
 		Empty = 0,
 		Object = 1,
@@ -27,4 +31,5 @@ namespace System
 		DateTime = 16,
 		String = 18,
 	}
+    #endif
 }

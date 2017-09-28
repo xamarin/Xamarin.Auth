@@ -27,8 +27,6 @@ namespace Xamarin.Auth
         /// <see cref="https://components.xamarin.com/gettingstarted/xamandroidsupportcustomtabs"/>
         protected virtual AuthenticateUIType GetPlatformUINative()
         {
-            throw new NotImplementedException("PCL bite-n-switch");
-
             System.Uri uri_netfx = this.GetInitialUrlAsync().Result;
 
             // System.Object

@@ -47,7 +47,18 @@ namespace Xamarin.Auth._MobileServices
             // there is no way to clear cache for WebView
             //http://blogs.msdn.com/b/wsdevsol/archive/2012/10/18/nine-things-you-need-to-know-about-webview.aspx#AN7
 
+            // Warning CS1998  This async method lacks 'await' operators and will run 
+            // synchronously.Consider using the 'await' operator to await non - blocking API calls, or 
+            // 'await Task.Run(...)' to do CPU - bound work on a background thread.	
+            System.Threading.Tasks.Task t = null;
+            t = System.Threading.Tasks.Task.Run
+                                        (
+                                            () =>
+                                            {
+                                            }
+                                        );
 
+            return;
         }
 
         protected override AuthenticateUIType GetPlatformUI()

@@ -13,8 +13,7 @@ namespace Core
 	{
 		public static TypeCode GetTypeCode(System.Type type)
 		{
-#if NETFX_CORE || PCL
-
+            #if NETFX_CORE || PCL || PORTABLE
 			if (type == null)
 			{
 				return TypeCode.Empty;
