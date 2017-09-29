@@ -83,7 +83,7 @@ namespace Xamarin.Auth._MobileServices
                 return;
             }
 
-            static string app_name_wkwebview = null;
+            //static string app_name_wkwebview = null;
             static string useragent_wkwebview = null;
 
             static void UserAgentFromWKWebView()
@@ -97,7 +97,6 @@ namespace Xamarin.Auth._MobileServices
                 WebKit.WKJavascriptEvaluationResult handler =
                     (NSObject result, NSError err) =>
                         {
-                            app_name_wkwebview = null;
                             useragent_wkwebview = null;
 
                             if (err != null)
