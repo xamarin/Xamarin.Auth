@@ -37,14 +37,14 @@ namespace Xamarin.Auth.WindowsUWP
 
         public override void Save(Account account, string serviceId)
         {
-            SaveAsync(account, serviceId);
+            Task t  = SaveAsync(account, serviceId);
 
             return;
         }
 
         public override void Delete(Account account, string serviceId)
         {
-            DeleteAsync(account, serviceId);
+            Task t = DeleteAsync(account, serviceId);
 
             return;
         }

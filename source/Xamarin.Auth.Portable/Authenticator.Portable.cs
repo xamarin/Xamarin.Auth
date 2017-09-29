@@ -51,10 +51,17 @@ namespace Xamarin.Auth._MobileServices
         /// Clears all cookies.
         /// </summary>
         /// <seealso cref="ClearCookiesBeforeLogin"/>
-        public async static void ClearCookies()
+        public async static Task ClearCookiesAsync()
+        {
+            await Task.Run( () => ClearCookies() );
+
+            return;
+        }
+
+        public static void ClearCookies()
         {
             throw new NotImplementedException(LibraryUtilities.MessageNotImplementedException);
-        }
+		}
 
         protected virtual AuthenticateUIType GetPlatformUI()
         {

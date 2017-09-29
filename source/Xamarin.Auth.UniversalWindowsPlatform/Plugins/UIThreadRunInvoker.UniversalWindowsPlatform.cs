@@ -14,7 +14,7 @@ namespace Plugin.Threading
                     //Windows.ApplicationModel.Core.CoreApplication.GetCurrentView().CoreWindow.Dispatcher
                     //Window.Current.Dispatcher
                     ;
-            dispatcher.RunAsync
+            Windows.Foundation.IAsyncAction t = dispatcher.RunAsync
                              (
                                 Windows.UI.Core.CoreDispatcherPriority.Normal,
                                 delegate
