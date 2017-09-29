@@ -32,10 +32,10 @@ namespace System.Reflection
             { typeof(String), TypeCode.String },
         };
 
-		public static TypeCode GetTypeCode(this Type type)
-		{
-            #if NETFX_CORE || PCL
-			if (type == null)
+        public static TypeCode GetTypeCode(this Type type)
+        {
+            #if (NETFX_CORE || PCL) && !NETSTANDARD1_6
+            if (type == null)
 			{
 				return TypeCode.Empty;
 			}
@@ -47,10 +47,9 @@ namespace System.Reflection
 			}
 
 			return result;
-
             #else
-			return Type.GetTypeCode(type);
+            return Type.GetTypeCode(type);
             #endif
-		}
+        }
 	}
 }
