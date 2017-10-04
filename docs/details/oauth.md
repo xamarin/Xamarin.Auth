@@ -49,20 +49,23 @@
 
 Notetion:
 
-*	[R] Required
-*	[O] Optional
-*	[X]	eXtension 
+*	[REQ] Required
+*	[OPT] Optional
+*	[REC] Recommended
+*	[EXT] Extension
+ 
 1.	Authorization Request Comparison
 
-| [RFC]                | [Google]     | [Facebook]   |
-|:--------------------:|:------------:|:------------:|
-| [R] `response_type`  |              |              |
-| [R] `client_id`      |              |              |
-| [O] `redirect_uri`   |              |              |
-| [R] `response_type`  |              |              |
+| [RFC]                  | [Google]              | [Facebook]            |
+|:-----------------------|:----------------------|:---------------------:|
+| [REQ] `response_type`  | [REQ] `response_type` | [REQ] `response_type` |
+| [REQ] `client_id`      | [REQ] `client_id`     | [REQ] `client_id`     |
+| [OPT] `redirect_uri`   | [OPT] `redirect_uri`  | [OPT] `redirect_uri`  | 
+| [OPT] `scope`          | [OPT] `scope`         | [OPT] `scope`         |
 
-[RFC]: https://tools.ietf.org/html/rfc6749#section-4.1.1
-
+[RFC] 			https://tools.ietf.org/html/rfc6749#section-4.1.1
+[Google]		https://developers.google.com/identity/protocols/OAuth2
+[Facebook]		https://developers.facebook.com/docs/facebook-login/manually-build-a-login-flow/
 
 ## References
 
