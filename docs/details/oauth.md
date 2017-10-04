@@ -41,6 +41,28 @@
 *	Token Endpoint
 *	Redirection Endpoint (`redirect_url`)
 
+## Parameters comparison
+
+### [Authorization Code Grant]
+
+[Authorization Code Grant] https://tools.ietf.org/html/rfc6749#section-4.1
+
+Notetion:
+
+*	[R] Required
+*	[O] Optional
+*	[X]	eXtension 
+1.	Authorization Request Comparison
+
+| [RFC]                | [Google]     | [Facebook]   |
+|:--------------------:|:------------:|:------------:|
+| [R] `response_type`  |              |              |
+| [R] `client_id`      |              |              |
+| [O] `redirect_uri`   |              |              |
+| [R] `response_type`  |              |              |
+
+[RFC]: https://tools.ietf.org/html/rfc6749#section-4.1.1
+
 
 ## References
 
