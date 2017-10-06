@@ -188,7 +188,7 @@ namespace Xamarin.Auth._MobileServices
         /// <param name='tokenSecret'>
         /// Token secret.
         /// </param>
-        public static WebRequest CreateRequest(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
+        public static HttpWebRequest CreateRequest(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
         {
             Dictionary<string, string> ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
 

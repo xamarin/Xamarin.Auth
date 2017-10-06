@@ -31,7 +31,12 @@ namespace Xamarin.Auth._MobileServices
 #endif
 {
     /// <summary>
-    /// Implements OAuth 2.0 implicit granting. http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
+    /// Implements OAuth 2.0 
+    ///     - authorization 
+    /// and 
+    ///     - implicit 
+    /// grant types. 
+    /// http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2
     /// </summary>
 #if XAMARIN_AUTH_INTERNAL
     internal partial class OAuth2Authenticator : WebRedirectAuthenticator
@@ -55,48 +60,20 @@ namespace Xamarin.Auth._MobileServices
         /// OAuth2 random state string
         /// </summary>
         /// <value>The state.</value>
-        public string State
+        public OAuth2.State State
         {
             get
             {
                 return request_state;
             }
-        }
-        string request_state;
-
-        public ulong StateStringLength
-        {
-            get;
-            set;
-        } = 16;
-
-        /// <summary>
-        /// Gets or sets the OAuth2 random state generator func.
-        /// </summary>
-        /// <value>
-        /// The OA uth2 random state generator func.
-        /// </value>
-        public Func<ulong, string> OAuth2RandomStateGeneratorFunc
-        {
-            get;
-            set;
-        }
-
-        public string GenerateOAuth2StateRandom(ulong number_of_characters = 16)
-        {
-            //
-            // Generate a unique state string to check for forgeries
-            //
-            var chars = new char[number_of_characters];
-            var rand = new Random();
-            for (var i = 0; i < chars.Length; i++)
+            set
             {
-                chars[i] = (char)rand.Next((int)'a', (int)'z' + 1);
-            }
-            string state_string = new string(chars);
+                request_state = value;
 
-            return state_string;
+                return;
+            }
         }
+        OAuth2.State request_state;
         //---------------------------------------------------------------------------------------
         #endregion  State
 
@@ -206,9 +183,13 @@ namespace Xamarin.Auth._MobileServices
             get
             {
                 return
-                    accessTokenUrl != null                      // AccessToken url is defined
+                    // AccessToken url is defined
+                    accessTokenUrl != null                      
                     &&
-                    !string.IsNullOrWhiteSpace(clientSecret)   // Client Secret is defined
+                    // Client Secret MAY be defined
+                    //
+                    // true
+                    ( string.IsNullOrWhiteSpace(clientSecret) || !string.IsNullOrWhiteSpace(clientSecret) )  
                     ;
             }
         }
@@ -295,13 +276,13 @@ namespace Xamarin.Auth._MobileServices
             ///---------------------------------------------------------------------------------------
             #endregion
 
-#if DEBUG
+            #if DEBUG
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"OAuth2Authenticator ");
             sb.AppendLine($"        IsUsingNativeUI = {IsUsingNativeUI}");
             sb.AppendLine($"        redirectUrl = {redirectUrl}");
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-#endif
+            #endif
 
             return;
         }
@@ -351,49 +332,70 @@ namespace Xamarin.Auth._MobileServices
             {
                 throw new ArgumentException("clientId must be provided", "clientId");
             }
-            this.clientId = clientId;
-
-            if (string.IsNullOrEmpty(clientSecret))
-            {
-                //  Google for Installed Apps (Mobile)
-                //  is Authorization Grant Flow (Explicit)
-                //  2 Step Flow
-                //  2nd step does not send Client Secret (null || Empty)
-                //throw new ArgumentException("clientSecret must be provided", "clientSecret");
-
-#if DEBUG
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($" ");
-                sb.AppendLine($"        clientSecret   = null || Empty");
-                sb.AppendLine($"        accessTokenUrl = {accessTokenUrl}");
-                sb.AppendLine($"        Google for Installed Apps");
-                sb.AppendLine($"        redirectUrl    = {redirectUrl}");
-                System.Diagnostics.Debug.WriteLine(sb.ToString());
-#endif
-            }
-            this.clientSecret = clientSecret;
-
-            this.scope = scope ?? "";
-
             if (authorizeUrl == null)
             {
                 throw new ArgumentNullException("authorizeUrl");
             }
-            this.authorizeUrl = authorizeUrl;
-
-            if (redirectUrl == null)
-            {
-                throw new ArgumentNullException("redirectUrl");
-            }
-            this.redirectUrl = redirectUrl;
-
             if (accessTokenUrl == null)
             {
                 throw new ArgumentNullException("accessTokenUrl");
             }
-            this.accessTokenUrl = accessTokenUrl;
+            if (redirectUrl == null)
+            {
+                throw new ArgumentNullException("redirectUrl");
+            }
 
-            this.getUsernameAsync = getUsernameAsync;
+
+            if (string.IsNullOrEmpty(clientSecret))
+            {
+                /*
+                    https://tools.ietf.org/html/rfc6749#section-2.3.1
+
+                    RFC6749 2.3.1 Client Password
+                    
+                    Alternatively, the authorization server MAY support including the
+                    client credentials in the request-body using the following
+                    parameters:
+   
+                    client_id
+                		 REQUIRED.The client identifier issued to the client during
+                		 the registration process described by Section 2.2.
+
+                    client_secret
+                		 REQUIRED.  The client secret.The client MAY omit the
+                		 parameter if the client secret is an empty string.
+
+
+                    Including the client credentials in the request-body using the two
+                    parameters is NOT RECOMMENDED and SHOULD be limited to clients unable
+                    to directly utilize the HTTP Basic authentication scheme(or other
+                    password-based HTTP authentication schemes).  The parameters can only
+                    be transmitted in the request-body and MUST NOT be included in the
+                    request URI.
+
+                    For example, a request to refresh an access token(Section 6) using
+                    the body parameters(with extra line breaks for display purposes
+                    only):
+
+                    Google for Installed Apps(Mobile, NativeUI) is Authorization Code Grant Flow
+                    2 Steps Flow
+                    2nd step does not send Client Secret(null || Empty)
+                    OK according to the RFC
+                    
+    				//throw new ArgumentException("clientSecret must be provided", "clientSecret");
+                 */ 
+
+                System.Diagnostics.Debug.WriteLine(this.ToString());
+            }
+
+            this.clientId = clientId;                   // required
+            this.clientSecret = clientSecret;           // optional
+            this.authorizeUrl = authorizeUrl;           // required 
+            this.redirectUrl = redirectUrl;             // optional 
+            this.accessTokenUrl = accessTokenUrl;       // optional - required for Authorization Code Grant
+            this.scope = scope ?? "";                   // optional
+
+            this.getUsernameAsync = getUsernameAsync;   // Xamarin.legacy
 
             return;
         }
@@ -408,13 +410,11 @@ namespace Xamarin.Auth._MobileServices
             : base(redirectUrl, redirectUrl)
         {
             this.is_using_native_ui = isUsingNativeUI;
-            this.OAuth2RandomStateGeneratorFunc = GenerateOAuth2StateRandom;
+            this.State = new OAuth2.State();
+            Verify();
 
-            if (redirectUrl == null)
-            {
-                throw new ArgumentNullException("redirectUrl");
-            }
             this.redirectUrl = redirectUrl;
+            this.accessTokenUrl = accessTokenUrl;
 
             #region
             //---------------------------------------------------------------------------------------
@@ -432,9 +432,16 @@ namespace Xamarin.Auth._MobileServices
             //---------------------------------------------------------------------------------------
             #endregion
 
-            this.accessTokenUrl = accessTokenUrl;
 
-            this.request_state = OAuth2RandomStateGeneratorFunc(16);
+            return;
+        }
+
+        protected void Verify()
+        {
+            if (redirectUrl == null)
+            {
+                throw new ArgumentNullException("redirectUrl");
+            }
 
             return;
         }
@@ -499,6 +506,12 @@ namespace Xamarin.Auth._MobileServices
             return Task.FromResult(url);
         }
 
+        /// <summary>
+        /// Creates the request query parameters. The method is called before request to Authorization server.
+        /// 
+        /// </summary>
+        /// <returns>The request query parameters (standard and custom)</returns>
+        /// <param name="custom_query_parameters">Dictionary of custom query parameters.</param>
         public Dictionary<string, string> CreateRequestQueryParameters
                                                 (
                                                     Dictionary<string, string> custom_query_parameters = null
@@ -554,15 +567,17 @@ namespace Xamarin.Auth._MobileServices
             //---------------------------------------------------------------------------------------
 
             //---------------------------------------------------------------------------------------
-            string response_type = OAuthFlowResponseTypeVerification();
+            List<string> response_types = OAuthFlowResponseTypeVerification();
+
+            string response_type = string.Join(" ", response_types);
             oauth_request_query_parameters.Add("response_type", response_type);
             //--------------------------------------------------------------------------------------
 
             //---------------------------------------------------------------------------------------
-            string state = this.OAuth2RandomStateGeneratorFunc(this.StateStringLength);
+            string state = this.State.RandomString;
             if (IsUriEncodedDataString(state) == false)
             {
-                state = Uri.EscapeDataString(this.request_state);
+                state = Uri.EscapeDataString(state);
             }
             oauth_request_query_parameters.Add("state", state);
             //---------------------------------------------------------------------------------------
@@ -610,37 +625,80 @@ namespace Xamarin.Auth._MobileServices
         ///     https://alexbilbie.com/guide-to-oauth-2-grants/
         /// 
         /// </summary>
-        /// <returns>The uth flow response type verification.</returns>
+        /// <returns>The OAuth flow response type verification.</returns>
         /// <see cref=""/>
         /// <see cref="https://alexbilbie.com/guide-to-oauth-2-grants/"/>
         /// <see cref=""/>
         /// <see cref=""/>
-        protected string OAuthFlowResponseTypeVerification()
+        protected List<string> OAuthFlowResponseTypeVerification()
         {
-            string response_type = null;
+            List<string> response_types = VerifyOAuth2FlowResponseType
+                                                    (
+                                                        this.AccessTokenUrl, 
+                                                        this.ClientSecret,      // MAY indicate
+                                                        null
+                                                    );
 
             if (this.IsImplicitFlow)
             {
-                response_type = Uri.EscapeDataString("token");
+                response_types = new List<string>() { };
+                response_types.Add(Uri.EscapeDataString("token"));
             }
             else if (this.IsAuthorizationCodeFlow)
             {
-                response_type = Uri.EscapeDataString("code");
+                response_types = new List<string>() { };
+                response_types.Add(Uri.EscapeDataString("code"));
             }
             else if (this.IsProofKeyCodeForExchange)
             {
+                //
             }
             else
             {
+                throw new InvalidOperationException("Uknown response_type");
             }
 
             #if DEBUG
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"        response_type = {response_type}");
+            sb.Append($"        response_type = ").AppendLine(string.Join(" ",response_types));
             System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
-            return response_type;
+            return response_types;
+        }
+
+        /*
+            The authorization endpoint is used by the authorization code grant
+            type and implicit grant type flows.  The client informs the
+            authorization server of the desired grant type using the following
+            parameter:
+
+            response_type
+            	 REQUIRED.The value MUST be one of 
+            	 "code" for requesting an authorization code as described by Section 4.1.1, 
+            	 "token" for requesting an access token (implicit grant) as described by Section 4.2.1, 
+            	 or a 
+            	 registered extension value as described by Section 8.4.
+
+           Extension response types MAY contain a space-delimited(%x20) list of
+           values, where the order of values does not matter(e.g., response
+           type "a b" is the same as "b a").  The meaning of such composite
+           response types is defined by their respective specifications.
+
+           If an authorization request is missing the "response_type" parameter,
+           or if the response type is not understood, the authorization server
+           MUST return an error response as described in Section 4.1.2.1.         
+        */
+        public List<string> VerifyOAuth2FlowResponseType
+                                        (
+                                            System.Uri accessTokenUrl,
+                                            string clientSecret,
+                                            string[] curtomResponseTypes    // extensions or mutiple
+                                        )
+        {
+            List<string> respponse_types_generated = null;
+
+            return respponse_types_generated;
         }
 
         #region
@@ -680,7 +738,7 @@ namespace Xamarin.Auth._MobileServices
             //
             if (all.ContainsKey("state"))
             {
-                if (all["state"] != request_state && !reportedForgery)
+                if (all["state"] != request_state.RandomStringUriEscaped && !reportedForgery)
                 {
                     reportedForgery = true;
                     OnError("Invalid state from server. Possible forgery!");
@@ -710,24 +768,18 @@ namespace Xamarin.Auth._MobileServices
         /// </param>
         protected override void OnRedirectPageLoaded(Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
         {
-            //
-            // Look for the access_token
-            //
+            // access_token parameter lookup
             if (fragment.ContainsKey("access_token"))
             {
-                //
-                // We found an access_token
-                //
+                // access_token found
                 OnRetrievedAccountProperties(fragment);
             }
             else if (!IsImplicitFlow)
             {
-                //
-                // Look for the code
-                //
+                // code parameter lookpup
                 if (query.ContainsKey("code"))
                 {
-                    var code = query["code"];
+                    string code = query["code"];
                     RequestAccessTokenAsync(code)
                         .ContinueWith
                             (
@@ -763,6 +815,7 @@ namespace Xamarin.Auth._MobileServices
                 OnError("Expected " + AccessTokenName + " in response, but did not receive one.");
                 //---------------------------------------------------------------------------------------
                 #endregion
+
                 return;
             }
         }
@@ -897,5 +950,47 @@ namespace Xamarin.Auth._MobileServices
         }
         //---------------------------------------------------------------------------------------
         #endregion
+
+
+        public override string ToString()
+        {
+            /*
+            string msg = string.Format
+                                (
+                                    "[OAuth2Authenticator: State={0}, " 
+                                    +
+                                    "StateStringLength={1}, OAuth2RandomStateGeneratorFunc={2}, AccessTokenName={3}, Scope={4}, AuthorizeUrl={5},"
+                                    +
+                                    "AccessTokenUrl={6}, ClientId={7}, ClientSecret={8}, DoNotEscapeScope={9}, HttpWebClientUsed={10}]",
+                                    State, 
+                                    StateStringLength, 
+                                    OAuth2RandomStateGeneratorFunc, 
+                                    AccessTokenName, 
+                                    Scope, 
+                                    AuthorizeUrl, 
+                                    AccessTokenUrl, 
+                                    ClientId, 
+                                    ClientSecret, 
+                                    DoNotEscapeScope, 
+                                    HttpWebClientUsed
+                                 );
+            */
+            System.Text.StringBuilder sb = new System.Text.StringBuilder(base.ToString());
+
+            sb.AppendLine().AppendLine(this.GetType().ToString());
+            classlevel_depth++;
+            string prefix = new string('\t', classlevel_depth);
+            sb.Append(prefix).AppendLine($"AuthorizeUrl      = {AuthorizeUrl}");
+            sb.Append(prefix).AppendLine($"AccessTokenUrl    = {AccessTokenUrl}");
+            sb.Append(prefix).AppendLine($"State             = {State}");
+            sb.Append(prefix).AppendLine($"StateStringLength = {this.State.StateStringLength}");
+            sb.Append(prefix).AppendLine($"Scope             = {Scope}");
+            sb.Append(prefix).AppendLine($"DoNotEscapeScope  = {DoNotEscapeScope}");
+            sb.Append(prefix).AppendLine($"ClientId          = {ClientId}");
+            sb.Append(prefix).AppendLine($"ClientSecret      = {ClientSecret}");
+            sb.Append(prefix).AppendLine($"ClientId          = {ClientId}");
+
+            return sb.ToString();
+        }
     }
 }

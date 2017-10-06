@@ -1,11 +1,15 @@
-﻿namespace Xamarin.Auth.Presenters.UWP
+﻿using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.Foundation.Metadata;
+using Windows.UI.Core;
+
+namespace Xamarin.Auth.Presenters.UWP
 {
     public class PlatformOAuthLoginPresenter
     {
         private readonly bool _hasHardwareButton;
         private Frame _rootFrame;
         private Authenticator _authenticator;
-
 
         public PlatformOAuthLoginPresenter()
         {

@@ -187,6 +187,37 @@ namespace Xamarin.Auth._MobileServices
 
         	return false;
         }
+
+        public override string ToString()
+        {
+            /*
+            string msg = string.Format
+                                (
+                                    "[WebAuthenticator: ClearCookiesBeforeLogin={0}, Scheme={1}, Host={2}, "
+                                    + 
+                                    "RequestParameters={3}, PlatformUIMethod={4}, IsUsingNativeUI={5}]", 
+                                    ClearCookiesBeforeLogin, 
+                                    Scheme, 
+                                    Host, 
+                                    RequestParameters, 
+                                    PlatformUIMethod, 
+                                    IsUsingNativeUI
+                                );
+            */
+            System.Text.StringBuilder sb = new System.Text.StringBuilder(base.ToString());
+
+            sb.AppendLine().AppendLine(this.GetType().ToString());
+            classlevel_depth++;
+            string prefix = new string('\t', classlevel_depth);
+            sb.Append(prefix).AppendLine($"IsUsingNativeUI         = {IsUsingNativeUI}");
+            sb.Append(prefix).AppendLine($"Scheme                  = {Scheme}");
+            sb.Append(prefix).AppendLine($"Host                    = {Host}");
+            sb.Append(prefix).AppendLine($"RequestParameters       = {RequestParameters}");
+            sb.Append(prefix).AppendLine($"ClearCookiesBeforeLogin = {ClearCookiesBeforeLogin}");
+            sb.Append(prefix).AppendLine($"PlatformUIMethod        = {PlatformUIMethod}");
+
+            return sb.ToString();
+        }
     }
 }
 

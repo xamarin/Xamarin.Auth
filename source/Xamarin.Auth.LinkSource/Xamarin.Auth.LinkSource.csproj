@@ -119,9 +119,13 @@
     <Compile Include="AccountStore\Account.cs" />
     <Compile Include="AccountStore\CryptoAccountManager\CryptoUtilities.cs" />
     <Compile Include="AccountStore\CryptoAccountManager\AccountManager.cs" />
+    <Compile Include="OAuth\OAuth2\GrantType.cs" />
+    <Compile Include="OAuth\OAuth2\ResponseType.cs" />
+    <Compile Include="OAuth\OAuth2\State.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="OAuth\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />

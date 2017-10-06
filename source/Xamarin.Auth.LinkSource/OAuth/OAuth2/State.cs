@@ -11,7 +11,11 @@ namespace Xamarin.Auth.OAuth2
     /// </summary>
     /// <see cref="https://tools.ietf.org/html/rfc6749#section-4.1.1"/>
     /// <see cref="https://tools.ietf.org/html/draft-bradley-oauth-jwt-encoded-state-00"/>
-    /// <see cref=""/>
+    /*
+        more info:
+        http://www.thread-safe.com/2014/05/the-correct-use-of-state-parameter-in.html
+        https://security.stackexchange.com/questions/104167/what-to-use-as-state-in-oauth2-authorization-code-grant-workflow
+    */ 
     public partial class State
     {
         public State()
@@ -42,6 +46,18 @@ namespace Xamarin.Auth.OAuth2
 
                 return;
             }
+        }
+
+        /// <summary>
+        /// Gets the random string URI escaped (URL encoded).
+        /// </summary>
+        /// <value>The random string URI escaped.</value>
+        public string RandomStringUriEscaped
+        {
+        	get
+        	{
+                return Uri.EscapeUriString(random_string);
+        	}
         }
 
         /// <summary>
