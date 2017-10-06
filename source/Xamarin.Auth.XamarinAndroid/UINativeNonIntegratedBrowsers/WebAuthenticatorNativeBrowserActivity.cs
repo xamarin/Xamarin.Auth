@@ -279,11 +279,11 @@ namespace Xamarin.Auth._MobileServices
                         }
                     );
 
-#if DEBUG
+            #if DEBUG
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
             sb.AppendLine($"      CloseCustomTabs");
             System.Diagnostics.Debug.WriteLine(sb.ToString());
-#endif
+            #endif
 
             this.Finish();
             //this.CloseCustomTabsProcessKill();
@@ -322,29 +322,26 @@ namespace Xamarin.Auth._MobileServices
         }
 
 
-
-
-
-
-
-
         void BeginLoadingInitialUrl()
         {
-            state.Authenticator.GetInitialUrlAsync().ContinueWith(t =>
-            {
-                if (t.IsFaulted)
-                {
+            state.Authenticator.GetInitialUrlAsync().ContinueWith
+                (
+                    t =>
+                    {
+                        if (t.IsFaulted)
+                        {
+                            if (!state.Authenticator.ShowErrors)
+                                return;
 
-                    if (!state.Authenticator.ShowErrors)
-                        return;
-
-                    this.ShowError("Authentication Error t.Exception = ", t.Exception);
-                }
-                else
-                {
-                    //TODO: webView.LoadUrl(t.Result.AbsoluteUri);
-                }
-            }, System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext());
+                            this.ShowError("Authentication Error t.Exception = ", t.Exception);
+                        }
+                        else
+                        {
+                            //TODO: webView.LoadUrl(t.Result.AbsoluteUri);
+                        }
+                    }, 
+                    System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext()
+                );
         }
 
         public override void OnBackPressed()
