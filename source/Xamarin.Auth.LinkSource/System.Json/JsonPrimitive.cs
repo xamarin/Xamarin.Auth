@@ -178,6 +178,19 @@ namespace System.Json
                     default:
                         return JsonType.Number;
                 }
+                #elif NETSTANDARD1_6
+                switch (System.Type.GetTypeCode(value.GetType()))
+                {
+                    case System.TypeCode.Boolean:
+                        return JsonType.Boolean;
+                    case System.TypeCode.Char:
+                    case System.TypeCode.String:
+                    case System.TypeCode.DateTime:
+                    case System.TypeCode.Object: // DateTimeOffset || Guid || TimeSpan || Uri
+                        return JsonType.String;
+                    default:
+                        return JsonType.Number;
+                }
                 #else
                 switch (Core.Type.GetTypeCode(value.GetType()))
                 {

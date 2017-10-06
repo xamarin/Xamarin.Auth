@@ -120,12 +120,6 @@
     <Compile Include="..\Xamarin.Auth.Portable\System\Reflection\Extensions.cs">
       <Link>System\Reflection\Extensions.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.Portable\System\TypeCode.cs">
-      <Link>System\TypeCode.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Portable\System\Type.cs">
-      <Link>System\Type.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.Portable\WebAuthenticator.Portable.cs">
       <Link>WebAuthenticator.Portable.cs</Link>
     </Compile>

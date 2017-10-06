@@ -1,16 +1,21 @@
 ﻿using System;
+#if !AZURE_MOBILE_SERVICES
+using Xamarin.Auth;
+#else
+using Xamarin.Auth._MobileServices;
+#endif
 
-#if ! AZURE_MOBILE_SERVICES
+#if !AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth.Presenters
 #else
 namespace Xamarin.Auth._MobileServices.Presenters
 #endif
 {
-    #if XAMARIN_AUTH_INTERNAL
+#if XAMARIN_AUTH_INTERNAL
     internal class OAuthLoginPresenter
-    #else
+#else
     public class OAuthLoginPresenter
-	#endif
+#endif
     {
         public event EventHandler<AuthenticatorCompletedEventArgs> Completed;
 

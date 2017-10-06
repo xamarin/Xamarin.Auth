@@ -118,6 +118,7 @@ namespace Xamarin.Auth._MobileServices
                 return;
             }
 
+            //static string app_name_wkwebview = null;
             static string useragent_wkwebview = null;
 
             static void UserAgentFromWKWebView()

@@ -18,8 +18,6 @@ namespace Xamarin.Auth.XamarinForms
             set
             {
                 throw new NotImplementedException("WKWebView cannot be used on Android");
-
-                return;
             }
         }
 
