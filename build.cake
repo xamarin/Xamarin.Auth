@@ -75,7 +75,8 @@ Action<string> InformationFancy =
 #addin nuget:?package=Cake.Xamarin.Build&version=2.0.22
 #addin nuget:?package=Cake.FileHelpers&version=1.0.4
 #tool nuget:?package=vswhere
-
+#tool "xunit.runner.console"
+#tool "ReportUnit"	
 /*
 -----------------------------------------------------------------------------------------
 	choco install -y gitlink
@@ -1402,6 +1403,89 @@ Task ("externals")
 		}
 	);
 
+Task("tests-solutions")
+    .Does
+	(
+		() =>
+		{
+			//MSBuild
+		}
+	);
+	
+Task("tests-projects")
+    .Does
+	(
+		() =>
+		{
+			//MSBuild
+		}
+	);
+	
+
+/*
+	https://www.cakebuild.net/dsl/nunit/
+	https://www.cakebuild.net/dsl/xunit/
+	https://www.cakebuild.net/dsl/xunit-v2/
+	https://stackoverflow.com/questions/40585082/how-to-get-passed-and-fail-test-case-count-in-xunit-using-cakec-make-script
+	
+*/
+Task("tests-unit-nunit")
+  .IsDependentOn("tests")
+    .Does
+	(
+		() =>
+		{
+			XUnit2
+			(
+				"./tests/unit-tests/UnitTests.Xamarin.Auth.Portable/bin/Debug/UnitTests.Xamarin.Auth.Portable.dll",
+				new XUnit2Settings 
+				{
+					XmlReport = true,
+					OutputDirectory = "./output/logs"
+				}
+			).Finally
+			(
+				() => 
+				{
+					ReportUnit("./output/logs");
+				}
+			);
+		}
+	);
+
+Task("tests-unit-xunit")
+  .IsDependentOn("tests")
+    .Does
+	(
+		() =>
+		{
+			XUnit2
+			(
+				"./tests/unit-tests/UnitTests.Xamarin.Auth.Portable/bin/Debug/UnitTests.Xamarin.Auth.Portable.dll",
+				new XUnit2Settings 
+				{
+					XmlReport = true,
+					OutputDirectory = "./output/logs"
+				}
+			).Finally
+			(
+				() => 
+				{
+					ReportUnit("./output/logs");
+				}
+			);
+		}
+	);
+	
+Task("tests-unit-nunit")
+  .IsDependentOn("Build")
+    .Does
+	(
+		() =>
+		{
+		}
+	);
+	
 Task ("component")
 	.IsDependentOn ("nuget")
 	.IsDependentOn ("samples")
@@ -1447,6 +1531,7 @@ FilePath GetToolPath (FilePath toolPath)
 
     throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
 }
+
 
 
 //=================================================================================================
