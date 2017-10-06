@@ -11,7 +11,8 @@ namespace ComicBook
 		{
 			"OAuth Settings",
 			"Evolve16 ComicBook Sample",
-			"OAuth Providers Sample",
+			"OAuth Provider Samples",
+            "OAuth Provider Quick Samples",
             "UserAgent tests",
 		};
 

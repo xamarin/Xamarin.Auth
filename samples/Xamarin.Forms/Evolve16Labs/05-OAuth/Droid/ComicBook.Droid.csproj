@@ -185,9 +185,7 @@
     <When Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.XamarinAndroid  NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.XamarinAndroid  NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
               <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
         </Reference>
@@ -196,11 +194,9 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
           <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-          <Name>Xamarin.Auth.XamarinAndroid Project Reference</Name>
+          <Name>Xamarin.Auth.XamarinAndroid</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>
@@ -219,9 +215,7 @@
     <When Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.Forms.XamarinAndroid  NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.Forms.XamarinAndroid  NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.Forms.dll</HintPath>
               <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
         </Reference>
@@ -230,11 +224,9 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj">
           <Project>{1B702A60-3D89-4183-B251-4A07388DCCB5}</Project>
-          <Name>Xamarin.Auth.Forms.XamarinAndroid Project Reference</Name>
+          <Name>Xamarin.Auth.Forms.Droid</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>

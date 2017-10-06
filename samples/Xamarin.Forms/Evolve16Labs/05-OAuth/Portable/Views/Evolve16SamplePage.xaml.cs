@@ -51,11 +51,11 @@ namespace ComicBook
                 // Renderers Implementaion
                 if (Settings.IsFormsNavigationPushModal)
                 {
-                    Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                    Navigation.PushModalAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage(authenticator));
                 }
                 else
                 {
-                    Navigation.PushAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage());
+                    Navigation.PushAsync(new Xamarin.Auth.XamarinForms.AuthenticatorPage(authenticator));
                 }
             }
             else

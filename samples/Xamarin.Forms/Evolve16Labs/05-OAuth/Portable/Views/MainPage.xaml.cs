@@ -49,9 +49,13 @@ namespace ComicBook
                     this.IsPresented = false;
                     this.Detail = new NavigationPage(new Evolve16SamplePage());
                     break;
-                case "OAuth Providers Sample":
+                case "OAuth Provider Samples":
                     this.IsPresented = false;
                     this.Detail = new NavigationPage(new ProvidersSamplesPage());
+                    break;
+                case "OAuth Provider Quick Samples":
+                    this.IsPresented = false;
+                    this.Detail = new NavigationPage(new ProvidersSamplesQuickPage());
                     break;
                 case "UserAgent tests":
                     this.IsPresented = false;
