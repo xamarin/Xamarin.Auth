@@ -46,8 +46,8 @@ namespace Xamarin.Auth.XamarinForms
             #if DEBUG
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"IsAuthenticated = {e.IsAuthenticated}");
-            sb.AppendLine($"Account.User    = {e.Account.Username}");
-            sb.AppendLine($"access_token      = {e.Account.Properties["access_token"]}");
+            sb.AppendLine($"Account.User    = {e.Account?.Username}");
+            sb.AppendLine($"access_token    = {e.Account?.Properties["access_token"]}");
 
             DisplayAlert
                 (

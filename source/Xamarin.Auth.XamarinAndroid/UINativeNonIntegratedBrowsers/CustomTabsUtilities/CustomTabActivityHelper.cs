@@ -12,16 +12,17 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+using System;
 using System.Collections.Generic;
 
 using Android.App;
 using Android.Net;
 using Android.OS;
 using Android.Widget;
-
 using Android.Support.CustomTabs;
+using Xamarin.Auth;
 
-#if ! AZURE_MOBILE_SERVICES
+#if !AZURE_MOBILE_SERVICES
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities
 #else
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
@@ -40,7 +41,19 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
         private CustomTabsSession custom_tabs_session;
         private CustomTabsClient custom_tabs_client;
         private CustomTabsServiceConnection custom_tabs_service_connection;
+        private CustomTabsActivityManager custom_tabs_activit_manager;
         private IConnectionCallback connection_callback;
+        private CustomTabsIntent.Builder builder = null;
+        private Activity activity;
+        private Android.Net.Uri uri = null;
+        private bool service_bound = false;
+
+        public CustomTabActivityHelper()
+        {
+            this.NavigationEventHandler = NavigationEventHandlerDefaultImplementation;
+
+            return;
+        }
 
         /// <summary>
         /// Opens the URL on a Custom Tab if possible. Otherwise fallsback to opening it on a WebView.
@@ -51,12 +64,14 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
         /// <param name="fallback"> a CustomTabFallback to be used if Custom Tabs is not available. </param>
         public /*static*/ void LaunchUrlWithCustomTabsOrFallback
                                 (
-                                    Activity activity,
+                                    Activity a,
                                     CustomTabsIntent custom_tabs_intent,
-                                    Uri uri,
+                                    Android.Net.Uri u,
                                     ICustomTabFallback fallback
                                 )
         {
+            uri = u;
+            activity = a;
             string packageName = PackageManagerHelper.GetPackageNameToUse(activity, uri.ToString());
 
             //If we cant find a package name, it means theres no browser that supports
@@ -71,9 +86,57 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
             else
             {
                 custom_tabs_intent.Intent.SetPackage(packageName);
-                custom_tabs_intent.LaunchUrl(activity, uri);
+
+                // direct call to CustomtTasIntent.LaunchUrl was ported from java samples and refactored
+                // seems like API changed
+                // 
+                // custom_tabs_intent.LaunchUrl(activity, uri);
+                custom_tabs_activit_manager = new CustomTabsActivityManager(activity);
+                custom_tabs_activit_manager.CustomTabsServiceConnected += custom_tabs_activit_manager_CustomTabsServiceConnected;
+                service_bound = custom_tabs_activit_manager.BindService ();
+
+                if (service_bound == false)
+                { 
+                    // No Packages that support CustomTabs
+                }
             }
 
+            return;
+        }
+
+        protected void custom_tabs_activit_manager_CustomTabsServiceConnected 
+                                    (
+                                        Content.ComponentName name, 
+                                        CustomTabsClient client
+                                    )
+        {
+            builder = new CustomTabsIntent.Builder(custom_tabs_activit_manager.Session);
+            builder.EnableUrlBarHiding();
+
+            if (CustomTabsConfiguration.IsWarmUpUsed)
+            {
+                long flags = -1;
+                client.Warmup(flags);
+            }
+
+            if (CustomTabsConfiguration.AreAnimationsUsed)
+            {
+                builder.SetStartAnimations
+                            (
+                                activity,
+                                Xamarin.Auth.Resource.Animation.slide_in_right,
+                                Xamarin.Auth.Resource.Animation.slide_out_left
+                            );
+                builder.SetExitAnimations
+                            (
+                                activity,
+                                global::Android.Resource.Animation.SlideInLeft,
+                                global::Android.Resource.Animation.SlideOutRight
+                            );
+            }
+
+            custom_tabs_activit_manager.LaunchUrl(uri.ToString(), builder.Build());
+            
             return;
         }
 
@@ -104,10 +167,10 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
                                                 (
                                                     // OnNavigationEventDelegate onNavigationEventHandler
                                                     default(CustomTabsClient.OnNavigationEventDelegate)
-                                                // not available in 23.3.0
-                                                // downgraded from 25.1.1. because of Xamarin.Forms support 23.3.0 
-                                                // CustomTabsClient.ExtraCallbackDelegate extraCallbackHandler
-                                                //null
+                                                    // not available in 23.3.0
+                                                    // downgraded from 25.1.1. because of Xamarin.Forms support 23.3.0 
+                                                    // CustomTabsClient.ExtraCallbackDelegate extraCallbackHandler
+                                                    //null
                                                 );
                 }
 
@@ -119,7 +182,11 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
         {
             get;
             set;
-        } = null;
+        }
+
+        protected void NavigationEventHandlerDefaultImplementation(int navigationEvent, Bundle extras)
+        {
+        }
 
         /*
             not available in 23.3.0
@@ -202,7 +269,12 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
         /// </summary>
         /// <seealso cref= <seealso cref="CustomTabsSession#mayLaunchUrl(Uri, Bundle, List)"/>. </seealso>
         /// <returns> true if call to mayLaunchUrl was accepted. </returns>
-        public virtual bool MayLaunchUrl(Uri uri, Bundle extras, IList<Bundle> other_likely_bundles)
+        public virtual bool MayLaunchUrl
+                                (
+                                    Android.Net.Uri uri, 
+                                    Bundle extras, 
+                                    IList<Bundle> other_likely_bundles
+                                )
         {
             if (custom_tabs_client == null)
             {
@@ -221,10 +293,19 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
 
         public virtual void OnServiceConnected(CustomTabsClient client)
         {
+            System.Diagnostics.Debug.WriteLine("CustomTabsActivityHelper.OnServiceConnected");
+
             custom_tabs_client = client;
-            custom_tabs_client.Warmup(0L);
+            if (CustomTabsConfiguration.IsWarmUpUsed)
+            {
+                System.Diagnostics.Debug.WriteLine("    warmup");
+
+                custom_tabs_client.Warmup(0L);
+            }
             if (connection_callback != null)
             {
+                System.Diagnostics.Debug.WriteLine("    connection_callback.OnCustomTabsConnected()");
+
                 connection_callback.OnCustomTabsConnected();
             }
 
@@ -233,10 +314,14 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
 
         public virtual void OnServiceDisconnected()
         {
+            System.Diagnostics.Debug.WriteLine("CustomTabsActivityHelper.OnServiceConnected");
+
             custom_tabs_client = null;
             custom_tabs_session = null;
             if (connection_callback != null)
             {
+                System.Diagnostics.Debug.WriteLine("    connection_callback.OnCustomTabsDisconnected()");
+
                 connection_callback.OnCustomTabsDisconnected();
             }
 

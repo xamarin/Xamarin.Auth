@@ -182,6 +182,17 @@
     </Compile>
     <Compile Include="AccountStore\KeyChainAccountStore.cs" />
     <Compile Include="AccountStore\KeyChainAccountStore.Aync.cs" />
+    <Folder Include="OAuth\" />
+    <Folder Include="OAuth\OAuth2\" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\State.cs">
+      <Link>OAuth\OAuth2\State.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\GrantType.cs">
+      <Link>OAuth\OAuth2\GrantType.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\ResponseType.cs">
+      <Link>OAuth\OAuth2\ResponseType.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

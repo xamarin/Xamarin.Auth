@@ -53,20 +53,23 @@
       <DependentUpon>UserAgentTestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\PageHelpers.cs" />
-    <Compile Include="Views\Samples\ProvidersSamplesPage.Google.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Samples\ProvidersSamplesPage.Facebook.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Samples\ProvidersSamplesPage.LinkedIn.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Samples\ProvidersSamplesPage.MeetUp.xaml.cs">
-      <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Samples\ProvidersSamplesPage.xaml.cs">
       <DependentUpon>ProvidersSamplesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SamplesQuick\ProvidersSamplesQuickPage.xaml.cs">
+      <DependentUpon>ProvidersSamplesQuickPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SamplesQuick\ProvidersSamplesQuickPage.Google.xaml.cs">
+      <DependentUpon>ProvidersSamplesQuickPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SamplesQuick\ProvidersSamplesQuickPage.Facebook.xaml.cs">
+      <DependentUpon>ProvidersSamplesQuickPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SamplesQuick\ProvidersSamplesQuickPage.LinkedIn.xaml.cs">
+      <DependentUpon>ProvidersSamplesQuickPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SamplesQuick\ProvidersSamplesQuickPage.MeetUp.xaml.cs">
+      <DependentUpon>ProvidersSamplesQuickPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
@@ -111,6 +114,9 @@
     <EmbeddedResource Include="Views\Samples\ProvidersSamplesPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\SamplesQuick\ProvidersSamplesQuickPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -128,9 +134,7 @@
     <When Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth  NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Auth.dll</HintPath>
               <Name>Xamarin.Auth.Portable NuGet Bait-n-Switch</Name>
         </Reference>
@@ -139,9 +143,7 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
           <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
           <Name>Xamarin.Auth.Portable Project Reference</Name>
         </ProjectReference>
@@ -162,9 +164,7 @@
     <When Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.Forms  NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.Forms  NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Auth.Forms.dll</HintPath>
               <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
         </Reference>
@@ -173,11 +173,9 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms\Xamarin.Auth.Forms.csproj">
           <Project>{67F9D3A8-F71E-4428-913F-C37AE82CDB24}</Project>
-          <Name>Xamarin.Auth.Forms Project Reference</Name>
+          <Name>Xamarin.Auth.Forms</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>
@@ -198,6 +196,7 @@
     <Folder Include="Models\" />
     <Folder Include="Models\Xamarin.Auth\" />
     <Folder Include="Views\Samples\" />
+    <Folder Include="Views\SamplesQuick\" />
   </ItemGroup>
   <Import Project="..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
   <Import Project="..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.4.247\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+Xamarin.iOS10+xamarinmac20\Xamarin.Forms.targets')" />

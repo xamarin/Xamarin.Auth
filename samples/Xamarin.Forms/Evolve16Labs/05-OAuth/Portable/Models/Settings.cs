@@ -12,7 +12,7 @@ namespace ComicBook
         {
             get;
             set;
-        }
+        } = true;
 
         public static bool IsFormsImplementationRenderers
         {

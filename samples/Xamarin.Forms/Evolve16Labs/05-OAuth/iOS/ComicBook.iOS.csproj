@@ -21,7 +21,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <MtouchArch>i386</MtouchArch>
+    <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchLink>None</MtouchLink>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchDebug>true</MtouchDebug>
@@ -155,9 +155,7 @@
     <When Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.XamarinIOS  NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.XamarinIOS  NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
               <Name>Xamarin.Auth.XamarinIOS NuGet Bait-n-Switch</Name>
         </Reference>
@@ -166,11 +164,9 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
           <Project>{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}</Project>
-          <Name>Xamarin.Auth.XamarinIOS Project Reference</Name>
+          <Name>Xamarin.Auth.XamarinIOS</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>
@@ -189,9 +185,7 @@
     <When Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.Forms.XamarinIOS NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.Forms.XamarinIOS NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\Xamarin.iOS10\Xamarin.Auth.Forms.dll</HintPath>
               <Name>Xamarin.Auth..Forms.XamarinIOS NuGet Bait-n-Switch</Name>
         </Reference>
@@ -200,11 +194,9 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj">
           <Project>{7666F0AB-7493-49F2-82B0-7D51A0250FC9}</Project>
-          <Name>Xamarin.Auth.Forms.XamarinIOS Project Reference</Name>
+          <Name>Xamarin.Auth.Forms.iOS</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>

@@ -42,6 +42,8 @@ From github
 From MatkovIvan:
 
 https://github.com/Azure/azure-mobile-apps-net-client/issues/361#issuecomment-315353068
+https://github.com/Azure/azure-mobile-apps-net-client/issues/361
+https://github.com/xamarin/Xamarin.Auth/issues/167
 
 
 In Xamarin.Android.Support.CustomTabs version 23.3.0:
@@ -76,6 +78,15 @@ TODO
 
 Xamarin.Auth lowest pinned) versionWhen Xamarin.Forms support was added to Xamarin.Auth in 2017-05 the 
 Xamarin.Android.Support libraries were pinned to 23.0.0 version in Xamarin.Forms.
+
+## unsuported_response_type error
+
+http://stackoverflow.com/questions/23961734/how-to-respond-to-an-oauth-2-0-authorization-endpoint-request-that-fails-due-to
+http://stackoverflow.com/questions/11696526/google-oauth-2-response-type-error-on-token-request
+
+
+https://forums.xamarin.com/discussion/7551/x-auth-google-unsupported-response-type
+https://forums.xamarin.com/discussion/comment/75297#Comment_75297
 
 
 ## Detecting Cancellation in CustomTabs on Android

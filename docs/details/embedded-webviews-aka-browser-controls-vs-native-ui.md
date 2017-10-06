@@ -72,8 +72,9 @@ embedded-webviews-aka-browser-controls-vs-native-ui.md
 ## Details 
 
 
-In 2016-08 (2016-06-22) on Google's develoers' blog Google announced ban for OAuth implementations
-that use Embedded WebViews (Browser Controls on Windows platforms) for security reasons.
+In 2016-08 (2016-06-22) on Google's develoers' blog Google announced ban for OAuth 
+implementations that use Embedded WebViews (Browser Controls on Windows platforms) for 
+security reasons.
 
 https://developers.googleblog.com/2016/08/modernizing-oauth-interactions-in-native-apps.html
 

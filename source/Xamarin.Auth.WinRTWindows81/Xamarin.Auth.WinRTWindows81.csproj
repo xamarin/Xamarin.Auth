@@ -261,6 +261,17 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\UINativeNonIntegratedBrowsers\AuthenticationUIType.cs">
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
+    <Folder Include="OAuth\" />
+    <Folder Include="OAuth\OAuth2\" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\State.cs">
+      <Link>OAuth\OAuth2\State.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\GrantType.cs">
+      <Link>OAuth\OAuth2\GrantType.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\ResponseType.cs">
+      <Link>OAuth\OAuth2\ResponseType.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="PCLCrypto, Version=2.0.0.0, Culture=neutral, PublicKeyToken=d4421c8a4786956c, processorArchitecture=MSIL">

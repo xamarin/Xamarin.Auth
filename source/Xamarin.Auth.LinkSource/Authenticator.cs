@@ -101,7 +101,7 @@ namespace Xamarin.Auth._MobileServices
         /// <value><c>true</c> to raise the <see cref="Error" event/> , <c>false</c> to do nothing.</value>
         protected bool IgnoreErrorsWhenCompleted { get; set; }
         //---------------------------------------------------------------------------------------
-#endregion
+        #endregion
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Xamarin.Auth.Authenticator"/> class.
@@ -112,16 +112,16 @@ namespace Xamarin.Auth._MobileServices
             HasCompleted = false;
             AllowCancel = true;
             ShowErrors = true;
-#region
+            #region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		IgnoreErrorsWhenCompleted #58
             ///		https://github.com/xamarin/Xamarin.Auth/pull/58
             IgnoreErrorsWhenCompleted = false;
             //---------------------------------------------------------------------------------------
-#endregion
+            #endregion
 
-#region
+            #region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		Added IsAuthenticated check #88
@@ -129,12 +129,12 @@ namespace Xamarin.Auth._MobileServices
             ///		
             IsAuthenticated = () => false;
             //---------------------------------------------------------------------------------------
-#endregion
+            #endregion
 
             return;
         }
 
-#if __ANDROID__
+        #if __ANDROID__
 		//UIContext context;
 		//public AuthenticateUIType GetUI (UIContext context)
 		//{
@@ -142,7 +142,7 @@ namespace Xamarin.Auth._MobileServices
 		//	return GetPlatformUI (context);
 		//}
 		//protected abstract AuthenticateUIType GetPlatformUI (UIContext context);
-#else
+        #else
         /// <summary>
         /// Gets the UI for this authenticator.
         /// </summary>
@@ -161,7 +161,7 @@ namespace Xamarin.Auth._MobileServices
         /// The UI that needs to be presented.
         /// </returns>
         //protected abstract AuthenticateUIType GetPlatformUI ();
-#endif
+        #endif
 
         /// <summary>
         /// Implementations must call this function when they have successfully authenticated.
@@ -173,11 +173,11 @@ namespace Xamarin.Auth._MobileServices
         {
             string msg = null;
 
-#if DEBUG
+            #if DEBUG
             string d = string.Join("  ;  ", account.Properties.Select(x => x.Key + "=" + x.Value));
             msg = String.Format("Authenticator.OnSucceded {0}", d);
             System.Diagnostics.Debug.WriteLine(msg);
-#endif
+            #endif
 
             if (HasCompleted)
             {
@@ -186,11 +186,11 @@ namespace Xamarin.Auth._MobileServices
 
             HasCompleted = true;
 
-#if !__ANDROID__
+            #if !__ANDROID__
             Plugin.Threading.UIThreadRunInvoker ri = new Plugin.Threading.UIThreadRunInvoker();
-#else
+            #else
             Plugin.Threading.UIThreadRunInvoker ri = new Plugin.Threading.UIThreadRunInvoker(this.context);
-#endif
+            #endif
             ri.BeginInvokeOnUIThread
             (
                 delegate
@@ -240,11 +240,11 @@ namespace Xamarin.Auth._MobileServices
 
             HasCompleted = true;
 
-#if !__ANDROID__
+            #if !__ANDROID__
             new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
-#else
+            #else
             new Plugin.Threading.UIThreadRunInvoker(this.context).BeginInvokeOnUIThread
-#endif
+            #endif
                 (
                     delegate
                     {
@@ -265,11 +265,11 @@ namespace Xamarin.Auth._MobileServices
         /// </param>
         public void OnError(string message)
         {
-#if !__ANDROID__
+            #if !__ANDROID__
             new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
-#else
+            #else
             new Plugin.Threading.UIThreadRunInvoker(this.context).BeginInvokeOnUIThread
-#endif
+            #endif
                 (
                     delegate 
                     {
@@ -293,7 +293,7 @@ namespace Xamarin.Auth._MobileServices
         /// </param>
         public void OnError(Exception exception)
         {
-#region
+            #region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
             ///		IgnoreErrorsWhenCompleted #58
@@ -308,12 +308,12 @@ namespace Xamarin.Auth._MobileServices
 			*/
             RaiseErrorEvent(new AuthenticatorErrorEventArgs(exception));
             //---------------------------------------------------------------------------------------
-#endregion
+            #endregion
 
             return;
         }
 
-#region
+        #region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		IgnoreErrorsWhenCompleted #58
@@ -322,11 +322,11 @@ namespace Xamarin.Auth._MobileServices
         {
             if (!(HasCompleted && IgnoreErrorsWhenCompleted))
             {
-#if !__ANDROID__
+                #if !__ANDROID__
                 new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
-#else
+                #else
                 new Plugin.Threading.UIThreadRunInvoker(this.context).BeginInvokeOnUIThread
-#endif
+                #endif
                         (
                                 delegate
                             {
@@ -342,10 +342,9 @@ namespace Xamarin.Auth._MobileServices
             return;
         }
         //---------------------------------------------------------------------------------------
-#endregion
+        #endregion
 
-
-#region
+        #region
         //---------------------------------------------------------------------------------------
         /// Pull Request - manually added/fixed
         ///		Added IsAuthenticated check #88
@@ -361,9 +360,40 @@ namespace Xamarin.Auth._MobileServices
         /// </summary>
         public Func<Account, AccountResult> GetAccountResult { get; set; }
         //---------------------------------------------------------------------------------------
-#endregion
+        #endregion
 
+        protected int classlevel_depth = 0;
+
+        public override string ToString()
+        {
+            /*
+            string msg = string.Format
+                                (
+                                    "[Authenticator: Title={0}, AllowCancel={1}, ShowErrors={2}, HasCompleted={3},"
+                                    +
+                                    "IsAuthenticated={4}, GetAccountResult={5}]", 
+                                    Title, 
+                                    AllowCancel, 
+                                    ShowErrors, 
+                                    HasCompleted, 
+                                    IsAuthenticated, 
+                                    GetAccountResult
+                                );
+            */
+            System.Text.StringBuilder sb = new System.Text.StringBuilder(base.ToString());
+
+            sb.AppendLine().AppendLine(this.GetType().ToString());
+            classlevel_depth++;
+            string prefix = new string('\t', classlevel_depth);
+            sb.Append(prefix).AppendLine($"Title            = {Title}");
+            sb.Append(prefix).AppendLine($"ShowErrors       = {ShowErrors}");
+            sb.Append(prefix).AppendLine($"AllowCancel      = {AllowCancel}");
+            sb.Append(prefix).AppendLine($"HasCompleted     = {HasCompleted}");
+            sb.Append(prefix).AppendLine($"IsAuthenticated  = {IsAuthenticated}");
+            sb.Append(prefix).AppendLine($"GetAccountResult = {GetAccountResult}");
+
+            return sb.ToString();
+        }
     }
-
 }
 

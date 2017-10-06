@@ -318,15 +318,16 @@ namespace Xamarin.Auth._MobileServices
                 System.Diagnostics.Debug.WriteLine($"        verifier = {verifier}");
             }
 
-            var req = OAuth1.CreateRequest
-                (
-                "GET",
-                accessTokenUrl,
-                request_parameters,
-                consumerKey,
-                consumerSecret,
-                tokenSecret
-               );
+            // WebRequest Replaced with HttpRequest for .net Standard 1.1
+            HttpWebRequest req = OAuth1.CreateRequest
+                                            (
+                                                "GET",
+                                                accessTokenUrl,
+                                                request_parameters,
+                                                consumerKey,
+                                                consumerSecret,
+                                                tokenSecret
+                                            );
 
             if (this.HttpWebClientFrameworkType == HttpWebClientFrameworkType.WebRequest)
             {
@@ -378,6 +379,28 @@ namespace Xamarin.Auth._MobileServices
             set;
         }
 
+        public override string ToString()
+        {
+            /*
+            string msg = string.Format
+                                (
+                                    "[OAuth1Authenticator: HttpWebClientFrameworkType={0}]", 
+                                   HttpWebClientFrameworkType
+                                );
+            */
+            System.Text.StringBuilder sb = new System.Text.StringBuilder(base.ToString());
+
+            sb.AppendLine().AppendLine(this.GetType().ToString());
+            classlevel_depth++;
+            string prefix = new string('\t', classlevel_depth);
+            sb.Append(prefix).AppendLine($"Query                        = {Query}");
+            sb.Append(prefix).AppendLine($"Fragment                     = {Fragment}");
+            sb.Append(prefix).AppendLine($"IsLoadableRedirectUri        = {IsLoadableRedirectUri}");
+            sb.Append(prefix).AppendLine($"ShouldEncounterOnPageLoading = {ShouldEncounterOnPageLoading}");
+            sb.Append(prefix).AppendLine($"ShouldEncounterOnPageLoaded  = {ShouldEncounterOnPageLoaded}");
+
+            return sb.ToString();
+        }
     }
 }
 

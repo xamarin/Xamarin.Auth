@@ -211,9 +211,7 @@
     <When Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.WindowsPhone8  NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.WindowsPhone8  NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.dll</HintPath>
               <Name>Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch</Name>
         </Reference>
@@ -222,9 +220,7 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
           <Project>{08470E0D-EB43-4E07-92F4-020DF019F628}</Project>
           <Name>Xamarin.Auth.WindowsPhone8 Project Reference</Name>
         </ProjectReference>
@@ -245,9 +241,7 @@
     <When Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WindowsPhone8\Xamarin.Auth.Forms.WindowsPhone8.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.Forms.dll</HintPath>
               <Name>Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch</Name>
         </Reference>
@@ -256,9 +250,7 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WindowsPhone8\Xamarin.Auth.Forms.WindowsPhone8.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.WindowsPhone8\Xamarin.Auth.Forms.WindowsPhone8.csproj">
           <Project>{c5dd0133-9a66-4489-91c3-745d6ed5ffe5}</Project>
           <Name>Xamarin.Auth.WindowsPhone8 Project Reference</Name>
         </ProjectReference>

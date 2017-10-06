@@ -165,7 +165,7 @@ namespace Xamarin.Auth._MobileServices
             //
             if (all.ContainsKey("error"))
             {
-                var description = all["error"];
+                string description = all["error"];
                 if (all.ContainsKey("error_description"))
                 {
                     description = all["error_description"];
@@ -259,5 +259,33 @@ namespace Xamarin.Auth._MobileServices
             set;
         } = true;
 
+        public override string ToString()
+        {
+            /*
+            string msg = string.Format
+                               (
+                                   "[WebRedirectAuthenticator: Query={0}, Fragment={1}, IsLoadableRedirectUri={2},"
+                                   + 
+                                   "ShouldEncounterOnPageLoading={3}, ShouldEncounterOnPageLoaded={4}]", 
+                                   Query, 
+                                   Fragment, 
+                                   IsLoadableRedirectUri, 
+                                   ShouldEncounterOnPageLoading, 
+                                   ShouldEncounterOnPageLoaded
+                                );
+            */
+            System.Text.StringBuilder sb = new System.Text.StringBuilder(base.ToString());
+
+            sb.AppendLine().AppendLine(this.GetType().ToString());
+            classlevel_depth++;
+            string prefix = new string('\t', classlevel_depth);
+            sb.Append(prefix).AppendLine($"Query                        = {Query}");
+            sb.Append(prefix).AppendLine($"Fragment                     = {Fragment}");
+            sb.Append(prefix).AppendLine($"IsLoadableRedirectUri        = {IsLoadableRedirectUri}");
+            sb.Append(prefix).AppendLine($"ShouldEncounterOnPageLoading = {ShouldEncounterOnPageLoading}");
+            sb.Append(prefix).AppendLine($"ShouldEncounterOnPageLoaded  = {ShouldEncounterOnPageLoaded}");
+
+            return sb.ToString();
+        }
     }
 }

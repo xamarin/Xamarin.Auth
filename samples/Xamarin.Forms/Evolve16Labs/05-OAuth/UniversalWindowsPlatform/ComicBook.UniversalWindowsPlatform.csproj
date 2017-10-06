@@ -142,9 +142,7 @@
     <When Condition="! exists('..\..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.UniversalWindowsPlatform NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.UniversalWindowsPlatform NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.dll</HintPath>
               <Name>Xamarin.Auth.UniversalWindowsPlatform NuGet Bait-n-Switch</Name>
         </Reference>
@@ -153,9 +151,7 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
           <Project>{2D712AA6-7697-4F4D-B5F1-AA03476F59A7}</Project>
           <Name>Xamarin.Auth.UniversalWindowsPlatform Project Reference</Name>
         </ProjectReference>
@@ -176,9 +172,7 @@
     <When Condition="! exists('..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <Reference 
-            Include="Xamarin.Auth.Forms.UniversalWindowsPlatform  NuGet Bait-n-Switch"
-            >
+        <Reference Include="Xamarin.Auth.Forms.UniversalWindowsPlatform  NuGet Bait-n-Switch">
               <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.Forms.dll</HintPath>
               <Name>Xamarin.Auth.Forms.UniversalWindowsPlatform NuGet Bait-n-Switch</Name>
         </Reference>
@@ -187,9 +181,7 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference 
-                Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj" 
-                >
+        <ProjectReference Include="..\..\..\..\..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj">
           <Project>{ef012647-f313-4dbf-ba34-f8f6190e4906}</Project>
           <Name>Xamarin.Auth.Forms.UniversalWindowsPlatform Project Reference</Name>
         </ProjectReference>

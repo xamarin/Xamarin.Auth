@@ -37,6 +37,14 @@
                     SeparatorVisibility="Default"
                     BindingContext="{Binding ProviderSamples}"
                     >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell 
+    						    Text="{Binding DisplayName}" 
+    						    Detail="{Binding Description}" 
+    						    />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
                 </ListView>
             </StackLayout>
         </ContentPage.Content>

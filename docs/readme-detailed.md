@@ -1,5 +1,27 @@
 # Xamarin.Auth readme-detailed.md
 
+# Xamarin.Auth Repository ReadMe
+
+Xamarin.Auth helps developers authenticate users via standard authentication mechanisms 
+(e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add 
+support for non-standard authentication schemes. 
+
+
+[![NuGet](https://img.shields.io/nuget/dt/Xamarin.Auth.svg)](https://www.nuget.org/packages/Xamarin.Auth)
+[![NuGet Pre Release](https://img.shields.io/nuget/vpre/Xamarin.Auth.svg)](https://www.nuget.org/packages/Xamarin.Auth)
+
+| Builds (Bot)               |  Status                                         |
+|:--------------------------:|:-----------------------------------------------:|
+| Mac OSX                    |  [![Components-XamarinAuth][23]][21]            |
+| Windows                    |  [![Components-XamarinAuth-Windows][24]][22]    |
+|							 |  
+
+[21]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth
+[22]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/
+[23]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth/badge/icon
+[24]: https://jenkins.mono-project.com/view/Components/job/Components-XamarinAuth-Windows/badge/icon
+
+
 ## Introduction
 
 Xamarin.Auth is a cross platform library that helps developers authenticate 
@@ -618,3 +640,8 @@ from component store:
 
 More details about how to compile Xamarin.Auth library and samples can be found in the docs
 in repository on GitHub.
+
+
+## DETAILS - More infomration about OAuth 
+
+https://developer.xamarin.com/guides/xamarin-forms/cloud-services/authentication/oauth/
