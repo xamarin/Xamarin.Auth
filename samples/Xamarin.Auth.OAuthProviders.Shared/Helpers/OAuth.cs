@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Xamarin.Auth.ProviderSamples.Helpers
 {
@@ -71,6 +72,16 @@ namespace Xamarin.Auth.ProviderSamples.Helpers
         {
         	get;
         	set;
+        }
+
+        public string DisplayName
+        {
+        	get
+        	{
+        		Type type = this.GetType();
+
+        		return type.ToString().Replace("Xamarin.Auth.ProviderSamples.", "");
+        	}
         }
 
         public string Description
@@ -153,6 +164,8 @@ namespace Xamarin.Auth.ProviderSamples.Helpers
             get;
             set;
         }
+
+        public delegate Task<string> GetProtectedResourceAsyncFunc(IDictionary<string, string> accountProperties);
     }
 }
 
