@@ -477,8 +477,9 @@ Action<string,  MSBuildSettings> BuildLoop =
 
 		foreach (string build_configuration in build_configurations)
 		{
-			InformationFancy($"Solution/Project = {sln_prj}");
-			InformationFancy($"Configuration    = {build_configuration}");
+			InformationFancy("BuildLoop:");
+			InformationFancy($"    Solution/Project = {sln_prj}");
+			InformationFancy($"    Configuration    = {build_configuration}");
 
 			msbuild_settings.Verbosity = verbosity;
 			msbuild_settings.Configuration = build_configuration;
@@ -487,6 +488,13 @@ Action<string,  MSBuildSettings> BuildLoop =
 									"consoleloggerparameters", 
 									"ShowCommandLine"
 								);
+
+			InformationFancy($"    MsBuildSettings.Properties:");
+			foreach(KeyValuePair<string, IList<string>> kvp in msbuild_settings.Properties)
+			{
+				string values = string.Join(", ", kvp.Value);
+				InformationFancy($"        [{kvp.Key}] = {values}");
+			}
 
 			if (sln_prj.Contains(".csproj"))
 			{
@@ -531,6 +539,7 @@ Action<string,  MSBuildSettings> BuildLoop =
 			}		
 			else if(sln_prj.Contains("MacOSX-Xamarin.Studio.sln"))
 			{
+				InformationFancy("			- msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015");
 				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
 				msbuild_settings.ToolPath = msBuildPathX64;	
 			}		

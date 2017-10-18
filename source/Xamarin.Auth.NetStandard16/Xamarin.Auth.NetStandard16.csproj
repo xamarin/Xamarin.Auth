@@ -18,6 +18,9 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
       <Link>AccountStore\AccountResult.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\GrantType.cs" Link="OAuth\OAuth2\GrantType.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\ResponseType.cs" Link="OAuth\OAuth2\ResponseType.cs" />
+    <Compile Include="..\Xamarin.Auth.LinkSource\OAuth\OAuth2\State.cs" Link="OAuth\OAuth2\State.cs" />
     <Compile Include="..\Xamarin.Auth.Portable\AccountStore\AccountStore.Portable.cs">
       <Link>AccountStore\AccountStore.Portable.cs</Link>
     </Compile>
@@ -160,6 +163,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="OAuth\" />
+    <Folder Include="OAuth\OAuth2\" />
     <Folder Include="UINativeNonIntegratedBrowsers\" />
     <Folder Include="AccountStore\" />
     <Folder Include="AccountStore\CryptoAccountManager\" />
