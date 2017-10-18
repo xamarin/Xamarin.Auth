@@ -29,7 +29,18 @@ namespace Xamarin.Auth._MobileServices
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            authenticator = (OAuth2Authenticator)e.Parameter;
+            authenticator = e.Parameter as OAuth2Authenticator;
+
+            if (null == authenticator)
+            {
+                authenticator = e.Parameter as OAuth1Authenticator;
+            }
+
+            if (null == authenticator)
+            {
+                // Not OAuth1 and OAuth2
+                throw new InvalidOperationException("Unknown OAuth type");
+            }
 
             url_initial = this.authenticator.GetInitialUrlAsync().Result;
             this.browser.Navigate(url_initial);

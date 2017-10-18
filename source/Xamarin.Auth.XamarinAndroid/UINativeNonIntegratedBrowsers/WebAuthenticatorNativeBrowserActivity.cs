@@ -57,7 +57,14 @@ namespace Xamarin.Auth._MobileServices
         {
             base.OnCreate(savedInstanceState);
 
-            LaunchCunstomTabsWithUrl = LaunchCunstomTabsWithUrlDefault;
+            //--------------------------------------------------------------
+            // Azure Mobile Services Team uses simplified code
+            // this is for testing purposes of their launch only
+            LaunchCunstomTabsWithUrl =
+                    //LaunchCunstomTabsWithUrlDefault
+                    LaunchCunstomTabsWithUrlAzureMobileServiceClientTeamCode
+                    ;
+            //--------------------------------------------------------------
 
             //
             // Load the state either from a configuration change or from the intent.
@@ -134,7 +141,6 @@ namespace Xamarin.Auth._MobileServices
             CustomTabsConfiguration.UICustomization();
 
             LaunchCunstomTabsWithUrl();
-            LaunchCunstomTabsWithUrlAzureMobileServiceClientTeamCode();
 
             return;
         }
@@ -155,6 +161,7 @@ namespace Xamarin.Auth._MobileServices
                             this,
                             // CustomTabIntent
                             CustomTabsConfiguration.CustomTabsIntent,
+                            CustomTabsConfiguration.PackageForCustomTabs,
                             CustomTabsConfiguration.UriAndroidOS,
                             //  Fallback if CustomTabs do not exist
                             CustomTabsConfiguration.WebViewFallback
@@ -188,6 +195,7 @@ namespace Xamarin.Auth._MobileServices
                                 this,
                                 // CustomTabInten
                                 CustomTabsConfiguration.CustomTabsIntent,
+                                CustomTabsConfiguration.PackageForCustomTabs,
                                 CustomTabsConfiguration.UriAndroidOS,
                                 //  Fallback if CustomTabs do not exis
                                 CustomTabsConfiguration.WebViewFallback

@@ -15,13 +15,14 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile259</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;PORTABLE;$(XamarinAuthCustomConstants)</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;PORTABLE;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -29,7 +30,7 @@
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE;PORTABLE;$(XamarinAuthCustomConstants)</DefineConstants>
+    <DefineConstants>TRACE;PORTABLE;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
@@ -45,13 +46,14 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
       <Link>AccountStore\AccountResult.cs</Link>
     </Compile>
+    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.cs">
+      <Link>AccountStore\AccountStore.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.Async.cs">
       <Link>AccountStore\AccountStore.Async.cs</Link>
       <DependentUpon>AccountStore\AccountStore.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.cs">
-      <Link>AccountStore\AccountStore.cs</Link>
-    </Compile>
+    <Compile Include="AccountStore\AccountStore.Portable.cs" />
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStoreException.cs">
       <Link>AccountStore\AccountStoreException.cs</Link>
     </Compile>
@@ -139,7 +141,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
-    <Compile Include="AccountStore.Portable.cs" />
     <Compile Include="Authenticator.Portable.cs" />
     <Compile Include="PlatformSpecific\FileHelper.cs" />
     <Compile Include="System\DecimalExtensions.cs" />

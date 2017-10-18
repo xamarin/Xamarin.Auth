@@ -52,23 +52,28 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
         {
         }
 
-        private static string sPackageNameToUse;
+		private static List<string> sPackageNamesToUse;
+		private static string sPackageNameToUse;
 
-        public static Func<Context, string, string> GetPackageNameToUse
+		public static Func<Context, string, List<string>> GetPackageNameToUse
         {
             get;
             set;
-        } = GetPackageNameToUseImplementation;
+        } = GetPackageNamesToUseImplementation;
 
-        public static Func<Context, string> GetPackageNameToUseDefaultUri
+        public static Func<Context, List<string>> GetPackageNamesToUseDefaultUri
         {
             get;
             set;
-        } = GetPackageNameToUseImplementation;
+        } = GetPackageNamesToUseImplementation;
 
-        protected static string GetPackageNameToUseImplementation(Context context)
+        protected static List<string> GetPackageNamesToUseImplementation(Context context)
         {
-            return GetPackageNameToUseImplementation(context, CustomTabsHelper.CustomTabsHelperUri);
+            return GetPackageNamesToUseImplementation
+                        (
+                            context,
+                            Xamarin.Auth.CustomTabsConfiguration.CustomTabsHelperUri
+                        );
         }
 
         /// <summary>
@@ -80,15 +85,21 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
         /// </summary>
         /// <param name="context"> <seealso cref="Context"/> to use for accessing <seealso cref="PackageManager"/>. </param>
         /// <returns> The package name recommended to use for connecting to custom tabs related components. </returns>
-        protected static string GetPackageNameToUseImplementation
+        protected static List<string> GetPackageNamesToUseImplementation
                                     (
                                         Context context,
                                         string url
                                     )
         {
-            if (sPackageNameToUse != null)
+            sPackageNamesToUse = new List<string>();
+
+            if ( ! string.IsNullOrEmpty(sPackageNameToUse) )
             {
-                return sPackageNameToUse;
+                // User has set the Package to handle Opening Urls
+                sPackageNamesToUse.Add(sPackageNameToUse);
+
+                // do not try to detect available packages
+                return sPackageNamesToUse;
             }
 
             PackageManager pm = context.PackageManager;
@@ -101,12 +112,15 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
                 defaultViewHandlerPackageName = resolve_info_default_view_handler.ActivityInfo.PackageName;
             }
 
+            System.Diagnostics.Debug.WriteLine($"defaultViewHandlerPackageName = {defaultViewHandlerPackageName}");
+
             #if DEBUG
             StringBuilder sb1 = new StringBuilder();
             sb1.AppendLine($"      package for url ");
             sb1.AppendLine($"         url = {url.ToString()}");
-            sb1.AppendLine($"         resolve_info_default_view_handler.ResolvePackageName = {resolve_info_default_view_handler.ResolvePackageName}");
-            sb1.AppendLine($"         resolve_info_default_view_handler.ActivityInfo.Name = {resolve_info_default_view_handler.ActivityInfo.Name}");
+			sb1.AppendLine($"         resolve_info_default_view_handler.ResolvePackageName       = {resolve_info_default_view_handler.ResolvePackageName}");
+			sb1.AppendLine($"         resolve_info_default_view_handler.ActivityInfo.PackageName = {resolve_info_default_view_handler.ActivityInfo.PackageName}");
+			sb1.AppendLine($"         resolve_info_default_view_handler.ActivityInfo.Name        = {resolve_info_default_view_handler.ActivityInfo.Name}");
             sb1.AppendLine($"         resolve_info_default_view_handler.ActivityInfo.ParentActivityName = {resolve_info_default_view_handler.ActivityInfo.ParentActivityName}");
             System.Diagnostics.Debug.WriteLine(sb1.ToString());
             #endif
@@ -159,10 +173,12 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
                 System.Diagnostics.Debug.WriteLine($" Packages Supporting CustomTabs Count = 1");
                 System.Diagnostics.Debug.WriteLine($" Packages Supporting CustomTabs = {packagesSupportingCustomTabs[0]}");
                 sPackageNameToUse = packagesSupportingCustomTabs[0];
+                sPackageNamesToUse.Add(sPackageNameToUse);
             }
             else if
                 (
-                    !TextUtils.IsEmpty(defaultViewHandlerPackageName)
+                    // !TextUtils.IsEmpty(defaultViewHandlerPackageName)    // Android API
+                    string.IsNullOrEmpty(defaultViewHandlerPackageName)     // .NET API
                     &&
                     !HasSpecializedHandlerIntents(context, activityIntent)
                     &&
@@ -192,7 +208,12 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
                 sPackageNameToUse = PackagesSupportingCustomTabs["LOCAL_PACKAGE"];
             }
 
-            return sPackageNameToUse;
+            for (int i = 0; i < sPackageNamesToUse.Count; i++)
+            {
+                PackagesSupportingCustomTabs.Add($"Detected {i}", sPackageNamesToUse[i]);
+            }
+
+            return sPackageNamesToUse;
         }
 
         /// <summary>
@@ -233,7 +254,11 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
                 sb.AppendLine("Runtime exception while getting specialized handlers");
                 sb.Append("Exception = ");
                 sb.Append(e.Message);
-                Log.Error(CustomTabsHelper.CustomTabsHelperAndroidLogTag, sb.ToString());
+                Log.Error
+                        (
+                            Xamarin.Auth.CustomTabsConfiguration.CustomTabsHelperAndroidLogTag, 
+                            sb.ToString()
+                        );
             }
             return false;
         }

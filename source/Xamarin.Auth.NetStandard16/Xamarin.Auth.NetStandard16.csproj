@@ -3,6 +3,13 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <NuGetTargetMoniker>.NETStandard,Version=v1.6</NuGetTargetMoniker>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_6;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;RELEASE;NETSTANDARD1_6;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\Account.cs">
@@ -10,6 +17,9 @@
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountResult.cs">
       <Link>AccountStore\AccountResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Xamarin.Auth.Portable\AccountStore\AccountStore.Portable.cs">
+      <Link>AccountStore\AccountStore.Portable.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.LinkSource\AccountStore\AccountStore.Async.cs">
       <Link>AccountStore\AccountStore.Async.cs</Link>
@@ -105,9 +115,6 @@
     <Compile Include="..\Xamarin.Auth.LinkSource\WebUtilities.cs">
       <Link>WebUtilities.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.Portable\AccountStore.Portable.cs">
-      <Link>AccountStore.Portable.cs</Link>
-    </Compile>
     <Compile Include="..\Xamarin.Auth.Portable\Authenticator.Portable.cs">
       <Link>Authenticator.Portable.cs</Link>
     </Compile>
@@ -170,7 +177,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="runtime.unix.System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="runtime.win.System.Runtime.Extensions" Version="4.3.0" />
     <PackageReference Include="System.Net.Requests" Version="4.3.0" />
     <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
   </ItemGroup>
 </Project>

@@ -411,10 +411,12 @@ namespace Xamarin.Auth._MobileServices
         {
             this.is_using_native_ui = isUsingNativeUI;
             this.State = new OAuth2.State();
-            Verify();
 
-            this.redirectUrl = redirectUrl;
-            this.accessTokenUrl = accessTokenUrl;
+			this.redirectUrl = redirectUrl;
+			this.accessTokenUrl = accessTokenUrl;
+
+			Verify();
+
 
             #region
             //---------------------------------------------------------------------------------------

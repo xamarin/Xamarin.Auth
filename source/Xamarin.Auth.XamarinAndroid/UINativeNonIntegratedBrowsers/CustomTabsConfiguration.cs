@@ -4,8 +4,9 @@ using Android.OS;
 using Android.App;
 using Android.Content;
 using Android.Support.CustomTabs;
+using System.Collections.Generic;
 
-#if ! AZURE_MOBILE_SERVICES
+#if !AZURE_MOBILE_SERVICES
 using Android.Support.CustomTabs.Chromium.SharedUtilities;
 #else
 using Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices;
@@ -28,7 +29,7 @@ namespace Xamarin.Auth
     public static partial class CustomTabsConfiguration
     #endif
     {
-        static CustomTabsConfiguration()
+		static CustomTabsConfiguration()
         {
             color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
 
@@ -46,6 +47,15 @@ namespace Xamarin.Auth
         public static void Initialize(global::Android.App.Activity a)
         {
             activity = a;
+
+            List<string> packages = PackageManagerHelper.GetPackageNameToUse
+                                                                (
+                                                                    global::Android.App.Application.Context,
+                                                                   "http://xamarin.com"
+                                                                );
+            PackagesSupportingCustomTabs = PackageManagerHelper.PackagesSupportingCustomTabs;
+            PackageForCustomTabs = PackagesSupportingCustomTabs["Detected 0"];
+
             CustomTabsActivityManager = new CustomTabsActivityManager(a);
             CustomTabsIntentBuilder = new CustomTabsIntent.Builder(CustomTabsActivityManager.Session);
             CustomTabActivityHelper = new CustomTabActivityHelper();
@@ -65,7 +75,19 @@ namespace Xamarin.Auth
             set;
         }
 
-        public static CustomTabsIntent CustomTabsIntent
+		public static Dictionary<string, string> PackagesSupportingCustomTabs
+		{
+			get;
+			set;
+		}
+
+		public static string PackageForCustomTabs
+		{
+			get;
+			set;
+		}
+
+		public static CustomTabsIntent CustomTabsIntent
         {
             get
             {
@@ -115,7 +137,24 @@ namespace Xamarin.Auth
             }
         }
 
-        public static string CustomTabsClosingMessage
+
+		public static string CustomTabsHelperUri
+		{
+			get;
+			set;
+		} = "http://xamarin.com";
+
+
+		public static string CustomTabsHelperAndroidLogTag
+		{
+			get;
+			set;
+		} = "CustomTabsHelper";
+
+
+
+
+		public static string CustomTabsClosingMessage
         {
         	get;
         	set;
