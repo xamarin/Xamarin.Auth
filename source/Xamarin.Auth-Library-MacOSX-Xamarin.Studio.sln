@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.LinkSource", "Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{3DE9DD4B-0005-4A0D-823A-9FC81B13AC77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Portable", "Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj", "{87580927-9F8E-42AE-BDFE-35F95ABF17D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.LinkSource", "Core\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid", "Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj", "{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Portable", "Core\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj", "{87580927-9F8E-42AE-BDFE-35F95ABF17D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid", "Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj", "{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
 EndProject
@@ -18,11 +20,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.Droid", "XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj", "{1B702A60-3D89-4183-B251-4A07388DCCB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.iOS", "XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj", "{7666F0AB-7493-49F2-82B0-7D51A0250FC9}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
-	ProjectSection(SolutionItems) = preProject
-		readme.md = readme.md
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Extensions", "Extensions", "{C1AFC24F-8A5D-4AAF-938E-C61212111835}"
 EndProject
@@ -33,6 +30,11 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinAndroid", "Extensions\Xamarin.Auth.Extensions.XamarinAndroid\Xamarin.Auth.Extensions.XamarinAndroid.csproj", "{FA8B2786-B839-4271-9303-43EE483BCC1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS", "Extensions\Xamarin.Auth.Extensions.XamarinIOS\Xamarin.Auth.Extensions.XamarinIOS.csproj", "{ED88D56E-0677-4735-B083-60A46FA8CB94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
+	ProjectSection(SolutionItems) = preProject
+		readme.md = readme.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -657,6 +659,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{EDE30D4F-FC0D-458A-A358-A745FC138DF3} = {3DE9DD4B-0005-4A0D-823A-9FC81B13AC77}
+		{87580927-9F8E-42AE-BDFE-35F95ABF17D8} = {3DE9DD4B-0005-4A0D-823A-9FC81B13AC77}
+		{47EC107C-EBB2-4676-82DB-F77B7BFC17AC} = {3DE9DD4B-0005-4A0D-823A-9FC81B13AC77}
+		{15BE2387-8E72-4C0B-8A6A-460EF5FA4539} = {3DE9DD4B-0005-4A0D-823A-9FC81B13AC77}
 		{67F9D3A8-F71E-4428-913F-C37AE82CDB24} = {77759364-0202-40B6-A285-6FD5490858D4}
 		{1B702A60-3D89-4183-B251-4A07388DCCB5} = {77759364-0202-40B6-A285-6FD5490858D4}
 		{7666F0AB-7493-49F2-82B0-7D51A0250FC9} = {77759364-0202-40B6-A285-6FD5490858D4}

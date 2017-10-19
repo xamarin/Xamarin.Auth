@@ -10,7 +10,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <XamarinAuthCustomPreprocessorConstantsDefines>
+    </XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +24,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType></DebugType>
+    <DebugType>
+    </DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -67,7 +69,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj">
       <Project>{ede30d4f-fc0d-458a-a358-a745fc138df3}</Project>
       <Name>Xamarin.Auth.LinkSource</Name>
     </ProjectReference>

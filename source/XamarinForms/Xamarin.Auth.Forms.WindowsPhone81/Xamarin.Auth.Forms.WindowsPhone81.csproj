@@ -20,7 +20,8 @@
     <RestorePackages>true</RestorePackages>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <XamarinAuthCustomPreprocessorConstantsDefines>
+    </XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -143,7 +144,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj">
       <Project>{18b5054d-6035-40db-b1ae-3e4fde8db6e9}</Project>
       <Name>Xamarin.Auth.WindowsPhone81</Name>
     </ProjectReference>

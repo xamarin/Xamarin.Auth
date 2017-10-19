@@ -11,7 +11,8 @@
     <AssemblyName>Xamarin.Auth.Extensions</AssemblyName>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <XamarinAuthCustomPreprocessorConstantsDefines>
+    </XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -24,7 +25,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType></DebugType>
+    <DebugType>
+    </DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <DefineConstants>__UNIFIED__;__MOBILE__;__IOS__;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
@@ -74,7 +76,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
       <Project>{15be2387-8e72-4c0b-8a6a-460ef5fa4539}</Project>
       <Name>Xamarin.Auth.XamarinIOS</Name>
       <IsAppExtension>false</IsAppExtension>
