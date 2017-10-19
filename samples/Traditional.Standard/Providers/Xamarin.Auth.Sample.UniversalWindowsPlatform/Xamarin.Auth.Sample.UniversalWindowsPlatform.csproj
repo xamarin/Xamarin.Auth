@@ -140,7 +140,7 @@
   msbuild Choose When ProjectReference Reference Include
   -->
   <Choose>
-    <When Condition="! exists('..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+    <When Condition="! exists('..\..\..\..\source\Core\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
         <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
@@ -152,7 +152,7 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference Include="..\..\..\..\source\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
+        <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
           <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
           <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
         </ProjectReference>
