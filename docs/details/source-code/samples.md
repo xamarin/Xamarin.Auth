@@ -47,7 +47,22 @@ There are several samples
 	
 ### Details - Folder structure
 
-### 
+### Samples
+
+#### Xamarin.Forms samples
+
+There are 3 dropdowns/pickers. The 4th one is activated if Embedded Web Views are used in 1st dropdown,
+so users can combine:
+
+*   1st: Native UI vs Embedded Web Views
+
+*   2nd: Presenters vs Custom Renderers (Xamarin.Forms implementations)
+
+*   3rd: Navigation for Xamarin.Forms - Push[Async] vs PushModal[Async] 
+
+*   4th: UIWebView vs WKWebView (if in 1st “Embedded Web Views” are selected)
+
+
 	
 ## OAuth Providers Sample[s] (Xamarin.Auth.OAuthProviders.*)
 
