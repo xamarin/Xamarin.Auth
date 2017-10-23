@@ -2,9 +2,13 @@
 
 This doc is subject to discussion (personal roadmap based on user feedback):
 
-## 1 OAuth features (`refresh_token`, other grant flow implementations)
+## Xamarin.Auth 1.x (1.5+)
 
-###	1.1	Custom Parameters		
+### 0 Bugfixing
+
+### 1 OAuth features (`refresh_token`, other grant flow implementations)
+
+####	1.1	Custom Parameters		
 
 	
 https://stackoverflow.com/questions/40787981/c-sharp-xamarin-ios-add-a-nonce-to-xamarin-auth-request/44792934#44792934
@@ -28,9 +32,9 @@ which would add parameters to the query.
 		
 TODO -  more links
 	
-#### Some provider samples:
+##### Some provider samples:
 
-##### **Google**
+###### **Google**
 	
 https://developers.google.com/identity/protocols/OAuth2InstalledApp
 
@@ -77,7 +81,7 @@ TODO:
 
 *	no `redirect_url` and `scope` ???
 
-##### **Google OpenId**
+###### **Google OpenId**
 	
 https://developers.google.com/identity/protocols/OpenIDConnect
 	
@@ -109,7 +113,7 @@ Token leg/step:
 | `grant_type`             |  required-standard    | `authorization_code`                           |
 	
 	
-##### **Azure Active Directory**
+###### **Azure Active Directory**
 	
 https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-v2-protocols-oauth-code
 	
@@ -153,7 +157,7 @@ Refresh Token leg/step:
 | `redirect_uri`           |  recommended-standard | random string to prevent XSS forgery           |
 | `client_secret`          |  standard             | required for web apps, not for native          |
 	
-##### **Azure Active Directory B2C**
+###### **Azure Active Directory B2C**
 
 https://docs.microsoft.com/en-us/azure/active-directory-b2c/active-directory-b2c-reference-oauth-code
 https://github.com/Azure-Samples/active-directory-b2c-xamarin-native
@@ -204,20 +208,20 @@ NOTE:
 *	`redirect_url` recommended??
 
 
-###	1.2	`refresh_token`
+#### 1.2	`refresh_token`
 	
 Currently in Xamarin.Auth.Extensions based on University team suggestion that refreshing 
 tokens in implicit flow is not recommended.		
 
-##	2 Building for Azure Mobile Services Client with XAMARIN_AUTH_INTERNAL
+###	2 Building for Azure Mobile Services Client with XAMARIN_AUTH_INTERNAL
 
 Cake scripts must be updated to compile Xamarin.Auth with and without definition
 for XAMARIN_AUTH_INTERNAL which is used by Azure Mobile Service Client.
 
 
-## 3 Security Issues
+### 3 Security Issues
 
-### 3.1	Logout Token Revocation
+#### 3.1	Logout Token Revocation
 
 https://tools.ietf.org/html/rfc7009
 
@@ -236,19 +240,19 @@ If the revocation is successfully processed, then the status code of the respons
 For error conditions, a status code 400 is returned along with an error code.
 	
 	
-## 4 Documentation
+### 4 Documentation
 
-###	4.1	Xamarin.Forms support 
+#### 4.1 Xamarin.Forms support 
 	
-###	4.2	Native UI Details		
+#### 4.2 Native UI Details		
 	
-## 5 Oauth and Identity (OpenId) Service provider samples
+### 5 Oauth and Identity (OpenId) Service provider samples
 
-### OAuth
+#### 5.1  OAuth
 
 RequestParameters
 
-### OpenId
+#### 5.2 OpenId
 
 1.	Google Identity Provider
 
@@ -312,10 +316,66 @@ http://www.digitalenginesoftware.com/blog/archives/24-OpenID-Provider-URL-Format
 http://web.archive.org/web/20091230182837/http://spreadopenid.org/provider-comparison
 
 	
-## 6 Custom Tabs API refactoring and improvements	
+### 6 Custom Tabs API refactoring and improvements	
 	
-## 7 Component packaging		
+### 7 Component packaging		
 
-## 8 .NET Standard
+### 8 .NET Standard
 
-9.	Code clean up based on coverage
+### 9.	Code clean up based on coverage
+
+
+## Xamarin.Auth vNext (most likely v.2.0)
+
+
+*	.NET Standard support
+
+	HTTP GET/POST with flexible query parameters API (for extensions like OpenID and non-standard
+	implementations
+
+	*	.Net Standard 1.0 
+		
+		implementation with HttpWebRequest and HttpWebResponse
+		
+	*	.Net Standard 1.1
+	
+		HttpClient - so underlying Native impl can be used (iOS, Android)
+
+	*	.Net Standard 1.3 
+	
+		Crypto utilties for OAuth2 flows like PKCE and to give more opportunities for security.
+
+*	improving OAuth API in Xamarin.Auth
+
+	*	State
+
+		*	flexible and configurable Parameters
+
+		* 	flexible and configurable State Generation
+
+
+*	AccountStore will be moved to Extensions nuget 
+
+	OAuth2 RFC does not specify storing tokens (storing `access_token` is not recommended, store
+	`refresh_token` instead)
+	
+	*	Android Account Manager integration - Extensions nuget
+
+*	additional platforms - Desktop
+
+	*	Windows Presentation Foundation
+
+	*	Xamarin.Mac
+
+	*	GTK#
+
+	*	Windows Forms
+
+	*	Console (no UI)
+
+*	improvements in Custom Tabs API
+
+*	more samples
+
+
+
