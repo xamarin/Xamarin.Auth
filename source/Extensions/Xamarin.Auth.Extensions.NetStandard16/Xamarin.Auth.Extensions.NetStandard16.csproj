@@ -17,8 +17,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Xamarin.Auth.Extensions.LinkSource\OAuth2AuthenticatorExtensions.cs" Link="OAuth2AuthenticatorExtensions.cs" />
-    <Compile Include="..\Xamarin.Auth.Extensions.LinkSource\Properties\AssemblyInfo.cs" Link="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Xamarin.Auth.Extensions.Common.LinkSource\OAuth2AuthenticatorExtensions.cs" Link="OAuth2AuthenticatorExtensions.cs" />
+    <Compile Include="..\Xamarin.Auth.Extensions.Common.LinkSource\Properties\AssemblyInfo.cs" Link="Properties\AssemblyInfo.cs" />
   </ItemGroup>
 
   <ItemGroup>

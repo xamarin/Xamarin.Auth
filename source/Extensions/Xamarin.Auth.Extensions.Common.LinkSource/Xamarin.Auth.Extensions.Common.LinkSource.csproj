@@ -69,9 +69,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Core\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj">
-      <Project>{ede30d4f-fc0d-458a-a358-a745fc138df3}</Project>
-      <Name>Xamarin.Auth.LinkSource</Name>
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.Common.LinkSource\Xamarin.Auth.Common.LinkSource.csproj">
+      <Project>{EDE30D4F-FC0D-458A-A358-A745FC138DF3}</Project>
+      <Name>Xamarin.Auth.Common.LinkSource</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
