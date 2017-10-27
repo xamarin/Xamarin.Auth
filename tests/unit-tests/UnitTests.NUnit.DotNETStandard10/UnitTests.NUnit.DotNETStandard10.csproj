@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2FA3D724-A040-4106-9796-C990E427FA1F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NUnit.Tests.DotNETStandard10</RootNamespace>
+    <AssemblyName>NUnit.Tests.DotNETStandard10</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;NUNIT</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DefineConstants>NUNIT</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.3.8.1\lib\net45\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\source\HolisticWare.Net.OAuth.NetStandard10\HolisticWare.Net.OAuth.NetStandard10.csproj">
+      <Project>{99a55a01-73d4-44fe-8e59-9a6e42726b13}</Project>
+      <Name>HolisticWare.Net.OAuth.NetStandard10</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\source\DotNETStandard10\DotNETStandard10.csproj">
+      <Project>{F5D9A1E6-FDB1-41AE-9771-032F71A45D1C}</Project>
+      <Name>DotNETStandard10</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="..\UnitTests.Common.DotNetStandard10\UnitTests.Common.DotNetStandard10.projitems" Label="Shared" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>
