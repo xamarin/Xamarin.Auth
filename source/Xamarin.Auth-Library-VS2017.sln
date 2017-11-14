@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.LinkSource", "Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Common.LinkSource", "Core\Xamarin.Auth.Common.LinkSource\Xamarin.Auth.Common.LinkSource.csproj", "{EDE30D4F-FC0D-458A-A358-A745FC138DF3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Portable", "Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj", "{87580927-9F8E-42AE-BDFE-35F95ABF17D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Portable", "Core\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj", "{87580927-9F8E-42AE-BDFE-35F95ABF17D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid", "Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj", "{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinAndroid", "Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj", "{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.XamarinIOS", "Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj", "{15BE2387-8E72-4C0B-8A6A-460EF5FA4539}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Windows81Universal", "Xamarin.Auth.Windows81Universal\Xamarin.Auth.Windows81Universal.csproj", "{5F4A04D8-7E74-44BB-8F5C-D9A6CFE93AED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Windows81Universal", "Core\Xamarin.Auth.Windows81Universal\Xamarin.Auth.Windows81Universal.csproj", "{5F4A04D8-7E74-44BB-8F5C-D9A6CFE93AED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.UniversalWindowsPlatform", "Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj", "{2D712AA6-7697-4F4D-B5F1-AA03476F59A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Auth.NetStandard16", "Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj", "{001C0E0F-E3FA-4F1F-96FB-2D8057DEBC02}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Xamarin.Forms", "Xamarin.Forms", "{77759364-0202-40B6-A285-6FD5490858D4}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.Droid", "XamarinForms\Xamarin.Auth.Forms.Droid\Xamarin.Auth.Forms.Droid.csproj", "{1B702A60-3D89-4183-B251-4A07388DCCB5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.iOS", "XamarinForms\Xamarin.Auth.Forms.iOS\Xamarin.Auth.Forms.iOS.csproj", "{7666F0AB-7493-49F2-82B0-7D51A0250FC9}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Auth.Forms.NetStandard16", "XamarinForms\Xamarin.Auth.Forms.NetStandard16\Xamarin.Auth.Forms.NetStandard16.csproj", "{162E31D8-3962-4B07-9C84-3A435B26D5D3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D90AB228-24A0-4F93-8F1B-389931D88183}"
 	ProjectSection(SolutionItems) = preProject
@@ -37,12 +39,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinAndroid", "Extensions\Xamarin.Auth.Extensions.XamarinAndroid\Xamarin.Auth.Extensions.XamarinAndroid.csproj", "{FA8B2786-B839-4271-9303-43EE483BCC1F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Extensions.XamarinIOS", "Extensions\Xamarin.Auth.Extensions.XamarinIOS\Xamarin.Auth.Extensions.XamarinIOS.csproj", "{ED88D56E-0677-4735-B083-60A46FA8CB94}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xamarin.Auth.Forms.UniversalWindowsPlatform", "XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\Xamarin.Auth.Forms.UniversalWindowsPlatform.csproj", "{EF012647-F313-4DBF-BA34-F8F6190E4906}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Auth.NetStandard16", "Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj", "{001C0E0F-E3FA-4F1F-96FB-2D8057DEBC02}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Auth.Forms.NetStandard16", "XamarinForms\Xamarin.Auth.Forms.NetStandard16\Xamarin.Auth.Forms.NetStandard16.csproj", "{162E31D8-3962-4B07-9C84-3A435B26D5D3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Xamarin.Auth.Extensions.NetStandard16", "Extensions\Xamarin.Auth.Extensions.NetStandard16\Xamarin.Auth.Extensions.NetStandard16.csproj", "{F8F62DC4-393D-48C9-83C3-F5121835B68C}"
 EndProject
@@ -768,62 +764,6 @@ Global
 		{ED88D56E-0677-4735-B083-60A46FA8CB94}.Release|x64.Build.0 = Release|Any CPU
 		{ED88D56E-0677-4735-B083-60A46FA8CB94}.Release|x86.ActiveCfg = Release|Any CPU
 		{ED88D56E-0677-4735-B083-60A46FA8CB94}.Release|x86.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|Any CPU.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|Any CPU.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|ARM.ActiveCfg = Release|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|ARM.Build.0 = Release|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|iPhoneSimulator.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|Mixed Platforms.ActiveCfg = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|Mixed Platforms.Build.0 = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|x64.ActiveCfg = Release|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|x64.Build.0 = Release|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|x86.ActiveCfg = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Ad-Hoc|x86.Build.0 = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|Any CPU.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|ARM.ActiveCfg = Release|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|ARM.Build.0 = Release|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|iPhone.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|iPhone.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|iPhoneSimulator.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|Mixed Platforms.ActiveCfg = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|Mixed Platforms.Build.0 = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|x64.ActiveCfg = Release|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|x64.Build.0 = Release|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|x86.ActiveCfg = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.AppStore|x86.Build.0 = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|ARM.ActiveCfg = Debug|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|ARM.Build.0 = Debug|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|Mixed Platforms.Build.0 = Debug|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|x64.ActiveCfg = Debug|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|x64.Build.0 = Debug|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|x86.ActiveCfg = Debug|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Debug|x86.Build.0 = Debug|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|ARM.ActiveCfg = Release|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|ARM.Build.0 = Release|ARM
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|iPhone.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|Mixed Platforms.ActiveCfg = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|Mixed Platforms.Build.0 = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|x64.ActiveCfg = Release|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|x64.Build.0 = Release|x64
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|x86.ActiveCfg = Release|x86
-		{EF012647-F313-4DBF-BA34-F8F6190E4906}.Release|x86.Build.0 = Release|x86
 		{001C0E0F-E3FA-4F1F-96FB-2D8057DEBC02}.Ad-Hoc|Any CPU.ActiveCfg = Debug|Any CPU
 		{001C0E0F-E3FA-4F1F-96FB-2D8057DEBC02}.Ad-Hoc|Any CPU.Build.0 = Debug|Any CPU
 		{001C0E0F-E3FA-4F1F-96FB-2D8057DEBC02}.Ad-Hoc|ARM.ActiveCfg = Debug|Any CPU
@@ -1004,7 +944,6 @@ Global
 		{6397C9BB-4FCF-4484-923B-A36093A4253D} = {C1AFC24F-8A5D-4AAF-938E-C61212111835}
 		{FA8B2786-B839-4271-9303-43EE483BCC1F} = {C1AFC24F-8A5D-4AAF-938E-C61212111835}
 		{ED88D56E-0677-4735-B083-60A46FA8CB94} = {C1AFC24F-8A5D-4AAF-938E-C61212111835}
-		{EF012647-F313-4DBF-BA34-F8F6190E4906} = {77759364-0202-40B6-A285-6FD5490858D4}
 		{162E31D8-3962-4B07-9C84-3A435B26D5D3} = {77759364-0202-40B6-A285-6FD5490858D4}
 		{F8F62DC4-393D-48C9-83C3-F5121835B68C} = {C1AFC24F-8A5D-4AAF-938E-C61212111835}
 	EndGlobalSection

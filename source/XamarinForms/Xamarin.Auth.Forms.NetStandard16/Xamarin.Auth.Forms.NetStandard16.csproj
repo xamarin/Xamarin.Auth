@@ -1,10 +1,32 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.4</TargetFramework>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <Compile Include="..\Xamarin.Auth.Forms\EmbeddedWebViewConfiguration.cs" Link="EmbeddedWebViewConfiguration.cs" />
+    <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs" Link="IEmbeddedWebViewConfiguration.cs" />
+    <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs" Link="Pages\AuthenticatorPage.cs" />
+    <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs" Link="PreserveAttribute.cs" />
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs" Link="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+    <Folder Include="Pages\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Runtime" Version="4.3.0" />
+    <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
+    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj" />
+  </ItemGroup>
+
 </Project>

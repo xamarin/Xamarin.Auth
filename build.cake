@@ -35,6 +35,10 @@ Running Cake to Build Xamarin.Auth targets
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
 
+		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=libs
+		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=nuget
+		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=samples
+		
 	Mac OSX 
 	
 		mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
@@ -64,6 +68,17 @@ NuGet Publish patterns
 */
 #tool nuget:?package=gitlink
 
+// C# 6 interpolated strings support - experimental switch
+//var experimental = HasArgument("experimental");
+//var exp = Argument<bool>("experimental", true);
+
+var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
+var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
+
+Verbosity verbosity = Verbosity.Minimal;
+
+
+
 Action<string> InformationFancy = 
 	(text) 
 		=>
@@ -75,11 +90,6 @@ Action<string> InformationFancy =
 
 			return;
 		};
-
-var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
-var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
-
-Verbosity verbosity = Verbosity.Diagnostic;
 
 // stuff needed for fixes!
 DirectoryPath vsLatest = null;
@@ -139,6 +149,32 @@ NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings
 		Prerelease = false,
 	};
 
+Task ("dump-environment")
+	.Does 
+	(
+		() =>
+		{
+
+			// Print out environment variables to console
+			var ENV_VARS = EnvironmentVariables ();
+			Information ("Environment Variables: {0}", "");
+			foreach (var ev in ENV_VARS)
+				Information ("\t{0} = {1}", ev.Key, ev.Value);
+
+			// EnvironmentVariables evs = EnvironmentVariables ();
+			// Information ("Environment Variables: {0}", "");
+			// foreach (EnvironmentVariable ev in evs)
+			// {
+			// 	Information ($"\t{ev.Key}       = {ev.Value}");
+			// }
+			
+			// From Cake.Xamarin.Build, dumps out versions of things
+			LogSystemInfo ();
+
+			return;
+		}
+	);
+
 Task ("clean")
 	.Does 
 	(
@@ -197,7 +233,7 @@ Task ("rebuild")
 Task ("build")
 	.IsDependentOn ("libs")
 	.IsDependentOn ("samples")
-	;	
+	;
 
 Task ("package")
 	.IsDependentOn ("libs")
@@ -248,26 +284,26 @@ string[] source_solutions = new string[]
 
 string[] solutions_for_nuget_tests = new string[]
 {
-	"./samples//Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-	"./samples//Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-	"./samples//Xamarin.Forms/Evolve16Labs/05-OAuth/ComicBook.sln",
-	"./samples//Xamarin.Forms/Providers/XamarinAuth.XamarinForms.sln",
+	"./samples/Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+	"./samples/Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+	"./samples/Xamarin.Forms/Evolve16Labs/05-OAuth/ComicBook.sln",
+	"./samples/Xamarin.Forms/Providers/XamarinAuth.XamarinForms.sln",
 };
 
 string[] sample_solutions_macosx = new string[]
 {
-//	"./samples//Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-//	"./samples//Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-//	"./samples//Xamarin.Forms/Evolve16Labs/05-OAuth/ComicBook.sln",
-//	"./samples//Xamarin.Forms/Providers/XamarinAuth.XamarinForms.sln",
+//	"./samples/Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+//	"./samples/Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+//	"./samples/Xamarin.Forms/Evolve16Labs/05-OAuth/ComicBook.sln",
+//	"./samples/Xamarin.Forms/Providers/XamarinAuth.XamarinForms.sln",
 };
 
 string[] sample_solutions_windows = new string[]
 {
-//	"./samples//Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
-//	"./samples//Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
-//	"./samples//Xamarin.Forms/Evolve16Labs/05-OAuth/ComicBook.sln",
-//	"./samples//Xamarin.Forms/Providers/XamarinAuth.XamarinForms.sln",
+//	"./samples/Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard-MacOSX-Xamarin.Studio.sln",
+//	"./samples/Traditional.Standard/Providers/Xamarin.Auth.Samples.TraditionalStandard.sln",
+//	"./samples/Xamarin.Forms/Evolve16Labs/05-OAuth/ComicBook.sln",
+//	"./samples/Xamarin.Forms/Providers/XamarinAuth.XamarinForms.sln",
 };
 
 string[] sample_solutions = 
@@ -291,7 +327,7 @@ string[] build_configurations =  new []
 
 //---------------------------------------------------------------------------------------
 /*
-Custome preprocessor defines
+Custom preprocessor defines
 used by some projects (Azure Mobile Services) 
 
 when passing preprocessor defines/constants through commandline all required defines
@@ -300,110 +336,9 @@ must be specified on commandline (even DEBUG for Debug configurations).
 NOTE - there is deviation in Xamarin.Android behaviour which appends Android default
 constants (like __ANDROID__) and even some non-standard ones (like __MOBILE__)
 */
-Dictionary<string,List<string>> defines = new Dictionary<string,List<string> > 
-{
-	{ 
-		"Default",
-		new List<string>
-		{
-			"" ,
-		}
-	},
-	{ 
-		"Delimiter ;", 
-		new List<string>
-		{
-			"%3B",
-		}
-	},	
-	{ 
-		"Custom", 
-		new List<string>
-		{
-			"XAMARIN_AUTH_INTERNAL", 
-			"XAMARIN_CUSTOM_TABS_INTERNAL",
-			"AZURE_MOBILE_SERVICES",
-		}
-	},	
-	{ 
-		"Portable", 
-		new List<string>
-		{
-			"PORTABLE", 	// non-standard (Xamarin.Auth legacy)
-			"PCL",			// non-standard (Xamarin.Auth legacy)
-		}
-	},	
-	{ 
-		"Xamarin.Android", 
-		new List<string>
-		{
-			"__ANDROID__",
-			"__ANDROID_1__", "__ANDROID_2__", "__ANDROID_3__", "__ANDROID_4__", "__ANDROID_5__",
-			"__ANDROID_6__", "__ANDROID_7__", "__ANDROID_8__", "__ANDROID_9__", "__ANDROID_10__",
-			"__ANDROID_11__", "__ANDROID_12__", "__ANDROID_13__", "__ANDROID_14__", "__ANDROID_15__",
-			"__ANDROID_17__", "__ANDROID_18__", "__ANDROID_19__", "__ANDROID_20__", "__ANDROID_21__",
-			"__ANDROID_22__", "__ANDROID_23__", "__ANDROID_24__", "__ANDROID_25__", "__ANDROID_26__",
-			"__MOBILE__",			// Xamarin Legacy
-			"PLATFORM_ANDROID",	// Xamarin.Auth Legacy
-		}
-	},	
-	{ 
-		"Xamarin.IOS", 
-		new List<string>
-		{
-			"__IOS__",
-			"__UNIFIED__",
-			"___MOBILE__",
-			"PLATFORM_IOS",		// Xamarin.Auth Legacy
-		}
-	},	
-	{ 
-		"Universal Windows Platform", 
-		new List<string>
-		{
-			"NETFX_CORE",
-			"WINDOWS_UWP",
-			"WINDOWS",
-			"WINDOWS_APP",
-			"WINDOWS_PHONE",
-			"WINDOWS_PHONE_APP",
-		}
-	},	
-	{ 
-		"Windows 8.1 WinRT", 
-		new List<string>
-		{
-			"NETFX_CORE",
-			"WINDOWS",
-			"WINDOWS_APP",
-		}
-	},	
-	{ 
-		"Windows Phone 8.1 WinRT", 
-		new List<string>
-		{
-			"NETFX_CORE",
-			"WINDOWS_PHONE",
-			//"WINDOWS_PHONE_APP",
-		}
-	},	
-	{ 
-		"Windows Phone 8 Silverlight", 
-		new List<string>
-		{
-			"WINDOWS_PHONE",
-			"SILVERLIGHT",
-			"PLATFORM_WINPHONE",	// Xamarin.Auth Legacy
-		}
-	},	
-	{ 
-		"DotNetStandard 1.6", 
-		new List<string>
-		{
-			"NETSTANDARD1_6",
-		}
-	},	
-};
+
+string custom_defines = "XAMARIN_AUTH_INTERNAL%3BXAMARIN_CUSTOM_TABS_INTERNAL%3BAZURE_MOBILE_SERVICES";
+
 //---------------------------------------------------------------------------------------
 
 string define = null;
@@ -542,8 +477,9 @@ Action<string,  MSBuildSettings> BuildLoop =
 
 		foreach (string build_configuration in build_configurations)
 		{
-			InformationFancy($"Solution/Project = {sln_prj}");
-			InformationFancy($"Configuration    = {build_configuration}");
+			InformationFancy("BuildLoop:");
+			InformationFancy($"    Solution/Project = {sln_prj}");
+			InformationFancy($"    Configuration    = {build_configuration}");
 
 			msbuild_settings.Verbosity = verbosity;
 			msbuild_settings.Configuration = build_configuration;
@@ -552,6 +488,13 @@ Action<string,  MSBuildSettings> BuildLoop =
 									"consoleloggerparameters", 
 									"ShowCommandLine"
 								);
+
+			InformationFancy($"    MsBuildSettings.Properties:");
+			foreach(KeyValuePair<string, IList<string>> kvp in msbuild_settings.Properties)
+			{
+				string values = string.Join(", ", kvp.Value);
+				InformationFancy($"        [{kvp.Key}] = {values}");
+			}
 
 			if (sln_prj.Contains(".csproj"))
 			{
@@ -596,6 +539,7 @@ Action<string,  MSBuildSettings> BuildLoop =
 			}		
 			else if(sln_prj.Contains("MacOSX-Xamarin.Studio.sln"))
 			{
+				InformationFancy("			- msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015");
 				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
 				msbuild_settings.ToolPath = msBuildPathX64;	
 			}		
@@ -672,105 +616,89 @@ Task ("libs-macosx-projects")
 			if ( ! IsRunningOnWindows() )
 			{
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.Common.LinkSource/Xamarin.Auth.Common.LinkSource.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Default"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Default"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";					
+				solution_or_project = "./source/Core/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";					
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Portable"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Portable"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
 						"./output/pcl/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.Android"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.Android"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
 						"./output/android/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.IOS"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.IOS"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
 						"./output/iOS/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
 						"./output/iOS/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -780,18 +708,14 @@ Task ("libs-macosx-projects")
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Portable"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Portable"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -808,20 +732,16 @@ Task ("libs-macosx-projects")
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.Android"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.Android"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
+                
 				CopyFiles
 					(
 						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
@@ -836,18 +756,14 @@ Task ("libs-macosx-projects")
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.IOS"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.IOS"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -868,18 +784,14 @@ Task ("libs-macosx-projects")
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Portable"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Portable"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -896,18 +808,14 @@ Task ("libs-macosx-projects")
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.Android"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.Android"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -924,18 +832,14 @@ Task ("libs-macosx-projects")
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.IOS"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.IOS"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -1054,61 +958,49 @@ Task ("libs-windows-projects")
 			if (IsRunningOnWindows ()) 
 			{	
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.Common.LinkSource/Xamarin.Auth.Common.LinkSource.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Default"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Default"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Portable"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Portable"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
 						"./output/pcl/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
 						"./output/pcl/"
 					);
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.Android"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.Android"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1125,29 +1017,25 @@ Task ("libs-windows-projects")
 						*/
 						ToolPath = msBuildPathX64,
 						ToolVersion = MSBuildToolVersion.VS2015,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
 						"./output/android/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
 						"./output/android/"
 					);
 				//-------------------------------------------------------------------------------------
 				InformationFancy("msBuildPathX64 = " + msBuildPathX64);
-				solution_or_project = "./source/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.IOS"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.IOS"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1155,28 +1043,24 @@ Task ("libs-windows-projects")
 					new MSBuildSettings
 					{
 						ToolPath = msBuildPathX64,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
 						"./output/ios/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
 						"./output/ios/"
 					);
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.WindowsPhone8/Xamarin.Auth.WindowsPhone8.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.WindowsPhone8/Xamarin.Auth.WindowsPhone8.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Windows Phone 8 Silverlight"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Windows Phone 8 Silverlight"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1185,28 +1069,24 @@ Task ("libs-windows-projects")
 					{
 						ToolVersion = MSBuildToolVersion.VS2015,
 						PlatformTarget = PlatformTarget.x86,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.dll", 
 						"./output/wp80/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.pdb", 
 						"./output/wp80/"
 					);
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Xamarin.Auth.WindowsPhone81/Xamarin.Auth.WindowsPhone81.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.WindowsPhone81/Xamarin.Auth.WindowsPhone81.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Windows Phone 8 Silverlight"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Windows Phone 8 Silverlight"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1215,17 +1095,17 @@ Task ("libs-windows-projects")
 					{
 						ToolVersion = MSBuildToolVersion.VS2015,
 						PlatformTarget = PlatformTarget.x86,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.dll", 
 						"./output/wp81/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.pdb", 
 						"./output/wp81/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -1241,51 +1121,47 @@ Task ("libs-windows-projects")
 					│   ├── Xamarin.Auth.pdb
 					│   └── Xamarin.Auth.pri
 				*/
-				solution_or_project = "./source/Xamarin.Auth.WinRTWindows81/Xamarin.Auth.WinRTWindows81.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.WinRTWindows81/Xamarin.Auth.WinRTWindows81.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Windows 8.1 WinRT"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Windows 8.1 WinRT"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.dll", 
 						"./output/win81/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pdb", 
 						"./output/win81/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pri", 
+						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pri", 
 						"./output/win81/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
 						"./output/win81/Xamarin.Auth/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
 						"./output/win81/Xamarin.Auth/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
 						"./output/win81/Xamarin.Auth/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -1301,14 +1177,10 @@ Task ("libs-windows-projects")
 					│   ├── Xamarin.Auth.pdb
 					│   └── Xamarin.Auth.pri
 				*/
-				solution_or_project = "./source/Xamarin.Auth.WinRTWindowsPhone81/Xamarin.Auth.WinRTWindowsPhone81.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/Xamarin.Auth.WinRTWindowsPhone81.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Windows Phone 8.1 WinRT"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Windows Phone 8.1 WinRT"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1316,37 +1188,37 @@ Task ("libs-windows-projects")
 					new MSBuildSettings
 					{
 						ToolVersion = MSBuildToolVersion.VS2015,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.dll", 
 						"./output/wpa81/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pdb", 
 						"./output/wpa81/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pri", 
+						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pri", 
 						"./output/wpa81/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
 						"./output/wpa81/Xamarin.Auth/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
 						"./output/wpa81/Xamarin.Auth/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
 						"./output/wpa81/Xamarin.Auth/"
 					);
 				//-------------------------------------------------------------------------------------
@@ -1361,14 +1233,10 @@ Task ("libs-windows-projects")
 					│   ├── Xamarin.Auth.pdb
 					│   └── Xamarin.Auth.pri
 				*/
-				solution_or_project = "./source/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Universal Windows Platform"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Universal Windows Platform"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1376,47 +1244,52 @@ Task ("libs-windows-projects")
 					new MSBuildSettings
 					{
 						ToolVersion = MSBuildToolVersion.VS2015,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-				BuildLoop
-				(
-					solution_or_project, 
-					new MSBuildSettings
-					{
-						ToolVersion = MSBuildToolVersion.VS2017,
-					}.WithProperty("DefineConstants", define)
-				);
+				//BuildLoop
+				//(
+				//	solution_or_project, 
+				//	new MSBuildSettings
+				//	{
+				//		ToolVersion = MSBuildToolVersion.VS2017,
+				//	}.WithProperty("DefineConstants", define)
+				//);
 
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.dll", 
+						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.dll", 
 						"./output/uap10.0/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pdb", 
+						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pdb", 
 						"./output/uap10.0/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri", 
+						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri", 
 						"./output/uap10.0/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+						/*
+						mc++ 2017-10-17 output changed??
+						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
 						"./output/uap10.0/Xamarin.Auth/"
+						*/
+						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml", 
+						"./output/uap10.0/"
 					);
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
-						"./output/uap10.0/Xamarin.Auth/"
+						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf", 
+						"./output/uap10.0/"
 					);
 				/*
 					.net Native - Linking stuff - not needed
 				CopyFiles
 					(
-						"./source/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Properties/Xamarin.Auth.rd.xml", 
+						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.rd.xml", 
 						"./output/uap10.0/Properties/"
 					);
 				*/
@@ -1427,18 +1300,14 @@ Task ("libs-windows-projects")
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.Portable/Xamarin.Auth.Extensions.Portable.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Portable"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Portable"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -1455,11 +1324,7 @@ Task ("libs-windows-projects")
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.Android"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.Android"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1476,7 +1341,7 @@ Task ("libs-windows-projects")
 						*/
 						ToolPath = msBuildPathX64,
 						ToolVersion = MSBuildToolVersion.VS2015,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -1493,11 +1358,7 @@ Task ("libs-windows-projects")
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.IOS"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.IOS"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1505,7 +1366,7 @@ Task ("libs-windows-projects")
 					new MSBuildSettings
 					{						
 						ToolPath = msBuildPathX64,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -1526,18 +1387,14 @@ Task ("libs-windows-projects")
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Portable"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Portable"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
 					solution_or_project, 
 					new MSBuildSettings
 					{
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -1554,11 +1411,7 @@ Task ("libs-windows-projects")
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.Android"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.Android"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1573,9 +1426,9 @@ Task ("libs-windows-projects")
 						project to target an API version that is installed. 
 						(C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
 						*/
-						ToolPath = msBuildPathX64,
-						ToolVersion = MSBuildToolVersion.VS2015,
-					}.WithProperty("DefineConstants", define)
+						//ToolPath = msBuildPathX64,
+						//ToolVersion = MSBuildToolVersion.VS2015,
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -1592,11 +1445,7 @@ Task ("libs-windows-projects")
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj";
 				if (is_using_custom_defines == true)
 				{
-					define = string.Join("%3B", defines["Custom"].Concat(defines["Xamarin.IOS"]));
-				}
-				else
-				{
-					define = string.Join("%3B", defines["Xamarin.IOS"]);
+					define = custom_defines;
 				}
 				BuildLoop
 				(
@@ -1604,7 +1453,7 @@ Task ("libs-windows-projects")
 					new MSBuildSettings
 					{
 						ToolPath = msBuildPathX64,
-					}.WithProperty("DefineConstants", define)
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 
 				CopyFiles
@@ -1902,13 +1751,6 @@ Task("Default")
 	);
 
 
-// Print out environment variables to console
-var ENV_VARS = EnvironmentVariables ();
-Information ("Environment Variables: {0}", "");
-foreach (var ev in ENV_VARS)
-	Information ("\t{0} = {1}", ev.Key, ev.Value);
-
-// From Cake.Xamarin.Build, dumps out versions of things
-LogSystemInfo ();
+RunTarget("dump-environment");
 
 RunTarget (TARGET);

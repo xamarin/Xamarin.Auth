@@ -276,16 +276,25 @@
 			target="lib/uap10.0/Xamarin.Auth.pri"
 			>
 		</file>
+		<!--
+		mc++ 2017-10-17 output changed??
 		<file
 			src="output/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xaml"
 			target="lib/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xaml"
 			>
 		</file>
+		
 		<file
 			src="output/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
 			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
 			>
 		</file>
+		-->
 
+		<file
+			src="output/uap10.0/Xamarin.Auth.xr.xml"
+			target="lib/uap10.0/Xamarin.Auth.xr.xml"
+			>
+		</file>
 	</files>
 </package>
