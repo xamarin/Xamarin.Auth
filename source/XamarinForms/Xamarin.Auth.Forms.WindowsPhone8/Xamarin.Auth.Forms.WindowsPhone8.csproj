@@ -144,7 +144,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.WindowsPhone8\Xamarin.Auth.WindowsPhone8.csproj">
       <Project>{08470e0d-eb43-4e07-92f4-020df019f628}</Project>
       <Name>Xamarin.Auth.WindowsPhone8</Name>
     </ProjectReference>

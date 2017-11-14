@@ -121,7 +121,7 @@
     <Compile Include="AuthenticatorPageRenderer.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
       <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
       <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
       <Private>False</Private>

@@ -83,7 +83,7 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\..\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj">
       <Project>{d07c6fc6-6860-495c-9bc8-0f731c74ae2f}</Project>
       <Name>Xamarin.Auth.WinRTWindowsPhone81</Name>
     </ProjectReference>
