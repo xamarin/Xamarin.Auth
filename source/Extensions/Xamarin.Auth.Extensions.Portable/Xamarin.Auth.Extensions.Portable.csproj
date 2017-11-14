@@ -54,7 +54,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
       <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
       <Name>Xamarin.Auth.Portable</Name>
     </ProjectReference>

@@ -38,9 +38,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="mscorlib" />
-    <!-- ======================================================================================================== -->
-    <!--
-	-->
     <Reference Include="System.Runtime" />
     <Reference Include="System.Threading.Tasks" />
     <Reference Include="Validation">
@@ -67,9 +64,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.LinkSource\Xamarin.Auth.LinkSource.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.Common.LinkSource\Xamarin.Auth.Common.LinkSource.csproj">
       <Project>{ede30d4f-fc0d-458a-a358-a745fc138df3}</Project>
-      <Name>Xamarin.Auth.LinkSource</Name>
+      <Name>Xamarin.Auth.Common.LinkSource</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

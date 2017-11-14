@@ -108,7 +108,7 @@
     <AndroidResource Include="Resources\values\Strings.xml" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
       <Project>{47ec107c-ebb2-4676-82db-f77b7bfc17ac}</Project>
       <Name>Xamarin.Auth.XamarinAndroid</Name>
     </ProjectReference>
