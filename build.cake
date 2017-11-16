@@ -616,7 +616,7 @@ Task ("libs-macosx-projects")
 			if ( ! IsRunningOnWindows() )
 			{
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Core/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.Common.LinkSource/Xamarin.Auth.Common.LinkSource.csproj";
 				if (is_using_custom_defines == true)
 				{
 					define = custom_defines;
@@ -958,7 +958,7 @@ Task ("libs-windows-projects")
 			if (IsRunningOnWindows ()) 
 			{	
 				//-------------------------------------------------------------------------------------
-				solution_or_project = "./source/Core/Xamarin.Auth.LinkSource/Xamarin.Auth.LinkSource.csproj";
+				solution_or_project = "./source/Core/Xamarin.Auth.Common.LinkSource/Xamarin.Auth.Common.LinkSource.csproj";
 				if (is_using_custom_defines == true)
 				{
 					define = custom_defines;
@@ -1615,6 +1615,18 @@ Task ("nuget")
 			NuGetPack 
 				(
 					"./nuget/Xamarin.Auth.Extensions.nuspec", 
+					new NuGetPackSettings 
+					{ 
+						Verbosity = NuGetVerbosity.Detailed,
+						OutputDirectory = "./output/",        
+						BasePath = "./",
+						ToolPath = nuget_tool_path,
+						Symbols = true
+					}
+				);                
+			NuGetPack 
+				(
+					"./nuget/Xamarin.Auth.Samples.nuspec", 
 					new NuGetPackSettings 
 					{ 
 						Verbosity = NuGetVerbosity.Detailed,
