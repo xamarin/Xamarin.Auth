@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <!--
+    https://docs.nuget.org/create/nuspec-reference#specifying-dependencies
+    -->
+	<metadata minClientVersion="2.8.1">
+		<id>
+			Xamarin.Auth.Samples
+		</id>
+		<title>
+			Xamarin.Auth.Samples
+		</title>
+		<authors>
+			Xamarin
+		</authors>
+		<owners>
+			Xamarin
+		</owners>
+		<copyright>
+			Copyright 2013-2017
+		</copyright>
+		<!--
+		SemVer - Semantic Versioning
+		http://semver.org/
+		-->
+		<version>
+			2.0.0.0-alpha01
+		</version>
+		<releaseNotes>
+			native UI support preview - Custom Tabs and SFSafariViewController
+			Xamarin.Forms support for Native UI (Android and iOS)
+			Xamarin.Forms 2 flavors (CustomRenderers and Presenters)
+			API breakage! 
+			No casting needed for old style API for GetUI().
+			New API (Native UI) must cast to get CustomTabs and SFSafariViewController API
+		</releaseNotes>
+		<licenseUrl>
+			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
+		</licenseUrl>
+		<projectUrl>
+			https://github.com/xamarin/Xamarin.Auth
+		</projectUrl>
+		<iconUrl>
+			https://xamarin-component-icons.s3.amazonaws.com/Xamarin.Auth.png
+		</iconUrl>
+		<requireLicenseAcceptance>
+			false
+		</requireLicenseAcceptance>
+		<description>
+			A cross-platform API for authenticating users and storing their accounts.
+		</description>
+		<summary>
+			Xamarin.Auth helps you authenticate users via standard authentication
+			mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials.
+			It's also straightforward to add support for non-standard authentication schemes.
+			The library is cross-platform, so once you learn it on iOS, you're all set on
+			Android.
+		</summary>
+		<tags>
+			xamarin,
+			pcl,
+			android, monoandroid, monodroid, xamarin.android,
+			ios,  monotouch, xamarin.ios
+			windows phone, winphone, wp, 
+			windows phone 8 silverlight, winphone 8 sl, wp8 sl
+			windows phone 8.1 silverlight, winphone 8.1 sl, wp81 sl
+			windows 8.1, windows 8.1 winrt, win81
+			windows phone 8.1 winrt, winphone 8.1 winrt, wpa81
+			universal windows platform, uwp, windows 10
+			plugin for xamarin, plugin,
+			xamarin.forms,
+			<!--
+			-->
+		</tags>
+		<dependencies> 
+			<!--
+			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
+			-->
+			<group>
+				<dependency id="Xamarin.Auth" version="[1.5.0,)" />
+			</group>
+		</dependencies>
+		<contentFiles>
+			<!-- Include Assets as Content -->
+		    <!-- Build actions for items in the contentFiles folder -->
+			<files 
+				include="samples\Traditional.Standard\Providers\**\" 
+				buildAction="EmbeddedResource"
+				>
+			</files>
+			<files 
+				include="**/images/*.*" 
+				buildAction="EmbeddedResource"
+				>
+			</files>
+		</contentFiles>
+	</metadata>
+	<files>
+		<!--
+		https://blog.nuget.org/20160126/nuget-contentFiles-demystified.html
+		-->
+		<!--
+		-->
+		<file 
+			src="samples\Xamarin.Auth.OAuthProviders.Portable\**\" 
+			target="samples\Xamarin.Auth.OAuthProviders.Portable\" 
+			exclude="samples\Xamarin.Auth.OAuthProviders.Portable\**\bin\;samples\Xamarin.Auth.OAuthProviders.Portable\**\obj\" 
+		>
+		</file>
+		<file 
+			src="samples\Xamarin.Auth.OAuthProviders.Shared\**\" 
+			target="samples\Xamarin.Auth.OAuthProviders.Shared\" 
+			exclude="samples\Xamarin.Auth.OAuthProviders.Shared\**\bin\;samples\Xamarin.Auth.OAuthProviders.Shared\**\obj\" 
+		>
+		</file>
+		<file 
+			src="samples\Traditional.Standard\Providers\**\" 
+			target="samples\Traditional.Standard\Providers\" 
+			exclude="samples\Traditional.Standard\Providers\**\bin\;samples\Traditional.Standard\Providers\**\obj\" 
+		>
+		</file>
+	</files>
+</package>
