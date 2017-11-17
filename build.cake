@@ -1623,19 +1623,25 @@ Task ("nuget")
 						ToolPath = nuget_tool_path,
 						Symbols = true
 					}
-				);                
-			NuGetPack 
-				(
-					"./nuget/Xamarin.Auth.Samples.nuspec", 
-					new NuGetPackSettings 
-					{ 
-						Verbosity = NuGetVerbosity.Detailed,
-						OutputDirectory = "./output/",        
-						BasePath = "./",
-						ToolPath = nuget_tool_path,
-						Symbols = true
-					}
-				);                
+				);   
+
+			if (!IsRunningOnWindows())
+			{
+				// packing samples on ! Windows - path lengths problems
+				NuGetPack 
+					(
+						"./nuget/Xamarin.Auth.Samples.nuspec", 
+						new NuGetPackSettings 
+						{ 
+							Verbosity = NuGetVerbosity.Detailed,
+							OutputDirectory = "./output/",        
+							BasePath = "./",
+							ToolPath = nuget_tool_path,
+							Symbols = true
+						}
+					);                
+					
+			}
 		}
 	);
 
