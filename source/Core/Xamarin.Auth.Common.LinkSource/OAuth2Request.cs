@@ -1,5 +1,5 @@
 //
-//  Copyright 2012-2016, Xamarin Inc.
+//  Copyright 2012-2017, Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
@@ -15,7 +15,9 @@
 //
 using System;
 using System.Collections.Generic;
-using Xamarin.Auth;
+using System.Net.Http.Headers;
+using System.Threading;
+using System.Threading.Tasks;
 
 #if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
@@ -53,8 +55,29 @@ namespace Xamarin.Auth._MobileServices
         /// <returns>The OAuth2 prepared URL.</returns>
         protected override Uri GetPreparedUrl()
         {
-            return GetAuthenticatedUrl(Account, base.GetPreparedUrl(), AccessTokenParameterName);
+            if (!UseBearerToken)
+            {
+                return GetAuthenticatedUrl(Account, base.GetPreparedUrl(), AccessTokenParameterName);
+            }
+
+            return base.GetPreparedUrl();
         }
+
+        public override Task<Response> GetResponseAsync(CancellationToken cancellationToken)
+        {
+            if (UseBearerToken)
+            {
+                var req = GetPreparedWebRequest();
+                req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", GetAccessToken(Account));
+            }
+
+            return base.GetResponseAsync(cancellationToken);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether a bearer token should be used.
+        /// </summary>
+        public bool UseBearerToken { get; set; }
 
         /// <summary>
         /// Gets or sets the access token parameter name.
@@ -78,28 +101,21 @@ namespace Xamarin.Auth._MobileServices
         /// <seealso cref="AccessTokenParameterName"/>
         public static Uri GetAuthenticatedUrl(Account account, Uri unauthenticatedUrl, string accessTokenParameterName = "access_token")
         {
-            if (account == null)
-            {
-                throw new ArgumentNullException("account");
-            }
-            if (!account.Properties.ContainsKey("access_token"))
-            {
-                throw new ArgumentException("OAuth2 account is missing required access_token property.", "account");
-            }
             if (unauthenticatedUrl == null)
             {
                 throw new ArgumentNullException("unauthenticatedUrl");
             }
 
             var url = unauthenticatedUrl.AbsoluteUri;
+            var accessToken = GetAccessToken(account);
 
             if (url.Contains("?"))
             {
-                url += "&" + accessTokenParameterName + "=" + account.Properties["access_token"];
+                url += "&" + accessTokenParameterName + "=" + accessToken;
             }
             else
             {
-                url += "?" + accessTokenParameterName + "=" + account.Properties["access_token"];
+                url += "?" + accessTokenParameterName + "=" + accessToken;
             }
 
             return new Uri(url);
@@ -114,6 +130,11 @@ namespace Xamarin.Auth._MobileServices
         /// <param name='account'>The <see cref="Account"/> that's been authenticated.</param>
         public static string GetAuthorizationHeader(Account account)
         {
+            return "Bearer " + GetAccessToken(account);
+        }
+
+        private static string GetAccessToken(Account account)
+        {
             if (account == null)
             {
                 throw new ArgumentNullException("account");
@@ -123,7 +144,7 @@ namespace Xamarin.Auth._MobileServices
                 throw new ArgumentException("OAuth2 account is missing required access_token property.", "account");
             }
 
-            return "Bearer " + account.Properties["access_token"];
+            return account.Properties["access_token"];
         }
     }
 }
