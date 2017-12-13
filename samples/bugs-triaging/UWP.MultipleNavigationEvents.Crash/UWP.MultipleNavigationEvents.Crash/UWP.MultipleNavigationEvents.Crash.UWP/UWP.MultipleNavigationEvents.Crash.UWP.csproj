@@ -88,6 +88,36 @@
     <Prefer32Bit>true</Prefer32Bit>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+	<When Condition="! exists('..\..\..\..\..\source\Core\Xamarin.Auth.UniversalWindowsPlatfrom\Xamarin.Auth.UniversalWindowsPlatfrom.csproj')">
+	  <!-- nuget packages (dll) refs -->
+	  <ItemGroup>
+		<Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+		  <HintPath>..\..\packages\Xamarin.Auth.1.5.0.3\lib\uap10.0\Xamarin.Auth.dll</HintPath>
+		  <Name>Xamarin.Auth.UniversalWindowsPlatfrom NuGet Bait-n-Switch</Name>
+		</Reference>
+	  </ItemGroup>
+	</When>
+	<Otherwise>
+	  <!-- project refs -->
+	  <ItemGroup>
+		<ProjectReference Include="..\..\..\..\..\source\Core\Xamarin.Auth.UniversalWindowsPlatfrom\Xamarin.Auth.UniversalWindowsPlatfrom.csproj">
+		  <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
+		  <Name>Xamarin.Auth.UniversalWindowsPlatfrom project</Name>
+		</ProjectReference>
+	  </ItemGroup>
+	</Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />

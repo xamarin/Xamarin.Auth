@@ -111,9 +111,6 @@
     <Reference Include="Xamarin.Android.Support.Vector.Drawable, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Android.Support.Vector.Drawable.25.4.0.2\lib\MonoAndroid70\Xamarin.Android.Support.Vector.Drawable.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Auth, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Forms.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\Xamarin.Forms.Core.dll</HintPath>
     </Reference>
@@ -127,7 +124,37 @@
       <HintPath>..\..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+	<When Condition="! exists('..\..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
+	  <!-- nuget packages (dll) refs -->
+	  <ItemGroup>
+		<Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+		  <HintPath>..\..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+		  <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
+		</Reference>
+	  </ItemGroup>
+	</When>
+	<Otherwise>
+	  <!-- project refs -->
+	  <ItemGroup>
+		<ProjectReference Include="..\..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
+		  <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
+		  <Name>Xamarin.Auth.XamarinAndroid project</Name>
+		</ProjectReference>
+	  </ItemGroup>
+	</Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
