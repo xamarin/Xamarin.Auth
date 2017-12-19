@@ -1271,27 +1271,26 @@ Task ("libs-windows-projects")
 					│   ├── Xamarin.Auth.pdb
 					│   └── Xamarin.Auth.pri
 				*/
-//				solution_or_project = "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj";
-//				if (is_using_custom_defines == true)
-//				{
-//					define = custom_defines;
-//				}
-//				BuildLoop
-//				(
-//					solution_or_project, 
-//					new MSBuildSettings
-//					{
-//						ToolVersion = MSBuildToolVersion.VS2015,
-//					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
-//				);
-				//BuildLoop
-				//(
-				//	solution_or_project, 
-				//	new MSBuildSettings
-				//	{
-				//		ToolVersion = MSBuildToolVersion.VS2017,
-				//	}.WithProperty("DefineConstants", define)
-				//);
+				if (is_using_custom_defines == true)
+				{
+					define = custom_defines;
+				}
+				BuildLoop
+				(
+					solution_or_project, 
+				  new MSBuildSettings
+					{
+						ToolVersion = MSBuildToolVersion.VS2015,
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
+				);
+				BuildLoop
+				(
+					solution_or_project, 
+					new MSBuildSettings
+					{
+						ToolVersion = MSBuildToolVersion.VS2017,
+					}.WithProperty("DefineConstants", define)
+				);
 
 				CopyFiles
 					(
