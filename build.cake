@@ -27,7 +27,7 @@ Installing
         curl -Lsfo build.sh http://cakebuild.net/download/bootstrapper/linux
         chmod +x ./build.sh && ./build.sh
 
-Running Cake to Build Xamarin.Auth targets
+Running Cake to Build targets
 
 	Windows
 
@@ -55,9 +55,10 @@ NuGet Publish patterns
 
 #########################################################################################
 */	
-#addin nuget:?package=Cake.Xamarin&version=1.3.0.15
-#addin nuget:?package=Cake.Xamarin.Build&version=2.0.22
-#addin nuget:?package=Cake.FileHelpers&version=1.0.4
+#addin nuget:?package=Cake.Android.SdkManager
+#addin nuget:?package=Cake.Xamarin
+#addin nuget:?package=Cake.Xamarin.Build
+#addin nuget:?package=Cake.FileHelpers
 #tool nuget:?package=vswhere
 
 /*
@@ -74,6 +75,7 @@ NuGet Publish patterns
 
 var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
 var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
+var ANDROID_HOME = EnvironmentVariable ("ANDROID_HOME") ?? Argument ("android_home", "");
 
 Verbosity verbosity = Verbosity.Minimal;
 
@@ -247,6 +249,42 @@ Task ("libs")
 	(
 		() => 
 		{	
+		}
+	);
+
+Task ("android-sdk-install")
+	.Does
+	(
+		() => 
+		{	
+			// ANDROID_HOME=${Env:LOCALAPPDATA}\Android\android-sdk
+			// ANDROID_HOME=${Env:ProgramFiles(x86)}\Android\sdk
+			Information ("ANDROID_HOME: {0}", ANDROID_HOME);
+
+			AndroidSdkManagerToolSettings androidSdkSettings = new AndroidSdkManagerToolSettings 
+			{
+				SdkRoot = ANDROID_HOME,
+				SkipVersionCheck = true
+			};
+
+			try 
+			{ 
+				AcceptLicenses (androidSdkSettings); 
+			}
+			catch 
+			{ 
+			}
+
+			AndroidSdkManagerInstall 
+			(
+				new [] 
+				{ 
+					"platforms;android-15",
+					"platforms;android-23",
+					"platforms;android-25",
+					"platforms;android-26"
+				}, androidSdkSettings
+			);
 		}
 	);
 
@@ -1752,5 +1790,6 @@ Task("Default")
 
 
 RunTarget("dump-environment");
+//RunTarget ("android-sdk-install");
 
 RunTarget (TARGET);
