@@ -91,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <None Include="app.config" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -141,24 +142,24 @@
   msbuild Choose When ProjectReference Reference Include
   -->
   <Choose>
-	<When Condition="! exists('..\..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj')">
-	  <!-- nuget packages (dll) refs -->
-	  <ItemGroup>
-		<Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
-		  <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
-		  <Name>Xamarin.Auth.XamarinIOS NuGet Bait-n-Switch</Name>
-		</Reference>
-	  </ItemGroup>
-	</When>
-	<Otherwise>
-	  <!-- project refs -->
-	  <ItemGroup>
-		<ProjectReference Include="..\..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
-		  <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
-		  <Name>Xamarin.Auth.XamarinIOS project</Name>
-		</ProjectReference>
-	  </ItemGroup>
-	</Otherwise>
+    <When Condition="! exists('..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\Xamarin.iOS10\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.XamarinIOS NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
+          <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
+          <Name>Xamarin.Auth.XamarinIOS project</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
   </Choose>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
