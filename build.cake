@@ -498,10 +498,12 @@ Action<string,  MSBuildSettings> BuildLoop =
 
 			if (sln_prj.Contains(".csproj"))
 			{
+				InformationFancy($"        Building project = {sln_prj}");
 				// NO OP - MSBuildToolVersion is set before calling
 			}
 			else if (sln_prj.Contains("VS2015.sln"))
 			{
+				InformationFancy($"        Building VS2015 solution = {sln_prj}");
 				/*
 				Using Visual Studio 2015 tooling
 
@@ -527,6 +529,7 @@ Action<string,  MSBuildSettings> BuildLoop =
 			}
 			else if(sln_prj.Contains("VS2017.sln"))
 			{
+				InformationFancy($"        Building VS2017 solution = {sln_prj}");
 				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
 				/*
 				C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets 
@@ -539,7 +542,8 @@ Action<string,  MSBuildSettings> BuildLoop =
 			}		
 			else if(sln_prj.Contains("MacOSX-Xamarin.Studio.sln"))
 			{
-				InformationFancy("			- msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015");
+				InformationFancy($"        Building VS4Mac solution = {sln_prj}");
+				InformationFancy("			  - msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015");
 				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
 				msbuild_settings.ToolPath = msBuildPathX64;	
 			}		
@@ -567,8 +571,8 @@ Task ("libs-macosx-filesystem")
 	);
 
 Task ("libs-macosx")
-	.IsDependentOn ("libs-macosx-projects")
 	.IsDependentOn ("libs-macosx-solutions")
+	.IsDependentOn ("libs-macosx-projects")
 	.Does 
 	(
 		() => 
@@ -861,8 +865,8 @@ Task ("libs-macosx-projects")
 
 
 Task ("libs-windows")
-	.IsDependentOn ("libs-windows-projects")
 	.IsDependentOn ("libs-windows-solutions")
+	.IsDependentOn ("libs-windows-projects")
 	.Does 
 	(
 		() => 
@@ -888,7 +892,8 @@ Task ("libs-windows-tooling")
 				InformationFancy("msBuildPathX64       = " + msBuildPathX64);
 
 				// FIX csc path is invalid 
-				msBuildPathX64 = "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin/MSBuild.exe";
+				// fix not needed since 2017-12-xx
+				// msBuildPathX64 = "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin/MSBuild.exe";
 				InformationFancy("msBuildPathX64 FIXED = " + msBuildPathX64);
 			}
 			
@@ -970,7 +975,6 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
 
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";
