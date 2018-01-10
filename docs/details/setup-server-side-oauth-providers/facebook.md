@@ -8,6 +8,21 @@ WORK IN PROGRESS - CONSTRUCTION_SITE/BAUSTELLE
 	string redirect_url = $"fb{fb_app_id}://authorize";
 ```
 
+The URL can be found in Facebook SDK implementations
+
+*	Android
+
+	https://github.com/facebook/facebook-android-sdk/blob/45482361eb182bb3392386182f8f4e6c4896c2b9/facebook-common/src/main/java/com/facebook/CustomTabMainActivity.java#L45
+
+*	iOS
+
+	https://github.com/facebook/facebook-ios-sdk/blob/f7531a838a1ec3308721f335e801ac9f508feee4/FBSDKLoginKit/FBSDKLoginKitTests/FBSDKLoginManagerTests.m#L51
+
+	https://github.com/facebook/facebook-ios-sdk/blob/4b4bd9504d70d99d6c6b1ca670f486ac8f494f17/FBSDKLoginKit/FBSDKLoginKit/Internal/FBSDKLoginUtility.m#L43-L47
+
+
+
+
 ## Console - Server Side Setup 
 
 ### Setup 1
