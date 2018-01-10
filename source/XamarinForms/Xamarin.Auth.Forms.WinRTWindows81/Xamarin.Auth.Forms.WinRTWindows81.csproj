@@ -147,12 +147,36 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj">
-      <Project>{c4202ac1-1027-4737-8215-16182421e342}</Project>
-      <Name>Xamarin.Auth.WinRTWindows81</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\Core\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\Xamwin81arin.iOS10\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.WinRTWindows81 NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\Core\Xamarin.Auth.WinRTWindows81\Xamarin.Auth.WinRTWindows81.csproj">
+          <Project>{c4202ac1-1027-4737-8215-16182421e342}</Project>
+          <Name>Xamarin.Auth.WinRTWindows81 Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
