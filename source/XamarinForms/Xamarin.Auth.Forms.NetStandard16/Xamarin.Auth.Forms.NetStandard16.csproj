@@ -25,4 +25,7 @@
     <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj" />
+  </ItemGroup>
 </Project>
