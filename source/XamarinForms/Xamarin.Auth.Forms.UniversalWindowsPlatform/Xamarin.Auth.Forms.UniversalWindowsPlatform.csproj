@@ -120,13 +120,36 @@
     </Compile>
     <Compile Include="AuthenticatorPageRenderer.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
-      <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
-      <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
-      <Private>False</Private>
-    </ProjectReference>
-  </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\Core\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wpa81\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\Core\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
+          <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
+          <Name>Xamarin.Auth.UniversalWindowsPlatform Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

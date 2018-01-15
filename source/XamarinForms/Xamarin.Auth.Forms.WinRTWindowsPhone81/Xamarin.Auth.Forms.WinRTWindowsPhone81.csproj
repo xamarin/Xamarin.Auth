@@ -81,13 +81,36 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
-  <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <ProjectReference Include="..\..\Core\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj">
-      <Project>{d07c6fc6-6860-495c-9bc8-0f731c74ae2f}</Project>
-      <Name>Xamarin.Auth.WinRTWindowsPhone81</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\Core\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wpa81\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\Core\Xamarin.Auth.WinRTWindowsPhone81\Xamarin.Auth.WinRTWindowsPhone81.csproj">
+          <Project>{d07c6fc6-6860-495c-9bc8-0f731c74ae2f}</Project>
+          <Name>Xamarin.Auth.WinRTWindowsPhone81 Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
   <ItemGroup>
     <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
       <Link>IEmbeddedWebViewConfiguration.cs</Link>

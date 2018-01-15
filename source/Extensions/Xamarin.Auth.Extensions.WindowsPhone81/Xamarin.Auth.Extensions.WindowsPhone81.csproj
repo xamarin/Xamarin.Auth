@@ -91,11 +91,35 @@
       <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="Xamarin.Auth">
-      <HintPath>..\..\packages\Xamarin.Auth.1.3.0-alpha-03\lib\wp8\Xamarin.Auth.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\Core\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\wp8\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.WindowsPhone81 NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\Core\Xamarin.Auth.WindowsPhone81\Xamarin.Auth.WindowsPhone81.csproj">
+          <Name>Xamarin.Auth.WindowsPhone81 Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->  
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

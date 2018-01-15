@@ -10,7 +10,8 @@
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <XamarinAuthCustomPreprocessorConstantsDefines>
+    </XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,7 +24,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType></DebugType>
+    <DebugType>
+    </DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
@@ -63,11 +65,35 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Core\Xamarin.Auth.Common.LinkSource\Xamarin.Auth.Common.LinkSource.csproj">
-      <Project>{ede30d4f-fc0d-458a-a358-a745fc138df3}</Project>
-      <Name>Xamarin.Auth.Common.LinkSource</Name>
-    </ProjectReference>
-  </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\Core\Xamarin.Auth.Common.LinkSource\Xamarin.Auth.Common.LinkSource.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.LinkSource NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\Core\Xamarin.Auth.Common.LinkSource\Xamarin.Auth.Common.LinkSource.csproj">
+          <Project>{ede30d4f-fc0d-458a-a358-a745fc138df3}</Project>
+          <Name>Xamarin.Auth.Common.LinkSource</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
