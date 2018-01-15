@@ -52,6 +52,20 @@ NuGet Publish patterns
 		** /output/Xamarin.Auth.XamarinForms.1.5.0-alpha-12.nupkg,
 		** /output/Xamarin.Auth.Extensions.1.5.0-alpha-12.nupkg
 		
+MSBuild
+
+	tools\vswhere\vswhere\tools\vswhere.exe ^
+		-property installationPath ^
+		-all ^
+		-products * ^
+		-requires Microsoft.VisualStudio.Product.BuildTools
+
+		-legacy ^
+
+		-products * ^
+		-requires Microsoft.Component.MSBuild ^
+		
+		Microsoft.VisualStudio.Product.BuildTools
 
 #########################################################################################
 */	
@@ -59,6 +73,7 @@ NuGet Publish patterns
 #addin nuget:?package=Cake.Xamarin
 #addin nuget:?package=Cake.Xamarin.Build
 #addin nuget:?package=Cake.FileHelpers
+#addin nuget::?package=Cake.Incubator
 #tool nuget:?package=vswhere
 
 /*
@@ -909,18 +924,49 @@ Task ("libs-windows")
 		}
 	);
 
+// https://cakebuild.net/dsl/vswhere/
+// needed to detect VS and Build Tools installations!
 Task ("libs-windows-tooling")
 	.Does 
 	(
 		() => 
 		{	
+			//https://cakebuild.net/dsl/vswhere/
+
 			if (IsRunningOnWindows ()) 
 			{	
-				vsLatest  = VSWhereLatest();
+				DirectoryPathCollection vswhere_all = null;
+				
+				vswhere_all = VSWhereAll
+												(
+													new VSWhereAllSettings 
+																{ 
+																	Requires = "'Microsoft.Component.MSBuild" 
+																}
+												);
+				foreach(DirectoryPath dp in vswhere_all)
+				{
+					InformationFancy(dp.Dump());
+				}												
+
+				DirectoryPathCollection vswhere_legacy = null;
+				
+				vswhere_legacy = VSWhereLegacy
+														(
+															new VSWhereLegacySettings()
+															{
+															}
+														);
+				foreach(DirectoryPath dp in vswhere_legacy)
+				{
+					InformationFancy(dp.Dump());
+				}												
+
+				DirectoryPath vswhere_latest  = VSWhereLatest();
 				msBuildPathX64 = 
 					(vsLatest==null)
 					? null
-					: vsLatest.CombineWithFilePath("./MSBuild/15.0/Bin/amd64/MSBuild.exe")
+					: vswhere_latest.CombineWithFilePath("./MSBuild/15.0/Bin/amd64/MSBuild.exe")
 					;
 
 				InformationFancy("msBuildPathX64       = " + msBuildPathX64);
