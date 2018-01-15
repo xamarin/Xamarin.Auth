@@ -41,8 +41,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Stackoverflow\StackoverflowOAuth2Implicit.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Twitter\TwitterOAuth1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SampleData\Data.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Flickr\FlickrOAuth2Mobile.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Flickr\FlickrOAuth2Web.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SampleData\Providers\Flickr\FlickrOAuth2Desktop.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)SampleData\Providers\00-readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)SampleData\Providers\Flickr\" />
   </ItemGroup>
 </Project>
