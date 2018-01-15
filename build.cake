@@ -914,7 +914,7 @@ Task ("libs-macosx-projects")
 
 
 Task ("libs-windows")
-	.IsDependentOn ("libs-windows-projects")
+	//.IsDependentOn ("libs-windows-projects")
 	.IsDependentOn ("libs-windows-solutions")
 	.Does 
 	(
@@ -1306,6 +1306,7 @@ Task ("libs-windows-projects")
 						"./output/wpa81/Xamarin.Auth/"
 					);
 				//-------------------------------------------------------------------------------------
+				solution_or_project = "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj";
 				/*
 					Dependencies omitted!! 
 					.
@@ -1326,7 +1327,7 @@ Task ("libs-windows-projects")
 					solution_or_project, 
 				  new MSBuildSettings
 					{
-						ToolVersion = MSBuildToolVersion.VS2015,
+						//ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
 				BuildLoop
