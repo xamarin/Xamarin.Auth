@@ -51,20 +51,20 @@
     <Reference Include="PCLCrypto">
       <HintPath>..\..\packages\PCLCrypto.2.0.147\lib\net45\PCLCrypto.dll</HintPath>
     </Reference>
-    <Reference Include="Validation">
-      <HintPath>..\..\packages\Validation.2.4.15\lib\net45\Validation.dll</HintPath>
-    </Reference>
     <Reference Include="PInvoke.Windows.Core">
-      <HintPath>..\..\packages\PInvoke.Windows.Core.0.5.97\lib\net35\PInvoke.Windows.Core.dll</HintPath>
+      <HintPath>..\..\packages\PInvoke.Windows.Core.0.5.111\lib\net35\PInvoke.Windows.Core.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.Kernel32">
-      <HintPath>..\..\packages\PInvoke.Kernel32.0.5.97\lib\net45\PInvoke.Kernel32.dll</HintPath>
+      <HintPath>..\..\packages\PInvoke.Kernel32.0.5.111\lib\net45\PInvoke.Kernel32.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.BCrypt">
-      <HintPath>..\..\packages\PInvoke.BCrypt.0.5.97\lib\net45\PInvoke.BCrypt.dll</HintPath>
+      <HintPath>..\..\packages\PInvoke.BCrypt.0.5.111\lib\net45\PInvoke.BCrypt.dll</HintPath>
     </Reference>
     <Reference Include="PInvoke.NCrypt">
-      <HintPath>..\..\packages\PInvoke.NCrypt.0.5.97\lib\net45\PInvoke.NCrypt.dll</HintPath>
+      <HintPath>..\..\packages\PInvoke.NCrypt.0.5.111\lib\net45\PInvoke.NCrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="Validation">
+      <HintPath>..\..\packages\Validation.2.4.18\lib\net45\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -118,8 +118,6 @@
     <Compile Include="AccountStore\AccountStore.netfx.cs" />
     <Compile Include="AccountStore\AccountStoreException.cs" />
     <Compile Include="AccountStore\Account.cs" />
-    <Compile Include="AccountStore\CryptoAccountManager\CryptoUtilities.cs" />
-    <Compile Include="AccountStore\CryptoAccountManager\AccountManager.cs" />
     <Compile Include="OAuth\OAuth2\GrantType.cs" />
     <Compile Include="OAuth\OAuth2\ResponseType.cs" />
     <Compile Include="OAuth\OAuth2\State.cs" />
@@ -133,7 +131,6 @@
     <Folder Include="Providers\Facebook\" />
     <Folder Include="Providers\Google\" />
     <Folder Include="AccountStore\" />
-    <Folder Include="AccountStore\CryptoAccountManager\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="UINativeNonIntegratedBrowsers\custom-scheme-test.html" />
@@ -147,4 +144,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+    <!--
+  <Import Project="..\..\packages\Microsoft.DotNet.BuildTools.GenAPI.1.0.0-beta-00081\build\Microsoft.DotNet.BuildTools.GenAPI.targets" Condition="Exists('..\..\packages\Microsoft.DotNet.BuildTools.GenAPI.1.0.0-beta-00081\build\Microsoft.DotNet.BuildTools.GenAPI.targets')" />
+    -->
 </Project>

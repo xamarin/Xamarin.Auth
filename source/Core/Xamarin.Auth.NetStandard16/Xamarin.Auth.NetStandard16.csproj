@@ -4,9 +4,11 @@
     <NuGetTargetMoniker>.NETStandard,Version=v1.6</NuGetTargetMoniker>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_6;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETSTANDARD1_6</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DefineConstants>TRACE;RELEASE;NETSTANDARD1_6;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
@@ -155,12 +157,6 @@
     <Compile Include="..\Xamarin.Auth.Portable\Plugins\UIThreadRunInvoker.Portable.cs">
       <Link>Plugins\UIThreadRunInvoker.Portable.cs</Link>
     </Compile>
-    <None Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
-      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
-    </None>
-    <None Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
-      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="OAuth\" />
