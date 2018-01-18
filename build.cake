@@ -232,7 +232,27 @@ Task ("distclean")
 	.Does 
 	(
 		() => 
-		{				
+		{	
+			// if(IsRunningOnWindows())
+			// {
+			// 	string xamarin = System.IO.Path.Combine
+			// 									(
+			// 										EnvironmentVariable("LOCALAPPDATA"), 
+			// 										"xamarin/*"
+			// 									);		
+			// 	//CleanDirectories(GetDirectories(xamarin));
+			// 	DeleteDirectories
+			// 				(
+			// 					GetDirectories(xamarin), 
+			// 					new DeleteDirectorySettings 
+			// 					{
+			// 						Recursive = true,
+			// 						Force = true
+			// 					}
+			// 				);
+
+			// }
+
 			DeleteDirectories(GetDirectories("**/bin"), recursive:true);
 			DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
 			DeleteDirectories(GetDirectories("**/obj"), recursive:true);
@@ -914,7 +934,7 @@ Task ("libs-macosx-projects")
 
 
 Task ("libs-windows")
-	.IsDependentOn ("libs-windows-projects")
+	//.IsDependentOn ("libs-windows-projects")
 	.IsDependentOn ("libs-windows-solutions")
 	.Does 
 	(
@@ -1835,6 +1855,7 @@ Task("Default")
 
 
 RunTarget("dump-environment");
+RunTarget("distclean");
 //RunTarget ("android-sdk-install");
 
 RunTarget (TARGET);
