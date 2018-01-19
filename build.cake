@@ -74,6 +74,7 @@ MSBuild
 #addin nuget:?package=Cake.Xamarin.Build
 #addin nuget:?package=Cake.FileHelpers
 #addin nuget::?package=Cake.Incubator
+#addin nuget:?package=Cake.Android.SdkManager
 #tool nuget:?package=vswhere
 
 /*
@@ -171,12 +172,34 @@ Task ("dump-environment")
 	(
 		() =>
 		{
+			var list = AndroidSdkManagerList
+			(
+				new AndroidSdkManagerToolSettings 
+				{
+					SdkRoot = ANDROID_HOME, 
+					SkipVersionCheck = false
+				}
+			);
+
+			list.Dump();
+
+			// foreach (var a in list?.AvailablePackages)
+			// {
+			// 	Console.WriteLine($"{a.Description}\t{a.Version}\t{a.Path}");
+			// }
+
+			// foreach (var a in list?.InstalledPackages)
+			// {
+			// 	Console.WriteLine($"{a.Description}\t{a.Version}\t{a.Path}");
+			// }
 
 			// Print out environment variables to console
 			var ENV_VARS = EnvironmentVariables ();
 			Information ("Environment Variables: {0}", "");
 			foreach (var ev in ENV_VARS)
+			{
 				Information ("\t{0} = {1}", ev.Key, ev.Value);
+			}
 
 			// EnvironmentVariables evs = EnvironmentVariables ();
 			// Information ("Environment Variables: {0}", "");
