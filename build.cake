@@ -172,6 +172,21 @@ Task ("dump-environment")
 	(
 		() =>
 		{
+			// Print out environment variables to console
+			var ENV_VARS = EnvironmentVariables();
+			Information ("Environment Variables: {0}", "");
+			foreach (var ev in ENV_VARS)
+			{
+				Information ("\t{0} = {1}", ev.Key, ev.Value);
+			}
+
+			// EnvironmentVariables evs = EnvironmentVariables ();
+			// Information ("Environment Variables: {0}", "");
+			// foreach (EnvironmentVariable ev in evs)
+			// {
+			// 	Information ($"\t{ev.Key}       = {ev.Value}");
+			// }
+
 			var list = AndroidSdkManagerList
 			(
 				new AndroidSdkManagerToolSettings 
@@ -193,21 +208,6 @@ Task ("dump-environment")
 			// 	Console.WriteLine($"{a.Description}\t{a.Version}\t{a.Path}");
 			// }
 
-			// Print out environment variables to console
-			var ENV_VARS = EnvironmentVariables ();
-			Information ("Environment Variables: {0}", "");
-			foreach (var ev in ENV_VARS)
-			{
-				Information ("\t{0} = {1}", ev.Key, ev.Value);
-			}
-
-			// EnvironmentVariables evs = EnvironmentVariables ();
-			// Information ("Environment Variables: {0}", "");
-			// foreach (EnvironmentVariable ev in evs)
-			// {
-			// 	Information ($"\t{ev.Key}       = {ev.Value}");
-			// }
-			
 			// From Cake.Xamarin.Build, dumps out versions of things
 			LogSystemInfo ();
 
