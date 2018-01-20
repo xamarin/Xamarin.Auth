@@ -89,9 +89,9 @@ MSBuild
 //var experimental = HasArgument("experimental");
 //var exp = Argument<bool>("experimental", true);
 
-var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
-var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
-var ANDROID_HOME = EnvironmentVariable ("ANDROID_HOME") ?? Argument ("android_home", "");
+string TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
+string VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
+string ANDROID_HOME = EnvironmentVariable("ANDROID_HOME") ?? Argument("android_home", "");
 
 Verbosity verbosity = Verbosity.Minimal;
 
@@ -174,15 +174,37 @@ Task ("dump-environment")
 		{
 			if(IsRunningOnWindows())
 			{
+				// Linux:		~/Android/Sdk
+				// Mac: 		~/Library/Android/sdk
+				// Windows: 	%LOCALAPPDATA%\Android\sdk
+
 				// Get absolute root path.
-				string path = @"''%LOCALAPPDATA%''\Android\android-sdk";
-				Information($"mc++ Searching = {path}");
-				var root = MakeAbsolute(Directory(path)).FullPath;
-				// Get directories
-				var dirs = GetDirectories(root);
-				foreach(var dir in dirs)
+				string[] paths = new string[]
 				{
-					Information($"mc++ FullPath = {dir.FullPath}");
+					EnvironmentVariable ("LOCALAPPDATA") + "/Android/android-sdk",
+					EnvironmentVariable ("ProgramFiles") + "/Android/android-sdk",
+					EnvironmentVariable ("ProgramFiles(x86)") + "/Android/android-sdk",
+				};
+
+				foreach(string path in paths)
+				{
+					Information($"mc++ Searching = {path}");
+					string root = MakeAbsolute(Directory(path)).FullPath;
+					// Get directories
+					DirectoryPathCollection dirs = null;
+					try
+					{
+						dirs = GetSubDirectories(root);
+						foreach(DirectoryPath dir in dirs)
+						{
+							Information($"mc++ FullPath = {dir.FullPath}");
+						}
+					}
+					catch(Exception)
+					{
+					Information($"mc++ Search failed = {path}");
+					}
+
 				}
 
 			}
