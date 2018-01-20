@@ -199,6 +199,7 @@ Task ("dump-environment")
 						{
 							Information($"mc++ FullPath = {dir.FullPath}");
 						}
+						ANDROID_HOME = root;
 					}
 					catch(Exception)
 					{
