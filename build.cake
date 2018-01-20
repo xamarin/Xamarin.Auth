@@ -172,12 +172,29 @@ Task ("dump-environment")
 	(
 		() =>
 		{
+			if(IsRunningOnWindows())
+			{
+				// Get absolute root path.
+				string path = @"''%LOCALAPPDATA%''\Android\android-sdk";
+				Information($"mc++ Searching = {path}");
+				var root = MakeAbsolute(Directory(path)).FullPath;
+				// Get directories
+				var dirs = GetDirectories(root);
+				foreach(var dir in dirs)
+				{
+					Information($"mc++ FullPath = {dir.FullPath}");
+				}
+
+			}
+
+
+
 			// Print out environment variables to console
 			var ENV_VARS = EnvironmentVariables();
-			Information ("Environment Variables: {0}", "");
+			Information ($"mc++ Environment Variables:");
 			foreach (var ev in ENV_VARS)
 			{
-				Information ("\t{0} = {1}", ev.Key, ev.Value);
+				Information ($"      mc++ {ev.Key} = {ev.Value}");
 			}
 
 			// EnvironmentVariables evs = EnvironmentVariables ();
