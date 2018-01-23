@@ -175,14 +175,14 @@ Task ("update-android-sdk")
 		{
 			Information ("ANDROID_HOME: {0}", ANDROID_HOME);
 
-			var code = StartProcess
-							(
-								EnvironmentVariable ("ANDROID_HOME") + "/tools/bin/sdkmanager", 
-								new ProcessSettings
-								{ 
-									Arguments = "--update" 
-								}
-							);
+			// var code = StartProcess
+			// 				(
+			// 					EnvironmentVariable ("ANDROID_HOME") + "/tools/bin/sdkmanager", 
+			// 					new ProcessSettings
+			// 					{ 
+			// 						Arguments = "--update" 
+			// 					}
+			// 				);
 
 			var androidSdkSettings = new AndroidSdkManagerToolSettings 
 			{ 
