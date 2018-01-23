@@ -95,7 +95,7 @@ string ANDROID_HOME = EnvironmentVariable("ANDROID_HOME") ?? Argument("android_h
 
 Verbosity verbosity = Verbosity.Minimal;
 
-
+TARGET = "update-android-sdk";
 
 Action<string> InformationFancy = 
 	(text) 
@@ -167,6 +167,49 @@ NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings
 		Prerelease = false,
 	};
 
+Task ("update-android-sdk")
+	.IsDependentOn ("dump-environment")
+	.Does 
+	(
+		() =>
+		{
+			Information ("ANDROID_HOME: {0}", ANDROID_HOME);
+
+			var code = StartProcess
+							(
+								EnvironmentVariable ("ANDROID_HOME") + "/tools/bin/sdkmanager", 
+								new ProcessSettings
+								{ 
+									Arguments = "--update" 
+								}
+							);
+
+			var androidSdkSettings = new AndroidSdkManagerToolSettings 
+			{ 
+				SdkRoot = ANDROID_HOME,
+				SkipVersionCheck = true
+			};
+
+			try { AcceptLicenses (androidSdkSettings); } catch { }
+
+
+			AndroidSdkManagerUpdateAll(androidSdkSettings);
+			AndroidSdkManagerInstall 
+			(
+				new [] 
+				{ 
+					"platforms;android-15",
+					"platforms;android-23",
+					"platforms;android-25",
+					"platforms;android-26",
+				}, 
+				androidSdkSettings
+			);
+
+			return;
+		}
+	);
+
 Task ("dump-environment")
 	.Does 
 	(
@@ -203,14 +246,10 @@ Task ("dump-environment")
 					}
 					catch(Exception)
 					{
-					Information($"mc++ Search failed = {path}");
+						Information($"mc++ Search failed = {path}");
 					}
-
 				}
-
 			}
-
-
 
 			// Print out environment variables to console
 			var ENV_VARS = EnvironmentVariables();
