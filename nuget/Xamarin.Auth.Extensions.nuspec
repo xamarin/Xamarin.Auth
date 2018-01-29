@@ -14,22 +14,18 @@
 			Xamarin
 		</owners>
 		<copyright>
-			Copyright 2013-2017
+			Copyright 2013-2018
 		</copyright>
 		<!--
 		SemVer - Semantic Versioning
 		http://semver.org/
 		-->
 		<version>
-			1.5.0.4
+			1.6.0.0
 		</version>
 		<releaseNotes>
-			native UI support preview - Custom Tabs and SFSafariViewController
-			Xamarin.Forms support for Native UI (Android and iOS)
-			Xamarin.Forms 2 flavors (CustomRenderers and Presenters)
-			API breakage! 
-			No casting needed for old style API for GetUI().
-			New API (Native UI) must cast to get CustomTabs and SFSafariViewController API
+			.NETStandard support
+			several bug fixes
 		</releaseNotes>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
