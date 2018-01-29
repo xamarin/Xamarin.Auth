@@ -730,6 +730,8 @@ Task ("libs-macosx-filesystem")
 			CreateDirectory ("./output/pcl/");
 			CreateDirectory ("./output/android/");
 			CreateDirectory ("./output/ios/");
+			CreateDirectory ("./output/netstandard1.0/");
+			CreateDirectory ("./output/netstandard1.6/");
 
 			return;
 		}
@@ -1114,6 +1116,8 @@ Task ("libs-windows-filesystem")
 			CreateDirectory ("./output/win81/Xamarin.Auth/");
 			CreateDirectory ("./output/uap10.0/");
 			CreateDirectory ("./output/uap10.0/Xamarin.Auth/");
+			CreateDirectory ("./output/netstandard1.0/");
+			CreateDirectory ("./output/netstandard1.6/");
 		}
 	);
 
