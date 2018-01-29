@@ -1494,6 +1494,54 @@ Task ("libs-windows-projects")
 					);
 				*/
 				//-------------------------------------------------------------------------------------
+				solution_or_project = "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj";
+				if (is_using_custom_defines == true)
+				{
+					define = custom_defines;
+				}
+				BuildLoop
+				(
+					solution_or_project, 
+					new MSBuildSettings
+					{
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
+				);
+
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.dll", 
+						"./output/netstandard1.0/"
+					);
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.pdb", 
+						"./output/netstandard1.0/"
+					);
+				//-------------------------------------------------------------------------------------
+				solution_or_project = "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj";
+				if (is_using_custom_defines == true)
+				{
+					define = custom_defines;
+				}
+				BuildLoop
+				(
+					solution_or_project, 
+					new MSBuildSettings
+					{
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
+				);
+
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.dll", 
+						"./output/netstandard1.0/"
+					);
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.pdb", 
+						"./output/netstandard1.0/"
+					);
+				//-------------------------------------------------------------------------------------
 
 
 				//-------------------------------------------------------------------------------------
@@ -1899,7 +1947,7 @@ Task ("ci-osx")
 	;
 Task ("ci-windows")
     .IsDependentOn ("libs")
-    .IsDependentOn ("nuget")
+    //.IsDependentOn ("nuget")
     //.IsDependentOn ("samples")
 	;	
 //=================================================================================================
