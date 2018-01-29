@@ -14,6 +14,11 @@
     <DefineConstants>TRACE;RELEASE;NETSTANDARD1_6;$(XamarinAuthCustomPreprocessorConstantsDefines)</DefineConstants>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="AccountStore\CryptoAccountManager\**" />
+    <EmbeddedResource Remove="AccountStore\CryptoAccountManager\**" />
+    <None Remove="AccountStore\CryptoAccountManager\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\Account.cs">
       <Link>AccountStore\Account.cs</Link>
     </Compile>
@@ -163,7 +168,6 @@
     <Folder Include="OAuth\OAuth2\" />
     <Folder Include="UINativeNonIntegratedBrowsers\" />
     <Folder Include="AccountStore\" />
-    <Folder Include="AccountStore\CryptoAccountManager\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="runtime.unix.System.Runtime.Extensions" Version="4.3.0" />
