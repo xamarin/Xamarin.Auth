@@ -34,10 +34,6 @@ Running Cake to Build targets
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
-
-		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=libs
-		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=nuget
-		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=samples
 		
 	Mac OSX 
 	
@@ -90,12 +86,10 @@ MSBuild
 //var exp = Argument<bool>("experimental", true);
 
 string TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
-string VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
 string ANDROID_HOME = EnvironmentVariable("ANDROID_HOME") ?? Argument("android_home", "");
 
+string VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
 Verbosity verbosity = Verbosity.Minimal;
-
-TARGET = "update-android-sdk";
 
 Action<string> InformationFancy = 
 	(text) 
@@ -193,18 +187,18 @@ Task ("update-android-sdk")
 			try { AcceptLicenses (androidSdkSettings); } catch { }
 
 
-			AndroidSdkManagerUpdateAll(androidSdkSettings);
-			AndroidSdkManagerInstall 
-			(
-				new [] 
-				{ 
-					"platforms;android-15",
-					"platforms;android-23",
-					"platforms;android-25",
-					"platforms;android-26",
-				}, 
-				androidSdkSettings
-			);
+			// AndroidSdkManagerUpdateAll(androidSdkSettings);
+			// AndroidSdkManagerInstall 
+			// (
+			// 	new [] 
+			// 	{ 
+			// 		"platforms;android-15",
+			// 		"platforms;android-23",
+			// 		"platforms;android-25",
+			// 		"platforms;android-26",
+			// 	}, 
+			// 	androidSdkSettings
+			// );
 
 			return;
 		}
@@ -222,33 +216,33 @@ Task ("dump-environment")
 				// Windows: 	%LOCALAPPDATA%\Android\sdk
 
 				// Get absolute root path.
-				string[] paths = new string[]
-				{
-					EnvironmentVariable ("LOCALAPPDATA") + "/Android/android-sdk",
-					EnvironmentVariable ("ProgramFiles") + "/Android/android-sdk",
-					EnvironmentVariable ("ProgramFiles(x86)") + "/Android/android-sdk",
-				};
+				// string[] paths = new string[]
+				// {
+				// 	EnvironmentVariable ("LOCALAPPDATA") + "/Android/android-sdk",
+				// 	EnvironmentVariable ("ProgramFiles") + "/Android/android-sdk",
+				// 	EnvironmentVariable ("ProgramFiles(x86)") + "/Android/android-sdk",
+				// };
 
-				foreach(string path in paths)
-				{
-					Information($"mc++ Searching = {path}");
-					string root = MakeAbsolute(Directory(path)).FullPath;
-					// Get directories
-					DirectoryPathCollection dirs = null;
-					try
-					{
-						dirs = GetSubDirectories(root);
-						foreach(DirectoryPath dir in dirs)
-						{
-							Information($"mc++ FullPath = {dir.FullPath}");
-						}
-						ANDROID_HOME = root;
-					}
-					catch(Exception)
-					{
-						Information($"mc++ Search failed = {path}");
-					}
-				}
+				// foreach(string path in paths)
+				// {
+				// 	Information($"mc++ Searching = {path}");
+				// 	string root = MakeAbsolute(Directory(path)).FullPath;
+				// 	// Get directories
+				// 	DirectoryPathCollection dirs = null;
+				// 	try
+				// 	{
+				// 		dirs = GetSubDirectories(root);
+				// 		foreach(DirectoryPath dir in dirs)
+				// 		{
+				// 			Information($"mc++ FullPath = {dir.FullPath}");
+				// 		}
+				// 		ANDROID_HOME = root;
+				// 	}
+				// 	catch(Exception)
+				// 	{
+				// 		Information($"mc++ Search failed = {path}");
+				// 	}
+				// }
 			}
 
 			// Print out environment variables to console
@@ -1958,7 +1952,7 @@ Task("Default")
 
 
 RunTarget("dump-environment");
-RunTarget("distclean");
+//RunTarget("distclean");
 //RunTarget ("android-sdk-install");
 
 RunTarget (TARGET);
