@@ -246,12 +246,12 @@ Task ("dump-environment")
 			}
 
 			// Print out environment variables to console
-			var ENV_VARS = EnvironmentVariables();
-			Information ($"mc++ Environment Variables:");
-			foreach (var ev in ENV_VARS)
-			{
-				Information ($"      mc++ {ev.Key} = {ev.Value}");
-			}
+			// var ENV_VARS = EnvironmentVariables();
+			// Information ($"mc++ Environment Variables:");
+			// foreach (var ev in ENV_VARS)
+			// {
+			// 	Information ($"      mc++ {ev.Key} = {ev.Value}");
+			// }
 
 			// EnvironmentVariables evs = EnvironmentVariables ();
 			// Information ("Environment Variables: {0}", "");
@@ -260,16 +260,16 @@ Task ("dump-environment")
 			// 	Information ($"\t{ev.Key}       = {ev.Value}");
 			// }
 
-			var list = AndroidSdkManagerList
-			(
-				new AndroidSdkManagerToolSettings 
-				{
-					SdkRoot = ANDROID_HOME, 
-					SkipVersionCheck = false
-				}
-			);
+			// var list = AndroidSdkManagerList
+			// (
+			// 	new AndroidSdkManagerToolSettings 
+			// 	{
+			// 		SdkRoot = ANDROID_HOME, 
+			// 		SkipVersionCheck = false
+			// 	}
+			// );
 
-			list.Dump();
+			// list.Dump();
 
 			// foreach (var a in list?.AvailablePackages)
 			// {
