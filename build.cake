@@ -938,12 +938,12 @@ Task ("libs-windows-tooling")
 				DirectoryPathCollection vswhere_all = null;
 				
 				vswhere_all = VSWhereAll
-												(
-													new VSWhereAllSettings 
-																{ 
-																	Requires = "'Microsoft.Component.MSBuild" 
-																}
-												);
+								(
+									new VSWhereAllSettings 
+												{ 
+													Requires = "'Microsoft.Component.MSBuild" 
+												}
+								);
 				foreach(DirectoryPath dp in vswhere_all)
 				{
 					InformationFancy(dp.Dump());
