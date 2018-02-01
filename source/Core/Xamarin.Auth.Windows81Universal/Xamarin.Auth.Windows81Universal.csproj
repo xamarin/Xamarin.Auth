@@ -15,7 +15,8 @@
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <XamarinAuthCustomPreprocessorConstantsDefines>
+    </XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,8 +37,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="AccountStore\" />
-    <Folder Include="AccountStore\CryptoAccountManager\" />
   </ItemGroup>
   <ItemGroup>
     <TargetPlatform Include="Windows, Version=8.1" />
@@ -180,14 +179,6 @@
     <Compile Include="Presenters\AuthenticationConfiguration.Windows81Universal.cs" />
     <Compile Include="Presenters\OAuthPlatformPresenter.Windows81Universal.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.Windows81Universal.cs" />
-    <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
-      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
-      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
-    </Compile>
-    <Folder Include="OAuth\" />
-    <Folder Include="OAuth\OAuth2\" />
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\OAuth\OAuth2\State.cs">
       <Link>OAuth\OAuth2\State.cs</Link>
     </Compile>
@@ -199,9 +190,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="PCLCrypto">
-      <HintPath>..\..\packages\PCLCrypto.2.0.147\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10+MonoTouch10\PCLCrypto.dll</HintPath>
-    </Reference>
     <Reference Include="System.Net.Http">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.dll</HintPath>
     </Reference>
@@ -210,9 +198,6 @@
     </Reference>
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\..\packages\Microsoft.Net.Http.2.2.29\lib\portable-net40+sl4+win8+wp71+wpa81\System.Net.Http.Extensions.dll</HintPath>
-    </Reference>
-    <Reference Include="Validation">
-      <HintPath>..\..\packages\Validation.2.4.15\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,8 @@
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{76F1466A-8B6D-4E39-A767-685A06062A39};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <XamarinAuthCustomPreprocessorConstantsDefines>
+    </XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -214,14 +215,6 @@
     <Compile Include="..\Xamarin.Auth.WinRTWindows81\AccountStore\WinRTAccountStore.Async.cs">
       <Link>AccountStore\WinRTAccountStore.Async.cs</Link>
     </Compile>
-    <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
-      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
-      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
-    </Compile>
-    <Folder Include="OAuth\" />
-    <Folder Include="OAuth\OAuth2\" />
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\OAuth\OAuth2\State.cs">
       <Link>OAuth\OAuth2\State.cs</Link>
     </Compile>
@@ -295,10 +288,7 @@
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   -->
-  <ItemGroup>
-    <Folder Include="AccountStore\" />
-    <Folder Include="AccountStore\CryptoAccountManager\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>

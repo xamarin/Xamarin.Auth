@@ -1,5 +1,24 @@
 # Xamarin.Auth Roadmap 
 
+## Upcomming Changes
+
+### v.1.5.0.4 (1.6.0.0)
+
+*   .NET Standard support
+
+*   Azure Mobile Services Client changes
+
+*   iOS ceck for SafariViewController and WKWebView availability
+
+*   two properties to allow a developer to specify when to call OnPageLoading
+
+*   conditional compiles XAMARIN_AUTH_INTERNAL
+
+*   AZURE_MOBILE_SERVICES preprocessor define for namespaces
+
+*   CustomTabs closing
+
+
 This doc is subject to discussion (personal roadmap based on user feedback):
 
 ## 1 OAuth features (`refresh_token`, other grant flow implementations)

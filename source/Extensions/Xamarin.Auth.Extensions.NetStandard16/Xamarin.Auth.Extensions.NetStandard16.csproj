@@ -4,7 +4,7 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
-    <AssemblyName>Xamarin.Auth.Extensions.NetStandard16</AssemblyName>
+    <AssemblyName>Xamarin.Auth.Extensions</AssemblyName>
     <RootNamespace>Xamarin.Auth.Extensions</RootNamespace>
   </PropertyGroup>
 
@@ -54,5 +54,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\XamarinForms\Xamarin.Auth.Forms.NetStandard16\Xamarin.Auth.Forms.NetStandard16.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Xamarin.Auth.Extensions.LinkSource\AccountStore\CryptoAccountManager\CryptoUtilities.cs">
+      <Link>AccountStore\CryptoAccountManager\CryptoUtilities.cs</Link>
+    </None>
+    <None Include="..\Xamarin.Auth.Extensions.LinkSource\AccountStore\CryptoAccountManager\AccountManager.cs">
+      <Link>AccountStore\CryptoAccountManager\AccountManager.cs</Link>
+    </None>
   </ItemGroup>
 </Project>

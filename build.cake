@@ -34,10 +34,6 @@ Running Cake to Build targets
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
 		tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
-
-		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=libs
-		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=nuget
-		tools\Cake\Cake.exe -experimental --verbosity=diagnostic --target=samples
 		
 	Mac OSX 
 	
@@ -74,6 +70,7 @@ MSBuild
 #addin nuget:?package=Cake.Xamarin.Build
 #addin nuget:?package=Cake.FileHelpers
 #addin nuget::?package=Cake.Incubator
+#addin nuget:?package=Cake.Android.SdkManager
 #tool nuget:?package=vswhere
 
 /*
@@ -88,13 +85,11 @@ MSBuild
 //var experimental = HasArgument("experimental");
 //var exp = Argument<bool>("experimental", true);
 
-var TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
-var VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
-var ANDROID_HOME = EnvironmentVariable ("ANDROID_HOME") ?? Argument ("android_home", "");
+string TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default")));
+string ANDROID_HOME = EnvironmentVariable("ANDROID_HOME") ?? Argument("android_home", "");
 
+string VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
 Verbosity verbosity = Verbosity.Minimal;
-
-
 
 Action<string> InformationFancy = 
 	(text) 
@@ -166,17 +161,97 @@ NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings
 		Prerelease = false,
 	};
 
+Task ("update-android-sdk")
+	.IsDependentOn ("dump-environment")
+	.Does 
+	(
+		() =>
+		{
+			Information ("ANDROID_HOME: {0}", ANDROID_HOME);
+
+			// var code = StartProcess
+			// 				(
+			// 					EnvironmentVariable ("ANDROID_HOME") + "/tools/bin/sdkmanager", 
+			// 					new ProcessSettings
+			// 					{ 
+			// 						Arguments = "--update" 
+			// 					}
+			// 				);
+
+			var androidSdkSettings = new AndroidSdkManagerToolSettings 
+			{ 
+				SdkRoot = ANDROID_HOME,
+				SkipVersionCheck = true
+			};
+
+			try { AcceptLicenses (androidSdkSettings); } catch { }
+
+
+			// AndroidSdkManagerUpdateAll(androidSdkSettings);
+			// AndroidSdkManagerInstall 
+			// (
+			// 	new [] 
+			// 	{ 
+			// 		"platforms;android-15",
+			// 		"platforms;android-23",
+			// 		"platforms;android-25",
+			// 		"platforms;android-26",
+			// 	}, 
+			// 	androidSdkSettings
+			// );
+
+			return;
+		}
+	);
+
 Task ("dump-environment")
 	.Does 
 	(
 		() =>
 		{
+			if(IsRunningOnWindows())
+			{
+				// Linux:		~/Android/Sdk
+				// Mac: 		~/Library/Android/sdk
+				// Windows: 	%LOCALAPPDATA%\Android\sdk
+
+				// Get absolute root path.
+				// string[] paths = new string[]
+				// {
+				// 	EnvironmentVariable ("LOCALAPPDATA") + "/Android/android-sdk",
+				// 	EnvironmentVariable ("ProgramFiles") + "/Android/android-sdk",
+				// 	EnvironmentVariable ("ProgramFiles(x86)") + "/Android/android-sdk",
+				// };
+
+				// foreach(string path in paths)
+				// {
+				// 	Information($"mc++ Searching = {path}");
+				// 	string root = MakeAbsolute(Directory(path)).FullPath;
+				// 	// Get directories
+				// 	DirectoryPathCollection dirs = null;
+				// 	try
+				// 	{
+				// 		dirs = GetSubDirectories(root);
+				// 		foreach(DirectoryPath dir in dirs)
+				// 		{
+				// 			Information($"mc++ FullPath = {dir.FullPath}");
+				// 		}
+				// 		ANDROID_HOME = root;
+				// 	}
+				// 	catch(Exception)
+				// 	{
+				// 		Information($"mc++ Search failed = {path}");
+				// 	}
+				// }
+			}
 
 			// Print out environment variables to console
-			var ENV_VARS = EnvironmentVariables ();
-			Information ("Environment Variables: {0}", "");
-			foreach (var ev in ENV_VARS)
-				Information ("\t{0} = {1}", ev.Key, ev.Value);
+			// var ENV_VARS = EnvironmentVariables();
+			// Information ($"mc++ Environment Variables:");
+			// foreach (var ev in ENV_VARS)
+			// {
+			// 	Information ($"      mc++ {ev.Key} = {ev.Value}");
+			// }
 
 			// EnvironmentVariables evs = EnvironmentVariables ();
 			// Information ("Environment Variables: {0}", "");
@@ -184,7 +259,28 @@ Task ("dump-environment")
 			// {
 			// 	Information ($"\t{ev.Key}       = {ev.Value}");
 			// }
-			
+
+			// var list = AndroidSdkManagerList
+			// (
+			// 	new AndroidSdkManagerToolSettings 
+			// 	{
+			// 		SdkRoot = ANDROID_HOME, 
+			// 		SkipVersionCheck = false
+			// 	}
+			// );
+
+			// list.Dump();
+
+			// foreach (var a in list?.AvailablePackages)
+			// {
+			// 	Console.WriteLine($"{a.Description}\t{a.Version}\t{a.Path}");
+			// }
+
+			// foreach (var a in list?.InstalledPackages)
+			// {
+			// 	Console.WriteLine($"{a.Description}\t{a.Version}\t{a.Path}");
+			// }
+
 			// From Cake.Xamarin.Build, dumps out versions of things
 			LogSystemInfo ();
 
@@ -232,7 +328,27 @@ Task ("distclean")
 	.Does 
 	(
 		() => 
-		{				
+		{	
+			// if(IsRunningOnWindows())
+			// {
+			// 	string xamarin = System.IO.Path.Combine
+			// 									(
+			// 										EnvironmentVariable("LOCALAPPDATA"), 
+			// 										"xamarin/*"
+			// 									);		
+			// 	//CleanDirectories(GetDirectories(xamarin));
+			// 	DeleteDirectories
+			// 				(
+			// 					GetDirectories(xamarin), 
+			// 					new DeleteDirectorySettings 
+			// 					{
+			// 						Recursive = true,
+			// 						Force = true
+			// 					}
+			// 				);
+
+			// }
+
 			DeleteDirectories(GetDirectories("**/bin"), recursive:true);
 			DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
 			DeleteDirectories(GetDirectories("**/obj"), recursive:true);
@@ -614,6 +730,8 @@ Task ("libs-macosx-filesystem")
 			CreateDirectory ("./output/pcl/");
 			CreateDirectory ("./output/android/");
 			CreateDirectory ("./output/ios/");
+			CreateDirectory ("./output/netstandard1.0/");
+			CreateDirectory ("./output/netstandard1.6/");
 
 			return;
 		}
@@ -998,6 +1116,8 @@ Task ("libs-windows-filesystem")
 			CreateDirectory ("./output/win81/Xamarin.Auth/");
 			CreateDirectory ("./output/uap10.0/");
 			CreateDirectory ("./output/uap10.0/Xamarin.Auth/");
+			CreateDirectory ("./output/netstandard1.0/");
+			CreateDirectory ("./output/netstandard1.6/");
 		}
 	);
 
@@ -1377,6 +1497,54 @@ Task ("libs-windows-projects")
 						"./output/uap10.0/Properties/"
 					);
 				*/
+				//-------------------------------------------------------------------------------------
+				solution_or_project = "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj";
+				if (is_using_custom_defines == true)
+				{
+					define = custom_defines;
+				}
+				BuildLoop
+				(
+					solution_or_project, 
+					new MSBuildSettings
+					{
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
+				);
+
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.dll", 
+						"./output/netstandard1.0/"
+					);
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.pdb", 
+						"./output/netstandard1.0/"
+					);
+				//-------------------------------------------------------------------------------------
+				solution_or_project = "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj";
+				if (is_using_custom_defines == true)
+				{
+					define = custom_defines;
+				}
+				BuildLoop
+				(
+					solution_or_project, 
+					new MSBuildSettings
+					{
+					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
+				);
+
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.dll", 
+						"./output/netstandard1.0/"
+					);
+				CopyFiles
+					(
+						"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.pdb", 
+						"./output/netstandard1.0/"
+					);
 				//-------------------------------------------------------------------------------------
 
 
@@ -1783,7 +1951,7 @@ Task ("ci-osx")
 	;
 Task ("ci-windows")
     .IsDependentOn ("libs")
-    .IsDependentOn ("nuget")
+    //.IsDependentOn ("nuget")
     //.IsDependentOn ("samples")
 	;	
 //=================================================================================================
@@ -1836,6 +2004,7 @@ Task("Default")
 
 
 RunTarget("dump-environment");
+//RunTarget("distclean");
 //RunTarget ("android-sdk-install");
 
 RunTarget (TARGET);
