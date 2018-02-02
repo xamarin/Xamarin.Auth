@@ -706,6 +706,11 @@ Action<string,  MSBuildSettings> BuildLoop =
 				InformationFancy("			- msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015");
 				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
 				msbuild_settings.ToolPath = msBuildPathX64;	
+
+				if(IsRunningOnWindows())
+				{
+					return;
+				}
 			}		
 
 
