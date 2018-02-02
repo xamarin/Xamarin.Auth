@@ -2,13 +2,13 @@
 
 ## Upcomming Changes
 
-### v.1.5.0.4 (1.6.0.0)
+### v.1.6.0.0
 
-*   .NET Standard support
+*   .NET Standard support (1.0 and 1.6)
 
 *   Azure Mobile Services Client changes
 
-*   iOS ceck for SafariViewController and WKWebView availability
+*   iOS check for SafariViewController and WKWebView availability
 
 *   two properties to allow a developer to specify when to call OnPageLoading
 
