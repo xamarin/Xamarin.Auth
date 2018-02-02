@@ -369,8 +369,8 @@ Task ("build")
 	;
 
 Task ("package")
-	.IsDependentOn ("libs")
 	.IsDependentOn ("nuget")
+	.IsDependentOn ("component")
 	;	
 
 Task ("libs")
@@ -1056,12 +1056,12 @@ Task ("libs-windows-tooling")
 				DirectoryPathCollection vswhere_all = null;
 				
 				vswhere_all = VSWhereAll
-												(
-													new VSWhereAllSettings 
-																{ 
-																	Requires = "'Microsoft.Component.MSBuild" 
-																}
-												);
+								(
+									new VSWhereAllSettings 
+											{ 
+												Requires = "'Microsoft.Component.MSBuild" 
+											}
+								);
 				foreach(DirectoryPath dp in vswhere_all)
 				{
 					InformationFancy(dp.Dump());
@@ -1070,11 +1070,11 @@ Task ("libs-windows-tooling")
 				DirectoryPathCollection vswhere_legacy = null;
 				
 				vswhere_legacy = VSWhereLegacy
-														(
-															new VSWhereLegacySettings()
-															{
-															}
-														);
+									(
+										new VSWhereLegacySettings()
+										{
+										}
+									);
 				foreach(DirectoryPath dp in vswhere_legacy)
 				{
 					InformationFancy(dp.Dump());
@@ -1174,8 +1174,6 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";
 				if (is_using_custom_defines == true)
@@ -1189,17 +1187,6 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
-						"./output/pcl/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
-						"./output/pcl/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.XamarinAndroid/Xamarin.Auth.XamarinAndroid.csproj";
 				if (is_using_custom_defines == true)
@@ -1223,17 +1210,6 @@ Task ("libs-windows-projects")
 						ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
-						"./output/android/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
-						"./output/android/"
-					);
 				//-------------------------------------------------------------------------------------
 				InformationFancy("msBuildPathX64 = " + msBuildPathX64);
 				solution_or_project = "./source/Core/Xamarin.Auth.XamarinIOS/Xamarin.Auth.XamarinIOS.csproj";
@@ -1249,17 +1225,6 @@ Task ("libs-windows-projects")
 						ToolPath = msBuildPathX64,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
-						"./output/ios/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
-						"./output/ios/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.WindowsPhone8/Xamarin.Auth.WindowsPhone8.csproj";
 				if (is_using_custom_defines == true)
@@ -1275,17 +1240,6 @@ Task ("libs-windows-projects")
 						PlatformTarget = PlatformTarget.x86,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.dll", 
-						"./output/wp80/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.pdb", 
-						"./output/wp80/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.WindowsPhone81/Xamarin.Auth.WindowsPhone81.csproj";
 				if (is_using_custom_defines == true)
@@ -1301,17 +1255,6 @@ Task ("libs-windows-projects")
 						PlatformTarget = PlatformTarget.x86,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.dll", 
-						"./output/wp81/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.pdb", 
-						"./output/wp81/"
-					);
 				//-------------------------------------------------------------------------------------
 				/*
 					Dependencies omitted!! 
@@ -1337,50 +1280,7 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.dll", 
-						"./output/win81/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pdb", 
-						"./output/win81/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pri", 
-						"./output/win81/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
-						"./output/win81/Xamarin.Auth/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
-						"./output/win81/Xamarin.Auth/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
-						"./output/win81/Xamarin.Auth/"
-					);
 				//-------------------------------------------------------------------------------------
-				/*
-					Dependencies omitted!! 
-					.
-					├── Release
-					│   ├── Xamarin.Auth
-					│   │   ├── WebAuthenticatorPage.xaml
-					│   │   ├── WebAuthenticatorPage.xbf
-					│   │   └── Xamarin.Auth.xr.xml
-					│   ├── Xamarin.Auth.dll
-					│   ├── Xamarin.Auth.pdb
-					│   └── Xamarin.Auth.pri
-				*/
 				solution_or_project = "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/Xamarin.Auth.WinRTWindowsPhone81.csproj";
 				if (is_using_custom_defines == true)
 				{
@@ -1394,37 +1294,6 @@ Task ("libs-windows-projects")
 						ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.dll", 
-						"./output/wpa81/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pdb", 
-						"./output/wpa81/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pri", 
-						"./output/wpa81/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
-						"./output/wpa81/Xamarin.Auth/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
-						"./output/wpa81/Xamarin.Auth/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
-						"./output/wpa81/Xamarin.Auth/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj";
 				/*
@@ -1458,45 +1327,6 @@ Task ("libs-windows-projects")
 						ToolVersion = MSBuildToolVersion.VS2017,
 					}.WithProperty("DefineConstants", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.dll", 
-						"./output/uap10.0/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pdb", 
-						"./output/uap10.0/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri", 
-						"./output/uap10.0/"
-					);
-				CopyFiles
-					(
-						/*
-						mc++ 2017-10-17 output changed??
-						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
-						"./output/uap10.0/Xamarin.Auth/"
-						*/
-						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml", 
-						"./output/uap10.0/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf", 
-						"./output/uap10.0/"
-					);
-				/*
-					.net Native - Linking stuff - not needed
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.rd.xml", 
-						"./output/uap10.0/Properties/"
-					);
-				*/
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj";
 				if (is_using_custom_defines == true)
@@ -1510,17 +1340,6 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.dll", 
-						"./output/netstandard1.0/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.pdb", 
-						"./output/netstandard1.0/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj";
 				if (is_using_custom_defines == true)
@@ -1534,17 +1353,6 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.dll", 
-						"./output/netstandard1.0/"
-					);
-				CopyFiles
-					(
-						"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.pdb", 
-						"./output/netstandard1.0/"
-					);
 				//-------------------------------------------------------------------------------------
 
 
@@ -1561,17 +1369,6 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/pcl/"
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb", 
-						"./output/pcl/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/Xamarin.Auth.Extensions.XamarinAndroid.csproj";
 				if (is_using_custom_defines == true)
@@ -1595,17 +1392,6 @@ Task ("libs-windows-projects")
 						ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/android/"
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb", 
-						"./output/android/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/Xamarin.Auth.Extensions.XamarinIOS.csproj";
 				if (is_using_custom_defines == true)
@@ -1620,17 +1406,6 @@ Task ("libs-windows-projects")
 						ToolPath = msBuildPathX64,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
-						"./output/ios/"
-					);
-				CopyFiles
-					(
-						"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb", 
-						"./output/ios/"
-					);
 				//-------------------------------------------------------------------------------------
 				
 				
@@ -1648,17 +1423,6 @@ Task ("libs-windows-projects")
 					{
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
-						"./output/pcl/"
-					);
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
-						"./output/pcl/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.Droid/Xamarin.Auth.Forms.Droid.csproj";
 				if (is_using_custom_defines == true)
@@ -1682,17 +1446,6 @@ Task ("libs-windows-projects")
 						//ToolVersion = MSBuildToolVersion.VS2015,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
-						"./output/android/"
-					);
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb", 
-						"./output/android/"
-					);
 				//-------------------------------------------------------------------------------------
 				solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms.iOS/Xamarin.Auth.Forms.iOS.csproj";
 				if (is_using_custom_defines == true)
@@ -1707,17 +1460,6 @@ Task ("libs-windows-projects")
 						ToolPath = msBuildPathX64,
 					}.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
 				);
-
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
-						"./output/ios/"
-					);
-				CopyFiles
-					(
-						"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb", 
-						"./output/ios/"
-					);
 				//-------------------------------------------------------------------------------------
 			}
 
@@ -1725,7 +1467,287 @@ Task ("libs-windows-projects")
 		}
 	);
 
+Task ("copy-artifacts")
+	.Does 
+	(
+		() => 
+		{
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					@".\source\Core\Xamarin.Auth.Portable\**\Release\Xamarin.Auth.dll", 
+					@".\output\pcl\"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
+					"./output/pcl/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
+					"./output/android/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
+					"./output/android/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+					"./output/ios/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
+					"./output/ios/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.dll", 
+					"./output/wp80/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.pdb", 
+					"./output/wp80/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.dll", 
+					"./output/wp81/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.pdb", 
+					"./output/wp81/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.dll", 
+					"./output/win81/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pdb", 
+					"./output/win81/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pri", 
+					"./output/win81/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+					"./output/win81/Xamarin.Auth/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+					"./output/win81/Xamarin.Auth/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+					"./output/win81/Xamarin.Auth/"
+				);
+			//-------------------------------------------------------------------------------------
+			/*
+				Dependencies omitted!! 
+				.
+				├── Release
+				│   ├── Xamarin.Auth
+				│   │   ├── WebAuthenticatorPage.xaml
+				│   │   ├── WebAuthenticatorPage.xbf
+				│   │   └── Xamarin.Auth.xr.xml
+				│   ├── Xamarin.Auth.dll
+				│   ├── Xamarin.Auth.pdb
+				│   └── Xamarin.Auth.pri
+			*/
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.dll", 
+					"./output/wpa81/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pdb", 
+					"./output/wpa81/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pri", 
+					"./output/wpa81/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+					"./output/wpa81/Xamarin.Auth/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+					"./output/wpa81/Xamarin.Auth/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+					"./output/wpa81/Xamarin.Auth/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.dll", 
+					"./output/uap10.0/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pdb", 
+					"./output/uap10.0/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri", 
+					"./output/uap10.0/"
+				);
+			CopyFiles
+				(
+					/*
+					mc++ 2017-10-17 output changed??
+					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+					"./output/uap10.0/Xamarin.Auth/"
+					*/
+					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml", 
+					"./output/uap10.0/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf", 
+					"./output/uap10.0/"
+				);
+			/*
+				.net Native - Linking stuff - not needed
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.rd.xml", 
+					"./output/uap10.0/Properties/"
+				);
+			*/
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.dll", 
+					"./output/netstandard1.0/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.pdb", 
+					"./output/netstandard1.0/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.dll", 
+					"./output/netstandard1.0/"
+				);
+			CopyFiles
+				(
+					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.pdb", 
+					"./output/netstandard1.0/"
+				);
+			//-------------------------------------------------------------------------------------
 
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
+					"./output/pcl/"
+				);
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb", 
+					"./output/pcl/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
+					"./output/android/"
+				);
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb", 
+					"./output/android/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
+					"./output/ios/"
+				);
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb", 
+					"./output/ios/"
+				);
+			//-------------------------------------------------------------------------------------
+
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+					"./output/pcl/"
+				);
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+					"./output/pcl/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+					"./output/pcl/"
+				);
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+					"./output/pcl/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
+					"./output/android/"
+				);
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+					"./output/android/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
+					"./output/ios/"
+				);
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+					"./output/ios/"
+				);
+			//-------------------------------------------------------------------------------------
+
+			return;
+		}
+	);
 
 
 Task ("samples")
@@ -1815,6 +1837,7 @@ Task ("samples-windows")
 	
 Task ("nuget")
 	.IsDependentOn ("libs")
+	.IsDependentOn ("copy-artifacts")
 	.Does 
 	(
 		() => 
@@ -1945,7 +1968,6 @@ FilePath GetToolPath (FilePath toolPath)
 //
 // Xamarin CI - Jenkins job targets
 Task ("ci-osx")
-    .IsDependentOn ("libs")
     .IsDependentOn ("nuget")
     //.IsDependentOn ("samples")
 	;
@@ -1998,7 +2020,7 @@ Task("Default")
 			
 			//verbosity = (VERBOSITY == null) : 
 
-			RunTarget("nuget");
+			return;
 		}
 	);
 

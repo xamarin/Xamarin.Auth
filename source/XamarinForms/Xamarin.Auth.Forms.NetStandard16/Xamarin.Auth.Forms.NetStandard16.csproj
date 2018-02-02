@@ -4,6 +4,8 @@
     <TargetFramework>netstandard1.6</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <RootNamespace>Xamarin.Auth.XamarinForms</RootNamespace>
+    <AssemblyName>Xamarin.Auth.XamarinForms</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,7 +24,7 @@
   <ItemGroup>
     <PackageReference Include="System.Runtime" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.0" />
-    <PackageReference Include="Xamarin.Forms" Version="2.4.0.282" />
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.122203" />
   </ItemGroup>
 
   <!--
@@ -44,7 +46,9 @@
     <Otherwise>
       <!-- project refs -->
       <ItemGroup>
-        <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj" />
+          <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj">
+            <Name>Xamarin.Auth.NetStandard16 Project Reference</Name>              
+          </ProjectReference>
       </ItemGroup>
     </Otherwise>
   </Choose>

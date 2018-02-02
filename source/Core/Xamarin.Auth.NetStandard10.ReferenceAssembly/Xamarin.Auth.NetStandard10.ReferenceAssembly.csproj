@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard1.0</TargetFramework>
     <RootNamespace>Xamarin.Auth</RootNamespace>
-    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyName>Xamarin.Auth.XamarinForms</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

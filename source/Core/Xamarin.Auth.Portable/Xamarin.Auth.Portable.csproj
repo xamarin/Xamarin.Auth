@@ -52,7 +52,6 @@
     </Compile>
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\AccountStore.Async.cs">
       <Link>AccountStore\AccountStore.Async.cs</Link>
-      <DependentUpon>AccountStore\AccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="AccountStore\AccountStore.Portable.cs" />
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\AccountStoreException.cs">
