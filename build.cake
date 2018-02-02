@@ -704,7 +704,7 @@ Action<string,  MSBuildSettings> BuildLoop =
 			else if(sln_prj.Contains("MacOSX-Xamarin.Studio.sln"))
 			{
 				InformationFancy("			- msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015");
-				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
+				msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
 				msbuild_settings.ToolPath = msBuildPathX64;	
 			}		
 
