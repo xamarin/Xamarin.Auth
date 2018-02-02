@@ -107,7 +107,6 @@ Action<string> InformationFancy =
 DirectoryPath vsLatest = null;
 FilePath msBuildPathX64 = null;
 
-FilePath nuget_tool_path = null;
 FilePath cake_tool_path = null;
 
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
@@ -150,13 +149,11 @@ Action<string> GitLinkAction =
 // http://cakebuild.net/api/Cake.Common.Tools.NuGet.Restore/NuGetRestoreSettings/
 NuGetRestoreSettings nuget_restore_settings = new NuGetRestoreSettings 
 	{ 
-		ToolPath = nuget_tool_path,
 		Verbosity = NuGetVerbosity.Detailed,
 	};
 
 NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings 
 	{ 
-		ToolPath = nuget_tool_path,
 		Verbosity = NuGetVerbosity.Detailed,
 		Prerelease = false,
 	};
@@ -1871,7 +1868,6 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						ToolPath = nuget_tool_path,
 						Symbols = true
 					}
 				);                
@@ -1883,7 +1879,6 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						ToolPath = nuget_tool_path,
 						Symbols = true
 					}
 				);                
@@ -1895,7 +1890,6 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						ToolPath = nuget_tool_path,
 						Symbols = true
 					}
 				);                
