@@ -107,8 +107,6 @@ Action<string> InformationFancy =
 DirectoryPath vsLatest = null;
 FilePath msBuildPathX64 = null;
 
-FilePath cake_tool_path = null;
-
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 
 
