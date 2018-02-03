@@ -369,8 +369,8 @@ Task ("package")
 	;	
 
 Task ("libs")
-	.IsDependentOn ("libs-macosx")	
 	.IsDependentOn ("libs-windows")	
+	.IsDependentOn ("libs-macosx")	
 	.Does 
 	(
 		() => 
@@ -738,12 +738,14 @@ Task ("libs-macosx-filesystem")
 	);
 
 Task ("libs-macosx")
-	.IsDependentOn ("libs-macosx-projects")
 	.IsDependentOn ("libs-macosx-solutions")
+	.IsDependentOn ("libs-macosx-projects")
 	.Does 
 	(
 		() => 
 		{
+			RunTarget("copy-artifacts");
+
 			return;
 		}
 	);
@@ -1038,6 +1040,8 @@ Task ("libs-windows")
 	(
 		() => 
 		{
+			RunTarget("copy-artifacts");
+
 			return;
 		}
 	);
@@ -1530,32 +1534,32 @@ Task ("copy-artifacts")
 			//-------------------------------------------------------------------------------------
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.dll", 
+					"./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.dll", 
 					"./output/win81/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pdb", 
+					"./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.pdb", 
 					"./output/win81/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth.pri", 
+					"./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.pri", 
 					"./output/win81/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+					"./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.xr.xml", 
 					"./output/win81/Xamarin.Auth/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+					"./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/WebAuthenticatorPage.xaml", 
 					"./output/win81/Xamarin.Auth/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindows81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+					"./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/WebAuthenticatorPage.xbf", 
 					"./output/win81/Xamarin.Auth/"
 				);
 			//-------------------------------------------------------------------------------------
@@ -1573,32 +1577,32 @@ Task ("copy-artifacts")
 			*/
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.dll", 
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.dll", 
 					"./output/wpa81/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pdb", 
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.pdb", 
 					"./output/wpa81/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth.pri", 
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.pri", 
 					"./output/wpa81/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.xr.xml", 
 					"./output/wpa81/Xamarin.Auth/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xaml", 
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/WebAuthenticatorPage.xaml", 
 					"./output/wpa81/Xamarin.Auth/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/bin/Release/Xamarin.Auth/WebAuthenticatorPage.xbf", 
+					"./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/WebAuthenticatorPage.xbf", 
 					"./output/wpa81/Xamarin.Auth/"
 				);
 			//-------------------------------------------------------------------------------------
@@ -1837,30 +1841,57 @@ Task ("samples-windows")
 	
 Task ("nuget")
 	.IsDependentOn ("libs")
-	.IsDependentOn ("copy-artifacts")
 	.Does 
 	(
 		() => 
 		{
-			if 
-			(
-				! FileExists("./output/wp80/Xamarin.Auth.dll")
-				||
-				! FileExists("./output/wp81/Xamarin.Auth.dll")
-				||
-				! FileExists("./output/win81/Xamarin.Auth.dll")
-				||
-				! FileExists("./output/wpa81/Xamarin.Auth.dll")
-				||
-				! FileExists("./output/uap10.0/Xamarin.Auth.dll")
-			)
-			{
-				string msg =
+			string platform = null;
+			string msg =
 				"Missing Windows dll artifacts"
 				+ System.Environment.NewLine +
-				"Please, build on Windows first!";
+				"Please, build on Windows first!"
+				+ System.Environment.NewLine
+				;
 
-				throw new System.ArgumentNullException(msg);
+			platform = "win81";
+			if 
+			(
+				! FileExists($"./output/{platform}/Xamarin.Auth.dll")
+			)
+			{
+				throw new System.ArgumentNullException(msg + $"platform = {platform}");
+			}
+			platform = "wp80";
+			if 
+			(
+				! FileExists($"./output/{platform}/Xamarin.Auth.dll")
+			)
+			{
+				throw new System.ArgumentNullException(msg + $"platform = {platform}");
+			}
+			platform = "wp81";
+			if 
+			(
+				! FileExists($"./output/{platform}/Xamarin.Auth.dll")
+			)
+			{
+				throw new System.ArgumentNullException(msg + $"platform = {platform}");
+			}
+			platform = "wpa81";
+			if 
+			(
+				! FileExists($"./output/{platform}/Xamarin.Auth.dll")
+			)
+			{
+				throw new System.ArgumentNullException(msg + $"platform = {platform}");
+			}
+			platform = "uap10.0";
+			if 
+			(
+				! FileExists($"./output/{platform}/Xamarin.Auth.dll")
+			)
+			{
+				throw new System.ArgumentNullException(msg + $"platform = {platform}");
 			}
 			
 			NuGetPack 
