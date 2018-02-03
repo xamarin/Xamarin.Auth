@@ -2001,7 +2001,7 @@ Task ("ci-osx")
 	;
 Task ("ci-windows")
     .IsDependentOn ("libs")
-    .IsDependentOn ("nuget")
+    //.IsDependentOn ("nuget")
     //.IsDependentOn ("samples")
 	;	
 //=================================================================================================
