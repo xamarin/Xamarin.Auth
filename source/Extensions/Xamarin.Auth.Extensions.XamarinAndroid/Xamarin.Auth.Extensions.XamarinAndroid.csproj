@@ -125,13 +125,19 @@
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
         <Reference Include="Xamarin.Auth NuGet Bait-n-Switch">
-          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+          <HintPath>..\..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
           <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
         </Reference>
       </ItemGroup>
     </When>
     <Otherwise>
       <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
+          <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
+          <Name>Xamarin.Auth.XamarinAndroid Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
     </Otherwise>
   </Choose>
   <!--
