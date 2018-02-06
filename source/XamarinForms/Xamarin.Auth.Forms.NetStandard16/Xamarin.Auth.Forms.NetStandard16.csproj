@@ -47,7 +47,6 @@
       <!-- project refs -->
       <ItemGroup>
           <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj">
-            <Name>Xamarin.Auth.NetStandard16 Project Reference</Name>              
           </ProjectReference>
       </ItemGroup>
     </Otherwise>
