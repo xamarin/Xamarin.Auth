@@ -106,7 +106,7 @@ namespace Xamarin.Auth._MobileServices
 
         private async void auth_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine("auth_Completed Username = " + e.Account.Username);
+            System.Diagnostics.Debug.WriteLine("auth_Completed Username = " + e?.Account?.Username);
 
             if (this.Frame.CanGoBack)
             {

@@ -782,45 +782,53 @@ namespace Xamarin.Auth._MobileServices
                 if (query.ContainsKey("code"))
                 {
                     string code = query["code"];
+                    TaskScheduler task_scheduler = null;
+                    try
+                    {
+                        task_scheduler = TaskScheduler.FromCurrentSynchronizationContext();
+                    }
+                    catch (System.InvalidOperationException exc_io)
+                    {
+                        // TODO: UWP
+                        string msg = exc_io.Message;
+                        System.Diagnostics.Debug.WriteLine($"OAuthAuthenticator exception {msg}");
+                    }
+
                     RequestAccessTokenAsync(code)
-                        .ContinueWith
-                            (
-                                task =>
-                                {
-                                    if (task.IsFaulted)
+                            .ContinueWith
+                                (
+                                    task =>
                                     {
-                                        OnError(task.Exception);
-                                    }
-                                    else
-                                    {
-                                        OnRetrievedAccountProperties(task.Result);
-                                    }
-                                },
-                                TaskScheduler.FromCurrentSynchronizationContext()
-                            );
+                                        if (task.IsFaulted)
+                                        {
+                                            OnError(task.Exception);
+                                        }
+                                        else
+                                        {
+                                            OnRetrievedAccountProperties(task.Result);
+                                        }
+                                    },
+                                    task_scheduler
+                                );
                 }
                 else
                 {
-                    OnError("Expected code in response, but did not receive one.");
+                    #region
+                    //---------------------------------------------------------------------------------------
+                    /// Pull Request - manually added/fixed
+                    ///		OAuth2Authenticator changes to work with joind.in OAuth #91
+                    ///		https://github.com/xamarin/Xamarin.Auth/pull/91
+                    ///		
+                    //OnError ("Expected access_token in response, but did not receive one.");
+                    OnError("Expected " + AccessTokenName + " in response, but did not receive one.");
+                    //---------------------------------------------------------------------------------------
+                    #endregion
+
                     return;
                 }
             }
-            else
-            {
-                #region
-                //---------------------------------------------------------------------------------------
-                /// Pull Request - manually added/fixed
-                ///		OAuth2Authenticator changes to work with joind.in OAuth #91
-                ///		https://github.com/xamarin/Xamarin.Auth/pull/91
-                ///		
-                //OnError ("Expected access_token in response, but did not receive one.");
-                OnError("Expected " + AccessTokenName + " in response, but did not receive one.");
-                //---------------------------------------------------------------------------------------
-                #endregion
-
-                return;
-            }
         }
+
 
         /// <summary>
         /// Asynchronously requests an access token with an authorization <paramref name="code"/>.
@@ -838,7 +846,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 { "grant_type", "authorization_code" },
                 { "code", code },
-                { "redirect_uri", redirectUrl.AbsoluteUri },
+                { "redirect_uri", redirectUrl.OriginalString },
                 { "client_id", clientId },
             };
             if (!string.IsNullOrEmpty(clientSecret))
@@ -869,7 +877,11 @@ namespace Xamarin.Auth._MobileServices
 
             if (data.ContainsKey("error"))
             {
-                throw new AuthException("Error authenticating: " + data["error"]);
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine($"Error authenticating: ");
+                sb.AppendLine($"   error             = {data["error"]}");
+                sb.AppendLine($"   error_description = {data["error_description"]}");
+                throw new AuthException(sb.ToString());
             }
             #region
             //---------------------------------------------------------------------------------------

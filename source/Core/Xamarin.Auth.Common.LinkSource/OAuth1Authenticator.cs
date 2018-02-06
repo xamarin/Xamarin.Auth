@@ -190,13 +190,13 @@ namespace Xamarin.Auth._MobileServices
                 redirect_url on the authorization server od "correct" url (AblsoluteUrl) with
                 slash
 			*/
-            string oauth_callback_uri_absolute = callbackUrl.AbsoluteUri;
+            //string oauth_callback_uri_absolute = callbackUrl.AbsoluteUri;
             string oauth_callback_uri_original = callbackUrl.OriginalString;
 
-            System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_callback_uri_absolute);
+            //System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_callback_uri_absolute);
             System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_callback_uri_original);
 
-            string oauth_callback_uri = oauth_callback_uri_absolute;
+            string oauth_callback_uri = oauth_callback_uri_original;
 
             var req = OAuth1.CreateRequest
                             (
@@ -289,7 +289,7 @@ namespace Xamarin.Auth._MobileServices
                 sb.AppendLine($"OAuth1Authenticator.OnPageLoaded ");
                 sb.AppendLine($"        mc++ fix");
                 sb.AppendLine($"        url         = {url.AbsoluteUri}");
-                sb.AppendLine($"        callbackUrl = {callbackUrl.AbsoluteUri}");
+                sb.AppendLine($"        callbackUrl = {callbackUrl.OriginalString}");
                 sb.AppendLine($"        oauth_verifier = {verifier}");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
                 #endif
