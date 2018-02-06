@@ -20,7 +20,7 @@ namespace XamarinAuthBrosten
                clientSecret: "***********",
                scope: "wl.basic",
                authorizeUrl: new Uri("https://login.live.com/oauth20_authorize.srf"),
-               redirectUrl: new Uri("https://login.live.com/oauth20_desktop.srf"),
+               redirectUrl: new Uri("https://xamarin.com"),
                accessTokenUrl: new Uri("https://login.live.com/oauth20_token.srf")
             );
 

@@ -82,6 +82,10 @@
       <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <!--
   ==================================================================================================
   If projects for references can be found use ProjectReferences otherwise use NuGet references
@@ -100,22 +104,18 @@
     </When>
     <Otherwise>
       <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
+          <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
+          <Name>Xamarin.Auth.Portable Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
     </Otherwise>
   </Choose>
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================
   -->
-  <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
-      <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
-      <Name>Xamarin.Auth.Portable</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.2.5.0.91635\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.5.0.91635\build\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

@@ -135,6 +135,12 @@
     </Reference>
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UWP.MultipleNavigationEvents.Crash\UWP.MultipleNavigationEvents.Crash.csproj">
+      <Project>{949376e3-87ad-4b3b-8184-6f088fa931cc}</Project>
+      <Name>UWP.MultipleNavigationEvents.Crash</Name>
+    </ProjectReference>
+  </ItemGroup>
   <!--
   ==================================================================================================
   If projects for references can be found use ProjectReferences otherwise use NuGet references
@@ -156,7 +162,7 @@
       <ItemGroup>
         <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
           <Project>{15be2387-8e72-4c0b-8a6a-460ef5fa4539}</Project>
-          <Name>Xamarin.Auth.XamarinIOS</Name>
+          <Name>Xamarin.Auth.XamarinIOS Project Reference</Name>
           <IsAppExtension>false</IsAppExtension>
           <IsWatchApp>false</IsWatchApp>
         </ProjectReference>
@@ -167,12 +173,6 @@
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================
   -->
-  <ItemGroup>
-    <ProjectReference Include="..\UWP.MultipleNavigationEvents.Crash\UWP.MultipleNavigationEvents.Crash.csproj">
-      <Project>{949376e3-87ad-4b3b-8184-6f088fa931cc}</Project>
-      <Name>UWP.MultipleNavigationEvents.Crash</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

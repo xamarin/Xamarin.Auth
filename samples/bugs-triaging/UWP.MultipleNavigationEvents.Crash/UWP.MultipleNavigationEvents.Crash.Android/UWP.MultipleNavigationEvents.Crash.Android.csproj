@@ -57,7 +57,6 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Json" />
-    <Reference Include="System.ObjectModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
     <Reference Include="Xamarin.Android.Support.Annotations, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -103,30 +102,6 @@
       <HintPath>..\packages\Xamarin.Forms.2.5.0.91635\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
-  <!--
-  ==================================================================================================
-  If projects for references can be found use ProjectReferences otherwise use NuGet references
-  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
-  msbuild Choose When ProjectReference Reference Include
-  -->
-  <Choose>
-    <When Condition="! exists('..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
-      <!-- nuget packages (dll) refs -->
-      <ItemGroup>
-        <Reference Include="Xamarin.Auth NuGet Bait-n-Switch">
-          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
-          <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
-        </Reference>
-      </ItemGroup>
-    </When>
-    <Otherwise>
-      <!-- project refs -->
-    </Otherwise>
-  </Choose>
-  <!--
-  If projects for references can be found use ProjectReferences otherwise use NuGet references
-  ==================================================================================================
-  -->
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -158,6 +133,36 @@
       <Name>UWP.MultipleNavigationEvents.Crash</Name>
     </ProjectReference>
   </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <Reference Include="Xamarin.Auth NuGet Bait-n-Switch">
+          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\MonoAndroid10\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
+        </Reference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
+          <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
+          <Name>Xamarin.Auth.XamarinAndroid Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
