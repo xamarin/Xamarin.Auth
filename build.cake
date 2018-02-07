@@ -1902,7 +1902,7 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						Symbols = true
+						Symbols = false
 					}
 				);                
 			NuGetPack 
@@ -1913,7 +1913,7 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						Symbols = true
+						Symbols = false
 					}
 				);                
 			NuGetPack 
@@ -1924,7 +1924,7 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						Symbols = true
+						Symbols = false
 					}
 				);                
 		}
