@@ -789,7 +789,11 @@ namespace Xamarin.Auth._MobileServices
                     }
                     catch (System.InvalidOperationException exc_io)
                     {
-                        // TODO: UWP
+                        /* 
+                            TODO: INVESTIGATE UWP only exception
+                                System.InvalidOperationException: 
+                                    The current SynchronizationContext may not be used as a TaskScheduler
+                       */
                         string msg = exc_io.Message;
                         System.Diagnostics.Debug.WriteLine($"OAuthAuthenticator exception {msg}");
                     }
@@ -846,7 +850,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 { "grant_type", "authorization_code" },
                 { "code", code },
-                { "redirect_uri", redirectUrl.OriginalString },
+                { "redirect_uri", redirectUrl.AbsoluteUri },
                 { "client_id", clientId },
             };
             if (!string.IsNullOrEmpty(clientSecret))
@@ -877,11 +881,7 @@ namespace Xamarin.Auth._MobileServices
 
             if (data.ContainsKey("error"))
             {
-                StringBuilder sb = new StringBuilder();
-                sb.AppendLine($"Error authenticating: ");
-                sb.AppendLine($"   error             = {data["error"]}");
-                sb.AppendLine($"   error_description = {data["error_description"]}");
-                throw new AuthException(sb.ToString());
+                throw new AuthException("Error authenticating: " + data["error"]);
             }
             #region
             //---------------------------------------------------------------------------------------
