@@ -1625,16 +1625,15 @@ Task ("copy-artifacts")
 				(
 					/*
 					mc++ 2017-10-17 output changed??
-					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth/Xamarin.Auth.xr.xml", 
-					"./output/uap10.0/Xamarin.Auth/"
+					Visual Studio does not generate Xamarin.Auth subfolder, but nuget needs it
 					*/
 					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml", 
-					"./output/uap10.0/"
+					"./output/uap10.0/Xamarin.Auth/"
 				);
 			CopyFiles
 				(
 					"./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf", 
-					"./output/uap10.0/"
+					"./output/uap10.0/Xamarin.Auth/"
 				);
 			/*
 				.net Native - Linking stuff - not needed
@@ -1659,12 +1658,12 @@ Task ("copy-artifacts")
 			CopyFiles
 				(
 					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.dll", 
-					"./output/netstandard1.0/"
+					"./output/netstandard1.6/"
 				);
 			CopyFiles
 				(
 					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.pdb", 
-					"./output/netstandard1.0/"
+					"./output/netstandard1.6/"
 				);
 			//-------------------------------------------------------------------------------------
 
@@ -1902,7 +1901,7 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						Symbols = false
+						Symbols = true
 					}
 				);                
 			NuGetPack 
@@ -1913,7 +1912,7 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						Symbols = false
+						Symbols = true
 					}
 				);                
 			NuGetPack 
@@ -1924,7 +1923,7 @@ Task ("nuget")
 						Verbosity = NuGetVerbosity.Detailed,
 						OutputDirectory = "./output/",        
 						BasePath = "./",
-						Symbols = false
+						Symbols = true
 					}
 				);                
 		}
