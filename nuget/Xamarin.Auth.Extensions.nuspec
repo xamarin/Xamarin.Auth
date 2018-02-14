@@ -70,7 +70,8 @@
 			-->
 			<group>
 				<dependency id="Microsoft.Bcl.Build" version="1.0.21" />
-            	<dependency id="Xamarin.Auth" version="[1.4.1,)"/>
+				<dependency id="PCLCrypto" version="[2.0.147,)"/>
+            	<dependency id="Xamarin.Auth" version="[1.5.0,)"/>
 			</group>
         </dependencies>
 	</metadata>
