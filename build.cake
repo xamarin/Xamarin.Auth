@@ -1646,23 +1646,23 @@ Task ("copy-artifacts")
 			//-------------------------------------------------------------------------------------
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.dll", 
+					"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.dll", 
 					"./output/netstandard1.0/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/Xamarin.Auth.pdb", 
+					"./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.pdb", 
 					"./output/netstandard1.0/"
 				);
 			//-------------------------------------------------------------------------------------
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.dll", 
+					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.dll", 
 					"./output/netstandard1.6/"
 				);
 			CopyFiles
 				(
-					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/Xamarin.Auth.pdb", 
+					"./source/Core/Xamarin.Auth.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.pdb", 
 					"./output/netstandard1.6/"
 				);
 			//-------------------------------------------------------------------------------------
@@ -1699,6 +1699,28 @@ Task ("copy-artifacts")
 				(
 					"./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb", 
 					"./output/ios/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.Extensions.dll", 
+					"./output/netstandard1.0/"
+				);
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.Extensions.pdb", 
+					"./output/netstandard1.0/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.Extensions.dll", 
+					"./output/netstandard1.6/"
+				);
+			CopyFiles
+				(
+					"./source/Extensions/Xamarin.Auth.Extensions.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.Extensions.pdb", 
+					"./output/netstandard1.6/"
 				);
 			//-------------------------------------------------------------------------------------
 
@@ -1745,6 +1767,28 @@ Task ("copy-artifacts")
 				(
 					"./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb", 
 					"./output/ios/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.XamarinForms.dll", 
+					"./output/netstandard1.0/"
+				);
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0//Xamarin.Auth.XamarinForms.pdb", 
+					"./output/netstandard1.0/"
+				);
+			//-------------------------------------------------------------------------------------
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.XamarinForms.dll", 
+					"./output/netstandard1.6/"
+				);
+			CopyFiles
+				(
+					"./source/XamarinForms/Xamarin.Auth.Forms.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.XamarinForms.pdb", 
+					"./output/netstandard1.6/"
 				);
 			//-------------------------------------------------------------------------------------
 

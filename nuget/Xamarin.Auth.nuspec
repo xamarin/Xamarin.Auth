@@ -100,6 +100,20 @@
 			on windows with \
 			on macosx with /
 		-->
+
+		<!--
+			Core - .NET Standard
+		-->
+		<file
+			src="output/netstandard1.0/Xamarin.Auth.dll"
+			target="lib/netstandard1.0/Xamarin.Auth.dll"
+			>
+		</file>
+		<file
+			src="output/netstandard1.6/Xamarin.Auth.dll"
+			target="lib/netstandard1.6/Xamarin.Auth.dll"
+			>
+		</file>
 		<!--
 			Core - Portable
 		-->

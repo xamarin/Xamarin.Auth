@@ -81,6 +81,22 @@
 			on windows with \
 			on macosx with /
 		-->
+
+		<!--
+			Core - .NET Standard
+		-->
+		<file
+			src="output/netstandard1.0/Xamarin.Auth.Extensions.dll"
+			target="lib/netstandard1.0/Xamarin.Auth.Extensions.dll"
+			>
+		</file>
+		<file
+			src="output/netstandard1.6/Xamarin.Auth.Extensions.dll"
+			target="lib/netstandard1.6/Xamarin.Auth.Extensions.dll"
+			>
+		</file>
+
+
 		<!--
 			Core - Portable
 		-->
