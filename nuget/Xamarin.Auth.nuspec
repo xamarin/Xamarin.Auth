@@ -88,7 +88,6 @@
 			-->
 			<group>
 				<dependency id="Microsoft.Bcl.Build" version="1.0.21" />
-				<dependency id="PCLCrypto" version="[2.0.147,)"/>
 			</group>
 			<group targetFramework="MonoAndroid10">
 				<dependency id="Xamarin.Android.Support.CustomTabs" version="[23.3.0,)" />
