@@ -24,7 +24,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.6.0.0-alpha03
+			1.6.0.0-alpha04
 		</version>
 		<releaseNotes>
 			.NETStandard support
@@ -86,9 +86,6 @@
 			<!--
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
 			-->
-			<group>
-				<dependency id="Microsoft.Bcl.Build" version="1.0.21" />
-			</group>
 			<group targetFramework="MonoAndroid10">
 				<dependency id="Xamarin.Android.Support.CustomTabs" version="[23.3.0,)" />
 			</group>

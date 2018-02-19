@@ -85,9 +85,8 @@
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
 			-->
 			<group>
-				<dependency id="Microsoft.Bcl.Build" version="1.0.21" />
+				<dependency id="Xamarin.Auth" version="[1.5.0.3,)"/>
 				<dependency id="Xamarin.Forms" version="[2.3,)"/>
-				<dependency id="Xamarin.Auth" version="[1.4.1,)"/>
 			</group>
 			<group targetFramework="MonoAndroid10">
 				<dependency id="Xamarin.Android.Support.CustomTabs" version="[23.3.0,)" />
