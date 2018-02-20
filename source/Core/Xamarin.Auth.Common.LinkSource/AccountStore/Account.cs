@@ -189,14 +189,22 @@ namespace Xamarin.Auth._MobileServices
         string SerializeCookies()
         {
             #if !PORTABLE && !NETFX_CORE && !(WINDOWS_PHONE && SILVERLIGHT) && !NETSTANDARD1_6
-            var f = new BinaryFormatter();
-            using (var s = new MemoryStream())
+            BinaryFormatter f = new BinaryFormatter();
+            using (MemoryStream stream = new MemoryStream())
             {
-                f.Serialize(s, Cookies);
-                return Convert.ToBase64String(s.GetBuffer(), 0, (int)s.Length);
+                f.Serialize(stream, Cookies);
+                return Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length);
+            }
+            #elif NETFX_CORE
+            System.Runtime.Serialization.DataContractSerializer serializer = null;
+            serializer = new System.Runtime.Serialization.DataContractSerializer(Cookies.GetType());
+            using (MemoryStream stream = new MemoryStream())
+            {
+                serializer.WriteObject(stream, Cookies);
+                return Convert.ToBase64String(stream.ToArray(), 0, (int)stream.Length);
             }
             #else
-			return String.Empty;
+            return String.Empty;
             #endif
         }
 
