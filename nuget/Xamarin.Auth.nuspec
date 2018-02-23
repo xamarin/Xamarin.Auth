@@ -24,7 +24,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.6.0.0-alpha04
+			1.6.0.0-alpha05
 		</version>
 		<releaseNotes>
 			.NETStandard support
@@ -85,10 +85,18 @@
 		<dependencies> 
 			<!--
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
+
+			https://github.com/xamarin/Xamarin.Forms/blob/master/.nuspec/Xamarin.Forms.nuspec
 			-->
 			<group targetFramework="MonoAndroid10">
 				<dependency id="Xamarin.Android.Support.CustomTabs" version="[23.3.0,)" />
 			</group>
+			<group targetFramework="MonoAndroid70">
+				<dependency id="Xamarin.Android.Support.CustomTabs" version="[23.3.0,)" />
+			</group>
+			<group targetFramework="MonoAndroid71">
+				<dependency id="Xamarin.Android.Support.CustomTabs" version="[25.4.0.2,)" />
+			</group>			
 		</dependencies>
 	</metadata>
 	<files>
