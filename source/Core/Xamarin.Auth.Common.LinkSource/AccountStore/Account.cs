@@ -21,6 +21,8 @@ using System.IO;
 
 #if ! PORTABLE && ! NETFX_CORE && ! (WINDOWS_PHONE && SILVERLIGHT) && ! NETSTANDARD1_6
 using System.Runtime.Serialization.Formatters.Binary;
+#elif NETFX_CORE
+
 #endif
 
 #if ! AZURE_MOBILE_SERVICES
@@ -128,9 +130,9 @@ namespace Xamarin.Auth._MobileServices
         /// </summary>
         /// <returns>A <c>string</c> representing the <see cref="Account"/> instance.</returns>
         /// <seealso cref="Deserialize"/>
-        public string Serialize()
+        public string Serialize() 
         {
-            var sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
             sb.Append("__username__=");
             sb.Append(Uri.EscapeDataString(Username));
@@ -151,6 +153,37 @@ namespace Xamarin.Auth._MobileServices
 
             return sb.ToString();
         }
+
+        #if NETFX_CORE
+        /// <summary>
+        /// Serialize this account into a string that can be deserialized.
+        /// </summary>
+        /// <returns>A <c>string</c> representing the <see cref="Account"/> instance.</returns>
+        /// <seealso cref="Deserialize"/>
+        public string Serialize(Uri uri)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.Append("__username__=");
+            sb.Append(Uri.EscapeDataString(Username));
+
+            foreach (var p in Properties)
+            {
+                sb.Append("&");
+                sb.Append(Uri.EscapeDataString(p.Key));
+                sb.Append("=");
+                sb.Append(Uri.EscapeDataString(p.Value));
+            }
+
+            if (Cookies.Count > 0)
+            {
+                sb.Append("&__cookies__=");
+                sb.Append(Uri.EscapeDataString(SerializeCookies(uri)));
+            }
+
+            return sb.ToString();
+        }
+        #endif
 
         /// <summary>
         /// Restores an account from its serialized string representation.
@@ -186,40 +219,63 @@ namespace Xamarin.Auth._MobileServices
             return acct;
         }
 
-        string SerializeCookies()
+#if !PORTABLE && !NETFX_CORE && !(WINDOWS_PHONE && SILVERLIGHT) && !NETSTANDARD1_6
+        string SerializeCookies() 
         {
-            #if !PORTABLE && !NETFX_CORE && !(WINDOWS_PHONE && SILVERLIGHT) && !NETSTANDARD1_6
             BinaryFormatter f = new BinaryFormatter();
             using (MemoryStream stream = new MemoryStream())
             {
                 f.Serialize(stream, Cookies);
                 return Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length);
             }
-            #elif NETFX_CORE
-            System.Runtime.Serialization.DataContractSerializer serializer = null;
-            serializer = new System.Runtime.Serialization.DataContractSerializer(Cookies.GetType());
+        }
+#else
+        string SerializeCookies()
+        {
+            return String.Empty;
+        }
+#endif
+
+#if NETFX_CORE
+        string SerializeCookies(Uri uri)
+        {
             using (MemoryStream stream = new MemoryStream())
             {
-                serializer.WriteObject(stream, Cookies);
+                Serialize(Cookies.GetCookies(uri), uri, stream);
                 return Convert.ToBase64String(stream.ToArray(), 0, (int)stream.Length);
             }
-            #else
-            return String.Empty;
-            #endif
         }
+#endif
 
+#if !PORTABLE && !NETFX_CORE && !(WINDOWS_PHONE && SILVERLIGHT) && !NETSTANDARD1_6
         static CookieContainer DeserializeCookies(string cookiesString)
         {
-            #if !PORTABLE && !NETFX_CORE && !(WINDOWS_PHONE && SILVERLIGHT) && !NETSTANDARD1_6
             var f = new BinaryFormatter();
             using (var s = new MemoryStream(Convert.FromBase64String(cookiesString)))
             {
                 return (CookieContainer)f.Deserialize(s);
             }
-            #else
-            return new CookieContainer();
-            #endif
         }
+#else
+        static CookieContainer DeserializeCookies(string cookiesString)
+        {
+            return new CookieContainer();
+        }
+#endif
+
+#if NETFX_CORE
+        static CookieContainer DeserializeCookies(string cookiesString, Uri uri)
+        {
+            CookieContainer cc = null;
+
+            using (var s = new MemoryStream(Convert.FromBase64String(cookiesString)))
+            {
+                cc = Deserialize(s, uri);
+            }
+
+            return cc;
+        }
+#endif
 
         /// <summary>
         /// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
@@ -231,6 +287,41 @@ namespace Xamarin.Auth._MobileServices
         {
             return Serialize();
         }
+
+#if NETFX_CORE
+        static void Serialize(CookieCollection cookies, Uri address, Stream stream)
+        {
+            System.Runtime.Serialization.DataContractSerializer formatter = null;
+            formatter = new System.Runtime.Serialization.DataContractSerializer(typeof(List<Cookie>));
+            List<Cookie> cookieList = new List<Cookie>();
+            for (var enumerator = cookies.GetEnumerator(); enumerator.MoveNext();)
+            {
+                var cookie = enumerator.Current as Cookie;
+                if (cookie == null) continue;
+                cookieList.Add(cookie);
+
+            }
+            formatter.WriteObject(stream, cookieList);
+        }
+
+        static CookieContainer Deserialize(Stream stream, Uri uri)
+        {
+            List<Cookie> cookies = new List<Cookie>();
+            CookieContainer container = new CookieContainer();
+            System.Runtime.Serialization.DataContractSerializer formatter = null;
+            formatter = new System.Runtime.Serialization.DataContractSerializer(typeof(List<Cookie>));
+            cookies = (List<Cookie>)formatter.ReadObject(stream);
+            CookieCollection cc = new CookieCollection();
+
+            foreach (Cookie cookie in cookies)
+            {
+                cc.Add(cookie);
+            }
+            container.Add(uri, cc);
+
+            return container;
+        }
+#endif
     }
 }
 
