@@ -644,6 +644,7 @@ Action<string,  MSBuildSettings> BuildLoop =
 			InformationFancy("BuildLoop:");
 			InformationFancy($"    Solution/Project = {sln_prj}");
 			InformationFancy($"    Configuration    = {build_configuration}");
+			InformationFancy($"    MsBuild path     = {msBuildPathX64}");
 
 			msbuild_settings.Verbosity = verbosity;
 			msbuild_settings.Configuration = build_configuration;
