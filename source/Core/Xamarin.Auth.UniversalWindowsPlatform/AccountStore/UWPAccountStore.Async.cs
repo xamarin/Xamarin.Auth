@@ -89,6 +89,23 @@ namespace Xamarin.Auth.WindowsUWP
             }
         }
 
+        public async Task SaveAsync(Account account, string serviceId, Uri uri)
+        {
+            byte[] data = Encoding.UTF8.GetBytes(account.Serialize(uri));
+            byte[] prot = (await DataProtectionExtensions.ProtectAsync(data.AsBuffer()).ConfigureAwait(false)).ToArray();
+
+            var path = GetAccountPath(account, serviceId);
+
+            var localFolder = ApplicationData.Current.LocalFolder;
+            var file = await localFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists).AsTask().ConfigureAwait(false);
+            using (var stream = await file.OpenStreamForWriteAsync().ConfigureAwait(false))
+            using (var writer = new BinaryWriter(stream))
+            {
+                writer.Write((Int32)prot.Length);
+                writer.Write(prot);
+            }
+        }
+
         private static string GetAccountPath(Account account, string serviceId)
         {
             return String.Format("xamarin.auth.{0}.{1}", account.Username, serviceId);
