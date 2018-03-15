@@ -615,30 +615,6 @@ Action<string,  MSBuildSettings> BuildLoop =
             return;
         }
         
-        if 
-        (
-            IsRunningOnWindows() == false
-            &&
-            (
-                sln_prj.Contains("VS2015.sln")
-                ||
-                sln_prj.Contains("VS2017.sln")
-            )
-        )
-        {
-            /*
-                2017-09
-                Failing on Mac because of: 
-                
-                    *	Uinversal Windows Platofrm
-                    *	WinRT (Windows and Windows Phone)
-                    *	WindowsPhone Silverlight
-                    *	.NET Standard
-                    
-            */		
-            return;
-        }
-
         foreach (string build_configuration in build_configurations)
         {
             InformationFancy("BuildLoop:");
@@ -664,8 +640,9 @@ Action<string,  MSBuildSettings> BuildLoop =
             {
                 // NO OP - MSBuildToolVersion is set before calling
             }
-            else if (sln_prj.Contains("VS2015.sln"))
+            else if (sln_prj.Contains("Xamarin.Auth-Library-VS2015.sln") && IsRunningOnWindows() )
             {
+                NuGetRestore(sln_prj, nuget_restore_settings); 
                 /*
                 Using Visual Studio 2015 tooling
 
@@ -689,9 +666,51 @@ Action<string,  MSBuildSettings> BuildLoop =
                 */
                 msbuild_settings.PlatformTarget = PlatformTarget.x86;
             }
-            else if(sln_prj.Contains("VS2017.sln"))
+            else if (sln_prj.Contains("Xamarin.Auth-Library-VS2017.sln") && IsRunningOnWindows() )
             {
-                msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
+                /*
+                C:\Program Files\dotnet\sdk\2.1.101\Sdks\Microsoft.NET.Sdk\build\Microsoft.PackageDependencyResolution.targets(327,5): 
+                error : 
+                Assets file 
+                    'X:\xa-m\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\obj\project.assets.json' 
+                not found. Run a NuGet package restore to generate this file. 
+                
+                C:\Program Files\dotnet\sdk\2.1.101\Sdks\Microsoft.NET.Sdk\build\Microsoft.PackageDependencyResolution.targets(167,5): 
+                error : Assets file 
+                    'X:\xa-m\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\obj\project.assets.json' 
+                not found. Run a NuGet package restore to generate this file. 
+                 */
+
+
+                NuGetRestore(sln_prj, nuget_restore_settings); 
+                NuGetRestore
+                (
+                    "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj",
+                    nuget_restore_settings
+                );
+                NuGetRestore
+                (
+                    "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj",
+                    nuget_restore_settings
+                );
+                DotNetCoreRestore
+                (
+                    "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj"
+                );
+                DotNetCoreRestore
+                (
+                    "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj"
+                );
+                DotNetCoreBuild
+                (
+                    "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj"
+                );
+                DotNetCoreBuild
+                (
+                    "./source/Core/Xamarin.Auth.NetStandard16/Xamarin.Auth.NetStandard16.csproj"
+                );
+
+
                 /*
                 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets 
                 error MSB6004: 
@@ -699,18 +718,25 @@ Action<string,  MSBuildSettings> BuildLoop =
                     "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" 
                 is invalid. [X:\x.a-m\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj]
                 */
-                msbuild_settings.ToolPath = msBuildPathX64;	
-            }		
-            else if(sln_prj.Contains("MacOSX-Xamarin.Studio.sln"))
-            {
-                InformationFancy("			- msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015");
                 msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
-                msbuild_settings.ToolPath = msBuildPathX64;	
-
-                if(IsRunningOnWindows())
-                {
-                    return;
-                }
+                msbuild_settings.ToolPath = msBuildPathX64;
+                msbuild_settings.WithProperty
+                                        (
+                                            "RestoreIgnoreFailedSources", 
+                                            "true"
+                                        );
+            }		
+            else if(sln_prj.Contains("Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln") && ! IsRunningOnWindows() )
+            {
+                // MacOSX only
+            }		
+            else if(sln_prj.Contains("Xamarin.Auth-Library.sln") && ! IsRunningOnWindows() )
+            {
+                // xplat
+            }
+            else
+            {
+                return;
             }		
 
 
