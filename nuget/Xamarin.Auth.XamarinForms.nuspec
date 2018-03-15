@@ -24,7 +24,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.6.0.0
+			1.6.0.1
 		</version>
 		<releaseNotes>
             - .NET Standard support (1.0 and 1.6)
