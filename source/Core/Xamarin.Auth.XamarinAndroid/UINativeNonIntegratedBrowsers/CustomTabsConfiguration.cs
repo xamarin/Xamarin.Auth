@@ -5,6 +5,7 @@ using Android.App;
 using Android.Content;
 using Android.Support.CustomTabs;
 using System.Collections.Generic;
+using System.Linq;
 
 #if !AZURE_MOBILE_SERVICES
 using Android.Support.CustomTabs.Chromium.SharedUtilities;
@@ -54,7 +55,7 @@ namespace Xamarin.Auth
                                                                    "http://xamarin.com"
                                                                 );
             PackagesSupportingCustomTabs = PackageManagerHelper.PackagesSupportingCustomTabs;
-            PackageForCustomTabs = PackagesSupportingCustomTabs["Detected 0"];
+            PackageForCustomTabs = PackagesSupportingCustomTabs.FirstOrDefault().Value;
 
             CustomTabsActivityManager = new CustomTabsActivityManager(a);
             CustomTabsIntentBuilder = new CustomTabsIntent.Builder(CustomTabsActivityManager.Session);

@@ -17,7 +17,7 @@
     <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <TargetFrameworkVersion>v8.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <AndroidTlsProvider>
@@ -204,7 +204,7 @@
       <ItemGroup>
         <ProjectReference Include="..\..\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
           <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-          <Name>Xamarin.Auth.XamarinAndroid Project Reference</Name>
+          <Name>Xamarin.Auth.XamarinAndroid</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>
