@@ -442,6 +442,7 @@ string[] source_solutions = new string[]
 {
     "./source/Xamarin.Auth-Library.sln",
     "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+    "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio-CI.sln",
     "./source/Xamarin.Auth-Library-VS2015.sln",
     "./source/Xamarin.Auth-Library-VS2017.sln",
 };
@@ -727,9 +728,16 @@ Action<string,  MSBuildSettings> BuildLoop =
                                             "true"
                                         );
             }		
+            else if(sln_prj.Contains("Xamarin.Auth-Library-MacOSX-Xamarin.Studio-CI.sln") && ! IsRunningOnWindows() )
+            {
+                // MacOSX only 
+                // no Android projects!!!
+                // DO compile
+            }		
             else if(sln_prj.Contains("Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln") && ! IsRunningOnWindows() )
             {
                 // MacOSX only
+                return;
             }		
             else if(sln_prj.Contains("Xamarin.Auth-Library.sln") && ! IsRunningOnWindows() )
             {
