@@ -292,29 +292,50 @@ Task ("clean")
             //DeleteDirectories (GetDirectories("./output"), recursive:true);
             // OK
             //CleanDirectories("**/obj");
-            //CleanDirectories("**/Obj");
             //CleanDirectories("**/bin");
-            //CleanDirectories("**/Bin");
             
             //CleanDirectories(GetDirectories("**/obj"));
-            //CleanDirectories(GetDirectories("**/Obj"));
             //CleanDirectories(GetDirectories("**/bin"));
-            //CleanDirectories(GetDirectories("**/Bin"));
-            
             
             // OK
-            DeleteDirectories(GetDirectories("**/obj"), recursive:true);
-            DeleteDirectories(GetDirectories("**/Obj"), recursive:true);
-            DeleteDirectories(GetDirectories("**/bin"), recursive:true);
-            DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
-            
-            // ! OK
-            //DeleteDirectories("**/obj", true);
-            // The best overloaded method match for 
-            //		`CakeBuildScriptImpl.DeleteDirectories(System.Collections.Generic.IEnumerable<Cake.Core.IO.DirectoryPath>, bool)' 
-            // has some invalid arguments
-            //Information("NOGO: DeleteDirectories(\"**/obj\", true);");
+            DeleteDirectories
+                (
+                    GetDirectories("**/obj"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/Obj"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/bin"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/Bin"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );            
 
+            return;
         }
     );
 
@@ -344,12 +365,62 @@ Task ("distclean")
 
             // }
 
-            DeleteDirectories(GetDirectories("**/bin"), recursive:true);
-            DeleteDirectories(GetDirectories("**/Bin"), recursive:true);
-            DeleteDirectories(GetDirectories("**/obj"), recursive:true);
-            DeleteDirectories(GetDirectories("**/Obj"), recursive:true);
-            DeleteDirectories(GetDirectories("**/packages"), recursive:true);
-            DeleteDirectories(GetDirectories("**/Components"), recursive:true);
+            DeleteDirectories
+                (
+                    GetDirectories("**/obj"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/Obj"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/bin"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/Bin"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/packages"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+            DeleteDirectories
+                (
+                    GetDirectories("**/Components"), 
+                    new DeleteDirectorySettings 
+                    {
+                        Recursive = true,
+                        Force = true
+                    }
+                );
+
+            return;
         }
     );
 
