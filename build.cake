@@ -554,6 +554,7 @@ Task ("source-nuget-restore")
         {
             foreach (string source_solution in source_solutions)
             {
+                Information("Nuget Restore   = " + source_solution);
                 NuGetRestore(source_solution, nuget_restore_settings); 
             }
 
