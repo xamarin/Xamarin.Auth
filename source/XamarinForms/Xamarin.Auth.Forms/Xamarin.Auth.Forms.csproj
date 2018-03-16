@@ -56,12 +56,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <!--
-  ==================================================================================================
-  If projects for references can be found use ProjectReferences otherwise use NuGet references
-  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
-  msbuild Choose When ProjectReference Reference Include
-  -->
   <ItemGroup>
     <Reference Include="Validation">
       <HintPath>..\..\packages\Validation.2.4.18\lib\portable-net45+win8+wp8+wpa81\Validation.dll</HintPath>
@@ -76,13 +70,19 @@
       <HintPath>..\..\packages\Xamarin.Forms.2.5.0.122203\lib\portable-win+net45+wp80+win81+wpa81\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
   <Choose>
     <When Condition="! exists('..\..\Core\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
         <Reference Include="Xamarin.Auth  NuGet Bait-n-Switch">
-          <HintPath>..\packages\Xamarin.Auth.1.5.0.3\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
-          <Name>Xamarin.Auth.WindowsPhone8 NuGet Bait-n-Switch</Name>
+          <HintPath>..\..\packages\Xamarin.Auth.1.5.0.3\lib\portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10\Xamarin.Auth.dll</HintPath>
+          <Name>Xamarin.Auth.Portable NuGet Bait-n-Switch</Name>
         </Reference>
       </ItemGroup>
     </When>
@@ -91,7 +91,7 @@
       <ItemGroup>
         <ProjectReference Include="..\..\Core\Xamarin.Auth.Portable\Xamarin.Auth.Portable.csproj">
           <Project>{87580927-9f8e-42ae-bdfe-35f95abf17d8}</Project>
-          <Name>Xamarin.Auth.Portable</Name>
+          <Name>Xamarin.Auth.Portable Project reference</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>
