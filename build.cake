@@ -733,7 +733,8 @@ Action<string,  MSBuildSettings> BuildLoop =
             }		
             else if(sln_prj.Contains("Xamarin.Auth-Library.sln") && ! IsRunningOnWindows() )
             {
-                // xplat
+                // cannot build solution with Windows platforms on Mac
+                return;
             }
             else
             {
