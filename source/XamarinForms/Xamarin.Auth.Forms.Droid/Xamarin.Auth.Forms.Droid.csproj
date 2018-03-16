@@ -53,9 +53,6 @@
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="PCLCrypto">
-      <HintPath>..\..\packages\PCLCrypto.2.0.147\lib\MonoAndroid23\PCLCrypto.dll</HintPath>
-    </Reference>
     <Reference Include="PInvoke.Windows.Core">
       <HintPath>..\..\packages\PInvoke.Windows.Core.0.5.111\lib\portable-net45+win8+wpa81\PInvoke.Windows.Core.dll</HintPath>
       <Private>False</Private>
@@ -109,9 +106,6 @@
     <Reference Include="Xamarin.Android.Support.Transition">
       <HintPath>..\..\packages\Xamarin.Android.Support.Transition.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Transition.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.v4">
-      <HintPath>..\..\packages\Xamarin.Android.Support.v4.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v4.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v7.CardView">
       <HintPath>..\..\packages\Xamarin.Android.Support.v7.CardView.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v7.CardView.dll</HintPath>
     </Reference>
@@ -120,9 +114,6 @@
     </Reference>
     <Reference Include="Xamarin.Android.Support.Vector.Drawable">
       <HintPath>..\..\packages\Xamarin.Android.Support.Vector.Drawable.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Vector.Drawable.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Android.Support.Animated.Vector.Drawable">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Animated.Vector.Drawable.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v7.AppCompat">
       <HintPath>..\..\packages\Xamarin.Android.Support.v7.AppCompat.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
@@ -145,22 +136,31 @@
     <Reference Include="Xamarin.Forms.Platform">
       <HintPath>..\..\packages\Xamarin.Forms.2.5.0.122203\lib\MonoAndroid10\Xamarin.Forms.Platform.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Forms.Xaml">
-      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.122203\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v7.Palette">
       <HintPath>..\..\packages\Xamarin.Android.Support.v7.Palette.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v7.Palette.dll</HintPath>
     </Reference>
+    <Reference Include="PCLCrypto">
+      <HintPath>..\..\packages\PCLCrypto.2.0.147\lib\MonoAndroid23\PCLCrypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\..\packages\Xamarin.Android.Support.v4.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.Animated.Vector.Drawable">
+      <HintPath>..\..\packages\Xamarin.Android.Support.Animated.Vector.Drawable.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Animated.Vector.Drawable.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Forms.Xaml">
+      <HintPath>..\..\packages\Xamarin.Forms.2.5.0.122203\lib\MonoAndroid10\Xamarin.Forms.Xaml.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
       <Link>Page\AuthenticatorPage.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
       <Link>PreserveAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="AuthenticatorPageRenderer.cs" />
@@ -204,7 +204,7 @@
       <ItemGroup>
         <ProjectReference Include="..\..\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
           <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-          <Name>Xamarin.Auth.XamarinAndroid Project reference</Name>
+          <Name>Xamarin.Auth.XamarinAndroid</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>

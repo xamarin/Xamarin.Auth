@@ -4,6 +4,7 @@
     <TargetFramework>netstandard1.0</TargetFramework>
     <AssemblyName>Xamarin.Auth.XamarinForms</AssemblyName>
     <RootNamespace>Xamarin.Auth.XamarinForms</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,5 +13,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
   </ItemGroup>
 </Project>

@@ -105,15 +105,15 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
     <None Include="packages.config" />
     <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
       <Link>Page\AuthenticatorPage.cs</Link>
     </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
       <Link>PreserveAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AuthenticatorPageRenderer.cs" />
   </ItemGroup>

@@ -40,6 +40,9 @@
     <CodesignKey>iPhone Developer</CodesignKey>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\IEmbeddedWebViewConfiguration.cs">
       <Link>IEmbeddedWebViewConfiguration.cs</Link>
     </Compile>
@@ -48,9 +51,6 @@
     </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
       <Link>PreserveAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
     <Compile Include="AuthenticatorPageRenderer.cs" />
     <Compile Include="EmbeddedWebViewConfiguration.cs" />

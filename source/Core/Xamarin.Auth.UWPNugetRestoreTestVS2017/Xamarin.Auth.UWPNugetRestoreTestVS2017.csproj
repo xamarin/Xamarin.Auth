@@ -115,7 +115,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Xamarin.Auth.UWPNugetRestoreTestVS2015.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -274,9 +273,6 @@
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\OAuth\OAuth2\ResponseType.cs">
       <Link>OAuth\OAuth2\ResponseType.cs</Link>
     </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Properties\Xamarin.Auth.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="WebAuthenticatorPage.xaml">

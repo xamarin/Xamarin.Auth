@@ -86,6 +86,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
+      <Link>Properties\AssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="AuthenticatorPageRenderer.cs" />
     <Compile Include="FileHelper.cs" />
     <Compile Include="..\Xamarin.Auth.Forms\Pages\AuthenticatorPage.cs">
@@ -93,9 +96,6 @@
     </Compile>
     <Compile Include="..\Xamarin.Auth.Forms\PreserveAttribute.cs">
       <Link>PreserveAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\Xamarin.Auth.Forms\Properties\AssemblyInfo.cs">
-      <Link>Properties\AssemblyInfo.cs</Link>
     </Compile>
   </ItemGroup>
   <ItemGroup>
