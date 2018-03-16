@@ -132,12 +132,6 @@
     </When>
     <Otherwise>
       <!-- project refs -->
-      <ItemGroup>
-        <ProjectReference Include="..\..\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
-          <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
-          <Name>Xamarin.Auth.XamarinAndroid</Name>
-        </ProjectReference>
-      </ItemGroup>
     </Otherwise>
   </Choose>
   <!--
