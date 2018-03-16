@@ -808,7 +808,7 @@ Action<string,  MSBuildSettings> BuildLoop =
             else if(sln_prj.Contains("Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln") && ! IsRunningOnWindows() )
             {
                 // MacOSX only
-                return;
+                // return;
             }		
             else if(sln_prj.Contains("Xamarin.Auth-Library.sln") && ! IsRunningOnWindows() )
             {
