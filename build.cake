@@ -188,8 +188,6 @@ Task ("update-android-sdk")
             // 	new [] 
             // 	{ 
             // 		"platforms;android-15",
-            // 		"platforms;android-23",
-            // 		"platforms;android-25",
             // 		"platforms;android-26",
             // 	}, 
             // 	androidSdkSettings
