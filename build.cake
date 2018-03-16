@@ -846,7 +846,7 @@ Task ("libs-macosx-filesystem")
 
 Task ("libs-macosx")
     .IsDependentOn ("libs-macosx-solutions")
-    .IsDependentOn ("libs-macosx-projects")
+    //.IsDependentOn ("libs-macosx-projects")
     .Does 
     (
         () => 
