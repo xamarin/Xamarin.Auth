@@ -219,7 +219,10 @@ namespace Xamarin.Auth._MobileServices
             #endif
 
             // TODO:  mc++ schemas
-            OnSucceeded("N/A", fragment);
+            if (fragment.Any())
+            {
+                OnSucceeded("N/A", fragment);
+            }
 
             return;
         }
