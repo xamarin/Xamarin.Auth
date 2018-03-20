@@ -66,10 +66,10 @@ MSBuild
 #########################################################################################
 */	
 #addin nuget:?package=Cake.Android.SdkManager
-#addin nuget:?package=Cake.Xamarin
+//#addin nuget:?package=Cake.Xamarin
 #addin nuget:?package=Cake.Xamarin.Build
 #addin nuget:?package=Cake.FileHelpers
-#addin nuget::?package=Cake.Incubator
+#addin nuget::?package=Cake.Incubator&version=1.7.2
 #addin nuget:?package=Cake.Android.SdkManager
 #tool nuget:?package=vswhere
 
@@ -79,7 +79,7 @@ MSBuild
     
 -----------------------------------------------------------------------------------------
 */
-#tool nuget:?package=gitlink
+//#tool nuget:?package=gitlink
 
 // C# 6 interpolated strings support - experimental switch
 //var experimental = HasArgument("experimental");
@@ -89,7 +89,7 @@ string TARGET = Argument ("t", Argument ("target", Argument ("Target", "Default"
 string ANDROID_HOME = EnvironmentVariable("ANDROID_HOME") ?? Argument("android_home", "");
 
 string VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
-Verbosity verbosity = Verbosity.Minimal;
+Verbosity verbosity = Verbosity.Diagnostic;
 
 Action<string> InformationFancy = 
     (text) 
@@ -110,35 +110,35 @@ FilePath msBuildPathX64 = null;
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 
 
-Action<string> GitLinkAction = 
-    (solution_file_name) 
-        =>
-        { 
-            return;
+// Action<string> GitLinkAction = 
+//     (solution_file_name) 
+//         =>
+//         { 
+//             return;
             
-            if (! IsRunningOnWindows())
-            {
-                // GitLink still has issues on macosx
-                return;
-            }
-            GitLink
-            (
-                "./", 
-                new GitLinkSettings() 
-                {
-                    RepositoryUrl = github_repo_url,
-                    SolutionFileName = solution_file_name,
+//             if (! IsRunningOnWindows())
+//             {
+//                 // GitLink still has issues on macosx
+//                 return;
+//             }
+//             GitLink
+//             (
+//                 "./", 
+//                 new GitLinkSettings() 
+//                 {
+//                     RepositoryUrl = github_repo_url,
+//                     SolutionFileName = solution_file_name,
                 
-                    // nb: I would love to set this to `treatErrorsAsWarnings` which defaults to `false` 
-                    // but GitLink trips over Akavache.Tests :/
-                    // Handling project 'Akavache.Tests'
-                    // No pdb file found for 'Akavache.Tests', is project built in 'Release' mode with 
-                    // pdb files enabled? 
-                    // Expected file is 'C:\Dropbox\OSS\akavache\Akavache\src\Akavache.Tests\Akavache.Tests.pdb'
-                    ErrorsAsWarnings = true, 
-                }
-            );
-        };
+//                     // nb: I would love to set this to `treatErrorsAsWarnings` which defaults to `false` 
+//                     // but GitLink trips over Akavache.Tests :/
+//                     // Handling project 'Akavache.Tests'
+//                     // No pdb file found for 'Akavache.Tests', is project built in 'Release' mode with 
+//                     // pdb files enabled? 
+//                     // Expected file is 'C:\Dropbox\OSS\akavache\Akavache\src\Akavache.Tests\Akavache.Tests.pdb'
+//                     ErrorsAsWarnings = true, 
+//                 }
+//             );
+//         };
 
 
 
@@ -1252,8 +1252,8 @@ Task ("libs-windows-solutions")
                     BuildLoop(sln_prj, new MSBuildSettings{});
                 }
             
-                GitLinkAction("./source/Xamarin.Auth-Library.sln");
-                GitLinkAction("./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
+                // GitLinkAction("./source/Xamarin.Auth-Library.sln");
+                // GitLinkAction("./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
 
                 return;
             } 
@@ -2105,11 +2105,11 @@ Task ("component")
                 var fixedFile = yaml.GetDirectory ().CombineWithFilePath ("component.yaml");
                 FileWriteText (fixedFile, contents);
                 
-                PackageComponent 
-                    (
-                        fixedFile.GetDirectory (), 
-                        new XamarinComponentSettings ()
-                    );
+                // PackageComponent 
+                //     (
+                //         fixedFile.GetDirectory (), 
+                //         new XamarinComponentSettings ()
+                //     );
             }
 
             if (!DirectoryExists ("./output"))
