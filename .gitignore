@@ -325,6 +325,16 @@ src/samples/Components/**
 source/samples/Components/**
 #----------------------------------------------
 
+#------------------------------------------
+# Visual Studio Code
+# NOTE: these are for team settings.
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+#------------------------------------------
+
 #----------------------------------------------
 # sensitive data
 **/*.hidden.cs
