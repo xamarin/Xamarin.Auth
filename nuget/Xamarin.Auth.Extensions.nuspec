@@ -21,16 +21,11 @@
 		http://semver.org/
 		-->
 		<version>
-			1.6.0.1
+			1.6.1-alpha01
 		</version>
 		<releaseNotes>
-            - .NET Standard support (1.0 and 1.6)
-            - Azure Mobile Services Client changes
-            - iOS check for SafariViewController and WKWebView availability
-            - two properties to allow a developer to specify when to call OnPageLoading
-            - conditional compiles XAMARIN_AUTH_INTERNAL
-            - AZURE_MOBILE_SERVICES preprocessor define for namespaces
-            - CustomTabs closing		
+			- Microsoft.Caboodle.Platform.BeginInvokeOnMainThread() 
+			- UWP WebRedirectAuthenticator derived class fix
 		</releaseNotes>
 		<licenseUrl>
 			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
