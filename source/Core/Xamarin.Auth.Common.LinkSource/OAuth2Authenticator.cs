@@ -735,8 +735,14 @@ namespace Xamarin.Auth._MobileServices
         protected override void OnPageEncountered(Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
         {
             var all = new Dictionary<string, string>(query);
+
+            foreach (var kv in fragment)
+            {
+                all[kv.Key] = kv.Value;
+            }
+
             //
-            // Check for forgeries
+            // Check for CSRF forgeries
             //
             if (all.ContainsKey("state"))
             {
