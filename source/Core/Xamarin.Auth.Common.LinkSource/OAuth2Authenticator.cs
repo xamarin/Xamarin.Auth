@@ -634,8 +634,6 @@ namespace Xamarin.Auth._MobileServices
         /// <summary>
         /// OAuth flow response type verification
         /// 1. 
-        /// 
-        /// 
         ///     https://alexbilbie.com/guide-to-oauth-2-grants/
         /// 
         /// </summary>
@@ -845,8 +843,6 @@ namespace Xamarin.Auth._MobileServices
                     OnError("Expected " + AccessTokenName + " in response, but did not receive one.");
                     //---------------------------------------------------------------------------------------
                     #endregion
-
-                    return;
                 }
             }
         }
