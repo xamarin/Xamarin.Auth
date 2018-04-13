@@ -895,24 +895,11 @@ namespace Xamarin.Auth._MobileServices
             ///		OAuth2Authenticator changes to work with joind.in OAuth #91
             ///		https://github.com/xamarin/Xamarin.Auth/pull/91
             ///		
-            //else if (data.ContainsKey("access_token"))
-            else if (data.ContainsKey(AccessTokenName))
             //---------------------------------------------------------------------------------------
             #endregion
+            else if (!data.ContainsKey(AccessTokenName))
             {
-            }
-            else
-            {
-                #region
-                //---------------------------------------------------------------------------------------
-                /// Pull Request - manually added/fixed
-                ///		OAuth2Authenticator changes to work with joind.in OAuth #91
-                ///		https://github.com/xamarin/Xamarin.Auth/pull/91
-                ///		
-                //throw new AuthException ("Expected access_token in access token response, but did not receive one.");
                 throw new AuthException("Expected " + AccessTokenName + " in access token response, but did not receive one.");
-                //---------------------------------------------------------------------------------------
-                #endregion
             }
 
             return data;
