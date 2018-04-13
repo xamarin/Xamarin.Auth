@@ -51,7 +51,7 @@ namespace Xamarin.Auth._MobileServices
         Uri redirectUrl;
         Uri accessTokenUrl;
         GetUsernameAsyncFunc getUsernameAsync;
-
+        
 
         #region     State
         //---------------------------------------------------------------------------------------
@@ -885,10 +885,12 @@ namespace Xamarin.Auth._MobileServices
             // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
             var content = new FormUrlEncodedContent(queryValues);
 
-
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
-            string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string text;
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
+                text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
 
             // Parse the response
             var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
