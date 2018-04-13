@@ -124,6 +124,18 @@ namespace Xamarin.Auth._MobileServices
         }
 
         /// <summary>
+        /// Gets the redirect URL.
+        /// </summary>
+        /// <value>The redirect URL.</value>
+        public Uri RedirectUrl 
+        { 
+            get
+            {
+                return this.redirectUrl;
+            }
+        }
+
+        /// <summary>
         /// Gets the access token URL.
         /// </summary>
         /// <value>The URL used to request access tokens after an authorization code was received.</value>
