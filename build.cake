@@ -70,7 +70,7 @@ MSBuild
 #addin nuget:?package=Cake.Xamarin
 #addin nuget:?package=Cake.Xamarin.Build&version=3.0.6
 #addin nuget:?package=Cake.FileHelpers
-#addin nuget::?package=Cake.Incubator&version=1.7.2
+#addin nuget::?package=Cake.Incubator&version=1.6.0
 
 /*
 -----------------------------------------------------------------------------------------
