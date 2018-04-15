@@ -67,7 +67,6 @@ MSBuild
 */	
 #tool nuget:?package=vswhere
 
-#addin nuget:?package=Cake.Android.SdkManager
 //#addin nuget:?package=Cake.Xamarin
 #addin nuget:?package=Cake.Xamarin.Build
 #addin nuget:?package=Cake.FileHelpers
