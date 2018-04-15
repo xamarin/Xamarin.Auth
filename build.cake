@@ -65,13 +65,14 @@ MSBuild
 
 #########################################################################################
 */	
+#tool nuget:?package=vswhere
+
 #addin nuget:?package=Cake.Android.SdkManager
 //#addin nuget:?package=Cake.Xamarin
 #addin nuget:?package=Cake.Xamarin.Build
 #addin nuget:?package=Cake.FileHelpers
 #addin nuget::?package=Cake.Incubator&version=1.7.2
 #addin nuget:?package=Cake.Android.SdkManager
-#tool nuget:?package=vswhere
 
 /*
 -----------------------------------------------------------------------------------------
@@ -575,8 +576,42 @@ string custom_defines = "XAMARIN_AUTH_INTERNAL%3BXAMARIN_CUSTOM_TABS_INTERNAL%3B
 //---------------------------------------------------------------------------------------
 
 string define = null;
+string nuget_3 = System.IO.Path.Combine(".", "tools", "nuget.3.exe");
+string nuget_4 = System.IO.Path.Combine(".", "tools", "nuget.4.exe");
+
+Task ("nuget-install")
+    .Does 
+    (
+        () => 
+        {	
+            if (! FileExists(nuget_4))
+            {
+                DownloadFile
+                (
+                    "https://dist.nuget.org/win-x86-commandline/v4.6.2/nuget.exe", 
+                    File(nuget_4), 
+                    new Cake.Common.Net.DownloadFileSettings()
+                    {
+                    }
+                );
+            }
+            if (! FileExists(nuget_3))
+            {
+                DownloadFile
+                (
+                    "https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe", 
+                    File(nuget_3), 
+                    new Cake.Common.Net.DownloadFileSettings()
+                    {
+                    }
+                );
+            }
+
+        }
+    );
 
 Task ("nuget-restore")
+    .IsDependentOn ("nuget-install")
     .Does 
     (
         () => 
@@ -624,7 +659,29 @@ Task ("source-nuget-restore")
             foreach (string source_solution in source_solutions)
             {
                 Information("Nuget Restore   = " + source_solution);
-                NuGetRestore(source_solution, nuget_restore_settings); 
+                if (IsRunningOnWindows())
+                {
+                    if (source_solution.Contains("-VS2015.sln"))
+                    {
+                        nuget_restore_settings.ToolPath = nuget_3;
+                        NuGetRestore(source_solution, nuget_restore_settings); 
+                    }
+                    else if (source_solution.Contains("-VS2017.sln"))
+                    {
+                        nuget_restore_settings.ToolPath = nuget_4;
+                        NuGetRestore(source_solution, nuget_restore_settings); 
+                    }
+                    else 
+                    {
+                        nuget_restore_settings.ToolPath = nuget_3;
+                        NuGetRestore(source_solution, nuget_restore_settings); 
+                    }
+                }
+                else
+                {
+                    nuget_restore_settings.ToolPath = nuget_4;
+                    NuGetRestore(source_solution, nuget_restore_settings);                     
+                }
             }
 
             return;
@@ -1354,7 +1411,6 @@ Task ("libs-windows-projects")
                     new MSBuildSettings
                     {
                         ToolVersion = MSBuildToolVersion.VS2015,
-                        PlatformTarget = PlatformTarget.x86,
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
                 );
                 //-------------------------------------------------------------------------------------
@@ -2043,7 +2099,8 @@ Task ("nuget")
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",        
                         BasePath = "./",
-                        Symbols = true
+                        Symbols = true,
+                        ToolPath = nuget_4
                     }
                 );                
             NuGetPack 
@@ -2054,7 +2111,8 @@ Task ("nuget")
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",        
                         BasePath = "./",
-                        Symbols = true
+                        Symbols = true,
+                        ToolPath = nuget_4
                     }
                 );                
             NuGetPack 
@@ -2065,7 +2123,8 @@ Task ("nuget")
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",        
                         BasePath = "./",
-                        Symbols = true
+                        Symbols = true,
+                        ToolPath = nuget_4
                     }
                 );                
         }
