@@ -373,41 +373,6 @@ Task ("libs")
         }
     );
 
-Task ("android-sdk-install")
-    .Does
-    (
-        () => 
-        {	
-            // ANDROID_HOME=${Env:LOCALAPPDATA}\Android\android-sdk
-            // ANDROID_HOME=${Env:ProgramFiles(x86)}\Android\sdk
-            Information ("ANDROID_HOME: {0}", ANDROID_HOME);
-
-            AndroidSdkManagerToolSettings androidSdkSettings = new AndroidSdkManagerToolSettings 
-            {
-                SdkRoot = ANDROID_HOME,
-                SkipVersionCheck = true
-            };
-
-            try 
-            { 
-                AcceptLicenses (androidSdkSettings); 
-            }
-            catch 
-            { 
-            }
-
-            AndroidSdkManagerInstall 
-            (
-                new [] 
-                { 
-                    "platforms;android-15",
-                    "platforms;android-23",
-                    "platforms;android-25",
-                    "platforms;android-26"
-                }, androidSdkSettings
-            );
-        }
-    );
 
 //---------------------------------------------------------------
 // building with custom preprocessor constants/defines
