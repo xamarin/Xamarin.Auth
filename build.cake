@@ -72,7 +72,6 @@ MSBuild
 #addin nuget:?package=Cake.Xamarin.Build
 #addin nuget:?package=Cake.FileHelpers
 #addin nuget::?package=Cake.Incubator&version=1.7.2
-#addin nuget:?package=Cake.Android.SdkManager
 
 /*
 -----------------------------------------------------------------------------------------
