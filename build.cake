@@ -110,39 +110,6 @@ FilePath msBuildPathX64 = null;
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 
 
-// Action<string> GitLinkAction = 
-//     (solution_file_name) 
-//         =>
-//         { 
-//             return;
-            
-//             if (! IsRunningOnWindows())
-//             {
-//                 // GitLink still has issues on macosx
-//                 return;
-//             }
-//             GitLink
-//             (
-//                 "./", 
-//                 new GitLinkSettings() 
-//                 {
-//                     RepositoryUrl = github_repo_url,
-//                     SolutionFileName = solution_file_name,
-                
-//                     // nb: I would love to set this to `treatErrorsAsWarnings` which defaults to `false` 
-//                     // but GitLink trips over Akavache.Tests :/
-//                     // Handling project 'Akavache.Tests'
-//                     // No pdb file found for 'Akavache.Tests', is project built in 'Release' mode with 
-//                     // pdb files enabled? 
-//                     // Expected file is 'C:\Dropbox\OSS\akavache\Akavache\src\Akavache.Tests\Akavache.Tests.pdb'
-//                     ErrorsAsWarnings = true, 
-//                 }
-//             );
-//         };
-
-
-
-
 // https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference#restore
 // http://cakebuild.net/api/Cake.Common.Tools.NuGet.Restore/NuGetRestoreSettings/
 NuGetRestoreSettings nuget_restore_settings = new NuGetRestoreSettings 
@@ -156,46 +123,6 @@ NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings
         Prerelease = false,
     };
 
-Task ("update-android-sdk")
-    .IsDependentOn ("dump-environment")
-    .Does 
-    (
-        () =>
-        {
-            Information ("ANDROID_HOME: {0}", ANDROID_HOME);
-
-            // var code = StartProcess
-            // 				(
-            // 					EnvironmentVariable ("ANDROID_HOME") + "/tools/bin/sdkmanager", 
-            // 					new ProcessSettings
-            // 					{ 
-            // 						Arguments = "--update" 
-            // 					}
-            // 				);
-
-            var androidSdkSettings = new AndroidSdkManagerToolSettings 
-            { 
-                SdkRoot = ANDROID_HOME,
-                SkipVersionCheck = true
-            };
-
-            try { AcceptLicenses (androidSdkSettings); } catch { }
-
-
-            // AndroidSdkManagerUpdateAll(androidSdkSettings);
-            // AndroidSdkManagerInstall 
-            // (
-            // 	new [] 
-            // 	{ 
-            // 		"platforms;android-15",
-            // 		"platforms;android-26",
-            // 	}, 
-            // 	androidSdkSettings
-            // );
-
-            return;
-        }
-    );
 
 Task ("dump-environment")
     .Does 
