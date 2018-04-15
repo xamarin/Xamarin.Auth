@@ -67,8 +67,8 @@ MSBuild
 */	
 #tool nuget:?package=vswhere
 
-//#addin nuget:?package=Cake.Xamarin
-#addin nuget:?package=Cake.Xamarin.Build
+#addin nuget:?package=Cake.Xamarin
+#addin nuget:?package=Cake.Xamarin.Build&version=3.0.6
 #addin nuget:?package=Cake.FileHelpers
 #addin nuget::?package=Cake.Incubator&version=1.7.2
 
@@ -2065,12 +2065,12 @@ Task ("component")
 
 FilePath GetToolPath (FilePath toolPath)
 {
-    var appRoot = Context.Environment.GetApplicationRoot ();
-     var appRootExe = appRoot.CombineWithFilePath (toolPath);
-     if (FileExists (appRootExe))
-     {
-         return appRootExe;
-     }
+    var appRoot = Context.Environment.ApplicationRoot;
+    var appRootExe = appRoot.CombineWithFilePath (toolPath);
+    if (FileExists (appRootExe))
+    {
+        return appRootExe;
+    }
 
     throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
 }
