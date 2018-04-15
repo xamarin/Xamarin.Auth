@@ -90,20 +90,20 @@
     <Reference Include="Xamarin.Android.Support.CustomTabs">
       <HintPath>..\..\packages\Xamarin.Android.Support.CustomTabs.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.CustomTabs.dll</HintPath>
     </Reference>
-    <Reference Include="Xamarin.Android.Support.Fragment">
-      <HintPath>..\..\packages\Xamarin.Android.Support.Fragment.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Fragment.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.Media.Compat">
       <HintPath>..\..\packages\Xamarin.Android.Support.Media.Compat.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Media.Compat.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\..\packages\Xamarin.Android.Support.v4.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
-  </ItemGroup>
-  <ItemGroup>
+    <Reference Include="Xamarin.Android.Support.Fragment">
+      <HintPath>..\..\packages\Xamarin.Android.Support.Fragment.26.1.0.1\lib\MonoAndroid80\Xamarin.Android.Support.Fragment.dll</HintPath>
+    </Reference>
     <Reference Include="ModernHttpClient">
       <HintPath>..\..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\ModernHttpClient.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="OkHttp">
       <HintPath>..\..\packages\modernhttpclient.2.4.2\lib\MonoAndroid\OkHttp.dll</HintPath>
     </Reference>
@@ -208,15 +208,11 @@
     <Compile Include="FormAuthenticator.XamarinAndroid.cs" />
     <Compile Include="PlatformSpecific\ActivityEx.cs" />
     <Compile Include="PlatformSpecific\ActivityStateRepository.cs" />
-    <Compile Include="PlatformSpecific\AndroidAccountStore.cs" />
     <Compile Include="PlatformSpecific\FileHelper.cs" />
     <Compile Include="PlatformSpecific\FormAuthenticatorActivity.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="WebAuthenticator.XamarinAndroid.cs" />
-    <Compile Include="PlatformSpecific\AndroidAccountStore.Async.cs">
-      <DependentUpon>AndroidAccountStore.cs</DependentUpon>
-    </Compile>
     <Compile Include="UINativeNonIntegratedBrowsers\WebAuthenticator.NativeUI.XamarinAndroid.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\CustomTabActivityHelper.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\CustomTabsUtilities\PackageManagerHelper.cs" />
@@ -247,6 +243,10 @@
     <Compile Include="AccountStore\AccountStore.XamarinAndroid.cs" />
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\AccountStore\AccountStoreException.cs">
       <Link>AccountStore\AccountStoreException.cs</Link>
+    </Compile>
+    <Compile Include="AccountStore\AndroidAccountStore.cs" />
+    <Compile Include="AccountStore\AndroidAccountStore.Async.cs">
+      <DependentUpon>AndroidAccountStore.cs</DependentUpon>
     </Compile>
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\OAuth\OAuth2\State.cs">
       <Link>OAuth\OAuth2\State.cs</Link>
