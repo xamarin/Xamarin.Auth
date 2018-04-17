@@ -78,6 +78,12 @@ namespace Xamarin.Auth._MobileServices
         #endregion  State
 
         bool reportedForgery = false;
+        
+        /// <summary>
+        /// Gets the UseOriginalURL parameter.
+        /// </summary>
+        /// <value>The UseOriginalURL parameter</value>
+        public bool UseOriginalURL { get; private set; }
 
         #region
         //---------------------------------------------------------------------------------------
@@ -241,6 +247,10 @@ namespace Xamarin.Auth._MobileServices
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
+        /// <param name="useOriginalUrl">
+        /// Instructs this class to preserve original URLs, as passed to this constructor, rather than add trailing "/" to some URLs.
+        /// For backwards compatibility this parameter defaults to false.
+        /// </param>
         public OAuth2Authenticator
                         (
                             string clientId,
@@ -248,7 +258,8 @@ namespace Xamarin.Auth._MobileServices
                             Uri authorizeUrl,
                             Uri redirectUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = false
+                            bool isUsingNativeUI = false,
+                            bool useOriginalUrl = false
                         )
             : this(redirectUrl)
         {
@@ -277,6 +288,8 @@ namespace Xamarin.Auth._MobileServices
             this.getUsernameAsync = getUsernameAsync;
 
             this.accessTokenUrl = null;
+
+            this.UseOriginalURL = useOriginalUrl;
 
             #region
             //---------------------------------------------------------------------------------------
@@ -325,6 +338,10 @@ namespace Xamarin.Auth._MobileServices
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
+        /// <param name="useOriginalUrl">
+        /// Instructs this class to preserve original URLs, as passed to this constructor, rather than add trailing "/" to some URLs.
+        /// For backwards compatibility this parameter defaults to false.
+        /// </param>
         public OAuth2Authenticator
                         (
                             string clientId,
@@ -334,7 +351,8 @@ namespace Xamarin.Auth._MobileServices
                             Uri redirectUrl,
                             Uri accessTokenUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = false
+                            bool isUsingNativeUI = false,
+                            bool useOriginalUrl = false
                         )
             : this(redirectUrl, clientSecret, accessTokenUrl)
         {
@@ -409,6 +427,8 @@ namespace Xamarin.Auth._MobileServices
 
             this.getUsernameAsync = getUsernameAsync;   // Xamarin.legacy
 
+            this.UseOriginalURL = useOriginalUrl;
+
             return;
         }
 
@@ -426,6 +446,8 @@ namespace Xamarin.Auth._MobileServices
 
 			this.redirectUrl = redirectUrl;
 			this.accessTokenUrl = accessTokenUrl;
+
+            this.UseOriginalURL = false;
 
 			Verify();
 
@@ -469,20 +491,6 @@ namespace Xamarin.Auth._MobileServices
         /// </returns>
         public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> custom_query_parameters = null)
         {
-            /*
-			 	mc++
-				OriginalString property of the Uri object should be used instead of AbsoluteUri
-				otherwise trailing slash is added.
-			*/
-            string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
-
-            #if DEBUG
-            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
-
-            System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
-            System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
-            #endif
-
             #region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
@@ -507,7 +515,14 @@ namespace Xamarin.Auth._MobileServices
             //string queryString = string.Join ("&", query.Select (i => i.Key + "=" + Uri.EscapeDataString (i.Value)));
             string queryString = string.Join("&", RequestParameters.Select(i => i.Key + "=" + i.Value));
 
-            Uri url = string.IsNullOrEmpty(queryString) ? this.authorizeUrl : new Uri(this.authorizeUrl.AbsoluteUri + "?" + queryString);
+            if (!string.IsNullOrEmpty(queryString))
+            {
+                queryString = "?" + queryString;
+            }
+
+            string baseUrl = this.UseOriginalURL ? this.authorizeUrl.OriginalString : this.authorizeUrl.AbsoluteUri;
+
+            Uri url = new Uri(baseUrl + queryString);
             //---------------------------------------------------------------------------------------
             #endregion
 
@@ -545,14 +560,12 @@ namespace Xamarin.Auth._MobileServices
             //--------------------------------------------------------------------------------------- 
 
             //--------------------------------------------------------------------------------------- 
-            string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
-            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
             if (this.redirectUrl != null)
             {
                 oauth_request_query_parameters.Add
                                                 (
                                                     "redirect_uri",
-                                                    Uri.EscapeDataString(oauth_redirect_uri_original)
+                                                    Uri.EscapeDataString(this.redirectUrl.OriginalString)
                                                 );
             }
             //---------------------------------------------------------------------------------------
@@ -864,7 +877,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 { "grant_type", "authorization_code" },
                 { "code", code },
-                { "redirect_uri", redirectUrl.AbsoluteUri },
+                { "redirect_uri", this.UseOriginalURL ? redirectUrl.OriginalString : redirectUrl.AbsoluteUri },
                 { "client_id", clientId },
             };
             if (!string.IsNullOrEmpty(clientSecret))
