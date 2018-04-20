@@ -109,7 +109,6 @@ namespace Xamarin.Auth._MobileServices
         public Authenticator()
         {
             Title = "Authenticate";
-            HasCompleted = false;
             AllowCancel = true;
             ShowErrors = true;
             #region
@@ -120,6 +119,15 @@ namespace Xamarin.Auth._MobileServices
             IgnoreErrorsWhenCompleted = false;
             //---------------------------------------------------------------------------------------
             #endregion
+
+            Initialize();
+
+            return;
+        }
+
+        public virtual void Initialize()
+        {
+            HasCompleted = false;
 
             #region
             //---------------------------------------------------------------------------------------

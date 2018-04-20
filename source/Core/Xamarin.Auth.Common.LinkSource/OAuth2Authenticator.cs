@@ -285,15 +285,7 @@ namespace Xamarin.Auth._MobileServices
 
             this.UseOriginalURL = useOriginalUrl;
 
-            #region
-            //---------------------------------------------------------------------------------------
-            /// Pull Request - manually added/fixed
-            ///		OAuth2Authenticator changes to work with joind.in OAuth #91
-            ///		https://github.com/xamarin/Xamarin.Auth/pull/91
-            ///		
-            this.RequestParameters = new Dictionary<string, string>();
-            ///---------------------------------------------------------------------------------------
-            #endregion
+            Initialize();
 
             #if DEBUG
             StringBuilder sb = new StringBuilder();
@@ -423,6 +415,8 @@ namespace Xamarin.Auth._MobileServices
 
             this.UseOriginalURL = useOriginalUrl;
 
+            Initialize();
+
             return;
         }
 
@@ -436,12 +430,11 @@ namespace Xamarin.Auth._MobileServices
             : base(redirectUrl, redirectUrl)
         {
             this.is_using_native_ui = isUsingNativeUI;
-            this.State = new OAuth2.State();
-
 			this.redirectUrl = redirectUrl;
 			this.accessTokenUrl = accessTokenUrl;
-
             this.UseOriginalURL = false;
+
+            Initialize();
 
 			Verify();
 
@@ -462,6 +455,27 @@ namespace Xamarin.Auth._MobileServices
             //---------------------------------------------------------------------------------------
             #endregion
 
+
+            return;
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            this.State = new OAuth2.State();
+
+             #region
+            //---------------------------------------------------------------------------------------
+            /// Pull Request - manually added/fixed
+            ///		OAuth2Authenticator changes to work with joind.in OAuth #91
+            ///		https://github.com/xamarin/Xamarin.Auth/pull/91
+            ///		
+            this.RequestParameters = new Dictionary<string, string>();
+            ///---------------------------------------------------------------------------------------
+            #endregion
+
+            this.reportedForgery = false;
 
             return;
         }
