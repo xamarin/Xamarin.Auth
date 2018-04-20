@@ -21,12 +21,19 @@ namespace AccountStoreTest
 
         void OnSaveClicked(object sender, EventArgs args)
         {
+            SaveCredentials(UserName, Password);
 
+            return;
         }
 
         void OnLoadClicked(object sender, EventArgs args)
         {
+            (string username, string password) data = LoadCredentials(AppName);
 
+            UserName = UserName;
+            Password = Password;
+
+            return;
         }
 
         void OnClearClicked(object sender, EventArgs args)
@@ -68,13 +75,13 @@ namespace AccountStoreTest
             return;
         }
 
-        public void LoadCredentials(string userName, string password)
+        public (string username, string password) LoadCredentials(string appname)
         {
-            var account = AccountStore.Create().FindAccountsForService(AppName).FirstOrDefault();
-            UserName = (account != null) ? account.Username : null;
-            Password = (account != null) ? account.Properties["Password"] : null;
+            var account = AccountStore.Create().FindAccountsForService(appname).FirstOrDefault();
+            string u = (account != null) ? account.Username : null;
+            string p = (account != null) ? account.Properties["Password"] : null;
 
-            return;
+            return (username: u, password: p);
         }
 
         public void DeleteCredentials()
