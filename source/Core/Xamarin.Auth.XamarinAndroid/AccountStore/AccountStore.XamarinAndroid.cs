@@ -14,9 +14,9 @@
 //    limitations under the License.
 //
 using System;
-using System.Collections.Generic;
+using System.Text;
 
-#if ! AZURE_MOBILE_SERVICES
+#if !AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
 #else
 namespace Xamarin.Auth._MobileServices
@@ -36,8 +36,21 @@ namespace Xamarin.Auth._MobileServices
         /// <summary>
         /// Create an account store.
         /// </summary>
+        [Obsolete("Insecure version with hardcoded password. Please use AccountStore.Create(Context, string)")]
         public static AccountStore Create(global::Android.Content.Context context)
         {
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine("Using:");
+            sb.AppendLine("    AccountStore.Create(Contex);");
+            sb.AppendLine("or");
+            sb.AppendLine("    AccountStore.Create();");
+            sb.AppendLine("This version is insecure, because of default password.");
+            sb.AppendLine("Please use version with supplied password for AccountStore:");
+            sb.AppendLine("    AccountStore.Create(Contex, string);");
+            sb.AppendLine("or");
+            sb.AppendLine("    AccountStore.Create(string);");
+            Console.WriteLine(sb.ToString());
+
             return new AndroidAccountStore(context);
         }
 
@@ -50,9 +63,19 @@ namespace Xamarin.Auth._MobileServices
         /// Create the specified context.
         /// </summary>
         /// <param name="context">Context.</param>
+        [Obsolete("Insecure version with hardcoded password. Please use AccountStore.Create(Context, string)")]
         public static AccountStore Create()
         {
             return Create(global::Android.App.Application.Context);
+        }
+
+        /// <summary>
+        /// Create the specified context.
+        /// </summary>
+        /// <param name="password">Password.</param>
+        public static AccountStore Create(string password)
+        {
+            return Create(global::Android.App.Application.Context, password);
         }
     }
 }

@@ -65,13 +65,12 @@ MSBuild
 
 #########################################################################################
 */	
-#addin nuget:?package=Cake.Android.SdkManager
-//#addin nuget:?package=Cake.Xamarin
-#addin nuget:?package=Cake.Xamarin.Build
-#addin nuget:?package=Cake.FileHelpers
-#addin nuget::?package=Cake.Incubator&version=1.7.2
-#addin nuget:?package=Cake.Android.SdkManager
 #tool nuget:?package=vswhere
+
+#addin nuget:?package=Cake.Xamarin&version=2.0.1
+#addin nuget:?package=Cake.Xamarin.Build&version=3.0.6
+#addin nuget:?package=Cake.FileHelpers&2.0.0
+#addin nuget::?package=Cake.Incubator&version=1.6.0
 
 /*
 -----------------------------------------------------------------------------------------
@@ -110,39 +109,6 @@ FilePath msBuildPathX64 = null;
 string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 
 
-// Action<string> GitLinkAction = 
-//     (solution_file_name) 
-//         =>
-//         { 
-//             return;
-            
-//             if (! IsRunningOnWindows())
-//             {
-//                 // GitLink still has issues on macosx
-//                 return;
-//             }
-//             GitLink
-//             (
-//                 "./", 
-//                 new GitLinkSettings() 
-//                 {
-//                     RepositoryUrl = github_repo_url,
-//                     SolutionFileName = solution_file_name,
-                
-//                     // nb: I would love to set this to `treatErrorsAsWarnings` which defaults to `false` 
-//                     // but GitLink trips over Akavache.Tests :/
-//                     // Handling project 'Akavache.Tests'
-//                     // No pdb file found for 'Akavache.Tests', is project built in 'Release' mode with 
-//                     // pdb files enabled? 
-//                     // Expected file is 'C:\Dropbox\OSS\akavache\Akavache\src\Akavache.Tests\Akavache.Tests.pdb'
-//                     ErrorsAsWarnings = true, 
-//                 }
-//             );
-//         };
-
-
-
-
 // https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference#restore
 // http://cakebuild.net/api/Cake.Common.Tools.NuGet.Restore/NuGetRestoreSettings/
 NuGetRestoreSettings nuget_restore_settings = new NuGetRestoreSettings 
@@ -156,46 +122,6 @@ NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings
         Prerelease = false,
     };
 
-Task ("update-android-sdk")
-    .IsDependentOn ("dump-environment")
-    .Does 
-    (
-        () =>
-        {
-            Information ("ANDROID_HOME: {0}", ANDROID_HOME);
-
-            // var code = StartProcess
-            // 				(
-            // 					EnvironmentVariable ("ANDROID_HOME") + "/tools/bin/sdkmanager", 
-            // 					new ProcessSettings
-            // 					{ 
-            // 						Arguments = "--update" 
-            // 					}
-            // 				);
-
-            var androidSdkSettings = new AndroidSdkManagerToolSettings 
-            { 
-                SdkRoot = ANDROID_HOME,
-                SkipVersionCheck = true
-            };
-
-            try { AcceptLicenses (androidSdkSettings); } catch { }
-
-
-            // AndroidSdkManagerUpdateAll(androidSdkSettings);
-            // AndroidSdkManagerInstall 
-            // (
-            // 	new [] 
-            // 	{ 
-            // 		"platforms;android-15",
-            // 		"platforms;android-26",
-            // 	}, 
-            // 	androidSdkSettings
-            // );
-
-            return;
-        }
-    );
 
 Task ("dump-environment")
     .Does 
@@ -447,41 +373,6 @@ Task ("libs")
         }
     );
 
-Task ("android-sdk-install")
-    .Does
-    (
-        () => 
-        {	
-            // ANDROID_HOME=${Env:LOCALAPPDATA}\Android\android-sdk
-            // ANDROID_HOME=${Env:ProgramFiles(x86)}\Android\sdk
-            Information ("ANDROID_HOME: {0}", ANDROID_HOME);
-
-            AndroidSdkManagerToolSettings androidSdkSettings = new AndroidSdkManagerToolSettings 
-            {
-                SdkRoot = ANDROID_HOME,
-                SkipVersionCheck = true
-            };
-
-            try 
-            { 
-                AcceptLicenses (androidSdkSettings); 
-            }
-            catch 
-            { 
-            }
-
-            AndroidSdkManagerInstall 
-            (
-                new [] 
-                { 
-                    "platforms;android-15",
-                    "platforms;android-23",
-                    "platforms;android-25",
-                    "platforms;android-26"
-                }, androidSdkSettings
-            );
-        }
-    );
 
 //---------------------------------------------------------------
 // building with custom preprocessor constants/defines
@@ -575,8 +466,42 @@ string custom_defines = "XAMARIN_AUTH_INTERNAL%3BXAMARIN_CUSTOM_TABS_INTERNAL%3B
 //---------------------------------------------------------------------------------------
 
 string define = null;
+string nuget_3 = System.IO.Path.Combine(".", "tools", "nuget.3.exe");
+string nuget_4 = System.IO.Path.Combine(".", "tools", "nuget.4.exe");
+
+Task ("nuget-install")
+    .Does 
+    (
+        () => 
+        {	
+            if (! FileExists(nuget_4))
+            {
+                DownloadFile
+                (
+                    "https://dist.nuget.org/win-x86-commandline/v4.6.2/nuget.exe", 
+                    File(nuget_4), 
+                    new Cake.Common.Net.DownloadFileSettings()
+                    {
+                    }
+                );
+            }
+            if (! FileExists(nuget_3))
+            {
+                DownloadFile
+                (
+                    "https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe", 
+                    File(nuget_3), 
+                    new Cake.Common.Net.DownloadFileSettings()
+                    {
+                    }
+                );
+            }
+
+        }
+    );
 
 Task ("nuget-restore")
+    .IsDependentOn ("nuget-install")
     .Does 
     (
         () => 
@@ -624,7 +549,29 @@ Task ("source-nuget-restore")
             foreach (string source_solution in source_solutions)
             {
                 Information("Nuget Restore   = " + source_solution);
-                NuGetRestore(source_solution, nuget_restore_settings); 
+                if (IsRunningOnWindows())
+                {
+                    if (source_solution.Contains("-VS2015.sln"))
+                    {
+                        nuget_restore_settings.ToolPath = nuget_3;
+                        NuGetRestore(source_solution, nuget_restore_settings); 
+                    }
+                    else if (source_solution.Contains("-VS2017.sln"))
+                    {
+                        nuget_restore_settings.ToolPath = nuget_4;
+                        NuGetRestore(source_solution, nuget_restore_settings); 
+                    }
+                    else 
+                    {
+                        nuget_restore_settings.ToolPath = nuget_3;
+                        NuGetRestore(source_solution, nuget_restore_settings); 
+                    }
+                }
+                else
+                {
+                    nuget_restore_settings.ToolPath = nuget_4;
+                    NuGetRestore(source_solution, nuget_restore_settings);                     
+                }
             }
 
             return;
@@ -1354,7 +1301,6 @@ Task ("libs-windows-projects")
                     new MSBuildSettings
                     {
                         ToolVersion = MSBuildToolVersion.VS2015,
-                        PlatformTarget = PlatformTarget.x86,
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
                 );
                 //-------------------------------------------------------------------------------------
@@ -2043,7 +1989,8 @@ Task ("nuget")
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",        
                         BasePath = "./",
-                        Symbols = true
+                        Symbols = true,
+                        ToolPath = nuget_4
                     }
                 );                
             NuGetPack 
@@ -2054,7 +2001,8 @@ Task ("nuget")
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",        
                         BasePath = "./",
-                        Symbols = true
+                        Symbols = true,
+                        ToolPath = nuget_4
                     }
                 );                
             NuGetPack 
@@ -2065,7 +2013,8 @@ Task ("nuget")
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",        
                         BasePath = "./",
-                        Symbols = true
+                        Symbols = true,
+                        ToolPath = nuget_4
                     }
                 );                
         }
@@ -2116,12 +2065,12 @@ Task ("component")
 
 FilePath GetToolPath (FilePath toolPath)
 {
-    var appRoot = Context.Environment.GetApplicationRoot ();
-     var appRootExe = appRoot.CombineWithFilePath (toolPath);
-     if (FileExists (appRootExe))
-     {
-         return appRootExe;
-     }
+    var appRoot = Context.Environment.ApplicationRoot;
+    var appRootExe = appRoot.CombineWithFilePath (toolPath);
+    if (FileExists (appRootExe))
+    {
+        return appRootExe;
+    }
 
     throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
 }
