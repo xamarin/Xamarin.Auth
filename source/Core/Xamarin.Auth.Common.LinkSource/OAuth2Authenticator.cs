@@ -202,13 +202,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 return
                     // AccessToken url is defined
-                    accessTokenUrl != null                      
-                    &&
-                    // Client Secret MAY be defined
-                    //
-                    // true
-                    ( string.IsNullOrWhiteSpace(clientSecret) || !string.IsNullOrWhiteSpace(clientSecret) )  
-                    ;
+                    accessTokenUrl != null;
             }
         }
 
