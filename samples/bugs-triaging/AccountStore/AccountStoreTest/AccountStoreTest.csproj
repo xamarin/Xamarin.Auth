@@ -1,0 +1,50 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+
+ <ItemGroup>
+    <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
+  </ItemGroup>
+
+
+   <!--
+  ==================================================================================================
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  http://laurentkempe.com/2009/12/03/ProjectReference-with-Condition-in-your-MSBuild-project-files/
+  msbuild Choose When ProjectReference Reference Include
+  -->
+  <Choose>
+    <When Condition="! exists('..\..\..\..\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj')">
+      <!-- nuget packages (dll) refs -->
+      <ItemGroup>
+        <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" >
+          <Name>Xamarin.Auth.NetStandard NuGet Bait-n-Switch</Name>
+        </PackageReference>
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <!-- project refs -->
+      <ItemGroup>
+        <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj">
+          <Name>Xamarin.Auth.NetStandard Project Reference</Name>
+        </ProjectReference>
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <!--
+  If projects for references can be found use ProjectReferences otherwise use NuGet references
+  ==================================================================================================
+  -->
+
+  <ItemGroup>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="App.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+    <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="MainPage.xaml.cs">
+      <DependentUpon>*.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

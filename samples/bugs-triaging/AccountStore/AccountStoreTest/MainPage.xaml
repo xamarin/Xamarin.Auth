@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AccountStoreTest"
+             x:Class="AccountStoreTest.MainPage">
+
+    <ScrollView>
+        <StackLayout Padding="12,0,12,12" Spacing="6">
+            <Label Text="UserName:" />
+            <Entry Text="{Binding UserName}" Keyboard="Telephone" />
+            <Label Text="Password:" />
+            <Entry Text="{Binding Password}" IsPassword="True"/>
+            <Label Text="AppName:" />
+            <Entry Text="{Binding AppName}" />
+
+            <Button Text="Save" Clicked="OnSaveClicked" />
+            <Button Text="Clear" Clicked="OnClearClicked" />
+            <Button Text="Load" Clicked="OnLoadClicked" />
+
+            <Label Text="UserName:" />
+            <Entry Text="{Binding UserName}" Keyboard="Telephone" IsEnabled="False"/>
+            <Label Text="Password:" />
+            <Entry Text="{Binding Password}" IsPassword="True" IsEnabled="False"/>
+            <Label Text="AppName:" />
+            <Entry Text="{Binding AppName}" IsEnabled="False" />
+        </StackLayout>
+    </ScrollView>
+
+</ContentPage>
