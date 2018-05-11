@@ -31,19 +31,11 @@ namespace Xamarin.Auth._MobileServices
         {
             if (null == authenticator)
             {
-                Type type_authenticator = e.Parameter.GetType();
-                if (type_authenticator == typeof(OAuth1Authenticator))
+                authenticator = e.Parameter as WebRedirectAuthenticator;
+                if (authenticator == null)
                 {
-                    authenticator = e.Parameter as OAuth1Authenticator;
-                }
-                else if (type_authenticator == typeof(OAuth2Authenticator))
-                {
-                    authenticator = e.Parameter as OAuth2Authenticator;
-                }
-                else
-                {
-                    System.Diagnostics.Debug.WriteLine($"Invalid Authenticator {type_authenticator}");
-                    throw new Xamarin.Auth.AuthException($"Invalid Authenticator {type_authenticator}");
+                    System.Diagnostics.Debug.WriteLine($"Invalid Authenticator {e.Parameter?.GetType().ToString() ?? "null"}");
+                    throw new Xamarin.Auth.AuthException($"Invalid Authenticator {e.Parameter?.GetType().ToString() ?? "null"}");
                 }
             }
 
