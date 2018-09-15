@@ -1,13 +1,52 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>
-      netstandard2.0; netstandard1.0;
-      xamarin.ios1.0;
-      monoandroid8.1;
+    <WindowsTargetFrameworks Condition="'$(OS)' == 'Windows_NT'">
       uap10.0.16299;
+    </WindowsTargetFrameworks>
+    <TargetFrameworks>
+      netstandard2.0;
+      xamarin.ios1.0;
+      monoandroid7.0; monoandroid7.1; monoandroid8.0; monoandroid8.1;
+      $(WindowsTargetFrameworks);
+
+      netstandard1.0; portable-net45+win8+wp8+wpa81;
     </TargetFrameworks>
+    <AssemblyName>Xamarin.Auth.XamarinForms</AssemblyName>
+    <RootNamespace>Xamarin.Auth.XamarinForms</RootNamespace>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>Xamarin.Auth.XamarinForms</PackageId>
+    <PackageIconUrl>https://raw.githubusercontent.com/xamarin/Auth/master/icons/xamarin.auth_512x512.png</PackageIconUrl>
+    <Summary>
+      Xamarin.Auth helps you authenticate users via standard authentication
+      mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials.
+      It's also straightforward to add support for non-standard authentication schemes.
+      The library is cross-platform, so once you learn it on iOS, you're all set on
+      Android and Windows.
+    </Summary>
+    <PackageTags>xamarin, windows, uwp, ios, android, xamarin.forms, authentication, login</PackageTags>
+    <Title>Xamarin.Auth for Xamarin.Forms</Title>
+    <Description>
+      A cross-platform API for authenticating users and storing their accounts.
+    </Description>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
+    <Authors>Microsoft</Authors>
+    <Owners>microsoft,Xamarin,XamarinNuGet</Owners>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <RepositoryUrl>https://github.com/xamarin/Essentials</RepositoryUrl>
+    <PackageReleaseNotes>See: https://github.com/xamarin/Xamarin.Auth</PackageReleaseNotes>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=2021795</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://go.microsoft.com/fwlink/?linkid=2021816</PackageProjectUrl>
+ </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
@@ -17,9 +56,9 @@
   </ItemGroup>
 
   <!-- and EVIL hack to make life a bit nicer -->
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
     <Compile Remove="**\*.cs" />
     <Compile Remove="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Forms.cs" />
   </ItemGroup>
@@ -44,14 +83,37 @@
   <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
+    <Compile Remove="**\*.ios.cs" />
+    <Compile Remove="**\*.uwp.cs" />
+    <Compile Remove="**\*.netstandard.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid8.1')) ">
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
-    <Compile Remove="**\*.ios.cs" />
-    <Compile Remove="**\*.uwp.cs" />
-    <Compile Remove="**\*.netstandard.cs" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid8.0')) ">
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="26.1.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="26.1.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="26.1.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="26.1.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="26.1.0.1" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid7.1')) ">
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="25.4.0.2" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="25.4.0.2" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="25.4.0.2" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
+  </ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid7.0')) ">
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="24.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="24.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="24.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="24.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="24.2.1" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('uap'))">

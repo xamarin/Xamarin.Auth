@@ -2,19 +2,56 @@
 
   <PropertyGroup>
     <TargetFrameworks>
-      netstandard2.0; netstandard1.0;
+      netstandard2.0;
+
+      netstandard1.0; portable-net45+win8+wp8+wpa81;
     </TargetFrameworks>
+    <AssemblyName>Xamarin.Auth.Extensions</AssemblyName>
+    <RootNamespace>Xamarin.Auth.Extensions</RootNamespace>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>Xamarin.Auth.Extensions</PackageId>
+    <PackageIconUrl>https://raw.githubusercontent.com/xamarin/Auth/master/icons/xamarin.auth_512x512.png</PackageIconUrl>
+    <Summary>
+      Xamarin.Auth helps you authenticate users via standard authentication
+      mechanisms (e.g. OAuth 1.0 and 2.0), and store user credentials.
+      It's also straightforward to add support for non-standard authentication schemes.
+      The library is cross-platform, so once you learn it on iOS, you're all set on
+      Android and Windows.
+    </Summary>
+    <PackageTags>xamarin, windows, uwp, ios, android, xamarin.forms, authentication, login</PackageTags>
+    <Title>Xamarin.Auth Extensions</Title>
+    <Description>
+      A cross-platform API for authenticating users and storing their accounts.
+    </Description>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
+    <Authors>Microsoft</Authors>
+    <Owners>microsoft,Xamarin,XamarinNuGet</Owners>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+    <RepositoryUrl>https://github.com/xamarin/Essentials</RepositoryUrl>
+    <PackageReleaseNotes>See: https://github.com/xamarin/Xamarin.Auth</PackageReleaseNotes>
+    <DefineConstants>$(DefineConstants);</DefineConstants>
+    <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>
+    <PackageLicenseUrl>https://go.microsoft.com/fwlink/?linkid=2021795</PackageLicenseUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageProjectUrl>https://go.microsoft.com/fwlink/?linkid=2021816</PackageProjectUrl>
+ </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
     <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="1.0.0-beta-00081" PrivateAssets="All" />
     <ProjectReference Include="..\Xamarin.Auth\Xamarin.Auth.csproj" />
   </ItemGroup>
 
   <!-- and EVIL hack to make life a bit nicer -->
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
     <Compile Remove="**\*.cs" />
     <Compile Remove="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Extensions.cs" />
   </ItemGroup>
@@ -24,6 +61,8 @@
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
     <PackageReference Include="PCLCrypto" Version="2.0.147" />
   </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
   <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard'))"
           AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
