@@ -1,0 +1,31 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>
+      netstandard2.0; netstandard1.0;
+    </TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="1.0.0-beta-00081" PrivateAssets="All" />
+    <ProjectReference Include="..\Xamarin.Auth\Xamarin.Auth.csproj" />
+  </ItemGroup>
+
+  <!-- and EVIL hack to make life a bit nicer -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+    <Compile Remove="**\*.cs" />
+    <Compile Remove="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Extensions.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <PackageReference Include="PCLCrypto" Version="2.0.147" />
+  </ItemGroup>
+
+  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard'))"
+          AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
+
+</Project>

@@ -1,0 +1,72 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>
+      netstandard2.0; netstandard1.0;
+      xamarin.ios1.0;
+      monoandroid8.1;
+      uap10.0.16299;
+    </TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="1.0.0-beta-00081" PrivateAssets="All" />
+    <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
+    <ProjectReference Include="..\Xamarin.Auth\Xamarin.Auth.csproj" />
+  </ItemGroup>
+
+  <!-- and EVIL hack to make life a bit nicer -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+    <Compile Remove="**\*.cs" />
+    <Compile Remove="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Forms.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <DefineConstants>$(DefineConstants);__NETSTANDARD__</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+    <Compile Remove="**\*.android.cs" />
+    <Compile Remove="**\*.ios.cs" />
+    <Compile Remove="**\*.uwp.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('xamarin.ios'))">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('xamarin.ios'))">
+    <Compile Remove="**\*.android.cs" />
+    <Compile Remove="**\*.uwp.cs" />
+    <Compile Remove="**\*.netstandard.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
+    <Compile Remove="**\*.ios.cs" />
+    <Compile Remove="**\*.uwp.cs" />
+    <Compile Remove="**\*.netstandard.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('uap'))">
+    <DefineConstants>$(DefineConstants);__UWP__</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('uap'))">
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.7" />
+    <Compile Remove="**\*.android.cs" />
+    <Compile Remove="**\*.ios.cs" />
+    <Compile Remove="**\*.netstandard.cs" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard'))"
+          AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
+
+</Project>
