@@ -6,7 +6,7 @@ namespace Plugin.Threading
     {
         public void BeginInvokeOnUIThread(Action action)
         {
-            #if __UWP__         // Universal Windows Platform (UWP)
+            #if WINDOWS_UWP         // Universal Windows Platform (UWP)
             // using Windows.ApplicationModel.Core;
             var dispatcher =
                     Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher

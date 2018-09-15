@@ -19,7 +19,7 @@ using System.Text;
 using System.Net;
 using System.IO;
 
-#if !__UWP__ && !__PORTABLE__
+#if !WINDOWS_UWP && !__PORTABLE__
 using System.Runtime.Serialization.Formatters.Binary;
 #endif
 
@@ -217,7 +217,7 @@ namespace Xamarin.Auth._MobileServices
 
         string SerializeCookies()
         {
-#if __UWP__ || __PORTABLE__
+#if WINDOWS_UWP || __PORTABLE__
             throw new PlatformNotSupportedException();
 #else
             BinaryFormatter f = new BinaryFormatter();
@@ -240,7 +240,7 @@ namespace Xamarin.Auth._MobileServices
 
         static CookieContainer DeserializeCookies(string cookiesString)
         {
-#if __UWP__ || __PORTABLE__
+#if WINDOWS_UWP || __PORTABLE__
             throw new PlatformNotSupportedException();
 #else
             var f = new BinaryFormatter();

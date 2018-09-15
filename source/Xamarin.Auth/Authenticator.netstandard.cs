@@ -22,7 +22,7 @@ using System.Threading;
 using AuthenticateUIType = Android.Content.Intent;
 #elif __IOS__
 using AuthenticateUIType = UIKit.UIViewController;
-#elif __UWP__
+#elif WINDOWS_UWP
 using AuthenticateUIType = System.Uri;
 #elif __NETSTANDARD__
 using AuthenticateUIType = System.Object;

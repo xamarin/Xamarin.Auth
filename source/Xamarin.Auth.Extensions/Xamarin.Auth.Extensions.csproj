@@ -33,7 +33,7 @@
     <Owners>microsoft,Xamarin,XamarinNuGet</Owners>
     <NeutralLanguage>en</NeutralLanguage>
     <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
-    <RepositoryUrl>https://github.com/xamarin/Essentials</RepositoryUrl>
+    <RepositoryUrl>https://github.com/xamarin/Xamarin.Auth</RepositoryUrl>
     <PackageReleaseNotes>See: https://github.com/xamarin/Xamarin.Auth</PackageReleaseNotes>
     <DefineConstants>$(DefineConstants);</DefineConstants>
     <UseFullSemVerForNuGet>false</UseFullSemVerForNuGet>

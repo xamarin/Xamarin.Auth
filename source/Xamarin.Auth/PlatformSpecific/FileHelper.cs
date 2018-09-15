@@ -22,7 +22,7 @@ namespace Xamarin.Auth._MobileServices
             }
 
             return libFolder;
-#elif __UWP__
+#elif WINDOWS_UWP
             return Windows.Storage.ApplicationData.Current.LocalFolder.Path;
 #else
             throw new PlatformNotSupportedException();
