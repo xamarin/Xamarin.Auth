@@ -27,20 +27,12 @@ using UIContext =
             //Android.App.Activity
             ;
 
-#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
-#else
-namespace Xamarin.Auth._MobileServices
-#endif
 {
     /// <summary>
     /// An authenticator that displays a web page.
     /// </summary>
-    #if XAMARIN_AUTH_INTERNAL
-    internal abstract partial class WebAuthenticator
-    #else
     public abstract partial class WebAuthenticator
-    #endif
     {
         /// <summary>
         /// Gets the UI for this authenticator.

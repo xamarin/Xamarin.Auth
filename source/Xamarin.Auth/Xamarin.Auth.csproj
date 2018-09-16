@@ -7,13 +7,14 @@
     <TargetFrameworks>
       netstandard2.0;
       xamarin.ios1.0;
-      monoandroid7.0; monoandroid7.1; monoandroid8.0; monoandroid8.1;
+      monoandroid8.0; monoandroid8.1;
       $(WindowsTargetFrameworks);
 
       netstandard1.0; portable-net45+win8+wp8+wpa81;
     </TargetFrameworks>
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <RootNamespace>Xamarin.Auth</RootNamespace>
+    <EnableDefaultItems>false</EnableDefaultItems>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -50,45 +51,41 @@
 
   <ItemGroup>
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="1.0.0-beta-00081" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="3.0.0-preview1-03211-01" PrivateAssets="All" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
-  <!-- and EVIL hack to make life a bit nicer -->
+  <!-- an EVIL hack to make life a bit nicer -->
   <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
-    <Compile Remove="**\*.cs" />
-    <Compile Remove="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.cs" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
     <DefineConstants>$(DefineConstants);__NETSTANDARD__</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
-    <Compile Remove="**\*.android.cs" />
-    <Compile Remove="**\*.ios.cs" />
-    <Compile Remove="**\*.uwp.cs" />
-    <None Remove="Resources\**\*" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.netstandard.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('xamarin.ios'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('xamarin.ios'))">
     <Reference Include="System.Runtime.Serialization" />
-    <Compile Remove="**\*.android.cs" />
-    <Compile Remove="**\*.uwp.cs" />
-    <Compile Remove="**\*.netstandard.cs" />
-    <None Remove="Resources\**\*" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.ios.cs" />
+    <Compile Include="Platform\ios\**\*.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
     <Reference Include="System.Runtime.Serialization" />
-    <Compile Remove="**\*.ios.cs" />
-    <Compile Remove="**\*.uwp.cs" />
-    <Compile Remove="**\*.netstandard.cs" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.android.cs" />
+    <Compile Include="Platform\android\**\*.cs" />
     <AndroidResource Include="Resources\**\*" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid8.1')) ">
@@ -97,21 +94,15 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid8.0')) ">
     <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="26.1.0.1" />
   </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid7.1')) ">
-    <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="25.4.0.2" />
-  </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid7.0')) ">
-    <PackageReference Include="Xamarin.Android.Support.CustomTabs" Version="24.2.1" />
-  </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('uap'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('uap'))">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.7" />
-    <Compile Remove="**\*.android.cs" />
-    <Compile Remove="**\*.ios.cs" />
-    <Compile Remove="**\*.netstandard.cs" />
-    <None Remove="Resources\**\*" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.uwp.cs" />
+    <Compile Include="Platform\uwp\**\*.cs" />
+    <Page Include="Platform\uwp\WebAuthenticatorPage.xaml" Generator="MSBuild:Compile" />
   </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />

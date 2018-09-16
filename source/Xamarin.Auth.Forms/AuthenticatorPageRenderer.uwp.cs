@@ -43,13 +43,13 @@ namespace Xamarin.Auth.XamarinForms.UniversalWindowsPlatform
             }
             catch (Exception ex)
             {
-                throw new Xamarin.Auth.AuthException("UWP Dispose");
+                throw new Xamarin.Auth.AuthException("UWP Dispose", ex);
             }
 
             base.Dispose(disposing);
         }
 
-        protected override async void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Page> e)
+        protected override void OnElementChanged(ElementChangedEventArgs<Xamarin.Forms.Page> e)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace Xamarin.Auth.XamarinForms.UniversalWindowsPlatform
             }
             catch (Exception ex)
             {
-                throw new Xamarin.Auth.AuthException("UWP OnElementChanged");
+                throw new Xamarin.Auth.AuthException("UWP OnElementChanged", ex);
             }
 
             return;
@@ -148,21 +148,21 @@ namespace Xamarin.Auth.XamarinForms.UniversalWindowsPlatform
             return;
         }
 
-        private async void Frame_NavigationFailed(object sender, Windows.UI.Xaml.Navigation.NavigationFailedEventArgs e)
+        private void Frame_NavigationFailed(object sender, Windows.UI.Xaml.Navigation.NavigationFailedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: In UWP Frame_NavigationFailed");
 
             return;
         }
 
-        private async void Authenticator_Error(object sender, AuthenticatorErrorEventArgs e)
+        private void Authenticator_Error(object sender, AuthenticatorErrorEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: In UWP Authenticator_Error");
 
             return;
         }
 
-        private async void Authenticator_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        private void Authenticator_Completed(object sender, AuthenticatorCompletedEventArgs e)
         {
             System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer: In UWP Authenticator_Completed");
         }

@@ -24,26 +24,14 @@ using AuthenticateUIType =
             ;
 using System.Text;
 
-#if !AZURE_MOBILE_SERVICES
 using Xamarin.Auth;
-#else
-using Xamarin.Auth._MobileServices;
-#endif
 
-#if !AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
-#else
-namespace Xamarin.Auth._MobileServices
-#endif
 {
     /// <summary>
     /// An authenticator that displays a web page.
     /// </summary>
-#if XAMARIN_AUTH_INTERNAL
-    internal abstract partial class WebAuthenticator
-#else
     public abstract partial class WebAuthenticator
-#endif
     {
         /// <summary>
         /// Gets the UI for this authenticator.

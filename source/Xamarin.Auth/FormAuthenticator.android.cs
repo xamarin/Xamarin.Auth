@@ -28,20 +28,12 @@ using UIContext =
             //Android.App.Activity
             ;
 
-#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
-#else
-namespace Xamarin.Auth._MobileServices
-#endif
 {
     /// <summary>
     /// An authenticator that presents a form to the user.
     /// </summary>
-    #if XAMARIN_AUTH_INTERNAL
-    internal abstract partial class FormAuthenticator : Authenticator
-    #else
     public abstract partial class FormAuthenticator : Authenticator
-    #endif
     {
         /// <summary>
         /// Gets the UI to present this form.

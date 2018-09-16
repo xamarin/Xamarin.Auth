@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Threading;
-using Xamarin.Utilities;
 
 using AuthenticateUIType =
             Android.Content.Intent
@@ -28,20 +27,12 @@ using UIContext =
             //Android.App.Activity
             ;
 
-#if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
-#else
-namespace Xamarin.Auth._MobileServices
-#endif
 {
     /// <summary>
     /// A process and user interface to authenticate a user.
     /// </summary>
-    #if XAMARIN_AUTH_INTERNAL
-    internal abstract partial class Authenticator
-    #else
     public abstract partial class Authenticator
-    #endif
     {
         UIContext context;
         public AuthenticateUIType GetUI(UIContext context)

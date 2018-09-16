@@ -7,7 +7,7 @@
     <TargetFrameworks>
       netstandard2.0;
       xamarin.ios1.0;
-      monoandroid7.0; monoandroid7.1; monoandroid8.0; monoandroid8.1;
+      monoandroid8.0; monoandroid8.1;
       $(WindowsTargetFrameworks);
 
       netstandard1.0; portable-net45+win8+wp8+wpa81;
@@ -50,17 +50,17 @@
 
   <ItemGroup>
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="1.0.0-beta-00081" PrivateAssets="All" />
-    <PackageReference Include="Xamarin.Forms" Version="3.0.0.561731" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="3.0.0-preview1-03211-01" PrivateAssets="All" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
     <ProjectReference Include="..\Xamarin.Auth\Xamarin.Auth.csproj" />
   </ItemGroup>
 
-  <!-- and EVIL hack to make life a bit nicer -->
+  <!-- an EVIL hack to make life a bit nicer -->
   <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
     <Compile Remove="**\*.cs" />
-    <Compile Remove="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Forms.cs" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Forms.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
@@ -100,20 +100,6 @@
     <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="26.1.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="26.1.0.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="26.1.0.1" />
-  </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid7.1')) ">
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
-  </ItemGroup>
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid7.0')) ">
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="24.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="24.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="24.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="24.2.1" />
-    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="24.2.1" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('uap'))">

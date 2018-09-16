@@ -44,22 +44,24 @@
 
   <ItemGroup>
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="1.0.0-beta-00081" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="3.0.0-preview1-03211-01" PrivateAssets="All" />
     <ProjectReference Include="..\Xamarin.Auth\Xamarin.Auth.csproj" />
   </ItemGroup>
 
-  <!-- and EVIL hack to make life a bit nicer -->
+  <!-- an EVIL hack to make life a bit nicer -->
   <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
     <Compile Remove="**\*.cs" />
-    <Compile Remove="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Extensions.cs" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Extensions.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
-    <PackageReference Include="PCLCrypto" Version="2.0.147" />
+    <PackageReference Include="PCLCrypto" Version="2.0.147" NoWarn="NU1701" />
+    <PackageReference Include="Validation" Version="2.2.8" PrivateAssets="All" NoWarn="NU1701" />
+    <PackageReference Include="PInvoke.NCrypt" Version="0.3.2" PrivateAssets="All" NoWarn="NU1701" />
   </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
