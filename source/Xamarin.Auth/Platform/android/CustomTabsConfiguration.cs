@@ -1,12 +1,10 @@
 ﻿using System;
-
 using Android.OS;
 using Android.App;
 using Android.Content;
 using Android.Support.CustomTabs;
 using System.Collections.Generic;
 using System.Linq;
-
 using Android.Support.CustomTabs.Chromium.SharedUtilities;
 
 namespace Xamarin.Auth

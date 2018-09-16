@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-
 using Android.Content;
 using Android.Content.PM;
 using Android.Util;

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Text;
-
 using PCLCrypto;
 
 namespace Xamarin.Auth.Cryptography

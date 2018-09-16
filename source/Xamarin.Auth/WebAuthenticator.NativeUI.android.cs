@@ -1,6 +1,5 @@
 ﻿using Android.App;
 using System;
-
 using AuthenticateUIType =
             Android.Content.Intent
             //global::Android.Support.CustomTabs.CustomTabsIntent.Builder // not an Intent

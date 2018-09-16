@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Text;
 using System.Threading.Tasks;
-
 using Foundation;
 using NetworkExtension;
 using WebKit;

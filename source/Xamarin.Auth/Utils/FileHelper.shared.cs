@@ -2,7 +2,7 @@ using System;
 
 namespace Xamarin.Auth
 {
-    public static class FileHelper
+    internal static class FileHelper
     {
         public static string GetLocalStoragePath()
         {

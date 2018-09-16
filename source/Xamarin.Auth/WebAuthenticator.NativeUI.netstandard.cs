@@ -1,5 +1,4 @@
 ﻿using System;
-
 using AuthenticateUIType = System.Object;
 
 namespace Xamarin.Auth

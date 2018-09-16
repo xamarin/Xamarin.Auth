@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-
 using Xamarin.Auth;
 using Xamarin.Auth.Cryptography;
 

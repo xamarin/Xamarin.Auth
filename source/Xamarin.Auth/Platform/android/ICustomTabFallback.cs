@@ -1,5 +1,4 @@
 ﻿using System;
-
 using Android.App;
 
 namespace Android.Support.CustomTabs.Chromium.SharedUtilities

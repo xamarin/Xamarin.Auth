@@ -1,5 +1,4 @@
 ﻿using System;
-
 using SafariServices;
 using Foundation;
 

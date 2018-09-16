@@ -14,7 +14,7 @@
     </TargetFrameworks>
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <RootNamespace>Xamarin.Auth</RootNamespace>
-    <EnableDefaultItems>false</EnableDefaultItems>
+    <!-- <EnableDefaultItems>false</EnableDefaultItems> -->
   </PropertyGroup>
 
   <PropertyGroup>
@@ -104,10 +104,14 @@
     <Compile Include="Platform\uwp\**\*.cs" />
     <Page Include="Platform\uwp\WebAuthenticatorPage.xaml" Generator="MSBuild:Compile" />
   </ItemGroup>
+  <ItemGroup>
+    <None Update="Platform\uwp\WebAuthenticatorPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
+  </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
-  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard'))"
-          AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
+  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard'))" AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
 
 </Project>

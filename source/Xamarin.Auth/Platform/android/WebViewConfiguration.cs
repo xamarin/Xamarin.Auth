@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using Android.Locations;
 using Android.Webkit;
 

@@ -14,7 +14,6 @@
 
 using System;
 using System.Collections.Generic;
-
 using Android.App;
 using Android.Net;
 using Android.OS;

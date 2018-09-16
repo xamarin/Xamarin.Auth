@@ -1,5 +1,4 @@
 ﻿using System;
-
 using AuthenticateUIType =
             SafariServices.SFSafariViewController
             //System.Object
