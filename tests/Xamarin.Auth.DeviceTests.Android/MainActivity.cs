@@ -25,7 +25,7 @@ namespace Xamarin.Auth.DeviceTests.Droid
                 {
                     return Tests.RunAsync(new TestOptions
                     {
-                        Assemblies = new List<Assembly> { typeof(Battery_Tests).Assembly },
+                        Assemblies = new List<Assembly> { typeof(Utils).Assembly },
                         NetworkLogHost = hostIp,
                         NetworkLogPort = hostPort,
                         Format = TestResultsFormat.XunitV2
