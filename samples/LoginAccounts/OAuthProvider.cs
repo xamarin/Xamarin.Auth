@@ -47,13 +47,13 @@ namespace LoginAccounts
 
     public abstract class OAuth1Provider : OAuthProvider
     {
-        public virtual string ConsumerSecret { get; }
+        public virtual string ClientSecret { get; }
         public virtual Uri RequestTokenUri { get; }
     }
 
     public abstract class OAuth2Provider : OAuthProvider
     {
-        public virtual string ConsumerSecret { get; }
+        public virtual string ClientSecret { get; }
         public virtual string Scope { get; }
     }
 }

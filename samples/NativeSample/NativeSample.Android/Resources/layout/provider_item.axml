@@ -39,6 +39,9 @@
         android:layout_marginRight="12dp"
         android:layout_marginBottom="12dp"
         android:id="@+id/check"
-        android:gravity="center" />
-
+        android:gravity="center"/>
+    <android.support.v4.widget.Space
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        android:layout_height="48dp" />
 </LinearLayout>

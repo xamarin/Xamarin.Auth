@@ -77,9 +77,11 @@ namespace NativeSampleAndroid
                 case OAuth2Provider oauth2:
                     authenticator = new OAuth2Authenticator(
                         oauth2.ClientId,
+                        oauth2.ClientSecret,
                         oauth2.Scope,
                         oauth2.AuthorizationUri,
-                        oauth2.RedirectUri);
+                        oauth2.RedirectUri,
+                        oauth2.AccessTokenUri);
                     break;
             }
 
@@ -110,10 +112,17 @@ namespace NativeSampleAndroid
                 }
                 else
                 {
-                    new AlertDialog.Builder(this)
-                        .SetTitle("Login failed")
-                        .SetMessage("There was an issue with the login.")
-                        .Show();
+                    if (authenticator.HasCompleted)
+                    {
+                        Toast.MakeText(this, $"Login cancelled.", ToastLength.Short).Show();
+                    }
+                    else
+                    {
+                        new AlertDialog.Builder(this)
+                            .SetTitle("Login failed")
+                            .SetMessage("There was an issue with the login.")
+                            .Show();
+                    }
                 }
             }
         }
