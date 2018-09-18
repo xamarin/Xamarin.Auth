@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 
 namespace Xamarin.Auth
 {
@@ -10,11 +11,11 @@ namespace Xamarin.Auth
             return Environment.GetFolderPath(Environment.SpecialFolder.Personal);
 #elif __IOS__
             string docFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
-            string libFolder = System.IO.Path.Combine(docFolder, "..", "Library", "Databases");
+            string libFolder = Path.Combine(docFolder, "..", "Library", "Databases");
 
-            if (!System.IO.Directory.Exists(libFolder))
+            if (!Directory.Exists(libFolder))
             {
-                System.IO.Directory.CreateDirectory(libFolder);
+                Directory.CreateDirectory(libFolder);
             }
 
             return libFolder;

@@ -1,47 +1,35 @@
-using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// A persistent storage for <see cref="Account"/>s. This storage is encrypted.
-    /// Accounts are stored using a service ID and the username of the account
-    /// as a primary key.
-    /// </summary>
     public abstract partial class AccountStore
     {
-        /// <summary>
-        /// Finds the accounts for a given service.
-        /// </summary>
-        /// <returns>
-        /// The accounts for the service.
-        /// </returns>
-        /// <param name='serviceId'>
-        /// Service identifier.
-        /// </param>
+        public static string StorePassword { get; set; }
+
         public abstract IEnumerable<Account> FindAccountsForService(string serviceId);
 
-        /// <summary>
-        /// Save the specified account by combining its username and the serviceId
-        /// to form a primary key.
-        /// </summary>
-        /// <param name='account'>
-        /// Account to store.
-        /// </param>
-        /// <param name='serviceId'>
-        /// Service identifier.
-        /// </param>
         public abstract void Save(Account account, string serviceId);
 
-        /// <summary>
-        /// Deletes the account for a given serviceId.
-        /// </summary>
-        /// <param name='account'>
-        /// Account to delete.
-        /// </param>
-        /// <param name='serviceId'>
-        /// Service identifier.
-        /// </param>
         public abstract void Delete(Account account, string serviceId);
+
+        public abstract Task<IEnumerable<Account>> FindAccountsForServiceAsync(string serviceId);
+
+        public abstract Task SaveAsync(Account account, string serviceId);
+
+        public abstract Task DeleteAsync(Account account, string serviceId);
+
+        public static AccountStore Create()
+        {
+#if __ANDROID__
+            return PlatformCreate(null, null);
+#elif __IOS__
+            return new KeyChainAccountStore();
+#elif WINDOWS_UWP
+            return new UWPAccountStore();
+#else
+            throw new System.PlatformNotSupportedException();
+#endif
+        }
     }
 }

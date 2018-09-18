@@ -1,26 +1,14 @@
-﻿using System;
-using Android.OS;
-using Android.App;
+﻿using Android.App;
 using Android.Content;
 using Android.Support.CustomTabs;
 using System.Collections.Generic;
 using System.Linq;
-using Android.Support.CustomTabs.Chromium.SharedUtilities;
 
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// Custom tabs configuration needed to pass Custom Tabs data for customization to the 
-    /// Activity that launches CustomTabs
-    /// 
-    /// Too many complex classes to implement java interfaces
-    ///     Serializable
-    /// or
-    ///     Parcellable (Android serialization aimed to increase performance)
-    /// </summary>
     public static class CustomTabsConfiguration
     {
-		static CustomTabsConfiguration()
+        static CustomTabsConfiguration()
         {
             color_xamarin_blue = new global::Android.Graphics.Color(0x34, 0x98, 0xdb);
 
@@ -29,21 +17,15 @@ namespace Xamarin.Auth
                         + System.Environment.NewLine +
                         "close CustomTabs by navigating back to the app."
                         ;
-
-            return;
         }
 
         static global::Android.Graphics.Color? color_xamarin_blue = null;
 
-        public static void Initialize(global::Android.App.Activity a)
+        public static void Initialize(Activity a)
         {
             activity = a;
 
-            List<string> packages = PackageManagerHelper.GetPackageNameToUse
-                                                                (
-                                                                    global::Android.App.Application.Context,
-                                                                   "http://xamarin.com"
-                                                                );
+            List<string> packages = PackageManagerHelper.GetPackageNameToUse(Application.Context, "http://xamarin.com");
             PackagesSupportingCustomTabs = PackageManagerHelper.PackagesSupportingCustomTabs;
             PackageForCustomTabs = PackagesSupportingCustomTabs.FirstOrDefault().Value;
 
@@ -66,19 +48,19 @@ namespace Xamarin.Auth
             set;
         }
 
-		public static Dictionary<string, string> PackagesSupportingCustomTabs
-		{
-			get;
-			set;
-		}
+        public static Dictionary<string, string> PackagesSupportingCustomTabs
+        {
+            get;
+            set;
+        }
 
-		public static string PackageForCustomTabs
-		{
-			get;
-			set;
-		}
+        public static string PackageForCustomTabs
+        {
+            get;
+            set;
+        }
 
-		public static CustomTabsIntent CustomTabsIntent
+        public static CustomTabsIntent CustomTabsIntent
         {
             get
             {
@@ -129,26 +111,26 @@ namespace Xamarin.Auth
         }
 
 
-		public static string CustomTabsHelperUri
-		{
-			get;
-			set;
-		} = "http://xamarin.com";
-
-
-		public static string CustomTabsHelperAndroidLogTag
-		{
-			get;
-			set;
-		} = "CustomTabsHelper";
-
-
-
-
-		public static string CustomTabsClosingMessage
+        public static string CustomTabsHelperUri
         {
-        	get;
-        	set;
+            get;
+            set;
+        } = "http://xamarin.com";
+
+
+        public static string CustomTabsHelperAndroidLogTag
+        {
+            get;
+            set;
+        } = "CustomTabsHelper";
+
+
+
+
+        public static string CustomTabsClosingMessage
+        {
+            get;
+            set;
         }
 
         public static string ActionLabel
@@ -159,62 +141,62 @@ namespace Xamarin.Auth
 
         public static string MenuItemTitle
         {
-        	get;
-        	set;
+            get;
+            set;
         } = "Menu Item Title";
 
         public static global::Android.Graphics.Color ToolbarColor
         {
             get;
-        	set;
+            set;
         }
 
         public static bool IsShowTitleUsed
         {
-        	get;
-        	set;
-        }  = true;
+            get;
+            set;
+        } = true;
 
         public static bool IsUrlBarHidingUsed
         {
-        	get;
-        	set;
-        }  = true;
+            get;
+            set;
+        } = true;
 
         public static bool IsDefaultShareMenuItemUsed
         {
-        	get;
-        	set;
+            get;
+            set;
         } = true;
 
         public static global::Android.Graphics.Bitmap ActionButtonIconBitmap
         {
-        	get;
-        	set;
+            get;
+            set;
         }
 
         public static bool IsActionButtonUsed
         {
-        	get;
-        	set;
+            get;
+            set;
         } = true;
 
         public static bool IsActionBarToolbarIconUsed
         {
-        	get;
-        	set;
+            get;
+            set;
         } = true;
 
         public static global::Android.Graphics.Bitmap ActionBarToolbarIconBitmap
         {
-        	get;
-        	set;
+            get;
+            set;
         }
 
         public static bool IsCloseButtonIconUsed
         {
-        	get;
-        	set;
+            get;
+            set;
         } = true;
 
         public static bool AreAnimationsUsed
@@ -225,28 +207,24 @@ namespace Xamarin.Auth
 
         public static WebViewFallback WebViewFallback
         {
-        	get;
-        	set;
+            get;
+            set;
         } = new WebViewFallback();
 
         public static bool IsWarmUpUsed
         {
-        	get;
-        	set;
+            get;
+            set;
         }
 
         public static bool IsPrefetchUsed
         {
-        	get;
-        	set;
+            get;
+            set;
         }
 
         private static global::Android.Content.ActivityFlags activity_flags;
 
-        /// <summary>
-        /// ActivityFlags for launching WebAuthenticatorNativeBrowserActivity
-        /// </summary>
-        /// <value>The activity flags.</value>
         public static global::Android.Content.ActivityFlags ActivityFlags
         {
             get
@@ -263,7 +241,7 @@ namespace Xamarin.Auth
 
         public static void UICustomization()
         {
-            ActivityFlags = 
+            ActivityFlags =
                     global::Android.Content.ActivityFlags.NoHistory
                     |
                     global::Android.Content.ActivityFlags.SingleTop
@@ -442,12 +420,12 @@ namespace Xamarin.Auth
         {
             Intent actionIntent = new Intent
                                         (
-                                            activity.ApplicationContext, 
+                                            activity.ApplicationContext,
                                             typeof(CustomTabsActionsBroadcastReceiver)
                                         );
             actionIntent.PutExtra
                         (
-                            CustomTabsActionsBroadcastReceiver.KEY_ACTION_SOURCE, 
+                            CustomTabsActionsBroadcastReceiver.KEY_ACTION_SOURCE,
                             actionSourceId
                         );
 

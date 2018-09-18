@@ -1,30 +1,18 @@
-﻿using System;
-using System.Threading.Tasks;
-using Android.Locations;
+﻿using Android.App;
 using Android.Webkit;
 
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// Web view configuration.
-    /// </summary>
-    public static class WebViewConfiguration
+    internal static class WebViewConfiguration
     {
-        public static class Android
+        static WebViewConfiguration()
         {
-            public static string UserAgent
+            using (var webView = new WebView(Application.Context))
             {
-                get;
-                set;
+                UserAgent = webView.Settings.UserAgentString;
             }
-
-            static Android()
-            {
-                UserAgent = (new WebView(global::Android.App.Application.Context)).Settings.UserAgentString;
-
-                return;
-            }
-
         }
+
+        public static string UserAgent { get; set; }
     }
 }

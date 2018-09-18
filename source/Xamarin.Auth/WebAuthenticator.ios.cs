@@ -1,102 +1,60 @@
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using AuthenticateUIType =
-            UIKit.UIViewController
-            //System.Object
-            ;
-using System.Text;
-using Xamarin.Auth;
+using Foundation;
+using SafariServices;
+using UIKit;
+using AuthenticateUIType = UIKit.UIViewController;
 
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// An authenticator that displays a web page.
-    /// </summary>
     public abstract partial class WebAuthenticator
     {
-        /// <summary>
-        /// Gets the UI for this authenticator.
-        /// </summary>
-        /// <returns>
-        /// The UI that needs to be presented.
-        /// </returns>
         protected override AuthenticateUIType GetPlatformUI()
         {
-            AuthenticateUIType ui = null;
-            if (this.IsUsingNativeUI == true)
-            {
-                Uri uri = GetInitialUrlAsync().Result;
-                IDictionary<string, string> query_parts = WebEx.FormDecode(uri.Query);
-                if (query_parts.ContainsKey("redirect_uri"))
-                {
-                    Uri redirect_uri = new Uri(query_parts["redirect_uri"]);
-                    string scheme = redirect_uri.Scheme;
-                    if (scheme.StartsWith("http", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        StringBuilder sb = new StringBuilder();
-                        sb.AppendLine("WARNING");
-                        sb.AppendLine($"Scheme = {scheme}");
-                        sb.AppendLine($"Native UI used with http[s] schema!");
-                        sb.AppendLine($"Redirect URL will be loaded in Native UI!");
-                        sb.AppendLine($"OAuth Data parsing might fail!");
+            if (IsUsingNativeUI && UIDevice.CurrentDevice.CheckSystemVersion(9, 0))
+                return GetPlatformUINative();
 
-                        ShowErrorForNativeUI(sb.ToString());
-                    }
-                }
-                ui = GetPlatformUINative();
-            }
-            else
-            {
-                ui = GetPlatformUIEmbeddedBrowser();
-            }
-
-            return ui;
+            return GetPlatformUIEmbeddedBrowser();
         }
 
-        /// <summary>
-        /// Gets the platform  UI (Android - WebView).
-        /// </summary>
-        /// <returns>
-        /// The platform Native UI (embeded/integrated Browser Control/Widget/View (WebView)).
-        /// Android.Support.CustomTabs.CustomTabsIntent
-        /// </returns>
-        /// <see cref="https://components.xamarin.com/gettingstarted/xamandroidsupportcustomtabs"/>
-        protected AuthenticateUIType GetPlatformUIEmbeddedBrowser()
+        protected virtual AuthenticateUIType GetPlatformUINative()
         {
-            // Embedded Browser - Deprecated
-            UIKit.UINavigationController nc = null;
-            nc = new UIKit.UINavigationController(new WebAuthenticatorController(this));
+            var uri = GetInitialUrlAsync().Result;
 
-            AuthenticateUIType ui = nc;
-
-            return ui;
+            return new SFSafariViewController(new NSUrl(uri.AbsoluteUri), false)
+            {
+                Delegate = new NativeAuthSafariViewControllerDelegate(this),
+                Title = Title
+            };
         }
 
-        /// <summary>
-        /// Clears all cookies.
-        /// </summary>
-        /// <seealso cref="ClearCookiesBeforeLogin"/>
+        protected virtual AuthenticateUIType GetPlatformUIEmbeddedBrowser()
+        {
+            return new UINavigationController(new WebAuthenticatorController(this));
+        }
+
         public static void ClearCookies()
         {
-            var store = Foundation.NSHttpCookieStorage.SharedStorage;
+            var store = NSHttpCookieStorage.SharedStorage;
             var cookies = store.Cookies;
             foreach (var c in cookies)
             {
                 store.DeleteCookie(c);
             }
-
-#if DEBUG
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"WebAuthenticator.ClearCookies ");
-            System.Diagnostics.Debug.WriteLine(sb.ToString());
-#endif
-
-            return;
         }
 
+        private class NativeAuthSafariViewControllerDelegate : SFSafariViewControllerDelegate
+        {
+            private WebAuthenticator authenticator = null;
 
+            public NativeAuthSafariViewControllerDelegate(WebAuthenticator wa)
+            {
+                authenticator = wa;
+            }
+
+            public override void DidFinish(SFSafariViewController controller)
+            {
+                if (authenticator.AllowCancel)
+                    authenticator.OnCancelled();
+            }
+        }
     }
 }
-

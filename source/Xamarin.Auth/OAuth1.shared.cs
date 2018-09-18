@@ -8,20 +8,8 @@ using System.Globalization;
 
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// A collection of utility functions for signing OAuth 1.0 requests.
-    /// </summary>
     public static class OAuth1
     {
-        /// <summary>
-        /// Encodes a string according to: http://tools.ietf.org/html/rfc5849#section-3.6
-        /// </summary>
-        /// <returns>
-        /// The encoded string.
-        /// </returns>
-        /// <param name='unencoded'>
-        /// The string to encode.
-        /// </param>
         public static string EncodeString(string unencoded)
         {
             var utf8 = Encoding.UTF8.GetBytes(unencoded);
@@ -44,21 +32,6 @@ namespace Xamarin.Auth
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Gets the signature base string according to: http://tools.ietf.org/html/rfc5849#section-3.4.1
-        /// </summary>
-        /// <returns>
-        /// The signature base string.
-        /// </returns>
-        /// <param name='method'>
-        /// HTTP request method.
-        /// </param>
-        /// <param name='uri'>
-        /// The request resource URI.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-        /// </param>
         public static string GetBaseString(string method, Uri uri, IDictionary<string, string> parameters)
         {
             var baseBuilder = new StringBuilder();
@@ -66,37 +39,21 @@ namespace Xamarin.Auth
             baseBuilder.Append("&");
             baseBuilder.Append(EncodeString(uri.AbsoluteUri));
             baseBuilder.Append("&");
-            var head = "";
-            foreach (var key in parameters.Keys.OrderBy(x => x))
+
+            if (parameters != null)
             {
-                var p = head + EncodeString(key) + "=" + EncodeString(parameters[key]);
-                baseBuilder.Append(EncodeString(p));
-                head = "&";
+                var head = "";
+                foreach (var key in parameters.Keys.OrderBy(x => x))
+                {
+                    var p = head + EncodeString(key) + "=" + EncodeString(parameters[key]);
+                    baseBuilder.Append(EncodeString(p));
+                    head = "&";
+                }
             }
+
             return baseBuilder.ToString();
         }
 
-        /// <summary>
-        /// Gets the signature of a request according to: http://tools.ietf.org/html/rfc5849#section-3.4
-        /// </summary>
-        /// <returns>
-        /// The signature.
-        /// </returns>
-        /// <param name='method'>
-        /// HTTP request method.
-        /// </param>
-        /// <param name='uri'>
-        /// The request resource URI.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-        /// </param>
-        /// <param name='consumerSecret'>
-        /// Consumer secret.
-        /// </param>
-        /// <param name='tokenSecret'>
-        /// Token secret.
-        /// </param>
         public static string GetSignature(string method, Uri uri, IDictionary<string, string> parameters, string consumerSecret, string tokenSecret)
         {
             var baseString = GetBaseString(method, uri, parameters);
@@ -107,91 +64,17 @@ namespace Xamarin.Auth
             return sig;
         }
 
-        static Dictionary<string, string> MixInOAuthParameters(string method, Uri url, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
-        {
-            var ps = new Dictionary<string, string>(parameters);
-
-            var nonce = new Random().Next().ToString();
-            var timestamp = ((int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds).ToString();
-
-            ps["oauth_nonce"] = nonce;
-            ps["oauth_timestamp"] = timestamp;
-            ps["oauth_version"] = "1.0";
-            ps["oauth_consumer_key"] = consumerKey;
-            ps["oauth_signature_method"] = "HMAC-SHA1";
-
-            var sig = GetSignature(method, url, ps, consumerSecret, tokenSecret);
-            ps["oauth_signature"] = sig;
-
-            return ps;
-        }
-
-        /// <summary>
-        /// Creates an OAuth 1.0 signed request.
-        /// </summary>
-        /// <returns>
-        /// The request.
-        /// </returns>
-        /// <param name='method'>
-        /// HTTP request method.
-        /// </param>
-        /// <param name='uri'>
-        /// The request resource URI.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-        /// </param>
-        /// <param name='consumerKey'>
-        /// Consumer key.
-        /// </param>
-        /// <param name='consumerSecret'>
-        /// Consumer secret.
-        /// </param>
-        /// <param name='tokenSecret'>
-        /// Token secret.
-        /// </param>
         public static HttpWebRequest CreateRequest(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
         {
-            Dictionary<string, string> ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
+            var ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
 
-            string realUrl = uri.AbsoluteUri + "?" + ps.FormEncode();
-
-            HttpWebRequest req = 
-                    // (HttpWebRequest)WebRequest.Create(realUrl)   // WebRequest - no go for .NetStandard 1.6
-                    HttpWebRequest.CreateHttp(realUrl)
-                    ;
+            var realUrl = uri.AbsoluteUri + "?" + ps.FormEncode();
+            var req = HttpWebRequest.CreateHttp(realUrl);
             req.Method = method;
 
             return req;
         }
 
-        /// <summary>
-        /// Gets the authorization header for a signed request.
-        /// </summary>
-        /// <returns>
-        /// The authorization header.
-        /// </returns>
-        /// <param name='method'>
-        /// HTTP request method.
-        /// </param>
-        /// <param name='uri'>
-        /// The request resource URI.
-        /// </param>
-        /// <param name='parameters'>
-        /// Parameters covered by: http://tools.ietf.org/html/rfc5849#section-3.4.1.3
-        /// </param>
-        /// <param name='consumerKey'>
-        /// Consumer key.
-        /// </param>
-        /// <param name='consumerSecret'>
-        /// Consumer secret.
-        /// </param>
-        /// <param name='token'>
-        /// Token.
-        /// </param>
-        /// <param name='tokenSecret'>
-        /// Token secret.
-        /// </param>
         public static string GetAuthorizationHeader(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string token, string tokenSecret)
         {
             var ps = new Dictionary<string, string>(parameters);
@@ -213,6 +96,24 @@ namespace Xamarin.Auth
 
             return sb.ToString();
         }
+
+        private static Dictionary<string, string> MixInOAuthParameters(string method, Uri url, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
+        {
+            var ps = new Dictionary<string, string>(parameters);
+
+            var nonce = new Random().Next().ToString();
+            var timestamp = ((int)(DateTime.UtcNow - new DateTime(1970, 1, 1)).TotalSeconds).ToString();
+
+            ps["oauth_nonce"] = nonce;
+            ps["oauth_timestamp"] = timestamp;
+            ps["oauth_version"] = "1.0";
+            ps["oauth_consumer_key"] = consumerKey;
+            ps["oauth_signature_method"] = "HMAC-SHA1";
+
+            var sig = GetSignature(method, url, ps, consumerSecret, tokenSecret);
+            ps["oauth_signature"] = sig;
+
+            return ps;
+        }
     }
 }
-

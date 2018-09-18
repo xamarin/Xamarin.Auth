@@ -5,26 +5,34 @@ using Android.OS;
 using Android.App;
 using Android.Widget;
 using Android.Support.CustomTabs;
+using Android.Accounts;
+using Android.Content;
 
 namespace Xamarin.Auth
 {
-    [Activity
-        (
-            Label = "Web Authenticator Native Broswer",
-            // NoHistory = true,
-            LaunchMode = global::Android.Content.PM.LaunchMode.SingleTop
-        )
-    ]
-    public class WebAuthenticatorNativeBrowserActivity : global::Android.Accounts.AccountAuthenticatorActivity
+    [Activity(Label = "Web Authenticator Native Broswer", LaunchMode = global::Android.Content.PM.LaunchMode.SingleTop)]
+    public class WebAuthenticatorNativeBrowserActivity : AccountAuthenticatorActivity
     {
-        internal class State : Java.Lang.Object
+        private static readonly ActivityStateRepository<State> StateRepo = new ActivityStateRepository<State>();
+
+        private State state;
+
+        public static Intent CreateIntent(Context context, WebAuthenticator authenticator)
         {
-            public WebAuthenticator Authenticator;
+            var uri_netfx = authenticator.GetInitialUrlAsync().Result;
+            var uri_android = global::Android.Net.Uri.Parse(uri_netfx.AbsoluteUri);
+
+            CustomTabsConfiguration.UriAndroidOS = uri_android;
+            var ui = new Intent(context, typeof(WebAuthenticatorNativeBrowserActivity));
+            ui.PutExtra("ClearCookies", authenticator.ClearCookiesBeforeLogin);
+            var state = new State
+            {
+                Authenticator = authenticator,
+            };
+            ui.PutExtra("StateKey", StateRepo.Add(state));
+
+            return ui;
         }
-
-        internal static readonly ActivityStateRepository<State> StateRepo = new ActivityStateRepository<State>();
-
-        State state;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -58,19 +66,12 @@ namespace Xamarin.Auth
 
             //Title = state.Authenticator.Title;
 
-            //
             // Watch for completion
-            //
             state.Authenticator.Completed +=
                 (s, e) =>
                 {
                     SetResult(e.IsAuthenticated ? Result.Ok : Result.Canceled);
 
-                    #region
-                    ///-------------------------------------------------------------------------------------------------
-                    /// Pull Request - manually added/fixed
-                    ///		Added IsAuthenticated check #88
-                    ///		https://github.com/xamarin/Xamarin.Auth/pull/88
                     if (e.IsAuthenticated)
                     {
                         if (state.Authenticator.GetAccountResult != null)
@@ -86,8 +87,6 @@ namespace Xamarin.Auth
                             SetAccountAuthenticatorResult(result);
                         }
                     }
-                    ///-------------------------------------------------------------------------------------------------
-                    #endregion
 
                     CloseCustomTabs();
                 };
@@ -118,11 +117,7 @@ namespace Xamarin.Auth
             return;
         }
 
-        public Action LaunchCunstomTabsWithUrl
-        {
-            get;
-            set;
-        }
+        public Action LaunchCunstomTabsWithUrl { get; set; }
 
         private void LaunchCunstomTabsWithUrlAzureMobileServiceClientTeamCode()
         {
@@ -139,8 +134,6 @@ namespace Xamarin.Auth
                             //  Fallback if CustomTabs do not exist
                             CustomTabsConfiguration.WebViewFallback
                         );
-
-            return;
         }
 
         public void LaunchCunstomTabsWithUrlDefault()
@@ -219,11 +212,6 @@ namespace Xamarin.Auth
             return;
         }
 
-        #region
-        ///-------------------------------------------------------------------------------------------------
-        /// Pull Request - manually added/fixed
-        ///     Added IsAuthenticated check #88
-        ///     https://github.com/xamarin/Xamarin.Auth/pull/88
         protected override void OnResume()
         {
             base.OnResume();
@@ -242,8 +230,7 @@ namespace Xamarin.Auth
 
             return;
         }
-        ///-------------------------------------------------------------------------------------------------
-        #endregion
+
         protected void CloseCustomTabs()
         {
             MainThread.BeginInvokeOnMainThread(() =>
@@ -307,7 +294,7 @@ namespace Xamarin.Auth
                         {
                             //TODO: webView.LoadUrl(t.Result.AbsoluteUri);
                         }
-                    }, 
+                    },
                     System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext()
                 );
         }
@@ -345,6 +332,10 @@ namespace Xamarin.Auth
             // TODO: webView.Enabled = true;
         }
 
+
+        private class State : Java.Lang.Object
+        {
+            public WebAuthenticator Authenticator;
+        }
     }
 }
-

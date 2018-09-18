@@ -7,30 +7,26 @@ using WebKit;
 
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// The ViewController that the WebAuthenticator presents to the user.
-    /// </summary>
     internal partial class WebAuthenticatorController : UIViewController
     {
-        protected WebAuthenticator authenticator;
+      private  const double TransitionTime = 0.25;
 
-        UIWebView ui_web_view;
-        WKWebView wk_web_view;
-        UIView web_view = null;
+        private WebAuthenticator authenticator;
 
-        UIActivityIndicatorView activity;
-        UIView authenticatingView;
-        ProgressLabel progress;
-        bool webViewVisible = true;
+       private UIWebView ui_web_view;
+       private WKWebView wk_web_view;
+       private UIView web_view = null;
 
-        const double TransitionTime = 0.25;
+        private UIActivityIndicatorView activity;
+        private UIView authenticatingView;
+        private ProgressLabel progress;
+        private bool webViewVisible = true;
 
-        bool keepTryingAfterError = true;
+        private bool keepTryingAfterError = true;
 
         public WebAuthenticatorController(WebAuthenticator authenticator)
             : this(authenticator, WebViewConfiguration.IOS.IsUsingWKWebView)
         {
-            return;
         }
 
         public WebAuthenticatorController(WebAuthenticator authenticator, bool is_using_wkwebview)
@@ -42,9 +38,7 @@ namespace Xamarin.Auth
             authenticator.Error += HandleError;
             authenticator.BrowsingCompleted += HandleBrowsingCompleted;
 
-            //
             // Create the UI
-            //
             if (authenticator.AllowCancel)
             {
                 NavigationItem.LeftBarButtonItem =
@@ -54,15 +48,8 @@ namespace Xamarin.Auth
                         delegate
                         {
                             Cancel();
-                            #region
-                            //---------------------------------------------------------------------------------------
-                            /// Pull Request - manually added/fixed
-                            ///		OAuth2Authenticator changes to work with joind.in OAuth #91
-                            ///		https://github.com/xamarin/Xamarin.Auth/pull/91
-                            ///		
+
                             DismissViewControllerAsync(true);
-                            ///---------------------------------------------------------------------------------------
-                            #endregion
                         }
                 );
             }
@@ -86,14 +73,6 @@ namespace Xamarin.Auth
              }
             else
             {
-                // WKWebView - availabilty and fallback is done in PrepareWKWebView()
-
-                #if DEBUG
-                StringBuilder sb1 = new StringBuilder();
-                sb1.Append("Embedded WebView using - WKWebView");
-                System.Diagnostics.Debug.WriteLine(sb1.ToString());
-                #endif
-
                 web_view = PrepareWKWebView();
 
                 this.View.AddSubview((WKWebView)web_view);
@@ -175,12 +154,6 @@ namespace Xamarin.Auth
             else
             {
                 // Fallback to Embedded WebView
-                StringBuilder msg = new StringBuilder();
-                msg.AppendLine("WKWebView not available!");
-                msg.AppendLine("Fallback to UIWebView");
-
-				this.ShowErrorForNativeUIAlert(msg.ToString());
-
                 web_view = PrepareUIWebView();
             }
 
@@ -312,11 +285,6 @@ namespace Xamarin.Auth
             return;
         }
 
-        #region
-        ///-------------------------------------------------------------------------------------------------
-        /// Pull Request - manually added/fixed
-        ///		Added IsAuthenticated check #88
-        ///		https://github.com/xamarin/Xamarin.Auth/pull/88
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
@@ -326,8 +294,6 @@ namespace Xamarin.Auth
                 Cancel();
             }
         }
-        ///---------------------------------------------------------------------------------------
-        #endregion
 
         void WebView_LoadFinished(object sender, EventArgs e)
 		{
@@ -338,15 +304,6 @@ namespace Xamarin.Auth
 
             return;
 		}
-
-        protected void ShowErrorForNativeUIAlert(string v)
-        {
-            MainThread.BeginInvokeOnMainThread(() =>
-            {
-                var alert = new UIAlertView("WARNING", v, (IUIAlertViewDelegate)null, "Ok", null);
-                alert.Show();
-            });
-        }
     }
 }
 

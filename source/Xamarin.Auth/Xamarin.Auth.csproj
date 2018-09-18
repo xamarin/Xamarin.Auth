@@ -10,11 +10,13 @@
       monoandroid8.0; monoandroid8.1;
       $(WindowsTargetFrameworks);
 
-      netstandard1.0; portable-net45+win8+wp8+wpa81;
+      netstandard1.0; netstandard1.1; portable-net45+win8+wp8+wpa81;
     </TargetFrameworks>
     <AssemblyName>Xamarin.Auth</AssemblyName>
     <RootNamespace>Xamarin.Auth</RootNamespace>
-    <!-- <EnableDefaultItems>false</EnableDefaultItems> -->
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <LangVersion>7.3</LangVersion>
+    <MDocDocumentationDirectory>$(MSBuildThisFileDirectory)..\..\docs\xml</MDocDocumentationDirectory>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -29,9 +31,7 @@
     </Summary>
     <PackageTags>xamarin, windows, uwp, ios, android, xamarin.forms, authentication, login</PackageTags>
     <Title>Xamarin.Auth</Title>
-    <Description>
-      A cross-platform API for authenticating users and storing their accounts.
-    </Description>
+    <Description>A cross-platform API for authenticating users and storing their accounts.</Description>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
@@ -50,22 +50,41 @@
  </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="mdoc" Version="5.7.3.1" PrivateAssets="All" />
     <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
     <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="3.0.0-preview1-03211-01" PrivateAssets="All" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
 
-  <!-- an EVIL hack to make life a bit nicer -->
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('portable'))">
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('portable'))">
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" />
     <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.cs" />
   </ItemGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1.0'))">
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1.0'))">
+    <PackageReference Include="System.Net.Requests" Version="4.3.0" />
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" NoWarn="NU1701" />
+    <PackageReference Include="Microsoft.Bcl" Version="1.1.10" NoWarn="NU1701" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1.1'))">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1.1'))">
+    <PackageReference Include="System.Net.Requests" Version="4.3.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.0" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
     <DefineConstants>$(DefineConstants);__NETSTANDARD__</DefineConstants>
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
     <Compile Include="**\*.shared.cs" />
     <Compile Include="**\*.netstandard.cs" />
   </ItemGroup>
@@ -104,14 +123,12 @@
     <Compile Include="Platform\uwp\**\*.cs" />
     <Page Include="Platform\uwp\WebAuthenticatorPage.xaml" Generator="MSBuild:Compile" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Platform\uwp\WebAuthenticatorPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </None>
-  </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
-  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard'))" AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
+  <Import Project="$(MSBuildThisFileDirectory)..\mdoc.targets" />
+
+  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard2'))"
+          AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
 
 </Project>

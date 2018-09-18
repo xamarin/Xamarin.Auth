@@ -10,10 +10,7 @@ namespace Xamarin.Auth
     internal partial class WebAuthenticatorController
     {
         //==============================================================================================================
-#region     UIWebView
-        /// <summary>
-        /// UIWebView UIWebViewDelegate
-        /// </summary>
+
         internal class UIWebViewDelegate : UIKit.UIWebViewDelegate
         {
             protected WebAuthenticatorController controller;
@@ -25,13 +22,6 @@ namespace Xamarin.Auth
                 this.controller = controller;
             }
 
-            /// <summary>
-            /// Whether the UIWebView should begin loading data.
-            /// </summary>
-            /// <returns><c>true</c>, if start load was shoulded, <c>false</c> otherwise.</returns>
-            /// <param name="webView">Web view.</param>
-            /// <param name="request">Request.</param>
-            /// <param name="navigationType">Navigation type.</param>
             public override bool ShouldStartLoad(UIWebView webView, NSUrlRequest request, UIWebViewNavigationType navigationType)
             {
                 NSUrl nsUrl = request.Url;
@@ -196,7 +186,7 @@ namespace Xamarin.Auth
                 return;
             }
         }
-#endregion  UIWebView
+
         //==============================================================================================================
     }
 }

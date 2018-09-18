@@ -1,21 +1,15 @@
-using System;
-using System.Drawing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Threading;
-using UIKit;
+using CoreGraphics;
 using Foundation;
+using System;
+using System.Linq;
+using UIKit;
 
 namespace Xamarin.Auth
 {
     internal class FormAuthenticatorController : UITableViewController
     {
-        FormAuthenticator authenticator;
-
-        ProgressLabel progress;
-
-        CancellationTokenSource cancelSource;
+        private FormAuthenticator authenticator;
+        private ProgressLabel progress;
 
         public FormAuthenticatorController(FormAuthenticator authenticator)
             : base(UITableViewStyle.Grouped)
@@ -29,92 +23,55 @@ namespace Xamarin.Auth
 
             if (authenticator.AllowCancel)
             {
-                NavigationItem.LeftBarButtonItem = new UIBarButtonItem
-                                                        (
-                                                            UIBarButtonSystemItem.Cancel,
-                                                            delegate
-                                                            {
-                                                                StopProgress();
-                                                                authenticator.OnCancelled();
-                                                            }
-                                                        );
-            }
-        }
-
-        void HandleSubmit()
-        {
-            if (progress == null)
-            {
-                progress = new ProgressLabel
-                            (
-                                NSBundle.MainBundle.LocalizedString
-                                                    (
-                                                        "Verifying", 
-                                                        "Verifying status message when adding accounts"
-                                                    )
-                            );
-                NavigationItem.TitleView = progress;
-                progress.StartAnimating();
-            }
-
-            cancelSource = new CancellationTokenSource();
-
-            authenticator.SignInAsync(cancelSource.Token).ContinueWith(task =>
-            {
-                StopProgress();
-
-                if (task.IsFaulted)
+                NavigationItem.LeftBarButtonItem = new UIBarButtonItem(UIBarButtonSystemItem.Cancel, delegate
                 {
-
-                    if (!authenticator.ShowErrors)
-                        return;
-
-                    this.ShowError("Error Signing In", task.Exception);
-                }
-                else
-                {
-                    authenticator.OnSucceeded(task.Result);
-                }
-
-            }, TaskScheduler.FromCurrentSynchronizationContext());
-
-            return;
-        }
-
-        void StopProgress()
-        {
-            if (progress != null)
-            {
-                progress.StopAnimating();
-                NavigationItem.TitleView = null;
-                progress = null;
+                    StopProgress();
+                    authenticator.OnCancelled();
+                });
             }
-
-            return;
         }
 
-#region
-        ///-------------------------------------------------------------------------------------------------
-        /// Pull Request - manually added/fixed
-        ///		Added IsAuthenticated check #88
-        ///		https://github.com/xamarin/Xamarin.Auth/pull/88
         public override void ViewDidAppear(bool animated)
         {
             base.ViewDidAppear(animated);
 
             if (authenticator.AllowCancel && authenticator.IsAuthenticated())
-            {
                 authenticator.OnCancelled();
+        }
+
+        private async void HandleSubmit()
+        {
+            if (progress == null)
+            {
+                progress = new ProgressLabel(NSBundle.MainBundle.GetLocalizedString("Verifying"));
+                NavigationItem.TitleView = progress;
+                progress.StartAnimating();
             }
 
-            return;
+            try
+            {
+                var result = await authenticator.SignInAsync();
+                StopProgress();
+                authenticator.OnSucceeded(result);
+            }
+            catch (Exception ex)
+            {
+                StopProgress();
+                if (authenticator.ShowErrors)
+                    this.ShowError("Error Signing In", ex);
+            }
         }
-        ///-------------------------------------------------------------------------------------------------
-#endregion
 
-        class FormDelegate : UITableViewDelegate
+        private void StopProgress()
         {
-            FormAuthenticatorController controller;
+            NavigationItem.TitleView = null;
+            progress?.StopAnimating();
+            progress = null;
+        }
+
+        private class FormDelegate : UITableViewDelegate
+        {
+            private FormAuthenticatorController controller;
 
             public FormDelegate(FormAuthenticatorController controller)
             {
@@ -124,29 +81,26 @@ namespace Xamarin.Auth
             public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
             {
                 tableView.ResignFirstResponder();
+                tableView.DeselectRow(indexPath, true);
 
                 if (indexPath.Section == 1)
                 {
-                    tableView.DeselectRow(indexPath, true);
                     ((FormDataSource)tableView.DataSource).ResignFirstResponder();
                     controller.HandleSubmit();
                 }
                 else if (indexPath.Section == 2)
                 {
-                    tableView.DeselectRow(indexPath, true);
-                    UIApplication.SharedApplication.OpenUrl(
-                        new NSUrl(controller.authenticator.CreateAccountLink.AbsoluteUri));
-
+                    UIApplication.SharedApplication.OpenUrl(new NSUrl(controller.authenticator.CreateAccountLink.AbsoluteUri));
                 }
             }
         }
 
-        class FieldCell : UITableViewCell
+        private class FieldCell : UITableViewCell
         {
             public static readonly UIFont LabelFont = UIFont.BoldSystemFontOfSize(16);
             public static readonly UIFont FieldFont = UIFont.SystemFontOfSize(16);
 
-            static readonly UIColor FieldColor = UIColor.FromRGB(56, 84, 135);
+            private static readonly UIColor FieldColor = UIColor.FromRGB(56, 84, 135);
 
             public UITextField TextField { get; private set; }
 
@@ -154,48 +108,34 @@ namespace Xamarin.Auth
                 : base(UITableViewCellStyle.Default, "Field")
             {
                 SelectionStyle = UITableViewCellSelectionStyle.None;
-
                 TextLabel.Text = field.Title;
 
                 var hang = 3;
                 var h = FieldFont.PointSize + hang;
-
                 var cellSize = Frame.Size;
+                var frame = new CGRect(fieldXPosition, (cellSize.Height - h) / 2, cellSize.Width - fieldXPosition - 12, h);
 
-                TextField = new UITextField
-                                (
-                                    new CoreGraphics.CGRect
-                                            (
-                                                fieldXPosition, (cellSize.Height - h) / 2,
-                                                cellSize.Width - fieldXPosition - 12, h
-                                            )
-                                )
+                TextField = new UITextField(frame)
                 {
                     Font = FieldFont,
                     Placeholder = field.Placeholder,
                     Text = field.Value,
                     TextColor = FieldColor,
                     AutoresizingMask = UIViewAutoresizing.FlexibleWidth,
-
                     SecureTextEntry = (field.FieldType == FormAuthenticatorFieldType.Password),
-
                     KeyboardType = (field.FieldType == FormAuthenticatorFieldType.Email) ?
                         UIKeyboardType.EmailAddress :
                         UIKeyboardType.Default,
-
                     AutocorrectionType = (field.FieldType == FormAuthenticatorFieldType.PlainText) ?
                         UITextAutocorrectionType.Yes :
                         UITextAutocorrectionType.No,
-
                     AutocapitalizationType = UITextAutocapitalizationType.None,
-
                     ShouldReturn = delegate
                     {
                         handleReturn();
                         return false;
                     },
                 };
-
                 TextField.EditingDidEnd += delegate
                 {
                     field.Value = TextField.Text;
@@ -205,9 +145,10 @@ namespace Xamarin.Auth
             }
         }
 
-        class FormDataSource : UITableViewDataSource
+        private class FormDataSource : UITableViewDataSource
         {
-            FormAuthenticatorController controller;
+            private FormAuthenticatorController controller;
+            private FieldCell[] fieldCells = null;
 
             public FormDataSource(FormAuthenticatorController controller)
             {
@@ -222,16 +163,10 @@ namespace Xamarin.Auth
             public override nint RowsInSection(UITableView tableView, nint section)
             {
                 if (section == 0)
-                {
                     return controller.authenticator.Fields.Count;
-                }
                 else
-                {
                     return 1;
-                }
             }
-
-            FieldCell[] fieldCells = null;
 
             public void SelectNext()
             {
@@ -242,14 +177,13 @@ namespace Xamarin.Auth
                         if (i + 1 < fieldCells.Length)
                         {
                             fieldCells[i + 1].TextField.BecomeFirstResponder();
-                            return;
                         }
                         else
                         {
                             fieldCells[i].TextField.ResignFirstResponder();
                             controller.HandleSubmit();
-                            return;
                         }
+                        break;
                     }
                 }
             }
@@ -268,16 +202,12 @@ namespace Xamarin.Auth
                 {
                     if (fieldCells == null)
                     {
-                        var fieldXPosition = controller
-                            .authenticator
-                            .Fields
-                            .Select(f => UIKit.UIStringDrawing.StringSize(f.Title, FieldCell.LabelFont).Width)
+                        var fieldXPosition = controller.authenticator.Fields
+                            .Select(f => UIStringDrawing.StringSize(f.Title, FieldCell.LabelFont).Width)
                             .Max();
                         fieldXPosition += 36;
 
-                        fieldCells = controller
-                            .authenticator
-                            .Fields
+                        fieldCells = controller.authenticator.Fields
                             .Select(f => new FieldCell(f, fieldXPosition, SelectNext))
                             .ToArray();
                     }
@@ -293,7 +223,7 @@ namespace Xamarin.Auth
                         cell.TextLabel.TextAlignment = UITextAlignment.Center;
                     }
 
-                    cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString("Sign In", "Sign In button title");
+                    cell.TextLabel.Text = NSBundle.MainBundle.GetLocalizedString("Sign In");
 
                     return cell;
                 }
@@ -306,13 +236,11 @@ namespace Xamarin.Auth
                         cell.TextLabel.TextAlignment = UITextAlignment.Center;
                     }
 
-                    cell.TextLabel.Text = NSBundle.MainBundle.LocalizedString("Create Account", "Create Account button title");
+                    cell.TextLabel.Text = NSBundle.MainBundle.GetLocalizedString("Create Account");
 
                     return cell;
                 }
             }
         }
-
     }
 }
-

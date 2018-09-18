@@ -1,4 +1,4 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-    <string name="title_activity_webview">FallbackWebViewActivity</string>
+    <string name="authenticator_activity_label"></string>
 </resources>

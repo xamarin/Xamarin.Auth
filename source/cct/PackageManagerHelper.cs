@@ -6,7 +6,7 @@ using Android.Content.PM;
 using Android.Util;
 using Android.Text;
 
-namespace Android.Support.CustomTabs.Chromium.SharedUtilities
+namespace Xamarin.Auth
 {
     public class PackageManagerHelper
     {
@@ -67,15 +67,6 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
                         );
         }
 
-        /// <summary>
-        /// Goes through all apps that handle VIEW intents and have a warmup service. Picks
-        /// the one chosen by the user if there is one, otherwise makes a best effort to return a
-        /// valid package name.
-        /// 
-        /// This is <strong>not</strong> threadsafe.
-        /// </summary>
-        /// <param name="context"> <seealso cref="Context"/> to use for accessing <seealso cref="PackageManager"/>. </param>
-        /// <returns> The package name recommended to use for connecting to custom tabs related components. </returns>
         protected static List<string> GetPackageNamesToUseImplementation
                                     (
                                         Context context,
@@ -207,10 +198,6 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
             return sPackageNamesToUse;
         }
 
-        /// <summary>
-        /// Used to check whether there is a specialized handler for a given intent. </summary>
-        /// <param name="intent"> The intent to check with. </param>
-        /// <returns> Whether there is a specialized handler for the given intent. </returns>
         private static bool HasSpecializedHandlerIntents(Context context, Intent intent)
         {
             try
@@ -255,7 +242,6 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities
         }
 
 
-        /// <returns> All possible chrome package names that provide custom tabs feature. </returns>
         public static string[] Packages
         {
             get

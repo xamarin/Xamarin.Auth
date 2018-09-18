@@ -1,48 +1,49 @@
+using Android.App;
+using Android.Content;
+using Android.OS;
+using Android.Text;
+using Android.Text.Method;
+using Android.Util;
+using Android.Views;
+using Android.Widget;
 using System;
 using System.Collections.Generic;
-using System.Threading;
-using System.Threading.Tasks;
-using Android.Content;
-using Android.Views;
-using Android.App;
-using Android.OS;
-using Android.Widget;
-using Android.Util;
-using Android.Text;
 
 namespace Xamarin.Auth
 {
     [Activity(Label = "Web Authenticator")]
     public class FormAuthenticatorActivity : Activity
     {
-        Button signIn;
-        ProgressBar progress;
+        private static readonly ActivityStateRepository<State> stateRepo = new ActivityStateRepository<State>();
 
-        readonly Dictionary<FormAuthenticatorField, EditText> fieldEditors =
-            new Dictionary<FormAuthenticatorField, EditText>();
+        private readonly Dictionary<FormAuthenticatorField, EditText> fieldEditors = new Dictionary<FormAuthenticatorField, EditText>();
 
-        internal class State : Java.Lang.Object
+        private Button signIn;
+        private ProgressBar progress;
+        private State state;
+
+        public static Intent CreateIntent(Context context, FormAuthenticator authenticator)
         {
-            public FormAuthenticator Authenticator;
-            public CancellationTokenSource CancelSource;
-            public bool IsSigningIn = false;
-        }
-        internal static readonly ActivityStateRepository<State> StateRepo = new ActivityStateRepository<State>();
+            var state = new State
+            {
+                Authenticator = authenticator,
+            };
 
-        State state;
+            var i = new Intent(context, typeof(FormAuthenticatorActivity));
+            i.PutExtra("StateKey", stateRepo.Add(state));
+            return i;
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
 
-            //
             // Load the state either from a configuration change or from the intent.
-            //
             state = LastNonConfigurationInstance as State;
             if (state == null && Intent.HasExtra("StateKey"))
             {
                 var stateKey = Intent.GetStringExtra("StateKey");
-                state = StateRepo.Remove(stateKey);
+                state = stateRepo.Remove(stateKey);
             }
             if (state == null)
             {
@@ -50,58 +51,46 @@ namespace Xamarin.Auth
                 return;
             }
 
-            Title = state.Authenticator.Title;
-
-            //
-            // Watch for completion
-            //
+            // watch for completion
             state.Authenticator.Completed += (s, e) =>
             {
                 SetResult(e.IsAuthenticated ? Result.Ok : Result.Canceled);
                 Finish();
             };
+
             state.Authenticator.Error += (s, e) =>
             {
-
                 if (!state.Authenticator.ShowErrors)
                     return;
 
                 if (e.Exception != null)
-                {
                     this.ShowError("Authentication Error", e.Exception);
-                }
                 else
-                {
                     this.ShowError("Authentication Error", e.Message);
-                }
             };
 
-            //
-            // Build the UI
-            //
+            Title = state.Authenticator.Title;
+
             BuildUI();
 
-            //
             // Restore the UI state or start over
-            //
             if (savedInstanceState != null)
             {
+                // restore
+            }
+            else
+            {
+                // fresh
             }
         }
 
-        ///-------------------------------------------------------------------------------------------------
-        /// Pull Request - manually added/fixed
-        ///		Added IsAuthenticated check #88
-        ///		https://github.com/xamarin/Xamarin.Auth/pull/88
         protected override void OnResume()
         {
             base.OnResume();
+
             if (state.Authenticator.AllowCancel && state.Authenticator.IsAuthenticated())
-            {
                 state.Authenticator.OnCancelled();
-            }
         }
-        ///-------------------------------------------------------------------------------------------------
 
         public override void OnBackPressed()
         {
@@ -109,34 +98,19 @@ namespace Xamarin.Auth
                 base.OnBackPressed();
         }
 
-        void BuildUI()
+        private void BuildUI()
         {
-            var hmargin = 12;
+            var wrapContent = LinearLayout.LayoutParams.WrapContent;
+            var matchParent = LinearLayout.LayoutParams.MatchParent;
 
-            var content = new LinearLayout(this)
-            {
-                Orientation = Orientation.Vertical,
-            };
-            var scroller = new ScrollView(this)
-            {
-            };
-            scroller.AddView(content);
-            SetContentView(scroller);
-
-            //
             // Fields
-            //
             var fields = new TableLayout(this)
             {
-                LayoutParameters = new LinearLayout.LayoutParams
-                                                        (
-                                                            LinearLayout.LayoutParams.WrapContent, 
-                                                            LinearLayout.LayoutParams.WrapContent
-                                                        )
+                LayoutParameters = new LinearLayout.LayoutParams(wrapContent, wrapContent)
                 {
                     TopMargin = 12,
-                    LeftMargin = hmargin,
-                    RightMargin = hmargin,
+                    LeftMargin = 12,
+                    RightMargin = 12,
                 },
             };
             fields.SetColumnStretchable(1, true);
@@ -147,11 +121,7 @@ namespace Xamarin.Auth
                 var label = new TextView(this)
                 {
                     Text = f.Title,
-                    LayoutParameters = new TableRow.LayoutParams
-                                                        (
-                                                            LinearLayout.LayoutParams.WrapContent, 
-                                                            LinearLayout.LayoutParams.WrapContent
-                                                        )
+                    LayoutParameters = new TableRow.LayoutParams(wrapContent, wrapContent)
                     {
                         RightMargin = 6,
                     },
@@ -164,141 +134,120 @@ namespace Xamarin.Auth
                     Hint = f.Placeholder,
                 };
 
-                #region
-                ///-------------------------------------------------------------------------------------------------
-                /// Pull Request - manually added/fixed
-                ///		Fix : Android password field now hides the user input in FormAuthenticatorActivity #63
-                ///		https://github.com/xamarin/Xamarin.Auth/pull/63
                 if (f.FieldType == FormAuthenticatorFieldType.Password)
                 {
                     editor.InputType = InputTypes.TextVariationPassword;
-                    editor.TransformationMethod = new global::Android.Text.Method.PasswordTransformationMethod();
+                    editor.TransformationMethod = new PasswordTransformationMethod();
                 }
-                ///-------------------------------------------------------------------------------------------------
-                #endregion
+
                 row.AddView(editor);
                 fieldEditors[f] = editor;
 
                 fields.AddView(row);
             }
-            content.AddView(fields);
 
-            //
-            // Buttons
-            //
+            // Sign In Button
             var signInLayout = new LinearLayout(this)
             {
                 Orientation = Orientation.Horizontal,
-                LayoutParameters = new LinearLayout.LayoutParams
-                                                        (
-                                                            //mc++ LinearLayout.LayoutParams.FillParent,
-                                                            LinearLayout.LayoutParams.MatchParent,
-                                                            LinearLayout.LayoutParams.WrapContent
-                                                        )
+                LayoutParameters = new LinearLayout.LayoutParams(matchParent, wrapContent)
                 {
                     TopMargin = 24,
-                    LeftMargin = hmargin,
-                    RightMargin = hmargin,
+                    LeftMargin = 12,
+                    RightMargin = 12,
                 },
             };
-            content.AddView(signInLayout);
-
             progress = new ProgressBar(this)
             {
                 Visibility = state.IsSigningIn ? ViewStates.Visible : ViewStates.Gone,
                 Indeterminate = true,
             };
             signInLayout.AddView(progress);
-
             signIn = new Button(this)
             {
                 Text = "Sign In",
-                LayoutParameters = new LinearLayout.LayoutParams
-                                                   (
-                                                       //mc++ LinearLayout.LayoutParams.FillParent,
-                                                       LinearLayout.LayoutParams.MatchParent,
-                                                       LinearLayout.LayoutParams.WrapContent
-                                                  )
-                {
-                },
+                LayoutParameters = new LinearLayout.LayoutParams(matchParent, wrapContent),
             };
             signIn.Click += HandleSignIn;
             signInLayout.AddView(signIn);
 
+            // Container Views
+            var content = new LinearLayout(this)
+            {
+                Orientation = Orientation.Vertical,
+            };
+            content.AddView(fields);
+            content.AddView(signInLayout);
+
+            // Create Account Button
             if (state.Authenticator.CreateAccountLink != null)
             {
                 var createAccount = new Button(this)
                 {
                     Text = "Create Account",
-                    LayoutParameters = new LinearLayout.LayoutParams
-                                                            (
-                                                                //LinearLayout.LayoutParams.FillParent, 
-                                                                LinearLayout.LayoutParams.MatchParent,
-                                                                LinearLayout.LayoutParams.WrapContent
-                                                            )
+                    LayoutParameters = new LinearLayout.LayoutParams(matchParent, wrapContent)
                     {
                         TopMargin = 12,
-                        LeftMargin = hmargin,
-                        RightMargin = hmargin,
+                        LeftMargin = 12,
+                        RightMargin = 12,
                     },
                 };
                 createAccount.Click += HandleCreateAccount;
                 content.AddView(createAccount);
             }
+
+            var scroller = new ScrollView(this);
+            scroller.AddView(content);
+
+            SetContentView(scroller);
         }
 
-        void HandleSignIn(object sender, EventArgs e)
+        private async void HandleSignIn(object sender, EventArgs e)
         {
-            if (state.IsSigningIn) return;
+            if (state.IsSigningIn)
+                return;
 
             state.IsSigningIn = true;
 
-            //
             // Read the values and disable them
-            //
             foreach (var kv in fieldEditors)
             {
-                kv.Key.Value = kv.Value.Text;
-                kv.Value.Enabled = false;
+                var field = kv.Key;
+                var editor = kv.Value;
+
+                field.Value = editor.Text;
+                editor.Enabled = false;
             }
             signIn.Enabled = false;
             progress.Visibility = ViewStates.Visible;
 
-            //
             // Try to log in
-            //
-            state.CancelSource = new CancellationTokenSource();
-            state.Authenticator.SignInAsync(state.CancelSource.Token).ContinueWith(task =>
+            try
             {
-
+                var account = await state.Authenticator.SignInAsync();
+                state.Authenticator.OnSucceeded(account);
+            }
+            catch (Exception ex)
+            {
+                state.Authenticator.OnError(ex);
+            }
+            finally
+            {
                 state.IsSigningIn = false;
                 foreach (var fe in fieldEditors)
                 {
-                    fe.Value.Enabled = true;
+                    var editor = fe.Value;
+                    editor.Enabled = true;
                 }
                 signIn.Enabled = true;
                 progress.Visibility = ViewStates.Gone;
-                state.CancelSource = null;
-
-                if (task.IsFaulted)
-                {
-                    state.Authenticator.OnError(task.Exception);
-                }
-                else
-                {
-                    state.Authenticator.OnSucceeded(task.Result);
-                }
-
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
         }
 
-        void HandleCreateAccount(object sender, EventArgs e)
+        private void HandleCreateAccount(object sender, EventArgs e)
         {
-            var intent = new Intent
-                                (
-                                    Intent.ActionView, 
-                                    global::Android.Net.Uri.Parse(state.Authenticator.CreateAccountLink.AbsoluteUri)
-                                );
+            var uri = global::Android.Net.Uri.Parse(state.Authenticator.CreateAccountLink.AbsoluteUri);
+            var intent = new Intent(Intent.ActionView, uri);
             StartActivity(intent);
         }
 
@@ -311,6 +260,11 @@ namespace Xamarin.Auth
         {
             base.OnSaveInstanceState(outState);
         }
+
+        private class State : Java.Lang.Object
+        {
+            public FormAuthenticator Authenticator;
+            public bool IsSigningIn = false;
+        }
     }
 }
-

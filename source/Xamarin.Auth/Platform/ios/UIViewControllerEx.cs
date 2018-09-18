@@ -1,5 +1,5 @@
-using System;
 using Foundation;
+using System;
 using UIKit;
 
 namespace Xamarin.Auth
@@ -8,7 +8,7 @@ namespace Xamarin.Auth
     {
         public static void ShowError(this UIViewController controller, string title, Exception error, Action continuation = null)
         {
-            ShowError(controller, title, error.GetUserMessage(), continuation);
+            ShowError(controller, title, error.GetInitialMessage(), continuation);
         }
 
         public static void ShowError(this UIViewController controller, string title, string message, Action continuation = null)
@@ -16,21 +16,15 @@ namespace Xamarin.Auth
             var mainBundle = NSBundle.MainBundle;
 
             var alert = new UIAlertView(
-                mainBundle.LocalizedString(title, "Error message title"),
-                mainBundle.LocalizedString(message, "Error"),
+                mainBundle.GetLocalizedString(title),
+                mainBundle.GetLocalizedString(message),
                 (IUIAlertViewDelegate)null,
-                mainBundle.LocalizedString("OK", "Dismiss button title for error message"));
+                mainBundle.GetLocalizedString("OK"));
 
             if (continuation != null)
-            {
-                alert.Dismissed += delegate
-                {
-                    continuation();
-                };
-            }
+                alert.Dismissed += delegate { continuation(); };
 
             alert.Show();
         }
     }
 }
-

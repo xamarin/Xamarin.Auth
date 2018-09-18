@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Windows.Security.Cryptography.DataProtection;
 using Windows.Storage.Streams;
@@ -8,32 +7,24 @@ namespace Xamarin.Auth
 {
     internal static class DataProtectionExtensions
     {
-        /// <summary>
-        /// These providers do not require the enterprise authentication capability on either platform:
-        /// "LOCAL=user"
-        /// "LOCAL=machine"
-        /// </summary>
-        /// <param name="buffer"></param>
-        /// <param name="protectionDescriptor"></param>
-        /// <returns></returns>
-        public static async Task<IBuffer> ProtectAsync(this IBuffer buffer, string protectionDescriptor = "LOCAL=user")
+        public static Task<IBuffer> ProtectAsync(this IBuffer buffer, string protectionDescriptor = "LOCAL=user")
         {
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
             if (protectionDescriptor == null)
-                throw new ArgumentNullException("protectionDescriptor");
+                throw new ArgumentNullException(nameof(protectionDescriptor));
 
             var provider = new DataProtectionProvider(protectionDescriptor);
-            return await provider.ProtectAsync(buffer).AsTask().ConfigureAwait(false);
+            return provider.ProtectAsync(buffer).AsTask();
         }
 
-        public static async Task<IBuffer> UnprotectAsync(this IBuffer buffer)
+        public static Task<IBuffer> UnprotectAsync(this IBuffer buffer)
         {
             if (buffer == null)
-                throw new ArgumentNullException("buffer");
+                throw new ArgumentNullException(nameof(buffer));
 
             var provider = new DataProtectionProvider();
-            return await provider.UnprotectAsync(buffer).AsTask().ConfigureAwait(false);
+            return provider.UnprotectAsync(buffer).AsTask();
         }
     }
 }

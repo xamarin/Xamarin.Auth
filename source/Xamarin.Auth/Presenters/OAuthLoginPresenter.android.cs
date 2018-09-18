@@ -1,5 +1,6 @@
 ﻿using Android.Content;
 using Android.OS;
+using System;
 
 namespace Xamarin.Auth.Presenters
 {
@@ -15,7 +16,19 @@ namespace Xamarin.Auth.Presenters
 
         private void PlatformLoginImplementation(Authenticator authenticator)
         {
+            EnsureInitialized();
+
             Context.StartActivity(authenticator.GetUI(Context));
+        }
+
+        private static void EnsureInitialized()
+        {
+            if (Context == null)
+            {
+                throw new InvalidOperationException(
+                    "Xamarin.Auth was not properly initialized. " +
+                    "Make an overload of OAuthLoginPresenter.Init() was called.");
+            }
         }
     }
 }

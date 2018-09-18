@@ -6,32 +6,18 @@ using System.Threading.Tasks;
 
 namespace Xamarin.Auth.XamarinForms
 {
-    public partial class EmbeddedWebViewConfiguration 
-        //: IEmbeddedWebViewConfiguration
+    partial class EmbeddedWebViewConfiguration
     {
         public bool IsUsingWKWebView
         {
-            get
-            {
-                throw new NotImplementedException("Bait-n-Switch PCL");
-            }
-            set
-            {
-                throw new NotImplementedException("Bait-n-Switch PCL");
-            }
+            get => throw new PlatformNotSupportedException();
+            set => throw new PlatformNotSupportedException();
         }
 
         public string UserAgent
         {
-            get
-            {
-                throw new NotImplementedException("Bait-n-Switch PCL");
-            }
-            set
-            {
-                throw new NotImplementedException("Bait-n-Switch PCL");
-            }
+            get => throw new PlatformNotSupportedException();
+            set => throw new PlatformNotSupportedException();
         }
-
     }
 }

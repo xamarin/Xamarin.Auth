@@ -1,5 +1,5 @@
-using UIKit;
-using AuthenticateUIType = UIKit.UIViewController;
+using System;
+using AuthenticateUIType = System.Type;
 
 namespace Xamarin.Auth
 {
@@ -7,7 +7,7 @@ namespace Xamarin.Auth
     {
         protected override AuthenticateUIType GetPlatformUI()
         {
-            return new UINavigationController(new FormAuthenticatorController(this));
+            throw new NotImplementedException();
         }
     }
 }

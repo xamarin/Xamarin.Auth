@@ -10,10 +10,12 @@
       monoandroid8.0; monoandroid8.1;
       $(WindowsTargetFrameworks);
 
-      netstandard1.0; portable-net45+win8+wp8+wpa81;
+      netstandard1.0; netstandard1.1; portable-net45+win8+wp8+wpa81;
     </TargetFrameworks>
     <AssemblyName>Xamarin.Auth.XamarinForms</AssemblyName>
     <RootNamespace>Xamarin.Auth.XamarinForms</RootNamespace>
+    <EnableDefaultItems>false</EnableDefaultItems>
+    <LangVersion>7.3</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -28,9 +30,7 @@
     </Summary>
     <PackageTags>xamarin, windows, uwp, ios, android, xamarin.forms, authentication, login</PackageTags>
     <Title>Xamarin.Auth for Xamarin.Forms</Title>
-    <Description>
-      A cross-platform API for authenticating users and storing their accounts.
-    </Description>
+    <Description>A cross-platform API for authenticating users and storing their accounts.</Description>
     <Product>$(AssemblyName) ($(TargetFramework))</Product>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
@@ -55,37 +55,47 @@
     <ProjectReference Include="..\Xamarin.Auth\Xamarin.Auth.csproj" />
   </ItemGroup>
 
-  <!-- an EVIL hack to make life a bit nicer -->
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('portable'))">
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1')) or $(TargetFramework.StartsWith('portable'))">
-    <Compile Remove="**\*.cs" />
-    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Forms.cs" />
+  <ItemGroup Condition="$(TargetFramework.StartsWith('portable'))">
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.XamarinForms.cs" />
   </ItemGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1.0'))">
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1.0'))">
+    <PackageReference Include="Microsoft.Net.Http" Version="2.2.29" NoWarn="NU1701" />
+    <PackageReference Include="Microsoft.Bcl" Version="1.1.10" NoWarn="NU1701" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.XamarinForms.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1.1'))">
+  </PropertyGroup>
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1.1'))">
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.XamarinForms.cs" />
+  </ItemGroup>
+
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
     <DefineConstants>$(DefineConstants);__NETSTANDARD__</DefineConstants>
   </PropertyGroup>
-  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard'))">
-    <Compile Remove="**\*.android.cs" />
-    <Compile Remove="**\*.ios.cs" />
-    <Compile Remove="**\*.uwp.cs" />
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.netstandard.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('xamarin.ios'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('xamarin.ios'))">
-    <Compile Remove="**\*.android.cs" />
-    <Compile Remove="**\*.uwp.cs" />
-    <Compile Remove="**\*.netstandard.cs" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.ios.cs" />
   </ItemGroup>
 
   <PropertyGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('monoandroid'))">
-    <Compile Remove="**\*.ios.cs" />
-    <Compile Remove="**\*.uwp.cs" />
-    <Compile Remove="**\*.netstandard.cs" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.android.cs" />
   </ItemGroup>
   <ItemGroup Condition=" $(TargetFramework.StartsWith('monoandroid8.1')) ">
     <PackageReference Include="Xamarin.Android.Support.Design" Version="27.0.2.1" />
@@ -106,14 +116,13 @@
   </PropertyGroup>
   <ItemGroup Condition="$(TargetFramework.StartsWith('uap'))">
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.7" />
-    <Compile Remove="**\*.android.cs" />
-    <Compile Remove="**\*.ios.cs" />
-    <Compile Remove="**\*.netstandard.cs" />
+    <Compile Include="**\*.shared.cs" />
+    <Compile Include="**\*.uwp.cs" />
   </ItemGroup>
 
   <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
 
-  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard'))"
+  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard2'))"
           AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
 
 </Project>

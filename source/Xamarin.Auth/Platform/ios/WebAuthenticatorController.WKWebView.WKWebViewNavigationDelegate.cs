@@ -11,10 +11,7 @@ namespace Xamarin.Auth
     internal partial class WebAuthenticatorController
     {
         //==============================================================================================================
-        #region     WKWebView
-        /// <summary>
-        /// WKWebView WKWebViewNavigationDelegate, WKWebViewUIDelegate, WKWebViewJacascriptMessageHandler
-        /// </summary>
+
         internal class WKWebViewUIDelegate : WebKit.WKUIDelegate
         {
             WebAuthenticatorController controller = null;
@@ -256,7 +253,7 @@ namespace Xamarin.Auth
                 return;
             }
         }
-        #endregion  WKWebView
+
         //==============================================================================================================
     }
 }

@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Text;
 using System.Net;
 using System.IO;
+using System.Linq;
+
+#if !__PORTABLE__
+using System.Runtime.Serialization;
+#endif
 
 #if !WINDOWS_UWP && !__PORTABLE__
 using System.Runtime.Serialization.Formatters.Binary;
@@ -10,106 +15,55 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Xamarin.Auth
 {
-    /// <summary>
-    /// An Account that represents an authenticated user of a social network.
-    /// </summary>
     public class Account
     {
-        /// <summary>
-        /// The username used as a key when storing this account.
-        /// </summary>
-        public virtual string Username { get; set; }
+        private const string AccountUsernameKey = "__username__";
+        private const string AccountCookiesKey = "__cookies__";
 
-        /// <summary>
-        /// A key-value store associated with this account. These get encrypted when the account is stored.
-        /// </summary>
-        public virtual Dictionary<string, string> Properties { get; private set; }
-
-        /// <summary>
-        /// Cookies that are stored with the account for web services that control access using cookies.
-        /// </summary>
-        public virtual CookieContainer Cookies { get; private set; }
-
-        /// <summary>
-        /// Initializes a new blank <see cref="Xamarin.Auth.Account"/>.
-        /// </summary>
         public Account()
-            : this("", null, null)
+            : this(string.Empty, null, null)
         {
         }
 
-        /// <summary>
-        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username.
-        /// </summary>
-        /// <param name='username'>
-        /// The username for the account.
-        /// </param>
         public Account(string username)
             : this(username, null, null)
         {
         }
 
-        /// <summary>
-        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
-        /// </summary>
-        /// <param name='username'>
-        /// The username for the account.
-        /// </param>
-        /// <param name='cookies'>
-        /// The cookies to be stored with the account.
-        /// </param>
         public Account(string username, CookieContainer cookies)
             : this(username, null, cookies)
         {
         }
 
-        /// <summary>
-        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
-        /// </summary>
-        /// <param name='username'>
-        /// The username for the account.
-        /// </param>
-        /// <param name='properties'>
-        /// Properties for the account.
-        /// </param>
+        public Account(IDictionary<string, string> properties)
+            : this(string.Empty, properties, null)
+        {
+        }
+
         public Account(string username, IDictionary<string, string> properties)
             : this(username, properties, null)
         {
         }
 
-        /// <summary>
-        /// Initializes an <see cref="Xamarin.Auth.Account"/> with the given username and cookies.
-        /// </summary>
-        /// <param name='username'>
-        /// The username for the account.
-        /// </param>
-        /// <param name='properties'>
-        /// Properties for the account.
-        /// </param>
-        /// <param name='cookies'>
-        /// The cookies to be stored with the account.
-        /// </param>
         public Account(string username, IDictionary<string, string> properties, CookieContainer cookies)
         {
             Username = username;
-            Properties = (properties == null) ?
-                new Dictionary<string, string>() :
-                new Dictionary<string, string>(properties);
-            Cookies = (cookies == null) ?
-                new CookieContainer() :
-                cookies;
+            Properties = (properties == null) ? new Dictionary<string, string>() : new Dictionary<string, string>(properties);
+            Cookies = cookies ?? new CookieContainer();
         }
 
-        /// <summary>
-        /// Serialize this account into a string that can be deserialized.
-        /// </summary>
-        /// <returns>A <c>string</c> representing the <see cref="Account"/> instance.</returns>
-        /// <seealso cref="Deserialize"/>
-        public string Serialize() 
-        {
-            StringBuilder sb = new StringBuilder();
+        public virtual string Username { get; set; }
 
-            sb.Append("__username__=");
+        public virtual Dictionary<string, string> Properties { get; set; }
+
+        public virtual CookieContainer Cookies { get; set; }
+
+        public string Serialize()
+        {
+            var sb = new StringBuilder();
+
+            sb.Append(AccountUsernameKey);
+            sb.Append("=");
             sb.Append(Uri.EscapeDataString(Username));
 
             foreach (var p in Properties)
@@ -122,23 +76,21 @@ namespace Xamarin.Auth
 
             if (Cookies.Count > 0)
             {
-                sb.Append("&__cookies__=");
+                sb.Append("&");
+                sb.Append(AccountCookiesKey);
+                sb.Append("=");
                 sb.Append(Uri.EscapeDataString(SerializeCookies()));
             }
 
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Serialize this account into a string that can be deserialized.
-        /// </summary>
-        /// <returns>A <c>string</c> representing the <see cref="Account"/> instance.</returns>
-        /// <seealso cref="Deserialize"/>
         public string Serialize(Uri uri)
         {
-            StringBuilder sb = new StringBuilder();
+            var sb = new StringBuilder();
 
-            sb.Append("__username__=");
+            sb.Append(AccountUsernameKey);
+            sb.Append("=");
             sb.Append(Uri.EscapeDataString(Username));
 
             foreach (var p in Properties)
@@ -151,19 +103,15 @@ namespace Xamarin.Auth
 
             if (Cookies.Count > 0)
             {
-                sb.Append("&__cookies__=");
+                sb.Append("&");
+                sb.Append(AccountCookiesKey);
+                sb.Append("=");
                 sb.Append(Uri.EscapeDataString(SerializeCookies(uri)));
             }
 
             return sb.ToString();
         }
 
-        /// <summary>
-        /// Restores an account from its serialized string representation.
-        /// </summary>
-        /// <param name='serializedString'>The serialized account generated by <see cref="Serialize"/>.</param>
-        /// <returns>An <see cref="Account"/> instance represented by <paramref name="serializedString"/>.</returns>
-        /// <seealso cref="Serialize"/>
         public static Account Deserialize(string serializedString)
         {
             var acct = new Account();
@@ -175,60 +123,59 @@ namespace Xamarin.Auth
                 var key = Uri.UnescapeDataString(kv[0]);
                 var val = kv.Length > 1 ? Uri.UnescapeDataString(kv[1]) : "";
 
-                if (key == "__cookies__")
-                {
+                if (key == AccountCookiesKey)
                     acct.Cookies = DeserializeCookies(val);
-                }
-                else if (key == "__username__")
-                {
+                else if (key == AccountUsernameKey)
                     acct.Username = val;
-                }
                 else
-                {
                     acct.Properties[key] = val;
-                }
             }
 
             return acct;
         }
 
-        string SerializeCookies()
+        public override string ToString()
+        {
+            return Serialize();
+        }
+
+        private string SerializeCookies()
         {
 #if WINDOWS_UWP || __PORTABLE__
             throw new PlatformNotSupportedException();
 #else
-            BinaryFormatter f = new BinaryFormatter();
             using (MemoryStream stream = new MemoryStream())
             {
+                var f = new BinaryFormatter();
                 f.Serialize(stream, Cookies);
-                return Convert.ToBase64String(stream.GetBuffer(), 0, (int)stream.Length);
+                return Convert.ToBase64String(stream.GetBuffer());
             }
 #endif
         }
 
-        string SerializeCookies(Uri uri)
+        private string SerializeCookies(Uri uri)
         {
             using (MemoryStream stream = new MemoryStream())
             {
                 Serialize(Cookies.GetCookies(uri), uri, stream);
-                return Convert.ToBase64String(stream.ToArray(), 0, (int)stream.Length);
+                return Convert.ToBase64String(stream.ToArray());
             }
         }
 
-        static CookieContainer DeserializeCookies(string cookiesString)
+        private static CookieContainer DeserializeCookies(string cookiesString)
         {
 #if WINDOWS_UWP || __PORTABLE__
             throw new PlatformNotSupportedException();
 #else
-            var f = new BinaryFormatter();
             using (var s = new MemoryStream(Convert.FromBase64String(cookiesString)))
             {
+                var f = new BinaryFormatter();
                 return (CookieContainer)f.Deserialize(s);
             }
 #endif
         }
 
-        static CookieContainer DeserializeCookies(string cookiesString, Uri uri)
+        private static CookieContainer DeserializeCookies(string cookiesString, Uri uri)
         {
             CookieContainer cc = null;
 
@@ -240,57 +187,40 @@ namespace Xamarin.Auth
             return cc;
         }
 
-        /// <summary>
-        /// Returns a <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.String"/> that represents the current <see cref="Xamarin.Auth.Account"/>.
-        /// </returns>
-        public override string ToString()
-        {
-            return Serialize();
-        }
-
-        static void Serialize(CookieCollection cookies, Uri address, Stream stream)
+        private static void Serialize(CookieCollection cookies, Uri address, Stream stream)
         {
 #if __PORTABLE__
             throw new PlatformNotSupportedException();
 #else
-            System.Runtime.Serialization.DataContractSerializer formatter = null;
-            formatter = new System.Runtime.Serialization.DataContractSerializer(typeof(List<Cookie>));
-            List<Cookie> cookieList = new List<Cookie>();
-            for (var enumerator = cookies.GetEnumerator(); enumerator.MoveNext();)
+            var cookieList = new List<Cookie>();
+            foreach (var cookie in cookies.OfType<Cookie>())
             {
-                var cookie = enumerator.Current as Cookie;
-                if (cookie == null) continue;
                 cookieList.Add(cookie);
-
             }
+
+            var formatter = new DataContractSerializer(typeof(List<Cookie>));
             formatter.WriteObject(stream, cookieList);
 #endif
         }
 
-        static CookieContainer Deserialize(Stream stream, Uri uri)
+        private static CookieContainer Deserialize(Stream stream, Uri uri)
         {
 #if __PORTABLE__
             throw new PlatformNotSupportedException();
 #else
-            List<Cookie> cookies = new List<Cookie>();
-            CookieContainer container = new CookieContainer();
-            System.Runtime.Serialization.DataContractSerializer formatter = null;
-            formatter = new System.Runtime.Serialization.DataContractSerializer(typeof(List<Cookie>));
-            cookies = (List<Cookie>)formatter.ReadObject(stream);
-            CookieCollection cc = new CookieCollection();
+            var formatter = new DataContractSerializer(typeof(List<Cookie>));
+            var cookies = (List<Cookie>)formatter.ReadObject(stream);
+            var cc = new CookieCollection();
 
             foreach (Cookie cookie in cookies)
             {
                 cc.Add(cookie);
             }
-            container.Add(uri, cc);
 
+            var container = new CookieContainer();
+            container.Add(uri, cc);
             return container;
 #endif
         }
     }
 }
-
