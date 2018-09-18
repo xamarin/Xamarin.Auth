@@ -1,0 +1,53 @@
+<Type Name="Resource+Animation" FullName="Xamarin.Auth.Resource+Animation">
+  <TypeSignature Language="C#" Value="public class Resource.Animation" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Animation extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Animation" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="slide_in_right">
+      <MemberSignature Language="C#" Value="public static int slide_in_right;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 slide_in_right" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Animation.slide_in_right" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="slide_out_left">
+      <MemberSignature Language="C#" Value="public static int slide_out_left;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 slide_out_left" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Animation.slide_out_left" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

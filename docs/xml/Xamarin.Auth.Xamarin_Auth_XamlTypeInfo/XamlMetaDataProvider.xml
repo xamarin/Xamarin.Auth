@@ -1,0 +1,115 @@
+<Type Name="XamlMetaDataProvider" FullName="Xamarin.Auth.Xamarin_Auth_XamlTypeInfo.XamlMetaDataProvider">
+  <TypeSignature Language="C#" Value="public sealed class XamlMetaDataProvider : Windows.UI.Xaml.Markup.IXamlMetadataProvider" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi sealed beforefieldinit XamlMetaDataProvider extends System.Object implements class Windows.UI.Xaml.Markup.IXamlMetadataProvider" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Xamarin_Auth_XamlTypeInfo.XamlMetaDataProvider" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>Windows.UI.Xaml.Markup.IXamlMetadataProvider</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Attributes>
+    <Attribute FrameworkAlternate="xamarin-auth-uwp">
+      <AttributeName>System.CodeDom.Compiler.GeneratedCode("Microsoft.Windows.UI.Xaml.Build.Tasks", " 10.0.16.0")</AttributeName>
+    </Attribute>
+    <Attribute FrameworkAlternate="xamarin-auth-uwp">
+      <AttributeName>System.Diagnostics.DebuggerNonUserCode</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>Main class for providing metadata for the app or library</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public XamlMetaDataProvider ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Xamarin_Auth_XamlTypeInfo.XamlMetaDataProvider.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetXamlType">
+      <MemberSignature Language="C#" Value="public Windows.UI.Xaml.Markup.IXamlType GetXamlType (string fullName);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class Windows.UI.Xaml.Markup.IXamlType GetXamlType(string fullName) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Xamarin_Auth_XamlTypeInfo.XamlMetaDataProvider.GetXamlType(System.String)" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:Windows.UI.Xaml.Markup.IXamlMetadataProvider.GetXamlType(System.String)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Windows.UI.Xaml.Markup.IXamlType</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="fullName" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="fullName">To be added.</param>
+        <summary>GetXamlType(String)</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetXamlType">
+      <MemberSignature Language="C#" Value="public Windows.UI.Xaml.Markup.IXamlType GetXamlType (Type type);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class Windows.UI.Xaml.Markup.IXamlType GetXamlType(class System.Type type) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Xamarin_Auth_XamlTypeInfo.XamlMetaDataProvider.GetXamlType(System.Type)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Windows.UI.Xaml.Markup.IXamlType</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="type" Type="System.Type" />
+      </Parameters>
+      <Docs>
+        <param name="type">To be added.</param>
+        <summary>GetXamlType(Type)</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetXmlnsDefinitions">
+      <MemberSignature Language="C#" Value="public Windows.UI.Xaml.Markup.XmlnsDefinition[] GetXmlnsDefinitions ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance valuetype Windows.UI.Xaml.Markup.XmlnsDefinition[] GetXmlnsDefinitions() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Xamarin_Auth_XamlTypeInfo.XamlMetaDataProvider.GetXmlnsDefinitions" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:Windows.UI.Xaml.Markup.IXamlMetadataProvider.GetXmlnsDefinitions</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Windows.UI.Xaml.Markup.XmlnsDefinition[]</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>GetXmlnsDefinitions()</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

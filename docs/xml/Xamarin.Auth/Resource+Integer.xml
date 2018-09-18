@@ -1,0 +1,36 @@
+<Type Name="Resource+Integer" FullName="Xamarin.Auth.Resource+Integer">
+  <TypeSignature Language="C#" Value="public class Resource.Integer" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Integer extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Integer" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="status_bar_notification_info_maxnum">
+      <MemberSignature Language="C#" Value="public static int status_bar_notification_info_maxnum;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 status_bar_notification_info_maxnum" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Integer.status_bar_notification_info_maxnum" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

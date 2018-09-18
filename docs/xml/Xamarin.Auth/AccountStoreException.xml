@@ -1,0 +1,77 @@
+<Type Name="AccountStoreException" FullName="Xamarin.Auth.AccountStoreException">
+  <TypeSignature Language="C#" Value="public class AccountStoreException : Xamarin.Auth.AuthException" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit AccountStoreException extends Xamarin.Auth.AuthException" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.AccountStoreException" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Xamarin.Auth.AuthException</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>A persistent storage for s. This storage is encrypted.
+            Accounts are stored using a service ID and the username of the account
+            as a primary key.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AccountStoreException (string operation);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string operation) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStoreException.#ctor(System.String)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="operation" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="operation">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public AccountStoreException (string operation, Exception exc);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string operation, class System.Exception exc) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStoreException.#ctor(System.String,System.Exception)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="operation" Type="System.String" />
+        <Parameter Name="exc" Type="System.Exception" />
+      </Parameters>
+      <Docs>
+        <param name="operation">To be added.</param>
+        <param name="exc">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Operation">
+      <MemberSignature Language="C#" Value="public string Operation { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Operation" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.AccountStoreException.Operation" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

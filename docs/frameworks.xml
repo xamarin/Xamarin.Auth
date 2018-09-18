@@ -1,0 +1,6 @@
+<Frameworks>
+  <Framework Name="xamarin-auth" Source="xamarin-auth" />
+  <Framework Name="xamarin-auth-android" Source="xamarin-auth-android" />
+  <Framework Name="xamarin-auth-ios" Source="xamarin-auth-ios" />
+  <Framework Name="xamarin-auth-uwp" Source="xamarin-auth-uwp" />
+</Frameworks>

@@ -1,0 +1,53 @@
+<Type Name="Resource+String" FullName="Xamarin.Auth.Resource+String">
+  <TypeSignature Language="C#" Value="public class Resource.String" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/String extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.String" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="authenticator_activity_label">
+      <MemberSignature Language="C#" Value="public static int authenticator_activity_label;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 authenticator_activity_label" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.String.authenticator_activity_label" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="status_bar_notification_info_overflow">
+      <MemberSignature Language="C#" Value="public static int status_bar_notification_info_overflow;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 status_bar_notification_info_overflow" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.String.status_bar_notification_info_overflow" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

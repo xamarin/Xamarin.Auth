@@ -1,0 +1,87 @@
+<Type Name="Resource+Color" FullName="Xamarin.Auth.Resource+Color">
+  <TypeSignature Language="C#" Value="public class Resource.Color" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Color extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Color" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="notification_action_color_filter">
+      <MemberSignature Language="C#" Value="public static int notification_action_color_filter;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_action_color_filter" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Color.notification_action_color_filter" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_icon_bg_color">
+      <MemberSignature Language="C#" Value="public static int notification_icon_bg_color;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_icon_bg_color" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Color.notification_icon_bg_color" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ripple_material_light">
+      <MemberSignature Language="C#" Value="public static int ripple_material_light;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 ripple_material_light" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Color.ripple_material_light" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="secondary_text_default_material_light">
+      <MemberSignature Language="C#" Value="public static int secondary_text_default_material_light;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 secondary_text_default_material_light" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Color.secondary_text_default_material_light" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

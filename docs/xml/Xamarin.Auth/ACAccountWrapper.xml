@@ -1,0 +1,75 @@
+<Type Name="ACAccountWrapper" FullName="Xamarin.Auth.ACAccountWrapper">
+  <TypeSignature Language="C#" Value="public class ACAccountWrapper : Xamarin.Auth.Account" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit ACAccountWrapper extends Xamarin.Auth.Account" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.ACAccountWrapper" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Xamarin.Auth.Account</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public ACAccountWrapper (Accounts.ACAccount account, Accounts.ACAccountStore store);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class Accounts.ACAccount account, class Accounts.ACAccountStore store) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.ACAccountWrapper.#ctor(Accounts.ACAccount,Accounts.ACAccountStore)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="account" Type="Accounts.ACAccount" />
+        <Parameter Name="store" Type="Accounts.ACAccountStore" />
+      </Parameters>
+      <Docs>
+        <param name="account">To be added.</param>
+        <param name="store">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ACAccount">
+      <MemberSignature Language="C#" Value="public Accounts.ACAccount ACAccount { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class Accounts.ACAccount ACAccount" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.ACAccountWrapper.ACAccount" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Accounts.ACAccount</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Username">
+      <MemberSignature Language="C#" Value="public override string Username { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Username" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.ACAccountWrapper.Username" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

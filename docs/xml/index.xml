@@ -1,0 +1,123 @@
+<Overview>
+  <Assemblies>
+    <Assembly Name="Xamarin.Auth" Version="1.0.0.0">
+      <Attributes>
+        <Attribute FrameworkAlternate="xamarin-auth-android">
+          <AttributeName>Android.Runtime.ResourceDesigner("Xamarin.Auth.Resource", IsApplication=false)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Diagnostics.Debuggable(System.Diagnostics.DebuggableAttribute+DebuggingModes.Default | System.Diagnostics.DebuggableAttribute+DebuggingModes.DisableOptimizations | System.Diagnostics.DebuggableAttribute+DebuggingModes.IgnoreSymbolStoreSequencePoints | System.Diagnostics.DebuggableAttribute+DebuggingModes.EnableEditAndContinue)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyCompany("Microsoft")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyConfiguration("Debug")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyCopyright("© Microsoft Corporation. All rights reserved.")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyFileVersion("1.0.0.0")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyInformationalVersion("1.0.0")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-android">
+          <AttributeName>System.Reflection.AssemblyProduct("Xamarin.Auth (monoandroid8.1)")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyTitle("Xamarin.Auth")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Resources.NeutralResourcesLanguage("en")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.CompilerServices.CompilationRelaxations(8)</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Runtime.CompilerServices.RuntimeCompatibility(WrapNonExceptionThrows=true)</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-android">
+          <AttributeName>System.Runtime.Versioning.TargetFramework("MonoAndroid,Version=v8.1", FrameworkDisplayName="Xamarin.Android v8.1 Support")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth">
+          <AttributeName>System.Reflection.AssemblyProduct("Xamarin.Auth (netstandard2.0)")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth">
+          <AttributeName>System.Runtime.Versioning.TargetFramework(".NETStandard,Version=v2.0", FrameworkDisplayName="")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-ios">
+          <AttributeName>System.Reflection.AssemblyProduct("Xamarin.Auth (xamarin.ios1.0)")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-ios">
+          <AttributeName>System.Runtime.Versioning.TargetFramework("Xamarin.iOS,Version=v1.0", FrameworkDisplayName="Xamarin.iOS")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.Reflection.AssemblyProduct("Xamarin.Auth (uap10.0.16299)")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.Runtime.Versioning.TargetFramework(".NETCore,Version=v5.0", FrameworkDisplayName=".NET for Windows Universal")</AttributeName>
+        </Attribute>
+        <Attribute>
+          <AttributeName>System.Reflection.AssemblyDescription("A cross-platform API for authenticating users and storing their accounts.")</AttributeName>
+        </Attribute>
+      </Attributes>
+    </Assembly>
+  </Assemblies>
+  <Remarks>To be added.</Remarks>
+  <Copyright>To be added.</Copyright>
+  <Types>
+    <Namespace Name="Android.Support.CustomTabs.Chromium.SharedUtilities"></Namespace>
+    <Namespace Name="Xamarin.Auth">
+      <Type Name="ACAccountWrapper" Kind="Class" />
+      <Type Name="Account" Kind="Class" />
+      <Type Name="AccountResult" Kind="Class" />
+      <Type Name="AccountStore" Kind="Class" />
+      <Type Name="AccountStoreException" Kind="Class" />
+      <Type Name="Authenticator" Kind="Class" />
+      <Type Name="AuthenticatorCompletedEventArgs" Kind="Class" />
+      <Type Name="AuthenticatorErrorEventArgs" Kind="Class" />
+      <Type Name="AuthException" Kind="Class" />
+      <Type Name="FormAuthenticator" Kind="Class" />
+      <Type Name="FormAuthenticatorActivity" Kind="Class" />
+      <Type Name="FormAuthenticatorField" Kind="Class" />
+      <Type Name="FormAuthenticatorFieldType" Kind="Enumeration" />
+      <Type Name="GetUsernameAsyncFunc" Kind="Delegate" />
+      <Type Name="OAuth1" Kind="Class" />
+      <Type Name="OAuth1Authenticator" Kind="Class" />
+      <Type Name="OAuth1Request" Kind="Class" />
+      <Type Name="OAuth2Authenticator" Kind="Class" />
+      <Type Name="OAuth2Request" Kind="Class" />
+      <Type Name="Request" Kind="Class" />
+      <Type Name="Request+Part" Kind="Class" />
+      <Type Name="Resource" Kind="Class" />
+      <Type Name="Resource+Animation" Kind="Class" />
+      <Type Name="Resource+Attribute" Kind="Class" />
+      <Type Name="Resource+Boolean" Kind="Class" />
+      <Type Name="Resource+Color" Kind="Class" />
+      <Type Name="Resource+Dimension" Kind="Class" />
+      <Type Name="Resource+Drawable" Kind="Class" />
+      <Type Name="Resource+Id" Kind="Class" />
+      <Type Name="Resource+Integer" Kind="Class" />
+      <Type Name="Resource+Layout" Kind="Class" />
+      <Type Name="Resource+String" Kind="Class" />
+      <Type Name="Resource+Style" Kind="Class" />
+      <Type Name="Resource+Styleable" Kind="Class" />
+      <Type Name="Response" Kind="Class" />
+      <Type Name="WebAuthenticator" Kind="Class" />
+      <Type Name="WebAuthenticatorActivity" Kind="Class" />
+      <Type Name="WebAuthenticatorPage" Kind="Class" />
+      <Type Name="WebRedirectAuthenticator" Kind="Class" />
+      <Type Name="WebViewConfiguration" Kind="Class" />
+      <Type Name="WebViewConfiguration+IOS" Kind="Class" />
+    </Namespace>
+    <Namespace Name="Xamarin.Auth.Presenters">
+      <Type Name="OAuthLoginPresenter" Kind="Class" />
+    </Namespace>
+    <Namespace Name="Xamarin.Auth.Xamarin_Auth_XamlTypeInfo">
+      <Type Name="XamlMetaDataProvider" Kind="Class" />
+    </Namespace>
+  </Types>
+  <Title>Xamarin.Auth</Title>
+</Overview>

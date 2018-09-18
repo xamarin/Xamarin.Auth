@@ -1,0 +1,281 @@
+<Type Name="AccountStore" FullName="Xamarin.Auth.AccountStore">
+  <TypeSignature Language="C#" Value="public abstract class AccountStore" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit AccountStore extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.AccountStore" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>A persistent storage for s. This storage is encrypted.
+            Accounts are stored using a service ID and the username of the account
+            as a primary key.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected AccountStore ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Create">
+      <MemberSignature Language="C#" Value="public static Xamarin.Auth.AccountStore Create ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Xamarin.Auth.AccountStore Create() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.Create" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Auth.AccountStore</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Create an account store.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Create">
+      <MemberSignature Language="C#" Value="public static Xamarin.Auth.AccountStore Create (Android.Content.Context context);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Xamarin.Auth.AccountStore Create(class Android.Content.Context context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.Create(Android.Content.Context)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Auth.AccountStore</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="context" Type="Android.Content.Context" />
+      </Parameters>
+      <Docs>
+        <param name="context">To be added.</param>
+        <summary>Create an account store.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Create">
+      <MemberSignature Language="C#" Value="public static Xamarin.Auth.AccountStore Create (string password);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Xamarin.Auth.AccountStore Create(string password) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.Create(System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Auth.AccountStore</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="password" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="password">Password.</param>
+        <summary>Create an account store.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Create">
+      <MemberSignature Language="C#" Value="public static Xamarin.Auth.AccountStore Create (Android.Content.Context context, string password);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Xamarin.Auth.AccountStore Create(class Android.Content.Context context, string password) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.Create(Android.Content.Context,System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Auth.AccountStore</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="context" Type="Android.Content.Context" />
+        <Parameter Name="password" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="context">To be added.</param>
+        <param name="password">To be added.</param>
+        <summary>Create an account store.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Delete">
+      <MemberSignature Language="C#" Value="public abstract void Delete (Xamarin.Auth.Account account, string serviceId);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Delete(class Xamarin.Auth.Account account, string serviceId) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.Delete(Xamarin.Auth.Account,System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="account" Type="Xamarin.Auth.Account" />
+        <Parameter Name="serviceId" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="account">Account to delete.</param>
+        <param name="serviceId">Service identifier.</param>
+        <summary>Deletes the account for a given serviceId.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DeleteAsync">
+      <MemberSignature Language="C#" Value="public abstract System.Threading.Tasks.Task DeleteAsync (Xamarin.Auth.Account account, string serviceId);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Threading.Tasks.Task DeleteAsync(class Xamarin.Auth.Account account, string serviceId) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.DeleteAsync(Xamarin.Auth.Account,System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="account" Type="Xamarin.Auth.Account" />
+        <Parameter Name="serviceId" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="account">Account to delete.</param>
+        <param name="serviceId">Service identifier.</param>
+        <summary>Deletes the account for a given serviceId.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FindAccountsForService">
+      <MemberSignature Language="C#" Value="public abstract System.Collections.Generic.IEnumerable&lt;Xamarin.Auth.Account&gt; FindAccountsForService (string serviceId);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Collections.Generic.IEnumerable`1&lt;class Xamarin.Auth.Account&gt; FindAccountsForService(string serviceId) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.FindAccountsForService(System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IEnumerable&lt;Xamarin.Auth.Account&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="serviceId" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="serviceId">Service identifier.</param>
+        <summary>Finds the accounts for a given service.</summary>
+        <returns>The accounts for the service.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FindAccountsForServiceAsync">
+      <MemberSignature Language="C#" Value="public abstract System.Threading.Tasks.Task&lt;System.Collections.Generic.IEnumerable&lt;Xamarin.Auth.Account&gt;&gt; FindAccountsForServiceAsync (string serviceId);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Threading.Tasks.Task`1&lt;class System.Collections.Generic.IEnumerable`1&lt;class Xamarin.Auth.Account&gt;&gt; FindAccountsForServiceAsync(string serviceId) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.FindAccountsForServiceAsync(System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Collections.Generic.IEnumerable&lt;Xamarin.Auth.Account&gt;&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="serviceId" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="serviceId">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Save">
+      <MemberSignature Language="C#" Value="public abstract void Save (Xamarin.Auth.Account account, string serviceId);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Save(class Xamarin.Auth.Account account, string serviceId) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.Save(Xamarin.Auth.Account,System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="account" Type="Xamarin.Auth.Account" />
+        <Parameter Name="serviceId" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="account">Account to store.</param>
+        <param name="serviceId">Service identifier.</param>
+        <summary>Save the specified account by combining its username and the serviceId
+            to form a primary key.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="SaveAsync">
+      <MemberSignature Language="C#" Value="public abstract System.Threading.Tasks.Task SaveAsync (Xamarin.Auth.Account account, string serviceId);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Threading.Tasks.Task SaveAsync(class Xamarin.Auth.Account account, string serviceId) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.AccountStore.SaveAsync(Xamarin.Auth.Account,System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="account" Type="Xamarin.Auth.Account" />
+        <Parameter Name="serviceId" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="account">Account to store.</param>
+        <param name="serviceId">Service identifier.</param>
+        <summary>Save the specified account by combining its username and the serviceId
+            to form a primary key.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="StorePassword">
+      <MemberSignature Language="C#" Value="public static string StorePassword { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property string StorePassword" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.AccountStore.StorePassword" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets the password to access the account store.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,172 @@
+<Type Name="Resource+Attribute" FullName="Xamarin.Auth.Resource+Attribute">
+  <TypeSignature Language="C#" Value="public class Resource.Attribute" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Attribute extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Attribute" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="font">
+      <MemberSignature Language="C#" Value="public static int font;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 font" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.font" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontProviderAuthority">
+      <MemberSignature Language="C#" Value="public static int fontProviderAuthority;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontProviderAuthority" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontProviderAuthority" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontProviderCerts">
+      <MemberSignature Language="C#" Value="public static int fontProviderCerts;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontProviderCerts" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontProviderCerts" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontProviderFetchStrategy">
+      <MemberSignature Language="C#" Value="public static int fontProviderFetchStrategy;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontProviderFetchStrategy" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontProviderFetchStrategy" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontProviderFetchTimeout">
+      <MemberSignature Language="C#" Value="public static int fontProviderFetchTimeout;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontProviderFetchTimeout" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontProviderFetchTimeout" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontProviderPackage">
+      <MemberSignature Language="C#" Value="public static int fontProviderPackage;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontProviderPackage" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontProviderPackage" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontProviderQuery">
+      <MemberSignature Language="C#" Value="public static int fontProviderQuery;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontProviderQuery" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontProviderQuery" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontStyle">
+      <MemberSignature Language="C#" Value="public static int fontStyle;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontStyle" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontStyle" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="fontWeight">
+      <MemberSignature Language="C#" Value="public static int fontWeight;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 fontWeight" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Attribute.fontWeight" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

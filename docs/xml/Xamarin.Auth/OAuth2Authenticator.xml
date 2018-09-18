@@ -1,0 +1,675 @@
+<Type Name="OAuth2Authenticator" FullName="Xamarin.Auth.OAuth2Authenticator">
+  <TypeSignature Language="C#" Value="public class OAuth2Authenticator : Xamarin.Auth.WebRedirectAuthenticator" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit OAuth2Authenticator extends Xamarin.Auth.WebRedirectAuthenticator" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.OAuth2Authenticator" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Xamarin.Auth.WebRedirectAuthenticator</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>Implements OAuth 2.0 
+                - authorization 
+            and 
+                - implicit 
+            grant types. 
+            http://tools.ietf.org/html/draft-ietf-oauth-v2-31#section-4.2</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, bool isUsingNativeUI);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, bool isUsingNativeUI) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Boolean)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="isUsingNativeUI" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <param name="isUsingNativeUI">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <param name="getUsernameAsync">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string clientSecret, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class System.Uri accessTokenUrl) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="clientSecret" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="clientSecret">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <param name="accessTokenUrl">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string scope, Uri authorizeUrl, Uri redirectUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync, bool isUsingNativeUI);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync, bool isUsingNativeUI) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc,System.Boolean)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+        <Parameter Name="isUsingNativeUI" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">Client identifier.</param>
+        <param name="scope">Authorization scope.</param>
+        <param name="authorizeUrl">Authorize URL.</param>
+        <param name="redirectUrl">Redirect URL.</param>
+        <param name="getUsernameAsync">Method used to fetch the username of an account
+            after it has been successfully authenticated.</param>
+        <param name="isUsingNativeUI">To be added.</param>
+        <summary>Initializes a new 
+            that authenticates using implicit granting (token).</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, bool isUsingNativeUI);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string clientSecret, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class System.Uri accessTokenUrl, bool isUsingNativeUI) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri,System.Boolean)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="clientSecret" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="isUsingNativeUI" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="clientSecret">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <param name="accessTokenUrl">To be added.</param>
+        <param name="isUsingNativeUI">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string clientSecret, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class System.Uri accessTokenUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="clientSecret" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">To be added.</param>
+        <param name="clientSecret">To be added.</param>
+        <param name="scope">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="redirectUrl">To be added.</param>
+        <param name="accessTokenUrl">To be added.</param>
+        <param name="getUsernameAsync">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth2Authenticator (string clientId, string clientSecret, string scope, Uri authorizeUrl, Uri redirectUrl, Uri accessTokenUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync, bool isUsingNativeUI);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string clientId, string clientSecret, string scope, class System.Uri authorizeUrl, class System.Uri redirectUrl, class System.Uri accessTokenUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync, bool isUsingNativeUI) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc,System.Boolean)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="clientId" Type="System.String" />
+        <Parameter Name="clientSecret" Type="System.String" />
+        <Parameter Name="scope" Type="System.String" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+        <Parameter Name="isUsingNativeUI" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="clientId">Client identifier.</param>
+        <param name="clientSecret">Client secret.</param>
+        <param name="scope">Authorization scope.</param>
+        <param name="authorizeUrl">Authorize URL.</param>
+        <param name="redirectUrl">Redirect URL.</param>
+        <param name="accessTokenUrl">URL used to request access tokens after an authorization code was received.</param>
+        <param name="getUsernameAsync">Method used to fetch the username of an account
+            after it has been successfully authenticated.</param>
+        <param name="isUsingNativeUI">To be added.</param>
+        <summary>Initializes a new instance 
+            that authenticates using authorization codes (code).</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AccessTokenName">
+      <MemberSignature Language="C#" Value="public string AccessTokenName { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string AccessTokenName" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.AccessTokenName" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AccessTokenUrl">
+      <MemberSignature Language="C#" Value="public Uri AccessTokenUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri AccessTokenUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.AccessTokenUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the access token URL.</summary>
+        <value>The URL used to request access tokens after an authorization code was received.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AuthorizeUrl">
+      <MemberSignature Language="C#" Value="public Uri AuthorizeUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri AuthorizeUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.AuthorizeUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the authorize URL.</summary>
+        <value>The authorize URL.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ClientId">
+      <MemberSignature Language="C#" Value="public string ClientId { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ClientId" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.ClientId" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the client identifier.</summary>
+        <value>The client identifier.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ClientSecret">
+      <MemberSignature Language="C#" Value="public string ClientSecret { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ClientSecret" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.ClientSecret" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the client secret.</summary>
+        <value>The client secret.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateRequestQueryParameters">
+      <MemberSignature Language="C#" Value="public System.Collections.Generic.Dictionary&lt;string,string&gt; CreateRequestQueryParameters (System.Collections.Generic.Dictionary&lt;string,string&gt; parameters = null);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Collections.Generic.Dictionary`2&lt;string, string&gt; CreateRequestQueryParameters(class System.Collections.Generic.Dictionary`2&lt;string, string&gt; parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.CreateRequestQueryParameters(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;" Index="0" FrameworkAlternate="xamarin-auth;xamarin-auth-android;xamarin-auth-ios;xamarin-auth-uwp" />
+      </Parameters>
+      <Docs>
+        <param name="parameters">To be added.</param>
+        <summary>Creates the request query parameters. The method is called before request to Authorization server.</summary>
+        <returns>The request query parameters (standard and custom)</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="DoNotEscapeScope">
+      <MemberSignature Language="C#" Value="public bool DoNotEscapeScope { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool DoNotEscapeScope" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.DoNotEscapeScope" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Disables the escaping of the scope parameter.</summary>
+        <value>true if the scope should not be escaped; otherwise, false.</value>
+        <remarks>By default, the  escapes the 
+            scope parameter. When used with some OAuth2 providers (such as Instagram), this results 
+            in an HTTP 400 BAD REQUEST being returned on authentication. Setting this property to 
+            true will prevent escaping of the scope parameter.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetInitialUrlAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync (System.Collections.Generic.Dictionary&lt;string,string&gt; custom_query_parameters = null);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync(class System.Collections.Generic.Dictionary`2&lt;string, string&gt; custom_query_parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Uri&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="custom_query_parameters" Type="System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="custom_query_parameters">To be added.</param>
+        <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
+        <returns>A task that will return the initial URL.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsAuthorizationCodeFlow">
+      <MemberSignature Language="C#" Value="protected bool IsAuthorizationCodeFlow { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsAuthorizationCodeFlow" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.IsAuthorizationCodeFlow" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsImplicitFlow">
+      <MemberSignature Language="C#" Value="protected bool IsImplicitFlow { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsImplicitFlow" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.IsImplicitFlow" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsProofKeyCodeForExchange">
+      <MemberSignature Language="C#" Value="protected bool IsProofKeyCodeForExchange { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsProofKeyCodeForExchange" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.IsProofKeyCodeForExchange" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OAuthFlowResponseTypeVerification">
+      <MemberSignature Language="C#" Value="protected System.Collections.Generic.List&lt;string&gt; OAuthFlowResponseTypeVerification ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig instance class System.Collections.Generic.List`1&lt;string&gt; OAuthFlowResponseTypeVerification() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.OAuthFlowResponseTypeVerification" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.List&lt;System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>OAuth flow response type verification
+            1. 
+            
+            
+                https://alexbilbie.com/guide-to-oauth-2-grants/</summary>
+        <returns>The OAuth flow response type verification.</returns>
+        <remarks>To be added.</remarks>
+        <see cref="!:"></see>
+        <see cref="!:https://alexbilbie.com/guide-to-oauth-2-grants/"></see>
+      </Docs>
+    </Member>
+    <Member MemberName="OnCreatingInitialUrl">
+      <MemberSignature Language="C#" Value="protected virtual void OnCreatingInitialUrl (System.Collections.Generic.IDictionary&lt;string,string&gt; query);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnCreatingInitialUrl(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.OnCreatingInitialUrl(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="query">The parsed query of the URL.</param>
+        <summary>Invoked when the initial URL is being constructed.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageEncountered">
+      <MemberSignature Language="C#" Value="protected override void OnPageEncountered (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnPageEncountered(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.OnPageEncountered(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="url">URL of the page.</param>
+        <param name="query">The parsed query of the URL.</param>
+        <param name="fragment">The parsed fragment of the URL.</param>
+        <summary>Raised when a new page has been loaded.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnRedirectPageLoaded">
+      <MemberSignature Language="C#" Value="protected override void OnRedirectPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnRedirectPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.OnRedirectPageLoaded(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Diagnostics.DebuggerStepThrough</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="url">URL of the page.</param>
+        <param name="query">The parsed query string of the URL.</param>
+        <param name="fragment">The parsed fragment of the URL.</param>
+        <summary>Raised when a new page has been loaded.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnRetrievedAccountProperties">
+      <MemberSignature Language="C#" Value="public virtual void OnRetrievedAccountProperties (System.Collections.Generic.IDictionary&lt;string,string&gt; accountProperties);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void OnRetrievedAccountProperties(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; accountProperties) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.OnRetrievedAccountProperties(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Diagnostics.DebuggerStepThrough</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="accountProperties" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="accountProperties">The retrieved account properties</param>
+        <summary>Event handler that is fired when an access token has been retreived.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RequestAccessTokenAsync">
+      <MemberSignature Language="C#" Value="public System.Threading.Tasks.Task&lt;System.Collections.Generic.IDictionary&lt;string,string&gt;&gt; RequestAccessTokenAsync (System.Collections.Generic.IDictionary&lt;string,string&gt; queryValues);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Threading.Tasks.Task`1&lt;class System.Collections.Generic.IDictionary`2&lt;string, string&gt;&gt; RequestAccessTokenAsync(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; queryValues) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.RequestAccessTokenAsync(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Diagnostics.DebuggerStepThrough</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="queryValues" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="queryValues">The parameters to make the request with.</param>
+        <summary>Asynchronously makes a request to the access token URL with the given parameters.</summary>
+        <returns>The data provided in the response to the access token request.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RequestAccessTokenAsync">
+      <MemberSignature Language="C#" Value="public System.Threading.Tasks.Task&lt;System.Collections.Generic.IDictionary&lt;string,string&gt;&gt; RequestAccessTokenAsync (string code);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance class System.Threading.Tasks.Task`1&lt;class System.Collections.Generic.IDictionary`2&lt;string, string&gt;&gt; RequestAccessTokenAsync(string code) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth2Authenticator.RequestAccessTokenAsync(System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="code" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="code">The authorization code.</param>
+        <summary>Asynchronously requests an access token with an authorization .</summary>
+        <returns>A dictionary of data returned from the authorization request.</returns>
+        <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Scope">
+      <MemberSignature Language="C#" Value="public string Scope { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Scope" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth2Authenticator.Scope" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets the authorization scope.</summary>
+        <value>The authorization scope.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,494 @@
+<Type Name="WebAuthenticator" FullName="Xamarin.Auth.WebAuthenticator">
+  <TypeSignature Language="C#" Value="public abstract class WebAuthenticator : Xamarin.Auth.Authenticator" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract beforefieldinit WebAuthenticator extends Xamarin.Auth.Authenticator" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.WebAuthenticator" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Xamarin.Auth.Authenticator</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>An authenticator that displays a web page.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="protected WebAuthenticator ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="BrowsingCompleted">
+      <MemberSignature Language="C#" Value="public event EventHandler BrowsingCompleted;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.EventHandler BrowsingCompleted" />
+      <MemberSignature Language="DocId" Value="E:Xamarin.Auth.WebAuthenticator.BrowsingCompleted" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Occurs when the visual, user-interactive, browsing has completed but there
+            is more authentication work to do.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ClearCookies">
+      <MemberSignature Language="C#" Value="public static void ClearCookies ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void ClearCookies() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.ClearCookies" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Clears all cookies.</summary>
+        <remarks>To be added.</remarks>
+        <altmember cref="P:Xamarin.Auth.WebAuthenticator.ClearCookiesBeforeLogin"></altmember>
+      </Docs>
+    </Member>
+    <Member MemberName="ClearCookiesAsync">
+      <MemberSignature Language="C#" Value="public static System.Threading.Tasks.Task ClearCookiesAsync ();" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class System.Threading.Tasks.Task ClearCookiesAsync() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.ClearCookiesAsync" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Clears all cookies.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+        <altmember cref="P:Xamarin.Auth.WebAuthenticator.ClearCookiesBeforeLogin"></altmember>
+      </Docs>
+    </Member>
+    <Member MemberName="ClearCookiesBeforeLogin">
+      <MemberSignature Language="C#" Value="public bool ClearCookiesBeforeLogin { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool ClearCookiesBeforeLogin" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebAuthenticator.ClearCookiesBeforeLogin" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets whether to automatically clear cookies before logging in.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+        <altmember cref="M:Xamarin.Auth.WebAuthenticator.ClearCookies"></altmember>
+      </Docs>
+    </Member>
+    <Member MemberName="EnsureUriEncodedDataString">
+      <MemberSignature Language="C#" Value="public string EnsureUriEncodedDataString (string s);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string EnsureUriEncodedDataString(string s) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.EnsureUriEncodedDataString(System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="s" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="s">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetInitialUrlAsync">
+      <MemberSignature Language="C#" Value="public abstract System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync (System.Collections.Generic.Dictionary&lt;string,string&gt; custom_query_parameters = null);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync(class System.Collections.Generic.Dictionary`2&lt;string, string&gt; custom_query_parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Uri&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="custom_query_parameters" Type="System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="custom_query_parameters">Custom Query parameters</param>
+        <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
+        <returns>A task that will return the initial URL.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUI">
+      <MemberSignature Language="C#" Value="protected override Type GetPlatformUI ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class System.Type GetPlatformUI() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUI" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Type</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Gets the UI for this authenticator.</summary>
+        <returns>The UI that needs to be presented.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUI">
+      <MemberSignature Language="C#" Value="protected override UIKit.UIViewController GetPlatformUI ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class UIKit.UIViewController GetPlatformUI() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUI" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>UIKit.UIViewController</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUI">
+      <MemberSignature Language="C#" Value="protected override Android.Content.Intent GetPlatformUI (Android.Content.Context context);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance class Android.Content.Intent GetPlatformUI(class Android.Content.Context context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUI(Android.Content.Context)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Android.Content.Intent</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="context" Type="Android.Content.Context" />
+      </Parameters>
+      <Docs>
+        <param name="context">To be added.</param>
+        <summary>Gets the UI for this authenticator.</summary>
+        <returns>The UI that needs to be presented.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUIEmbeddedBrowser">
+      <MemberSignature Language="C#" Value="protected virtual Type GetPlatformUIEmbeddedBrowser ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Type GetPlatformUIEmbeddedBrowser() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUIEmbeddedBrowser" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Type</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUIEmbeddedBrowser">
+      <MemberSignature Language="C#" Value="protected virtual UIKit.UIViewController GetPlatformUIEmbeddedBrowser ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class UIKit.UIViewController GetPlatformUIEmbeddedBrowser() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUIEmbeddedBrowser" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>UIKit.UIViewController</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUIEmbeddedBrowser">
+      <MemberSignature Language="C#" Value="protected virtual Android.Content.Intent GetPlatformUIEmbeddedBrowser (Android.Content.Context context);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class Android.Content.Intent GetPlatformUIEmbeddedBrowser(class Android.Content.Context context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUIEmbeddedBrowser(Android.Content.Context)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Android.Content.Intent</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="context" Type="Android.Content.Context" />
+      </Parameters>
+      <Docs>
+        <param name="context">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUINative">
+      <MemberSignature Language="C#" Value="protected virtual Type GetPlatformUINative ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class System.Type GetPlatformUINative() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUINative" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Type</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUINative">
+      <MemberSignature Language="C#" Value="protected virtual UIKit.UIViewController GetPlatformUINative ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class UIKit.UIViewController GetPlatformUINative() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUINative" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>UIKit.UIViewController</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetPlatformUINative">
+      <MemberSignature Language="C#" Value="protected virtual Android.Content.Intent GetPlatformUINative (Android.Content.Context context);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance class Android.Content.Intent GetPlatformUINative(class Android.Content.Context context) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.GetPlatformUINative(Android.Content.Context)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Android.Content.Intent</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="context" Type="Android.Content.Context" />
+      </Parameters>
+      <Docs>
+        <param name="context">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Host">
+      <MemberSignature Language="C#" Value="public string Host { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Host" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebAuthenticator.Host" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsUriEncodedDataString">
+      <MemberSignature Language="C#" Value="public bool IsUriEncodedDataString (string s);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance bool IsUriEncodedDataString(string s) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.IsUriEncodedDataString(System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="s" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="s">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsUsingNativeUI">
+      <MemberSignature Language="C#" Value="public bool IsUsingNativeUI { get; protected set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsUsingNativeUI" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebAuthenticator.IsUsingNativeUI" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets a value indicating whether this  
+            is using native user interface.</summary>
+        <value>true if is using native user interface; otherwise, false.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnBrowsingCompleted">
+      <MemberSignature Language="C#" Value="protected virtual void OnBrowsingCompleted ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnBrowsingCompleted() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.OnBrowsingCompleted" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Raises the browsing completed event.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageLoaded">
+      <MemberSignature Language="C#" Value="public abstract void OnPageLoaded (Uri url);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.OnPageLoaded(System.Uri)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="url">The URL of the page.</param>
+        <summary>Event handler called when a new page has been loaded in the web browser.
+            Implementations should call  if this page
+            signifies a successful authentication.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageLoading">
+      <MemberSignature Language="C#" Value="public virtual void OnPageLoading (Uri url);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void OnPageLoading(class System.Uri url) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticator.OnPageLoading(System.Uri)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="url">The URL of the page.</param>
+        <summary>Event handler called when a new page is being loaded in the web browser.
+            
+            Must be virtual because of OAuth1Authenticator</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RequestParameters">
+      <MemberSignature Language="C#" Value="public System.Collections.Generic.Dictionary&lt;string,string&gt; RequestParameters { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.Dictionary`2&lt;string, string&gt; RequestParameters" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebAuthenticator.RequestParameters" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets the request parameters.
+            Request Parameters for OAuth and OpenId parameters</summary>
+        <value>The request parameters.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Scheme">
+      <MemberSignature Language="C#" Value="public string Scheme { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Scheme" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebAuthenticator.Scheme" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

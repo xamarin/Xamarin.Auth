@@ -1,0 +1,36 @@
+<Type Name="Resource+Boolean" FullName="Xamarin.Auth.Resource+Boolean">
+  <TypeSignature Language="C#" Value="public class Resource.Boolean" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Boolean extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Boolean" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="abc_action_bar_embed_tabs">
+      <MemberSignature Language="C#" Value="public static int abc_action_bar_embed_tabs;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 abc_action_bar_embed_tabs" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Boolean.abc_action_bar_embed_tabs" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

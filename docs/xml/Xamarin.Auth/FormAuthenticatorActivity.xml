@@ -1,0 +1,160 @@
+<Type Name="FormAuthenticatorActivity" FullName="Xamarin.Auth.FormAuthenticatorActivity">
+  <TypeSignature Language="C#" Value="public class FormAuthenticatorActivity : Android.App.Activity" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit FormAuthenticatorActivity extends Android.App.Activity" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.FormAuthenticatorActivity" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Android.App.Activity</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Attributes>
+    <Attribute FrameworkAlternate="xamarin-auth-android">
+      <AttributeName>Android.App.Activity(Label="Web Authenticator")</AttributeName>
+    </Attribute>
+  </Attributes>
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public FormAuthenticatorActivity ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorActivity.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CreateIntent">
+      <MemberSignature Language="C#" Value="public static Android.Content.Intent CreateIntent (Android.Content.Context context, Xamarin.Auth.FormAuthenticator authenticator);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Android.Content.Intent CreateIntent(class Android.Content.Context context, class Xamarin.Auth.FormAuthenticator authenticator) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorActivity.CreateIntent(Android.Content.Context,Xamarin.Auth.FormAuthenticator)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Android.Content.Intent</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="context" Type="Android.Content.Context" />
+        <Parameter Name="authenticator" Type="Xamarin.Auth.FormAuthenticator" />
+      </Parameters>
+      <Docs>
+        <param name="context">To be added.</param>
+        <param name="authenticator">To be added.</param>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnBackPressed">
+      <MemberSignature Language="C#" Value="public override void OnBackPressed ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnBackPressed() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorActivity.OnBackPressed" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnCreate">
+      <MemberSignature Language="C#" Value="protected override void OnCreate (Android.OS.Bundle savedInstanceState);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnCreate(class Android.OS.Bundle savedInstanceState) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorActivity.OnCreate(Android.OS.Bundle)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="savedInstanceState" Type="Android.OS.Bundle" />
+      </Parameters>
+      <Docs>
+        <param name="savedInstanceState">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnResume">
+      <MemberSignature Language="C#" Value="protected override void OnResume ();" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnResume() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorActivity.OnResume" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnRetainNonConfigurationInstance">
+      <MemberSignature Language="C#" Value="public override Java.Lang.Object OnRetainNonConfigurationInstance ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class Java.Lang.Object OnRetainNonConfigurationInstance() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorActivity.OnRetainNonConfigurationInstance" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Java.Lang.Object</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnSaveInstanceState">
+      <MemberSignature Language="C#" Value="protected override void OnSaveInstanceState (Android.OS.Bundle outState);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnSaveInstanceState(class Android.OS.Bundle outState) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorActivity.OnSaveInstanceState(Android.OS.Bundle)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="outState" Type="Android.OS.Bundle" />
+      </Parameters>
+      <Docs>
+        <param name="outState">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

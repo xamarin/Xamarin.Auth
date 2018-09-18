@@ -1,0 +1,91 @@
+<Type Name="WebViewConfiguration+IOS" FullName="Xamarin.Auth.WebViewConfiguration+IOS">
+  <TypeSignature Language="C#" Value="public static class WebViewConfiguration.IOS" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi abstract sealed WebViewConfiguration/IOS extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.WebViewConfiguration.IOS" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="IsUsingWKWebView">
+      <MemberSignature Language="C#" Value="public static bool IsUsingWKWebView { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property bool IsUsingWKWebView" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="UserAgent">
+      <MemberSignature Language="C#" Value="public static string UserAgent { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property string UserAgent" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebViewConfiguration.IOS.UserAgent" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="UserAgentUIWebViewDefault">
+      <MemberSignature Language="C#" Value="public static string UserAgentUIWebViewDefault { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string UserAgentUIWebViewDefault" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebViewConfiguration.IOS.UserAgentUIWebViewDefault" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="UserAgentWKWebViewDefault">
+      <MemberSignature Language="C#" Value="public static string UserAgentWKWebViewDefault { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property string UserAgentWKWebViewDefault" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebViewConfiguration.IOS.UserAgentWKWebViewDefault" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

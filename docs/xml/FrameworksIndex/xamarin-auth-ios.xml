@@ -1,0 +1,256 @@
+<Framework Name="xamarin-auth-ios">
+  <Namespace Name="Xamarin.Auth">
+    <Type Name="Xamarin.Auth.ACAccountWrapper" Id="T:Xamarin.Auth.ACAccountWrapper">
+      <Member Id="M:Xamarin.Auth.ACAccountWrapper.#ctor(Accounts.ACAccount,Accounts.ACAccountStore)" />
+      <Member Id="P:Xamarin.Auth.ACAccountWrapper.ACAccount" />
+      <Member Id="P:Xamarin.Auth.ACAccountWrapper.Username" />
+    </Type>
+    <Type Name="Xamarin.Auth.Account" Id="T:Xamarin.Auth.Account">
+      <Member Id="M:Xamarin.Auth.Account.#ctor" />
+      <Member Id="M:Xamarin.Auth.Account.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.Account.#ctor(System.String)" />
+      <Member Id="M:Xamarin.Auth.Account.#ctor(System.String,System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.Account.#ctor(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Net.CookieContainer)" />
+      <Member Id="M:Xamarin.Auth.Account.#ctor(System.String,System.Net.CookieContainer)" />
+      <Member Id="M:Xamarin.Auth.Account.Deserialize(System.String)" />
+      <Member Id="M:Xamarin.Auth.Account.Serialize" />
+      <Member Id="M:Xamarin.Auth.Account.Serialize(System.Uri)" />
+      <Member Id="M:Xamarin.Auth.Account.ToString" />
+      <Member Id="P:Xamarin.Auth.Account.Cookies" />
+      <Member Id="P:Xamarin.Auth.Account.Properties" />
+      <Member Id="P:Xamarin.Auth.Account.Username" />
+    </Type>
+    <Type Name="Xamarin.Auth.AccountResult" Id="T:Xamarin.Auth.AccountResult">
+      <Member Id="M:Xamarin.Auth.AccountResult.#ctor" />
+      <Member Id="P:Xamarin.Auth.AccountResult.AccountType" />
+      <Member Id="P:Xamarin.Auth.AccountResult.Name" />
+      <Member Id="P:Xamarin.Auth.AccountResult.Token" />
+    </Type>
+    <Type Name="Xamarin.Auth.AccountStore" Id="T:Xamarin.Auth.AccountStore">
+      <Member Id="M:Xamarin.Auth.AccountStore.#ctor" />
+      <Member Id="M:Xamarin.Auth.AccountStore.Create" />
+      <Member Id="M:Xamarin.Auth.AccountStore.Delete(Xamarin.Auth.Account,System.String)" />
+      <Member Id="M:Xamarin.Auth.AccountStore.DeleteAsync(Xamarin.Auth.Account,System.String)" />
+      <Member Id="M:Xamarin.Auth.AccountStore.FindAccountsForService(System.String)" />
+      <Member Id="M:Xamarin.Auth.AccountStore.FindAccountsForServiceAsync(System.String)" />
+      <Member Id="M:Xamarin.Auth.AccountStore.Save(Xamarin.Auth.Account,System.String)" />
+      <Member Id="M:Xamarin.Auth.AccountStore.SaveAsync(Xamarin.Auth.Account,System.String)" />
+      <Member Id="P:Xamarin.Auth.AccountStore.StorePassword" />
+    </Type>
+    <Type Name="Xamarin.Auth.AccountStoreException" Id="T:Xamarin.Auth.AccountStoreException">
+      <Member Id="M:Xamarin.Auth.AccountStoreException.#ctor(System.String)" />
+      <Member Id="M:Xamarin.Auth.AccountStoreException.#ctor(System.String,System.Exception)" />
+      <Member Id="P:Xamarin.Auth.AccountStoreException.Operation" />
+    </Type>
+    <Type Name="Xamarin.Auth.Authenticator" Id="T:Xamarin.Auth.Authenticator">
+      <Member Id="E:Xamarin.Auth.Authenticator.Completed" />
+      <Member Id="E:Xamarin.Auth.Authenticator.Error" />
+      <Member Id="M:Xamarin.Auth.Authenticator.#ctor" />
+      <Member Id="M:Xamarin.Auth.Authenticator.GetPlatformUI" />
+      <Member Id="M:Xamarin.Auth.Authenticator.GetUI" />
+      <Member Id="M:Xamarin.Auth.Authenticator.OnCancelled" />
+      <Member Id="M:Xamarin.Auth.Authenticator.OnError(System.Exception)" />
+      <Member Id="M:Xamarin.Auth.Authenticator.OnError(System.String)" />
+      <Member Id="M:Xamarin.Auth.Authenticator.OnSucceeded(System.String,System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.Authenticator.OnSucceeded(Xamarin.Auth.Account)" />
+      <Member Id="P:Xamarin.Auth.Authenticator.AllowCancel" />
+      <Member Id="P:Xamarin.Auth.Authenticator.GetAccountResult" />
+      <Member Id="P:Xamarin.Auth.Authenticator.HasCompleted" />
+      <Member Id="P:Xamarin.Auth.Authenticator.IgnoreErrorsWhenCompleted" />
+      <Member Id="P:Xamarin.Auth.Authenticator.IsAuthenticated" />
+      <Member Id="P:Xamarin.Auth.Authenticator.ShowErrors" />
+      <Member Id="P:Xamarin.Auth.Authenticator.Title" />
+    </Type>
+    <Type Name="Xamarin.Auth.AuthenticatorCompletedEventArgs" Id="T:Xamarin.Auth.AuthenticatorCompletedEventArgs">
+      <Member Id="M:Xamarin.Auth.AuthenticatorCompletedEventArgs.#ctor(Xamarin.Auth.Account)" />
+      <Member Id="P:Xamarin.Auth.AuthenticatorCompletedEventArgs.Account" />
+      <Member Id="P:Xamarin.Auth.AuthenticatorCompletedEventArgs.IsAuthenticated" />
+    </Type>
+    <Type Name="Xamarin.Auth.AuthenticatorErrorEventArgs" Id="T:Xamarin.Auth.AuthenticatorErrorEventArgs">
+      <Member Id="M:Xamarin.Auth.AuthenticatorErrorEventArgs.#ctor(System.Exception)" />
+      <Member Id="M:Xamarin.Auth.AuthenticatorErrorEventArgs.#ctor(System.String)" />
+      <Member Id="P:Xamarin.Auth.AuthenticatorErrorEventArgs.Exception" />
+      <Member Id="P:Xamarin.Auth.AuthenticatorErrorEventArgs.Message" />
+    </Type>
+    <Type Name="Xamarin.Auth.AuthException" Id="T:Xamarin.Auth.AuthException">
+      <Member Id="M:Xamarin.Auth.AuthException.#ctor" />
+      <Member Id="M:Xamarin.Auth.AuthException.#ctor(System.String)" />
+      <Member Id="M:Xamarin.Auth.AuthException.#ctor(System.String,System.Exception)" />
+    </Type>
+    <Type Name="Xamarin.Auth.FormAuthenticator" Id="T:Xamarin.Auth.FormAuthenticator">
+      <Member Id="M:Xamarin.Auth.FormAuthenticator.#ctor(System.Uri)" />
+      <Member Id="M:Xamarin.Auth.FormAuthenticator.GetFieldValue(System.String)" />
+      <Member Id="M:Xamarin.Auth.FormAuthenticator.GetPlatformUI" />
+      <Member Id="M:Xamarin.Auth.FormAuthenticator.SignInAsync(System.Threading.CancellationToken)" />
+      <Member Id="P:Xamarin.Auth.FormAuthenticator.CreateAccountLink" />
+      <Member Id="P:Xamarin.Auth.FormAuthenticator.Fields" />
+    </Type>
+    <Type Name="Xamarin.Auth.FormAuthenticatorField" Id="T:Xamarin.Auth.FormAuthenticatorField">
+      <Member Id="M:Xamarin.Auth.FormAuthenticatorField.#ctor" />
+      <Member Id="M:Xamarin.Auth.FormAuthenticatorField.#ctor(System.String,System.String,Xamarin.Auth.FormAuthenticatorFieldType,System.String,System.String)" />
+      <Member Id="P:Xamarin.Auth.FormAuthenticatorField.FieldType" />
+      <Member Id="P:Xamarin.Auth.FormAuthenticatorField.Key" />
+      <Member Id="P:Xamarin.Auth.FormAuthenticatorField.Placeholder" />
+      <Member Id="P:Xamarin.Auth.FormAuthenticatorField.Title" />
+      <Member Id="P:Xamarin.Auth.FormAuthenticatorField.Value" />
+    </Type>
+    <Type Name="Xamarin.Auth.FormAuthenticatorFieldType" Id="T:Xamarin.Auth.FormAuthenticatorFieldType">
+      <Member Id="F:Xamarin.Auth.FormAuthenticatorFieldType.Email" />
+      <Member Id="F:Xamarin.Auth.FormAuthenticatorFieldType.Password" />
+      <Member Id="F:Xamarin.Auth.FormAuthenticatorFieldType.PlainText" />
+    </Type>
+    <Type Name="Xamarin.Auth.GetUsernameAsyncFunc" Id="T:Xamarin.Auth.GetUsernameAsyncFunc" />
+    <Type Name="Xamarin.Auth.OAuth1" Id="T:Xamarin.Auth.OAuth1">
+      <Member Id="M:Xamarin.Auth.OAuth1.CreateRequest(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.String,System.String)" />
+      <Member Id="M:Xamarin.Auth.OAuth1.EncodeString(System.String)" />
+      <Member Id="M:Xamarin.Auth.OAuth1.GetAuthorizationHeader(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.String,System.String,System.String)" />
+      <Member Id="M:Xamarin.Auth.OAuth1.GetBaseString(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth1.GetSignature(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.String,System.String)" />
+    </Type>
+    <Type Name="Xamarin.Auth.OAuth1Authenticator" Id="T:Xamarin.Auth.OAuth1Authenticator">
+      <Member Id="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri)" />
+      <Member Id="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri,System.Boolean)" />
+      <Member Id="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc)" />
+      <Member Id="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc,System.Boolean)" />
+      <Member Id="M:Xamarin.Auth.OAuth1Authenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth1Authenticator.OnPageLoaded(System.Uri)" />
+      <Member Id="P:Xamarin.Auth.OAuth1Authenticator.AccessTokenUrl" />
+      <Member Id="P:Xamarin.Auth.OAuth1Authenticator.AuthorizeUrl" />
+      <Member Id="P:Xamarin.Auth.OAuth1Authenticator.CallbackUrl" />
+      <Member Id="P:Xamarin.Auth.OAuth1Authenticator.ConsumerKey" />
+      <Member Id="P:Xamarin.Auth.OAuth1Authenticator.ConsumerSecret" />
+      <Member Id="P:Xamarin.Auth.OAuth1Authenticator.RequestTokenUrl" />
+    </Type>
+    <Type Name="Xamarin.Auth.OAuth1Request" Id="T:Xamarin.Auth.OAuth1Request">
+      <Member Id="M:Xamarin.Auth.OAuth1Request.#ctor(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},Xamarin.Auth.Account)" />
+      <Member Id="M:Xamarin.Auth.OAuth1Request.#ctor(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},Xamarin.Auth.Account,System.Boolean)" />
+      <Member Id="M:Xamarin.Auth.OAuth1Request.#ctor(System.String,System.Uri,Xamarin.Auth.Account)" />
+      <Member Id="M:Xamarin.Auth.OAuth1Request.GetAuthorizationHeader" />
+      <Member Id="M:Xamarin.Auth.OAuth1Request.GetResponseAsync(System.Threading.CancellationToken)" />
+    </Type>
+    <Type Name="Xamarin.Auth.OAuth2Authenticator" Id="T:Xamarin.Auth.OAuth2Authenticator">
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri,System.Boolean)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.String,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc,System.Boolean)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Boolean)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc,System.Boolean)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.CreateRequestQueryParameters(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.OAuthFlowResponseTypeVerification" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.OnCreatingInitialUrl(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.OnPageEncountered(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.OnRedirectPageLoaded(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.OnRetrievedAccountProperties(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.RequestAccessTokenAsync(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Authenticator.RequestAccessTokenAsync(System.String)" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.AccessTokenName" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.AccessTokenUrl" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.AuthorizeUrl" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.ClientId" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.ClientSecret" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.DoNotEscapeScope" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.IsAuthorizationCodeFlow" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.IsImplicitFlow" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.IsProofKeyCodeForExchange" />
+      <Member Id="P:Xamarin.Auth.OAuth2Authenticator.Scope" />
+    </Type>
+    <Type Name="Xamarin.Auth.OAuth2Request" Id="T:Xamarin.Auth.OAuth2Request">
+      <Member Id="M:Xamarin.Auth.OAuth2Request.#ctor(System.String,System.Uri)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Request.#ctor(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.OAuth2Request.#ctor(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},Xamarin.Auth.Account)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Request.#ctor(System.String,System.Uri,Xamarin.Auth.Account)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Request.GetAuthenticatedUrl(Xamarin.Auth.Account,System.Uri,System.String)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Request.GetAuthorizationHeader(Xamarin.Auth.Account)" />
+      <Member Id="M:Xamarin.Auth.OAuth2Request.GetPreparedUrl" />
+      <Member Id="P:Xamarin.Auth.OAuth2Request.AccessTokenParameterName" />
+    </Type>
+    <Type Name="Xamarin.Auth.Request" Id="T:Xamarin.Auth.Request">
+      <Member Id="F:Xamarin.Auth.Request.Multiparts" />
+      <Member Id="M:Xamarin.Auth.Request.#ctor(System.String,System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},Xamarin.Auth.Account)" />
+      <Member Id="M:Xamarin.Auth.Request.AddMultipartData(System.String,System.IO.Stream,System.String,System.String)" />
+      <Member Id="M:Xamarin.Auth.Request.AddMultipartData(System.String,System.String)" />
+      <Member Id="M:Xamarin.Auth.Request.GetPreparedUrl" />
+      <Member Id="M:Xamarin.Auth.Request.GetPreparedWebRequest" />
+      <Member Id="M:Xamarin.Auth.Request.GetResponseAsync" />
+      <Member Id="M:Xamarin.Auth.Request.GetResponseAsync(System.Threading.CancellationToken)" />
+      <Member Id="P:Xamarin.Auth.Request.Account" />
+      <Member Id="P:Xamarin.Auth.Request.Method" />
+      <Member Id="P:Xamarin.Auth.Request.Parameters" />
+      <Member Id="P:Xamarin.Auth.Request.Url" />
+    </Type>
+    <Type Name="Xamarin.Auth.Request/Part" Id="T:Xamarin.Auth.Request.Part">
+      <Member Id="F:Xamarin.Auth.Request.Part.Data" />
+      <Member Id="F:Xamarin.Auth.Request.Part.Filename" />
+      <Member Id="F:Xamarin.Auth.Request.Part.MimeType" />
+      <Member Id="F:Xamarin.Auth.Request.Part.Name" />
+      <Member Id="F:Xamarin.Auth.Request.Part.TextData" />
+      <Member Id="M:Xamarin.Auth.Request.Part.#ctor" />
+    </Type>
+    <Type Name="Xamarin.Auth.Response" Id="T:Xamarin.Auth.Response">
+      <Member Id="M:Xamarin.Auth.Response.#ctor" />
+      <Member Id="M:Xamarin.Auth.Response.#ctor(System.Net.Http.HttpResponseMessage)" />
+      <Member Id="M:Xamarin.Auth.Response.Dispose" />
+      <Member Id="M:Xamarin.Auth.Response.GetResponseStream" />
+      <Member Id="M:Xamarin.Auth.Response.GetResponseStreamAsync" />
+      <Member Id="M:Xamarin.Auth.Response.GetResponseText" />
+      <Member Id="M:Xamarin.Auth.Response.GetResponseTextAsync" />
+      <Member Id="M:Xamarin.Auth.Response.ToString" />
+      <Member Id="P:Xamarin.Auth.Response.Headers" />
+      <Member Id="P:Xamarin.Auth.Response.ResponseUri" />
+      <Member Id="P:Xamarin.Auth.Response.StatusCode" />
+    </Type>
+    <Type Name="Xamarin.Auth.WebAuthenticator" Id="T:Xamarin.Auth.WebAuthenticator">
+      <Member Id="E:Xamarin.Auth.WebAuthenticator.BrowsingCompleted" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.#ctor" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.ClearCookies" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.ClearCookiesAsync" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.EnsureUriEncodedDataString(System.String)" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.GetPlatformUI" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.GetPlatformUIEmbeddedBrowser" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.GetPlatformUINative" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.IsUriEncodedDataString(System.String)" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.OnBrowsingCompleted" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.OnPageLoaded(System.Uri)" />
+      <Member Id="M:Xamarin.Auth.WebAuthenticator.OnPageLoading(System.Uri)" />
+      <Member Id="P:Xamarin.Auth.WebAuthenticator.ClearCookiesBeforeLogin" />
+      <Member Id="P:Xamarin.Auth.WebAuthenticator.Host" />
+      <Member Id="P:Xamarin.Auth.WebAuthenticator.IsUsingNativeUI" />
+      <Member Id="P:Xamarin.Auth.WebAuthenticator.RequestParameters" />
+      <Member Id="P:Xamarin.Auth.WebAuthenticator.Scheme" />
+    </Type>
+    <Type Name="Xamarin.Auth.WebRedirectAuthenticator" Id="T:Xamarin.Auth.WebRedirectAuthenticator">
+      <Member Id="M:Xamarin.Auth.WebRedirectAuthenticator.#ctor(System.Uri,System.Uri)" />
+      <Member Id="M:Xamarin.Auth.WebRedirectAuthenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageEncountered(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoaded(System.Uri)" />
+      <Member Id="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoading(System.Uri)" />
+      <Member Id="M:Xamarin.Auth.WebRedirectAuthenticator.OnRedirectPageLoaded(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <Member Id="P:Xamarin.Auth.WebRedirectAuthenticator.Fragment" />
+      <Member Id="P:Xamarin.Auth.WebRedirectAuthenticator.InitialUrl" />
+      <Member Id="P:Xamarin.Auth.WebRedirectAuthenticator.IsLoadableRedirectUri" />
+      <Member Id="P:Xamarin.Auth.WebRedirectAuthenticator.Query" />
+      <Member Id="P:Xamarin.Auth.WebRedirectAuthenticator.RedirectUrl" />
+      <Member Id="P:Xamarin.Auth.WebRedirectAuthenticator.ShouldEncounterOnPageLoaded" />
+      <Member Id="P:Xamarin.Auth.WebRedirectAuthenticator.ShouldEncounterOnPageLoading" />
+    </Type>
+    <Type Name="Xamarin.Auth.WebViewConfiguration" Id="T:Xamarin.Auth.WebViewConfiguration" />
+    <Type Name="Xamarin.Auth.WebViewConfiguration/IOS" Id="T:Xamarin.Auth.WebViewConfiguration.IOS">
+      <Member Id="P:Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView" />
+      <Member Id="P:Xamarin.Auth.WebViewConfiguration.IOS.UserAgent" />
+      <Member Id="P:Xamarin.Auth.WebViewConfiguration.IOS.UserAgentUIWebViewDefault" />
+      <Member Id="P:Xamarin.Auth.WebViewConfiguration.IOS.UserAgentWKWebViewDefault" />
+    </Type>
+  </Namespace>
+  <Namespace Name="Xamarin.Auth.Presenters">
+    <Type Name="Xamarin.Auth.Presenters.OAuthLoginPresenter" Id="T:Xamarin.Auth.Presenters.OAuthLoginPresenter">
+      <Member Id="E:Xamarin.Auth.Presenters.OAuthLoginPresenter.Completed" />
+      <Member Id="F:Xamarin.Auth.Presenters.OAuthLoginPresenter.PlatformLogin" />
+      <Member Id="M:Xamarin.Auth.Presenters.OAuthLoginPresenter.#ctor" />
+      <Member Id="M:Xamarin.Auth.Presenters.OAuthLoginPresenter.Login(Xamarin.Auth.Authenticator)" />
+    </Type>
+  </Namespace>
+</Framework>

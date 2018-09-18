@@ -1,0 +1,150 @@
+<Type Name="FormAuthenticatorField" FullName="Xamarin.Auth.FormAuthenticatorField">
+  <TypeSignature Language="C#" Value="public class FormAuthenticatorField" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit FormAuthenticatorField extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.FormAuthenticatorField" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>Account credential form field.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public FormAuthenticatorField ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorField.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>Initializes a new instance of the  class.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public FormAuthenticatorField (string key, string title, Xamarin.Auth.FormAuthenticatorFieldType fieldType, string placeholder = &quot;&quot;, string defaultValue = &quot;&quot;);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string key, string title, valuetype Xamarin.Auth.FormAuthenticatorFieldType fieldType, string placeholder, string defaultValue) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.FormAuthenticatorField.#ctor(System.String,System.String,Xamarin.Auth.FormAuthenticatorFieldType,System.String,System.String)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="key" Type="System.String" />
+        <Parameter Name="title" Type="System.String" />
+        <Parameter Name="fieldType" Type="Xamarin.Auth.FormAuthenticatorFieldType" />
+        <Parameter Name="placeholder" Type="System.String" />
+        <Parameter Name="defaultValue" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="key">A key used to identify the field.</param>
+        <param name="title">The title of the field when presented in a UI.</param>
+        <param name="fieldType">The type of the field.</param>
+        <param name="placeholder">Placeholder text shown when there is no input value for the field.</param>
+        <param name="defaultValue">The value of the field.</param>
+        <summary>Initializes a new instance of the  class.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="FieldType">
+      <MemberSignature Language="C#" Value="public Xamarin.Auth.FormAuthenticatorFieldType FieldType { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance valuetype Xamarin.Auth.FormAuthenticatorFieldType FieldType" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.FormAuthenticatorField.FieldType" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Auth.FormAuthenticatorFieldType</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets the type of this field.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Key">
+      <MemberSignature Language="C#" Value="public string Key { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Key" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.FormAuthenticatorField.Key" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets the key used to identify this field.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Placeholder">
+      <MemberSignature Language="C#" Value="public string Placeholder { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Placeholder" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.FormAuthenticatorField.Placeholder" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets the placeholder text shown when there is no input value for this field.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Title">
+      <MemberSignature Language="C#" Value="public string Title { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Title" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.FormAuthenticatorField.Title" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets the title of this field when presented in a UI.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Value">
+      <MemberSignature Language="C#" Value="public string Value { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Value" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.FormAuthenticatorField.Value" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Gets or sets the value of this field.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

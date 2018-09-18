@@ -1,0 +1,138 @@
+<Type Name="Resource+Layout" FullName="Xamarin.Auth.Resource+Layout">
+  <TypeSignature Language="C#" Value="public class Resource.Layout" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Layout extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Layout" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="activity_webview">
+      <MemberSignature Language="C#" Value="public static int activity_webview;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 activity_webview" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Layout.activity_webview" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_action">
+      <MemberSignature Language="C#" Value="public static int notification_action;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_action" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Layout.notification_action" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_action_tombstone">
+      <MemberSignature Language="C#" Value="public static int notification_action_tombstone;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_action_tombstone" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Layout.notification_action_tombstone" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_template_custom_big">
+      <MemberSignature Language="C#" Value="public static int notification_template_custom_big;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_template_custom_big" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Layout.notification_template_custom_big" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_template_icon_group">
+      <MemberSignature Language="C#" Value="public static int notification_template_icon_group;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_template_icon_group" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Layout.notification_template_icon_group" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_template_part_chronometer">
+      <MemberSignature Language="C#" Value="public static int notification_template_part_chronometer;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_template_part_chronometer" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Layout.notification_template_part_chronometer" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_template_part_time">
+      <MemberSignature Language="C#" Value="public static int notification_template_part_time;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_template_part_time" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Layout.notification_template_part_time" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

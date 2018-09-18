@@ -1,0 +1,359 @@
+<Type Name="Resource+Dimension" FullName="Xamarin.Auth.Resource+Dimension">
+  <TypeSignature Language="C#" Value="public class Resource.Dimension" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Dimension extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Dimension" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="compat_button_inset_horizontal_material">
+      <MemberSignature Language="C#" Value="public static int compat_button_inset_horizontal_material;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 compat_button_inset_horizontal_material" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.compat_button_inset_horizontal_material" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="compat_button_inset_vertical_material">
+      <MemberSignature Language="C#" Value="public static int compat_button_inset_vertical_material;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 compat_button_inset_vertical_material" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.compat_button_inset_vertical_material" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="compat_button_padding_horizontal_material">
+      <MemberSignature Language="C#" Value="public static int compat_button_padding_horizontal_material;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 compat_button_padding_horizontal_material" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.compat_button_padding_horizontal_material" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="compat_button_padding_vertical_material">
+      <MemberSignature Language="C#" Value="public static int compat_button_padding_vertical_material;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 compat_button_padding_vertical_material" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.compat_button_padding_vertical_material" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="compat_control_corner_material">
+      <MemberSignature Language="C#" Value="public static int compat_control_corner_material;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 compat_control_corner_material" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.compat_control_corner_material" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_action_icon_size">
+      <MemberSignature Language="C#" Value="public static int notification_action_icon_size;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_action_icon_size" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_action_icon_size" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_action_text_size">
+      <MemberSignature Language="C#" Value="public static int notification_action_text_size;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_action_text_size" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_action_text_size" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_big_circle_margin">
+      <MemberSignature Language="C#" Value="public static int notification_big_circle_margin;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_big_circle_margin" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_big_circle_margin" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_content_margin_start">
+      <MemberSignature Language="C#" Value="public static int notification_content_margin_start;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_content_margin_start" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_content_margin_start" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_large_icon_height">
+      <MemberSignature Language="C#" Value="public static int notification_large_icon_height;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_large_icon_height" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_large_icon_height" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_large_icon_width">
+      <MemberSignature Language="C#" Value="public static int notification_large_icon_width;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_large_icon_width" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_large_icon_width" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_main_column_padding_top">
+      <MemberSignature Language="C#" Value="public static int notification_main_column_padding_top;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_main_column_padding_top" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_main_column_padding_top" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_media_narrow_margin">
+      <MemberSignature Language="C#" Value="public static int notification_media_narrow_margin;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_media_narrow_margin" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_media_narrow_margin" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_right_icon_size">
+      <MemberSignature Language="C#" Value="public static int notification_right_icon_size;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_right_icon_size" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_right_icon_size" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_right_side_padding_top">
+      <MemberSignature Language="C#" Value="public static int notification_right_side_padding_top;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_right_side_padding_top" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_right_side_padding_top" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_small_icon_background_padding">
+      <MemberSignature Language="C#" Value="public static int notification_small_icon_background_padding;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_small_icon_background_padding" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_small_icon_background_padding" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_small_icon_size_as_large">
+      <MemberSignature Language="C#" Value="public static int notification_small_icon_size_as_large;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_small_icon_size_as_large" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_small_icon_size_as_large" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_subtext_size">
+      <MemberSignature Language="C#" Value="public static int notification_subtext_size;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_subtext_size" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_subtext_size" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_top_pad">
+      <MemberSignature Language="C#" Value="public static int notification_top_pad;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_top_pad" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_top_pad" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_top_pad_large_text">
+      <MemberSignature Language="C#" Value="public static int notification_top_pad_large_text;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_top_pad_large_text" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Dimension.notification_top_pad_large_text" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

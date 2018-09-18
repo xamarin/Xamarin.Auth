@@ -1,0 +1,478 @@
+<Type Name="Resource+Id" FullName="Xamarin.Auth.Resource+Id">
+  <TypeSignature Language="C#" Value="public class Resource.Id" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Id extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Id" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="action_container">
+      <MemberSignature Language="C#" Value="public static int action_container;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 action_container" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.action_container" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="action_divider">
+      <MemberSignature Language="C#" Value="public static int action_divider;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 action_divider" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.action_divider" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="action_image">
+      <MemberSignature Language="C#" Value="public static int action_image;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 action_image" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.action_image" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="action_text">
+      <MemberSignature Language="C#" Value="public static int action_text;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 action_text" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.action_text" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="actions">
+      <MemberSignature Language="C#" Value="public static int actions;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 actions" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.actions" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="async">
+      <MemberSignature Language="C#" Value="public static int async;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 async" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.async" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="blocking">
+      <MemberSignature Language="C#" Value="public static int blocking;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 blocking" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.blocking" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="chronometer">
+      <MemberSignature Language="C#" Value="public static int chronometer;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 chronometer" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.chronometer" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="forever">
+      <MemberSignature Language="C#" Value="public static int forever;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 forever" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.forever" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="icon">
+      <MemberSignature Language="C#" Value="public static int icon;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 icon" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.icon" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="icon_group">
+      <MemberSignature Language="C#" Value="public static int icon_group;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 icon_group" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.icon_group" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="info">
+      <MemberSignature Language="C#" Value="public static int info;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 info" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.info" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="italic">
+      <MemberSignature Language="C#" Value="public static int italic;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 italic" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.italic" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="line1">
+      <MemberSignature Language="C#" Value="public static int line1;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 line1" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.line1" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="line3">
+      <MemberSignature Language="C#" Value="public static int line3;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 line3" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.line3" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="normal">
+      <MemberSignature Language="C#" Value="public static int normal;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 normal" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.normal" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_background">
+      <MemberSignature Language="C#" Value="public static int notification_background;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_background" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.notification_background" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_main_column">
+      <MemberSignature Language="C#" Value="public static int notification_main_column;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_main_column" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.notification_main_column" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="notification_main_column_container">
+      <MemberSignature Language="C#" Value="public static int notification_main_column_container;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 notification_main_column_container" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.notification_main_column_container" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="right_icon">
+      <MemberSignature Language="C#" Value="public static int right_icon;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 right_icon" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.right_icon" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="right_side">
+      <MemberSignature Language="C#" Value="public static int right_side;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 right_side" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.right_side" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="tag_transition_group">
+      <MemberSignature Language="C#" Value="public static int tag_transition_group;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 tag_transition_group" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.tag_transition_group" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="text">
+      <MemberSignature Language="C#" Value="public static int text;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 text" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.text" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="text2">
+      <MemberSignature Language="C#" Value="public static int text2;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 text2" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.text2" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="time">
+      <MemberSignature Language="C#" Value="public static int time;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 time" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.time" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="title">
+      <MemberSignature Language="C#" Value="public static int title;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 title" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.title" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="webview">
+      <MemberSignature Language="C#" Value="public static int webview;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 webview" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Id.webview" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

@@ -1,0 +1,18 @@
+<Type Name="WebViewConfiguration" FullName="Xamarin.Auth.WebViewConfiguration">
+  <TypeSignature Language="C#" Value="public static class WebViewConfiguration" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi abstract sealed beforefieldinit WebViewConfiguration extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.WebViewConfiguration" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>Web view configuration.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members />
+</Type>

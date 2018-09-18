@@ -1,0 +1,311 @@
+<Type Name="OAuth1Authenticator" FullName="Xamarin.Auth.OAuth1Authenticator">
+  <TypeSignature Language="C#" Value="public class OAuth1Authenticator : Xamarin.Auth.WebRedirectAuthenticator" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit OAuth1Authenticator extends Xamarin.Auth.WebRedirectAuthenticator" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.OAuth1Authenticator" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Xamarin.Auth.WebRedirectAuthenticator</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>OAuth 1.0 authenticator.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string consumerKey, string consumerSecret, class System.Uri requestTokenUrl, class System.Uri authorizeUrl, class System.Uri accessTokenUrl, class System.Uri callbackUrl) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="consumerKey" Type="System.String" />
+        <Parameter Name="consumerSecret" Type="System.String" />
+        <Parameter Name="requestTokenUrl" Type="System.Uri" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="callbackUrl" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="consumerKey">To be added.</param>
+        <param name="consumerSecret">To be added.</param>
+        <param name="requestTokenUrl">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="accessTokenUrl">To be added.</param>
+        <param name="callbackUrl">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, bool isUsingNativeUI);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string consumerKey, string consumerSecret, class System.Uri requestTokenUrl, class System.Uri authorizeUrl, class System.Uri accessTokenUrl, class System.Uri callbackUrl, bool isUsingNativeUI) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri,System.Boolean)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="consumerKey" Type="System.String" />
+        <Parameter Name="consumerSecret" Type="System.String" />
+        <Parameter Name="requestTokenUrl" Type="System.Uri" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="callbackUrl" Type="System.Uri" />
+        <Parameter Name="isUsingNativeUI" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="consumerKey">To be added.</param>
+        <param name="consumerSecret">To be added.</param>
+        <param name="requestTokenUrl">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="accessTokenUrl">To be added.</param>
+        <param name="callbackUrl">To be added.</param>
+        <param name="isUsingNativeUI">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string consumerKey, string consumerSecret, class System.Uri requestTokenUrl, class System.Uri authorizeUrl, class System.Uri accessTokenUrl, class System.Uri callbackUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="consumerKey" Type="System.String" />
+        <Parameter Name="consumerSecret" Type="System.String" />
+        <Parameter Name="requestTokenUrl" Type="System.Uri" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="callbackUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+      </Parameters>
+      <Docs>
+        <param name="consumerKey">To be added.</param>
+        <param name="consumerSecret">To be added.</param>
+        <param name="requestTokenUrl">To be added.</param>
+        <param name="authorizeUrl">To be added.</param>
+        <param name="accessTokenUrl">To be added.</param>
+        <param name="callbackUrl">To be added.</param>
+        <param name="getUsernameAsync">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuth1Authenticator (string consumerKey, string consumerSecret, Uri requestTokenUrl, Uri authorizeUrl, Uri accessTokenUrl, Uri callbackUrl, Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync, bool isUsingNativeUI);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string consumerKey, string consumerSecret, class System.Uri requestTokenUrl, class System.Uri authorizeUrl, class System.Uri accessTokenUrl, class System.Uri callbackUrl, class Xamarin.Auth.GetUsernameAsyncFunc getUsernameAsync, bool isUsingNativeUI) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth1Authenticator.#ctor(System.String,System.String,System.Uri,System.Uri,System.Uri,System.Uri,Xamarin.Auth.GetUsernameAsyncFunc,System.Boolean)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete</AttributeName>
+        </Attribute>
+      </Attributes>
+      <Parameters>
+        <Parameter Name="consumerKey" Type="System.String" />
+        <Parameter Name="consumerSecret" Type="System.String" />
+        <Parameter Name="requestTokenUrl" Type="System.Uri" />
+        <Parameter Name="authorizeUrl" Type="System.Uri" />
+        <Parameter Name="accessTokenUrl" Type="System.Uri" />
+        <Parameter Name="callbackUrl" Type="System.Uri" />
+        <Parameter Name="getUsernameAsync" Type="Xamarin.Auth.GetUsernameAsyncFunc" />
+        <Parameter Name="isUsingNativeUI" Type="System.Boolean" />
+      </Parameters>
+      <Docs>
+        <param name="consumerKey">Consumer key.</param>
+        <param name="consumerSecret">Consumer secret.</param>
+        <param name="requestTokenUrl">Request token URL.</param>
+        <param name="authorizeUrl">Authorize URL.</param>
+        <param name="accessTokenUrl">Access token URL.</param>
+        <param name="callbackUrl">Callback URL.</param>
+        <param name="getUsernameAsync">Method used to fetch the username of an account
+            after it has been successfully authenticated.</param>
+        <param name="isUsingNativeUI">To be added.</param>
+        <summary>Initializes a new instance of the  class.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AccessTokenUrl">
+      <MemberSignature Language="C#" Value="public Uri AccessTokenUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri AccessTokenUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth1Authenticator.AccessTokenUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="AuthorizeUrl">
+      <MemberSignature Language="C#" Value="public Uri AuthorizeUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri AuthorizeUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth1Authenticator.AuthorizeUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="CallbackUrl">
+      <MemberSignature Language="C#" Value="public Uri CallbackUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri CallbackUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth1Authenticator.CallbackUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ConsumerKey">
+      <MemberSignature Language="C#" Value="public string ConsumerKey { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ConsumerKey" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth1Authenticator.ConsumerKey" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ConsumerSecret">
+      <MemberSignature Language="C#" Value="public string ConsumerSecret { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string ConsumerSecret" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth1Authenticator.ConsumerSecret" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetInitialUrlAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync (System.Collections.Generic.Dictionary&lt;string,string&gt; parameters = null);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync(class System.Collections.Generic.Dictionary`2&lt;string, string&gt; parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth1Authenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Diagnostics.DebuggerStepThrough</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Uri&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="parameters" Type="System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;" Index="0" FrameworkAlternate="xamarin-auth;xamarin-auth-android;xamarin-auth-ios;xamarin-auth-uwp" />
+      </Parameters>
+      <Docs>
+        <param name="parameters">To be added.</param>
+        <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
+        <returns>A task that will return the initial URL.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageLoaded">
+      <MemberSignature Language="C#" Value="public override void OnPageLoaded (Uri url);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.OAuth1Authenticator.OnPageLoaded(System.Uri)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Diagnostics.DebuggerStepThrough</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="url">The URL of the loaded page.</param>
+        <summary>Event handler that watches for the callback URL to be loaded.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RequestTokenUrl">
+      <MemberSignature Language="C#" Value="public Uri RequestTokenUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri RequestTokenUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.OAuth1Authenticator.RequestTokenUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

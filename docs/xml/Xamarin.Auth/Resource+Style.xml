@@ -1,0 +1,138 @@
+<Type Name="Resource+Style" FullName="Xamarin.Auth.Resource+Style">
+  <TypeSignature Language="C#" Value="public class Resource.Style" />
+  <TypeSignature Language="ILAsm" Value=".class nested public auto ansi Resource/Style extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Resource.Style" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName="TextAppearance_Compat_Notification">
+      <MemberSignature Language="C#" Value="public static int TextAppearance_Compat_Notification;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 TextAppearance_Compat_Notification" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Style.TextAppearance_Compat_Notification" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TextAppearance_Compat_Notification_Info">
+      <MemberSignature Language="C#" Value="public static int TextAppearance_Compat_Notification_Info;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 TextAppearance_Compat_Notification_Info" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Style.TextAppearance_Compat_Notification_Info" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TextAppearance_Compat_Notification_Line2">
+      <MemberSignature Language="C#" Value="public static int TextAppearance_Compat_Notification_Line2;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 TextAppearance_Compat_Notification_Line2" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Style.TextAppearance_Compat_Notification_Line2" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TextAppearance_Compat_Notification_Time">
+      <MemberSignature Language="C#" Value="public static int TextAppearance_Compat_Notification_Time;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 TextAppearance_Compat_Notification_Time" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Style.TextAppearance_Compat_Notification_Time" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="TextAppearance_Compat_Notification_Title">
+      <MemberSignature Language="C#" Value="public static int TextAppearance_Compat_Notification_Title;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 TextAppearance_Compat_Notification_Title" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Style.TextAppearance_Compat_Notification_Title" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Widget_Compat_NotificationActionContainer">
+      <MemberSignature Language="C#" Value="public static int Widget_Compat_NotificationActionContainer;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 Widget_Compat_NotificationActionContainer" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Style.Widget_Compat_NotificationActionContainer" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Widget_Compat_NotificationActionText">
+      <MemberSignature Language="C#" Value="public static int Widget_Compat_NotificationActionText;" />
+      <MemberSignature Language="ILAsm" Value=".field public static int32 Widget_Compat_NotificationActionText" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Resource.Style.Widget_Compat_NotificationActionText" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Int32</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

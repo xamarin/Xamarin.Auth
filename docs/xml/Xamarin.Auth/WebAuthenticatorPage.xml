@@ -1,0 +1,162 @@
+<Type Name="WebAuthenticatorPage" FullName="Xamarin.Auth.WebAuthenticatorPage">
+  <TypeSignature Language="C#" Value="public class WebAuthenticatorPage : Windows.UI.Xaml.Controls.Page, Windows.UI.Xaml.Markup.IComponentConnector, Windows.UI.Xaml.Markup.IComponentConnector2" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit WebAuthenticatorPage extends Windows.UI.Xaml.Controls.Page implements class Windows.UI.Xaml.Markup.IComponentConnector, class Windows.UI.Xaml.Markup.IComponentConnector2" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.WebAuthenticatorPage" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Windows.UI.Xaml.Controls.Page</BaseTypeName>
+  </Base>
+  <Interfaces>
+    <Interface>
+      <InterfaceName>Windows.UI.Xaml.Markup.IComponentConnector</InterfaceName>
+    </Interface>
+    <Interface>
+      <InterfaceName>Windows.UI.Xaml.Markup.IComponentConnector2</InterfaceName>
+    </Interface>
+  </Interfaces>
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public WebAuthenticatorPage ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticatorPage.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Connect">
+      <MemberSignature Language="C#" Value="public void Connect (int connectionId, object target);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance void Connect(int32 connectionId, object target) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticatorPage.Connect(System.Int32,System.Object)" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:Windows.UI.Xaml.Markup.IComponentConnector.Connect(System.Int32,System.Object)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.CodeDom.Compiler.GeneratedCode("Microsoft.Windows.UI.Xaml.Build.Tasks", " 10.0.16.0")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.Diagnostics.DebuggerNonUserCode</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionId" Type="System.Int32" />
+        <Parameter Name="target" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="connectionId">To be added.</param>
+        <param name="target">To be added.</param>
+        <summary>Connect()</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetBindingConnector">
+      <MemberSignature Language="C#" Value="public Windows.UI.Xaml.Markup.IComponentConnector GetBindingConnector (int connectionId, object target);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig newslot virtual instance class Windows.UI.Xaml.Markup.IComponentConnector GetBindingConnector(int32 connectionId, object target) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticatorPage.GetBindingConnector(System.Int32,System.Object)" />
+      <MemberType>Method</MemberType>
+      <Implements>
+        <InterfaceMember>M:Windows.UI.Xaml.Markup.IComponentConnector2.GetBindingConnector(System.Int32,System.Object)</InterfaceMember>
+      </Implements>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.CodeDom.Compiler.GeneratedCode("Microsoft.Windows.UI.Xaml.Build.Tasks", " 10.0.16.0")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.Diagnostics.DebuggerNonUserCode</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>Windows.UI.Xaml.Markup.IComponentConnector</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="connectionId" Type="System.Int32" />
+        <Parameter Name="target" Type="System.Object" />
+      </Parameters>
+      <Docs>
+        <param name="connectionId">To be added.</param>
+        <param name="target">To be added.</param>
+        <summary>GetBindingConnector(int connectionId, object target)</summary>
+        <returns>To be added.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="InitializeComponent">
+      <MemberSignature Language="C#" Value="public void InitializeComponent ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void InitializeComponent() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticatorPage.InitializeComponent" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.CodeDom.Compiler.GeneratedCode("Microsoft.Windows.UI.Xaml.Build.Tasks", " 10.0.16.0")</AttributeName>
+        </Attribute>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.Diagnostics.DebuggerNonUserCode</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>InitializeComponent()</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnNavigatedTo">
+      <MemberSignature Language="C#" Value="protected override void OnNavigatedTo (Windows.UI.Xaml.Navigation.NavigationEventArgs e);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig virtual instance void OnNavigatedTo(class Windows.UI.Xaml.Navigation.NavigationEventArgs e) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebAuthenticatorPage.OnNavigatedTo(Windows.UI.Xaml.Navigation.NavigationEventArgs)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute FrameworkAlternate="xamarin-auth-uwp">
+          <AttributeName>System.Diagnostics.DebuggerStepThrough</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="e" Type="Windows.UI.Xaml.Navigation.NavigationEventArgs" />
+      </Parameters>
+      <Docs>
+        <param name="e">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

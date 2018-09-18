@@ -1,0 +1,285 @@
+<Type Name="WebRedirectAuthenticator" FullName="Xamarin.Auth.WebRedirectAuthenticator">
+  <TypeSignature Language="C#" Value="public class WebRedirectAuthenticator : Xamarin.Auth.WebAuthenticator" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit WebRedirectAuthenticator extends Xamarin.Auth.WebAuthenticator" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.WebRedirectAuthenticator" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>Xamarin.Auth.WebAuthenticator</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>An authenticator that displays web pages until a given "redirect" page is encountered. It then
+            returns an account with the fragment on that URL.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public WebRedirectAuthenticator (Uri initialUrl, Uri redirectUrl);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Uri initialUrl, class System.Uri redirectUrl) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebRedirectAuthenticator.#ctor(System.Uri,System.Uri)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="initialUrl" Type="System.Uri" />
+        <Parameter Name="redirectUrl" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="initialUrl">The initial URL loaded into the web browser.</param>
+        <param name="redirectUrl">The URL watched for.</param>
+        <summary>Initializes a new instance of the  class.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Fragment">
+      <MemberSignature Language="C#" Value="public System.Collections.Generic.IDictionary&lt;string,string&gt; Fragment { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.IDictionary`2&lt;string, string&gt; Fragment" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebRedirectAuthenticator.Fragment" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="GetInitialUrlAsync">
+      <MemberSignature Language="C#" Value="public override System.Threading.Tasks.Task&lt;Uri&gt; GetInitialUrlAsync (System.Collections.Generic.Dictionary&lt;string,string&gt; custom_query_parameters = null);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance class System.Threading.Tasks.Task`1&lt;class System.Uri&gt; GetInitialUrlAsync(class System.Collections.Generic.Dictionary`2&lt;string, string&gt; custom_query_parameters) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebRedirectAuthenticator.GetInitialUrlAsync(System.Collections.Generic.Dictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Threading.Tasks.Task&lt;System.Uri&gt;</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="custom_query_parameters" Type="System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="custom_query_parameters">To be added.</param>
+        <summary>Method that returns the initial URL to be displayed in the web browser.</summary>
+        <returns>A task that will return the initial URL.</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="InitialUrl">
+      <MemberSignature Language="C#" Value="public Uri InitialUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri InitialUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebRedirectAuthenticator.InitialUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="IsLoadableRedirectUri">
+      <MemberSignature Language="C#" Value="public bool IsLoadableRedirectUri { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool IsLoadableRedirectUri" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebRedirectAuthenticator.IsLoadableRedirectUri" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Sets a value indicating whether this  
+            is loadable redirect URI.
+            
+            localhost, 127.0.0.1 and ::1 hosts will not be loadable</summary>
+        <value>true if is loadable redirect URI; otherwise, false.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageEncountered">
+      <MemberSignature Language="C#" Value="protected virtual void OnPageEncountered (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnPageEncountered(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageEncountered(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="url">URL of the page.</param>
+        <param name="query">The parsed query of the URL.</param>
+        <param name="fragment">The parsed fragment of the URL.</param>
+        <summary>Raised when a new page has been encountered.</summary>
+        <remarks>This is invoked on any event that has a URL:  and .
+            Not all platforms may support triggering , so this is provided as a blanket
+            method to check redirect URLs at the earliest possible time to avoid showing redirect pages if unnecessary.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageLoaded">
+      <MemberSignature Language="C#" Value="public override void OnPageLoaded (Uri url);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoaded(class System.Uri url) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoaded(System.Uri)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="url">The URL of the page.</param>
+        <summary>Event handler called when a page has completed loading.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnPageLoading">
+      <MemberSignature Language="C#" Value="public override void OnPageLoading (Uri url);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance void OnPageLoading(class System.Uri url) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebRedirectAuthenticator.OnPageLoading(System.Uri)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="url">The URL of the page.</param>
+        <summary>Event handler called when a new page is being loaded in the web browser.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="OnRedirectPageLoaded">
+      <MemberSignature Language="C#" Value="protected virtual void OnRedirectPageLoaded (Uri url, System.Collections.Generic.IDictionary&lt;string,string&gt; query, System.Collections.Generic.IDictionary&lt;string,string&gt; fragment);" />
+      <MemberSignature Language="ILAsm" Value=".method familyhidebysig newslot virtual instance void OnRedirectPageLoaded(class System.Uri url, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; query, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; fragment) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.WebRedirectAuthenticator.OnRedirectPageLoaded(System.Uri,System.Collections.Generic.IDictionary{System.String,System.String},System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="url" Type="System.Uri" />
+        <Parameter Name="query" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="fragment" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="url">URL of the page.</param>
+        <param name="query">The parsed query of the URL.</param>
+        <param name="fragment">The parsed fragment of the URL.</param>
+        <summary>Raised when the redirect page has been loaded.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Query">
+      <MemberSignature Language="C#" Value="public System.Collections.Generic.IDictionary&lt;string,string&gt; Query { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.IDictionary`2&lt;string, string&gt; Query" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebRedirectAuthenticator.Query" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="RedirectUrl">
+      <MemberSignature Language="C#" Value="public Uri RedirectUrl { get; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Uri RedirectUrl" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebRedirectAuthenticator.RedirectUrl" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Uri</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ShouldEncounterOnPageLoaded">
+      <MemberSignature Language="C#" Value="public bool ShouldEncounterOnPageLoaded { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool ShouldEncounterOnPageLoaded" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebRedirectAuthenticator.ShouldEncounterOnPageLoaded" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Sets a value indicating whether OnPageEncountered gets fired during OnPageLoaded.</summary>
+        <value>true if OnPageEncountered should be fired in OnPageLoaded; otherwise, false.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="ShouldEncounterOnPageLoading">
+      <MemberSignature Language="C#" Value="public bool ShouldEncounterOnPageLoading { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance bool ShouldEncounterOnPageLoading" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.WebRedirectAuthenticator.ShouldEncounterOnPageLoading" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Boolean</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Sets a value indicating whether OnPageEncountered gets fired during OnPageLoading.</summary>
+        <value>true if OnPageEncountered should be fired in OnPageLoading; otherwise, false.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

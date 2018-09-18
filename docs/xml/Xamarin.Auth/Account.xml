@@ -1,0 +1,271 @@
+<Type Name="Account" FullName="Xamarin.Auth.Account">
+  <TypeSignature Language="C#" Value="public class Account" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi beforefieldinit Account extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Account" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>An Account that represents an authenticated user of a social network.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Account ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>Initializes a new blank .</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Account (System.Collections.Generic.IDictionary&lt;string,string&gt; properties);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(class System.Collections.Generic.IDictionary`2&lt;string, string&gt; properties) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.#ctor(System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="properties" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="properties">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Account (string username);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string username) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.#ctor(System.String)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="username" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="username">The username for the account.</param>
+        <summary>Initializes an  with the given username.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Account (string username, System.Collections.Generic.IDictionary&lt;string,string&gt; properties);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string username, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; properties) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.#ctor(System.String,System.Collections.Generic.IDictionary{System.String,System.String})" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="username" Type="System.String" />
+        <Parameter Name="properties" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+      </Parameters>
+      <Docs>
+        <param name="username">The username for the account.</param>
+        <param name="properties">Properties for the account.</param>
+        <summary>Initializes an  with the given username and cookies.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Account (string username, System.Net.CookieContainer cookies);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string username, class System.Net.CookieContainer cookies) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.#ctor(System.String,System.Net.CookieContainer)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="username" Type="System.String" />
+        <Parameter Name="cookies" Type="System.Net.CookieContainer" />
+      </Parameters>
+      <Docs>
+        <param name="username">The username for the account.</param>
+        <param name="cookies">The cookies to be stored with the account.</param>
+        <summary>Initializes an  with the given username and cookies.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public Account (string username, System.Collections.Generic.IDictionary&lt;string,string&gt; properties, System.Net.CookieContainer cookies);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor(string username, class System.Collections.Generic.IDictionary`2&lt;string, string&gt; properties, class System.Net.CookieContainer cookies) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.#ctor(System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.Net.CookieContainer)" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters>
+        <Parameter Name="username" Type="System.String" />
+        <Parameter Name="properties" Type="System.Collections.Generic.IDictionary&lt;System.String,System.String&gt;" />
+        <Parameter Name="cookies" Type="System.Net.CookieContainer" />
+      </Parameters>
+      <Docs>
+        <param name="username">The username for the account.</param>
+        <param name="properties">Properties for the account.</param>
+        <param name="cookies">The cookies to be stored with the account.</param>
+        <summary>Initializes an  with the given username and cookies.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Cookies">
+      <MemberSignature Language="C#" Value="public virtual System.Net.CookieContainer Cookies { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Net.CookieContainer Cookies" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.Account.Cookies" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Net.CookieContainer</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>Cookies that are stored with the account for web services that control access using cookies.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Deserialize">
+      <MemberSignature Language="C#" Value="public static Xamarin.Auth.Account Deserialize (string serializedString);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig class Xamarin.Auth.Account Deserialize(string serializedString) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.Deserialize(System.String)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>Xamarin.Auth.Account</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="serializedString" Type="System.String" />
+      </Parameters>
+      <Docs>
+        <param name="serializedString">The serialized account generated by .</param>
+        <summary>Restores an account from its serialized string representation.</summary>
+        <returns>An  instance represented by .</returns>
+        <remarks>To be added.</remarks>
+        <altmember cref="M:Xamarin.Auth.Account.Serialize"></altmember>
+      </Docs>
+    </Member>
+    <Member MemberName="Properties">
+      <MemberSignature Language="C#" Value="public virtual System.Collections.Generic.Dictionary&lt;string,string&gt; Properties { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance class System.Collections.Generic.Dictionary`2&lt;string, string&gt; Properties" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.Account.Properties" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Collections.Generic.Dictionary&lt;System.String,System.String&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>A key-value store associated with this account. These get encrypted when the account is stored.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Serialize">
+      <MemberSignature Language="C#" Value="public string Serialize ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string Serialize() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.Serialize" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Serialize this account into a string that can be deserialized.</summary>
+        <returns>A string representing the  instance.</returns>
+        <remarks>To be added.</remarks>
+        <altmember cref="M:Xamarin.Auth.Account.Deserialize(System.String)"></altmember>
+      </Docs>
+    </Member>
+    <Member MemberName="Serialize">
+      <MemberSignature Language="C#" Value="public string Serialize (Uri uri);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance string Serialize(class System.Uri uri) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.Serialize(System.Uri)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="uri" Type="System.Uri" />
+      </Parameters>
+      <Docs>
+        <param name="uri">To be added.</param>
+        <summary>Serialize this account into a string that can be deserialized.</summary>
+        <returns>A string representing the  instance.</returns>
+        <remarks>To be added.</remarks>
+        <altmember cref="M:Xamarin.Auth.Account.Deserialize(System.String)"></altmember>
+      </Docs>
+    </Member>
+    <Member MemberName="ToString">
+      <MemberSignature Language="C#" Value="public override string ToString ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig virtual instance string ToString() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Account.ToString" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Parameters />
+      <Docs>
+        <summary>Returns a  that represents the current .</summary>
+        <returns>A  that represents the current .</returns>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Username">
+      <MemberSignature Language="C#" Value="public virtual string Username { get; set; }" />
+      <MemberSignature Language="ILAsm" Value=".property instance string Username" />
+      <MemberSignature Language="DocId" Value="P:Xamarin.Auth.Account.Username" />
+      <MemberType>Property</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.String</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>The username used as a key when storing this account.</summary>
+        <value>To be added.</value>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>

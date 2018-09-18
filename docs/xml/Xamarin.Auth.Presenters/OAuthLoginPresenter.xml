@@ -1,0 +1,117 @@
+<Type Name="OAuthLoginPresenter" FullName="Xamarin.Auth.Presenters.OAuthLoginPresenter">
+  <TypeSignature Language="C#" Value="public class OAuthLoginPresenter" />
+  <TypeSignature Language="ILAsm" Value=".class public auto ansi OAuthLoginPresenter extends System.Object" />
+  <TypeSignature Language="DocId" Value="T:Xamarin.Auth.Presenters.OAuthLoginPresenter" />
+  <AssemblyInfo>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+  </AssemblyInfo>
+  <Base>
+    <BaseTypeName>System.Object</BaseTypeName>
+  </Base>
+  <Interfaces />
+  <Docs>
+    <summary>To be added.</summary>
+    <remarks>To be added.</remarks>
+  </Docs>
+  <Members>
+    <Member MemberName=".ctor">
+      <MemberSignature Language="C#" Value="public OAuthLoginPresenter ();" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig specialname rtspecialname instance void .ctor() cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Presenters.OAuthLoginPresenter.#ctor" />
+      <MemberType>Constructor</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Parameters />
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Completed">
+      <MemberSignature Language="C#" Value="public event EventHandler&lt;Xamarin.Auth.AuthenticatorCompletedEventArgs&gt; Completed;" />
+      <MemberSignature Language="ILAsm" Value=".event class System.EventHandler`1&lt;class Xamarin.Auth.AuthenticatorCompletedEventArgs&gt; Completed" />
+      <MemberSignature Language="DocId" Value="E:Xamarin.Auth.Presenters.OAuthLoginPresenter.Completed" />
+      <MemberType>Event</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.EventHandler&lt;Xamarin.Auth.AuthenticatorCompletedEventArgs&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Init">
+      <MemberSignature Language="C#" Value="public static void Init (Android.Content.Context context, Android.OS.Bundle bundle);" />
+      <MemberSignature Language="ILAsm" Value=".method public static hidebysig void Init(class Android.Content.Context context, class Android.OS.Bundle bundle) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Presenters.OAuthLoginPresenter.Init(Android.Content.Context,Android.OS.Bundle)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="context" Type="Android.Content.Context" />
+        <Parameter Name="bundle" Type="Android.OS.Bundle" />
+      </Parameters>
+      <Docs>
+        <param name="context">To be added.</param>
+        <param name="bundle">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="Login">
+      <MemberSignature Language="C#" Value="public void Login (Xamarin.Auth.Authenticator authenticator);" />
+      <MemberSignature Language="ILAsm" Value=".method public hidebysig instance void Login(class Xamarin.Auth.Authenticator authenticator) cil managed" />
+      <MemberSignature Language="DocId" Value="M:Xamarin.Auth.Presenters.OAuthLoginPresenter.Login(Xamarin.Auth.Authenticator)" />
+      <MemberType>Method</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <ReturnValue>
+        <ReturnType>System.Void</ReturnType>
+      </ReturnValue>
+      <Parameters>
+        <Parameter Name="authenticator" Type="Xamarin.Auth.Authenticator" />
+      </Parameters>
+      <Docs>
+        <param name="authenticator">To be added.</param>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+    <Member MemberName="PlatformLogin">
+      <MemberSignature Language="C#" Value="public static Action&lt;Xamarin.Auth.Authenticator&gt; PlatformLogin;" />
+      <MemberSignature Language="ILAsm" Value=".field public static class System.Action`1&lt;class Xamarin.Auth.Authenticator&gt; PlatformLogin" />
+      <MemberSignature Language="DocId" Value="F:Xamarin.Auth.Presenters.OAuthLoginPresenter.PlatformLogin" />
+      <MemberType>Field</MemberType>
+      <AssemblyInfo>
+        <AssemblyVersion>1.0.0.0</AssemblyVersion>
+        <AssemblyName>Xamarin.Auth</AssemblyName>
+      </AssemblyInfo>
+      <Attributes>
+        <Attribute>
+          <AttributeName>System.Obsolete</AttributeName>
+        </Attribute>
+      </Attributes>
+      <ReturnValue>
+        <ReturnType>System.Action&lt;Xamarin.Auth.Authenticator&gt;</ReturnType>
+      </ReturnValue>
+      <Docs>
+        <summary>To be added.</summary>
+        <remarks>To be added.</remarks>
+      </Docs>
+    </Member>
+  </Members>
+</Type>
