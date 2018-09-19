@@ -116,7 +116,7 @@ namespace Xamarin.Auth.Sample.XamarinAndroid
             // Xamarin.Auth initialization
 
             // User-Agent tweaks for Embedded WebViews (UIWebView and WKWebView)
-            global::Xamarin.Auth.WebViewConfiguration.Android.UserAgent = "moljac++";
+            global::Xamarin.Auth.WebViewConfiguration.UserAgent = "moljac++";
 
             //................................................................
             // Xamarin.Auth CustomTabs Initialization/Customisation

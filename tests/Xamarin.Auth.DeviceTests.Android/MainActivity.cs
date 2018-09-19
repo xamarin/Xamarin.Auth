@@ -25,7 +25,11 @@ namespace Xamarin.Auth.DeviceTests.Droid
                 {
                     return Tests.RunAsync(new TestOptions
                     {
-                        Assemblies = new List<Assembly> { typeof(Utils).Assembly },
+                        Assemblies = new List<Assembly>
+                        {
+                            typeof(Utils).Assembly,
+                            typeof(PlatformUtils).Assembly
+                        },
                         NetworkLogHost = hostIp,
                         NetworkLogPort = hostPort,
                         Format = TestResultsFormat.XunitV2
@@ -34,13 +38,11 @@ namespace Xamarin.Auth.DeviceTests.Droid
             }
 
             // tests can be inside the main assembly
-            AddTestAssembly(Assembly.GetExecutingAssembly());
-            AddTestAssembly(typeof(Utils).Assembly);
-            AddExecutionAssembly(typeof(Utils).Assembly);
+            AddExecutionAssembly(typeof(MainActivity).Assembly);
 
             // or in any reference assemblies
-            //   AddTestAssembly(typeof(PortableTests).Assembly);
-            // or in any assembly that you load (since JIT is available)
+            AddTestAssembly(typeof(Utils).Assembly);
+            AddTestAssembly(typeof(PlatformUtils).Assembly);
 
 #if false
             // you can use the default or set your own custom writer (e.g. save to web site and tweet it ;-)

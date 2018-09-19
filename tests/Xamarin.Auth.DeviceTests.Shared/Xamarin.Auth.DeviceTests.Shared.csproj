@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <PackageReference Include="xunit" Version="2.4.0" />
-    <ProjectReference Include="..\..\source\Xamarin.Auth\Xamarin.Auth.csproj" />
+    <ProjectReference Include="..\..\source\Core\Xamarin.Auth.NetStandard\Xamarin.Auth.NetStandard.csproj" />
   </ItemGroup>
 
 </Project>

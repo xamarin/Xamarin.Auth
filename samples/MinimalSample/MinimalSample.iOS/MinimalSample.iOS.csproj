@@ -152,9 +152,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\Xamarin.Auth\Xamarin.Auth.csproj">
-      <Project>{8665ed52-4b78-4cc2-9f7b-aa7804746da8}</Project>
-      <Name>Xamarin.Auth</Name>
+    <ProjectReference Include="..\..\..\source\Core\Xamarin.Auth.iOS\Xamarin.Auth.iOS.csproj">
+      <Project>{f640d0dc-9b9e-44f6-8f52-386e530c82ec}</Project>
+      <Name>Xamarin.Auth.iOS</Name>
     </ProjectReference>
     <ProjectReference Include="..\MinimalSample\MinimalSample.csproj">
       <Project>{713DA82C-4FE2-46FB-8EA6-83F81A1A8933}</Project>

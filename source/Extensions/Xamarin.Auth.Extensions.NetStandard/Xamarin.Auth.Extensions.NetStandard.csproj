@@ -1,0 +1,63 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard1.0;netstandard1.1;portable-net45+win8+wp8+wpa81</TargetFrameworks>
+    <AssemblyName>Xamarin.Auth.Extensions</AssemblyName>
+    <RootNamespace>Xamarin.Auth.Extensions</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Title>Xamarin.Auth Extensions</Title>
+    <Description>A cross-platform API for authenticating users and storing their accounts.</Description>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
+    <Authors>Microsoft</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="3.0.0-preview1-03211-01" PrivateAssets="All" />
+    <PackageReference Include="PCLCrypto" Version="2.0.147" NoWarn="NU1701" />
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard\Xamarin.Auth.NetStandard.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);__NETSTANDARD__</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <Compile Include="..\Xamarin.Auth.Extensions\**\*.cs" />
+  </ItemGroup>
+
+  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard2'))" AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
+
+
+  <!-- .NET Standard 1.x and PCL use a generated source because it is easier to work with -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('portable')) or $(TargetFramework.StartsWith('netstandard1'))">
+    <Compile Remove="**\*" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.Extensions.cs" />
+  </ItemGroup>
+
+  <!-- the old targets (.NET Standard 1.x and PCL) need special NuGets -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+    <PackageReference Include="Validation" Version="2.2.8" PrivateAssets="All" NoWarn="NU1701" />
+    <PackageReference Include="PInvoke.NCrypt" Version="0.3.2" PrivateAssets="All" NoWarn="NU1701" />
+  </ItemGroup>
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1'))">
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;portable-net40+win8+wpa81</AssetTargetFallback>
+  </PropertyGroup>
+
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+
+  <ItemGroup>
+    <Compile Remove="..\Xamarin.Auth.Extensions\OAuth2AuthenticatorExtensions.shared.cs" />
+  </ItemGroup>
+
+</Project>

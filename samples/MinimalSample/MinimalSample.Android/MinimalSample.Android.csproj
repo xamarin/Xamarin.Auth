@@ -92,9 +92,9 @@
     <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\Xamarin.Auth\Xamarin.Auth.csproj">
-      <Project>{8665ed52-4b78-4cc2-9f7b-aa7804746da8}</Project>
-      <Name>Xamarin.Auth</Name>
+    <ProjectReference Include="..\..\..\source\Core\Xamarin.Auth.Android\Xamarin.Auth.Android.csproj">
+      <Project>{8143ea2e-a40c-482b-9d0f-3f61cf1645b5}</Project>
+      <Name>Xamarin.Auth.Android</Name>
     </ProjectReference>
     <ProjectReference Include="..\MinimalSample\MinimalSample.csproj">
       <Project>{713DA82C-4FE2-46FB-8EA6-83F81A1A8933}</Project>

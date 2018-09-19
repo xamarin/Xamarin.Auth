@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\source\Xamarin.Auth\Xamarin.Auth.csproj" />
+    <ProjectReference Include="..\..\source\Core\Xamarin.Auth.NetStandard\Xamarin.Auth.NetStandard.csproj" />
   </ItemGroup>
 
 </Project>

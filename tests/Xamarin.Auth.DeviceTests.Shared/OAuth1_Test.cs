@@ -6,7 +6,7 @@ namespace Xamarin.Auth.DeviceTests
 {
     public class OAuth1_Test
     {
-        private const string UriString = "https://xamarin.com";
+        private const string UriString = "https://xamarin.com/";
 
         [Fact]
         public void No_Parameters()

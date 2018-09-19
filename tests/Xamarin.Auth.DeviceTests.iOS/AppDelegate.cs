@@ -24,7 +24,11 @@ namespace Xamarin.Auth.DeviceTests.iOS
                     {
                         return Tests.RunAsync(new TestOptions
                         {
-                            Assemblies = new List<Assembly> { typeof(Utils).Assembly },
+                            Assemblies = new List<Assembly>
+                            {
+                                typeof(Utils).Assembly,
+                                typeof(PlatformUtils).Assembly
+                            },
                             NetworkLogHost = ip,
                             NetworkLogPort = port,
                             Format = TestResultsFormat.XunitV2
@@ -34,13 +38,11 @@ namespace Xamarin.Auth.DeviceTests.iOS
             }
 
             // We need this to ensure the execution assembly is part of the app bundle
-            AddExecutionAssembly(typeof(Utils).Assembly);
+            AddExecutionAssembly(typeof(AppDelegate).Assembly);
 
             // tests can be inside the main assembly
-            AddTestAssembly(Assembly.GetExecutingAssembly());
-
-
             AddTestAssembly(typeof(Utils).Assembly);
+            AddTestAssembly(typeof(PlatformUtils).Assembly);
 
             // otherwise you need to ensure that the test assemblies will
             // become part of the app bundle

@@ -43,7 +43,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
 
             // User-Agent API
             // iOS 8.x crash
-            //global::Xamarin.Auth.WebViewConfiguration.IOS.UserAgent = "moljac++";
+            //global::Xamarin.Auth.WebViewConfiguration.UserAgent = "moljac++";
 
 
             // make the window visible

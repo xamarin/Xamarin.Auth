@@ -79,9 +79,20 @@
     <PackageReference Include="UnitTests.HeadlessRunner" Version="2.0.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\source\Core\Xamarin.Auth.Android\Xamarin.Auth.Android.csproj">
+      <Project>{8143ea2e-a40c-482b-9d0f-3f61cf1645b5}</Project>
+      <Name>Xamarin.Auth.Android</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Xamarin.Auth.DeviceTests.Shared\Xamarin.Auth.DeviceTests.Shared.csproj">
+      <Project>{2b1de545-25eb-426f-803c-6fa213d2ec3c}</Project>
+      <Name>Xamarin.Auth.DeviceTests.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\Xamarin.Auth.DeviceTests.PlatformTests\**\*.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -98,16 +109,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\source\Xamarin.Auth\Xamarin.Auth.csproj">
-      <Project>{8665ed52-4b78-4cc2-9f7b-aa7804746da8}</Project>
-      <Name>Xamarin.Auth</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Xamarin.Auth.DeviceTests.Shared\Xamarin.Auth.DeviceTests.Shared.csproj">
-      <Project>{2b1de545-25eb-426f-803c-6fa213d2ec3c}</Project>
-      <Name>Xamarin.Auth.DeviceTests.Shared</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

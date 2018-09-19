@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;netstandard1.0; netstandard1.1; portable-net45+win8+wp8+wpa81</TargetFrameworks>
+    <AssemblyName>Xamarin.Auth.XamarinForms</AssemblyName>
+    <RootNamespace>Xamarin.Auth.XamarinForms</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Title>Xamarin.Auth for Xamarin.Forms</Title>
+    <Description>A cross-platform API for authenticating users and storing their accounts.</Description>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
+    <Authors>Microsoft</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+ </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.DotNet.BuildTools.GenAPI" Version="3.0.0-preview1-03211-01" PrivateAssets="All" />
+    <PackageReference Include="Xamarin.Forms" Version="3.1.0.583944" />
+    <ProjectReference Include="..\..\Core\Xamarin.Auth.NetStandard\Xamarin.Auth.NetStandard.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);__NETSTANDARD__</DefineConstants>
+  </PropertyGroup>
+
+  <ItemGroup Condition="$(TargetFramework.StartsWith('netstandard2'))">
+    <Compile Include="..\Xamarin.Auth.Forms\**\*.cs" />
+  </ItemGroup>
+
+  <Target Name="GenerateReferenceCode" Condition="$(TargetFramework.StartsWith('netstandard2'))"
+          AfterTargets="Build" DependsOnTargets="GenerateReferenceAssemblySource" />
+
+
+  <!-- .NET Standard 1.x and PCL use a generated source because it is easier to work with -->
+  <ItemGroup Condition="$(TargetFramework.StartsWith('portable')) or $(TargetFramework.StartsWith('netstandard1'))">
+    <Compile Remove="**\*" />
+    <Compile Include="bin\$(Configuration)\netstandard2.0\Xamarin.Auth.XamarinForms.cs" />
+  </ItemGroup>
+
+  <!-- the old targets (.NET Standard 1.x and PCL) need special NuGets -->
+  <PropertyGroup Condition="$(TargetFramework.StartsWith('netstandard1.0'))">
+    <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
+  </PropertyGroup>
+
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+</Project>

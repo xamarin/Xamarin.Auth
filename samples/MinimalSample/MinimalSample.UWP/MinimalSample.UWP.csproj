@@ -18,6 +18,7 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>MinimalSample.UWP_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>F9DCC3DAA694AF474F3B17F0A827219AF8429928</PackageCertificateThumbprint>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
     <DebugSymbols>true</DebugSymbols>
@@ -147,14 +148,17 @@
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.1.7" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\source\Xamarin.Auth\Xamarin.Auth.csproj">
-      <Project>{8665ed52-4b78-4cc2-9f7b-aa7804746da8}</Project>
-      <Name>Xamarin.Auth</Name>
+    <ProjectReference Include="..\..\..\source\Core\Xamarin.Auth.UWP\Xamarin.Auth.UWP.csproj">
+      <Project>{e2d4472f-d6cf-4116-bdb6-d9fd813b5528}</Project>
+      <Name>Xamarin.Auth.UWP</Name>
     </ProjectReference>
     <ProjectReference Include="..\MinimalSample\MinimalSample.csproj">
       <Project>{713DA82C-4FE2-46FB-8EA6-83F81A1A8933}</Project>
       <Name>MinimalSample</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="MinimalSample.UWP_TemporaryKey.pfx" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

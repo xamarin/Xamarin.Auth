@@ -52,7 +52,7 @@ namespace Xamarin.Auth.Sample.XamarinIOS
             //      and 
             //          WKWebView
             //  read the docs about pros and cons
-            Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView = false;
+            Xamarin.Auth.WebViewConfiguration.IsUsingWKWebView = false;
             //=================================================================
 
 

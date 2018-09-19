@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>xamarin.ios1.0;</TargetFrameworks>
+    <AssemblyName>Xamarin.Auth</AssemblyName>
+    <RootNamespace>Xamarin.Auth</RootNamespace>
+    <LangVersion>7.3</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Title>Xamarin.Auth</Title>
+    <Description>A cross-platform API for authenticating users and storing their accounts.</Description>
+    <Product>$(AssemblyName) ($(TargetFramework))</Product>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <AssemblyFileVersion>1.0.0.0</AssemblyFileVersion>
+    <Version>1.0.0</Version>
+    <Authors>Microsoft</Authors>
+    <NeutralLanguage>en</NeutralLanguage>
+    <Copyright>© Microsoft Corporation. All rights reserved.</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MSBuild.Sdk.Extras" Version="1.6.55" PrivateAssets="All" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <Reference Include="System.Runtime.Serialization" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\Xamarin.Auth\**\*.cs" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildSDKExtrasTargets)" Condition="Exists('$(MSBuildSDKExtrasTargets)')" />
+
+</Project>

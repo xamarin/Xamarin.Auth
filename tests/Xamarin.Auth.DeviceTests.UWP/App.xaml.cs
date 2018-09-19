@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Web;
 using UnitTests.HeadlessRunner;
+using UnitTests.HeadlessRunner.Xunit;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -31,7 +32,7 @@ namespace Xamarin.Auth.DeviceTests.UWP
                         {
                             Task.Run(() =>
                             {
-                                var xunitRunner = new UnitTests.HeadlessRunner.Xunit.XUnitTestInstrumentation
+                                var xunitRunner = new XUnitTestInstrumentation
                                 {
                                     NetworkLogEnabled = true,
                                     NetworkLogHost = ip,
@@ -65,8 +66,8 @@ namespace Xamarin.Auth.DeviceTests.UWP
 
         protected override void OnInitializeRunner()
         {
-            AddTestAssembly(typeof(App).GetTypeInfo().Assembly);
             AddTestAssembly(typeof(Utils).GetTypeInfo().Assembly);
+            AddTestAssembly(typeof(PlatformUtils).GetTypeInfo().Assembly);
         }
     }
 }

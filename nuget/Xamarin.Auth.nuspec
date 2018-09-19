@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Xamarin.Auth</id>
+    <version>1.0.0</version>
+    <title>Xamarin.Auth</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <licenseUrl>https://go.microsoft.com/fwlink/?linkid=2021795</licenseUrl>
+    <projectUrl>https://go.microsoft.com/fwlink/?linkid=2021816</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/xamarin/Auth/master/icons/xamarin.auth_512x512.png</iconUrl>
+    <description>A cross-platform API for authenticating users and storing their accounts.</description>
+    <releaseNotes>See: https://github.com/xamarin/Xamarin.Auth</releaseNotes>
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>xamarin, windows, uwp, ios, android, xamarin.forms, authentication, login</tags>
+    <repository url="https://github.com/xamarin/Xamarin.Auth" />
+    <dependencies>
+      <group targetFramework=".NETPortable0.0-Profile259">
+        <dependency id="Microsoft.Net.Http" version="2.2.29" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard1.1">
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Net.Http" version="4.3.0" exclude="Build,Analyzers" />
+        <dependency id="System.Net.Requests" version="4.3.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="MonoAndroid8.0">
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+        <dependency id="Xamarin.Android.Support.CustomTabs" version="26.1.0.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="MonoAndroid8.1">
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+        <dependency id="Xamarin.Android.Support.CustomTabs" version="27.0.2.1" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="UAP10.0.10240">
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.1.7" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="UAP10.0.16299">
+        <dependency id="Microsoft.NETCore.UniversalWindowsPlatform" version="6.1.7" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="Xamarin.iOS1.0">
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard1.0">
+        <dependency id="Microsoft.Bcl" version="1.1.10" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.Net.Http" version="2.2.29" exclude="Build,Analyzers" />
+        <dependency id="NETStandard.Library" version="1.6.1" exclude="Build,Analyzers" />
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Net.Requests" version="4.3.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Newtonsoft.Json" version="11.0.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+    <frameworkAssemblies>
+      <frameworkAssembly assemblyName="Java.Interop" targetFramework="MonoAndroid8.0, MonoAndroid8.1" />
+      <frameworkAssembly assemblyName="System.Runtime.Serialization" targetFramework="MonoAndroid8.0, MonoAndroid8.1, Xamarin.iOS1.0" />
+    </frameworkAssemblies>
+  </metadata>
+  <files>
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\monoandroid8.0\MonoAndroid80\Xamarin.Auth.xml" target="lib\monoandroid80\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\monoandroid8.0\MonoAndroid80\Xamarin.Auth.dll" target="lib\monoandroid80\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\monoandroid8.1\MonoAndroid81\Xamarin.Auth.xml" target="lib\monoandroid81\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\monoandroid8.1\MonoAndroid81\Xamarin.Auth.dll" target="lib\monoandroid81\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\netstandard1.0\Xamarin.Auth.xml" target="lib\netstandard1.0\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\netstandard1.0\Xamarin.Auth.dll" target="lib\netstandard1.0\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\netstandard1.1\Xamarin.Auth.xml" target="lib\netstandard1.1\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\netstandard1.1\Xamarin.Auth.dll" target="lib\netstandard1.1\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\netstandard2.0\Xamarin.Auth.xml" target="lib\netstandard2.0\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\netstandard2.0\Xamarin.Auth.dll" target="lib\netstandard2.0\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\portable-net45+win8+wp8+wpa81\Xamarin.Auth.xml" target="lib\portable-net45+win8+wp8+wpa81\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\portable-net45+win8+wp8+wpa81\Xamarin.Auth.dll" target="lib\portable-net45+win8+wp8+wpa81\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\uap10.0.10240\Xamarin.Auth.xml" target="lib\uap10.0.10240\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\uap10.0.10240\Xamarin.Auth.dll" target="lib\uap10.0.10240\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\uap10.0.10240\Xamarin.Auth.pri" target="lib\uap10.0.10240\Xamarin.Auth.pri" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\uap10.0.16299\Xamarin.Auth.xml" target="lib\uap10.0.16299\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\uap10.0.16299\Xamarin.Auth.dll" target="lib\uap10.0.16299\Xamarin.Auth.dll" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\uap10.0.16299\Xamarin.Auth.pri" target="lib\uap10.0.16299\Xamarin.Auth.pri" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\xamarin.ios1.0\Xamarin.Auth.xml" target="lib\xamarinios10\Xamarin.Auth.xml" />
+    <file src="C:\Projects\Xamarin.Auth\source\Xamarin.Auth\bin\Debug\xamarin.ios1.0\Xamarin.Auth.dll" target="lib\xamarinios10\Xamarin.Auth.dll" />
+  </files>
+</package>

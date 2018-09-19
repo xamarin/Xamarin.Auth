@@ -1,4 +1,4 @@
-﻿using System;
+﻿using LoginAccounts;
 using Xamarin.Auth;
 using Xamarin.Auth.Presenters;
 using Xamarin.Forms;
@@ -7,16 +7,10 @@ namespace MinimalSample
 {
     public partial class MainPage : ContentPage
     {
-        private class FacebookAuth
-        {
-            public const string ClientId = "1889013594699403";
-            public const string AuthScope = "basic";
-            public static readonly Uri AuthorizationUrl = new Uri("https://www.facebook.com/v3.1/dialog/oauth");
-            public static readonly Uri CallbackUrl = new Uri($"fb{ClientId}://authorize");
-        }
-
         public static readonly BindableProperty StatusTextProperty =
             BindableProperty.Create(nameof(StatusText), typeof(string), typeof(MainPage));
+
+        private readonly OAuth2Provider provider = new FacebookHttps();
 
         private Account currentAccount;
 
@@ -48,10 +42,10 @@ namespace MinimalSample
             StatusText = "Starting login...";
 
             var authenticator = new OAuth2Authenticator(
-                FacebookAuth.ClientId,
-                FacebookAuth.AuthScope,
-                FacebookAuth.AuthorizationUrl,
-                FacebookAuth.CallbackUrl);
+                provider.ClientId,
+                provider.Scope,
+                provider.AuthorizationUri,
+                provider.RedirectUri);
 
             var presenter = new OAuthLoginPresenter();
             presenter.Completed += OnAuthCompleted;
@@ -59,6 +53,29 @@ namespace MinimalSample
 
             LoginCommand.ChangeCanExecute();
             LogoutCommand.ChangeCanExecute();
+
+            async void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
+            {
+                if (e.IsAuthenticated)
+                {
+                    currentAccount = e.Account;
+
+                    StatusText = "Logging you in...";
+                    e.Account.Username = await provider.RetriveUsernameAsync(e.Account);
+                    StatusText = $"Welcome {e.Account.Username}!";
+                }
+                else
+                {
+                    currentAccount = null;
+
+                    StatusText = authenticator.HasCompleted ? "Login cancelled." : "Login failed.";
+                }
+
+                IsBusy = false;
+
+                LoginCommand.ChangeCanExecute();
+                LogoutCommand.ChangeCanExecute();
+            }
         }
 
         private void OnLogout()
@@ -66,27 +83,7 @@ namespace MinimalSample
             // TODO
 
             currentAccount = null;
-        }
-
-        private void OnAuthCompleted(object sender, AuthenticatorCompletedEventArgs e)
-        {
-            if (e.IsAuthenticated)
-            {
-                currentAccount = e.Account;
-                StatusText =
-                    $"Login completed successfully!\n" +
-                    $"Welcome {e.Account.Username}!";
-            }
-            else
-            {
-                currentAccount = null;
-                StatusText = "Login failed.";
-            }
-
-            IsBusy = false;
-
-            LoginCommand.ChangeCanExecute();
-            LogoutCommand.ChangeCanExecute();
+            StatusText = "Logged out.";
         }
     }
 }
