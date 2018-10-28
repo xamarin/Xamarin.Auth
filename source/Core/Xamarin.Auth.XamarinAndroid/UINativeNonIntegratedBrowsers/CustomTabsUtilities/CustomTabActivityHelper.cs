@@ -106,7 +106,7 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
 
 				CustomTabsHelper.AddKeepAliveExtra(activity, custom_tabs_intent.Intent);
 
-                custom_tabs_intent.LaunchUrl(activity, uri);
+                //custom_tabs_intent.LaunchUrl(activity, uri);
 				custom_tabs_activity_manager.CustomTabsServiceConnected +=
                                 // custom_tabs_activit_manager_CustomTabsServiceConnected
                                 delegate
