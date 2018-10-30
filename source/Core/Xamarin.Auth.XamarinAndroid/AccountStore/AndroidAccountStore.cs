@@ -48,9 +48,10 @@ namespace Xamarin.Auth._MobileServices
         // NOTE security hole! Left for backwards compatibility
         // PR56
         static readonly char[] PasswordHardCoded = "3295043EA18CA264B2C40E0B72051DEF2D07AD2B4593F43DDDE1515A7EC32617".ToCharArray();
+        static readonly char[] PasswordHardCodedOriginal = "System.Char[]".ToCharArray();
 
         public AndroidAccountStore(Context context)
-            : this(context, new string(PasswordHardCoded))
+			: this(context, new string(PasswordHardCoded))
         {
             return;
         }
@@ -67,6 +68,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 throw new ArgumentNullException("password");
             }
+           
             Password = password.ToCharArray();
 
             this.context = context;
@@ -104,7 +106,17 @@ namespace Xamarin.Auth._MobileServices
                     // that was encoded with the old hard coded password, which was deprecated.
                     // We'll try to open the keystore with the old password, and migrate the contents
                     // to a new one that will be encoded with the new password.
-                    MigrateKeyStore(context);
+                    //MigrateKeyStore(context);
+                    try
+                    {
+                        //try with the original password
+                        MigrateKeyStore(context, PasswordHardCodedOriginal);
+                    }
+                    catch (Java.IO.IOException ex2)
+                    {
+                        //migrate using the default
+                        MigrateKeyStore(context);
+                    }
                 }
             }
         }
@@ -211,7 +223,19 @@ namespace Xamarin.Auth._MobileServices
         }
 
         #region Migration of key store with hard coded password
+
+        //Keep for backward compatibility
         void MigrateKeyStore(Context context)
+        {
+            MigrateKeyStore(context, PasswordHardCoded);
+        }
+
+        /// <summary>
+        /// Migrates the key store.
+        /// </summary>
+        /// <param name="context">Context.</param>
+        /// <param name="password">Password.</param>
+        void MigrateKeyStore(Context context, char[] oldpassword)
         {
             // Moves aside the old keystore, opens it with the old hard coded password
             // and copies all entries to the new keystore, secured with the app provided password
@@ -225,13 +249,13 @@ namespace Xamarin.Auth._MobileServices
                 {
                     using (var s = context.OpenFileInput(FileName))
                     {
-                        ks.Load(s, PasswordHardCoded);
+                        ks.Load(s, oldpassword);
                     }
                 }
 
                 MoveKeyStoreFile(context, FileName, FileName + "Old");
                 LoadEmptyKeyStore(Password);
-                CopyKeyStoreContents();
+                CopyKeyStoreContents(oldpassword);
 
                 context.DeleteFile(FileName + "Old");
             }
@@ -254,14 +278,14 @@ namespace Xamarin.Auth._MobileServices
             context.DeleteFile(FileName);
         }
 
-        protected void CopyKeyStoreContents()
+        protected void CopyKeyStoreContents(char[] oldPassword)
         {
             var oldKeyStore = KeyStore.GetInstance(KeyStore.DefaultType);
-            var oldProtection = new KeyStore.PasswordProtection(PasswordHardCoded);
+            var oldProtection = new KeyStore.PasswordProtection(oldPassword);
 
             using (var s = context.OpenFileInput(FileName + "Old"))
             {
-                oldKeyStore.Load(s, PasswordHardCoded);
+                oldKeyStore.Load(s, oldPassword);
                 // Copy all aliases to a new keystore, using a different password
                 var aliases = oldKeyStore.Aliases();
                 while (aliases.HasMoreElements)
