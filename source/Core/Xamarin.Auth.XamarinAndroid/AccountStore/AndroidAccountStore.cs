@@ -51,7 +51,7 @@ namespace Xamarin.Auth._MobileServices
         static readonly char[] PasswordHardCodedOriginal = "System.Char[]".ToCharArray();
 
         public AndroidAccountStore(Context context)
-			: this(context, new string(PasswordHardCoded))
+            : this(context, new string(PasswordHardCoded))
         {
             return;
         }
