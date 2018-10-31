@@ -51,7 +51,7 @@ namespace Xamarin.Auth._MobileServices
         static readonly char[] PasswordHardCodedOriginal = "System.Char[]".ToCharArray();
 
         public AndroidAccountStore(Context context)
-			: this(context, new string(PasswordHardCoded))
+            : this(context, new string(PasswordHardCoded))
         {
             return;
         }
@@ -112,7 +112,7 @@ namespace Xamarin.Auth._MobileServices
                         //try with the original password
                         MigrateKeyStore(context, PasswordHardCodedOriginal);
                     }
-                    catch (Java.IO.IOException ex2)
+                    catch ()
                     {
                         //migrate using the default
                         MigrateKeyStore(context);
