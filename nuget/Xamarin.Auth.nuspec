@@ -24,11 +24,10 @@
         http://semver.org/
         -->
 		<version>
-			1.6.0.2
+			1.6.0.3
 		</version>
 		<releaseNotes>
-            - Xamarin.Android KeyStore not initialized fix
-			- cake script fixes for VS2015 and older projects
+            - Fix migrations from old PasswordHardCoded value to new
 		</releaseNotes>
         <licenseUrl>
             https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
