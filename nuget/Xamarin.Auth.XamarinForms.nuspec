@@ -11,13 +11,13 @@
 			Xamarin.Auth.XamarinForms
 		</title>
 		<authors>
-			Xamarin
+			Microsoft
 		</authors>
 		<owners>
-			Xamarin
+			Microsoft
 		</owners>
 		<copyright>
-			Copyright 2013-2018
+			© Microsoft Corporation. All rights reserved.
 		</copyright>
 		<!--
 		SemVer - Semantic Versioning
@@ -39,7 +39,7 @@
 			https://xamarin-component-icons.s3.amazonaws.com/Xamarin.Auth.png
 		</iconUrl>
 		<requireLicenseAcceptance>
-			false
+			true
 		</requireLicenseAcceptance>
 		<description>
 			A cross-platform API for authenticating users and storing their accounts.
