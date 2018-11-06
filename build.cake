@@ -1990,7 +1990,8 @@ Task ("nuget")
                         OutputDirectory = "./output/",        
                         BasePath = "./",
                         Symbols = true,
-                        ToolPath = nuget_4
+                        ToolPath = nuget_4,
+                        RequireLicenseAcceptance = true
                     }
                 );                
             NuGetPack 
@@ -2002,7 +2003,8 @@ Task ("nuget")
                         OutputDirectory = "./output/",        
                         BasePath = "./",
                         Symbols = true,
-                        ToolPath = nuget_4
+                        ToolPath = nuget_4,
+                        RequireLicenseAcceptance = true
                     }
                 );                
             NuGetPack 
@@ -2014,7 +2016,8 @@ Task ("nuget")
                         OutputDirectory = "./output/",        
                         BasePath = "./",
                         Symbols = true,
-                        ToolPath = nuget_4
+                        ToolPath = nuget_4,
+                        RequireLicenseAcceptance = true
                     }
                 );                
         }
