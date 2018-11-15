@@ -298,6 +298,11 @@
         </file>
         -->		
         <file
+            src="output/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xbf"
+            target="lib/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xbf"
+            >
+        </file>
+        <file
             src="output/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
             target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.xr.xml"
             >
