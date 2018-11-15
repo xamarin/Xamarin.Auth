@@ -24,7 +24,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.6.0.3
+			1.6.0.4
 		</version>
 		<releaseNotes>
             - Fix migrations from old PasswordHardCoded value to new
