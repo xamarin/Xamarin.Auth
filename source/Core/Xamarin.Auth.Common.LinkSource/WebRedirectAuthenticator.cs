@@ -187,7 +187,7 @@ namespace Xamarin.Auth._MobileServices
             return;
         }
 
-        private bool UrlMatchesRedirect(Uri url)
+        protected bool UrlMatchesRedirect(Uri url)
         {
             // mc++
             // TODO: schemas
