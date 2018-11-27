@@ -32,6 +32,9 @@ namespace Xamarin.Auth.WindowsUWP
     {
         public override async Task<List<Account>> FindAccountsForServiceAsync(string serviceId)
         {
+            if (serviceId?.Length == 0)
+                throw new ArgumentNullException(nameof(serviceId));
+
             var localFolder = ApplicationData.Current.LocalFolder;
 
             var files = await localFolder.GetFilesAsync().AsTask().ConfigureAwait(false);
@@ -59,6 +62,13 @@ namespace Xamarin.Auth.WindowsUWP
 
         public override async Task DeleteAsync(Account account, string serviceId)
         {
+            if (account == null)
+                throw new ArgumentNullException(nameof(account));
+            if (account.Username?.Length == 0)
+                throw new ArgumentOutOfRangeException(nameof(account), "Username cannot be empty");
+            if (serviceId?.Length == 0)
+                throw new ArgumentNullException(nameof(serviceId));
+
             var path = GetAccountPath(account, serviceId);
             try
             {
@@ -72,26 +82,21 @@ namespace Xamarin.Auth.WindowsUWP
             }
         }
 
-        public override async Task SaveAsync(Account account, string serviceId)
+        public override Task SaveAsync(Account account, string serviceId)
         {
-            byte[] data = Encoding.UTF8.GetBytes(account.Serialize());
-            byte[] prot = (await DataProtectionExtensions.ProtectAsync(data.AsBuffer()).ConfigureAwait(false)).ToArray();
-
-            var path = GetAccountPath(account, serviceId);
-
-            var localFolder = ApplicationData.Current.LocalFolder;
-            var file = await localFolder.CreateFileAsync(path, CreationCollisionOption.OpenIfExists).AsTask().ConfigureAwait(false);
-            using (var stream = await file.OpenStreamForWriteAsync().ConfigureAwait(false))
-            using (var writer = new BinaryWriter(stream))
-            {
-                writer.Write((Int32)prot.Length);
-                writer.Write(prot);
-            }
+            return SaveAsync(account, serviceId, null);
         }
 
         public async Task SaveAsync(Account account, string serviceId, Uri uri)
         {
-            byte[] data = Encoding.UTF8.GetBytes(account.Serialize(uri));
+            if (account == null)
+                throw new ArgumentNullException(nameof(account));
+            if (account.Username?.Length == 0)
+                throw new ArgumentOutOfRangeException(nameof(account), "Username cannot be empty");
+            if (serviceId?.Length == 0)
+                throw new ArgumentNullException(nameof(serviceId));
+
+            byte[] data = Encoding.UTF8.GetBytes(uri == null ? account.Serialize() : account.Serialize(uri));
             byte[] prot = (await DataProtectionExtensions.ProtectAsync(data.AsBuffer()).ConfigureAwait(false)).ToArray();
 
             var path = GetAccountPath(account, serviceId);
@@ -108,7 +113,20 @@ namespace Xamarin.Auth.WindowsUWP
 
         private static string GetAccountPath(Account account, string serviceId)
         {
-            return String.Format("xamarin.auth.{0}.{1}", account.Username, serviceId);
+            if (account == null)
+                throw new ArgumentNullException(nameof(account));
+            if (account.Username?.Length == 0)
+                throw new ArgumentOutOfRangeException(nameof(account), "Username cannot be empty");
+            if (serviceId?.Length == 0)
+                throw new ArgumentNullException(nameof(serviceId));
+
+            string fileName = account.Username;
+            foreach (char c in Path.GetInvalidFileNameChars())
+            {
+                fileName = fileName.Replace(c, '_');
+            }
+
+            return $"xamarin.auth.{fileName}.{serviceId}";
         }
     }
 }
