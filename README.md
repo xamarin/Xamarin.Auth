@@ -674,7 +674,7 @@ request.GetResponseAsync().ContinueWith
 
 ### 4.2 Store the account
 
-**NOTE: `AccountStore` is now deprecated.  We recommend using [Xamarin.Essentials SecureStorage](https://docs.microsoft.com/en-us/xamarin/essentials/secure-storage) as a replacement.  We have written a [migration guide](https://github.com/xamarin/Xamarin.Auth/wiki/Migrating-from-AccountStore-to-Xamarin.Essentials-SecureStorage) which includes a helper class for migrating both your data and code to use Xamarin.Essentials SecureStorage.**
+**NOTE: `AccountStore` is now deprecated.  We recommend using [Xamarin.Essentials SecureStorage](https://docs.microsoft.com/en-us/xamarin/essentials/secure-storage) as a replacement.  We have written a [migration guide](https://aka.ms/xamarin-auth-accountstore-migration-guide) which includes a helper class for migrating both your data and code to use Xamarin.Essentials SecureStorage.**
 
 Xamarin.Auth securely stores `Account` objects so that users don't always have to re-authenticate 
 the user. The `AccountStore` class is responsible for storing `Account` information, backed by 
@@ -687,7 +687,7 @@ Creating `AccountStore` on Android:
 
 ```csharp
 // On Android:
-// DEPRECATED: See the [Xamarin.Essentials SecureStorage Migration Guide](https://github.com/xamarin/Xamarin.Auth/wiki/Migrating-from-AccountStore-to-Xamarin.Essentials-SecureStorage)
+// DEPRECATED: See https://aka.ms/xamarin-auth-accountstore-migration-guide
 AccountStore.Create (this).Save (eventArgs.Account, "Facebook");
 ```
 
@@ -696,7 +696,7 @@ Creating `AccountStore` on iOS:
 
 ```csharp
 // On iOS:
-// DEPRECATED: See the [Xamarin.Essentials SecureStorage Migration Guide](https://github.com/xamarin/Xamarin.Auth/wiki/Migrating-from-AccountStore-to-Xamarin.Essentials-SecureStorage)
+// DEPRECATED: See https://aka.ms/xamarin-auth-accountstore-migration-guide
 AccountStore.Create ().Save (eventArgs.Account, "Facebook");
 ```
 
@@ -718,7 +718,7 @@ Retrieving accounts on Android:
 
 ```csharp
 // On Android:
-// DEPRECATED: See the [Xamarin.Essentials SecureStorage Migration Guide](https://github.com/xamarin/Xamarin.Auth/wiki/Migrating-from-AccountStore-to-Xamarin.Essentials-SecureStorage)
+// DEPRECATED: See https://aka.ms/xamarin-auth-accountstore-migration-guide
 IEnumerable<Account> accounts = AccountStore.Create (this).FindAccountsForService ("Facebook");
 ```
 
@@ -727,7 +727,7 @@ Retrieving accounts on iOS:
 
 ```csharp
 // On iOS:
-// DEPRECATED: See the [Xamarin.Essentials SecureStorage Migration Guide](https://github.com/xamarin/Xamarin.Auth/wiki/Migrating-from-AccountStore-to-Xamarin.Essentials-SecureStorage)
+// DEPRECATED: See https://aka.ms/xamarin-auth-accountstore-migration-guide
 IEnumerable<Account> accounts = AccountStore.Create ().FindAccountsForService ("Facebook");
 ```
 
