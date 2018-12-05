@@ -71,23 +71,26 @@ namespace Xamarin.Auth
 
         protected void ShowErrorForNativeUIAlert(string v)
         {
-            new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
-                                (
-                                    () =>
-                                    {
-                                        UIKit.UIAlertView alert = null;
-                                        alert = new UIKit.UIAlertView
-                                                        (
-                                                            "WARNING", 
-                                                            v, 
-                                                            null, 
-                                                            "Ok", 
-                                                            null
-                                                        );
-                        				alert.Show();                                        
-                                    }
-                                );
-            return;
+            if (this.ShowErrors)
+            {
+                new Plugin.Threading.UIThreadRunInvoker().BeginInvokeOnUIThread
+                                    (
+                                        () =>
+                                        {
+                                            UIKit.UIAlertView alert = null;
+                                            alert = new UIKit.UIAlertView
+                                                            (
+                                                                "WARNING",
+                                                                v,
+                                                                null,
+                                                                "Ok",
+                                                                null
+                                                            );
+                                            alert.Show();
+                                        }
+                                    );
+                return;
+            }
         }
     }
 }
