@@ -70,28 +70,31 @@ namespace Xamarin.Auth._MobileServices
 
         protected void ShowErrorForNativeUIAlert(string v)
         {
-            global::Android.Content.Context c = global::Android.App.Application.Context;
-            new Plugin.Threading.UIThreadRunInvoker(c).BeginInvokeOnUIThread
-                                (
-                                    () =>
-                                    {
-                                        var b = new global::Android.App.AlertDialog.Builder(c);
-                                        b.SetMessage(v);
-                                        b.SetTitle("Warning");
-                                        b.SetNeutralButton
-                                         (
-                                             "OK", 
-                                             (s, e) =>
-                                            {
-                                                ((global::Android.App.AlertDialog)s).Cancel();
-                                            }
-                                        );
-                                        var alert = b.Create();
-                                        alert.Show();
+            if (this.ShowErrors)
+            {
+                global::Android.Content.Context c = global::Android.App.Application.Context;
+                new Plugin.Threading.UIThreadRunInvoker(c).BeginInvokeOnUIThread
+                                    (
+                                        () =>
+                                        {
+                                            var b = new global::Android.App.AlertDialog.Builder(c);
+                                            b.SetMessage(v);
+                                            b.SetTitle("Warning");
+                                            b.SetNeutralButton
+                                             (
+                                                 "OK",
+                                                 (s, e) =>
+                                                {
+                                                    ((global::Android.App.AlertDialog)s).Cancel();
+                                                }
+                                            );
+                                            var alert = b.Create();
+                                            alert.Show();
 
-                                    }
-                                );
-            return;
+                                        }
+                                    );
+                return;
+            }
         }
     }
 }
