@@ -133,6 +133,11 @@ namespace Xamarin.Auth._MobileServices
             return;
         }
 
+        public override bool CanNavigateTo(Uri uri)
+        {
+            return !UrlMatchesRedirect(uri);
+        }
+
         /// <summary>
         /// Raised when a new page has been encountered.
         /// </summary>

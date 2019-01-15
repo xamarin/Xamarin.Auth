@@ -69,8 +69,12 @@ namespace Xamarin.Auth._MobileServices
                 #endif
 
                 bool should_override = false;
-
-                if (url != null && scheme == "http" /*url.StartsWith("http://")*/)
+                
+                if(Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out Uri uri) && !activity.state.Authenticator.CanNavigateTo(uri))
+                {
+                    should_override = true;
+                }
+                else if (url != null && scheme == "http" /*url.StartsWith("http://")*/)
                 {
                     should_override = false;
                 }

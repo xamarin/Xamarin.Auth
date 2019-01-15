@@ -90,6 +90,11 @@ namespace Xamarin.Auth._MobileServices
             return;
         }
 
+        public virtual bool CanNavigateTo(Uri uri)
+        {
+            return true;
+        }
+
         /// <summary>
         /// Event handler called when a new page has been loaded in the web browser.
         /// Implementations should call <see cref="Authenticator.OnSucceeded(Xamarin.Auth.Account)"/> if this page
