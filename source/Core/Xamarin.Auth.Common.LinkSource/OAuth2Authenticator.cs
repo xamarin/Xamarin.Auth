@@ -738,7 +738,7 @@ namespace Xamarin.Auth._MobileServices
             //
             // Check for forgeries
             //
-            if (all.ContainsKey("state"))
+            if (all.ContainsKey("state") && UrlMatchesRedirect(url))
             {
                 if (all["state"] != request_state.RandomStringUriEscaped && !reportedForgery)
                 {
