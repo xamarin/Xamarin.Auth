@@ -163,7 +163,7 @@ namespace Xamarin.Auth._MobileServices
             //
             // Check for errors
             //
-            if (all.ContainsKey("error"))
+            if (all.ContainsKey("error") && UrlMatchesRedirect(url))
             {
                 string description = all["error"];
                 if (all.ContainsKey("error_description"))
