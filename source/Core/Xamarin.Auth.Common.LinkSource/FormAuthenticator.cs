@@ -75,20 +75,26 @@ namespace Xamarin.Auth._MobileServices
 		/// </param>
 		public FormAuthenticator (Uri createAccountLink = null)
 		{
-			Fields = new List<FormAuthenticatorField> ();
 			CreateAccountLink = createAccountLink;
+            Initialize();
 		}
 
-		/// <summary>
-		/// Gets the value of a field using its key.
-		/// </summary>
-		/// <returns>
-		/// The field value.
-		/// </returns>
-		/// <param name='key'>
-		/// The key of the field.
-		/// </param>
-		public string GetFieldValue (string key)
+        public override void Initialize()
+        {
+            base.Initialize();
+            Fields = new List<FormAuthenticatorField> ();
+        }
+
+        /// <summary>
+        /// Gets the value of a field using its key.
+        /// </summary>
+        /// <returns>
+        /// The field value.
+        /// </returns>
+        /// <param name='key'>
+        /// The key of the field.
+        /// </param>
+        public string GetFieldValue (string key)
 		{
 			var f = Fields.FirstOrDefault (x => x.Key == key);
 			return (f != null) ? f.Value : null;

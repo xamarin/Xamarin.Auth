@@ -51,7 +51,7 @@ namespace Xamarin.Auth._MobileServices
         Uri redirectUrl;
         Uri accessTokenUrl;
         GetUsernameAsyncFunc getUsernameAsync;
-
+        
 
         #region     State
         //---------------------------------------------------------------------------------------
@@ -78,6 +78,12 @@ namespace Xamarin.Auth._MobileServices
         #endregion  State
 
         bool reportedForgery = false;
+        
+        /// <summary>
+        /// Gets the UseOriginalURL parameter.
+        /// </summary>
+        /// <value>The UseOriginalURL parameter</value>
+        public bool UseOriginalURL { get; private set; }
 
         #region
         //---------------------------------------------------------------------------------------
@@ -120,6 +126,18 @@ namespace Xamarin.Auth._MobileServices
             get
             {
                 return this.authorizeUrl;
+            }
+        }
+
+        /// <summary>
+        /// Gets the redirect URL.
+        /// </summary>
+        /// <value>The redirect URL.</value>
+        public Uri RedirectUrl 
+        { 
+            get
+            {
+                return this.redirectUrl;
             }
         }
 
@@ -184,13 +202,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 return
                     // AccessToken url is defined
-                    accessTokenUrl != null                      
-                    &&
-                    // Client Secret MAY be defined
-                    //
-                    // true
-                    ( string.IsNullOrWhiteSpace(clientSecret) || !string.IsNullOrWhiteSpace(clientSecret) )  
-                    ;
+                    accessTokenUrl != null;
             }
         }
 
@@ -229,6 +241,10 @@ namespace Xamarin.Auth._MobileServices
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
+        /// <param name="useOriginalUrl">
+        /// Instructs this class to preserve original URLs, as passed to this constructor, rather than add trailing "/" to some URLs.
+        /// For backwards compatibility this parameter defaults to false.
+        /// </param>
         public OAuth2Authenticator
                         (
                             string clientId,
@@ -236,7 +252,8 @@ namespace Xamarin.Auth._MobileServices
                             Uri authorizeUrl,
                             Uri redirectUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = false
+                            bool isUsingNativeUI = false,
+                            bool useOriginalUrl = false
                         )
             : this(redirectUrl)
         {
@@ -266,15 +283,9 @@ namespace Xamarin.Auth._MobileServices
 
             this.accessTokenUrl = null;
 
-            #region
-            //---------------------------------------------------------------------------------------
-            /// Pull Request - manually added/fixed
-            ///		OAuth2Authenticator changes to work with joind.in OAuth #91
-            ///		https://github.com/xamarin/Xamarin.Auth/pull/91
-            ///		
-            this.RequestParameters = new Dictionary<string, string>();
-            ///---------------------------------------------------------------------------------------
-            #endregion
+            this.UseOriginalURL = useOriginalUrl;
+
+            Initialize();
 
             #if DEBUG
             StringBuilder sb = new StringBuilder();
@@ -313,6 +324,10 @@ namespace Xamarin.Auth._MobileServices
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
+        /// <param name="useOriginalUrl">
+        /// Instructs this class to preserve original URLs, as passed to this constructor, rather than add trailing "/" to some URLs.
+        /// For backwards compatibility this parameter defaults to false.
+        /// </param>
         public OAuth2Authenticator
                         (
                             string clientId,
@@ -322,7 +337,8 @@ namespace Xamarin.Auth._MobileServices
                             Uri redirectUrl,
                             Uri accessTokenUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = false
+                            bool isUsingNativeUI = false,
+                            bool useOriginalUrl = false
                         )
             : this(redirectUrl, clientSecret, accessTokenUrl)
         {
@@ -397,6 +413,10 @@ namespace Xamarin.Auth._MobileServices
 
             this.getUsernameAsync = getUsernameAsync;   // Xamarin.legacy
 
+            this.UseOriginalURL = useOriginalUrl;
+
+            Initialize();
+
             return;
         }
 
@@ -410,10 +430,11 @@ namespace Xamarin.Auth._MobileServices
             : base(redirectUrl, redirectUrl)
         {
             this.is_using_native_ui = isUsingNativeUI;
-            this.State = new OAuth2.State();
-
 			this.redirectUrl = redirectUrl;
 			this.accessTokenUrl = accessTokenUrl;
+            this.UseOriginalURL = false;
+
+            Initialize();
 
 			Verify();
 
@@ -438,6 +459,27 @@ namespace Xamarin.Auth._MobileServices
             return;
         }
 
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            this.State = new OAuth2.State();
+
+             #region
+            //---------------------------------------------------------------------------------------
+            /// Pull Request - manually added/fixed
+            ///		OAuth2Authenticator changes to work with joind.in OAuth #91
+            ///		https://github.com/xamarin/Xamarin.Auth/pull/91
+            ///		
+            this.RequestParameters = new Dictionary<string, string>();
+            ///---------------------------------------------------------------------------------------
+            #endregion
+
+            this.reportedForgery = false;
+
+            return;
+        }
+
         protected void Verify()
         {
             if (redirectUrl == null)
@@ -457,20 +499,6 @@ namespace Xamarin.Auth._MobileServices
         /// </returns>
         public override Task<Uri> GetInitialUrlAsync(Dictionary<string, string> custom_query_parameters = null)
         {
-            /*
-			 	mc++
-				OriginalString property of the Uri object should be used instead of AbsoluteUri
-				otherwise trailing slash is added.
-			*/
-            string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
-
-            #if DEBUG
-            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
-
-            System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.AbsoluteUri    = " + oauth_redirect_uri_absolute);
-            System.Diagnostics.Debug.WriteLine("GetInitialUrlAsync callbackUrl.OriginalString = " + oauth_redirect_uri_original);
-            #endif
-
             #region
             //---------------------------------------------------------------------------------------
             /// Pull Request - manually added/fixed
@@ -495,7 +523,14 @@ namespace Xamarin.Auth._MobileServices
             //string queryString = string.Join ("&", query.Select (i => i.Key + "=" + Uri.EscapeDataString (i.Value)));
             string queryString = string.Join("&", RequestParameters.Select(i => i.Key + "=" + i.Value));
 
-            Uri url = string.IsNullOrEmpty(queryString) ? this.authorizeUrl : new Uri(this.authorizeUrl.AbsoluteUri + "?" + queryString);
+            if (!string.IsNullOrEmpty(queryString))
+            {
+                queryString = "?" + queryString;
+            }
+
+            string baseUrl = this.UseOriginalURL ? this.authorizeUrl.OriginalString : this.authorizeUrl.AbsoluteUri;
+
+            Uri url = new Uri(baseUrl + queryString);
             //---------------------------------------------------------------------------------------
             #endregion
 
@@ -533,14 +568,12 @@ namespace Xamarin.Auth._MobileServices
             //--------------------------------------------------------------------------------------- 
 
             //--------------------------------------------------------------------------------------- 
-            string oauth_redirect_uri_original = this.redirectUrl.OriginalString;
-            string oauth_redirect_uri_absolute = this.redirectUrl.AbsoluteUri;
             if (this.redirectUrl != null)
             {
                 oauth_request_query_parameters.Add
                                                 (
                                                     "redirect_uri",
-                                                    Uri.EscapeDataString(oauth_redirect_uri_original)
+                                                    Uri.EscapeDataString(this.redirectUrl.OriginalString)
                                                 );
             }
             //---------------------------------------------------------------------------------------
@@ -622,8 +655,6 @@ namespace Xamarin.Auth._MobileServices
         /// <summary>
         /// OAuth flow response type verification
         /// 1. 
-        /// 
-        /// 
         ///     https://alexbilbie.com/guide-to-oauth-2-grants/
         /// 
         /// </summary>
@@ -735,8 +766,14 @@ namespace Xamarin.Auth._MobileServices
         protected override void OnPageEncountered(Uri url, IDictionary<string, string> query, IDictionary<string, string> fragment)
         {
             var all = new Dictionary<string, string>(query);
+
+            foreach (var kv in fragment)
+            {
+                all[kv.Key] = kv.Value;
+            }
+
             //
-            // Check for forgeries
+            // Check for CSRF forgeries
             //
             if (all.ContainsKey("state"))
             {
@@ -827,8 +864,6 @@ namespace Xamarin.Auth._MobileServices
                     OnError("Expected " + AccessTokenName + " in response, but did not receive one.");
                     //---------------------------------------------------------------------------------------
                     #endregion
-
-                    return;
                 }
             }
         }
@@ -850,7 +885,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 { "grant_type", "authorization_code" },
                 { "code", code },
-                { "redirect_uri", redirectUrl.AbsoluteUri },
+                { "redirect_uri", this.UseOriginalURL ? redirectUrl.OriginalString : redirectUrl.AbsoluteUri },
                 { "client_id", clientId },
             };
             if (!string.IsNullOrEmpty(clientSecret))
@@ -871,10 +906,12 @@ namespace Xamarin.Auth._MobileServices
             // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
             var content = new FormUrlEncodedContent(queryValues);
 
-
-            HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
-            string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            string text;
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
+                text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            }
 
             // Parse the response
             var data = text.Contains("{") ? WebEx.JsonDecode(text) : WebEx.FormDecode(text);
@@ -889,24 +926,11 @@ namespace Xamarin.Auth._MobileServices
             ///		OAuth2Authenticator changes to work with joind.in OAuth #91
             ///		https://github.com/xamarin/Xamarin.Auth/pull/91
             ///		
-            //else if (data.ContainsKey("access_token"))
-            else if (data.ContainsKey(AccessTokenName))
             //---------------------------------------------------------------------------------------
             #endregion
+            else if (!data.ContainsKey(AccessTokenName))
             {
-            }
-            else
-            {
-                #region
-                //---------------------------------------------------------------------------------------
-                /// Pull Request - manually added/fixed
-                ///		OAuth2Authenticator changes to work with joind.in OAuth #91
-                ///		https://github.com/xamarin/Xamarin.Auth/pull/91
-                ///		
-                //throw new AuthException ("Expected access_token in access token response, but did not receive one.");
                 throw new AuthException("Expected " + AccessTokenName + " in access token response, but did not receive one.");
-                //---------------------------------------------------------------------------------------
-                #endregion
             }
 
             return data;
