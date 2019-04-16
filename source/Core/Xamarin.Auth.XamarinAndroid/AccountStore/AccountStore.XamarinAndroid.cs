@@ -36,7 +36,12 @@ namespace Xamarin.Auth._MobileServices
         /// <summary>
         /// Create an account store.
         /// </summary>
-        [Obsolete("Insecure version with hardcoded password. Please use AccountStore.Create(Context, string)")]
+        [Obsolete
+            (
+            @"Use Xamarin.Essentials SecureStorage instead: https://aka.ms/xamarin-auth-accountstore-migration-guide
+             Insecure version with hardcoded password. Please use AccountStore.Create(Context, string)"
+            )
+        ]
         public static AccountStore Create(global::Android.Content.Context context)
         {
             StringBuilder sb = new StringBuilder();
@@ -54,6 +59,15 @@ namespace Xamarin.Auth._MobileServices
             return new AndroidAccountStore(context);
         }
 
+        /// <summary>
+        /// AccountStore Create method overload
+        /// 
+        /// Password string is needed on Android and it is not used on other platforms.
+        /// This way hardcoded passwords in Android code  avoided
+        /// </summary>
+        /// <returns>Created AccountStore</returns>
+        /// <param name="password">Password used for the Store (Android, ignored on other platforms</param>
+        [Obsolete("Use Xamarin.Essentials SecureStorage instead: https://aka.ms/xamarin-auth-accountstore-migration-guide")]
         public static AccountStore Create(global::Android.Content.Context context, string password)
         {
             return new AndroidAccountStore(context, password);
@@ -63,16 +77,26 @@ namespace Xamarin.Auth._MobileServices
         /// Create the specified context.
         /// </summary>
         /// <param name="context">Context.</param>
-        [Obsolete("Insecure version with hardcoded password. Please use AccountStore.Create(Context, string)")]
+        [Obsolete
+            (
+            @"Use Xamarin.Essentials SecureStorage instead: https://aka.ms/xamarin-auth-accountstore-migration-guide
+             Insecure version with hardcoded password. Please use AccountStore.Create(Context, string)"
+            )
+        ]
         public static AccountStore Create()
         {
             return Create(global::Android.App.Application.Context);
         }
 
         /// <summary>
-        /// Create the specified context.
+        /// AccountStore Create method overload
+        /// 
+        /// Password string is needed on Android and it is not used on other platforms.
+        /// This way hardcoded passwords in Android code  avoided
         /// </summary>
-        /// <param name="password">Password.</param>
+        /// <returns>Created AccountStore</returns>
+        /// <param name="password">Password used for the Store (Android, ignored on other platforms</param>
+        [Obsolete("Use Xamarin.Essentials SecureStorage instead: https://aka.ms/xamarin-auth-accountstore-migration-guide")]
         public static AccountStore Create(string password)
         {
             return Create(global::Android.App.Application.Context, password);

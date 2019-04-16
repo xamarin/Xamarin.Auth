@@ -20,7 +20,7 @@
     <When Condition="! exists('..\..\..\..\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" >
+        <PackageReference Include="Xamarin.Auth" Version="1.6.0.2">
           <Name>Xamarin.Auth.NetStandard NuGet Bait-n-Switch</Name>
         </PackageReference>
       </ItemGroup>
@@ -29,7 +29,6 @@
       <!-- project refs -->
       <ItemGroup>
         <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj">
-          <Name>Xamarin.Auth.NetStandard Project Reference</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>

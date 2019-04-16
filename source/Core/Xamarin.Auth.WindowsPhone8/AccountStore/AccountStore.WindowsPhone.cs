@@ -41,6 +41,19 @@ namespace Xamarin.Auth._MobileServices
             return new WindowsPhone.WPAccountStore();
         }
 
+        /// <summary>
+        /// AccountStore Create method overload
+        /// 
+        /// Password string is needed on Android and it is not used on other platforms.
+        /// This way hardcoded passwords in Android code  avoided
+        /// </summary>
+        /// <returns>Created AccountStore</returns>
+        /// <param name="password">Password used for the Store (Android, ignored on other platforms</param>
+        public static AccountStore Create(string password)
+        {
+            return new WindowsPhone.WPAccountStore();
+        }
+
     }
 }
 

@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -42,6 +43,7 @@ namespace Xamarin.Auth._MobileServices
         /// <param name='serviceId'>
         /// Service identifier.
         /// </param>
+        [Obsolete("Use Xamarin.Essentials SecureStorage instead: https://aka.ms/xamarin-auth-accountstore-migration-guide")]
         public abstract Task<List<Account>> FindAccountsForServiceAsync(string serviceId);
 
         /// <summary>
@@ -54,6 +56,7 @@ namespace Xamarin.Auth._MobileServices
         /// <param name='serviceId'>
         /// Service identifier.
         /// </param>
+        [Obsolete("Use Xamarin.Essentials SecureStorage instead: https://aka.ms/xamarin-auth-accountstore-migration-guide")]
         public abstract Task SaveAsync(Account account, string serviceId);
 
         /// <summary>
@@ -65,6 +68,7 @@ namespace Xamarin.Auth._MobileServices
         /// <param name='serviceId'>
         /// Service identifier.
         /// </param>
+        [Obsolete("Use Xamarin.Essentials SecureStorage instead: https://aka.ms/xamarin-auth-accountstore-migration-guide")]
         public abstract Task DeleteAsync(Account account, string serviceId);
     }
 }

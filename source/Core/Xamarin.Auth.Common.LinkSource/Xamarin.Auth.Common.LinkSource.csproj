@@ -129,4 +129,5 @@
   <!--
   <Import Project="..\..\packages\Microsoft.DotNet.BuildTools.GenAPI.1.0.0-beta-00081\build\Microsoft.DotNet.BuildTools.GenAPI.targets" Condition="Exists('..\..\packages\Microsoft.DotNet.BuildTools.GenAPI.1.0.0-beta-00081\build\Microsoft.DotNet.BuildTools.GenAPI.targets')" />
     -->
+  <Import Project="..\..\..\samples\bugs-triaging\AccountStore\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets" Condition="Exists('..\..\..\samples\bugs-triaging\AccountStore\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" />
 </Project>

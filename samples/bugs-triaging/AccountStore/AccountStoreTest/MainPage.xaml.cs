@@ -69,7 +69,7 @@ namespace AccountStoreTest
                     Username = userName
                 };
                 account.Properties.Add("Password", password);
-                AccountStore.Create().Save(account, AppName);
+                AccountStore.Create("StorePasswordUsedOnlyOnAndroid").Save(account, AppName);
             }
 
             return;
@@ -89,7 +89,7 @@ namespace AccountStoreTest
             var account = AccountStore.Create().FindAccountsForService(AppName).FirstOrDefault();
             if (account != null)
             {
-                AccountStore.Create().Delete(account, AppName);
+                AccountStore.Create("StorePasswordUsedOnlyOnAndroid").Delete(account, AppName);
             }
         }
     }

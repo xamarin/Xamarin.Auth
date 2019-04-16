@@ -235,6 +235,7 @@ namespace Xamarin.Auth
     {
         protected AccountStore() { }
         public static Xamarin.Auth.AccountStore Create() { return default(Xamarin.Auth.AccountStore); }
+        public static Xamarin.Auth.AccountStore Create(string password) { return default(Xamarin.Auth.AccountStore); }
         public abstract void Delete(Xamarin.Auth.Account account, string serviceId);
         public abstract System.Threading.Tasks.Task DeleteAsync(Xamarin.Auth.Account account, string serviceId);
         public abstract System.Collections.Generic.IEnumerable<Xamarin.Auth.Account> FindAccountsForService(string serviceId);

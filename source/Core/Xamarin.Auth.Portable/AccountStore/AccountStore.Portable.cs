@@ -48,6 +48,28 @@ namespace Xamarin.Auth._MobileServices
 
             throw new NotImplementedException(msg);
         }
+
+
+        /// <summary>
+        /// AccountStore Create method overload
+        /// 
+        /// Password string is needed on Android and it is not used on other platforms.
+        /// This way hardcoded passwords in Android code  avoided
+        /// </summary>
+        /// <returns>Created AccountStore</returns>
+        /// <param name="password">Password used for the Store (Android, ignored on other platforms</param>
+        public static AccountStore Create(string password)
+        {
+            string msg =
+                LibraryUtilities.MessageNotImplementedException
+                + System.Environment.NewLine +
+                "Cannot save account in Portable profile - bait-and-switch error."
+                + System.Environment.NewLine +
+                "Please file a bug in https://bugzilla.xamarin.com"
+                ;
+
+            throw new NotImplementedException(msg);
+        }
     }
 }
 

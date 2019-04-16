@@ -112,7 +112,7 @@ namespace Xamarin.Auth._MobileServices
                         //try with the original password
                         MigrateKeyStore(context, PasswordHardCodedOriginal);
                     }
-                    catch
+                    catch (System.Exception)
                     {
                         //migrate using the default
                         MigrateKeyStore(context);

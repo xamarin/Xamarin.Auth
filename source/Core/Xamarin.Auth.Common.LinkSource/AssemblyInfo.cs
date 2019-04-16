@@ -42,5 +42,5 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Xamarin.Auth.XamarinForms")]
 [assembly: InternalsVisibleTo("Xamarin.Auth.Extensions")]
-
 [assembly: InternalsVisibleTo ("XamarinAuthiOSTest")]
+

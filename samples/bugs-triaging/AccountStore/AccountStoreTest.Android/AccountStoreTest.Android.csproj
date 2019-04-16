@@ -8,14 +8,13 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AccountStoreTest.Droid</RootNamespace>
     <AssemblyName>AccountStoreTest.Android</AssemblyName>
-    <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v9.0</TargetFrameworkVersion>
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AndroidResgenClass>Resource</AndroidResgenClass>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>true</AndroidUseLatestPlatformSdk>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
   </PropertyGroup>
@@ -48,14 +47,14 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Xamarin.Auth">
-      <Version>1.6.0.2</Version>
+      <Version>1.6.0.4</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
-    <PackageReference Include="Xamarin.Android.Support.Design" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v4" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="25.4.0.2" />
-    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="25.4.0.2" />
+    <PackageReference Include="Xamarin.Forms" Version="3.6.0.293080" />
+    <PackageReference Include="Xamarin.Android.Support.Design" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.AppCompat" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v4" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="28.0.0.1" />
+    <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="28.0.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -92,7 +91,7 @@
     <When Condition="! exists('..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj')">
       <!-- nuget packages (dll) refs -->
       <ItemGroup>
-        <PackageReference Include="Xamarin.Auth" Version="1.6.0.2" >
+        <PackageReference Include="Xamarin.Auth" Version="1.6.0.2">
           <Name>Xamarin.Auth.XamarinAndroid NuGet Bait-n-Switch</Name>
         </PackageReference>
       </ItemGroup>
@@ -101,8 +100,8 @@
       <!-- project refs -->
       <ItemGroup>
         <ProjectReference Include="..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.XamarinAndroid.csproj">
-          <Project>{47ec107c-ebb2-4676-82db-f77b7bfc17ac}</Project>
-          <Name>Xamarin.Auth.XamarinAndroid Project Reference</Name>
+          <Project>{47EC107C-EBB2-4676-82DB-F77B7BFC17AC}</Project>
+          <Name>Xamarin.Auth.XamarinAndroid</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>
