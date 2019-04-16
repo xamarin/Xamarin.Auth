@@ -38,6 +38,14 @@ namespace Xamarin.Auth._MobileServices
         /// </summary>
         public static AccountStore Create()
         {
+            return new WindowsUWP.DataContainerAccountStore();
+        }
+
+        /// <summary>
+        /// Create an account store based on individual files instead of the UWP datacontainer
+        /// </summary>
+        public static AccountStore CreateFileBased()
+        {
             return new WindowsUWP.UWPAccountStore();
         }
 

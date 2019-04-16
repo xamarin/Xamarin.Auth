@@ -125,6 +125,8 @@
       <Link>AccountStore\AccountStore.cs</Link>
     </Compile>
     <Compile Include="AccountStore\AccountStore.WindowsUWP.cs" />
+    <Compile Include="AccountStore\DataContainerAccountStore.async.cs" />
+    <Compile Include="AccountStore\DataContainerAccountStore.cs" />
     <Compile Include="AccountStore\UWPAccountStore.Async.cs" />
     <Compile Include="AccountStore\UWPAccountStore.cs" />
     <Compile Include="..\Xamarin.Auth.Common.LinkSource\AssemblyInfo.cs">
