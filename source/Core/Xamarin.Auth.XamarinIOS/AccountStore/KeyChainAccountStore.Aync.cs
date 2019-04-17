@@ -20,6 +20,7 @@ using System.Linq;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Text;
+using System.Reflection;
 
 
 #if !__UNIFIED__
@@ -60,12 +61,20 @@ namespace Xamarin.Auth._MobileServices
                 }
             );
 
-        static Lazy<INativeObject> CFBoolean_True = new Lazy<INativeObject>(() =>
+        static Lazy<IntPtr> CFBoolean_TrueHandle = new Lazy<IntPtr>(() =>
         {
-            return typeof(SecRecord).Assembly.GetTypes()
-                        .First(t => t.Name == "CFBoolean"
-                       && t.Namespace == (typeof(CFObject)).Namespace /* "[MonoTouch.]CoreFoundation" */
-                        ).GetField("True").GetValue(null) as INativeObject;
+            var boolType =typeof(SecRecord).Assembly
+                .GetTypes()
+                .First(t => t.Name == "CFBoolean"
+                    && t.Namespace == (typeof(CFObject)).Namespace /* "[MonoTouch.]CoreFoundation" */
+                );
+
+            var trueHandle = boolType.GetProperty("TrueHandle", BindingFlags.NonPublic | BindingFlags.Static);
+            if (trueHandle != null)
+                return (IntPtr)trueHandle.GetValue(null);
+
+            var trueField = boolType.GetField("True").GetValue(null) as INativeObject;
+            return trueField.Handle;
         });
 
         public override Task<List<Account>> FindAccountsForServiceAsync(string serviceId)
@@ -79,7 +88,7 @@ namespace Xamarin.Auth._MobileServices
 
                 // Workaround for https://bugzilla.xamarin.com/show_bug.cgi?id=29977
                 var queryDict = SecRecord_queryDictGetter.Value.Invoke(query, new object[] { }) as NSMutableDictionary;
-                queryDict.LowlevelSetObject(CFBoolean_True.Value.Handle, Security_ReturnData.Value);
+                queryDict.LowlevelSetObject(CFBoolean_TrueHandle.Value, Security_ReturnData.Value);
 
                 SecStatusCode result;
                 records = SecKeyChain.QueryAsRecord(query, 1000, out result);
