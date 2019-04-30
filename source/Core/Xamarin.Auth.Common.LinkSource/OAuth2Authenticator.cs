@@ -23,6 +23,7 @@ using Xamarin.Utilities;
 using System.Net;
 using System.Text;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 #if ! AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
@@ -833,8 +834,7 @@ namespace Xamarin.Auth._MobileServices
             }
         }
 
-
-        /// <summary>
+		/// <summary>
         /// Asynchronously requests an access token with an authorization <paramref name="code"/>.
         /// </summary>
         /// <returns>
@@ -843,6 +843,20 @@ namespace Xamarin.Auth._MobileServices
         /// <param name='code'>The authorization code.</param>
         /// <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
         public Task<IDictionary<string, string>> RequestAccessTokenAsync(string code)
+		{
+			return RequestAccessTokenAsync(code, CancellationToken.None);
+		}
+
+        /// <summary>
+        /// Asynchronously requests an access token with an authorization <paramref name="code"/>.
+        /// </summary>
+        /// <returns>
+        /// A dictionary of data returned from the authorization request.
+        /// </returns>
+        /// <param name='code'>The authorization code.</param>
+		/// <param name="cancellationToken">A cancellation token that can be used to cancel the request.</param>
+        /// <remarks>Implements: http://tools.ietf.org/html/rfc6749#section-4.1</remarks>
+        public Task<IDictionary<string, string>> RequestAccessTokenAsync(string code, CancellationToken cancellationToken)
         {
             // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
 
@@ -858,22 +872,33 @@ namespace Xamarin.Auth._MobileServices
                 queryValues["client_secret"] = clientSecret;
             }
 
-            return RequestAccessTokenAsync(queryValues);
+            return RequestAccessTokenAsync(queryValues, cancellationToken);
         }
+
+		/// <summary>
+        /// Asynchronously makes a request to the access token URL with the given parameters.
+        /// </summary>
+        /// <param name="queryValues">The parameters to make the request with.</param>
+        /// <returns>The data provided in the response to the access token request.</returns>
+        public Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
+		{
+			return RequestAccessTokenAsync(queryValues, CancellationToken.None);
+		}
 
         /// <summary>
         /// Asynchronously makes a request to the access token URL with the given parameters.
         /// </summary>
         /// <param name="queryValues">The parameters to make the request with.</param>
+		/// <param name="cancellationToken">A cancellation token that can be used to cancel the request.</param>
         /// <returns>The data provided in the response to the access token request.</returns>
-        public async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
+        public async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues, CancellationToken cancellationToken)
         {
             // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
             var content = new FormUrlEncodedContent(queryValues);
 
 
             HttpClient client = new HttpClient();
-            HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
+            HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content, cancellationToken).ConfigureAwait(false);
             string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
             // Parse the response
