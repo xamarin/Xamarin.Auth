@@ -14,6 +14,11 @@ Installing
         powershell ^
             .\build.ps1
 
+
+        Get-ExecutionPolicy -List
+        Set-ExecutionPolicy RemoteSigned -Scope Process
+        Unblock-File .\build.ps1
+
     Mac OSX
 
         rm -fr tools/; mkdir ./tools/ ; \
@@ -2158,6 +2163,16 @@ Task("Default")
         }
     );
 
+Task ("ci")
+    .Does
+    (
+        () =>
+        {
+            RunTarget("nuget");
+
+            return;
+        }
+    );
 
 RunTarget("dump-environment");
 //RunTarget("distclean");
