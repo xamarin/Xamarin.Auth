@@ -1,0 +1,110 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+
+variables:
+  MONO_VERSION: 5_16_0
+  XCODE_VERSION: 10.1
+
+jobs:
+
+  - job: build_windows_vs2019
+    displayName: Build on Windows VS2019
+    pool:
+      vmImage: windows-2019
+    variables:
+      solution_source:              './source/**/*.sln'
+      solution_samples:             './samples/**/*.sln'
+    steps:
+      - checkout: self
+        submodules: recursive
+      - task: NuGetToolInstaller@0
+        displayName: 'Install NuGet'
+      - task: DotNetCoreInstaller@0
+        inputs:
+          version: '3.0.100-preview4-010963'
+      - task: DotNetCoreInstaller@0
+        displayName: 'Install .NET Core sdk 3.0'
+        inputs:
+          version: '3.0.100-preview4-010963'
+      - task: DotNetCoreInstaller@0
+        displayName: 'Install .NET Core sdk 2.2.300'
+        inputs:
+          version: '2.2.300'
+      # - script: dotnet dev-certs https --trust
+      - script: choco install visualstudio2019-workload-netcorebuildtools
+      - script: choco install dotnetcore-sdk --pre
+      - script: choco install dotnetcore-sdk
+      # - script: vs_buildtools.exe --add Microsoft.VisualStudio.Component.NuGet --quiet
+      - task: UseDotNet@2
+        displayName: 'Use .NET Core SDK'
+        inputs:
+          packageType: sdk
+          version: 2.2.300
+          includePreviewVersions: true
+          installationPath: $(Agent.ToolsDirectory)/dotnet
+    #------------------------------------------------------------
+      - task: NuGetCommand@2
+        displayName: 'NuGet Restore Source'
+        inputs:
+          restoreSolution: '$(solution_source)'
+      - script: |
+          cd ./source/
+          dotnet restore
+          cd ../
+        displayName: 'dotnet restore Source'
+      - task: VSBuild@1
+        displayName: 'Build Source'
+        inputs:
+          solution: '$(solution_source)'
+    #------------------------------------------------------------
+    #------------------------------------------------------------
+    #  - task: NuGetCommand@2
+    #    displayName: 'NuGet Restore Samples'
+    #    inputs:
+    #      restoreSolution: '$(solution_samples)'
+      - script: |
+          cd ./samples/
+          dotnet restore
+          cd ../
+        displayName: 'dotnet restore Samples'
+      - task: VSBuild@1
+        displayName: 'Build Samples'
+        inputs:
+          solution: '$(solution_samples)'
+    #------------------------------------------------------------
+      - powershell: .\build.ps1 --target=nuget
+        displayName: Run Cake Build
+
+  - job: build_windows_vs2017
+    displayName: Build on Windows VS2017
+    pool:
+      vmImage: vs2017-win2016
+    steps:
+      - checkout: self
+        submodules: recursive
+      - powershell: .\build.ps1 --target=nuget
+        displayName: Run build
+
+  - job: build_macos
+    displayName: Build on macOS VS4Mac
+    pool:
+      vmImage: macos-10.13
+    steps:
+      - checkout: self
+        submodules: recursive
+      - bash: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh $(MONO_VERSION)
+        displayName: Switch to the latest Xamarin SDK
+      - bash: echo '##vso[task.setvariable variable=MD_APPLE_SDK_ROOT;]'/Applications/Xcode_$(XCODE_VERSION).app;sudo xcode-select --switch /Applications/Xcode_$(XCODE_VERSION).app/Contents/Developer
+        displayName: Switch to the latest Xcode
+      - bash: sh ./build.sh
+        displayName: Run build
+      - task: PublishTestResults@2
+        displayName: Publish test results
+        condition: always()
+        inputs:
+          testResultsFormat: xUnit
+          testResultsFiles: tests/**/TestResults/TestResults.xml
+          testRunTitle: macOS Tests

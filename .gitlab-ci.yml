@@ -1,0 +1,70 @@
+stages:
+  - build-dotnet
+  - build-mono
+  - test-dotnet
+  - test-mono
+
+build-dotnet:
+  stage: build-dotnet
+  #------------------------------------------------------------------------------------------
+  # microsoft/dotnet:2.2-sdk
+  # image: mcr.microsoft.com/dotnet/core/sdk:2.2
+  # image: microsoft/dotnet:latest
+  #------------------------------------------------------------------------------------------
+  image: microsoft/dotnet:2.2-sdk
+  before_script:
+    - "cd source"
+    - "dotnet restore"
+    - "cd .."
+    - "cd samples"
+    - "dotnet restore"
+    - "cd .."
+  script:
+      - "cd source"
+      - "dotnet build"
+      - "cd .."
+      - "cd samples"
+      - "dotnet build"
+      - "cd .."
+
+build-mono:
+  stage: build-mono
+  image: mono:latest
+  before_script:
+  script:
+    - nuget restore ./source/Xamarin.Auth-Library-VS2017.sln
+    - nuget restore ./source/Xamarin.Auth-Library-VS2019.sln
+    - msbuild
+        /p:Configuration="Release"
+        /p:Platform="Any CPU"
+        "./source/Xamarin.Auth-Library-VS2017.sln"
+    - !
+    - msbuild
+        /p:Configuration="Release"
+        /p:Platform="Any CPU"
+        "./source/Xamarin.Auth-Library-VS2019.sln"
+    - msbuild
+        /p:Configuration="Debug"
+        /p:Platform="Any CPU"
+        "./source/Xamarin.Auth-Library-VS2017.sln"
+    - !
+    - msbuild
+        /p:Configuration="Debug"
+        /p:Platform="Any CPU"
+        "./source/Xamarin.Auth-Library-VS2019.sln"
+
+#test-dotnet:
+#  stage: test-dotnet
+#  image: microsoft/dotnet:latest
+#  script:
+#        - "cd $test"
+#        - "dotnet test"
+
+#test-mono:
+#  stage: test-mono
+#  image: mono:latest
+#  script:
+#        - "cd $test"
+#        - "dotnet test"
+
+# mono /root/.nuget/packages/nunit.consolerunner/3.9.0/tools/nunit3-console.exe Plugin.Tests/bin/Release/Plugin.Tests.dll

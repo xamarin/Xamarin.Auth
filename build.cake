@@ -373,7 +373,7 @@ string[] source_solutions = new string[]
 {
     "./source/Xamarin.Auth-Library.sln",
     "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
-    "./source/Xamarin.Auth-Library-VS2015.sln",
+    //"./source/Xamarin.Auth-Library-VS2015.sln",
     "./source/Xamarin.Auth-Library-VS2017.sln",
 };
 
