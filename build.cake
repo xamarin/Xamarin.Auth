@@ -3,18 +3,18 @@
 Installing
 
     Windows - powershell
-        
+
         Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
         .\build.ps1
 
-    Windows - cmd.exe prompt	
-    
+    Windows - cmd.exe prompt
+
         powershell ^
             Invoke-WebRequest http://cakebuild.net/download/bootstrapper/windows -OutFile build.ps1
         powershell ^
             .\build.ps1
-    
-    Mac OSX 
+
+    Mac OSX
 
         rm -fr tools/; mkdir ./tools/ ; \
         cp cake.packages.config ./tools/packages.config ; \
@@ -34,20 +34,20 @@ Running Cake to Build targets
         tools\Cake\Cake.exe --verbosity=diagnostic --target=libs
         tools\Cake\Cake.exe --verbosity=diagnostic --target=nuget
         tools\Cake\Cake.exe --verbosity=diagnostic --target=samples
-        
-    Mac OSX 
-    
+
+    Mac OSX
+
         mono tools/Cake/Cake.exe --verbosity=diagnostic --target=libs
         mono tools/Cake/Cake.exe --verbosity=diagnostic --target=nuget
-        
+
 NuGet Publish patterns
 
         BEFORE PASTING:
-        NOTE: ** / 
+        NOTE: ** /
         ** /output/Xamarin.Auth.1.5.0-alpha-12.nupkg,
         ** /output/Xamarin.Auth.XamarinForms.1.5.0-alpha-12.nupkg,
         ** /output/Xamarin.Auth.Extensions.1.5.0-alpha-12.nupkg
-        
+
 MSBuild
 
     tools\vswhere\vswhere\tools\vswhere.exe ^
@@ -60,23 +60,23 @@ MSBuild
 
         -products * ^
         -requires Microsoft.Component.MSBuild ^
-        
+
         Microsoft.VisualStudio.Product.BuildTools
 
 #########################################################################################
-*/	
+*/
 #tool nuget:?package=vswhere
 
-#addin nuget:?package=Cake.Xamarin&version=2.0.1
-#addin nuget:?package=Cake.Xamarin.Build&version=3.0.6
-#addin nuget:?package=Cake.FileHelpers&2.0.0
-#addin nuget::?package=Cake.Incubator&version=1.6.0
+#addin nuget:?package=Cake.Xamarin //&version=2.0.1
+//#addin nuget:?package=Cake.Xamarin.Build //&version=3.0.6
+#addin nuget:?package=Cake.FileHelpers //&2.0.0
+#addin nuget::?package=Cake.Incubator //&version=1.6.0
 #addin nuget:?package=Xamarin.Nuget.Validator&version=1.1.1
 
 /*
 -----------------------------------------------------------------------------------------
     choco install -y gitlink
-    
+
 -----------------------------------------------------------------------------------------
 */
 //#tool nuget:?package=gitlink
@@ -91,12 +91,12 @@ string ANDROID_HOME = EnvironmentVariable("ANDROID_HOME") ?? Argument("android_h
 string VERBOSITY = Argument ("v", Argument ("verbosity", Argument ("Verbosity", "Diagnostic")));
 Verbosity verbosity = Verbosity.Diagnostic;
 
-Action<string> InformationFancy = 
-    (text) 
+Action<string> InformationFancy =
+    (text)
         =>
         {
             Console.BackgroundColor = ConsoleColor.Yellow;
-            Console.ForegroundColor = ConsoleColor.Blue;			
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine(text);
             Console.ResetColor();
 
@@ -112,20 +112,20 @@ string github_repo_url="https://github.com/xamarin/Xamarin.Auth";
 
 // https://docs.microsoft.com/en-us/nuget/tools/nuget-exe-cli-reference#restore
 // http://cakebuild.net/api/Cake.Common.Tools.NuGet.Restore/NuGetRestoreSettings/
-NuGetRestoreSettings nuget_restore_settings = new NuGetRestoreSettings 
-    { 
+NuGetRestoreSettings nuget_restore_settings = new NuGetRestoreSettings
+    {
         Verbosity = NuGetVerbosity.Detailed,
     };
 
-NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings 
-    { 
+NuGetUpdateSettings nuget_update_settings = new NuGetUpdateSettings
+    {
         Verbosity = NuGetVerbosity.Detailed,
         Prerelease = false,
     };
 
 
 Task ("dump-environment")
-    .Does 
+    .Does
     (
         () =>
         {
@@ -182,9 +182,9 @@ Task ("dump-environment")
 
             // var list = AndroidSdkManagerList
             // (
-            // 	new AndroidSdkManagerToolSettings 
+            // 	new AndroidSdkManagerToolSettings
             // 	{
-            // 		SdkRoot = ANDROID_HOME, 
+            // 		SdkRoot = ANDROID_HOME,
             // 		SkipVersionCheck = false
             // 	}
             // );
@@ -202,31 +202,21 @@ Task ("dump-environment")
             // }
 
             // From Cake.Xamarin.Build, dumps out versions of things
-            LogSystemInfo ();
+            //LogSystemInfo ();
 
             return;
         }
     );
 
 Task ("clean")
-    .Does 
+    .Does
     (
-        () => 
-        {	
-            // note no trailing backslash
-            //DeleteDirectories (GetDirectories("./output"), recursive:true);
-            // OK
-            //CleanDirectories("**/obj");
-            //CleanDirectories("**/bin");
-            
-            //CleanDirectories(GetDirectories("**/obj"));
-            //CleanDirectories(GetDirectories("**/bin"));
-            
-            // OK
+        () =>
+        {
             DeleteDirectories
                 (
-                    GetDirectories("**/obj"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/obj"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -234,8 +224,8 @@ Task ("clean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/Obj"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/Obj"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -243,8 +233,8 @@ Task ("clean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/bin"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/bin"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -252,13 +242,13 @@ Task ("clean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/Bin"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/Bin"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
                     }
-                );            
+                );
 
             return;
         }
@@ -266,34 +256,14 @@ Task ("clean")
 
 Task ("distclean")
     .IsDependentOn ("clean")
-    .Does 
+    .Does
     (
-        () => 
-        {	
-            // if(IsRunningOnWindows())
-            // {
-            // 	string xamarin = System.IO.Path.Combine
-            // 									(
-            // 										EnvironmentVariable("LOCALAPPDATA"), 
-            // 										"xamarin/*"
-            // 									);		
-            // 	//CleanDirectories(GetDirectories(xamarin));
-            // 	DeleteDirectories
-            // 				(
-            // 					GetDirectories(xamarin), 
-            // 					new DeleteDirectorySettings 
-            // 					{
-            // 						Recursive = true,
-            // 						Force = true
-            // 					}
-            // 				);
-
-            // }
-
+        () =>
+        {
             DeleteDirectories
                 (
-                    GetDirectories("**/obj"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/obj"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -301,8 +271,8 @@ Task ("distclean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/Obj"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/Obj"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -310,8 +280,8 @@ Task ("distclean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/bin"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/bin"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -319,8 +289,8 @@ Task ("distclean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/Bin"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/Bin"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -328,8 +298,8 @@ Task ("distclean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/packages"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/packages"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -337,8 +307,8 @@ Task ("distclean")
                 );
             DeleteDirectories
                 (
-                    GetDirectories("**/Components"), 
-                    new DeleteDirectorySettings 
+                    GetDirectories("**/Components"),
+                    new DeleteDirectorySettings
                     {
                         Recursive = true,
                         Force = true
@@ -352,7 +322,7 @@ Task ("distclean")
 Task ("rebuild")
     .IsDependentOn ("distclean")
     .IsDependentOn ("build")
-    ;	
+    ;
 
 Task ("build")
     .IsDependentOn ("libs")
@@ -362,15 +332,15 @@ Task ("build")
 Task ("package")
     .IsDependentOn ("nuget")
     .IsDependentOn ("component")
-    ;	
+    ;
 
 Task ("libs")
-    .IsDependentOn ("libs-windows")	
-    .IsDependentOn ("libs-macosx")	
-    .Does 
+    .IsDependentOn ("libs-windows")
+    .IsDependentOn ("libs-macosx")
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
         }
     );
 
@@ -378,7 +348,7 @@ Task ("libs")
 //---------------------------------------------------------------
 // building with custom preprocessor constants/defines
 // used by some projects
-//		Azure Mobile Services Client	
+//		Azure Mobile Services Client
 //	XAMARIN_AUTH_INTERNAL
 //		to hide public Xamarin.Auth classes (API)
 //  XAMARIN_CUSTOM_TABS_INTERNAL
@@ -387,10 +357,10 @@ Task ("libs")
 bool is_using_custom_defines = false;
 
 Task ("libs-custom")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             is_using_custom_defines = true;
             RunTarget("libs");
 
@@ -431,13 +401,13 @@ string[] sample_solutions_windows = new string[]
 //	"./samples/Xamarin.Forms/Providers/XamarinAuth.XamarinForms.sln",
 };
 
-string[] sample_solutions = 
+string[] sample_solutions =
             sample_solutions_macosx
             .Concat(sample_solutions_windows)  // comment out this line if in need
             .ToArray()
             ;
 
-string[] solutions = 
+string[] solutions =
             source_solutions
             .Concat(sample_solutions)  // comment out this line if in need
             .ToArray()
@@ -453,7 +423,7 @@ string[] build_configurations =  new []
 //---------------------------------------------------------------------------------------
 /*
 Custom preprocessor defines
-used by some projects (Azure Mobile Services) 
+used by some projects (Azure Mobile Services)
 
 when passing preprocessor defines/constants through commandline all required defines
 must be specified on commandline (even DEBUG for Debug configurations).
@@ -471,16 +441,16 @@ string nuget_3 = System.IO.Path.Combine(".", "tools", "nuget.3.exe");
 string nuget_4 = System.IO.Path.Combine(".", "tools", "nuget.4.exe");
 
 Task ("nuget-install")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             if (! FileExists(nuget_4))
             {
                 DownloadFile
                 (
-                    "https://dist.nuget.org/win-x86-commandline/v4.6.2/nuget.exe", 
-                    File(nuget_4), 
+                    "https://dist.nuget.org/win-x86-commandline/v4.6.2/nuget.exe",
+                    File(nuget_4),
                     new Cake.Common.Net.DownloadFileSettings()
                     {
                     }
@@ -490,8 +460,8 @@ Task ("nuget-install")
             {
                 DownloadFile
                 (
-                    "https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe", 
-                    File(nuget_3), 
+                    "https://dist.nuget.org/win-x86-commandline/v3.5.0/nuget.exe",
+                    File(nuget_3),
                     new Cake.Common.Net.DownloadFileSettings()
                     {
                     }
@@ -503,26 +473,26 @@ Task ("nuget-install")
 
 Task ("nuget-restore")
     .IsDependentOn ("nuget-install")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             InformationFancy("nuget-restore");
             Information("libs nuget_restore_settings.ToolPath = {0}", nuget_restore_settings.ToolPath);
 
             RunTarget("source-nuget-restore");
             RunTarget("samples-nuget-restore");
-                        
+
             return;
         }
     );
 
 Task ("nuget-update")
     .IsDependentOn ("nuget-restore")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             FilePathCollection files_package_config = GetFiles("./**/packages.config");
 
             foreach(FilePath package_config_file in files_package_config)
@@ -535,17 +505,17 @@ Task ("nuget-update")
                 {
                 }
                 Information("Nuget Update   = " + package_config_file);
-                NuGetUpdate(package_config_file, nuget_update_settings);					
+                NuGetUpdate(package_config_file, nuget_update_settings);
             }
 
-            return;	
+            return;
         }
     );
 
 Task ("source-nuget-restore")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             foreach (string source_solution in source_solutions)
             {
@@ -555,23 +525,23 @@ Task ("source-nuget-restore")
                     if (source_solution.Contains("-VS2015.sln"))
                     {
                         nuget_restore_settings.ToolPath = nuget_3;
-                        NuGetRestore(source_solution, nuget_restore_settings); 
+                        NuGetRestore(source_solution, nuget_restore_settings);
                     }
                     else if (source_solution.Contains("-VS2017.sln"))
                     {
                         nuget_restore_settings.ToolPath = nuget_4;
-                        NuGetRestore(source_solution, nuget_restore_settings); 
+                        NuGetRestore(source_solution, nuget_restore_settings);
                     }
-                    else 
+                    else
                     {
                         nuget_restore_settings.ToolPath = nuget_3;
-                        NuGetRestore(source_solution, nuget_restore_settings); 
+                        NuGetRestore(source_solution, nuget_restore_settings);
                     }
                 }
                 else
                 {
                     nuget_restore_settings.ToolPath = nuget_4;
-                    NuGetRestore(source_solution, nuget_restore_settings);                     
+                    NuGetRestore(source_solution, nuget_restore_settings);
                 }
             }
 
@@ -580,9 +550,9 @@ Task ("source-nuget-restore")
     );
 
 Task ("samples-nuget-restore")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             foreach (string sample_solution in sample_solutions)
             {
@@ -594,45 +564,45 @@ Task ("samples-nuget-restore")
                 {
                 }
 
-                NuGetRestore(sample_solution, nuget_restore_settings); 
+                NuGetRestore(sample_solution, nuget_restore_settings);
             }
-            
+
             return;
         }
     );
-    
+
 string solution_or_project = null;
 
-Action<string,  MSBuildSettings> BuildLoop = 
+Action<string,  MSBuildSettings> BuildLoop =
     (
         sln_prj, 			// solution or project to be compiled
         msbuild_settings	// msbuild customization settings
-    ) 
+    )
     =>
     {
         if (sln_prj.Contains("Xamarin.Auth-Library.sln"))
         {
             /*
                 2017-09
-                Failing on Mac because of: 
-                
+                Failing on Mac because of:
+
                     *	Uinversal Windows Platofrm
                     *	WinRT (Windows and Windows Phone)
                     *	WindowsPhone Silverlight
                     *	.NET Standard
-                    
+
                 Failing on Windows in Visual Studio 2015 because of:
-                
+
                     *	.NET Standard
-                    
+
                 Failing on Windows in Visual Studio 2017 because of:
-                
+
                     *	WinRT (Windows and Windows Phone)
                     *	WindowsPhone Silverlight
             */
             return;
         }
-        
+
         foreach (string build_configuration in build_configurations)
         {
             InformationFancy("BuildLoop:");
@@ -643,7 +613,7 @@ Action<string,  MSBuildSettings> BuildLoop =
             msbuild_settings.Configuration = build_configuration;
             msbuild_settings.WithProperty
                                 (
-                                    "consoleloggerparameters", 
+                                    "consoleloggerparameters",
                                     "ShowCommandLine"
                                 );
 
@@ -660,26 +630,26 @@ Action<string,  MSBuildSettings> BuildLoop =
             }
             else if (sln_prj.Contains("Xamarin.Auth-Library-VS2015.sln") && IsRunningOnWindows() )
             {
-                NuGetRestore(sln_prj, nuget_restore_settings); 
+                NuGetRestore(sln_prj, nuget_restore_settings);
                 /*
                 Using Visual Studio 2015 tooling
 
-                Fix for 
+                Fix for
 
-                source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj" 
+                source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj"
                 (Build target) (1) -> (CoreCompile target) ->
                 C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
-                error MSB6004: 
-                The specified task executable location 
+                error MSB6004:
+                The specified task executable location
                 "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" is invalid.
                 */
-                msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015; 
+                msbuild_settings.ToolVersion = MSBuildToolVersion.VS2015;
                 /*
-                Fix for 
+                Fix for
 
                   C:\Program Files (x86)\MSBuild\Microsoft\WindowsPhone\v8.0\Microsoft.WindowsPhone.v8.0.Overrides.targets(15,9)
-                  error : 
-                  Building Windows Phone application using MSBuild 64 bit is not supported. 
+                  error :
+                  Building Windows Phone application using MSBuild 64 bit is not supported.
                   If you are using TFS build definitions, change the MSBuild platform to x86.
                 */
                 msbuild_settings.PlatformTarget = PlatformTarget.x86;
@@ -687,20 +657,20 @@ Action<string,  MSBuildSettings> BuildLoop =
             else if (sln_prj.Contains("Xamarin.Auth-Library-VS2017.sln") && IsRunningOnWindows() )
             {
                 /*
-                C:\Program Files\dotnet\sdk\2.1.101\Sdks\Microsoft.NET.Sdk\build\Microsoft.PackageDependencyResolution.targets(327,5): 
-                error : 
-                Assets file 
-                    'X:\xa-m\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\obj\project.assets.json' 
-                not found. Run a NuGet package restore to generate this file. 
-                
-                C:\Program Files\dotnet\sdk\2.1.101\Sdks\Microsoft.NET.Sdk\build\Microsoft.PackageDependencyResolution.targets(167,5): 
-                error : Assets file 
-                    'X:\xa-m\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\obj\project.assets.json' 
-                not found. Run a NuGet package restore to generate this file. 
+                C:\Program Files\dotnet\sdk\2.1.101\Sdks\Microsoft.NET.Sdk\build\Microsoft.PackageDependencyResolution.targets(327,5):
+                error :
+                Assets file
+                    'X:\xa-m\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\obj\project.assets.json'
+                not found. Run a NuGet package restore to generate this file.
+
+                C:\Program Files\dotnet\sdk\2.1.101\Sdks\Microsoft.NET.Sdk\build\Microsoft.PackageDependencyResolution.targets(167,5):
+                error : Assets file
+                    'X:\xa-m\source\Core\Xamarin.Auth.NetStandard10.ReferenceAssembly\obj\project.assets.json'
+                not found. Run a NuGet package restore to generate this file.
                  */
 
 
-                NuGetRestore(sln_prj, nuget_restore_settings); 
+                NuGetRestore(sln_prj, nuget_restore_settings);
                 NuGetRestore
                 (
                     "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/Xamarin.Auth.NetStandard10.ReferenceAssembly.csproj",
@@ -730,25 +700,25 @@ Action<string,  MSBuildSettings> BuildLoop =
 
 
                 /*
-                C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets 
-                error MSB6004: 
-                The specified task executable location 
-                    "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe" 
+                C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\Roslyn\Microsoft.CSharp.Core.targets
+                error MSB6004:
+                The specified task executable location
+                    "C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\15.0\Bin\amd64\Roslyn\csc.exe"
                 is invalid. [X:\x.a-m\source\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj]
                 */
-                msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017; 
+                msbuild_settings.ToolVersion = MSBuildToolVersion.VS2017;
                 msbuild_settings.ToolPath = msBuildPathX64;
                 msbuild_settings.WithProperty
                                         (
-                                            "RestoreIgnoreFailedSources", 
+                                            "RestoreIgnoreFailedSources",
                                             "true"
                                         );
-            }		
+            }
             else if(sln_prj.Contains("Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln") && ! IsRunningOnWindows() )
             {
                 // MacOSX only
                 // return;
-            }		
+            }
             else if(sln_prj.Contains("Xamarin.Auth-Library.sln") && ! IsRunningOnWindows() )
             {
                 // cannot build solution with Windows platforms on Mac
@@ -757,7 +727,7 @@ Action<string,  MSBuildSettings> BuildLoop =
             else
             {
                 return;
-            }		
+            }
 
 
             MSBuild(sln_prj,msbuild_settings);
@@ -768,10 +738,10 @@ Action<string,  MSBuildSettings> BuildLoop =
 
 
 Task ("libs-macosx-filesystem")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             CreateDirectory ("./output/");
             CreateDirectory ("./output/pcl/");
             CreateDirectory ("./output/android/");
@@ -786,9 +756,9 @@ Task ("libs-macosx-filesystem")
 Task ("libs-macosx")
     .IsDependentOn ("libs-macosx-solutions")
     //.IsDependentOn ("libs-macosx-projects")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             RunTarget("copy-artifacts");
 
@@ -800,10 +770,10 @@ Task ("libs-macosx")
 Task ("libs-macosx-solutions")
     .IsDependentOn ("nuget-restore")
     .IsDependentOn ("libs-macosx-filesystem")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             if ( ! IsRunningOnWindows() )
             {
                 foreach(string sln in source_solutions)
@@ -811,7 +781,7 @@ Task ("libs-macosx-solutions")
                     InformationFancy($"Solution = {sln}");
                     BuildLoop
                         (
-                            sln, 
+                            sln,
                             new MSBuildSettings
                             {
                                 // Default Settings for Solutions
@@ -819,7 +789,7 @@ Task ("libs-macosx-solutions")
                             }
                         );
                 }
-            } 
+            }
 
             return;
         }
@@ -828,10 +798,10 @@ Task ("libs-macosx-solutions")
 Task ("libs-macosx-projects")
     .IsDependentOn ("nuget-restore")
     .IsDependentOn ("libs-macosx-filesystem")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             if ( ! IsRunningOnWindows() )
             {
                 //-------------------------------------------------------------------------------------
@@ -842,21 +812,21 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
                 );
 
                 //-------------------------------------------------------------------------------------
-                solution_or_project = "./source/Core/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";					
+                solution_or_project = "./source/Core/Xamarin.Auth.Portable/Xamarin.Auth.Portable.csproj";
                 if (is_using_custom_defines == true)
                 {
                     define = custom_defines;
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -864,12 +834,12 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll", 
+                        "./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.dll",
                         "./output/pcl/"
                     );
                 CopyFiles
                     (
-                        "./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
+                        "./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb",
                         "./output/pcl/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -880,7 +850,7 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -888,12 +858,12 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
+                        "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll",
                         "./output/android/"
                     );
                 CopyFiles
                     (
-                        "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
+                        "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb",
                         "./output/android/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -904,7 +874,7 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -912,12 +882,12 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+                        "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll",
                         "./output/iOS/"
                     );
                 CopyFiles
                     (
-                        "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
+                        "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb",
                         "./output/iOS/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -931,7 +901,7 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -939,12 +909,12 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
+                        "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll",
                         "./output/pcl/"
                     );
                 CopyFiles
                     (
-                        "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb", 
+                        "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb",
                         "./output/pcl/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -955,20 +925,20 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
                 );
-                
+
                 CopyFiles
                     (
-                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
+                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll",
                         "./output/android/"
                     );
                 CopyFiles
                     (
-                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb", 
+                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb",
                         "./output/android/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -979,7 +949,7 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -987,18 +957,18 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
+                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll",
                         "./output/ios/"
                     );
                 CopyFiles
                     (
-                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb", 
+                        "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb",
                         "./output/ios/"
                     );
                 //-------------------------------------------------------------------------------------
-                
-                
-                
+
+
+
                 //-------------------------------------------------------------------------------------
                 solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj";
                 if (is_using_custom_defines == true)
@@ -1007,7 +977,7 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1015,12 +985,12 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+                        "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll",
                         "./output/pcl/"
                     );
                 CopyFiles
                     (
-                        "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+                        "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb",
                         "./output/pcl/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -1031,7 +1001,7 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1039,12 +1009,12 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
+                        "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll",
                         "./output/android/"
                     );
                 CopyFiles
                     (
-                        "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+                        "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb",
                         "./output/android/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -1055,7 +1025,7 @@ Task ("libs-macosx-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1063,12 +1033,12 @@ Task ("libs-macosx-projects")
 
                 CopyFiles
                     (
-                        "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
+                        "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll",
                         "./output/ios/"
                     );
                 CopyFiles
                     (
-                        "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+                        "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb",
                         "./output/ios/"
                     );
                 //-------------------------------------------------------------------------------------
@@ -1082,9 +1052,9 @@ Task ("libs-macosx-projects")
 Task ("libs-windows")
     //.IsDependentOn ("libs-windows-projects")
     .IsDependentOn ("libs-windows-solutions")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             RunTarget("copy-artifacts");
 
@@ -1095,30 +1065,30 @@ Task ("libs-windows")
 // https://cakebuild.net/dsl/vswhere/
 // needed to detect VS and Build Tools installations!
 Task ("libs-windows-tooling")
-    .Does 
+    .Does
     (
-        () => 
-        {	
+        () =>
+        {
             //https://cakebuild.net/dsl/vswhere/
 
-            if (IsRunningOnWindows ()) 
-            {	
+            if (IsRunningOnWindows ())
+            {
                 DirectoryPathCollection vswhere_all = null;
-                
+
                 vswhere_all = VSWhereAll
                                 (
-                                    new VSWhereAllSettings 
-                                            { 
-                                                Requires = "'Microsoft.Component.MSBuild" 
+                                    new VSWhereAllSettings
+                                            {
+                                                Requires = "'Microsoft.Component.MSBuild"
                                             }
                                 );
                 foreach(DirectoryPath dp in vswhere_all)
                 {
                     InformationFancy(dp.Dump());
-                }												
+                }
 
                 DirectoryPathCollection vswhere_legacy = null;
-                
+
                 vswhere_legacy = VSWhereLegacy
                                     (
                                         new VSWhereLegacySettings()
@@ -1128,10 +1098,10 @@ Task ("libs-windows-tooling")
                 foreach(DirectoryPath dp in vswhere_legacy)
                 {
                     InformationFancy(dp.Dump());
-                }												
+                }
 
                 DirectoryPath vswhere_latest  = VSWhereLatest();
-                msBuildPathX64 = 
+                msBuildPathX64 =
                     (vsLatest==null)
                     ? null
                     : vswhere_latest.CombineWithFilePath("./MSBuild/15.0/Bin/amd64/MSBuild.exe")
@@ -1139,21 +1109,21 @@ Task ("libs-windows-tooling")
 
                 InformationFancy("msBuildPathX64       = " + msBuildPathX64);
 
-                // FIX csc path is invalid 
+                // FIX csc path is invalid
                 msBuildPathX64 = "C:/Program Files (x86)/Microsoft Visual Studio/2017/Community/MSBuild/15.0/Bin/MSBuild.exe";
                 InformationFancy("msBuildPathX64 FIXED = " + msBuildPathX64);
             }
-            
+
             return;
         }
     );
 
 Task ("libs-windows-filesystem")
     .IsDependentOn ("nuget-restore")
-    .Does 
+    .Does
     (
-        () => 
-        {				
+        () =>
+        {
             CreateDirectory ("./output/");
             CreateDirectory ("./output/pcl/");
             CreateDirectory ("./output/android/");
@@ -1175,29 +1145,29 @@ Task ("libs-windows-solutions")
     .IsDependentOn ("nuget-restore")
     .IsDependentOn ("libs-windows-filesystem")
     .IsDependentOn ("libs-windows-tooling")
-    .Does 
+    .Does
     (
-        () => 
-        {	
-            if (IsRunningOnWindows ()) 
-            {	
+        () =>
+        {
+            if (IsRunningOnWindows ())
+            {
                 foreach(string sln_prj in source_solutions)
                 {
                     if (sln_prj.Contains("Xamarin.Auth-Library.sln"))
                     {
                         // Xamarin.Auth-Library.sln contains all projects
                         // cannot be built xplatform
-                        
+
                         continue;
                     }
                     BuildLoop(sln_prj, new MSBuildSettings{});
                 }
-            
+
                 // GitLinkAction("./source/Xamarin.Auth-Library.sln");
                 // GitLinkAction("./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
 
                 return;
-            } 
+            }
         }
     );
 
@@ -1205,12 +1175,12 @@ Task ("libs-windows-projects")
     .IsDependentOn ("nuget-restore")
     .IsDependentOn ("libs-windows-filesystem")
     .IsDependentOn ("libs-windows-tooling")
-    .Does 
+    .Does
     (
-        () => 
-        {	
-            if (IsRunningOnWindows ()) 
-            {	
+        () =>
+        {
+            if (IsRunningOnWindows ())
+            {
                 //-------------------------------------------------------------------------------------
                 solution_or_project = "./source/Core/Xamarin.Auth.Common.LinkSource/Xamarin.Auth.Common.LinkSource.csproj";
                 if (is_using_custom_defines == true)
@@ -1219,7 +1189,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1232,7 +1202,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1245,16 +1215,16 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         /*
                         C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Xamarin\Android\Xamarin.Android.Common.targets
-                        error : 
-                        Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed. 
-                        Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android 
-                        project to target an API version that is installed. 
-                        (C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
+                        error :
+                        Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed.
+                        Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android
+                        project to target an API version that is installed.
+                        (C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.)
                         */
                         ToolPath = msBuildPathX64,
                         ToolVersion = MSBuildToolVersion.VS2015,
@@ -1269,7 +1239,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         ToolPath = msBuildPathX64,
@@ -1283,7 +1253,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         ToolVersion = MSBuildToolVersion.VS2015,
@@ -1298,7 +1268,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         ToolVersion = MSBuildToolVersion.VS2015,
@@ -1306,7 +1276,7 @@ Task ("libs-windows-projects")
                 );
                 //-------------------------------------------------------------------------------------
                 /*
-                    Dependencies omitted!! 
+                    Dependencies omitted!!
                     .
                     ├── Release
                     │   ├── Xamarin.Auth
@@ -1324,7 +1294,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1337,7 +1307,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         ToolVersion = MSBuildToolVersion.VS2015,
@@ -1346,7 +1316,7 @@ Task ("libs-windows-projects")
                 //-------------------------------------------------------------------------------------
                 solution_or_project = "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/Xamarin.Auth.UniversalWindowsPlatform.csproj";
                 /*
-                    Dependencies omitted!! 
+                    Dependencies omitted!!
                     .
                     ├── Release
                     │   ├── Xamarin.Auth
@@ -1362,7 +1332,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                   new MSBuildSettings
                     {
                         //ToolVersion = MSBuildToolVersion.VS2015,
@@ -1370,7 +1340,7 @@ Task ("libs-windows-projects")
                 );
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         ToolVersion = MSBuildToolVersion.VS2017,
@@ -1384,7 +1354,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1397,7 +1367,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1413,7 +1383,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1426,16 +1396,16 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         /*
                         C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Xamarin\Android\Xamarin.Android.Common.targets
-                        error : 
-                        Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed. 
-                        Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android 
-                        project to target an API version that is installed. 
-                        (C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
+                        error :
+                        Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed.
+                        Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android
+                        project to target an API version that is installed.
+                        (C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.)
                         */
                         ToolPath = msBuildPathX64,
                         ToolVersion = MSBuildToolVersion.VS2015,
@@ -1449,16 +1419,16 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
-                    {						
+                    {
                         ToolPath = msBuildPathX64,
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
                 );
                 //-------------------------------------------------------------------------------------
-                
-                
-                
+
+
+
                 //-------------------------------------------------------------------------------------
                 solution_or_project = "./source/XamarinForms/Xamarin.Auth.Forms/Xamarin.Auth.Forms.csproj";
                 if (is_using_custom_defines == true)
@@ -1467,7 +1437,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                     }.WithProperty("XamarinAuthCustomPreprocessorConstantsDefines", define)
@@ -1480,16 +1450,16 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         /*
                         C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\MSBuild\Xamarin\Android\Xamarin.Android.Common.targets
-                        error : 
-                        Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed. 
-                        Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android 
-                        project to target an API version that is installed. 
-                        (C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.) 
+                        error :
+                        Could not find android.jar for API Level 23. This means the Android SDK platform for API Level 23 is not installed.
+                        Either install it in the Android SDK Manager (Tools > Open Android SDK Manager...), or change your Xamarin.Android
+                        project to target an API version that is installed.
+                        (C:\Program Files (x86)\Android\android-sdk\platforms\android-23\android.jar missing.)
                         */
                         //ToolPath = msBuildPathX64,
                         //ToolVersion = MSBuildToolVersion.VS2015,
@@ -1503,7 +1473,7 @@ Task ("libs-windows-projects")
                 }
                 BuildLoop
                 (
-                    solution_or_project, 
+                    solution_or_project,
                     new MSBuildSettings
                     {
                         ToolPath = msBuildPathX64,
@@ -1517,99 +1487,99 @@ Task ("libs-windows-projects")
     );
 
 Task ("copy-artifacts")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    @".\source\Core\Xamarin.Auth.Portable\**\Release\Xamarin.Auth.dll", 
+                    @".\source\Core\Xamarin.Auth.Portable\**\Release\Xamarin.Auth.dll",
                     @".\output\pcl\"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.Portable/**/Release/Xamarin.Auth.pdb",
                     "./output/pcl/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.dll",
                     "./output/android/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.XamarinAndroid/**/Release/Xamarin.Auth.pdb",
                     "./output/android/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.dll",
                     "./output/ios/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.XamarinIOS/**/Release/Xamarin.Auth.pdb",
                     "./output/ios/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.dll",
                     "./output/wp80/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.WindowsPhone8/**/Release/Xamarin.Auth.pdb",
                     "./output/wp80/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.dll",
                     "./output/wp81/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.WindowsPhone81/**/Release/Xamarin.Auth.pdb",
                     "./output/wp81/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.dll",
                     "./output/win81/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.pdb",
                     "./output/win81/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.pri", 
+                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.pri",
                     "./output/win81/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.xr.xml", 
+                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/Xamarin.Auth.xr.xml",
                     "./output/win81/Xamarin.Auth/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/WebAuthenticatorPage.xaml", 
+                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/WebAuthenticatorPage.xaml",
                     "./output/win81/Xamarin.Auth/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/WebAuthenticatorPage.xbf", 
+                    "./source/Core/Xamarin.Auth.WinRTWindows81/**/Release/WebAuthenticatorPage.xbf",
                     "./output/win81/Xamarin.Auth/"
                 );
             //-------------------------------------------------------------------------------------
             /*
-                Dependencies omitted!! 
+                Dependencies omitted!!
                 .
                 ├── Release
                 │   ├── Xamarin.Auth
@@ -1622,48 +1592,48 @@ Task ("copy-artifacts")
             */
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.dll",
                     "./output/wpa81/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.pdb",
                     "./output/wpa81/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.pri", 
+                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.pri",
                     "./output/wpa81/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.xr.xml", 
+                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/Xamarin.Auth.xr.xml",
                     "./output/wpa81/Xamarin.Auth/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/WebAuthenticatorPage.xaml", 
+                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/WebAuthenticatorPage.xaml",
                     "./output/wpa81/Xamarin.Auth/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/WebAuthenticatorPage.xbf", 
+                    "./source/Core/Xamarin.Auth.WinRTWindowsPhone81/**/Release/WebAuthenticatorPage.xbf",
                     "./output/wpa81/Xamarin.Auth/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.dll",
                     "./output/uap10.0/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pdb",
                     "./output/uap10.0/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri", 
+                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.pri",
                     "./output/uap10.0/"
                 );
             CopyFiles
@@ -1672,99 +1642,42 @@ Task ("copy-artifacts")
                     mc++ 2017-10-17 output changed??
                     Visual Studio does not generate Xamarin.Auth subfolder, but nuget needs it
                     */
-                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml", 
+                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.xr.xml",
                     "./output/uap10.0/Xamarin.Auth/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf", 
+                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/WebAuthenticatorPage.xbf",
                     "./output/uap10.0/Xamarin.Auth/"
                 );
             /*
                 .net Native - Linking stuff - not needed
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.rd.xml", 
+                    "./source/Core/Xamarin.Auth.UniversalWindowsPlatform/bin/Release/Xamarin.Auth.rd.xml",
                     "./output/uap10.0/Properties/"
                 );
             */
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.dll",
                     "./output/netstandard1.0/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.pdb", 
+                    "./source/Core/Xamarin.Auth.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.pdb",
                     "./output/netstandard1.0/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.dll", 
+                    "./source/Core/Xamarin.Auth.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.dll",
                     "./output/netstandard1.6/"
                 );
             CopyFiles
                 (
-                    "./source/Core/Xamarin.Auth.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.pdb", 
-                    "./output/netstandard1.6/"
-                );
-            //-------------------------------------------------------------------------------------
-
-            //-------------------------------------------------------------------------------------
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll", 
-                    "./output/pcl/"
-                );
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb", 
-                    "./output/pcl/"
-                );
-            //-------------------------------------------------------------------------------------
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll", 
-                    "./output/android/"
-                );
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb", 
-                    "./output/android/"
-                );
-            //-------------------------------------------------------------------------------------
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll", 
-                    "./output/ios/"
-                );
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb", 
-                    "./output/ios/"
-                );
-            //-------------------------------------------------------------------------------------
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.Extensions.dll", 
-                    "./output/netstandard1.0/"
-                );
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.Extensions.pdb", 
-                    "./output/netstandard1.0/"
-                );
-            //-------------------------------------------------------------------------------------
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.Extensions.dll", 
-                    "./output/netstandard1.6/"
-                );
-            CopyFiles
-                (
-                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.Extensions.pdb", 
+                    "./source/Core/Xamarin.Auth.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.pdb",
                     "./output/netstandard1.6/"
                 );
             //-------------------------------------------------------------------------------------
@@ -1772,67 +1685,124 @@ Task ("copy-artifacts")
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.dll",
                     "./output/pcl/"
                 );
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
-                    "./output/pcl/"
-                );
-            //-------------------------------------------------------------------------------------
-            CopyFiles
-                (
-                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll", 
-                    "./output/pcl/"
-                );
-            CopyFiles
-                (
-                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.Portable/**/Release/Xamarin.Auth.Extensions.pdb",
                     "./output/pcl/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.dll",
                     "./output/android/"
                 );
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinAndroid/**/Release/Xamarin.Auth.Extensions.pdb",
                     "./output/android/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.dll",
                     "./output/ios/"
                 );
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.XamarinIOS/**/Release/Xamarin.Auth.Extensions.pdb",
                     "./output/ios/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.XamarinForms.dll", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.Extensions.dll",
                     "./output/netstandard1.0/"
                 );
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0//Xamarin.Auth.XamarinForms.pdb", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.Extensions.pdb",
                     "./output/netstandard1.0/"
                 );
             //-------------------------------------------------------------------------------------
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.XamarinForms.dll", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.Extensions.dll",
                     "./output/netstandard1.6/"
                 );
             CopyFiles
                 (
-                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.XamarinForms.pdb", 
+                    "./source/Extensions/Xamarin.Auth.Extensions.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.Extensions.pdb",
+                    "./output/netstandard1.6/"
+                );
+            //-------------------------------------------------------------------------------------
+
+            //-------------------------------------------------------------------------------------
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll",
+                    "./output/pcl/"
+                );
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb",
+                    "./output/pcl/"
+                );
+            //-------------------------------------------------------------------------------------
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.dll",
+                    "./output/pcl/"
+                );
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms/**/Release/Xamarin.Auth.XamarinForms.pdb",
+                    "./output/pcl/"
+                );
+            //-------------------------------------------------------------------------------------
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.dll",
+                    "./output/android/"
+                );
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.Droid/**/Release/Xamarin.Auth.XamarinForms.pdb",
+                    "./output/android/"
+                );
+            //-------------------------------------------------------------------------------------
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.dll",
+                    "./output/ios/"
+                );
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.iOS/**/Release/Xamarin.Auth.XamarinForms.pdb",
+                    "./output/ios/"
+                );
+            //-------------------------------------------------------------------------------------
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0/Xamarin.Auth.XamarinForms.dll",
+                    "./output/netstandard1.0/"
+                );
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly/**/Release/netstandard1.0//Xamarin.Auth.XamarinForms.pdb",
+                    "./output/netstandard1.0/"
+                );
+            //-------------------------------------------------------------------------------------
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.XamarinForms.dll",
+                    "./output/netstandard1.6/"
+                );
+            CopyFiles
+                (
+                    "./source/XamarinForms/Xamarin.Auth.Forms.NetStandard16/**/Release/netstandard1.6/Xamarin.Auth.XamarinForms.pdb",
                     "./output/netstandard1.6/"
                 );
             //-------------------------------------------------------------------------------------
@@ -1843,9 +1813,9 @@ Task ("copy-artifacts")
 
 
 Task ("samples")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             if ( IsRunningOnWindows() )
             {
@@ -1858,9 +1828,9 @@ Task ("samples")
 Task ("samples-macosx")
     .IsDependentOn ("samples-nuget-restore")
     .IsDependentOn ("libs")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             foreach (string sample_solution in sample_solutions_macosx)
             {
@@ -1870,23 +1840,23 @@ Task ("samples-macosx")
                     {
                         MSBuild
                             (
-                                sample_solution, 
-                                c => 
+                                sample_solution,
+                                c =>
                                 {
                                     c.SetConfiguration(configuration);
                                 }
-                            );						
+                            );
                     }
                     else
                     {
                         MSBuild
                             (
-                                sample_solution, 
-                                c => 
+                                sample_solution,
+                                c =>
                                 {
                                     c.SetConfiguration(configuration);
                                 }
-                            );						
+                            );
                     }
                 }
             }
@@ -1898,9 +1868,9 @@ Task ("samples-macosx")
 Task ("samples-windows")
     .IsDependentOn ("samples-nuget-restore")
     .IsDependentOn ("libs")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             foreach (string sample_solution in sample_solutions_windows)
             {
@@ -1913,12 +1883,12 @@ Task ("samples-windows")
                     {
                         MSBuild
                             (
-                                sample_solution, 
-                                c => 
+                                sample_solution,
+                                c =>
                                 {
                                     c.SetConfiguration(configuration);
                                 }
-                            );						
+                            );
                     }
                 }
             }
@@ -1926,12 +1896,12 @@ Task ("samples-windows")
             return;
         }
     );
-    
+
 Task ("nuget")
     .IsDependentOn ("libs")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             string platform = null;
             string msg =
@@ -1942,7 +1912,7 @@ Task ("nuget")
                 ;
 
             platform = "win81";
-            if 
+            if
             (
                 ! FileExists($"./output/{platform}/Xamarin.Auth.dll")
             )
@@ -1950,7 +1920,7 @@ Task ("nuget")
                 throw new System.ArgumentNullException(msg + $"platform = {platform}");
             }
             platform = "wp80";
-            if 
+            if
             (
                 ! FileExists($"./output/{platform}/Xamarin.Auth.dll")
             )
@@ -1958,7 +1928,7 @@ Task ("nuget")
                 throw new System.ArgumentNullException(msg + $"platform = {platform}");
             }
             platform = "wp81";
-            if 
+            if
             (
                 ! FileExists($"./output/{platform}/Xamarin.Auth.dll")
             )
@@ -1966,7 +1936,7 @@ Task ("nuget")
                 throw new System.ArgumentNullException(msg + $"platform = {platform}");
             }
             platform = "wpa81";
-            if 
+            if
             (
                 ! FileExists($"./output/{platform}/Xamarin.Auth.dll")
             )
@@ -1974,53 +1944,53 @@ Task ("nuget")
                 throw new System.ArgumentNullException(msg + $"platform = {platform}");
             }
             platform = "uap10.0";
-            if 
+            if
             (
                 ! FileExists($"./output/{platform}/Xamarin.Auth.dll")
             )
             {
                 throw new System.ArgumentNullException(msg + $"platform = {platform}");
             }
-            
-            NuGetPack 
+
+            NuGetPack
                 (
-                    "./nuget/Xamarin.Auth.nuspec", 
-                    new NuGetPackSettings 
-                    { 
+                    "./nuget/Xamarin.Auth.nuspec",
+                    new NuGetPackSettings
+                    {
                         Verbosity = NuGetVerbosity.Detailed,
-                        OutputDirectory = "./output/",        
+                        OutputDirectory = "./output/",
                         BasePath = "./",
                         Symbols = true,
                         ToolPath = nuget_4,
                         RequireLicenseAcceptance = true
                     }
-                );                
-            NuGetPack 
+                );
+            NuGetPack
                 (
-                    "./nuget/Xamarin.Auth.XamarinForms.nuspec", 
-                    new NuGetPackSettings 
-                    { 
+                    "./nuget/Xamarin.Auth.XamarinForms.nuspec",
+                    new NuGetPackSettings
+                    {
                         Verbosity = NuGetVerbosity.Detailed,
-                        OutputDirectory = "./output/",        
+                        OutputDirectory = "./output/",
                         BasePath = "./",
                         Symbols = true,
                         ToolPath = nuget_4,
                         RequireLicenseAcceptance = true
                     }
-                );                
-            NuGetPack 
+                );
+            NuGetPack
                 (
-                    "./nuget/Xamarin.Auth.Extensions.nuspec", 
-                    new NuGetPackSettings 
-                    { 
+                    "./nuget/Xamarin.Auth.Extensions.nuspec",
+                    new NuGetPackSettings
+                    {
                         Verbosity = NuGetVerbosity.Detailed,
-                        OutputDirectory = "./output/",        
+                        OutputDirectory = "./output/",
                         BasePath = "./",
                         Symbols = true,
                         ToolPath = nuget_4,
                         RequireLicenseAcceptance = true
                     }
-                );                
+                );
         }
     );
 
@@ -2061,15 +2031,15 @@ Task("nuget-validation")
 		{
 			Information ("Metadata validation passed for: {0}", nupkgFile.GetFilename ());
 		}
-			
+
 	}
 
 });
 
 Task ("externals")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             return;
         }
@@ -2078,24 +2048,24 @@ Task ("externals")
 Task ("component")
     .IsDependentOn ("nuget")
     .IsDependentOn ("samples")
-    .Does 
+    .Does
     (
-        () => 
+        () =>
         {
             var COMPONENT_VERSION = "1.3.1.1";
             var yamls = GetFiles ("./**/component.yaml");
 
-            foreach (var yaml in yamls) 
+            foreach (var yaml in yamls)
             {
                 Information("yaml = " + yaml);
                 var contents = FileReadText (yaml).Replace ("$version$", COMPONENT_VERSION);
-                
+
                 var fixedFile = yaml.GetDirectory ().CombineWithFilePath ("component.yaml");
                 FileWriteText (fixedFile, contents);
-                
-                // PackageComponent 
+
+                // PackageComponent
                 //     (
-                //         fixedFile.GetDirectory (), 
+                //         fixedFile.GetDirectory (),
                 //         new XamarinComponentSettings ()
                 //     );
             }
@@ -2105,7 +2075,7 @@ Task ("component")
                 CreateDirectory ("./output");
             }
 
-            CopyFiles ("./component/**/*.xam", "./output");		
+            CopyFiles ("./component/**/*.xam", "./output");
         }
     );
 
@@ -2118,16 +2088,16 @@ FilePath GetToolPath (FilePath toolPath)
         return appRootExe;
     }
 
-    throw new FileNotFoundException ("Unable to find tool: " + appRootExe); 
+    throw new FileNotFoundException ("Unable to find tool: " + appRootExe);
 }
 
 
 //=================================================================================================
 // Put those 2 CI targets at the end of the file after all targets
-// If those targets are before 1st RunTarget() call following error occusrs on 
+// If those targets are before 1st RunTarget() call following error occusrs on
 //		*	MacOSX under Mono
 //		*	Windows
-// 
+//
 //	Task 'ci-osx' is dependent on task 'libs' which do not exist.
 //
 // Xamarin CI - Jenkins job targets
@@ -2139,7 +2109,7 @@ Task ("ci-windows")
     .IsDependentOn ("libs")
     //.IsDependentOn ("nuget")
     //.IsDependentOn ("samples")
-    ;	
+    ;
 //=================================================================================================
 
 Task("Default")
@@ -2181,8 +2151,8 @@ Task("Default")
             Information($"			nuget");
             Information($"			externals");
             Information($"			component");
-            
-            //verbosity = (VERBOSITY == null) : 
+
+            //verbosity = (VERBOSITY == null) :
 
             return;
         }
