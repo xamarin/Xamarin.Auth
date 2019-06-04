@@ -551,7 +551,7 @@ Task ("source-nuget-restore")
                     }
                     else
                     {
-                        nuget_restore_settings.ToolPath = nuget_4;
+                        nuget_restore_settings.ToolPath = nuget_5;
                         NuGetRestore(source_solution, nuget_restore_settings);
                     }
                 }
@@ -772,7 +772,7 @@ Task ("libs-macosx-filesystem")
 
 Task ("libs-macosx")
     .IsDependentOn ("libs-macosx-solutions")
-    //.IsDependentOn ("libs-macosx-projects")
+    .IsDependentOn ("libs-macosx-projects")
     .Does
     (
         () =>
@@ -1067,7 +1067,7 @@ Task ("libs-macosx-projects")
 
 
 Task ("libs-windows")
-    //.IsDependentOn ("libs-windows-projects")
+    .IsDependentOn ("libs-windows-projects")
     .IsDependentOn ("libs-windows-solutions")
     .Does
     (
@@ -1177,7 +1177,16 @@ Task ("libs-windows-solutions")
 
                         continue;
                     }
-                    BuildLoop(sln_prj, new MSBuildSettings{});
+                    
+                    Information ($"BuildLoop {sln_prj}");
+                    BuildLoop
+                        (
+                            sln_prj, 
+                            new MSBuildSettings{}
+                            {
+
+                            }
+                        );
                 }
 
                 // GitLinkAction("./source/Xamarin.Auth-Library.sln");
