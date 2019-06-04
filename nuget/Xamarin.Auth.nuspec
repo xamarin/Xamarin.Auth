@@ -23,18 +23,20 @@
         SemVer - Semantic Versioning
         http://semver.org/
         -->
-		<version>1.7.0</version>
+		<version>1.7.0.0</version>
 		<releaseNotes>
-            - Fix migrations from old PasswordHardCoded value to new
+            - FindAccountsForService throws on iOS #370
+            - updates to stale projects (dependencies, targets)
+            - removed unsupported platforms (Windows Phone, Windows 8.x)
 		</releaseNotes>
         <licenseUrl>
-            https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
+            https://go.microsoft.com/fwlink/?linkid=2021795&clcid=0x409
         </licenseUrl>
         <projectUrl>
-            https://github.com/xamarin/Xamarin.Auth
+            https://go.microsoft.com/fwlink/?linkid=2021816&clcid=0x409
         </projectUrl>
         <iconUrl>
-            https://xamarin-component-icons.s3.amazonaws.com/Xamarin.Auth.png
+            https://go.microsoft.com/fwlink/?linkid=2094632&clcid=0x409
         </iconUrl>
         <requireLicenseAcceptance>
             true
@@ -181,12 +183,12 @@
 
             .
             ├── Release
-            │   ├── Xamarin.Auth
-            │   │   ├── WebAuthenticatorPage.xaml
-            │   │   └── Xamarin.Auth.xr.xml
-            │   ├── Xamarin.Auth.dll
-            │   ├── Xamarin.Auth.pdb
-            │   └── Xamarin.Auth.pri
+            │   ├── Xamarin.Auth
+            │   │   ├── WebAuthenticatorPage.xaml
+            │   │   └── Xamarin.Auth.xr.xml
+            │   ├── Xamarin.Auth.dll
+            │   ├── Xamarin.Auth.pdb
+            │   └── Xamarin.Auth.pri
         -->
         <!-- <file
             src="output/wpa81/Xamarin.Auth.dll"
@@ -225,12 +227,12 @@
 
             .
             ├── Release
-            │   ├── Xamarin.Auth
-            │   │   ├── WebAuthenticatorPage.xaml
-            │   │   └── Xamarin.Auth.xr.xml
-            │   ├── Xamarin.Auth.dll
-            │   ├── Xamarin.Auth.pdb
-            │   └── Xamarin.Auth.pri
+            │   ├── Xamarin.Auth
+            │   │   ├── WebAuthenticatorPage.xaml
+            │   │   └── Xamarin.Auth.xr.xml
+            │   ├── Xamarin.Auth.dll
+            │   ├── Xamarin.Auth.pdb
+            │   └── Xamarin.Auth.pri
         -->
         <!-- <file
             src="output/win81/Xamarin.Auth.dll"
@@ -268,12 +270,12 @@
 
             .
             ├── Release
-            │   ├── Xamarin.Auth
-            │   │   ├── WebAuthenticatorPage.xaml
-            │   │   └── Xamarin.Auth.xr.xml
-            │   ├── Xamarin.Auth.dll
-            │   ├── Xamarin.Auth.pdb
-            │   └── Xamarin.Auth.pri
+            │   ├── Xamarin.Auth
+            │   │   ├── WebAuthenticatorPage.xaml
+            │   │   └── Xamarin.Auth.xr.xml
+            │   ├── Xamarin.Auth.dll
+            │   ├── Xamarin.Auth.pdb
+            │   └── Xamarin.Auth.pri
         -->
         <file
             src="source\Core\Xamarin.Auth.UniversalWindowsPlatform\bin\x86\Release\Xamarin.Auth.dll"

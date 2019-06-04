@@ -21,20 +21,22 @@
 		http://semver.org/
 		-->
 		<version>
-			1.7.0
+			1.7.0.0
 		</version>
 		<releaseNotes>
-            - Fix migrations from old PasswordHardCoded value to new
+            - FindAccountsForService throws on iOS #370
+            - updates to stale projects (dependencies, targets)
+            - removed unsupported platforms (Windows Phone, Windows 8.x)
 		</releaseNotes>
-		<licenseUrl>
-			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
-		</licenseUrl>
-		<projectUrl>
-			https://github.com/xamarin/Xamarin.Auth
-		</projectUrl>
-		<iconUrl>
-			https://xamarin-component-icons.s3.amazonaws.com/Xamarin.Auth.png
-		</iconUrl>
+        <licenseUrl>
+            https://go.microsoft.com/fwlink/?linkid=2021795&clcid=0x409
+        </licenseUrl>
+        <projectUrl>
+            https://go.microsoft.com/fwlink/?linkid=2021816&clcid=0x409
+        </projectUrl>
+        <iconUrl>
+            https://go.microsoft.com/fwlink/?linkid=2094632&clcid=0x409
+        </iconUrl>
 		<requireLicenseAcceptance>
 			true
 		</requireLicenseAcceptance>
@@ -68,7 +70,7 @@
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
 			-->
 			<group>
-				<dependency id="Xamarin.Auth" version="[1.5.0.3,)"/>
+				<dependency id="Xamarin.Auth" version="[1.7.0.0,)"/>
 				<dependency id="PCLCrypto" version="[2.0.147,)"/>
 			</group>
         </dependencies>
