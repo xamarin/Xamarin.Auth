@@ -75,8 +75,10 @@ jobs:
         inputs:
           solution: '$(solution_samples)'
     #------------------------------------------------------------
-      - powershell: .\build.ps1 --target=nuget
+      - powershell: .\build.ps1 --target=nuget --verbosity=diagnostic
         displayName: Run Cake Build
+
+
 
   - job: build_windows_vs2017
     displayName: Build on Windows VS2017
@@ -85,8 +87,8 @@ jobs:
     steps:
       - checkout: self
         submodules: recursive
-      - powershell: .\build.ps1 --target=nuget
-        displayName: Run build
+      - powershell: .\build.ps1 --target=nuget --verbosity=diagnostic
+        displayName: Run Cake Build
 
   - job: build_macos
     displayName: Build on macOS VS4Mac
