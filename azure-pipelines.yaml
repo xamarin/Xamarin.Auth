@@ -87,13 +87,34 @@ jobs:
       - task: NuGetCommand@2
         displayName: 'NuGet restore'
         inputs:
-        restoreSolution: 'source/Xamarin.Auth-Library.sln'
+          restoreSolution: 'source/Xamarin.Auth-Library.sln'
       - task: MSBuild@1
         displayName: 'Build solution source/Xamarin.Auth-Library.sln'
         inputs:
           solution: 'source/Xamarin.Auth-Library.sln'
           configuration: Release
-
+      - task: NuGetCommand@2
+        displayName: 'NuGet Pack Xamarin.Auth'
+        inputs:
+          command: pack
+          packagesToPack: nuget/Xamarin.Auth.nuspec
+          basePath: '.\'
+      - task: NuGetCommand@2
+        displayName: 'NuGet Pack Xamarin.Auth.Extensions'
+        inputs:
+          command: pack
+          packagesToPack: nuget/Xamarin.Auth.Extensions.nuspec
+          basePath: '.\'
+      - task: NuGetCommand@2
+        displayName: 'NuGet Pack Xamarin.Auth.XamarinForms'
+        inputs:
+          command: pack
+          packagesToPack: nuget/Xamarin.Auth.XamarinForms.nuspec
+          basePath: '.\'
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifacts'
+        inputs:
+          ArtifactName: nuget
 
 
 
