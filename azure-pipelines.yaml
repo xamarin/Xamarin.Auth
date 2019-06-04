@@ -38,6 +38,7 @@ jobs:
       - script: choco install dotnetcore-sdk --pre
       - script: choco install dotnetcore-sdk
       # - script: vs_buildtools.exe --add Microsoft.VisualStudio.Component.NuGet --quiet
+      - script: vs_enterprise.exe --add Microsoft.VisualStudio.Component.PortableLibrary 
       - task: UseDotNet@2
         displayName: 'Use .NET Core SDK'
         inputs:
@@ -75,9 +76,24 @@ jobs:
         inputs:
           solution: '$(solution_samples)'
     #------------------------------------------------------------
-      - script: vs_enterprise.exe --add Microsoft.VisualStudio.Component.PortableLibrary 
       - powershell: .\build.ps1 --target=nuget --verbosity=diagnostic
         displayName: Run Cake Build
+
+  - job: build_windows_vs2017_quick_and_dirty
+    displayName: Build on Windows VS2017 Redth's Quick and Dirty
+    pool:
+      vmImage: vs2017-win2016
+    steps:
+      - task: NuGetCommand@2
+        displayName: 'NuGet restore'
+        inputs:
+        restoreSolution: 'source/Xamarin.Auth-Library.sln'
+      - task: MSBuild@1
+        displayName: 'Build solution source/Xamarin.Auth-Library.sln'
+        inputs:
+          solution: 'source/Xamarin.Auth-Library.sln'
+          configuration: Release
+
 
 
 
