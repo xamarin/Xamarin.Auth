@@ -539,7 +539,7 @@ Task ("source-nuget-restore")
                     }
                     else
                     {
-                        nuget_restore_settings.ToolPath = nuget_3;
+                        nuget_restore_settings.ToolPath = nuget_4;
                         NuGetRestore(source_solution, nuget_restore_settings);
                     }
                 }
