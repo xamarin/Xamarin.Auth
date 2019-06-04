@@ -444,17 +444,29 @@ string custom_defines = "XAMARIN_AUTH_INTERNAL%3BXAMARIN_CUSTOM_TABS_INTERNAL%3B
 string define = null;
 string nuget_3 = System.IO.Path.Combine(".", "tools", "nuget.3.exe");
 string nuget_4 = System.IO.Path.Combine(".", "tools", "nuget.4.exe");
+string nuget_5 = System.IO.Path.Combine(".", "tools", "nuget.5.exe");
 
 Task ("nuget-install")
     .Does
     (
         () =>
         {
+            if (! FileExists(nuget_5))
+            {
+                DownloadFile
+                (
+                    "https://dist.nuget.org/win-x86-commandline/v5.1.0/nuget.exe",
+                    File(nuget_5),
+                    new Cake.Common.Net.DownloadFileSettings()
+                    {
+                    }
+                );
+            }
             if (! FileExists(nuget_4))
             {
                 DownloadFile
                 (
-                    "https://dist.nuget.org/win-x86-commandline/v4.6.2/nuget.exe",
+                    "https://dist.nuget.org/win-x86-commandline/v4.9.4/nuget.exe",
                     File(nuget_4),
                     new Cake.Common.Net.DownloadFileSettings()
                     {
