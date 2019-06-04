@@ -76,7 +76,7 @@ jobs:
           solution: '$(solution_samples)'
     #------------------------------------------------------------
       - script: |
-       vs_community.exe 
+       vs_community.exe ^
         --add Microsoft.VisualStudio.Component.PortableLibrary 
       - powershell: .\build.ps1 --target=nuget --verbosity=diagnostic
         displayName: Run Cake Build
