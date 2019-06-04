@@ -1067,7 +1067,7 @@ Task ("libs-macosx-projects")
 
 
 Task ("libs-windows")
-    .IsDependentOn ("libs-windows-projects")
+    //.IsDependentOn ("libs-windows-projects")
     .IsDependentOn ("libs-windows-solutions")
     .Does
     (
