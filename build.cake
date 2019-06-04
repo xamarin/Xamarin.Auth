@@ -1177,12 +1177,12 @@ Task ("libs-windows-solutions")
 
                         continue;
                     }
-                    
+
                     Information ($"BuildLoop {sln_prj}");
                     BuildLoop
                         (
                             sln_prj, 
-                            new MSBuildSettings{}
+                            new MSBuildSettings
                             {
 
                             }
