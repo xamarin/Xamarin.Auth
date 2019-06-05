@@ -54,18 +54,15 @@
             Android.
         </summary>
         <tags>
+			oauth, oauth 1, oauth 2, authentication, xamarin.auth
             xamarin,
             pcl,
             android, monoandroid, monodroid, xamarin.android,
             ios,  monotouch, xamarin.ios
-            windows phone, winphone, wp, 
-            windows phone 8 silverlight, winphone 8 sl, wp8 sl
-            windows phone 8.1 silverlight, winphone 8.1 sl, wp81 sl
-            windows 8.1, windows 8.1 winrt, win81
-            windows phone 8.1 winrt, winphone 8.1 winrt, wpa81
             universal windows platform, uwp, windows 10
             plugin for xamarin, plugin,
             xamarin.forms,
+            netstandard
             <!--
             -->
         </tags>
@@ -169,7 +166,8 @@
         <!--
             Windows Phone 8 Silverlight
         -->
-        <!-- <file
+        <!-- 
+        <file
             src="output/wp80/Xamarin.Auth.dll"
             target="lib/wp8/Xamarin.Auth.dll"
             >
@@ -192,7 +190,8 @@
             │   ├── Xamarin.Auth.pdb
             │   └── Xamarin.Auth.pri
         -->
-        <!-- <file
+        <!-- 
+        <file
             src="output/wpa81/Xamarin.Auth.dll"
             target="lib/wpa81/Xamarin.Auth.dll"
             >
@@ -221,7 +220,8 @@
             src="output/wpa81/Xamarin.Auth/Xamarin.Auth.xr.xml"
             target="lib/wpa81/Xamarin.Auth/Xamarin.Auth.xr.xml"
             >
-        </file> -->
+        </file>
+         -->
 
         <!--
             Windows 8.1 WinRT
@@ -236,7 +236,8 @@
             │   ├── Xamarin.Auth.pdb
             │   └── Xamarin.Auth.pri
         -->
-        <!-- <file
+        <!--
+         <file
             src="output/win81/Xamarin.Auth.dll"
             target="lib/win81/Xamarin.Auth.dll"
             >
@@ -265,7 +266,8 @@
             src="output/win81/Xamarin.Auth/Xamarin.Auth.xr.xml"
             target="lib/win81/Xamarin.Auth/Xamarin.Auth.xr.xml"
             >
-        </file> -->
+        </file> 
+        -->
         <!--
             Universal Windows Platform, UWP
             Windows 10

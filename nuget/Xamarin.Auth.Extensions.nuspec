@@ -54,16 +54,15 @@
 			Android.
 		</summary>
 		<tags>
-			xamarin,
-			pcl,
-			android, monoandroid, monodroid, xamarin.android,
-			ios,  monotouch, xamarin.ios
-			plugin for xamarin, plugin,
-			xamarin.forms,
-			windows phone, winphone, wp8,
-			wp81
-			windows 8, winrt,
-            windows, universal, platform, windows universal platform, uwp
+			oauth, oauth 1, oauth 2, authentication, xamarin.auth
+            xamarin,
+            pcl,
+            android, monoandroid, monodroid, xamarin.android,
+            ios,  monotouch, xamarin.ios
+            universal windows platform, uwp, windows 10
+            plugin for xamarin, plugin,
+            xamarin.forms,
+            netstandard
 		</tags>
         <dependencies>
 			<!--
@@ -151,6 +150,21 @@
 			>
 		</file>
 		-->
+
+
+        <!--
+            Universal Windows Platform, UWP
+            Windows 10
+
+            .
+            ├── Release
+            │   ├── Xamarin.Auth
+            │   │   ├── WebAuthenticatorPage.xaml
+            │   │   └── Xamarin.Auth.xr.xml
+            │   ├── Xamarin.Auth.dll
+            │   ├── Xamarin.Auth.pdb
+            │   └── Xamarin.Auth.pri
+        -->
 
 	</files>
 </package>

@@ -54,18 +54,15 @@
 			Android.
 		</summary>
 		<tags>
-			xamarin,
-			pcl,
-			android, monoandroid, monodroid, xamarin.android,
-			ios,  monotouch, xamarin.ios
-			windows phone, winphone, wp, 
-			windows phone 8 silverlight, winphone 8 sl, wp8 sl
-			windows phone 8.1 silverlight, winphone 8.1 sl, wp81 sl
-			windows 8.1, windows 8.1 winrt, win81
-			windows phone 8.1 winrt, winphone 8.1 winrt, wpa81
-			universal windows platform, uwp, windows 10
-			plugin for xamarin, plugin,
-			xamarin.forms,
+			oauth, oauth 1, oauth 2, authentication, xamarin.auth
+            xamarin,
+            pcl,
+            android, monoandroid, monodroid, xamarin.android,
+            ios,  monotouch, xamarin.ios
+            universal windows platform, uwp, windows 10
+            plugin for xamarin, plugin,
+            xamarin.forms,
+            netstandard
 		</tags>
 		<frameworkAssemblies>
 			<frameworkAssembly
@@ -250,6 +247,7 @@
 			│   ├── Xamarin.Auth.XamarinForms.dll
 			│   ├── Xamarin.Auth.XamarinForms.pdb
 			│   └── Xamarin.Auth.XamarinForms.pri
+		-->
 		<file
 			src="output/uap10.0/Xamarin.Auth.XamarinForms.dll"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.dll"
@@ -275,7 +273,6 @@
 			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
 			>
 		</file>
-		-->
 
 	</files>
 </package>
