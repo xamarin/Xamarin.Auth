@@ -21,20 +21,22 @@
 		http://semver.org/
 		-->
 		<version>
-			1.6.0.5
+			1.7.0.0-alpha01
 		</version>
 		<releaseNotes>
-            - Fix migrations from old PasswordHardCoded value to new
+            - FindAccountsForService throws on iOS #370
+            - updates to stale projects (dependencies, targets)
+            - removed unsupported platforms (Windows Phone, Windows 8.x)
 		</releaseNotes>
-		<licenseUrl>
-			https://github.com/xamarin/Xamarin.Auth/blob/master/License.md
-		</licenseUrl>
-		<projectUrl>
-			https://github.com/xamarin/Xamarin.Auth
-		</projectUrl>
-		<iconUrl>
-			https://xamarin-component-icons.s3.amazonaws.com/Xamarin.Auth.png
-		</iconUrl>
+        <licenseUrl>
+            https://go.microsoft.com/fwlink/?linkid=2021795&clcid=0x409
+        </licenseUrl>
+        <projectUrl>
+            https://go.microsoft.com/fwlink/?linkid=2021816&clcid=0x409
+        </projectUrl>
+        <iconUrl>
+            https://go.microsoft.com/fwlink/?linkid=2094632&clcid=0x409
+        </iconUrl>
 		<requireLicenseAcceptance>
 			true
 		</requireLicenseAcceptance>
@@ -52,16 +54,15 @@
 			Android.
 		</summary>
 		<tags>
-			xamarin,
-			pcl,
-			android, monoandroid, monodroid, xamarin.android,
-			ios,  monotouch, xamarin.ios
-			plugin for xamarin, plugin,
-			xamarin.forms,
-			windows phone, winphone, wp8,
-			wp81
-			windows 8, winrt,
-            windows, universal, platform, windows universal platform, uwp
+			oauth, oauth 1, oauth 2, authentication, xamarin.auth
+            xamarin,
+            pcl,
+            android, monoandroid, monodroid, xamarin.android,
+            ios,  monotouch, xamarin.ios
+            universal windows platform, uwp, windows 10
+            plugin for xamarin, plugin,
+            xamarin.forms,
+            netstandard
 		</tags>
         <dependencies>
 			<!--
@@ -84,12 +85,12 @@
 			Core - .NET Standard
 		-->
 		<file
-			src="output/netstandard1.0/Xamarin.Auth.Extensions.dll"
+			src="source\Extensions\Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly\bin\Release\netstandard1.0\Xamarin.Auth.Extensions.dll"
 			target="lib/netstandard1.0/Xamarin.Auth.Extensions.dll"
 			>
 		</file>
 		<file
-			src="output/netstandard1.6/Xamarin.Auth.Extensions.dll"
+			src="source\Extensions\Xamarin.Auth.Extensions.NetStandard10.ReferenceAssembly\bin\Release\netstandard1.0\Xamarin.Auth.Extensions.dll"
 			target="lib/netstandard1.6/Xamarin.Auth.Extensions.dll"
 			>
 		</file>
@@ -99,7 +100,7 @@
 			Core - Portable
 		-->
 		<file
-			src="output/pcl/Xamarin.Auth.dll"
+			src="source\Extensions\Xamarin.Auth.Extensions.Portable\bin\Release\Xamarin.Auth.dll"
 			target="lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10/Xamarin.Auth.dll"
 			>
 		</file>
@@ -108,7 +109,7 @@
 			Xamarin.Android
 		-->
 		<file
-			src="output/android/Xamarin.Auth.Extensions.dll"
+			src="source\Extensions\Xamarin.Auth.Extensions.XamarinAndroid\bin\Release\Xamarin.Auth.Extensions.dll"
 			target="lib/MonoAndroid10/Xamarin.Auth.Extensions.dll"
 			>
 		</file>
@@ -118,7 +119,7 @@
 				Unified
 		-->
 		<file
-			src="output/ios/Xamarin.Auth.Extensions.dll"
+			src="source\Extensions\Xamarin.Auth.Extensions.XamarinIOS\bin\Release\Xamarin.Auth.Extensions.dll"
 			target="lib/Xamarin.iOS10/Xamarin.Auth.Extensions.dll"
 			>
 		</file>
@@ -149,6 +150,21 @@
 			>
 		</file>
 		-->
+
+
+        <!--
+            Universal Windows Platform, UWP
+            Windows 10
+
+            .
+            ├── Release
+            │   ├── Xamarin.Auth
+            │   │   ├── WebAuthenticatorPage.xaml
+            │   │   └── Xamarin.Auth.xr.xml
+            │   ├── Xamarin.Auth.dll
+            │   ├── Xamarin.Auth.pdb
+            │   └── Xamarin.Auth.pri
+        -->
 
 	</files>
 </package>

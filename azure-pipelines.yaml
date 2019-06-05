@@ -79,6 +79,8 @@ jobs:
       - powershell: .\build.ps1 --target=nuget --verbosity=diagnostic
         displayName: Run Cake Build
 
+
+
   - job: build_windows_vs2017_quick_and_dirty
     displayName: Build on Windows VS2017 Redth's Quick and Dirty
     pool:

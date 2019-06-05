@@ -547,12 +547,14 @@ Task ("source-nuget-restore")
                     else if (source_solution.Contains("-VS2017.sln"))
                     {
                         nuget_restore_settings.ToolPath = nuget_4;
-                        NuGetRestore(source_solution, nuget_restore_settings);
+                        //NuGetRestore(source_solution, nuget_restore_settings);
+                        DotNetCoreRestore(source_solution);
                     }
                     else
                     {
                         nuget_restore_settings.ToolPath = nuget_5;
-                        NuGetRestore(source_solution, nuget_restore_settings);
+                        //NuGetRestore(source_solution, nuget_restore_settings);
+                        DotNetCoreRestore(source_solution);
                     }
                 }
                 else
