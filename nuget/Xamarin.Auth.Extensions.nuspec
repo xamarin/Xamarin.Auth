@@ -29,13 +29,13 @@
             - removed unsupported platforms (Windows Phone, Windows 8.x)
 		</releaseNotes>
         <licenseUrl>
-            https://go.microsoft.com/fwlink/?linkid=2021795&clcid=0x409
+            https://go.microsoft.com/fwlink/?linkid=2021795
         </licenseUrl>
         <projectUrl>
-            https://go.microsoft.com/fwlink/?linkid=2021816&clcid=0x409
+            https://go.microsoft.com/fwlink/?linkid=2021816
         </projectUrl>
         <iconUrl>
-            https://go.microsoft.com/fwlink/?linkid=2094632&clcid=0x409
+            https://go.microsoft.com/fwlink/?linkid=2094632
         </iconUrl>
 		<requireLicenseAcceptance>
 			true
