@@ -249,27 +249,27 @@
 			│   └── Xamarin.Auth.XamarinForms.pri
 		-->
 		<file
-			src="output/uap10.0/Xamarin.Auth.XamarinForms.dll"
+			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.dll"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth.XamarinForms.pdb"
+			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.pdb"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.pdb"
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth.XamarinForms.pri"
+			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.pri"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.pri"
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xaml"
+			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\WebAuthenticatorPage.xaml"
 			target="lib/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xaml"
 			>
 		</file>
 		<file
-			src="output/uap10.0/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
+			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.xr.xml"
 			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
 			>
 		</file>
