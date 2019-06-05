@@ -24,7 +24,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.7.0.0
+			1.7.0.0-alpha01
 		</version>
 		<releaseNotes>
             - FindAccountsForService throws on iOS #370
@@ -86,7 +86,7 @@
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
 			-->
 			<group>
-				<dependency id="Xamarin.Auth" version="[1.7.0.0,)"/>
+				<dependency id="Xamarin.Auth" version="[1.5.0.3,)"/>
 				<dependency id="Xamarin.Forms" version="[2.3,)"/>
 			</group>
 			<group targetFramework="MonoAndroid10">
@@ -156,12 +156,12 @@
 
 			.
 			├── Release
-			│   ├── Xamarin.Auth
-			│   │   ├── WebAuthenticatorPage.xaml
-			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
-			│   ├── Xamarin.Auth.XamarinForms.dll
-			│   ├── Xamarin.Auth.XamarinForms.pdb
-			│   └── Xamarin.Auth.XamarinForms.pri
+			│   ├── Xamarin.Auth
+			│   │   ├── WebAuthenticatorPage.xaml
+			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
+			│   ├── Xamarin.Auth.XamarinForms.dll
+			│   ├── Xamarin.Auth.XamarinForms.pdb
+			│   └── Xamarin.Auth.XamarinForms.pri
 		<file
 			src="output/wpa81/Xamarin.Auth.XamarinForms.dll"
 			target="lib/wpa81/Xamarin.Auth.XamarinForms.dll"
@@ -200,12 +200,12 @@
 
 			.
 			├── Release
-			│   ├── Xamarin.Auth
-			│   │   ├── WebAuthenticatorPage.xaml
-			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
-			│   ├── Xamarin.Auth.XamarinForms.dll
-			│   ├── Xamarin.Auth.XamarinForms.pdb
-			│   └── Xamarin.Auth.XamarinForms.pri
+			│   ├── Xamarin.Auth
+			│   │   ├── WebAuthenticatorPage.xaml
+			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
+			│   ├── Xamarin.Auth.XamarinForms.dll
+			│   ├── Xamarin.Auth.XamarinForms.pdb
+			│   └── Xamarin.Auth.XamarinForms.pri
 		<file
 			src="output/win81/Xamarin.Auth.XamarinForms.dll"
 			target="lib/win81/Xamarin.Auth.XamarinForms.dll"
@@ -244,12 +244,12 @@
 
 			.
 			├── Release
-			│   ├── Xamarin.Auth
-			│   │   ├── WebAuthenticatorPage.xaml
-			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
-			│   ├── Xamarin.Auth.XamarinForms.dll
-			│   ├── Xamarin.Auth.XamarinForms.pdb
-			│   └── Xamarin.Auth.XamarinForms.pri
+			│   ├── Xamarin.Auth
+			│   │   ├── WebAuthenticatorPage.xaml
+			│   │   └── Xamarin.Auth.XamarinForms.xr.xml
+			│   ├── Xamarin.Auth.XamarinForms.dll
+			│   ├── Xamarin.Auth.XamarinForms.pdb
+			│   └── Xamarin.Auth.XamarinForms.pri
 		<file
 			src="output/uap10.0/Xamarin.Auth.XamarinForms.dll"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.dll"
