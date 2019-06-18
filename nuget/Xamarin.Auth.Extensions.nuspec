@@ -21,7 +21,7 @@
 		http://semver.org/
 		-->
 		<version>
-			1.7.0.0-alpha01
+			1.7.0.0
 		</version>
 		<releaseNotes>
             - FindAccountsForService throws on iOS #370
@@ -69,7 +69,7 @@
 			https://docs.microsoft.com/en-us/nuget/schema/nuspec#dependencies
 			-->
 			<group>
-				<dependency id="Xamarin.Auth" version="[1.5.0.3,)"/>
+				<dependency id="Xamarin.Auth" version="[1.7.0.0,)"/>
 				<dependency id="PCLCrypto" version="[2.0.147,)"/>
 			</group>
         </dependencies>
