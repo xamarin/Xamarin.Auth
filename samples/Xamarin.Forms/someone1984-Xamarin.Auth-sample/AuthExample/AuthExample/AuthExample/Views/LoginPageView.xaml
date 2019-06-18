@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AuthExample.Views.LoginPageView">
+    <ContentPage.Content>
+        <StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Margin="30">
+            <Button Text="GOOGLE" Command="{Binding GoogleClickedCommand}" />
+            <Button Text="MICROSOFT" Command="{Binding MicrosoftClickedCommand}" />
+            <Button Text="FACEBOOK" Command="{Binding FacebookClickedCommand}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
