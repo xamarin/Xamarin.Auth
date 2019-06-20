@@ -187,10 +187,12 @@ namespace Xamarin.Auth._MobileServices
             return;
         }
 
-        protected bool UrlMatchesRedirect(Uri url)
+        protected virtual bool UrlMatchesRedirect(Uri url)
         {
             // mc++
             // TODO: schemas
+            
+            // Check if the scheme matches
             return url.Host == redirectUrl.Host && url.LocalPath == redirectUrl.LocalPath;
         }
 
