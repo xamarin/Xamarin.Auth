@@ -102,12 +102,12 @@
 			Core - .NET Standard
 		-->
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly\bin\Release\netstandard1.0\Xamarin.Auth.XamarinForms.dll"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.NetStandard10.ReferenceAssembly\bin\Release\netstandard1.0\Xamarin.Auth.XamarinForms.dll"
 			target="lib/netstandard1.0/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.NetStandard16\bin\Release\netstandard1.6\Xamarin.Auth.XamarinForms.dll"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.NetStandard16\bin\Release\netstandard1.6\Xamarin.Auth.XamarinForms.dll"
 			target="lib/netstandard1.6/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
@@ -115,7 +115,7 @@
 			Core - Portable
 		-->
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms\bin\Release\Xamarin.Auth.XamarinForms.dll"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms\bin\Release\Xamarin.Auth.XamarinForms.dll"
 			target="lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+XamarinIOS10/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
@@ -124,7 +124,7 @@
 			Xamarin.Android
 		-->
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.Droid\bin\Release\Xamarin.Auth.XamarinForms.dll"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.Droid\bin\Release\Xamarin.Auth.XamarinForms.dll"
 			target="lib/MonoAndroid10/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
@@ -134,7 +134,7 @@
 				Unified
 		-->
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.iOS\bin\iPhone\Release\Xamarin.Auth.XamarinForms.dll"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.iOS\bin\iPhone\Release\Xamarin.Auth.XamarinForms.dll"
 			target="lib/Xamarin.iOS10/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
@@ -249,28 +249,28 @@
 			│   └── Xamarin.Auth.XamarinForms.pri
 		-->
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.dll"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.dll"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.dll"
 			>
 		</file>
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.pdb"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.pdb"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.pdb"
 			>
 		</file>
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.pri"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.pri"
 			target="lib/uap10.0/Xamarin.Auth.XamarinForms.pri"
 			>
 		</file>
 		<!--
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\WebAuthenticatorPage.xaml"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\WebAuthenticatorPage.xaml"
 			target="lib/uap10.0/Xamarin.Auth/WebAuthenticatorPage.xaml"
 			>
 		</file>
 		<file
-			src="source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.xr.xml"
+			src="..\source\XamarinForms\Xamarin.Auth.Forms.UniversalWindowsPlatform\bin\Release\Xamarin.Auth.XamarinForms.xr.xml"
 			target="lib/uap10.0/Xamarin.Auth/Xamarin.Auth.XamarinForms.xr.xml"
 			>
 		</file>
