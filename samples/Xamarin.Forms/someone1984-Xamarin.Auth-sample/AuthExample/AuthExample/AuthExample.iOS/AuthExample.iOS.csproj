@@ -160,9 +160,6 @@
     <PackageReference Include="Xamarin.Forms">
       <Version>4.0.0.482894</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.Auth">
-      <Version>1.7.0-alpha01</Version>
-    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
@@ -173,5 +170,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Renderers\" />
+  </ItemGroup>
+  <ItemGroup Condition="exists('..\..\..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj')">
+    <ProjectReference Include="..\..\..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj">
+        <HintPath>..\..\..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj</HintPath>        
+    </ProjectReference> 
+  </ItemGroup>
+  <ItemGroup Condition="!exists('..\..\..\..\..\..\source\Core\Xamarin.Auth.XamarinIOS\Xamarin.Auth.XamarinIOS.csproj')">
+    <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -13,10 +13,20 @@
     <PackageReference Include="Xamarin.Essentials" Version="1.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="Xamarin.Forms" Version="4.0.0.482894" />
-    <PackageReference Include="Xamarin.Auth" Version="1.7.0-alpha01" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="Models\Credentials.cs" />
   </ItemGroup>
+        
+  <ItemGroup Condition="exists('..\..\..\..\..\..\source\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj')">
+    <ProjectReference Include="..\..\..\..\..\..\source\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj">
+        <HintPath>..\..\..\..\..\..\source\Core\Xamarin.Auth.XamarinAndroid\Xamarin.Auth.NetStandard16.csproj</HintPath>        
+        <Name>Xamarin.Auth.NetStandard16</Name>
+    </ProjectReference> 
+  </ItemGroup>
+  <ItemGroup Condition="!exists('..\..\..\..\..\..\source\Core\Xamarin.Auth.NetStandard16\Xamarin.Auth.NetStandard16.csproj')">
+    <PackageReference Include="Xamarin.Auth" Version="1.7.0" />
+  </ItemGroup>
+    
 </Project>

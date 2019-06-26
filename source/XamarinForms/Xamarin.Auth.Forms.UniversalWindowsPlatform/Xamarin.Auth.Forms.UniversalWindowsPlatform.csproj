@@ -17,7 +17,8 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <XamarinAuthCustomPreprocessorConstantsDefines></XamarinAuthCustomPreprocessorConstantsDefines>
+    <XamarinAuthCustomPreprocessorConstantsDefines>
+    </XamarinAuthCustomPreprocessorConstantsDefines>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -142,7 +143,7 @@
       <ItemGroup>
         <ProjectReference Include="..\..\Core\Xamarin.Auth.UniversalWindowsPlatform\Xamarin.Auth.UniversalWindowsPlatform.csproj">
           <Project>{2d712aa6-7697-4f4d-b5f1-aa03476f59a7}</Project>
-          <Name>Xamarin.Auth.UniversalWindowsPlatform Project Reference</Name>
+          <Name>Xamarin.Auth.UniversalWindowsPlatform</Name>
         </ProjectReference>
       </ItemGroup>
     </Otherwise>
@@ -150,7 +151,7 @@
   <!--
   If projects for references can be found use ProjectReferences otherwise use NuGet references
   ==================================================================================================
-  -->  
+  -->
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
