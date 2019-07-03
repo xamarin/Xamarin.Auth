@@ -377,9 +377,9 @@ Task ("libs-custom")
 string[] source_solutions = new string[]
 {
     "./source/Xamarin.Auth-Library.sln",
-    "./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln",
+    "./source/Xamarin.Auth-Library-VS4Mac.sln",
     //"./source/Xamarin.Auth-Library-VS2015.sln",
-    "./source/Xamarin.Auth-Library-VS2017.sln",
+    "./source/Xamarin.Auth-Library-VS4W-2017.sln",
 };
 
 string[] solutions_for_nuget_tests = new string[]
@@ -673,7 +673,7 @@ Action<string,  MSBuildSettings> BuildLoop =
                 */
                 msbuild_settings.PlatformTarget = PlatformTarget.x86;
             }
-            else if (sln_prj.Contains("Xamarin.Auth-Library-VS2017.sln") && IsRunningOnWindows() )
+            else if (sln_prj.Contains("Xamarin.Auth-Library-VS4W-2017.sln") && IsRunningOnWindows() )
             {
                 /*
                 C:\Program Files\dotnet\sdk\2.1.101\Sdks\Microsoft.NET.Sdk\build\Microsoft.PackageDependencyResolution.targets(327,5):
@@ -733,7 +733,7 @@ Action<string,  MSBuildSettings> BuildLoop =
                                             "true"
                                         );
             }
-            else if(sln_prj.Contains("Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln") && ! IsRunningOnWindows() )
+            else if(sln_prj.Contains("Xamarin.Auth-Library-VS4Mac.sln") && ! IsRunningOnWindows() )
             {
                 // MacOSX only
                 // return;
@@ -1192,7 +1192,7 @@ Task ("libs-windows-solutions")
                 }
 
                 // GitLinkAction("./source/Xamarin.Auth-Library.sln");
-                // GitLinkAction("./source/Xamarin.Auth-Library-MacOSX-Xamarin.Studio.sln");
+                // GitLinkAction("./source/Xamarin.Auth-Library-VS4Mac.sln");
 
                 return;
             }
@@ -1987,7 +1987,6 @@ Task ("nuget")
                     {
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",
-                        BasePath = "./",
                         Symbols = true,
                         ToolPath = nuget_4,
                         RequireLicenseAcceptance = true
@@ -2000,7 +1999,6 @@ Task ("nuget")
                     {
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",
-                        BasePath = "./",
                         Symbols = true,
                         ToolPath = nuget_4,
                         RequireLicenseAcceptance = true
@@ -2013,7 +2011,6 @@ Task ("nuget")
                     {
                         Verbosity = NuGetVerbosity.Detailed,
                         OutputDirectory = "./output/",
-                        BasePath = "./",
                         Symbols = true,
                         ToolPath = nuget_4,
                         RequireLicenseAcceptance = true
