@@ -20,7 +20,7 @@ Windows:
 
 | Builds (Bot)                                  |  Status                                          |
 |:---------------------------------------------:|:------------------------------------------------:|
-| Azure DevOps Pipelines (Editor)               |  [![Build Status Pipeline](31)](31)              |
+| Azure DevOps Pipelines (Editor)               |  [![Build Status Pipeline][31]][31]              |
 | Azure DevOps Pipelines Mac OSX (Editor)       |  [![Components-XamarinAuth_MacOSX][23]][21]      |
 | Azure DevOps Pipelines Windows 2017 (Editor)  |  [![Components-XamarinAuth-Windows][24]][22]     |
 | Azure DevOps Pipelines Mac OSX (YAML)         |  [![Components-XamarinAuth_MacOSX][23]][21]      |
