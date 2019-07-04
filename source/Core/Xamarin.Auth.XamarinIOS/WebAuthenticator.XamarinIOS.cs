@@ -62,7 +62,7 @@ namespace Xamarin.Auth._MobileServices
                 {
                     Uri redirect_uri = new Uri(query_parts["redirect_uri"]);
                     string scheme = redirect_uri.Scheme;
-                    if (scheme.StartsWith("http", StringComparison.InvariantCultureIgnoreCase))
+                    if (scheme.StartsWith("http", StringComparison.InvariantCultureIgnoreCase) && !IgnoreWarningUrlScheme)
                     {
                         StringBuilder sb = new StringBuilder();
                         sb.AppendLine("WARNING");
@@ -70,7 +70,7 @@ namespace Xamarin.Auth._MobileServices
                         sb.AppendLine($"Native UI used with http[s] schema!");
                         sb.AppendLine($"Redirect URL will be loaded in Native UI!");
                         sb.AppendLine($"OAuth Data parsing might fail!");
-
+                        
                         ShowErrorForNativeUI(sb.ToString());
                     }
                 }

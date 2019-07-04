@@ -41,6 +41,16 @@ namespace Xamarin.Auth._MobileServices
 
         protected bool is_using_native_ui = false;
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if disabling the HTTP(S)-scheme redirect URL; otherwise, <c>false</c>.
+        /// Make sure that you know what you're doing,
+        /// OAuth Data parsing might fail!
+        /// </value>
+        public bool IgnoreWarningUrlScheme { get; set; }
+        
         protected void ShowErrorForNativeUI(string v)
         {
             ShowErrorForNativeUIDebug(v);

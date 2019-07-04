@@ -229,6 +229,13 @@ namespace Xamarin.Auth._MobileServices
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
+        /// <param name="isUsingNativeUI"></param>
+        /// To use custom or native UI.
+        /// <param name="ignoreWarningUrlScheme">
+        /// Disable the HTTP(S)-scheme redirect URL warning.
+        /// Make sure you know what you're doing,
+        /// OAuth Data parsing might fail!
+        /// </param>
         public OAuth2Authenticator
                         (
                             string clientId,
@@ -236,11 +243,13 @@ namespace Xamarin.Auth._MobileServices
                             Uri authorizeUrl,
                             Uri redirectUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = false
+                            bool isUsingNativeUI = false,
+                            bool ignoreWarningUrlScheme = false
                         )
             : this(redirectUrl)
         {
             this.is_using_native_ui = isUsingNativeUI;
+            this.IgnoreWarningUrlScheme = ignoreWarningUrlScheme;
 
             if (string.IsNullOrEmpty(clientId))
             {
@@ -313,6 +322,13 @@ namespace Xamarin.Auth._MobileServices
         /// Method used to fetch the username of an account
         /// after it has been successfully authenticated.
         /// </param>
+        /// <param name="isUsingNativeUI"></param>
+        /// To use custom or native UI.
+        /// <param name="ignoreWarningUrlScheme">
+        /// Disable the HTTP(S)-scheme redirect URL warning.
+        /// Make sure you know what you're doing,
+        /// OAuth Data parsing might fail!
+        /// </param>
         public OAuth2Authenticator
                         (
                             string clientId,
@@ -322,11 +338,13 @@ namespace Xamarin.Auth._MobileServices
                             Uri redirectUrl,
                             Uri accessTokenUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = false
+                            bool isUsingNativeUI = false,
+                            bool ignoreWarningUrlScheme = false
                         )
-            : this(redirectUrl, clientSecret, accessTokenUrl)
+            : this(redirectUrl, clientSecret, accessTokenUrl, isUsingNativeUI)
         {
             this.is_using_native_ui = isUsingNativeUI;
+            this.IgnoreWarningUrlScheme = ignoreWarningUrlScheme;
 
             if (string.IsNullOrEmpty(clientId))
             {
@@ -388,12 +406,12 @@ namespace Xamarin.Auth._MobileServices
                 System.Diagnostics.Debug.WriteLine(this.ToString());
             }
 
-            this.clientId = clientId;                   // required
-            this.clientSecret = clientSecret;           // optional
-            this.authorizeUrl = authorizeUrl;           // required 
-            this.redirectUrl = redirectUrl;             // optional 
-            this.accessTokenUrl = accessTokenUrl;       // optional - required for Authorization Code Grant
-            this.scope = scope ?? "";                   // optional
+            this.clientId = clientId;                               // required
+            this.clientSecret = clientSecret;                       // optional
+            this.authorizeUrl = authorizeUrl;                       // required 
+            this.redirectUrl = redirectUrl;                         // optional 
+            this.accessTokenUrl = accessTokenUrl;                   // optional - required for Authorization Code Grant
+            this.scope = scope ?? "";                               // optional
 
             this.getUsernameAsync = getUsernameAsync;   // Xamarin.legacy
 
@@ -406,7 +424,7 @@ namespace Xamarin.Auth._MobileServices
                             string clientSecret = null,
                             Uri accessTokenUrl = null,
                             bool isUsingNativeUI = false
-                        )
+        )
             : base(redirectUrl, redirectUrl)
         {
             this.is_using_native_ui = isUsingNativeUI;
