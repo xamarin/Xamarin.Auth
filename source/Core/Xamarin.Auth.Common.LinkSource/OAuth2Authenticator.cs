@@ -868,11 +868,39 @@ namespace Xamarin.Auth._MobileServices
         /// <returns>The data provided in the response to the access token request.</returns>
         public async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues)
         {
+            return await this.RequestAccessTokenAsync(queryValues, null);
+        }
+
+        /// <summary>
+        /// Asynchronously makes a request to the access token URL with the given parameters.
+        /// </summary>
+        /// <param name="queryValues">The parameters to make the request with.</param>
+        /// <param name="httpHeaders">The HTTP headers to add to the request.</param>
+        /// <returns>The data provided in the response to the access token request.</returns>
+        public async Task<IDictionary<string, string>> RequestAccessTokenAsync(IDictionary<string, string> queryValues, IDictionary<string, IList<string>> httpHeaders)
+        {
             // mc++ changed protected to public for extension methods RefreshToken (Adrian Stevens) 
             var content = new FormUrlEncodedContent(queryValues);
 
-
             HttpClient client = new HttpClient();
+
+            client.DefaultRequestHeaders.Clear();
+            
+            try
+            {
+                if (httpHeaders != null)
+                {
+                    foreach (var httpHeader in httpHeaders)
+                    {
+                        client.DefaultRequestHeaders.Add(httpHeader.Key, httpHeader.Value);
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Unable to add HTTP header", e);
+            }
+
             HttpResponseMessage response = await client.PostAsync(accessTokenUrl, content).ConfigureAwait(false);
             string text = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 
