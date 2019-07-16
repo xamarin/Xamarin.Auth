@@ -54,6 +54,8 @@ namespace Xamarin.Auth.XamarinForms.UniversalWindowsPlatform
             try
             {
                 base.OnElementChanged(e);
+                
+                authenticator = ((AuthenticatorPage)base.Element).Authenticator;
 
                 System.Diagnostics.Debug.WriteLine("AuthenticatorPageRenderer.OnElementChanged");
 
