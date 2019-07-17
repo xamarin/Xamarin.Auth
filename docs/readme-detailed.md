@@ -261,13 +261,13 @@ The `GetUI()` method returns:
 Android:
 
 ```csharp
-global::Android.Content.Intent ui_object = Auth1.GetUI(this);
+global::Android.Content.Intent ui_object = auth.GetUI(this);
 ```
 
 iOS:
 
 ```csharp
-UIKit.UIViewController ui_object = Auth1.GetUI();
+UIKit.UIViewController ui_object = auth.GetUI();
 ```
 
 ### 2.2 Customizing the UI - Native UI [OPTIONAL]
@@ -406,7 +406,7 @@ Events are automatically raised by Xamarin.Auth after the process of parsing OAu
 to do is to subscribe to the events (`Completed` and `Error`):
 
 ```csharp
-authenticator.Completed +=
+auth.Completed +=
     (s, ea) =>
         {
             StringBuilder sb = new StringBuilder();
@@ -425,7 +425,7 @@ authenticator.Completed +=
             return;
         };
 
-authenticator.Error +=
+auth.Error +=
     (s, ea) =>
         {
             StringBuilder sb = new StringBuilder();
@@ -642,6 +642,6 @@ More details about how to compile Xamarin.Auth library and samples can be found 
 in repository on GitHub.
 
 
-## DETAILS - More infomration about OAuth 
+## DETAILS - More information about OAuth 
 
 https://developer.xamarin.com/guides/xamarin-forms/cloud-services/authentication/oauth/
