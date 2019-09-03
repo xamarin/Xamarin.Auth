@@ -220,7 +220,8 @@ namespace Xamarin.Auth._MobileServices
                 sb.AppendLine($"WKWebViewNavigationDelegate.DidStartProvisionalNavigation ");
                 sb.AppendLine($"        webView.Url.AbsoluteString = {webView.Url.AbsoluteString}");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
-#endif
+                #endif
+
                 if (!controller.authenticator.HasCompleted)
                 {
                     controller.authenticator.OnPageLoading(new Uri(webView.Url.AbsoluteString));
@@ -241,7 +242,7 @@ namespace Xamarin.Auth._MobileServices
                 sb.AppendLine($"WKWebViewNavigationDelegate.DidFinishNavigation ");
                 sb.AppendLine($"        webView.Url.AbsoluteString = {webView.Url.AbsoluteString}");
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
-#endif
+                #endif
 
                 var url = new Uri(webView.Url.AbsoluteString);
                 if (url != lastUrl && !controller.authenticator.HasCompleted)
