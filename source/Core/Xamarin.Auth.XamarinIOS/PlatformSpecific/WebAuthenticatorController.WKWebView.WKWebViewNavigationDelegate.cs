@@ -83,6 +83,7 @@ namespace Xamarin.Auth._MobileServices
         internal class WKWebViewNavigationDelegate : WebKit.WKNavigationDelegate
         {
             WebAuthenticatorController controller = null;
+            Uri lastUrl;
 
             public WKWebViewNavigationDelegate(WebAuthenticatorController c)
             {
@@ -221,6 +222,10 @@ namespace Xamarin.Auth._MobileServices
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
                 #endif
 
+                if (!controller.authenticator.HasCompleted)
+                {
+                    controller.authenticator.OnPageLoading(new Uri(webView.Url.AbsoluteString));
+                }
                 return;
             }
 
@@ -239,6 +244,12 @@ namespace Xamarin.Auth._MobileServices
                 System.Diagnostics.Debug.WriteLine(sb.ToString());
                 #endif
 
+                var url = new Uri(webView.Url.AbsoluteString);
+                if (url != lastUrl && !controller.authenticator.HasCompleted)
+                {
+                    lastUrl = url;
+                    controller.authenticator.OnPageLoaded(url);
+                }
                 return;
             }
 
