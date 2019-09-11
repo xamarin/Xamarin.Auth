@@ -23,8 +23,9 @@ using System.Security.Cryptography;
 using System.Net;
 using System.Globalization;
 using Xamarin.Utilities;
+using System.Net.Http;
 
-#if ! AZURE_MOBILE_SERVICES
+#if !AZURE_MOBILE_SERVICES
 namespace Xamarin.Auth
 #else
 namespace Xamarin.Auth._MobileServices
@@ -201,6 +202,15 @@ namespace Xamarin.Auth._MobileServices
             req.Method = method;
 
             return req;
+        }
+
+        public static string CreateRequestUrl(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
+        {
+            Dictionary<string, string> ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
+
+            string realUrl = uri.AbsoluteUri + "?" + ps.FormEncode();
+
+            return realUrl;
         }
 
         /// <summary>
