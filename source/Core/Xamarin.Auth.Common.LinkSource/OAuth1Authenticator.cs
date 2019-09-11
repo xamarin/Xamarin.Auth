@@ -198,7 +198,7 @@ namespace Xamarin.Auth._MobileServices
 
             string oauth_callback_uri = oauth_callback_uri_original;
 
-            var req = OAuth1.CreateRequest
+            var reqUrl = OAuth1.CreateRequestUrl
                             (
                                 "GET",
                                 requestTokenUrl,
@@ -213,13 +213,14 @@ namespace Xamarin.Auth._MobileServices
 
             if (this.HttpWebClientFrameworkType == HttpWebClientFrameworkType.WebRequest)
             {
-                return req.GetResponseAsync()
+                var client = new System.Net.Http.HttpClient();
+                return client.GetStringAsync(reqUrl)
                           .ContinueWith
                           (
                               respTask =>
                                 {
 
-                                    var content = respTask.Result.GetResponseText();
+                                    var content = respTask.Result;
 
                                     var r = WebEx.FormDecode(content);
 
@@ -318,26 +319,26 @@ namespace Xamarin.Auth._MobileServices
                 System.Diagnostics.Debug.WriteLine($"        verifier = {verifier}");
             }
 
-            // WebRequest Replaced with HttpRequest for .net Standard 1.1
-            HttpWebRequest req = OAuth1.CreateRequest
-                                            (
-                                                "GET",
-                                                accessTokenUrl,
-                                                request_parameters,
-                                                consumerKey,
-                                                consumerSecret,
-                                                tokenSecret
-                                            );
+            var reqUrl = OAuth1.CreateRequestUrl
+                            (
+                                "GET",
+                                accessTokenUrl,
+                                request_parameters,
+                                consumerKey,
+                                consumerSecret,
+                                tokenSecret
+                           );
 
             if (this.HttpWebClientFrameworkType == HttpWebClientFrameworkType.WebRequest)
             {
-                WebResponse response = req.GetResponseAsync().Result;
+                //WebResponse response = req.GetResponseAsync().Result;
 
-                return req.GetResponseAsync().ContinueWith
+                var client = new System.Net.Http.HttpClient();
+                return client.GetStringAsync(reqUrl).ContinueWith
                             (
                                 respTask =>
                                     {
-                                        var content = respTask.Result.GetResponseText();
+                                        var content = respTask.Result;
 
                                         var accountProperties = WebEx.FormDecode(content);
 
