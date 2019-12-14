@@ -850,7 +850,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 { "grant_type", "authorization_code" },
                 { "code", code },
-                { "redirect_uri", redirectUrl.AbsoluteUri },
+                { "redirect_uri", redirectUrl.OriginalString }, //to avoid adding trailing slash
                 { "client_id", clientId },
             };
             if (!string.IsNullOrEmpty(clientSecret))
@@ -881,6 +881,7 @@ namespace Xamarin.Auth._MobileServices
 
             if (data.ContainsKey("error"))
             {
+                System.Diagnostics.Debug.WriteLine($"RequestAccessTokenAsync exception {text}");//log actual response from server
                 throw new AuthException("Error authenticating: " + data["error"]);
             }
             #region
