@@ -68,7 +68,8 @@ namespace Xamarin.Auth._MobileServices
         string tokenSecret;
 
         string verifier;
-
+        bool useHeaderForOAuthParameters;
+        
         /// <summary>
         /// Initializes a new instance of the <see cref="Xamarin.Auth.OAuth1Authenticator"/> class.
         /// </summary>
@@ -103,7 +104,8 @@ namespace Xamarin.Auth._MobileServices
                             Uri accessTokenUrl, 
                             Uri callbackUrl,
                             GetUsernameAsyncFunc getUsernameAsync = null,
-                            bool isUsingNativeUI = false
+                            bool isUsingNativeUI = false,
+                            bool useHeaderForOAuthParameters = false
                         )
             : base(authorizeUrl, callbackUrl)
         {
@@ -149,11 +151,14 @@ namespace Xamarin.Auth._MobileServices
 
             this.HttpWebClientFrameworkType = Auth.HttpWebClientFrameworkType.WebRequest;
 
+            this.useHeaderForOAuthParameters = useHeaderForOAuthParameters;
+
             #if DEBUG
             StringBuilder sb = new StringBuilder();
             sb.AppendLine($"OAuth1Authenticator ");
             sb.AppendLine($"        IsUsingNativeUI = {IsUsingNativeUI}");
             sb.AppendLine($"        callbackUrl = {callbackUrl}");
+            sb.AppendLine($"        useHeaderForOAuthParameters = {useHeaderForOAuthParameters}");
             System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
@@ -208,7 +213,8 @@ namespace Xamarin.Auth._MobileServices
                                 },
                                 consumerKey,
                                 consumerSecret,
-                                ""
+                                "",
+                                useHeaderForOAuthParameters
                            );
 
             if (this.HttpWebClientFrameworkType == HttpWebClientFrameworkType.WebRequest)
@@ -326,7 +332,8 @@ namespace Xamarin.Auth._MobileServices
                                                 request_parameters,
                                                 consumerKey,
                                                 consumerSecret,
-                                                tokenSecret
+                                                tokenSecret,
+                                                useHeaderForOAuthParameters
                                             );
 
             if (this.HttpWebClientFrameworkType == HttpWebClientFrameworkType.WebRequest)

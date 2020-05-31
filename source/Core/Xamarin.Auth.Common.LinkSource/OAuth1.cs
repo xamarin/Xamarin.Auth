@@ -22,6 +22,7 @@ using System.Security.Cryptography;
 #endif
 using System.Net;
 using System.Globalization;
+using System.Net.Http.Headers;
 using Xamarin.Utilities;
 
 #if ! AZURE_MOBILE_SERVICES
@@ -188,17 +189,32 @@ namespace Xamarin.Auth._MobileServices
         /// <param name='tokenSecret'>
         /// Token secret.
         /// </param>
-        public static HttpWebRequest CreateRequest(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret)
+        /// <param name="useHeaderForOAuthParameters">
+        /// When true, OAuth parameters will be added to the header of the HttpWebRequest rather than onto the Url
+        /// </param>
+        public static HttpWebRequest CreateRequest(string method, Uri uri, IDictionary<string, string> parameters, string consumerKey, string consumerSecret, string tokenSecret, bool useHeaderForOAuthParameters)
         {
-            Dictionary<string, string> ps = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
+            var realUrl = uri.AbsoluteUri;
+            var nonOauthQueryStringParameters = parameters.Where(kvp => !kvp.Key.StartsWith("oauth_")).ToDictionary(kvp => kvp.Key, kvp => kvp.Value);
+            var allParameters = MixInOAuthParameters(method, uri, parameters, consumerKey, consumerSecret, tokenSecret);
 
-            string realUrl = uri.AbsoluteUri + "?" + ps.FormEncode();
+            // if we're not using the header for oauth parameters, then the queryStringParameters are all parameters
+            var queryStringParameters = useHeaderForOAuthParameters ? nonOauthQueryStringParameters : allParameters;
+
+            if (queryStringParameters.Any())
+                realUrl = realUrl + "?" + queryStringParameters.FormEncode();
 
             HttpWebRequest req = 
                     // (HttpWebRequest)WebRequest.Create(realUrl)   // WebRequest - no go for .NetStandard 1.6
                     HttpWebRequest.CreateHttp(realUrl)
                     ;
             req.Method = method;
+
+            if (useHeaderForOAuthParameters)
+            {
+                var oauthParmsHeader = new AuthenticationHeaderValue("OAuth", OAuth1.GetAuthorizationHeader(allParameters)).ToString();
+                req.Headers[HttpRequestHeader.Authorization] = oauthParmsHeader;
+            }
 
             return req;
         }
@@ -236,10 +252,15 @@ namespace Xamarin.Auth._MobileServices
             ps["oauth_token"] = token;
             ps = MixInOAuthParameters(method, uri, ps, consumerKey, consumerSecret, tokenSecret);
 
+            return GetAuthorizationHeader(ps);
+        }
+
+        private static string GetAuthorizationHeader(IDictionary<string, string> parameters)
+        {
             var sb = new StringBuilder();
 
             var head = "";
-            foreach (var p in ps)
+            foreach (var p in parameters)
             {
                 if (p.Key.StartsWith("oauth_"))
                 {
