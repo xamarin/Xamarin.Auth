@@ -46,10 +46,9 @@ namespace Xamarin.Auth._MobileServices
     internal partial class WebAuthenticatorController : UIViewController
     {
         protected WebAuthenticator authenticator;
-
-        UIWebView ui_web_view;
+        
         WKWebView wk_web_view;
-        UIView web_view = null;
+        UIView web_view;
 
         UIActivityIndicatorView activity;
         UIView authenticatingView;
@@ -61,15 +60,7 @@ namespace Xamarin.Auth._MobileServices
         bool keepTryingAfterError = true;
 
         public WebAuthenticatorController(WebAuthenticator authenticator)
-            : this(authenticator, WebViewConfiguration.IOS.IsUsingWKWebView)
         {
-            return;
-        }
-
-        public WebAuthenticatorController(WebAuthenticator authenticator, bool is_using_wkwebview)
-        {
-            WebViewConfiguration.IOS.IsUsingWKWebView = is_using_wkwebview;
-
             this.authenticator = authenticator;
 
             authenticator.Error += HandleError;
@@ -102,35 +93,18 @@ namespace Xamarin.Auth._MobileServices
 
             activity = new UIActivityIndicatorView(UIActivityIndicatorViewStyle.White);
             NavigationItem.RightBarButtonItem = new UIBarButtonItem(activity);
+            
+            // WKWebView - availabilty and fallback is done in PrepareWKWebView()
 
-            if (WebViewConfiguration.IOS.IsUsingWKWebView == false)
-            {
-                // UIWebView
+            #if DEBUG
+            StringBuilder sb1 = new StringBuilder();
+            sb1.Append("Embedded WebView using - WKWebView");
+            System.Diagnostics.Debug.WriteLine(sb1.ToString());
+            #endif
 
-                #if DEBUG
-                StringBuilder sb1 = new StringBuilder();
-                sb1.Append("Embedded WebView using - UIWebView");
-                System.Diagnostics.Debug.WriteLine(sb1.ToString());
-                #endif
+            web_view = PrepareWKWebView();
 
-                web_view = PrepareUIWebView();
-
-                this.View.AddSubview((UIWebView)web_view);
-             }
-            else
-            {
-                // WKWebView - availabilty and fallback is done in PrepareWKWebView()
-
-                #if DEBUG
-                StringBuilder sb1 = new StringBuilder();
-                sb1.Append("Embedded WebView using - WKWebView");
-                System.Diagnostics.Debug.WriteLine(sb1.ToString());
-                #endif
-
-                web_view = PrepareWKWebView();
-
-                this.View.AddSubview((WKWebView)web_view);
-            }
+            this.View.AddSubview((WKWebView)web_view);
 
             #if DEBUG
 			authenticator.Title = "Auth " + web_view.GetType().ToString();
@@ -149,26 +123,12 @@ namespace Xamarin.Auth._MobileServices
             #if DEBUG
 			StringBuilder sb = new StringBuilder();
 			sb.AppendLine($"WebAuthenticatorController ");
-			sb.AppendLine($"        WebViewConfiguration.IsUsingWKWebView = {WebViewConfiguration.IOS.IsUsingWKWebView}");
-			sb.AppendLine($"        authenticator.IsUsingNativeUI         = {authenticator.IsUsingNativeUI}");
+            sb.AppendLine($"        authenticator.IsUsingNativeUI         = {authenticator.IsUsingNativeUI}");
 			sb.AppendLine($"        authenticator.Title                   = {authenticator.Title}");
 			System.Diagnostics.Debug.WriteLine(sb.ToString());
             #endif
 
 			return;
-        }
-
-        protected UIView PrepareUIWebView()
-        {
-            ui_web_view = new UIWebView(View.Bounds)
-            {
-                Delegate = new UIWebViewDelegate(this),
-                AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
-            };
-            web_view = ui_web_view;
-            View.AddSubview((UIWebView)web_view);
-
-            return web_view;
         }
 
         protected UIView PrepareWKWebView()
@@ -205,18 +165,6 @@ namespace Xamarin.Auth._MobileServices
 
                 web_view = wk_web_view;
             }
-            else
-            {
-                // Fallback to Embedded WebView
-                StringBuilder msg = new StringBuilder();
-                msg.AppendLine("WKWebView not available!");
-                msg.AppendLine("Fallback to UIWebView");
-
-				this.ShowErrorForNativeUIAlert(msg.ToString());
-
-                web_view = PrepareUIWebView();
-            }
-
 
             return web_view;
         }
@@ -271,14 +219,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 var request = new NSUrlRequest(new NSUrl(url.AbsoluteUri));
                 NSUrlCache.SharedCache.RemoveCachedResponse(request); // Always try
-                if (WebViewConfiguration.IOS.IsUsingWKWebView == false)
-                {
-                    ui_web_view.LoadRequest(request);
-                }
-                else
-                {
-                    wk_web_view.LoadRequest(request);
-				}
+                wk_web_view.LoadRequest(request);
             }
 
             return;
