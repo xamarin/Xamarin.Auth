@@ -15,12 +15,6 @@ namespace Xamarin.Auth.XamarinForms
             {
                 return global::Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView;
             }
-            set
-            {
-                global::Xamarin.Auth.WebViewConfiguration.IOS.IsUsingWKWebView = value;
-
-                return;
-            }
         }
 
         public string UserAgent
@@ -29,14 +23,14 @@ namespace Xamarin.Auth.XamarinForms
             {
                 // User-Agent tweaks for Embedded WebViews 
                 //  Android     WebView
-                //  iOS         UIWebView and WKWebView
+                //  iOS         WKWebView
                 return global::Xamarin.Auth.WebViewConfiguration.IOS.UserAgent;
             }
             set
             {
                 // User-Agent tweaks for Embedded WebViews 
                 //  Android     WebView
-                //  iOS         UIWebView and WKWebView
+                //  iOS         WKWebView
                 global::Xamarin.Auth.WebViewConfiguration.IOS.UserAgent = value;
 
                 return;

@@ -150,7 +150,6 @@
       <Link>UINativeNonIntegratedBrowsers\AuthenticationUIType.cs</Link>
     </Compile>
     <Compile Include="Plugins\UIThreadRunInvoker.XamarinIOS.cs" />
-    <Compile Include="PlatformSpecific\WebAuthenticatorController.UIWebView.UIWebViewDelegate.cs" />
     <Compile Include="PlatformSpecific\WebAuthenticatorController.WKWebView.WKWebViewNavigationDelegate.cs" />
     <Compile Include="PlatformSpecific\WebViewConfiguration.cs" />
     <Compile Include="UINativeNonIntegratedBrowsers\NativeAuthSafariViewControllerDelegate.cs" />

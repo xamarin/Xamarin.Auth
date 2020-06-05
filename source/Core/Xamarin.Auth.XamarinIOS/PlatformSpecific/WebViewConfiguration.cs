@@ -21,14 +21,13 @@ namespace Xamarin.Auth._MobileServices
         {
             /// <summary>
             /// Gets or sets a value indicating whether this <see cref="T:Xamarin.Auth.WebAuthenticatorController"/> 
-            /// is using WKWebView or by default UIWebView
+            /// Migrate to use WKWebView only, keep the variable read-only, always true
             /// </summary>
             /// <value><c>true</c> if is using WKW eb view; otherwise, <c>false</c>.</value>
             public static bool IsUsingWKWebView
             {
                 get;
-                set;
-            } = false;
+            } = true;
 
 
             static string user_agent = null;
@@ -46,15 +45,7 @@ namespace Xamarin.Auth._MobileServices
                     return;
                 }
             }
-
-            public static string UserAgentUIWebViewDefault
-            {
-            	get
-            	{
-            		return useragent_uiwebview;
-            	}
-            }
-
+            
             public static string UserAgentWKWebViewDefault
             {
             	get
@@ -70,7 +61,6 @@ namespace Xamarin.Auth._MobileServices
             static IOS()
             {
                 UserAgentFromWKWebView();
-                UserAgentFromUIWebView();
 
                 #if DEBUG
                 StringBuilder sb = new StringBuilder();
@@ -85,39 +75,11 @@ namespace Xamarin.Auth._MobileServices
                 #endif
 
 
-                UserAgent =
-                    UserAgentUIWebViewDefault
-                    // "Mozilla/5.0 (iPhone; CPU iPhone OS 9_2 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13C75 Safari/601.1"
-                    // "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/7046A194A"
-                    // "Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36"
-                    ;
+                UserAgent = UserAgentWKWebViewDefault;
 
                 return;
             }
-
-
-            static string app_name_uiwebview = null;
-            static string useragent_uiwebview = null;
-
-            static void UserAgentFromUIWebView()
-            {
-                UIKit.UIWebView wv = new UIKit.UIWebView(CoreGraphics.CGRect.Empty);
-                wv.LoadHtmlString("<html></html>", null);
-
-                // case sensitive stuff:
-                //      navigator.* 
-                // few SO posts with Pascal case will not work!
-                app_name_uiwebview = wv.EvaluateJavascript("navigator.appName");
-                useragent_uiwebview = wv.EvaluateJavascript("navigator.userAgent");
-                wv = null;
-
-                #if DEBUG
-                System.Diagnostics.Debug.WriteLine($"User-Agent API useragent_uiwebview = {useragent_uiwebview}");
-                #endif
-
-                return;
-            }
-
+            
             //static string app_name_wkwebview = null;
             static string useragent_wkwebview = null;
 
@@ -167,7 +129,7 @@ namespace Xamarin.Auth._MobileServices
             {
                 if (os_ver.Major >= 8 && os_ver.Major < 9)
                 {                    
-                    // set default useragent for UIWebView and WkWebView
+                    // set default useragent for WkWebView
                     NSDictionary dictionary = NSDictionary.FromObjectAndKey
                                                 (
                                                     NSObject.FromObject(UserAgent),
@@ -189,9 +151,6 @@ namespace Xamarin.Auth._MobileServices
             public static new string ToString()
             {
                 System.Text.StringBuilder sb = new System.Text.StringBuilder();
-                sb.AppendLine($"Xamarin.Auth.WebViewConfiguration.IOS");
-                sb.Append    ($"         UserAgentUIWebViewDefault = ");
-                sb.AppendLine($"{Xamarin.Auth.WebViewConfiguration.IOS.UserAgentUIWebViewDefault}");
                 sb.Append    ($"         UserAgentWKWebViewDefault = ");
                 sb.AppendLine($"{Xamarin.Auth.WebViewConfiguration.IOS.UserAgentWKWebViewDefault}");
                 sb.Append    ($"         UserAgent                 = ");
