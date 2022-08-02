@@ -466,7 +466,7 @@ namespace Xamarin.Auth
                                                        activity.ApplicationContext,
                                                        actionSourceId,
                                                        actionIntent,
-                                                       0
+                                                       PendingIntentFlags.Immutable
                                                     );
             return broadcast;
         }
