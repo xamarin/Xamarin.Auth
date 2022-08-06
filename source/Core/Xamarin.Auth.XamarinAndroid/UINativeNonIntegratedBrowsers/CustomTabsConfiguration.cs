@@ -55,13 +55,11 @@ namespace Xamarin.Auth
                                                                    "http://xamarin.com"
                                                                 );
             PackagesSupportingCustomTabs = PackageManagerHelper.PackagesSupportingCustomTabs;
-            PackageForCustomTabs = PackagesSupportingCustomTabs.FirstOrDefault().Value;
+            PackageForCustomTabs = PackagesSupportingCustomTabs.FirstOrDefault();
 
             CustomTabsActivityManager = new CustomTabsActivityManager(a);
             CustomTabsIntentBuilder = new CustomTabsIntent.Builder(CustomTabsActivityManager.Session);
             CustomTabActivityHelper = new CustomTabActivityHelper();
-
-            return;
         }
 
         static global::Android.App.Activity activity = null;
@@ -76,7 +74,7 @@ namespace Xamarin.Auth
             set;
         }
 
-		public static Dictionary<string, string> PackagesSupportingCustomTabs
+		public static List<string> PackagesSupportingCustomTabs
 		{
 			get;
 			set;
