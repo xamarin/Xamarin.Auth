@@ -24,7 +24,7 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
         {
             get;
             set;
-        }
+        } = new List<string>();
 
         public static string CustomTabsExtraKeepAlive
         {
@@ -162,7 +162,7 @@ namespace Android.Support.CustomTabs.Chromium.SharedUtilities._MobileServices
                 PackagesSupportingCustomTabs.Add(package);
             }
 
-            sPackageNameToUse = sPackageNamesToUse.FirstOrDefault();
+            sPackageNameToUse = sPackageNamesToUse.LastOrDefault();
             return sPackageNamesToUse;
         }
 

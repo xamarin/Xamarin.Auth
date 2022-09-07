@@ -464,7 +464,7 @@ namespace Xamarin.Auth
                                                        activity.ApplicationContext,
                                                        actionSourceId,
                                                        actionIntent,
-                                                       0
+                                                       PendingIntentFlags.CancelCurrent | PendingIntentFlags.Immutable
                                                     );
             return broadcast;
         }
