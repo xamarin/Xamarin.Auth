@@ -1,4 +1,5 @@
-# Xamarin.Auth Repository ReadMe
+README
+# Xamarin_Auth_Repository_ReadMe.js
 
 Xamarin.Auth helps developers authenticate users via standard authentication mechanisms
 (e.g. OAuth 1.0 and 2.0), and store user credentials. It's also straightforward  to add
